@@ -22,10 +22,6 @@
  * the named and multiple-object handlers, the pre-4.0 and 3.9 questions
  * ("put X", "put X in that").  The backends they run are in
  * sclibrar_put.cpp.
- *
- * See sclibrar.h for what the library files share, sclibrar_internal.h for
- * what the core files share and sclibrar_put_internal.h for what the two
- * put files share.
  */
 
 #include "sclibrar_put_internal.h"
@@ -385,7 +381,7 @@ lib_put_in_present_filter (scr_gameref_t game, scr_int object, scr_int unused)
  *
  * " can't do that!" is in run370, run380 and run390 and in no run400, and
  * " can't see that." is in all four; the prompt is composed, so the census
- * cannot pin it and it is gated at 3.90, the version it was measured on.
+ * cannot pin it and it is gated at 3.9, the version it was measured on.
  * 3.7 and 3.8 keep what they had.
  */
 static scr_bool lib_put_co_refusal_pre390 (scr_gameref_t game);
@@ -456,12 +452,12 @@ lib_put_no_object_pre400 (scr_gameref_t game)
  * lib_cmd_put_no_clause_pre400()
  *
  * `put on X` and `put in X`, the spellings with nothing between the verb and
- * the preposition.  From 3.80 insides() takes them like any other put (its
+ * the preposition.  From 3.8 insides() takes them like any other put (its
  * entry is c("put") with c("inside"/"into"/"in"/"on"), run380 445746), and
  * the line co() names at most once, so it is answered "You can't do that!"
  * before any target test -- 3.8 at 445A2A, 3.9 at 461646, where the target
  * pass has already taken the one name for the container because it stands
- * after InStr(line, "on").  3.70 never gets here: the wear rows above claim
+ * after InStr(line, "on").  3.7 never gets here: the wear rows above claim
  * the line, insides() being a plain bottom-of-generaltasks Call there
  * (43BA0A); see lib_wear_is_put_line_380().
  */
@@ -1365,7 +1361,7 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
  * outranks the container's, which is why the noun is resolved here before the
  * prompt is printed.  4.0 has its own answers for the same shapes, up in
  * lib_cmd_put_container_400(); the prompt is composed from pieces every Runner
- * holds, so the census cannot date it and it is gated at 3.90 -- see
+ * holds, so the census cannot date it and it is gated at 3.9 -- see
  * lib_put_what_pre400().
  *
  * A table of its own, run after STANDARD_COMMANDS has had its go so that a
@@ -1396,7 +1392,7 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
  * <Prefix> <Short>." and a static one not here "You can't see <Prefix>
  * <Short>.".
  *
- * Measured on cave.taf (3.80) up the tree, nothing referenced present
+ * Measured on cave.taf (3.8) up the tree, nothing referenced present
  * (runner_probes/cave.run380.rtf): `put raft in water` (river water 18, raft
  * 42, pool water 70) is "You can't put anything inside the pool water." (turn
  * 52), and `put amulet on table` (table 48, amulet 64) is "You can't put

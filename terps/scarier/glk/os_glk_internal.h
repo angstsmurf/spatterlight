@@ -63,8 +63,8 @@
 /* The Glk headers and the glkimp host symbols (glk_*, garglk_*, glkunix_*,
  * gli_determinism, win_*) are C; these are C++ translation units, so include
  * them with C linkage.  This also gives the glk_main / glkunix_startup_code /
- * glkunix_arguments definitions in os_glk_platform.cpp C linkage so the C glkimp host
- * can find them (matching the bocfel / Question C++ ports). */
+ * glkunix_arguments definitions in os_glk_platform.cpp C linkage so the C
+ * glkimp host can find them (matching the bocfel / Question C++ ports). */
 extern "C" {
 #include "glk.h"
 }

@@ -51,7 +51,7 @@ held or worn.
 
 All of the above was measured against the genuine `run370.exe` under Wine rather
 than inferred from these two files; probes and results are in
-`../../../RUNNER_TESTS_TODO.md` §6.
+`RUNNER_TESTS.md` §6.
 
 Both games sit in `games/` with the rest of the corpus, and both are solved:
 `goldens/castle_quest_solution.txt` (17 moves, 50/50) and

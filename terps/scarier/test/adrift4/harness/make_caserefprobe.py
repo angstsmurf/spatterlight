@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Is a task command's reference marker matched case-insensitively?
 
-The last open arm of the checktask lead in WINE-TRANSCRIPTS-TODO.md.
+The last open arm of the checktask lead in WINE-TRANSCRIPTS.md.
 Scarier knows four markers by name -- %object%, %character%, %number% and
 %text% -- and compares them BYTE FOR BYTE: `run_pattern_references()` tests
 `token == "%character%"` and scparser.cpp's UIP_TOKENS lookup is a plain

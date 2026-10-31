@@ -333,7 +333,7 @@ pf_empty (scr_filterref_t filter)
  * through Proc_2_28_45CBD0, which is the 3.9 output filter itself.  The
  * turn's own text is filtered later, at a completing 4.0 task's refilter
  * and at the flush, by which time an action may have changed a variable
- * the antecedent reads.  Measured on The Tempest (tempest7.taf 4.00,
+ * the antecedent reads.  Measured on The Tempest (tempest7.taf 4.0,
  * run400x runner_transcripts/tempest7.txt T138): `ask girl her name` with
  * the girl's Name "[GIRL=%miranda%]" echoes "(A pretty girl)" -- miranda 0
  * through ALR [GIRL=0] -- and the task's own action then sets miranda 2,
@@ -575,7 +575,7 @@ pf_text_ends_with_newline (const scr_char *text)
  * pf_buffer_paragraph()
  *
  * Buffer a block of text that conventionally begins with its own line break(s)
- * for spacing -- Adrift event and atmosphere texts typically start with "<br>"
+ * for spacing -- ADRIFT event and atmosphere texts typically start with "<br>"
  * or "<br><br>".  The Runner relies on those leading breaks alone for
  * paragraph spacing, whereas Scarier also terminates the preceding room
  * description, exits list, NPC announcement and task text with a newline of
@@ -629,9 +629,9 @@ pf_buffer_paragraph (scr_filterref_t filter, const scr_char *string)
  * counterpart to the leading-break collapse above.
  *
  * Task and event texts are terminated with a newline so the next thing printed
- * starts on a fresh line.  Authors who end their text with "<br>" get that line
- * break as well, and the doubled break shows as a blank line the Adrift runner
- * does not print.  "The Warlord, The Princess & The Bulldog" builds its
+ * starts on a fresh line.  Authors who end their text with "<br>" get that
+ * line break as well, and the doubled break shows as a blank line the ADRIFT
+ * Runner does not print.  "The Warlord, The Princess & The Bulldog" builds its
  * inventory from one task per object, each with text like "*<tab>your uniform
  * (worn)<br>", so every item in the listing was followed by a blank line.
  */
@@ -739,7 +739,7 @@ pf_note_trailing_auto_break (scr_filterref_t filter)
  * own, so the terminator has to be recorded as OURS, for pf_buffer_join_line()
  * to take back when something does follow.
  *
- * troll (3.90) is the plainest measurement: `drop tankard` is "You drop the
+ * troll (3.9) is the plainest measurement: `drop tankard` is "You drop the
  * tankard.  Your guts rumble.  Your throat is sore." on one line, the two
  * hunger events running straight on from the library's own answer
  * (runner_transcripts/troll.txt t29), and t31, t37, t43, t45 and t57 say the
@@ -874,10 +874,10 @@ pf_buffer_paragraph_break (scr_filterref_t filter)
  * pf_buffer_join()
  *
  * Append a string as a continuation of the current output line, with the
- * Adrift runner's two-space sentence separator.  The runner builds a turn's
+ * ADRIFT Runner's two-space sentence separator.  The Runner builds a turn's
  * output as one paragraph joined with two spaces; our section printers
  * instead terminate each section with a newline of their own.  To join text
- * onto the previous section the way the runner does -- event look text runs
+ * onto the previous section the way the Runner does -- event look text runs
  * on after the room's character lines, and an NPC walk announcement runs on
  * after whatever the turn has printed -- remove a single terminating newline
  * first, then separate with two spaces unless the text before it ends with
@@ -1035,7 +1035,7 @@ pf_buffer_pspace (scr_filterref_t filter)
  * that opens with a break of its own is buffered unchanged: the break there
  * reads the same either way.
  *
- * Measured with the ALR source probe (p4SRC.taf, run400,
+ * Measured with the ALR source probe (p4ALRSRC.taf, run400,
  * runner_probes/alrsrc.run400.c.txt and runner_probes/alrsrc.run400.d.txt):
  * `uniform`, CompleteText "CTU ball.", an action running zulu ("You take the
  * ball."), AdditionalMessage "AMU ball.", answers on ONE line "CTU qqqball.

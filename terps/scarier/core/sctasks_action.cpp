@@ -425,11 +425,11 @@ task_run_set_task_action (scr_gameref_t game, scr_int var1, scr_int var2)
  *
  * Battle System "Change battle attribute" task action (type 7).  var1 is the
  * ADRIFT attribute index, var2 the target character, var3 the value (a signed
- * delta, or an enum for attitude/speed).  Attitude (0) and Speed (0xB) apply to
- * NPCs only, with target 0 = the referenced character and target N>=1 = NPC
- * N-1.  The remaining attributes may also target the player: target 0 = player,
- * 1 = referenced character, N>=2 = NPC N-2.  An unresolved or out-of-range
- * target is silently ignored, as the Runner does.
+ * delta, or an enum for attitude/speed).  Attitude (0) and Speed (0xB) apply
+ * to NPCs only, with target 0 = the referenced character and target N>=1 = NPC
+ * N-1.  The remaining attributes may also target the player: target 0 =
+ * player, 1 = referenced character, N>=2 = NPC N-2.  An unresolved or
+ * out-of-range target is silently ignored, as the Runner does.
  */
 static void
 task_run_change_battle_action (scr_gameref_t game,

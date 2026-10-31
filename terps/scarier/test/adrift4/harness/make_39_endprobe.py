@@ -2,7 +2,7 @@
 """ADRIFT 3.9 probe: what does the Runner print when an EndGame action fires?
 
 The 4.0 answer was measured with the `SC` arena config in make_arena_probe.py
-(see RUNNER_TESTS_TODO.md section 4, "End-of-game score summary"): run400 adds
+(see RUNNER_TESTS.md section 4, "End-of-game score summary"): run400 adds
 a two- or three-line score summary that Scarier prints for no ending at all.
 A UTF-16LE census of the four Runner binaries says the summary strings exist in
 run370/380/390 too, so the port must not be gated on 4.0 -- but "the strings are

@@ -428,7 +428,7 @@ extern scr_bool lib_put_clauses_400 (scr_gameref_t game,
 extern scr_bool lib_cmd_verb_npc (scr_gameref_t game);
 extern void lib_debug_trace (scr_bool flag);
 
-/* Library hooks called from the runner's line passes (runner/). */
+/* Library hooks called from the `run_` code's line passes (runner/). */
 extern void lib_verb_object_note_line_top (scr_gameref_t game);
 extern void lib_co_note_line_top (scr_gameref_t game);
 extern void lib_co_400_reset (void);

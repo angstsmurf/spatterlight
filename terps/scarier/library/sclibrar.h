@@ -25,7 +25,8 @@
  * Internal header of the library, shared by all the topic files
  * sclibrar_*.cpp.  Nothing here is part of the interface the rest of Scarier
  * uses; that stays in core/sclibrar_api.h.  What the eleven core topic files
- * share only among themselves is in sclibrar_internal.h.
+ * share only among themselves is in sclibrar_internal.h, and the take, put and
+ * disambiguation families each have their own sclibrar_*_internal.h.
  */
 
 /*

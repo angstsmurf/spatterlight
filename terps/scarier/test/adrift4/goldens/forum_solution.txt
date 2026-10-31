@@ -36,7 +36,7 @@
 #     between adjacent [] / {} groups, so "clogs" could not match and the blow
 #     silently did nothing -- the old golden recorded the same "I don't
 #     understand ..." line even with the clogs correctly in hand.  Fixed in
-#     scparser.cpp (NODE_JOIN); see RUNNER_TESTS_TODO.md.
+#     scparser.cpp (NODE_JOIN); see RUNNER_TESTS.md.
 #   Each blow is ACT type=3 (bump the counter); at 2 the engine runs TASK 16
 #   [# Ds defeated].  EVENT 3 would run TASK 18 nine turns in, so there is no
 #   time to dawdle.

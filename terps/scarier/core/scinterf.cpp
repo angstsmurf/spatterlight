@@ -367,7 +367,7 @@ if_update_graphic (const scr_char *filename,
  * scr_scarier_version()
  * scr_scarier_emulation()
  *
- * Return a version string and Adrift emulation level.
+ * Return a version string and ADRIFT emulation level.
  */
 const scr_char *
 scr_scarier_version (void)
@@ -418,7 +418,7 @@ if_file_write_callback (void *opaque, const scr_byte *buffer, scr_int length)
 /*
  * if_report_fatal()
  *
- * Log a fatal engine error caught at the host boundary.  scr_fatal() now throws
+ * Log a fatal engine error caught at the host boundary.  scr_fatal() throws
  * scr_fatal_error instead of abort()-ing, so the public entry points below
  * catch it and return a clean failure (NULL / FALSE / no-op) rather than
  * crashing the host application on a corrupt or pathological game.  The engine
@@ -649,7 +649,7 @@ if_game_guarded (scr_game game, const scr_char *function_name, F body)
  *
  * Called by the OS-specific layer to run a game loaded into a run context,
  * and to quit the interpreter on demand, if required.  scr_quit_game() asks
- * the runner to end the game; the program then behaves as if
+ * the `run_` code to end the game; the program then behaves as if
  * scr_interpret_game() had returned.  scr_load_game() restarts the run from
  * the restored state if the restore is successful (thus behaving like
  * scr_restart_game()), but will return if the game could not be restored.
@@ -1024,10 +1024,11 @@ scr_free_game (scr_game game)
  *
  * The attributes run_get_attributes() can return, in its argument order, and
  * the one call that fetches them.  'wanted' is a mask of IF_ATTR_* bits; a
- * field not asked for is passed to the runner as NULL, exactly as the entry
- * points did by hand, so nothing is looked up or cached on their behalf (the
- * game name and author are filtered and kept on first request), and is left
- * zero here.  IF_ATTR_OPTIONS is the trio run_set_attributes() takes back.
+ * field not asked for is passed to the `run_` code as NULL, exactly as the
+ * entry points did by hand, so nothing is looked up or cached on their behalf
+ * (the game name and author are filtered and kept on first request), and is
+ * left zero here.  IF_ATTR_OPTIONS is the trio run_set_attributes() takes
+ * back.
  */
 struct if_attrs_t
 {
@@ -1322,9 +1323,9 @@ scr_set_game_notify_score_change (scr_game game, scr_bool flag)
  * scr_set_game_capacity_recompute()
  *
  * Query and set how the player's carried load is accounted for.  When FALSE
- * (the default) Scarier mirrors the real ADRIFT Runner, keeping a running total
- * updated on take/drop; when TRUE it recomputes the load afresh from currently
- * held objects on each check (legacy SCARE behaviour).
+ * (the default) Scarier mirrors the real ADRIFT Runner, keeping a running
+ * total updated on take/drop; when TRUE it recomputes the load afresh from
+ * currently held objects on each check (legacy SCARE behaviour).
  */
 scr_bool
 scr_get_game_capacity_recompute (scr_game game)
@@ -1381,11 +1382,12 @@ scr_does_game_use_graphics (scr_game game)
  *
  * Offer every line of the TAF to `accept`, stopping at the first it takes.
  *
- * The TAF is the game as the author wrote it -- one string per line, markup and
- * all -- and the bundle keeps it for the life of the game, so this costs a walk
- * and no memory.  Reading it back rather than the property tree is deliberate:
- * a caller looking for authored markup wants every string the file carries,
- * including the ones the parser files somewhere it has no accessor for.
+ * The TAF is the game as the author wrote it -- one string per line, markup
+ * and all -- and the bundle keeps it for the life of the game, so this costs a
+ * walk and no memory.  Reading it back rather than the property tree is
+ * deliberate: a caller looking for authored markup wants every string the file
+ * carries, including the ones the parser files somewhere it has no accessor
+ * for.
  */
 scr_bool
 scr_game_scan_strings (scr_game game,
@@ -1680,8 +1682,8 @@ scr_reseed_random_sequence (scr_uint new_seed)
  * Enable or disable the optional Battle-System "combat assist" mode.  When on,
  * games that leave every character's Accuracy and Agility unconfigured (0) get
  * an automatic hit roll, so their otherwise-dead combat plays out on the
- * author's intended strength-vs-defence basis.  Off by default; opt-in only, as
- * it deliberately diverges from the reference Runner.  Games that configure
+ * author's intended strength-vs-defence basis.  Off by default; opt-in only,
+ * as it deliberately diverges from the reference Runner.  Games that configure
  * accuracy/agility are unaffected.
  */
 void
@@ -1708,10 +1710,11 @@ scr_get_combat_assist (void)
  *
  * Enable or disable the optional "move assist" mode.  A few native-4.0 games
  * were authored with a move task action's "To:" combo left at VB's default -1
- * (the destination room sitting in Var3); the reference Runner silently ignores
- * such a move, which in e.g. To Hell & Beyond leaves the game unwinnable.  When
- * on, an unset (-1) move whose Var3 names a real room is honoured as "to room".
- * Off by default; opt-in only, as it deliberately diverges from the Runner.
+ * (the destination room sitting in Var3); the reference Runner silently
+ * ignores such a move, which in e.g. To Hell & Beyond leaves the game
+ * unwinnable.  When on, an unset (-1) move whose Var3 names a real room is
+ * honoured as "to room". Off by default; opt-in only, as it deliberately
+ * diverges from the Runner.
  */
 void
 scr_set_move_assist (scr_bool flag)

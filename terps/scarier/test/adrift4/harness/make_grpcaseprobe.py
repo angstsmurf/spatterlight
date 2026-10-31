@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Case inside a 4.0 GROUP: the last arm of the "output filter" lead.
 
-WINE-TRANSCRIPTS-TODO.md's open-leads list carried one line reading "the
+WINE-TRANSCRIPTS.md's open-leads list carried one line reading "the
 NewParse `%` pattern binary path" ever since the `uip_set_binary_input()`
 port, and `adrift-task-marker-case-free` narrowed it to a sentence: the two
 engines "differ only at 4.0's NewParse group compare (45D7FA/45D835, binary

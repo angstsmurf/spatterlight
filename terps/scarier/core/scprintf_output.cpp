@@ -51,7 +51,7 @@ pf_output_text (const scr_char *string, const scr_markup_sink_t *sink)
    * Copy characters from the string into the buffer, replacing any &..;
    * elements by their single-character equivalents.  We also replace any
    * +percent+ elements by percent characters; apparently an undocumented
-   * Adrift Runner extension.
+   * ADRIFT Runner extension.
    */
   buffer.reserve (strlen (string));
   for (index_ = 0; string[index_] != NUL; index_++)
@@ -122,7 +122,7 @@ pf_output_tag (const scr_char *contents, const scr_markup_sink_t *sink)
            * the whole tag with "<waitkey>"); anything else starting "<wait"
            * is a timed <wait> whose Val() of the remainder decides the
            * delay, so "<waitkey 4>" is a zero-second wait and NOT a
-           * keypress pause.  Vardock Bates (4.00) writes one after the
+           * keypress pause.  Vardock Bates (4.0) writes one after the
            * Jhave wall; run400 does not stop there (transcript).
            */
           if (entry->tag == SCR_TAG_WAITKEY)
@@ -215,8 +215,8 @@ pf_dissect_markup (const scr_char *string, const scr_markup_sink_t *sink)
 
       /*
        * Get the text within the tag, reusing the temporary buffer.  If this
-       * fails, allow the remainder of the line to be delivered as a tag;
-       * unknown, probably.
+       * fails, allow the remainder of the line to be delivered as a tag,
+       * normally an unknown one.
        */
       if (sscanf (cursor, "<%[^>]%c", contents, &close) != 2
           || close != GREATERTHAN)
@@ -331,7 +331,7 @@ pf_output_untagged (const scr_char *string)
  * harness/make_400_alrsrcprobe.py).  Every cell of the probe above is a task
  * CompleteText, so that second walk is where run400's extra "q" and its third
  * and fourth "EEE" come from -- one recursive walk of "AAA." gives "qAAA.",
- * and walking that again gives "qqAAA.".  That is the humbug (4.00) divergence
+ * and walking that again gives "qqAAA.".  That is the humbug (4.0) divergence
  * this all started from -- its "[I put ] -> [Okay.  I put ]" is
  * self-containing, so task 80's CompleteText answers `Put sweet on plinth`
  * with "Okay.  Okay.  I put the sweet on the plinth."
@@ -385,7 +385,7 @@ pf_filter_internal (const scr_char *string,
   alr_pass_done = FALSE;
 
   /*
-   * Loop for a sort-of arbitrary number of passes; probably enough.
+   * Loop for at most ITERATION_LIMIT passes, an arbitrary bound.
    * 'have_current' tracks whether any replacement has produced a 'current'
    * string yet; until then we work on the input 'string'.
    */

@@ -295,7 +295,7 @@ CONFIGS = {
     rooms=[("Test Arena","A bare arena.",{})],
     objects=[("a","spear",1,1,0,5,5,0,0)],
     npcs=[("Robot",0,2,250,0,1,0,0,50,50,0,0,0,0)]),
- # Body-part-static probe (§4 RUNNER_TESTS_TODO): `head` is a static Where-
+ # Body-part-static probe (§4 RUNNER_TESTS): `head` is a static Where-
  # type-4 part of Robot (NPC 1), `arm` a part of the player.  probe1/2/3 put
  # the referenced object through a Var1=2 object-location restriction --
  # is-hidden (0,0), visible-to-player (3,0), NOT-hidden (6,0).  Scarier
@@ -393,7 +393,7 @@ CONFIGS = {
                          (3,5,5,0,"%v5%/2",0),
                          (3,6,5,0,"-5/2",0),
                          (3,7,5,0,"3/2",0)])]),
- # Zero-word wildcard probe (§4 last row of RUNNER_TESTS_TODO): can the
+ # Zero-word wildcard probe (§4 last row of RUNNER_TESTS): can the
  # Runner's mid-command `*` match ZERO words (TheADRIFTProject's TASK 41
  # `put * pill in cup` vs the input `put pill in cup`)?  foo/qux/yop test the
  # mid/trailing/leading positions unrestricted; `zap * pill` carries an
@@ -889,7 +889,7 @@ CONFIGS = {
             dict(short="Zero Task Restart", affected=3, starter=3, restart=2,
                  tasknum=4, starttext="H3 START.", looktext="H3 LOOK.",
                  finishtext="H3 FINISH.")]),
- # The turn-0 ORDERING probe (RUNNER_TESTS_TODO section 4's last open row).
+ # The turn-0 ORDERING probe (RUNNER_TESTS section 4's last open row).
  # EV5 showed run400's turn 0 as "A bare arena.  H1 LOOK.  H2 LOOK.  H1
  # FINISH. ..." -- the LookTexts INSIDE the opening room description and the
  # StartTexts nowhere -- which reads as "immediate events are started during
@@ -947,7 +947,7 @@ CONFIGS = {
     events=[dict(short="Len3 Immediate", affected=1, starter=1, restart=0,
                  time1=3, time2=3, starttext="K1 START.",
                  looktext="K1 LOOK.", finishtext="K1 FINISH.")]),
- # The 4.0 twin of make_39_evtimeprobe.py (RUNNER_TESTS_TODO section 8, second
+ # The 4.0 twin of make_39_evtimeprobe.py (RUNNER_TESTS section 8, second
  # open row): a length-5 immediately-restarting event, which makes the "3.9/3.8
  # move one step into the restarted event" claim four turns wide.  4.0 is the
  # version the fixup does NOT apply to, so this is the control that says what
@@ -963,7 +963,7 @@ CONFIGS = {
     events=[dict(short="Period Five", affected=0, starter=1, restart=1,
                  time1=5, time2=5, starttext="E START.",
                  finishtext="E FINISH.")]),
- # Group-trailing reference probe (the open tangent on RUNNER_TESTS_TODO
+ # Group-trailing reference probe (the open tangent on RUNNER_TESTS
  # section 4's last-element-in-group row): uip_match_text() and
  # uip_match_wildcard() share the remainder-list shape that killed
  # %object%/%character% before the 2026-08-02 fix, so a %text% that closes a
@@ -1005,7 +1005,7 @@ CONFIGS = {
            ("Safe Room","A quiet room.",{3:0})],
     objects=[],
     npcs=[("Robot",0,2,250,5,5,50,50,0,0,0,0,0,0)]),
- # End-game action ordering (RUNNER_TESTS_TODO section 4, last row).  Does a
+ # End-game action ordering (RUNNER_TESTS section 4, last row).  Does a
  # task's REMAINING actions run after an action that ends the game?  Scarier
  # runs them with the print filter muted (sctasks_action.cpp task_run_task_actions),
  # so the state change lands but nothing is shown -- which is invisible in
@@ -1058,7 +1058,7 @@ CONFIGS = {
            # BEFORE the ending rather than after it.
            dict(commands=["printfirst"], complete="EG printfirst.",
                 actions=[(5,0,5), (6,0,0,0)])]),
- # Take-wording probe (RUNNER_TESTS_TODO §4, the "You pick up" vs "You take"
+ # Take-wording probe (RUNNER_TESTS §4, the "You pick up" vs "You take"
  # row): which of run400's two take templates does a *bare* `take`/`get` of an
  # object lying loose in the room reach?  Scarier says "You pick up the rock.",
  # a run400 transcript of "It's Easter, Peeps!" says "You take the creme egg.",
@@ -1076,7 +1076,7 @@ CONFIGS = {
              ("a","lamp",4,0,0,0,0,0,0),
              ("a","gem",1,0,0,0,0,0,0)],
     npcs=[]),
- # End-of-game score summary (RUNNER_TESTS_TODO section 4, the "End-of-game
+ # End-of-game score summary (RUNNER_TESTS section 4, the "End-of-game
  # score summary" row).  run400 prints two or three lines of its own AFTER the
  # game's ending text; Scarier prints none of them.  The row had the five
  # literals censused in all four binaries but the *assembly* had never been
@@ -1148,7 +1148,7 @@ CONFIGS = {
                 actions=[(4,3), (6,0,0,0)]),
            dict(commands=["sclose"], complete="SC0 sclose.",
                 actions=[(4,3), (6,1,0,0)])]),
- # getdynfromroom (RUNNER_TESTS_TODO section 9, "getdynfromroom selection
+ # getdynfromroom (RUNNER_TESTS section 9, "getdynfromroom selection
  # criteria").  run400 evaluates the function inside Sub_20_22 -- the routine
  # that *runs a task by its index* -- as a preamble, so it is not a matcher at
  # all: nothing here fires on a typed command, and every probe below has to be
@@ -1385,7 +1385,7 @@ CONFIGS = {
                 actions=[(5,0,49)]),
            dict(commands=["gdxr"], complete="GDXR [%theobject%]",
                 actions=[(5,0,50)])]),
- # Moving a static object (RUNNER_TESTS_TODO section 9, "static objects moved
+ # Moving a static object (RUNNER_TESTS section 9, "static objects moved
  # into the inventory"), SETTLED LIVE 2026-08-17.  Three results, from four
  # run400 sessions over this one probe:
  #
@@ -1435,7 +1435,7 @@ CONFIGS = {
             dict(short="SM Away", affected=0, starter=3, tasknum=4, restart=0,
                  time1=1, time2=1, starttext="SM4 start.",
                  obj1=1, obj1dest=4)]),      # coin -> Far Room, from the hand
- # NPC in-room text (RUNNER_TESTS_TODO section 9, "'#' in-room text for NPCs").
+ # NPC in-room text (RUNNER_TESTS section 9, "'#' in-room text for NPCs").
  # run400 does the "#" substitution in the *loader* @00091EDF -- the text
  # becomes "<name> is here." there and then -- and the room lister @00072944
  # partitions the NPCs on Right(text, 9) = " is here.", emitting that group
@@ -1462,7 +1462,7 @@ CONFIGS = {
           # Is the suffix test Option Compare Text, like the module's other
           # string compares (see the GD probes), or Binary?
           ("Hotel",0,0,250,0,0,0,0,0,0,0,0,0,0,0,0,"Hotel IS HERE.")]),
- # Event-length RANGE semantics (RUNNER_TESTS_TODO section 10).  Every earlier
+ # Event-length RANGE semantics (RUNNER_TESTS section 10).  Every earlier
  # event probe set Time1 == Time2, where the roll's range semantics are
  # invisible; the run400 P-code says every two-field range roll near the event
  # machinery is `lo + Int(Rnd*(hi-lo))` (EXCLUSIVE hi), with a `+ 1` variant
@@ -1593,7 +1593,7 @@ CONFIGS = {
  # no output.  A live run400 transcript instead shows an ordinary "You drop
  # the red Cape." with NO score change, which only makes sense if run400
  # either never selects Task 72 as the match at all, or selects it but skips
- # RUNNING its actions when it has nothing to say.  RUNNER_TESTS_TODO rows
+ # RUNNING its actions when it has nothing to say.  RUNNER_TESTS rows
  # 774-776 (measured 2026-08-23) establish that a *silent* task match still
  # falls through to the plain library verb -- consistent with "You drop the
  # red Cape." -- but not whether the task's actions ran first.  This probe
@@ -1854,7 +1854,7 @@ CONFIGS = {
     # AdditionalMessage is what shows the test is on the raw field and not on
     # scr_strempty(), which is whitespace-blind.  Nine goldens moved, seven of
     # them confirmed against their own run400 transcripts; see
-    # notes/WINE-TRANSCRIPTS-TODO.md.
+    # notes/WINE-TRANSCRIPTS.md.
  'SRD4': dict(name="Probe SRD4",
     player=(200,0,0,0,0,0,0,0,0,0),
     rooms=[("Test Arena","A bare arena.",{1: 1}),
@@ -1881,7 +1881,7 @@ CONFIGS = {
                 actions=[(1,0,0,0), (1,2,0,2)])]),
 
     # PUT4 -- the PUTPASS400 / PUTBIG400 pair from
-    # notes/WINE-TRANSCRIPTS-TODO.md, in one game.  The offline reading of
+    # notes/WINE-TRANSCRIPTS.md, in one game.  The offline reading of
     # run400's `insides` (46639C) says the result byte var_86 is set to 1 only
     # when the move COMPLETES and is never set at all on a refusal path, so:
     #
@@ -2300,7 +2300,7 @@ CONFIGS = {
     # only the bean (Adrift_put7_all.txt).  The surf6 "put all on a room
     # supporter moves only the first" deviation is the same bug.  run390 has
     # no recursive weight walk and prints.  Deliberate deviation, see
-    # notes/WINE-TRANSCRIPTS-TODO.md.
+    # notes/WINE-TRANSCRIPTS.md.
 'PUT7': dict(name="Probe PUT7",
     player=(200,0,0,0,0,0,0,0,0,0),
     sizemult=3, weightmult=3, maxsize=902, maxwt=902,

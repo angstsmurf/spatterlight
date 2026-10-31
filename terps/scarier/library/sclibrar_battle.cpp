@@ -19,9 +19,6 @@
 
 /*
  * Battle System attacks and the who/with question continuations.
- *
- * See sclibrar.h for what the library files share and sclibrar_internal.h
- * for what the core files share.
  */
 
 #include "sclibrar.h"
@@ -55,10 +52,12 @@ lib_battle_player_strike (scr_gameref_t game, scr_int npc,
        * runner_probes/batt.run390.txt).
        */
       pf_empty (filter);
-      /* Ary(0) & " can't " & verb (run390 44D041, run400 47EE9C): the
-         perspective subject, so a third-person game reads "Player can't
-         shoot with the sword!" (run400x p4BATTLEWPN,
-         runner_probes/battlewpn.run400.withq.txt). */
+      /*
+       * Ary(0) & " can't " & verb (run390 44D041, run400 47EE9C): the
+       * perspective subject, so a third-person game reads "Player can't
+       * shoot with the sword!" (run400x p4BATTLEWPN,
+       * runner_probes/battlewpn.run400.withq.txt).
+       */
       lib_print_response_message (game, "You can't ", "I can't ",
                                   "%player% can't ");
       pf_buffer_string (filter, verb);
@@ -176,12 +175,12 @@ lib_npc_referenced (scr_gameref_t game, scr_int npc, const scr_char *input)
  * LitI2_Byte, sign-extended into an Integer, which is why co() tests
  * `Me(424) < 0`.
  *
- * Measured on Cyberclones II (4.00): `give electric uniform to lightning`,
+ * Measured on Cyberclones II (4.0): `give electric uniform to lightning`,
  * with the Fire Uniform worn and the Electric Uniform held, runs task 6 and
  * draws nothing that turn (runner_probes/cyber2.run400.[abc].txt).  `poke toy`
  * in p4TAMB.taf, with two present toys and no NPC, IS a turn.
  *
- * British Fox (4.00) `welsh fox rub tits` (synonym -> touch) runs task 44
+ * British Fox (4.0) `welsh fox rub tits` (synonym -> touch) runs task 44
  * with Welsh Fox's tits and the player's own tits both present, and IS a
  * turn: run400x's Me(424) watchpoint shows no write at all on the line
  * (runner_probes/britishfox.run400.watch.txt /
@@ -473,7 +472,7 @@ lib_openclose_with_half_raise_400 (scr_gameref_t game, const scr_char *line)
  * (runner_probes/alexis_worn_cube.run390.txt t17-19, t25-26), where Scarier
  * said "Command not understood".  Before 3.9 there is no battle system at all
  * -- neither run370.exe nor run380.exe contains the string "doesn't seem to do
- * any damage" -- so 3.90 is the floor.
+ * any damage" -- so 3.9 is the floor.
  *
  * Returns TRUE having printed for every such NPC.
  */
@@ -770,7 +769,7 @@ lib_battle_attack_bare (scr_gameref_t game, const scr_char *verb,
        * version.  A missing byte store in run390 gave the NPC a free blow
        * while the game asked the player a question, which is how a player
        * reads it: a bug, not a rule.  Logged under "Deliberate deviations"
-       * in test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md; govard's golden was
+       * in test/adrift4/notes/WINE-TRANSCRIPTS.md; govard's golden was
        * re-derived.
        */
       if (weapon < 0)
@@ -1030,7 +1029,7 @@ lib_battle_named_targets (scr_gameref_t game, const scr_char *input,
  * dobattle's target loop reads that same variable for every NPC it tests
  * (the Name and Alias c() tests at 44CC57/44CCC5, the verb InStr at 44CD44),
  * so after a kill with a KilledTask the rest of the loop tests the task's
- * command, not what the player typed.  Outside (3.90), `attack first guard`
+ * command, not what the player typed.  Outside (3.9), `attack first guard`
  * with both guards aliased "guard": the first guard dies, the line becomes
  * "thefirstprisonguardisdead", and the second guard is left for Joe
  * (runner_probes/outside.run390.trap.txt, turn 11).  run400's killchar
@@ -1318,7 +1317,7 @@ lib_battle_who_continuation (const scr_char *command, scr_bool status)
 /*
  * lib_with_prefix_390_*()
  *
- * 3.90's own question prefix, and no other Runner's: both of therest's
+ * 3.9's own question prefix, and no other Runner's: both of therest's
  * "With what?" answers -- the two-object split's (45D1A0) and the with-arm's
  * (45D3E0) -- store `Left(line, InStr(line, "with") + 4)`, the line cut just
  * past the word, the instrument half thrown away.  It is not the prefix
@@ -1517,9 +1516,11 @@ lib_checkverb_bare_400 (scr_gameref_t game, const scr_char *verb,
   return TRUE;
 }
 
-/* The mode-0 name, as the Runner spells it from 3.9 on.  This one is a
-   command line re-parsed next turn, not text, so it keeps the Runner's
-   spelling where lib_print_object_np() deliberately tidies it. */
+/*
+ * The mode-0 name, as the Runner spells it from 3.9 on.  This one is a
+ * command line re-parsed next turn, not text, so it keeps the Runner's
+ * spelling where lib_print_object_np() deliberately tidies it.
+ */
 static std::string
 lib_battle_definite_name (scr_gameref_t game, scr_int object)
 {
@@ -1631,7 +1632,7 @@ lib_battle_line_names_any_object (scr_gameref_t game, const scr_char *input)
  * break, so the last one named wins; anything else is refused on the way
  * (lib_battle_cant_attack()).  Returns the weapon, or -1.
  *
- * That walk is measured on thesorc, a 3.90 game, and 4.0 is NOT the same.
+ * That walk is measured on thesorc, a 3.9 game, and 4.0 is NOT the same.
  * Measured over 68 cases in run400
  * (runner_probes/illegalsocks_patched.run400.socks6.txt /
  * runner_probes/illegalsocks_patched.run400.socks7.txt /
@@ -1649,7 +1650,7 @@ lib_battle_line_names_any_object (scr_gameref_t game, const scr_char *input)
  * variant table, every measurement and the predictions that confirmed it --
  * is test/adrift4/harness/make_400_battlewith5probe.py.
  *
- * Deliberate deviation: Scarier keeps the 3.90 walk at 4.0 as well.  The 4.0
+ * Deliberate deviation: Scarier keeps the 3.9 walk at 4.0 as well.  The 4.0
  * rule is a parser accident rather than a design -- it makes an author's own
  * naming unreachable (a Short the .taf capitalises can never be typed, and an
  * object whose Alias is its neighbour's Short can never be wielded), so
@@ -2192,7 +2193,7 @@ lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
        * names that cannot be told apart collapse to the first of them
        * (lib_battle_dedupe_targets()), and the 4.0 scan's question is kept
        * off the line it settles (lib_battle_400_claim_line()).  Logged in
-       * test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md, "Deliberate
+       * test/adrift4/notes/WINE-TRANSCRIPTS.md, "Deliberate
        * deviations".
        */
       lib_battle_prefix_contest (game, &targets, input);
@@ -2499,12 +2500,12 @@ lib_cmd_throw_npc_with (scr_gameref_t game)
  * lib_cmd_kill_npc(), lib_cmd_kill_npc_with()
  * lib_cmd_fight_npc(), lib_cmd_fight_npc_with()
  *
- * The Adrift Runner lists "kill" and "fight" among the Battle System's generic
- * attack verbs, so with the Battle System enabled they resolve a real blow like
- * "attack".  They are not "legacy" verbs, though: with the Battle System off
- * these fall through (return FALSE) to the later "kill *"/"fight *" grammar,
- * preserving the traditional flavour responses lib_cmd_kill_other() and
- * lib_cmd_fight() provide.
+ * The ADRIFT Runner lists "kill" and "fight" among the Battle System's generic
+ * attack verbs, so with the Battle System enabled they resolve a real blow
+ * like "attack".  They are not "legacy" verbs, though: with the Battle System
+ * off these fall through (return FALSE) to the later "kill *"/"fight *"
+ * grammar, preserving the traditional flavour responses lib_cmd_kill_other()
+ * and lib_cmd_fight() provide.
  */
 scr_bool
 lib_cmd_kill_npc (scr_gameref_t game)

@@ -19,9 +19,6 @@
 
 /*
  * 4.0 noun scoring and the unhandled verb-object / verb-NPC catch-alls.
- *
- * See sclibrar.h for what the library files share and sclibrar_internal.h
- * for what the core files share.
  */
 
 #include "sclibrar.h"
@@ -48,7 +45,7 @@
  * with" catch-all at 48B1B0-48B236 needs MemVar_4942F8 > -1, so a tie prints
  * NOTHING and the line falls to the game's DontUnderstand text.
  *
- * Measured on House (4.00) from the fireplace, run400
+ * Measured on House (4.0) from the fireplace, run400
  * runner_probes/house.run400.cathy_l.txt and
  * runner_probes/house.run400.cathy_m.txt: `throw diary at cathy`, `throw diary
  * at zzz`, `wibble diary` and `wibble diary cathy` all answer "I don't
@@ -72,8 +69,10 @@ lib_verb_object_name_score (scr_gameref_t game,
   scr_vartype_t vt_key[4];
   scr_int alias_count, alias, score;
 
-  /* A name the line holds only inside a longer one does not score; see
-     lib_co_term_shadowed() (deliberate deviation). */
+  /*
+   * A name the line holds only inside a longer one does not score; see
+   * lib_co_term_shadowed() (deliberate deviation).
+   */
   score = 0;
   shortname = prop_get_indexed_string (bundle, "Objects", object, "Short");
   if (shortname && shortname[0] != NUL
@@ -248,8 +247,10 @@ lib_verb_object_resolve_400_string (scr_gameref_t game, const scr_char *input,
                                            present_only ? 0 : 1);
 }
 
-/* Mode 1: two passes, the second only after no unique winner
-   (run400 46360D). */
+/*
+ * Mode 1: two passes, the second only after no unique winner
+ * (run400 46360D).
+ */
 scr_int
 lib_take_resolve_400_string (scr_gameref_t game, const scr_char *input,
                              std::vector<scr_int> *tied)
@@ -340,8 +341,10 @@ lib_is_put_where_line_400 (scr_gameref_t game)
          && !strstr (input, " into ") && !strstr (input, " onto ")
          && !lib_input_contains_word (input, "down")))
     return FALSE;
-  /* A task pre-match skips the question (46DC85), and a held object then
-     has the line claimed by insides; see lib_put_held_unsplit_400(). */
+  /*
+   * A task pre-match skips the question (46DC85), and a held object then
+   * has the line claimed by insides; see lib_put_held_unsplit_400().
+   */
   return !(lib_put_held_unsplit_400 (game, input)
            && lib_task_prematches_input (game, 0));
 }
@@ -948,7 +951,7 @@ lib_put_container_fits_400 (scr_gameref_t game, const scr_char *input)
  * stone rock` with "I don't understand what you want me to do with the gem."
  * (p37/p38TEXTSRC, runner_probes/textsrc.run370.rtf,
  * runner_probes/textsrc.run380.rtf), not with the rock for the first line.
- * 3.70 resolves the alias here although its takes() test is a bare c(Short) --
+ * 3.7 resolves the alias here although its takes() test is a bare c(Short) --
  * `blip stone` against a game with no matching task is the gem's catch-all in
  * both older Runners -- so the scan below reads the Aliases at both versions,
  * unlike lib_co_pre400().
@@ -1544,7 +1547,7 @@ lib_cmd_verb_object (scr_gameref_t game)
    * characters() (48B56E) and then, with the message buffer still empty and
    * no character named, the game's DontUnderstand text (48B58F).
    *
-   * Measured live on relojero.taf (4.00, run400
+   * Measured live on relojero.taf (4.0, run400
    * runner_probes/relojero.run400.b.txt):
    * from the state the walkthrough reaches at `x trozo`, holding both the
    * Phoenix and the broken cord, `pulir fenix`, bare `fenix`, `pulir trozo`,
@@ -1603,22 +1606,22 @@ lib_cmd_verb_object (scr_gameref_t game)
  * 3.9 has the identical three-arm tail -- characters() @45ACD8, the branch
  * 45AC65..45ACC1, tests in the same order, "I don't understand what you want
  * to do with " at 45AC77, `" is not here!"` at 45ACA4 and "Who?" at 45ACBA --
- * so the floor is 3.90 and not lower: neither run370.exe nor run380.exe
+ * so the floor is 3.9 and not lower: neither run370.exe nor run380.exe
  * contains the string "Who?" at all, and their `" is not here!"` lines
  * (run370 43865D and 438707, run380 4404D9 and 440596) sit inside the
  * per-verb attack and take handlers, not in a generic tail.
  *
- * The ceiling is 4.00, and that is measured, not assumed.  3.9 spells its
+ * The ceiling is 4.0, and that is measured, not assumed.  3.9 spells its
  * own reach test out inline at 45ABFB-45AC56 -- nothing printed yet, AND the
  * typed line whole-word contains the NPC's LCase Name (var_16C(0), tested at
  * 45AC24) OR its LCase Alias (var_16C(8), 45AC4D) -- while 4.0 replaced that
  * pair of c() calls with the opaque Proc_21_40_45E99C(index, 0) (4805E8),
  * whose body the decompile does not carry.  Whatever it tests, the 2026-09-08
  * capture shows it failing on exactly the lines 3.9 would answer: maincourse
- * (4.00) answers `attack cat` and `attack human` with the game's own
- * DontUnderstand text, and thepkgirl (4.00) answers `revive ethan`, `spray
+ * (4.0) answers `attack cat` and `attack human` with the game's own
+ * DontUnderstand text, and thepkgirl (4.0) answers `revive ethan`, `spray
  * chadwick` and `hug katryn` with "Pardon me?" -- never the tail.  So this
- * is ported for 3.90 and 3.9x only.
+ * is ported for 3.9 and 3.9x only.
  *
  * thepkgirl's `attack chadwick` -> "The man is not here!" is a different
  * site: run400 keeps the pre-battle per-verb attack handler, and its own
@@ -1626,7 +1629,7 @@ lib_cmd_verb_object (scr_gameref_t game)
  * that ends at 47F70B where "take"/"get" begins.  Ported for the Battle
  * System off as lib_attack_absent_npc().
  *
- * Measured on the 2026-09-08 whole-corpus capture: alexis_worn_cube (3.90)
+ * Measured on the 2026-09-08 whole-corpus capture: alexis_worn_cube (3.9)
  * answers `attack narfild`, `attack goblin` and `attack monster` from rooms
  * those NPCs have never been seen in with "Who?" -- 94 turns of it, and eight
  * more on `alexis` -- not with the DontUnderstand text.

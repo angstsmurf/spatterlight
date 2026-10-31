@@ -65,7 +65,7 @@ dispatcher Proc_19_24_44CCE0 (mdlSpreadTheLoad.bas:21595) matches and runs the
 task, then ends with "If MemVar_4941B0 = "" Then Result = 0" at loc_44CCC0 --
 a turn that leaves the buffer empty is reported as not handled, and the caller
 falls through to the unknown-command message.  See the Open leads entry in
-notes/WINE-TRANSCRIPTS-TODO.md.  Hence the real CompleteText on pb/pa.
+notes/WINE-TRANSCRIPTS.md.  Hence the real CompleteText on pb/pa.
 
 Usage:
     python3 make_400_walkcapprobe.py p4WALKCAP.plain

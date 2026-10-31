@@ -163,7 +163,7 @@ recompare.  What they fixed as decisions:
   `result`.
 - **No `goto`, no `#if 0`, no `sprintf` / `strcpy` / `strcat`** in the
   engine, no TODO / FIXME markers (the hits are pointers to
-  `RUNNER_TESTS_TODO.md` / `WINE-TRANSCRIPTS-TODO.md`), `nullptr` in code
+  `RUNNER_TESTS.md` / `WINE-TRANSCRIPTS.md`), `nullptr` in code
   with the word `NULL` kept in comments and strings, no `using namespace`
   in headers.  A pass that finds one of these has found a regression.
 - **One RNG core.** `core/scutils.cpp`'s Runner-compatible generator and

@@ -27,7 +27,7 @@
 # and an author who has to spell the space in "south west" as an explicit
 # "{ /-}" alternative is an author for whom adjacency does not imply one.
 # Fixed in scparser.cpp (NODE_JOIN, optional whitespace); it repaired The
-# Forum's "[clog]{s}" blow at the same time.  See RUNNER_TESTS_TODO.md.
+# Forum's "[clog]{s}" blow at the same time.  See RUNNER_TESTS.md.
 #
 # `z` x11 is the professors' conversation: EVENT 2/3/4 are three turns each
 # and EVENT 5 is two, chained 39 -> 40 -> 41 -> 42.  The upstream list says

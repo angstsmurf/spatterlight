@@ -194,4 +194,4 @@ loudly next time. Full v4 corpus after the change: 127 rows, all PASS.
 The one behaviour the re-check leaned on that had never been probed — "held by
 the player" reaching into a **closed** carried container — was then checked
 directly against `run390.exe` (2026-08-02). It holds; see *Notes on the route*
-and `RUNNER_TESTS_TODO.md`.
+and `RUNNER_TESTS.md`.

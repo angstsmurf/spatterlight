@@ -21,8 +21,6 @@
 /*
  * Room alternates and room names, object and NPC name printing,
  * version/perspective helpers, response selection and list printing.
- *
- * See sclibrar.h for what the library files share.
  */
 
 #include "sclibrar.h"
@@ -405,10 +403,10 @@ lib_use_room_alt (scr_gameref_t game, scr_int room, scr_int alt)
  *     viewroom acts on -- the condition AND HideObjects.  Every message site
  *     below wants this one.
  *
- * Measured: p39DARK.taf (3.90) under run390,
+ * Measured: p39DARK.taf (3.9) under run390,
  * runner_probes/dark.run390.unseen.txt and runner_probes/dark.run390.seen.txt
  * -- a Dark Cave whose alt fires while the torch is not held, "Hide objects"
- * ticked.  Also ALEXIS.TAF (3.90), runner_probes/alexis_worn_cube.run390.txt,
+ * ticked.  Also ALEXIS.TAF (3.9), runner_probes/alexis_worn_cube.run390.txt,
  * the Passage in the Caves of eternal night: "It is too dark to see."
  * and no object list, with `x large stone table` and `x holes in the wall`
  * both "You can't see that very clearly." where a lit room would have said
@@ -571,7 +569,7 @@ lib_get_room_name (scr_gameref_t game, scr_int room)
    * then, inside its one forwards loop over EVERY alt, lets each matching
    * alt with a non-empty Changed overwrite it (472244-472254) -- whatever
    * that alt's display method, and whether or not a later method-0/1 alt
-   * restarts the description.  togetyou (4.00) `infect cut`: The Ear's alt 0
+   * restarts the description.  togetyou (4.0) `infect cut`: The Ear's alt 0
    * (task 22, method 2, Changed "The Infected Ear") sits below alt 1
    * (method 1, M2 shown), so the Runner heads the room "The Infected Ear"
    * (runner_transcripts/togetyou.txt T16) where the start-point walk below
@@ -655,7 +653,7 @@ lib_print_room_name (scr_gameref_t game, scr_int room)
   const scr_char *name;
 
   /*
-   * Open a paragraph for the name.  The runner has no inline room name, so
+   * Open a paragraph for the name.  The Runner has no inline room name, so
    * anything already buffered ran straight into the room description there;
    * here it would run straight into a heading instead.  See
    * pf_buffer_paragraph_break().
@@ -682,7 +680,7 @@ lib_print_room_name (scr_gameref_t game, scr_int room)
    *     Inside the Top Hat                                       <- run400
    *     A bunny twitches its whiskers at me
    *
-   * tophat.taf (4.00), whose one room has an empty Long, in both `up` turns
+   * tophat.taf (4.0), whose one room has an empty Long, in both `up` turns
    * of its transcript; professor t11/t18/t38/t54, viewtohome t20/t56 and
    * woof t8 say the same.  Read with the leading break that
    * pf_buffer_paragraph_break() supplies just above, the measurements fit a
@@ -713,13 +711,13 @@ lib_print_room_name (scr_gameref_t game, scr_int room)
  * it joined the normalized list in 3.9, and 3.7 and 3.8 leave a "some" prefix
  * exactly as the author wrote it.  Measured live on one game carried across
  * three .taf versions by the ADRIFT generators, so the data is provably
- * identical in all three: microwaveman.taf (3.80) upconverted with gen390 and
+ * identical in all three: microwaveman.taf (3.8) upconverted with gen390 and
  * gen400, `take clothes` on an object whose Prefix is "some" -- run380 "You
  * pick up some aluminum clothes.", run390 "You pick up the aluminum clothes.",
- * run400 "You take the aluminum clothes."  3.70 answers like 3.80: a copy of
+ * run400 "You take the aluminum clothes."  3.7 answers like 3.8: a copy of
  * arlo.taf with the bone's "a" prefix rewritten to "some" gives "You pick up
  * some bone." in run370.  See the standing divergence table in
- * test/adrift4/notes/RUNNER_TESTS_TODO.md.
+ * test/adrift4/notes/RUNNER_TESTS.md.
  */
 /*
  * lib_compare_article()
@@ -800,14 +798,14 @@ lib_definite_prefix (const scr_char *prefix, scr_bool is_pre_390,
    * with "the", and skipping any odd "the" already present.  If no prefix at
    * all, add a "the " anyway.
    *
-   * This is empirical, based on observed Adrift Runner behavior.  The empty
+   * This is empirical, based on observed ADRIFT Runner behavior.  The empty
    * prefix case was the last guess left in it, and it is measured now:
    * run400.exe playing La hija del relojero (whose Phoenix has no prefix)
    * answers "coger fenix" with "You take the Fenix de laton de el cajon.",
    * i.e. "the " is right.  lib_print_object below defaults the same empty
    * prefix to "a ", and that is right too -- the same run prints "Encontre un
    * Fenix de laton dentro del cajon." on the container-reveal path.  See the
-   * divergence table in test/adrift4/notes/RUNNER_TESTS_TODO.md.
+   * divergence table in test/adrift4/notes/RUNNER_TESTS.md.
    */
   normalized = prefix;
 
@@ -833,7 +831,7 @@ lib_definite_prefix (const scr_char *prefix, scr_bool is_pre_390,
    * the substitution is not a pre-3.9 quirk at all; it is only that the
    * defaults here make it invisible.
    *
-   * Measured live under Wine on mikes.taf (3.80) in run380,
+   * Measured live under Wine on mikes.taf (3.8) in run380,
    * whose dresser, toilet, poop and vans all carry an empty Prefix
    * (deobfuscated straight out of the .taf, so this is not inference):
    * `take vans` answers "You pick up the pair of vans.", `take poop`
@@ -878,12 +876,12 @@ lib_definite_prefix (const scr_char *prefix, scr_bool is_pre_390,
    * 3.9 is bracketed rather than read: the run390 decompilation does not
    * reach its normalizer.  Both neighbours leave "the" alone, and the only
    * thing 3.9 is known to have added to tense is the "some" pair, so the
-   * 3.90 games in the corpus (The Spirit's Flight, whose Spirit Dagger and
+   * 3.9 games in the corpus (The Spirit's Flight, whose Spirit Dagger and
    * Orb of Storms both carry a "The" prefix) follow 4.0 here.
    *
    * Scarier deliberately keeps a "the" branch anyway (deviation policy): "You
    * take The Grim Reaper's Scythe." is a capital mid-sentence and nothing
-   * more, so an authored "The" is folded like the pre-b607dd8 code did.
+   * more, so an authored "The" is folded.
    */
   else if (lib_compare_article (prefix, "the", 3))
     {
@@ -1069,7 +1067,7 @@ lib_print_object (scr_gameref_t game, scr_int object)
  * (run370 drop @430A50, run380 drop @438C3B).  3.9 unified the two: run390
  * builds both its drop @00045B93 and its remove @00039E15 out of the same
  * General.Sub_3_45 helper, so from 3.9 on "remove" normalizes like the rest.
- * Measured live under Wine, akron.taf (3.80) in run380: "You remove a grubby
+ * Measured live under Wine, akron.taf (3.8) in run380: "You remove a grubby
  * sweatshirt." and "You remove a pair of ragged jeans." where the same game in
  * Scarier said "the".
  *
@@ -1135,17 +1133,18 @@ lib_print_npc_np (scr_gameref_t game, scr_int npc)
  * second person -- measured live in run390 on the 3.9 Where probe with
  * Perspective set to 1, 2 and 3 in turn: all three answer "You can't do that
  * here!" and "You are carrying nothing.", and only 0 answers "I".  The same
- * split showed up on the 3.9 capacity probe, which run390 narrates "You pick up
- * the a1." / "You put the b1 inside the c52t." where run400 renders the very
- * same Perspective 2 in the third person ("Player put the d2 inside the
+ * split showed up on the 3.9 capacity probe, which run390 narrates "You pick
+ * up the a1." / "You put the b1 inside the c52t." where run400 renders the
+ * very same Perspective 2 in the third person ("Player put the d2 inside the
  * c52t.").  SCARE read the field the 4.0 way in every version, so a pre-4.0
- * game authored with Perspective 2 came out in the third person here and in the
- * second person in its own Runner.
+ * game authored with Perspective 2 came out in the third person here and in
+ * the second person in its own Runner.
  *
  * Clamping here rather than at parse time keeps the authored value intact for
- * the dumps (scdump.cpp's GAME line prints it raw) and confines the rule to the
- * two places that render a person.  Out-of-range values fall through unclamped
- * for 4.0, where lib_select_response() still reports them as an error.
+ * the dumps (scdump.cpp's GAME line prints it raw) and confines the rule to
+ * the two places that render a person.  Out-of-range values fall through
+ * unclamped for 4.0, where lib_select_response() still reports them as an
+ * error.
  *
  * Exported because the battle narration renders a person too, and reads the
  * same global through the same clamp; see battle_print_combatant().
@@ -1206,7 +1205,7 @@ lib_is_version_390 (scr_gameref_t game)
  * lib_set_admin()
  *
  * Mark a built-in meta-command as an administrative turn -- but only for
- * 3.90/4.00 games.  Administrative turns exist only from 3.90: run390
+ * 3.9/4.0 games.  Administrative turns exist only from 3.9: run390
  * generaltasks (460D6C) sets its flag 468219 for
  * history/score/count/information/end/turns, and its end-of-turn
  * characters()+events() at 460675/46067A is guarded by that flag.  run380
@@ -1217,7 +1216,7 @@ lib_is_version_390 (scr_gameref_t game)
  * bypass it.  Measured in run380 haunt.taf: the `score` at turn 83 is followed
  * by the Weather event's finish text and the grandfather-clock line, which
  * treating it as an administrative turn would suppress.  The 3.8 turn counter
- * (44F138, 441A21) likewise increments on every command, so the pre-3.90
+ * (44F138, 441A21) likewise increments on every command, so the pre-3.9
  * non-admin path is right on both counts.  Callers are the meta-commands 3.8
  * recognises and answers (score, turns, count, hint, help, about, clear,
  * history, where); verbs 3.8 does not know at all keep their 4.0 behaviour.
@@ -1284,7 +1283,7 @@ lib_matcher_requires_seen (scr_gameref_t game)
  *
  * The status line stays "You are dead!" throughout -- that is a separate fixed
  * literal, present unchanged in all four Runners.  See the standing
- * divergence table in test/adrift4/notes/RUNNER_TESTS_TODO.md.
+ * divergence table in test/adrift4/notes/RUNNER_TESTS.md.
  */
 const scr_char *
 lib_get_death_message (scr_gameref_t game)
@@ -1418,8 +1417,10 @@ lib_conjugate_third_person (scr_gameref_t game, const scr_char *literal)
     {
       if (rest[0] != ' ')
         return literal;
-      /* The verb is one of the library's own English words: ASCII, and
-         not the locale's alphabet, is the right test here. */
+      /*
+       * The verb is one of the library's own English words: ASCII, and
+       * not the locale's alphabet, is the right test here.
+       */
       for (word_length = 1;
            rest[word_length] && ((rest[word_length] >= 'a'
                                   && rest[word_length] <= 'z')
@@ -1495,7 +1496,7 @@ lib_select_plurality (scr_gameref_t game, scr_int object,
  * objects, else by the one object's own plurality.  The contents listings
  * ("Inside the desk are ...", "On the table are ...") use this where the
  * Runner prints a literal " is " whatever the count; Scarier deliberately
- * keeps the agreement (see test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md,
+ * keeps the agreement (see test/adrift4/notes/WINE-TRANSCRIPTS.md,
  * deliberate deviations).
  */
 /*
@@ -1903,7 +1904,7 @@ lib_get_npc_inroom_text (scr_gameref_t game, scr_int npc)
    * and 3.8 have no ChangedDesc at all, and their walk schema leaves it
    * empty).  So a walk that has run its course goes on describing the NPC
    * for the rest of the game.  In "The
-   * Fun House" (4.00) that is the difference between "The tall man is
+   * Fun House" (4.0) that is the difference between "The tall man is
    * pleasant." and dropping him into the room's "... are here." sentence from
    * turn 16 on.
    *

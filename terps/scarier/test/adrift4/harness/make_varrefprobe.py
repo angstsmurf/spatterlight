@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """A task command's %<user variable>%, at 3.90 and 4.00.
 
-The last arm of the checktask lead in WINE-TRANSCRIPTS-TODO.md.  Scarier
+The last arm of the checktask lead in WINE-TRANSCRIPTS.md.  Scarier
 matches a %foo% command with the PATTERN TREE, positionally: the tokenizer
 (scparser.cpp, the `sscanf (uip_pattern + uip_index, "%%%[^%]%c", ...)` arm)
 turns any `%word%` it does not know into a TOK_VARIABLE carrying the name,

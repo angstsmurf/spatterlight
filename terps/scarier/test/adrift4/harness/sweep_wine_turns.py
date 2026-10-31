@@ -7,7 +7,7 @@ other half: for every archived row it replays the same feed through
 `harness/scare`, aligns the turns the way `compare_wine_transcript.py` does,
 and counts the turns whose word streams DIFFER.
 
-That is the census the `## Measured` tables in `notes/WINE-TRANSCRIPTS-TODO.md`
+That is the census the `## Measured` tables in `notes/WINE-TRANSCRIPTS.md`
 were built by hand, one `compare_wine_transcript.py` invocation at a time.
 Those tables go stale the moment the engine changes, and after a day of ports
 a stale table is worse than none -- it sends you chasing rows that closed.

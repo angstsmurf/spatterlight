@@ -13,7 +13,7 @@ others" alt, so if it wins it replaces the room's Long description too.
     look     -> OBJALT.    => object alt outranks the task alt (goes last)
                 ADDDESC1.  => task alt outranks the object alt (goes first)
 
-See RUNNER_TESTS_TODO.md section 3(a).
+See RUNNER_TESTS.md section 3(a).
 
 Usage: python3 make_39_altprobe3.py [out.taf]
 """

@@ -21,10 +21,6 @@
  * Carrying capacity, "count", and taking objects: the backend.  The command
  * forms that run it ("take all", "take X and Y", the multiple-object
  * handler) are in sclibrar_take_multiple.cpp.
- *
- * See sclibrar.h for what the library files share, sclibrar_internal.h for
- * what the core files share and sclibrar_take_internal.h for what the two
- * take files share.
  */
 
 #include "sclibrar_take_internal.h"
@@ -46,7 +42,7 @@
  * for its contents and wearing is not a charge at all, so neither of the two
  * shapes of 4.0 leak has anything to leak here -- confirmed against both
  * Runners with the drop-a-loaded-container and wear-then-drop sequences
- * (pleakc/pleakw and their 3.70 twins).  This is why "glk capacity" is a no-op
+ * (pleakc/pleakw and their 3.7 twins).  This is why "glk capacity" is a no-op
  * for a 3.7/3.8 game: there is no Runner arithmetic to escape.  It is a no-op
  * for a 3.9 game too, for the same reason by a different route -- run390 keeps
  * a running total but keeps it exactly; see obj_uses_running_load().
@@ -80,9 +76,9 @@ lib_carried_burden (scr_gameref_t game)
  * looks like from the outside -- see obj_uses_running_load() for the probe
  * that separates the two.  Its weight is another matter, because the total
  * starts out short of a held container's contents and stays short; see
- * obj_uses_running_weight().  Legacy mode also drops the Runner's stale parent rule
- * from obj_weigh(), so it is free of the phantom weight too; a 3.9 game gets
- * that for the same reason, having no running total to poison.
+ * obj_uses_running_weight().  Legacy mode also drops the Runner's stale parent
+ * rule from obj_weigh(), so it is free of the phantom weight too; a 3.9 game
+ * gets that for the same reason, having no running total to poison.
  */
 static scr_int
 lib_sum_carried (scr_gameref_t game,
@@ -390,7 +386,7 @@ lib_print_take_npc_refusal (scr_gameref_t game, scr_int npc)
    * print "I don't think " & [Prefix & " "] & Alias(0) when the alias is
    * set (the prefix only when it is too), and fall back to the Name when it
    * is empty; run380 44057D and run370 4386EE always print Prefix & " " &
-   * Alias(0), empty or not.  House (4.00), Cathy alias "girl", no prefix:
+   * Alias(0), empty or not.  House (4.0), Cathy alias "girl", no prefix:
    * "I don't think girl would appreciate being handled."
    * (runner_probes/house.run400.girl.txt).
    */
@@ -453,7 +449,7 @@ lib_print_take_npc_refusal (scr_gameref_t game, scr_int npc)
  * "pick up" (`c("take") Or c("get") Or c("pick up") And notask`).  Nothing
  * reaches here with a task already run for the line.
  *
- * Measured on ONNAFA (4.00): `get key of pure harry` with Red Harry (alias
+ * Measured on ONNAFA (4.0): `get key of pure harry` with Red Harry (alias
  * Harry) present answers only "I don't think Harry would appreciate being
  * handled." (runner_transcripts/onnafa.txt:1622), and the key is used later.
  * The pre-4.0 halves are p3xORD (make_orderprobe.py): `take hat bob`, `take
@@ -583,17 +579,21 @@ lib_cmd_take_npc (scr_gameref_t game)
 
           var_set_ref_character (gs_get_vars (game), npc);
           lib_print_take_npc_refusal (game, npc);
-          /* 3.8's take-from arm speaks below it; it names an object the
-             take resolver never saw, as `take nut bob` does for a nut shut
-             inside a CLOSED box (runner_probes/ord.run380.chr.rtf). */
+          /*
+           * 3.8's take-from arm speaks below it; it names an object the
+           * take resolver never saw, as `take nut bob` does for a nut shut
+           * inside a CLOSED box (runner_probes/ord.run380.chr.rtf).
+           */
           lib_take_from_npc_overwrite_380 (game, npc, mark);
         }
       return TRUE;
     }
 
-  /* Get the referenced npc, and if none, consider complete.  3.9 fills an
-     empty buffer, so the FIRST present character answers
-     (runner_probes/npcamb.run390.txt). */
+  /*
+   * Get the referenced npc, and if none, consider complete.  3.9 fills an
+   * empty buffer, so the FIRST present character answers
+   * (runner_probes/npcamb.run390.txt).
+   */
   npc = lib_disambiguate_npc_pick (game, "take", &is_ambiguous,
                                    NPC_PICK_FIRST);
   if (npc == -1)
@@ -610,18 +610,19 @@ lib_cmd_take_npc (scr_gameref_t game)
  * Common backend handler for taking objects.  Takes all objects currently
  * referenced in the game, trying game commands first, and then moving other
  * unhandled objects to the player inventory.
- *
- * Objects to action are flagged in object_references; objects requested but
- * deemed not actionable are flagged in multiple_references.
  */
 
-/* Set when the take command named exactly one object; cleared by the
-   backend.  Selects the single-take "already carrying" refusal wording. */
+/*
+ * Set when the take command named exactly one object; cleared by the
+ * backend.  Selects the single-take "already carrying" refusal wording.
+ */
 scr_bool lib_take_single_named = FALSE;
 scr_bool lib_take_refusal_claimed = FALSE;
-/* Set when a 4.0 take line was split on "and" into pieces the take
-   resolver named one by one; see lib_take_and_400().  Each piece gets the
-   single-take wording ("already carrying", "can't take X!"). */
+/*
+ * Set when a 4.0 take line was split on "and" into pieces the take
+ * resolver named one by one; see lib_take_and_400().  Each piece gets the
+ * single-take wording ("already carrying", "can't take X!").
+ */
 scr_bool lib_take_and_pieces_400 = FALSE;
 
 /*
@@ -702,15 +703,17 @@ lib_take_refusal_redispatch_400 (scr_gameref_t game)
   var_set_ref_character (vars, ref_character);
 }
 
-/* Set when a "take from <object>" command named exactly one object; cleared
-   by the backend.  Only that single-named form echoes the taken object's
-   raw prefix in pre-4.0 games (see the wording comment in the backend). */
+/*
+ * Set when a "take from <object>" command named exactly one object; cleared
+ * by the backend.  Only that single-named form echoes the taken object's
+ * raw prefix in pre-4.0 games (see the wording comment in the backend).
+ */
 scr_bool lib_take_from_single_named = FALSE;
 
 /*
  * lib_take_from_verb()
  *
- * "You take " is a 3.80 rewording.  run370 spells the from-container take
+ * "You take " is a 3.8 rewording.  run370 spells the from-container take
  * "You get ", and the census is unambiguous about it: the literal " take "
  * is in run380, run390 and run400 and in none of run370, while " get " is
  * in all four, and run370 carries "You can't get anything from that." where
@@ -752,9 +755,9 @@ lib_take_from_verb (scr_gameref_t game)
  * tried for "get X from Y".  A static parent only has to be in the room.
  * run370's insides() (43B118, "not holding" at 439D33/43AB5E) is the same;
  * run390 has no "not holding" on any take path and run400 none at all, so
- * from 3.90 on a contained object is taken wherever its parent is.
+ * from 3.9 on a contained object is taken wherever its parent is.
  *
- * Measured on jb2000.taf (James Bond - Happy Landings, 3.80) in run380: `take
+ * Measured on jb2000.taf (James Bond - Happy Landings, 3.8) in run380: `take
  * key card` with the card inside a jacket lying in the room answers "You are
  * not holding a brown jacket.", and `take learner` from a suitcase on the
  * floor "You are not holding a brown suitcase."; `take jacket` first, and the
@@ -809,12 +812,12 @@ lib_print_not_holding (scr_gameref_t game, scr_int container,
  * with the author's capitalisation kept: "You can't reach the dresser from
  * the Bed!"
  *
- * Measured on A_Morning_with_a_Headache.taf (3.90) in run390: the
+ * Measured on A_Morning_with_a_Headache.taf (3.9) in run390: the
  * game starts the player in bed, and `take alarm clock` -- the clock sits on
  * the dresser -- is refused exactly that way, as is `take suit` off the
  * chair.  The literal " can't reach " is in run370, run380 and run390's
  * constant pools and is ABSENT from run400's, so 4.0 dropped the rule
- * outright; the gate is < 4.00 rather than the usual 3.9 split.
+ * outright; the gate is < 4.0 rather than the usual 3.9 split.
  *
  * Two things here are inferred rather than measured: whether a game task for
  * the same command would run first (nothing in that game claims `take alarm
@@ -844,8 +847,10 @@ lib_print_cannot_reach (scr_gameref_t game, scr_int container)
   pf_buffer_string (filter, "!");
 }
 
-/* The unfiltered form of lib_drain_multiple_references_if(), whose doc
-   comment sits with the template in sclibrar_internal.h. */
+/*
+ * The unfiltered form of lib_drain_multiple_references_if(), whose doc
+ * comment sits with the template in sclibrar_internal.h.
+ */
 void
 lib_drain_multiple_references (scr_gameref_t game, scr_int object_count,
                                lib_list_t &list)
@@ -1094,7 +1099,7 @@ lib_take_t::count_fits_390 (void)
  * single take now being printed -- "I pick up the cuckoo clock." -- so the
  * line should come out in that wording for the ALR to fire.  A game written
  * under 3.9 and saved as 4.0 keeps ALRs the 4.0 Runner never matches again,
- * since it says "I take" instead.  To Hell in a Hamper (4.00, but a Spring
+ * since it says "I take" instead.  To Hell in a Hamper (4.0, but a Spring
  * Comp 2003 entry) is the case: its "I pick up the X." ALRs append Hubert's
  * retorts, and the "I pick up the Egyptian mummy." one rewrites the line, and
  * run400 shows none of them (runner_transcripts/to_hell_in_a_hamper.txt:
@@ -1120,7 +1125,7 @@ lib_take_t::alr_wants_pick_up (void)
  * with, the pre-4.0 way, when the game has an ALR written against that
  * wording and none against the 4.0 single-take one, "You are already
  * carrying the note."; nullptr to keep the 4.0 wording.  The case is the
- * Hamper one above, for the other half of a take.  Cursed (4.00) has some
+ * Hamper one above, for the other half of a take.  Cursed (4.0) has some
  * 105 "You've already got an axe!" -> "You are already holding the axe."
  * ALRs, several of which also tidy a name ("barrel<3>"), and a dozen 4.0
  * games (iachini, ONNAFA, Lair of the Vampire, dusk, ...) carry the stock
@@ -1183,8 +1188,10 @@ lib_take_t::alr_already_got_printer (void)
   return nullptr;
 }
 
-/* Print the line for the objects in list, just taken from PARENT, or from
-   the room if PARENT is -1. */
+/*
+ * Print the line for the objects in list, just taken from PARENT, or from
+ * the room if PARENT is -1.
+ */
 void
 lib_take_t::print_taken (scr_int parent)
 {
@@ -1210,24 +1217,22 @@ lib_take_t::print_taken (scr_int parent)
   else if (has_printed)
     pf_buffer_string (filter, total == 0 ? "\n" : "  ");
   /*
-   * 4.0 reworded the loose-in-the-room take; the from-container
-   * branch keeps the same verb in every version.  Measured live on
-   * a bare `take rock` / `get rock` / `take all`: run370 and
-   * run390 answer "You pick up the rock.", run400 "You take the
-   * rock."  (run380 shows the pre-4.0 half of the same handler
-   * through its "nothing to pick up here" refusal.)
+   * 4.0 reworded the loose-in-the-room take; the from-container branch keeps
+   * the same verb in every version.  Measured live on a bare `take rock` /
+   * `get rock` / `take all`: run370 and run390 answer "You pick up the rock.",
+   * run400 "You take the rock."  (run380 shows the pre-4.0 half of the same
+   * handler through its "nothing to pick up here" refusal.)
    *
-   * What 4.0 did change in the from-container branch is the
-   * *taken* object's prefix: pre-4.0 prints it raw, 4.0 normalizes
-   * it like everything else.  The container is normalized in both.
-   * Measured on the one game carried across three .taf versions by
-   * the generators (see lib_print_object_np above): `take gun` out
-   * of a "some"-prefixed container holding an "a"-prefixed pistol
-   * gives run380 "You take a small pistol from some aluminum
-   * clothes.", run390 "You take a small pistol from the aluminum
-   * clothes.", run400 "You take the small pistol from the aluminum
-   * clothes."  Only the pistol's own prefix moves at 4.0; the
-   * clothes move at 3.9, which is the "some" rule, not this one.
+   * What 4.0 did change in the from-container branch is the *taken* object's
+   * prefix: pre-4.0 prints it raw, 4.0 normalizes it like everything else.
+   * The container is normalized in both.  Measured on the one game carried
+   * across three .taf versions by the generators (see lib_print_object_np
+   * above): `take gun` out of a "some"-prefixed container holding an
+   * "a"-prefixed pistol gives run380 "You take a small pistol from some
+   * aluminum clothes.", run390 "You take a small pistol from the aluminum
+   * clothes.", run400 "You take the small pistol from the aluminum clothes."
+   * Only the pistol's own prefix moves at 4.0; the clothes move at 3.9, which
+   * is the "some" rule, not this one.
    *
    * The raw pre-4.0 prefix belongs to the Runner's SINGLE-take handler only --
    * any take that named exactly one object, with or without an explicit "from"
@@ -1239,19 +1244,16 @@ lib_take_t::print_taken (scr_int parent)
    * "You take the diary, the brass lantern, the woven cloak and the nice food
    * from the old oak table."  (Measured live.)
    *
-   *
-   * That multi-take exception is a 3.9 change of its own: pre-3.9
-   * the multi-take loop prints raw too, so from 3.7 to 3.8 every
-   * from-container take is raw whatever it named.  Measured live
-   * under Wine on mikes.taf (3.80) in run380, whose
-   * dresser holds four objects with EMPTY prefixes (deobfuscated
-   * from the .taf, so this is not a guess): `take all from
-   * dresser` answers "You take a socks, a shirt, a underwear and
-   * a pair of pants from the dresser."  Empty is the case that
-   * separates the two printers -- raw defaults it to "a ", the
-   * normalizing one to "the " -- and the same replay pins both
-   * halves at once, since the container itself comes out "the
-   * dresser".  3.9 normalizes the same shape: the ALEXIS `get all
+   * That multi-take exception is a 3.9 change of its own: pre-3.9 the
+   * multi-take loop prints raw too, so from 3.7 to 3.8 every from-container
+   * take is raw whatever it named.  Measured live under Wine on mikes.taf
+   * (3.8) in run380, whose dresser holds four objects with EMPTY prefixes
+   * (deobfuscated from the .taf, so this is not a guess): `take all from
+   * dresser` answers "You take a socks, a shirt, a underwear and a pair of
+   * pants from the dresser."  Empty is the case that separates the two
+   * printers -- raw defaults it to "a ", the normalizing one to "the " -- and
+   * the same replay pins both halves at once, since the container itself comes
+   * out "the dresser".  3.9 normalizes the same shape: the ALEXIS `get all
    * from table` above.
    */
   if (parent == -1)
@@ -1710,8 +1712,10 @@ lib_take_t::report_worn (void)
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_380
       && !list.empty ())
     {
-      /* The arm assigns the whole message per object, so the last one
-         speaks; the raw name is this handler's own concatenation. */
+      /*
+       * The arm assigns the whole message per object, so the last one
+       * speaks; the raw name is this handler's own concatenation.
+       */
       lib_new_clause (game, has_printed);
       lib_cant_see_named_pre_390 (game, list.back (), FALSE, " from here!");
       has_printed = TRUE;
@@ -1822,9 +1826,11 @@ lib_take_t::report_cannot_take (void)
     }
   if (lib_is_version_400 (game) && lib_take_and_pieces_400)
     {
-      /* Each "and" piece is its own single-take refusal: p4TKA `take stone
-         and statue` -> "You take the stone.  You can't take the statue!"
-         (runner_probes/tka.run400.txt cells 17/20). */
+      /*
+       * Each "and" piece is its own single-take refusal: p4TKA `take stone
+       * and statue` -> "You take the stone.  You can't take the statue!"
+       * (runner_probes/tka.run400.txt cells 17/20).
+       */
       for (const scr_int item : list)
         {
           lib_list_t one;
@@ -1845,9 +1851,11 @@ lib_take_t::report_cannot_take (void)
                            "You can't take ",
                            "I can't take ",
                            "%player% can't take ",
-                           /* 3.7/3.8 name it by the raw Prefix: "You can't
-                              take a chair." (run380 43E697, run370 4369FF;
-                              run370x/run380x p3738sit3). */
+                           /*
+                            * 3.7/3.8 name it by the raw Prefix: "You can't
+                            * take a chair." (run380 43E697, run370 4369FF;
+                            * run370x/run380x p3738sit3).
+                            */
                            lib_object_printer_390 (game));
 }
 

@@ -1,10 +1,10 @@
 # ADRIFT Runner fidelity: arbitration record
 
 Every question Scarier has taken to the **real** ADRIFT Runners, and how it was
-answered. Lives at `test/adrift4/notes/RUNNER_TESTS_TODO.md` (moved from
+answered. Lives at `test/adrift4/notes/RUNNER_TESTS.md` (moved from
 `terps/scarier/RUNNER_TESTS_TODO.md` and pruned to conclusions on 2026-09-28;
 the full narrative history is in git:
-`git log --follow -p -- terps/scarier/test/adrift4/notes/RUNNER_TESTS_TODO.md`).
+`git log --follow -p -- terps/scarier/test/adrift4/notes/RUNNER_TESTS.md`).
 Companion to `ADRIFT4_vs_ADRIFT5.md` (in `terps/scarier/notes/`, semantics already
 settled) and `test/adrift4/notes/WALKTHROUGH_TODO.md` (route derivation, not
 engine fidelity).
@@ -370,7 +370,7 @@ text in git history).
 | Zero-length events, the whole shape table | **PORTED 2026-08-02** (`scevents.cpp`: `evt_is_zero_length()`, ES_WAITING/ES_RUNNING handling, finish gate) | starter decides: (1) load-start → start+finish on turn 0, once; (2) clock-start (delay / restart-after-delay) → StartText then **parks** for ever (LookText stays, FinishText/TaskAffected never run); (3) task-start → start+finish on the trigger turn, once. RestartType=1 restarts then parks; RestartType=2 on immediate/task starter goes quiet | **Ported** (probes `EV2`–`EV5`). Only live corpus instance of (2): Del Sol EVENT 11 (room-gated). |
 | When immediate events start relative to the opening room description | **FIXED 2026-08-02**: `evt_start_load_events()` (silent, +1 clock) before `DispFirstRoom`, `evt_finish_load_events()` after | start during load, before the description: LookText in it, StartText never seen; finish half lands under it. Both Runners | **Ported** (probes `EV5`, `EV6`; `make_39_fwprobe.py` `e`). Rolling lengths at load moves them ahead of `battle_start()` — accepted, unverifiable (§1). `scdump.cpp` EVENT line ends `texts=SLF`. |
 | Where an event's LookText sits inside the room block | **FIXED 2026-08-02**: after `lib_print_room_contents()`, joined via `pf_buffer_join()` (`scprintf.cpp`) | dead last, after objects and characters | **Ported** (probes `EV7`/`EV8`, run390 agreeing). |
-| Startup event tick, pre-3.9 games | **FIXED 2026-09-04**: startup tick and the StarterType 2 `+1` gated `>= TAF_VERSION_390` (scrunner.cpp / scevents.cpp) | run370/380 tick events only from the generaltasks tail: a delay-N event starts on turn N | **Ported** (run380 `haunt.taf`, `Adven_1_haunt.rtf`). See `notes/WINE-TRANSCRIPTS-TODO.md` haunt section. |
+| Startup event tick, pre-3.9 games | **FIXED 2026-09-04**: startup tick and the StarterType 2 `+1` gated `>= TAF_VERSION_390` (scrunner.cpp / scevents.cpp) | run370/380 tick events only from the generaltasks tail: a delay-N event starts on turn N | **Ported** (run380 `haunt.taf`, `Adven_1_haunt.rtf`). See `notes/WINE-TRANSCRIPTS.md` haunt section. |
 | Administrative turns, pre-3.9 games | **FIXED 2026-09-04**: `lib_set_admin()` makes `is_admin` 3.90+ only | run370/380 tick NPCs+events after every command with output (only save/restore/restart/quit bypass); run390 flags only history/score/count/information/end/turns | **Ported** (run380 `haunt.taf` turn 83). **OPEN:** `hint`/`help`/`clear`/`where` under run390 (not in its 468219 list) unmeasured. |
 | Pre-parse verb rewrites (`take`→`get` etc.), pre-3.9 | BUILTIN rewrite table in `pf_filter_input()` (`scprintf.cpp`), after SYNONYMs, version-gated per row | run380: `everything`→`all`, `slap`→`hit`, `take`→`get`, `except`→`but` (441C3F..441C72); run370 only the first two; run390 none; run400 take→get only inside its get handler. So take→get is **3.80-only** and cuts both ways | **Ported 2026-09-04** (jb2000, Crime_Adventure, great — 0 differences). |
 | Object-ambiguity prompt `Which <term>.  <list>?`, pre-3.9 | **PORTED 2026-09-04 for 3.7/3.8**: `lib_co_ambiguity_prompt()` after the tick when no task ran, gated `< TAF_VERSION_390` | run380: co() every command; >1 present object answering to the term (unless the Prefix's last word was typed) replaces the whole turn's output unless a task ran — state changes stand. run370: co() only via therest()/insides(). run390: only from characters()/sitstand(), plus handler-scoped take/drop/wear prompts | **Ported** for 3.7/3.8 (mikes `Adven_8_mikes.rtf`). run390's handler-scoped prompts **not ported**. |
@@ -770,7 +770,7 @@ Full prose: `git log --follow -p` on this file (pre-2026-09-28 path
   in descriptions** (off, not persisted; `Sub_20_64`). Not a divergence;
   harness section carries the warning.
 - (Room block joined as one string — ported 2026-09-07, see
-  WINE-TRANSCRIPTS-TODO.md.)
+  WINE-TRANSCRIPTS.md.)
 
 ### 2026-08-15, sixth batch — one game, four Runners: generators as a version bridge
 

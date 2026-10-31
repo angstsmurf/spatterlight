@@ -92,7 +92,7 @@ this route skips; the endgame reports 20/25, "You finished 5 points short."
 - The wildcard/task machinery this game leans on — the every-turn event
   dispatch through the matcher, `*`-task steals (fish-face lines, the stolen
   `take key`), walk CharTask dispatch — is the run390-verified behaviour
-  described in RUNNER_TESTS_TODO.md §2 (commits cff102c9, 3999a6b6).
+  described in RUNNER_TESTS.md §2 (commits cff102c9, 3999a6b6).
 - The live run390 session used the Wine harness (`~/adrift-battle/runner/wine`)
   with blind `unlock door` spam; the Runner's own RNG differs from the seeded
   harness, so its command counts differ, but every mechanism above fired
@@ -100,6 +100,6 @@ this route skips; the endgame reports 20/25, "You finished 5 points short."
 - 2026-08-31: the golden route was re-derived (191 commands) after the
   exact-tick walk-move gate landed in `scnpcs.cpp` (the Runner-verified rule
   that the whole walk step runs only when `counter == suffix_sum`; see
-  WINE-TRANSCRIPTS-TODO.md, Merry_Murders section).  The guard's visit
+  WINE-TRANSCRIPTS.md, Merry_Murders section).  The guard's visit
   schedule under the fixed seed shifted, so every shout was re-timed; the
   mechanism and score (20/25) are unchanged.

@@ -2,7 +2,7 @@
 """ADRIFT 3.9 probe: how long is the period of an immediately-restarting event,
 and does the restart re-run the start actions?
 
-RUNNER_TESTS_TODO.md section 8.  SCARE has always claimed that 3.9 and 3.8
+RUNNER_TESTS.md section 8.  SCARE has always claimed that 3.9 and 3.8
 "'miss' the event start actions and move one step into the event without
 comment", so `evt_fixup_v390_v380_immediate_restart()` re-armed silently AND
 took one turn off the clock.  An earlier 2026-08-04 pass, reading Panic!'s

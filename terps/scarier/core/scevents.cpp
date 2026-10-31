@@ -329,8 +329,10 @@ static void
 evt_move_object (scr_gameref_t game, scr_int object, scr_int destination,
                  scr_bool at_start)
 {
-  /* Ignore negative values of object, a nonexistent object, and a
-     destination below "hidden". */
+  /*
+   * Ignore negative values of object, a nonexistent object, and a
+   * destination below "hidden".
+   */
   if (gs_object_valid (game, object) && destination >= -1)
     {
       const scr_bool room_set = obj_is_static (game, object)
@@ -361,7 +363,7 @@ evt_move_object (scr_gameref_t game, scr_int object, scr_int destination,
        * touches the carried-load totals -- an event-placed object weighs
        * nothing towards the player's limits, and one spirited out of the
        * player's hands stays counted (measured live in run400, "Probe backlog"
-       * in test/adrift4/notes/RUNNER_TESTS_TODO.md; its totals are only ever
+       * in test/adrift4/notes/RUNNER_TESTS.md; its totals are only ever
        * written by the take/drop handlers and the task mover) -- so the
        * position tracker is suspended for the move.
        */
@@ -420,7 +422,7 @@ evt_move_object (scr_gameref_t game, scr_int object, scr_int destination,
        * This is the only place a static object moves.  The task action mover
        * refuses them outright (see task_move_object), so an event is the sole
        * route by which one can reach the player's hands -- measured live in
-       * run400, "Probe backlog" in test/adrift4/notes/RUNNER_TESTS_TODO.md.  A
+       * run400, "Probe backlog" in test/adrift4/notes/RUNNER_TESTS.md.  A
        * static that gets there is listed by "inventory", but the Runner does
        * not otherwise count it as held: it weighs nothing towards the player's
        * limits and cannot be dropped, which is what
@@ -445,7 +447,7 @@ evt_move_object (scr_gameref_t game, scr_int object, scr_int destination,
        * checkevent 448EB8) writes the location (22), the static room-presence
        * array (24) and the parent (42), and simply falls off the end -- no
        * player-room compare, no write to the 3.9 seen byte (44) on any
-       * branch.  Measured live on cleft.taf (3.90,
+       * branch.  Measured live on cleft.taf (3.9,
        * runner_probes/cleft.run390.txt): the klaxon event ends with the
        * player standing in the Loading bay it delivers the packing case to,
        * and the very next commands get "You can't open that." / "Take what?"
@@ -503,7 +505,7 @@ evt_taf_version (scr_gameref_t game)
  * `xray` -- a task with CompleteText "X." starting an event whose StartText
  * is "EV ball." -- is "X.  EV qball." on one line, while the FinishText two
  * `wait`s later is "Time passes..." / "FIN qball." on two.  Below 4.0 the
- * corpus says it, troll (3.90) most plainly: its three hunger/thirst events
+ * corpus says it, troll (3.9) most plainly: its three hunger/thirst events
  * print onto the turn's line and onto each other, "You move northeast.
  * ...work of shadows upon the ground.  You feel hungry." and "...Your stomach
  * growls. Your throat is sore." on one line each
@@ -559,7 +561,7 @@ static void evt_start_event (scr_gameref_t game, scr_int event,
  * every time round.  Both give the restarted event its full authored length.
  *
  * Arbitrated live (the 3.9/3.8 immediate-restart fixup in
- * test/adrift4/notes/RUNNER_TESTS_TODO.md), probe
+ * test/adrift4/notes/RUNNER_TESTS.md), probe
  * test/adrift4/harness/make_39_evtimeprobe.py against run390.exe and the EV9
  * twin against run400.exe:
  *
@@ -592,8 +594,8 @@ evt_fixup_v390_v380_immediate_restart (scr_gameref_t game, scr_int event)
   /*
    * Re-arm silently.  The length roll belongs to evt_start_event(); rolling
    * a second one here would churn the RNG stream on every restart, and
-   * taking a turn off the clock -- which SCARE did, and which the 2026-08-04
-   * pass kept -- makes the period one short of what run390 measures.
+   * taking a turn off the clock, as SCARE did, makes the period one short of
+   * what run390 measures.
    */
   evt_start_event (game, event, TRUE);
   return TRUE;
@@ -684,7 +686,7 @@ evt_run_affected_task (scr_gameref_t game, scr_int task)
        * not gated on the affected task's own runnability -- a wildcard can
        * fire even when the affected task could not run here.  See
        * run_event_task() and the wildcard turn-ordering entry in
-       * test/adrift4/notes/RUNNER_TESTS_TODO.md; "thetest" depends on the
+       * test/adrift4/notes/RUNNER_TESTS.md; "thetest" depends on the
        * stealing.
        */
       if (evt_trace)
@@ -701,7 +703,7 @@ evt_run_affected_task (scr_gameref_t game, scr_int task)
        * lines are exactly such prints.  Both halves verified live
        * against run390/run400 with the same gen400-converted probe;
        * see the wildcard turn-ordering entry in
-       * test/adrift4/notes/RUNNER_TESTS_TODO.md.
+       * test/adrift4/notes/RUNNER_TESTS.md.
        */
       if (evt_trace)
         scr_trace ("Event: event running task %ld forwards\n", task);
@@ -1013,7 +1015,7 @@ evt_starter_task_is_complete (scr_gameref_t game, scr_int event)
    * soon as one is done.  run370 (431B8D), run380 (439E15) and run390
    * (4483BD) guard the awaiting-state start with `TaskNum > 0` and have no
    * such loop, so there the event never starts at all.  Measured on
-   * wrecked.taf (3.80, event 25 "stamp ticket", TaskNum 0): run380x drew four
+   * wrecked.taf (3.8, event 25 "stamp ticket", TaskNum 0): run380x drew four
    * Rnd on the first turn where scarier drew five -- the fifth was this
    * event's length roll -- and its task 74 never ran.
    */
@@ -1044,7 +1046,7 @@ evt_starter_task_is_complete (scr_gameref_t game, scr_int event)
  *                        (run380 439EBB, run400 46FE80).
  *
  * So a task that is undone and redone BETWEEN two pass ends restarts the
- * event, and one that merely stays complete does not.  wrecked.taf (3.80)
+ * event, and one that merely stays complete does not.  wrecked.taf (3.8)
  * pins the first half: "after throw #2" (event 36) is started by "#boris
  * finds player" (task 112), and its finish un-does that very task; Boris's
  * walk re-completes it before the next tick, so run380x restarted the event
@@ -1633,12 +1635,10 @@ evt_tick_event_and_settle (scr_gameref_t game, scr_int event)
   evt_tick_event (game, event);
 
   /*
-   * If the event went from paused or waiting to running, tick again.
-   * This looks dodgy, and probably is, but it does keep timers correct
-   * by only re-ticking events that have transitioned from non-running
-   * states to a running one, and not already-running events.  This is
-   * in effect just adding a bit of turn processing to a tick that would
-   * otherwise change state alone; a bit of laziness, in other words.
+   * If the event went from paused or waiting to running, tick again, so that a
+   * tick that changes state also does a turn's processing, as the Runner's
+   * checkevent does when it falls from a start into its running block (see
+   * evt_tick_running()).  An event already running is not re-ticked.
    */
   state = gs_event_state (game, event);
   if (state == ES_RUNNING
@@ -1792,11 +1792,11 @@ evt_start_load_events (scr_gameref_t game)
 
       /*
        * The same compensation the tick's immediate-start branch applies (see
-       * evt_tick_waiting()): the startup tick that follows decrements a running
-       * event once, so a length-N event has to leave the load carrying N+1.
-       * A zero-length event keeps its zero and is finished below.
+       * evt_tick_waiting()): the startup tick that follows decrements a
+       * running event once, so a length-N event has to leave the load carrying
+       * N+1. A zero-length event keeps its zero and is finished below.
        *
-       * Only where that tick exists, which is 3.90 and 4.00: run380 and
+       * Only where that tick exists, which is 3.9 and 4.0: run380 and
        * run370 never call events() before the first command (see the
        * startup block in runner/scrunner.cpp), and their load code hands an
        * immediate event its bare rolled length, so the first command's

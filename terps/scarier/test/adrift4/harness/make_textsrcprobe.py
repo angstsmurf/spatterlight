@@ -1,6 +1,6 @@
 """WHICH string checktask's %object% walk searches, and in WHAT order.
 
-The last open arm of the checktask lead in WINE-TRANSCRIPTS-TODO.md.  Every
+The last open arm of the checktask lead in WINE-TRANSCRIPTS.md.  Every
 Runner substitutes an object's name into a `%object%` command before it
 tests the command (see make_wildrefprobe.py), but they do not all search the
 same string for the name, and the walk's shape is not what Scarier assumed:

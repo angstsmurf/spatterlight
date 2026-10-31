@@ -25,7 +25,7 @@ old C-precedence parser read as "bucket OR (coconut AND gate)", so the oracle
 announced *"The game is no longer winnable"* on turn 1 of a pristine game.
 run400's `Sub_20_57` peels the **last** top-level operator and recurses on the
 head: `A` and `O` are one precedence level associating **left**. Fixed in
-`screstrs.cpp`; see `RUNNER_TESTS_TODO.md` §4 and the
+`screstrs.cpp`; see `RUNNER_TESTS.md` §4 and the
 `adrift4-restrmask-left-assoc` note. With the fix, `winnable` answers *"The game
 is still winnable."* at every point along this route.
 
@@ -212,7 +212,7 @@ done, so **one of them always runs**, and both chains end the game before the
 The `+2` is nevertheless *credited*. `task_run_task_actions()` does not stop at
 the action that ends the game — it runs the rest with output muted — and that
 was confirmed against the real Runner on 2026-08-09 with the `EG` arena probe
-(`RUNNER_TESTS_TODO.md` section 4): in run400 a task whose actions are "end
+(`RUNNER_TESTS.md` section 4): in run400 a task whose actions are "end
 game" then "+7 points" still finishes on 7 out of 7. An in-line `ACT type=3`
 like this one behaves the same way in both engines. What the probe *did* find
 is that run400 drops an **Execute Task** action queued behind the ending, which

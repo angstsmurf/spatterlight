@@ -10,7 +10,7 @@ with the catch-all last and DisplayRoom=2, which makes it print unconditionally
 alongside whichever task alt fired.  gen400's own 3.9 -> 4.0 conversion emits
 the reverse order (catch-all first, then Task1, then Task2), which under
 lib_find_starting_alt()'s backwards scan makes the task alts *suppress* the
-catch-all.  See RUNNER_TESTS_TODO.md section 3(a).
+catch-all.  See RUNNER_TESTS.md section 3(a).
 
 The probe: one room whose Long is empty, AddDesc1 = "ADDDESC1." gated on a
 task the player fires with `xyzzy`, and LastDesc = "LASTDESC.".  Run it

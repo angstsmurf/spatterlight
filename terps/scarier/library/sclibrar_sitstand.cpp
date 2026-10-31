@@ -21,8 +21,6 @@
 /*
  * Standing, sitting and lying, getting off, and the pre-4.0
  * anywhere-in-the-line open/close and where-is scans.
- *
- * See sclibrar.h for what the library files share.
  */
 
 #include "sclibrar.h"
@@ -162,10 +160,12 @@ lib_stand_sit_lie_floor_390 (scr_gameref_t game, scr_int movement)
     case MOVE_SIT_FLOOR:
       if (lib_co_contains (line, "on") || lib_co_contains (line, "in"))
         {
-          /* run400 46B3BC-46B43E, run390 444086-44410F.  The Runners put
-             the pronoun before a fixed " are", giving "I are" and
-             "%player% are"; Scarier deliberately agrees the copula
-             (deviation policy). */
+          /*
+           * run400 46B3BC-46B43E, run390 444086-44410F.  The Runners put
+           * the pronoun before a fixed " are", giving "I are" and
+           * "%player% are"; Scarier deliberately agrees the copula
+           * (deviation policy).
+           */
           if (position == 1 && parent == -1)
             {
               pf_buffer_string (filter,
@@ -374,10 +374,10 @@ lib_stand_sit_lie (scr_gameref_t game, scr_int movement)
          * when it is a dynamic object whose room is the player's, or a static
          * one listed in that room, and only then read SitLie (run400
          * 46B8F2-46B93A, run390 4445F8-44463A, run380 434042); run370's loop
-         * has no location test at all (lib_sit_lie_scan_370).  A held stool is never
-         * stood on, and the line falls to the "can't stand on" refusal.
-         * House.taf's `stand on stool` with the stool in hand, whose ALR
-         * turns that refusal into "While you're still holding it?"
+         * has no location test at all (lib_sit_lie_scan_370).  A held stool is
+         * never stood on, and the line falls to the "can't stand on" refusal.
+         * House.taf's `stand on stool` with the stool in hand, whose ALR turns
+         * that refusal into "While you're still holding it?"
          * (runner_probes/house.run400.turnbisect.txt).
          */
         vt_key[0].string = "Objects";
@@ -506,10 +506,10 @@ lib_cmd_get_on_object (scr_gameref_t game)
  * runner_probes/sit.run400.sit3.txt).
  */
 /*
- * Deliberate deviation (2026-09-30): the floor rows answer every line they
- * match, so `lie on floor`, `stand on the ground` and a pre-3.9 `sit on the
- * floor` lie, stand or sit as they did before a1183ae58, instead of "You
- * can't lie on that.".  The Runner rule is kept here for reference.
+ * Deliberate deviation: the floor rows answer every line they match, so `lie
+ * on floor`, `stand on the ground` and a pre-3.9 `sit on the floor` lie, stand
+ * or sit, instead of "You can't lie on that.". The Runner rule is kept here
+ * for reference.
  */
 static scr_bool
 lib_floor_named (void)
@@ -1254,10 +1254,10 @@ lib_openclose_anywhere (scr_gameref_t game, const scr_char *typed,
     return FALSE;
 
   /*
-   * Deliberate deviation (2026-09-30): the words below are tested on the
-   * line with every longer object and character name masked
-   * (lib_mask_long_names()), so `open drop box` is an open and not a drop,
-   * and an "open" inside a name opens nothing.
+   * Deliberate deviation: the words below are tested on the line with every
+   * longer object and character name masked (lib_mask_long_names()), so `open
+   * drop box` is an open and not a drop, and an "open" inside a name opens
+   * nothing.
    */
   const std::string masked = lib_mask_long_names (game, typed);
   const scr_char *const words = masked.c_str ();
@@ -1282,16 +1282,20 @@ lib_openclose_anywhere (scr_gameref_t game, const scr_char *typed,
   for (word = LEFT_ALONE; *word; word++)
     if (lib_co_contains (words, *word))
       {
-        /* The claim is theirs, and only the leading open/close word stands
-           between them and the anchored row that carries it. */
+        /*
+         * The claim is theirs, and only the leading open/close word stands
+         * between them and the anchored row that carries it.
+         */
         if (at == typed && rest)
           *rest = cut;
         return FALSE;
       }
 
-  /* Everything below openclose that writes over it: the typed look and
-     examines (x, ex and exam at the head only from 4.0), score, whereis,
-     and characters, whose ask arm wants the name at column 5 below 4.0. */
+  /*
+   * Everything below openclose that writes over it: the typed look and
+   * examines (x, ex and exam at the head only from 4.0), score, whereis,
+   * and characters, whose ask arm wants the name at column 5 below 4.0.
+   */
   speaks = FALSE;
   for (word = EXAMINES; *word && !speaks; word++)
     speaks = lib_co_contains (words, *word);
@@ -1329,8 +1333,10 @@ lib_openclose_anywhere (scr_gameref_t game, const scr_char *typed,
                           && !lib_goto_line_enters (game, typed);
   speaks = speaks || nudged;
 
-  /* A line the open/close word leads, with nobody below to speak for it, is
-     the anchored row's own and is answered where it always was. */
+  /*
+   * A line the open/close word leads, with nobody below to speak for it, is
+   * the anchored row's own and is answered where it always was.
+   */
   if (at == typed && !speaks)
     return FALSE;
 
@@ -1555,12 +1561,12 @@ lib_player_parent_here (scr_gameref_t game)
  * Whether `get off X` may still be read as a take of X while the player is
  * on nothing.  Every Runner reads it so, 3.7 to 4.0: the take rows see the
  * line before any get-off (see lib_cmd_get_off_object()), so `get off
- * stool` beside the stool picked it up.  Deliberate deviation since
- * 2026-10-15: it is "You are not standing on anything!" instead, unless the
- * game has a takeable object a Short or Alias of which starts with the word
- * "off" (an "off switch"), which such a line might really name.  No game in
- * the corpus has one: the only whole-word "off" names are insidejob's static
- * "Log Off" and SBFT's "cut-off jeans".
+ * stool` beside the stool picked it up.  Deliberate deviation: it is "You are
+ * not standing on anything!" instead, unless the game has a takeable object a
+ * Short or Alias of which starts with the word "off" (an "off switch"), which
+ * such a line might really name.  No game in the corpus has one: the only
+ * whole-word "off" names are insidejob's static "Log Off" and SBFT's "cut-off
+ * jeans".
  */
 static scr_bool
 lib_name_starts_off (const scr_char *name)

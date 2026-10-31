@@ -21,8 +21,6 @@
 /*
  * Save/restore, locate, turns, score, battle status, examining
  * other things, and the one-line stock responses.
- *
- * See sclibrar.h for what the library files share.
  */
 
 #include "sclibrar.h"
@@ -426,11 +424,7 @@ lib_cmd_locate_npc (scr_gameref_t game)
    * last named.
    */
 
-  /*
-   * The reference is unambiguous, so we're responsible for noting it in
-   * variables.  Disambiguation would normally do this for us, but we just
-   * bypassed it.
-   */
+  /* Note the reference, as lib_cmd_locate_object() does. */
   var_set_ref_character (vars, npc);
 
   /* See if this NPC has been seen yet. */
@@ -484,11 +478,11 @@ lib_cmd_locate_npc (scr_gameref_t game)
    * The clause itself was disabled upstream; all four Runners print it, and
    * there is no comma before "silly" -- the literals are "  (Right next to "
    * and " silly!)" with the perspective pronoun spliced between them
-   * (run380 @00040BCE/@00040BE2, run400 @47FD56/@47FD6A).  Scarier deliberately
-   * keeps the vocative comma (deviation policy), except in a game with an ALR
-   * written against the Runner's "silly!)" -- Fugitive, IceCream, panic, The
-   * Dead Man and eight more rewrite or blank the clause -- where the Runner's
-   * form is kept so that the author's replacement still fires.
+   * (run380 @00040BCE/@00040BE2, run400 @47FD56/@47FD6A).  Scarier
+   * deliberately keeps the vocative comma (deviation policy), except in a game
+   * with an ALR written against the Runner's "silly!)" -- Fugitive, IceCream,
+   * panic, The Dead Man and eight more rewrite or blank the clause -- where
+   * the Runner's form is kept so that the author's replacement still fires.
    */
   pf_new_sentence (filter);
   lib_print_npc_np (game, npc);
@@ -526,10 +520,12 @@ lib_cmd_turns (scr_gameref_t game)
 {
   const scr_filterref_t filter = gs_get_filter (game);
 
-  /* "1 turns" -- no Runner singularises it (run400 48ACA1 concatenates the
-     one literal; measured run400 EV16 runner_probes/ev16.run400.txt and
-     run390 BobBobsly.taf runner_probes/bob_bobsly.run390.txt, both "You
-     have taken 1 turns so far."). */
+  /*
+   * "1 turns" -- no Runner singularises it (run400 48ACA1 concatenates the
+   * one literal; measured run400 EV16 runner_probes/ev16.run400.txt and
+   * run390 BobBobsly.taf runner_probes/bob_bobsly.run390.txt, both "You
+   * have taken 1 turns so far.").
+   */
   pf_buffer_string (filter, "You have taken ");
   pf_buffer_integer (filter, game->turns);
   pf_buffer_string (filter, " turns so far.\n");
@@ -695,7 +691,7 @@ lib_print_battle_status (scr_gameref_t game, scr_int npc)
  * the wielded or best weapon's HitValue) or armourstrength() (defence plus
  * worn protection), and the bracket is the attribute's maximum field.  No
  * header, no Accuracy or Agility row and no wielding line.  Measured on the
- * town of azra (3.90, run390x runner_transcripts/the_town_of_azra_v390.txt
+ * town of azra (3.9, run390x runner_transcripts/the_town_of_azra_v390.txt
  * T60).
  */
 static void
@@ -887,7 +883,7 @@ lib_cmd_examine_all (scr_gameref_t game)
  * below).  Pre-4.0 has no such test -- probe 1 on ALEXIS.TAF under run390
  * named an unseen character back at the player
  * (runner_probes/alexis.run390.absent_npc.txt).  The 4.0 half is measured too:
- * cobl (4.00), `x cat` for the ginger cat seen in an earlier room, "You cannot
+ * cobl (4.0), `x cat` for the ginger cat seen in an earlier room, "You cannot
  * see the ginger cat from here."
  *
  * The reference test is the shared Name-or-first-Alias one, run390 4592B8
@@ -994,11 +990,11 @@ lib_npc_examine_absent (scr_gameref_t game)
  * run400.exe alone, which is what dates the change.
  *
  * Both halves are measured, not argued:
- *   run390, Merry_Murders.taf (3.90),
+ *   run390, Merry_Murders.taf (3.9),
  *     runner_probes/merry_murders.run390.pocket.txt line 38 --
  *     `x pocket` in the lit Plaza, no `pocket` object in the game:
  *     "Nothing special."
- *   run400, The_X-Files_A_New_Beginning.taf (4.00),
+ *   run400, The_X-Files_A_New_Beginning.taf (4.0),
  *     runner_probes/xfiles.run400.txt lines 187 and 233 -- `look at camera`
  *     and `look up byers`, neither noun an object: "You see no such
  *     thing."
@@ -1349,7 +1345,7 @@ lib_cmd_say (scr_gameref_t game)
    * run390 (therest 45DAD2) and run400 (488DE4) both draw Int(Rnd*6) over
    * six responses; run380/run370 (4442AA/43D813) draw Int(Rnd*5) over the
    * same table, so their sixth response is unreachable.  Keeping the span
-   * per version keeps the runner-mode stream in step with the Wine
+   * per version keeps the Runner-mode stream in step with the Wine
    * Runners (inverness, measured 2026-09-12).
    */
   switch (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390

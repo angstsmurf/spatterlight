@@ -153,7 +153,7 @@ lib_co_term_shadowed (scr_gameref_t game, const scr_char *line,
         continue;
       /*
        * An object never seen and not here is nothing the player can mean,
-       * so its longer name hides nobody's: Scene of the Crime (4.00) `drop
+       * so its longer name hides nobody's: Scene of the Crime (4.0) `drop
        * tiny card` with "a small card" in hand and "a tiny card" (alias
        * "tiny card") not yet in play drops the small card (run400x
        * runner_probes/sotc.run400.drop.txt), where the shadow
@@ -205,8 +205,7 @@ lib_co_term_shadowed (scr_gameref_t game, const scr_char *line,
  * Deliberate deviation: the pre-4.0 loops that act on every referenced object
  * (open/close at 3.7-3.9, wear/remove at 3.7) are for a line naming several
  * things; a crowd of namesakes is asked about instead, so `open door` with a
- * red and a blue door does not open both, nor `wear hat` put on both hats
- * (83c4a19c0, 2e4d7ba0e).
+ * red and a blue door does not open both, nor `wear hat` put on both hats.
  */
 scr_bool
 lib_references_are_namesakes (scr_gameref_t game)
@@ -375,8 +374,8 @@ lib_co_lastword (const scr_char *string)
  * lib_co_names_prefix()
  *
  * Whether the typed line names the object's Prefix, when a term has several
- * present namesakes.  The Runners' co() matches one Prefix word: 3.90 and
- * 4.00 take the last word of the whole Prefix; 3.70 and 3.80 drop its
+ * present namesakes.  The Runners' co() matches one Prefix word: 3.9 and
+ * 4.0 take the last word of the whole Prefix; 3.7 and 3.8 drop its
  * FIRST word first, so a Prefix of one word
  * -- "a", "the", or a bare adjective like "big" -- distinguishes nothing at
  * all, and a "big red" tells nothing apart from a "small red".
@@ -385,7 +384,7 @@ lib_co_lastword (const scr_char *string)
  * runner_probes/takeq.run*.*), everything loose in one lit
  * room:
  *
- *                               3.70 / 3.80        3.90            4.00
+ *                               3.7 / 3.8         3.9             4.0
  *   "big" gem, "small" gem
  *     take gem                  no             no              no
  *     take big gem              no             the big gem     the big gem
@@ -400,23 +399,23 @@ lib_co_lastword (const scr_char *string)
  *   "big red" pin, "small red" pin
  *     take big pin              no             no              the big pin
  *
- * ("no" is the version's own refusal: "Take what?" at 3.70, "Which pin.
- * Old red pin or new red pin?" at 3.80/3.90, and at 4.00 either that
+ * ("no" is the version's own refusal: "Take what?" at 3.7, "Which pin.
+ * Old red pin or new red pin?" at 3.8/3.9, and at 4.0 either that
  * question or "It is not clear which pin you are referring to." from
  * drops.)  `take red gem` answering while `take very gem` does not is what
  * makes it the LAST word of what is left and not the second; `take big
- * pin` failing at 3.90 as well is what makes 3.90's word the last of the
- * WHOLE Prefix and not the first-dropped one.  4.00 is the word score
+ * pin` failing at 3.9 as well is what makes 3.9's word the last of the
+ * WHOLE Prefix and not the first-dropped one.  4.0 is the word score
  * instead (lib_verb_object_name_score()), which counts every Prefix word.
  *
  * Deliberate deviation: Scarier asks instead whether the line names some
  * word of the Prefix other than an article, and no word that only another
  * object of the same Short has in its Prefix, and no other object of that
  * Short passes the same test.  So `take big gem` picks the big gem at
- * 3.70/3.80, and `take old pin` and `take old red pin` the old red pin
+ * 3.7/3.8, and `take old pin` and `take old red pin` the old red pin
  * everywhere, where the Runners refuse, ask "Which pin?" or take both; and
- * `take red pin` asks "Which pin?" everywhere, where 3.70/3.80 take both
- * and 3.90 the old pin.
+ * `take red pin` asks "Which pin?" everywhere, where 3.7/3.8 take both
+ * and 3.9 the old pin.
  */
 static scr_bool
 lib_co_is_article (const std::string &word)
@@ -451,8 +450,10 @@ lib_co_prefix_words (scr_gameref_t game, scr_int object)
   return words;
 }
 
-/* TRUE if the line names a Prefix word that only another object of the same
-   Short has: `take old pin` rules out the new red pin. */
+/*
+ * TRUE if the line names a Prefix word that only another object of the same
+ * Short has: `take old pin` rules out the new red pin.
+ */
 scr_bool
 lib_co_prefix_excluded (scr_gameref_t game, const scr_char *line,
                         scr_int object)
@@ -586,7 +587,7 @@ lib_co_object_answers_to (scr_gameref_t game, scr_int object,
 
 /*
  * TRUE if the object counts as a namesake candidate: present (obhere) and,
- * from 3.90, also seen -- run390 co() @43B2FB and the list loop @43B4AE both
+ * from 3.9, also seen -- run390 co() @43B2FB and the list loop @43B4AE both
  * test the object's seen byte (field 44) beside obhere; run380 co() has no
  * such test.
  */
@@ -637,8 +638,10 @@ lib_namesake_crowded_pre380 (scr_gameref_t game, const scr_char *line,
   if (scr_strempty (shortname) || !line || !lib_co_contains (line, shortname)
       || lib_co_term_shadowed (game, line, object, shortname))
     return FALSE;
-  /* takes() acts on nothing on a "from" line (run370 43648C), so its take-from
-     lines are no crowd. */
+  /*
+   * takes() acts on nothing on a "from" line (run370 43648C), so its take-from
+   * lines are no crowd.
+   */
   if (!want_held && lib_co_contains (line, "from"))
     return FALSE;
 
@@ -657,8 +660,10 @@ lib_namesake_crowded_pre380 (scr_gameref_t game, const scr_char *line,
   return present > 1;
 }
 
-/* TRUE if the object's Short or any Alias is a whole word run of the line,
-   which is how 3.7's takes()/drops() loop names an object. */
+/*
+ * TRUE if the object's Short or any Alias is a whole word run of the line,
+ * which is how 3.7's takes()/drops() loop names an object.
+ */
 scr_bool
 lib_names_object_370 (scr_gameref_t game, const scr_char *line,
                       scr_int object)
@@ -682,11 +687,13 @@ lib_names_object_370 (scr_gameref_t game, const scr_char *line,
   return FALSE;
 }
 
-/* TRUE if every Short and Alias of the object that the line names sits
-   inside a longer name another object answers to -- "key" in `take key
-   ring`.  Deliberate deviation: the Runner counts the key into the crowd
-   and answers "Take what?"; Scarier leaves it out.  See
-   lib_co_term_shadowed(). */
+/*
+ * TRUE if every Short and Alias of the object that the line names sits
+ * inside a longer name another object answers to -- "key" in `take key
+ * ring`.  Deliberate deviation: the Runner counts the key into the crowd
+ * and answers "Take what?"; Scarier leaves it out.  See
+ * lib_co_term_shadowed().
+ */
 scr_bool
 lib_names_only_shadowed_370 (scr_gameref_t game, const scr_char *line,
                              scr_int object)

@@ -2,7 +2,7 @@
 """ADRIFT 3.9 probe: is the event-length roll inclusive of Time2 when
 Time1 != Time2?  And the same question for the StartTime..EndTime delay roll.
 
-RUNNER_TESTS_TODO.md section 10.  This is the V390 twin of config EL in
+RUNNER_TESTS.md section 10.  This is the V390 twin of config EL in
 make_arena_probe.py -- the same three events, so one 24-z session measures
 every roll family at once:
 

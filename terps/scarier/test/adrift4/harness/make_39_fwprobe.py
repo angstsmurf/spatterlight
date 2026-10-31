@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ADRIFT 3.9 probe: the three 4.0 precedence cells, on the 3.9 side.
 
-Companion to the 2026-08-02 run400 probes FM4-FM7 (RUNNER_TESTS_TODO.md
+Companion to the 2026-08-02 run400 probes FM4-FM7 (RUNNER_TESTS.md
 section 4).  One room, four dynamics, four tasks, one zero-length event:
 
     rock   -- on the floor, not wearable.

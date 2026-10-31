@@ -52,7 +52,7 @@
 # the Bozo nightclub on a walk whose stops are room *groups*, so every step is
 # an RNG draw -- and EVENT 4 [CarsAtRingRoute3] carries the file's only ranged
 # event length (Time 10..15).  When the event-length roll became exclusive of
-# Time2 (RUNNER_TESTS_TODO.md section 10, matching both real Runners), that
+# Time2 (RUNNER_TESTS.md section 10, matching both real Runners), that
 # one event re-timed the whole seed-1 stream, and Simonsen now reaches the
 # club a good half hour later than he used to: he walks in at the fixed
 # absolute turn the stream dictates, whatever the player does in the

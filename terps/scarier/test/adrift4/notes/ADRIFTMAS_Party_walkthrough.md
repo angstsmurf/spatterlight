@@ -114,4 +114,4 @@ group). Two very common idioms were dead before this — `[kiss {the}
 Corpus fallout was one row: in `Ticket to No Where`, TASK 405
 `[say][hello][to]{the}[%character%]` now fires on `say hello to john tailer`
 instead of falling through to the game's default response. Re-blessed. See
-`RUNNER_TESTS_TODO.md` §4.
+`RUNNER_TESTS.md` §4.

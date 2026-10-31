@@ -11,7 +11,7 @@ Adrift_41..45_sophie.txt keep all six of their ", and" while ALRs of 3, 4, 6
 and 7 characters fire in the same strings.  THAT WAS A MISPAIRING -- every one
 of those runs was launched on sa.taf, which has no such rule, so there is no
 divergence and sophie.taf has never been measured.  See the CLOSED 2026-08-25
-sophie section in notes/WINE-TRANSCRIPTS-TODO.md; the author's own two fixup
+sophie section in notes/WINE-TRANSCRIPTS.md; the author's own two fixup
 ALRs (#455/#458, colons in their Originals where the raw text has ", and")
 say run400 does apply it.
 

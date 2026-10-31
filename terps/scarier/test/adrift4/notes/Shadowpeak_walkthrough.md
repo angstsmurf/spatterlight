@@ -16,7 +16,7 @@ A battle-killed NPC now stops walking for good — the Runner's walk ticker
 breaks out of the walk loop for any NPC whose room field the battle system has
 stamped to −5 (`killchar`, run390 `@42D410` / run400 `@44B13C`; see the
 `FIXED 2026-08-24 -- a battle-killed NPC is dead for good` section of
-`WINE-TRANSCRIPTS-TODO.md`).  Shadowpeak is the corpus's heaviest battle game,
+`WINE-TRANSCRIPTS.md`).  Shadowpeak is the corpus's heaviest battle game,
 so this re-threads everything downstream: a corpse no longer draws the
 `scr_randomint` that a room-group walk consumes each turn, and every later
 walker arrival and combat roll shifts with it.
@@ -38,7 +38,7 @@ Each golden's own header carries the per-route detail.
 
 ## ✅ SESSION 25 (2026-08-02): re-derived under the fixed randint mapping — SCR_LEGACY_RANDMAP retired (700/715/735)
 
-The multiply-shift `scr_randomint` fix (Target-select row, RUNNER_TESTS_TODO
+The multiply-shift `scr_randomint` fix (Target-select row, RUNNER_TESTS
 §1) re-sequenced every seeded transcript, and no seed in 1–10000 ran the old
 routes end-to-end — but the failure was always ONLY the Damastus chase (and
 once Cerberus).  The repair recipe from session 24 worked unchanged:

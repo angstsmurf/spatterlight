@@ -152,7 +152,7 @@ os_stop_sound (void)
 
 #ifdef GSC_HAVE_TITLE_WINDOW
 /*
- * Title/cover graphic support.  Adrift games can carry an "IntroRes" cover
+ * Title/cover graphic support.  ADRIFT games can carry an "IntroRes" cover
  * image, shown by the engine before the game's first turn.  A cover is shown
  * one of two ways, never half-way between them:
  *

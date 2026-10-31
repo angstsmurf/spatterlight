@@ -20,8 +20,6 @@
 
 /*
  * Room contents, room descriptions and exits.
- *
- * See sclibrar.h for what the library files share.
  */
 
 #include "sclibrar.h"
@@ -73,11 +71,11 @@ lib_alrs_see_gap (scr_gameref_t game)
  * pspace() -- so after a block that ends in a line break, or a bare
  * heading, its line opens with two spaces.  Scarier deliberately keeps the
  * join but not that indent (deviation policy): the gap is left out where
- * the buffer is empty or already stands at the start of a line, unless an author ALR
- * could be matching on it (lib_alrs_see_gap), which keeps the Runner's text
- * so the same ALRs fire.  The exits sentence passes guarded FALSE: no corpus
- * ALR matches on its gap, and les_feux's leading-space ALRs would otherwise
- * keep every French exits line indented.
+ * the buffer is empty or already stands at the start of a line, unless an
+ * author ALR could be matching on it (lib_alrs_see_gap), which keeps the
+ * Runner's text so the same ALRs fire.  The exits sentence passes guarded
+ * FALSE: no corpus ALR matches on its gap, and les_feux's leading-space ALRs
+ * would otherwise keep every French exits line indented.
  */
 static void
 lib_buffer_literal_gap (scr_gameref_t game, scr_bool guarded)
@@ -234,7 +232,7 @@ lib_room_contents_npc_sentence (scr_gameref_t game, scr_int room)
    *
    * Two things about that split are not what they look like, both measured
    * live in run400 ("Probe backlog" in
-   * test/adrift4/notes/RUNNER_TESTS_TODO.md).  The "#" substitution happens in
+   * test/adrift4/notes/RUNNER_TESTS.md).  The "#" substitution happens in
    * the *loader* (@00091EDF): the text simply becomes "<name> is here." before
    * the game starts, and by the time the room lister (@00072944) runs there is
    * no "#" left to test for.  What it tests instead is the tail -- Right(text,
@@ -267,7 +265,7 @@ lib_room_contents_npc_sentence (scr_gameref_t game, scr_int room)
            * run390 (@00466932), run380 (@00449463) and run370 (@0044071D)
            * append the raw Name.  Nothing downstream capitalises, so an
            * author's own " is here." text keeps its case in every version.
-           * twilight (3.80) prints "a monkey is here.", goldilocks (4.0)
+           * twilight (3.8) prints "a monkey is here.", goldilocks (4.0)
            * "My Fairy Godmother is here."  Scarier deliberately still opens
            * the sentence with a capital in every version (deviation
            * policy); see the pf_new_sentence() below.
@@ -470,7 +468,7 @@ lib_room_desc_long (scr_gameref_t game, scr_int room, scr_int start,
            * 3.8 substitutes "There is nothing of interest here." into an
            * empty Long at LOAD time (run380 447FEE), so the sentence prints
            * wherever the Long would -- even when an alt goes on to describe
-           * the room.  Measured live on cave.taf (3.80): "By the
+           * the room.  Measured live on cave.taf (3.8): "By the
            * old shack" and "By the large tree" have empty Longs and a
            * LastDesc alt, and run380 prints "There is nothing of interest
            * here.  You are standing..." on every show.  3.9's render-time
@@ -602,8 +600,8 @@ lib_room_desc_nothing_390 (scr_gameref_t game, scr_int room,
    * sentence into the empty Long itself (run380 447FEE) -- and cave.taf
    * (measured live) proves the routes DIVERGE when an alt
    * describes the room: 3.8 prints the substitute in the Long's place AND
-   * the alt after it, where this render-time guard stayed silent.  The 3.80
-   * case therefore now lives up at the Long print; only 3.90 keeps this
+   * the alt after it, where this render-time guard stayed silent.  The 3.8
+   * case therefore now lives up at the Long print; only 3.9 keeps this
    * guarded tail.  3.7 has no such string and leaves the
    * room blank; 4.0 dropped it again.
    *
@@ -611,11 +609,11 @@ lib_room_desc_nothing_390 (scr_gameref_t game, scr_int room,
    * alone moves 16 of the 303 corpus goldens.  The guard needs BOTH halves:
    * the alt text empty AND the Long itself empty (`var_A4(4) = vbNullString`
    * at 4478C0, the room record's Long, not what got printed).  yeh.taf
-   * (3.90) measured on run390x: "Outside", "Woods", "Spooky
+   * (3.9) measured on run390x: "Outside", "Woods", "Spooky
    * area." each have a Long and a start alt that suppresses it with empty
    * text, and the Runner prints the heading and the exits alone.
    *
-   * Measured on p39EXAM.taf (3.90), runner_probes/exam.run390.txt and
+   * Measured on p39EXAM.taf (3.9), runner_probes/exam.run390.txt and
    * runner_probes/exam.run390.held.txt: the Void Room has an empty Long, no
    * alts and no objects, and both `e` and `look` answer "There is nothing of
    * interest here.  You can only move west." -- the sentence joined to the
@@ -649,7 +647,7 @@ lib_room_desc_event_looks (scr_gameref_t game, scr_int room,
   scr_int event;
 
   /*
-   * Finally, print any relevant event look text.  The runner appends it dead
+   * Finally, print any relevant event look text.  The Runner appends it dead
    * last in the room block, after the object list and the character lines, run
    * on with its two-space separator (probed live in both runners).  Join onto
    * the description block only if this call printed one, so an event's text
@@ -755,7 +753,7 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
    * match.
    *
    * That is the whole of ADRIFT 4's darkness.  Measured on p39DARK.taf
-   * (3.90): entering the Dark Cave unlit
+   * (3.9): entering the Dark Cave unlit
    * (runner_probes/dark.run390.unseen.txt) leaves `x stone`, `read stone` and
    * `x box` at the unmatched-noun answer "You can't see that very clearly.",
    * `take stone` at "Take what?" and `get all from box` at "You can't get
@@ -931,14 +929,10 @@ const scr_char *const DIRNAMES_8[] = {
 
 
 /*
- * lib_room_has_exits()
+ * lib_direction_name()
  *
- * Return TRUE if the player room has at least one usable exit.  Used to
- * suppress the automatic exit listing appended to room descriptions when a
- * room has no exits at all.  The original ADRIFT runner builds the exit
- * string and, for the room description (as opposed to an explicit "exits"
- * command), discards it if it ends in "any direction!"; testing for usable
- * exits up front is the equivalent.
+ * Return the name of a direction in the eight point list, or NULL if the
+ * index is out of range.
  */
 const scr_char *
 lib_direction_name (scr_int direction)
@@ -1014,6 +1008,16 @@ lib_room_exit_destination (scr_gameref_t game,
 }
 
 
+/*
+ * lib_room_has_exits()
+ *
+ * Return TRUE if the player room has at least one usable exit.  Used to
+ * suppress the automatic exit listing appended to room descriptions when a
+ * room has no exits at all.  The Runner builds the exit string and, for the
+ * room description (as opposed to an explicit "exits" command), discards it
+ * if it ends in "any direction!"; testing for usable exits up front is the
+ * equivalent.
+ */
 static scr_bool
 lib_room_has_exits (scr_gameref_t game, scr_int room)
 {
@@ -1077,12 +1081,14 @@ lib_print_exits_list (scr_gameref_t game, scr_int room)
                                                  "%player% can move "));
         }
       lib_print_name_list (game, list, dirnames, " and ");
-      /* The exits list is the `exits` command's answer, and like every other
-         library answer it stops at the full stop -- the room builder appends
-         it to the turn's one string (run400 472C64, run390 44813D) and the
-         walk and event tick that follows joins onto it.  shadowpeak (4.00):
-         "You can move north, east and west.  Seeker hums!"
-         (runner_transcripts/shadowpeak.txt). */
+      /*
+       * The exits list is the `exits` command's answer, and like every other
+       * library answer it stops at the full stop -- the room builder appends
+       * it to the turn's one string (run400 472C64, run390 44813D) and the
+       * walk and event tick that follows joins onto it.  shadowpeak (4.0):
+       * "You can move north, east and west.  Seeker hums!"
+       * (runner_transcripts/shadowpeak.txt).
+       */
       pf_buffer_character (filter, '.');
       pf_buffer_answer_break (filter);
     }
@@ -1177,10 +1183,10 @@ lib_print_room_exits (scr_gameref_t game, scr_int room)
  * their Options -> Appearance submenu offers colours and a font size only.  So
  * the pre-3.9 Runners print no heading at all in verbose mode, and in brief
  * mode print the room name *with a trailing period* as the whole of the
- * description.  Measured live under Wine: arlo.taf (3.70) in run370,
+ * description.  Measured live under Wine: arlo.taf (3.7) in run370,
  * twenty-odd room entries with Verbose on and not one heading, then the same
  * replay with Verbose off giving "Alice's Garden.  Horse walks towards you
- * from the north." for a revisit; and akron.taf (3.80) in run380, 25 room
+ * from the north." for a revisit; and akron.taf (3.8) in run380, 25 room
  * entries, again no heading anywhere.
  */
 void

@@ -20,9 +20,9 @@
 /*
  * The map model and its rasteriser, shared by both engines.  See mapdraw.h.
  *
- * Geometry follows the Adrift 5 runner's Map.vb, and the software rasteriser
+ * Geometry follows the ADRIFT 5 Runner's Map.vb, and the software rasteriser
  * below stands in for the GDI+ calls it makes (FillPolygon / DrawBezier /
- * DrawCurve / DrawEllipse / DrawString).  The ADRIFT 4 runner draws its map
+ * DrawCurve / DrawEllipse / DrawString).  The ADRIFT 4 Runner draws its map
  * out of VB control arrays instead, with a look of its own; we render both
  * engines' maps the same way rather than carrying two rasterisers, so what
  * differs between them is only where the nodes come from -- authored in
@@ -258,11 +258,7 @@ map_free (map_t *map)
   free (map);
 }
 
-/*
- * Find the node for a room.  NULL if the room was never placed on the map:
- * ADRIFT 5 rooms created procedurally have no node, and the ADRIFT 4 layout
- * passes over rooms the author flagged to hide.
- */
+/* See mapdraw.h. */
 const map_node_t *
 map_find (const map_t *map, const char *lockey)
 {
@@ -385,7 +381,7 @@ draw_rect (map_surface_t *s, int x0, int y0, int x1, int y1,
 
 /*
  * Bresenham with a round nib of radius `wd/2`.  `dash` != 0 draws a dotted
- * pen (DashStyle.Dot): the runner's dot pattern is on/off in units of the pen
+ * pen (DashStyle.Dot): the Runner's dot pattern is on/off in units of the pen
  * width.
  */
 static void
@@ -552,7 +548,7 @@ fill_triangle (map_surface_t *s,
 static void
 ud_triangle_offsets (int r, double *t, double *h, double *b)
 {
-  const double s3 = 0.8660254037844386; /* √3/2 */
+  const double s3 = 0.8660254037844386; /* sqrt(3)/2 */
   int inner = r - 3, hh, bb;
   double best = 1e9;
 
@@ -573,8 +569,8 @@ ud_triangle_offsets (int r, double *t, double *h, double *b)
 
   /*
    * The tip goes on the circle.  A base corner goes on the pixel within the
-   * circle that is nearest the equilateral one, (√3/2, 1/2) of the way out,
-   * with its distance in from the circle counted three times over.
+   * circle that is nearest the equilateral one, (sqrt(3)/2, 1/2) of the way
+   * out, with its distance in from the circle counted three times over.
    */
   *t = inner;
   *h = *b = 1;
@@ -750,7 +746,7 @@ wrap_text (const map_font_t *f, const char *text, int maxw,
 
 /*
  * Centre the room name in its box.  Stands in for GDI+'s StringFormat centring
- * plus Map.vb's GetFont auto-fit: the runner binary-searches a font size that
+ * plus Map.vb's GetFont auto-fit: the Runner binary-searches a font size that
  * makes the name fit, and since a Glk graphics window has no text at all, we
  * do the bitmap equivalent -- lay the name out at 8x8, and drop to the 5x7
  * face when that would split a word or overflow the box.
@@ -798,7 +794,7 @@ draw_label (map_surface_t *s, const char *text, int x0, int y0, int x1,
 /*
  * ------------------------------------------------------------- projection
  *
- * Plan view: Convert3DtoScreen is the identity at the runner's default
+ * Plan view: Convert3DtoScreen is the identity at the Runner's default
  * offsets, so screen = map-units * scale, translated by the camera.  Z drops
  * out of the position entirely and survives only as the level fade.
  */
@@ -875,16 +871,16 @@ rel_point (const proj_t *p, const map_node_t *n, double xp, double yp,
 }
 
 /*
- * In and Out have no direction on the plan, so the runner picks the edge they
+ * In and Out have no direction on the plan, so the Runner picks the edge they
  * leave by from where the other room lies (GetLinkPoint, Map.vb:775-816),
- * remembering it on the node as eInEdge / eOutEdge.  That is what puts a room's
- * IN badge on the side facing the room it lets you into.
+ * remembering it on the node as eInEdge / eOutEdge.  That is what puts a
+ * room's IN badge on the side facing the room it lets you into.
  */
 static int
 inout_edge (const map_node_t *n, const map_node_t *dn)
 {
   if (dn == nullptr)
-    return DIR_N;               /* no node to aim at: the runner's fallback */
+    return DIR_N;               /* no node to aim at: the Runner's fallback */
   if (dn->x > n->x + n->w)
     return DIR_E;
   if (dn->x + dn->w < n->x)
@@ -988,7 +984,7 @@ compass_site (int dir)
   return compass_port[dir];
 }
 
-/* In/Out on a facing edge: opposite half-winds (the runner's ptIn/ptOut). */
+/* In/Out on a facing edge: opposite half-winds (the Runner's ptIn/ptOut). */
 static int
 inout_site (int dir, int edge)
 {
@@ -1108,7 +1104,7 @@ badge_opposite (int dir)
  * Spatterlight extension when it does not: look for a same-page room whose
  * return badge exit (DestinationAnchor, else the opposite of SourceAnchor)
  * points back here, closest match winning -- AoS High In Oak Tree Down ->
- * Dummy on another page, while Middle of Woods Up -> oak.  The runner has no
+ * Dummy on another page, while Middle of Woods Up -> oak.  The Runner has no
  * counterpart; it would leave the badge on its default site.  This only
  * chooses which edge the badge sits on, so the worst a wrong guess does is
  * put it on an odd side of the box.
@@ -1157,7 +1153,7 @@ badge_face_node (const map_page_t *page, const map_node_t *n,
 }
 
 /*
- * The page the runner would switch to: the player's own (SelectNode), or the
+ * The page the Runner would switch to: the player's own (SelectNode), or the
  * first one when the player is somewhere the map does not place.  Returns 0
  * when there is no page to pick, leaving *key alone.
  */
@@ -1770,7 +1766,7 @@ draw_dir_icon_site (map_surface_t *s, const proj_t *p, const map_node_t *n,
 }
 
 /*
- * The ADRIFT 4 runner had two pictures per icon: the normal one when the
+ * The ADRIFT 4 Runner had two pictures per icon: the normal one when the
  * destination has been seen (clicking it recentres the map there), and a
  * dimmed one when it has not (Form29.doicon, the seen-flag branch).
  */
@@ -1783,7 +1779,7 @@ badge_dest_unseen (const map_view_t *view, const map_link_t *lk)
 /*
  * Which badges a node wears, and on which half-wind / compass site.
  *
- * An In/Out connector is recorded on one room only, but the runner puts a
+ * An In/Out connector is recorded on one room only, but the Runner puts a
  * badge on both ends of it: DrawLinks finishes by drawing the opposite badge
  * on the destination node (Map.vb:1517), which is how the room you step into
  * gets its OUT even though the <Link> lives on the room outside.  `far` is
@@ -1815,7 +1811,7 @@ typedef struct {
   unsigned char site_fixed[MAP_N_BADGES];
 } inout_badge_t;
 
-/* The order the runner visits the badges in: In, Out, Up, Down. */
+/* The order the Runner visits the badges in: In, Out, Up, Down. */
 static const int badge_order[MAP_N_BADGES] = {
   DIR_IN, DIR_OUT, DIR_UP, DIR_DOWN
 };
@@ -2068,11 +2064,11 @@ inout_layout (const map_page_t *page, const map_view_t *view)
        * Map.vb DrawNode (1312-1321): a Movement to an *unseen* room draws an
        * In/Out icon (or Up stub) even when the author never wrote a Map
        * <Link> for that direction -- Alyas of Starhollow's By Longhouse has
-       * In→In Longhouse as a Movement only.  Compass directions already get
+       * In -> In Longhouse as a Movement only.  Compass directions already get
        * pass-2 stubs the same way; badge dirs were skipped there.
        *
        * Up and Down follow Spatterlight's badge convention rather than those
-       * lines literally: the runner has no Up/Down badge at all, so it sends
+       * lines literally: the Runner has no Up/Down badge at all, so it sends
        * Up to DrawOutArrow and skips Down outright (the loop is wrapped in
        * `If eDir <> DirectionsEnum.Down`).  Since we already draw a seen
        * Up/Down Link as a U/D disc, an unseen one gets the same disc, and
@@ -2104,7 +2100,7 @@ inout_layout (const map_page_t *page, const map_view_t *view)
               /*
                * Face the dest's map node even while unseen (RecalculateNodes
                * walks every node; GetLinkPoint on a reverse DestAnchor does
-               * the same for eInEdge).  Missing/off-page → North default.
+               * the same for eInEdge).  Missing/off-page -> North default.
                */
               badge_mark (&b[i], dir,
                           inout_edge (n, page_node (page, dest)), 0);
@@ -2179,7 +2175,7 @@ render_link (const render_ctx_t *rc, int i, const map_node_t *n,
   if (link->dotted && rc->view != nullptr && rc->view->ever_blocked != nullptr)
     {
       /*
-       * The ADRIFT 5 runner hides a restricted connector while its
+       * The ADRIFT 5 Runner hides a restricted connector while its
        * restrictions currently fail -- Grandpa's Ranch's Driveway shows no
        * link north until the front door is opened (Map.vb:1429, the
        * DashStyle.Dot HasRouteInDirection gate)...
@@ -2197,8 +2193,8 @@ render_link (const render_ctx_t *rc, int i, const map_node_t *n,
 
   /*
    * Self-link: DrawOutArrow, not a curve through the box (Map.vb:1474).
-   * Skip self-Down the way the runner does.  This sits below the route
-   * gates because the runner reaches it with the pen already built: a
+   * Skip self-Down the way the Runner does.  This sits below the route
+   * gates because the Runner reaches it with the pen already built: a
    * restricted self-link whose restrictions currently fail has left
    * DrawLinks at Map.vb:1429 (Cloak of Darkness's Foyer, North -> itself
    * behind "Task6 Must BeComplete", draws nothing), and an off-level one
@@ -2296,7 +2292,7 @@ render_link (const render_ctx_t *rc, int i, const map_node_t *n,
            * the destination's row and stops level with it without ever
            * meeting the box -- which is what run400 draws.  (The eight-point
            * diagonals need no such fix: their two anchors are already the
-           * corners the runner uses.)
+           * corners the Runner uses.)
            */
           switch (link->dir)
             {
@@ -2365,7 +2361,7 @@ render_links (const render_ctx_t *rc)
 
 /*
  * Pass 2 of map_render: exits leading somewhere we have not been, as stub
- * arrows.  The runner gates these on HasRouteInDirection AndAlso Not
+ * arrows.  The Runner gates these on HasRouteInDirection AndAlso Not
  * HasSeenLocation (Map.vb DrawOutArrow) -- an exit back to a room already on
  * the map is already drawn as a connector, so it must not also get a stub.
  */
@@ -2659,7 +2655,7 @@ map_hit_dir (const map_t *map, const map_view_t *view,
 }
 
 /*
- * clsCharacter.Dijkstra, with the runner's two constraints: an edge exists
+ * clsCharacter.Dijkstra, with the Runner's two constraints: an edge exists
  * only where HasRouteInDirection says the exit is currently usable (the
  * restrictions are applied), and only rooms the player has already seen are
  * walkable.  Every edge costs 1, so Dijkstra on a unit graph is a
@@ -2695,7 +2691,7 @@ map_walk_step (const map_view_t *view, const char *from, const char *to)
           if (dest == nullptr || dest[0] == '\0')
             continue;
           if (!view_seen (view, dest))
-            continue;           /* the runner will not walk you through
+            continue;           /* the Runner will not walk you through
                                    somewhere you have never been */
           if (prev.find (dest) != prev.end ())
             continue;           /* already reached, and by a shorter route */

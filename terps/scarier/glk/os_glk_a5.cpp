@@ -439,7 +439,7 @@ gsc_a5_read_line_raw (char *buf, int bufsize)
  * gsc_a5_read_line()
  *
  * A line of input for one turn.  While a map-click walk is in progress it
- * comes from the walk rather than the keyboard: the runner submits each step
+ * comes from the walk rather than the keyboard: the Runner submits each step
  * as an ordinary direction command and re-walks at the end of every turn
  * (clsUserSession:863), so a click on a distant room walks there a room per
  * turn.  A click arriving while we wait cancels the pending line request and
@@ -645,9 +645,9 @@ gsc_a5_popup_input (void * /*ctx*/, const char *prompt, const char *dflt)
  * gsc_a5_match_command()
  *
  * Case-insensitively test whether the player input (after trimming surrounding
- * whitespace) equals the given word.  Both sides are folded, so the word can be
- * a mixed-case one taken from the game (a %PopUpChoice% option) as well as one
- * of the port's own lower-case meta-commands.
+ * whitespace) equals the given word.  Both sides are folded, so the word can
+ * be a mixed-case one taken from the game (a %PopUpChoice% option) as well as
+ * one of the port's own lower-case meta-commands.
  */
 static int
 gsc_a5_match_command (const char *input, const char *command)
@@ -673,13 +673,13 @@ gsc_a5_match_command (const char *input, const char *command)
  * Answer the %PopUpChoice[prompt, choice1, choice2]% text function -- ADRIFT's
  * two-way prompts, in practice the gender question a game asks before play
  * (Beagle2's System <RunImmediately> Autorun, "Are you Male or Female?", whose
- * answer a SetGender task turns into the Player's Gender property).  The Runner
- * puts up a modal Yes/No MsgBox where Yes yields the first choice and No the
- * second (Global.vb:2278); Glk has no dialog, so ask in the story window.
- * Since the choices carry the meaning and the buttons don't, name both in the
- * prompt and accept either the choice itself or its yes/no button.  Returns
- * non-zero for the first choice, 0 for the second, or negative to leave the
- * token unevaluated (see a5text.h a5_popup_choice_cb).
+ * answer a SetGender task turns into the Player's Gender property).  The
+ * Runner puts up a modal Yes/No MsgBox where Yes yields the first choice and
+ * No the second (Global.vb:2278); Glk has no dialog, so ask in the story
+ * window.  Since the choices carry the meaning and the buttons don't, name both
+ * in the prompt and accept either the choice itself or its yes/no button.
+ * Returns non-zero for the first choice, 0 for the second, or negative to
+ * leave the token unevaluated (see a5text.h a5_popup_choice_cb).
  */
 static int
 gsc_a5_popup_choice (void * /*ctx*/, const char *prompt,
@@ -701,8 +701,7 @@ gsc_a5_popup_choice (void * /*ctx*/, const char *prompt,
 
   gsc_a5_popup_status ();
 
-  /* This runs inside the engine (mid text-render), so a TimeBased tick must
-     not re-enter it: hold real-time mode off for the duration. */
+  /* Hold real-time mode off, as in gsc_a5_popup_input(). */
   saved_real_time = gsc_a5_real_time;
   gsc_a5_real_time = FALSE;
 
@@ -728,7 +727,8 @@ gsc_a5_popup_choice (void * /*ctx*/, const char *prompt,
       n = gsc_a5_read_line_raw (input, sizeof input);
 
       /* "glk ..." is answered here as it is at a naming prompt, and for the
-         same reason; see gsc_a5_popup_input.  The loop re-asks the question. */
+         same reason; see gsc_a5_popup_input.  The loop re-asks the question.
+        */
       if (gsc_commands_enabled && gsc_command_escape (input))
         {
           if (gsc_meta_pending == GSC_META_QUIT)
@@ -814,13 +814,14 @@ gsc_a5_command_escape (char *input)
 /*
  * gsc_a5_save()
  *
- * Serialise the a5 runtime state (a5run_save -> the Adrift 5 runner <Game> XML), then
- * zlib-deflate it to the Glk-prompted save file.  The zlib framing (RFC 1950,
- * no header/obfuscation) matches the Adrift 5 runner's FileIO.SaveState; a5run_save
- * emits the Runner's UTF-8 BOM + <?xml?> declaration and, crucially, no trailing
- * newline after </Game> (a trailing byte makes the Runner's XmlReader scan into the
- * inflate zero-padding and reject the save as "illegal hex value 0x00").  The file
- * is thus interoperable with the ADRIFT 5 Runner.
+ * Serialise the a5 runtime state (a5run_save -> the ADRIFT 5 Runner <Game>
+ * XML), then zlib-deflate it to the Glk-prompted save file.  The zlib framing
+ * (RFC 1950, no header/obfuscation) matches the ADRIFT 5 Runner's
+ * FileIO.SaveState; a5run_save emits the Runner's UTF-8 BOM + <?xml?>
+ * declaration and, crucially, no trailing newline after </Game> (a trailing
+ * byte makes the Runner's XmlReader scan into the inflate zero-padding and
+ * reject the save as "illegal hex value 0x00").  The file is thus
+ * interoperable with the ADRIFT 5 Runner.
  */
 static void
 gsc_a5_save (a5_run_t *run)
@@ -875,10 +876,10 @@ gsc_a5_save (a5_run_t *run)
 /*
  * gsc_a5_restore()
  *
- * Read a Glk-prompted save file and apply it to the run.  Sniffs the framing: a
- * zlib stream (0x78 header -- ADRIFT 5 Runner, or Scarier's own
- * new saves) is inflated first; a raw '<' (a pre-interop uncompressed Scarier
- * <SaveState> file) is handed to a5run_restore as-is.  Returns TRUE on success.
+ * Read a Glk-prompted save file and apply it to the run.  Sniffs the framing:
+ * a zlib stream (0x78 header -- ADRIFT 5 Runner, or Scarier's own new saves)
+ * is inflated first; a raw '<' (a pre-interop uncompressed Scarier <SaveState>
+ * file) is handed to a5run_restore as-is.  Returns TRUE on success.
  */
 static int
 gsc_a5_restore (a5_run_t *run)
@@ -964,9 +965,9 @@ glui32 gsc_a5_chan_sound[GSC_A5_MAX_CHANNELS];
  *
  * Silence every active ADRIFT sound channel.  Used when a game restarts: a
  * previous playthrough may have started looping music/effects (play_ext with a
- * 0xffffffff repeat count), and the fresh run only ever (re)starts the channels
- * it explicitly plays, so without this the old loop keeps sounding on any
- * channel the new intro does not touch.
+ * 0xffffffff repeat count), and the fresh run only ever (re)starts the
+ * channels it explicitly plays, so without this the old loop keeps sounding on
+ * any channel the new intro does not touch.
  */
 static void
 gsc_a5_stop_all_sounds (void)
@@ -1308,11 +1309,12 @@ gsc_a5_main_setup (a5_run_t *&run, int autorestore)
   gsc_a5_init_resources ();
 
   /* The "Adventure Upgrade" bracket-correction question (pre-5.0.26 file with
-     AND-then-OR restriction sequences): rather than interrupt the player with a
-     dialog, resolve it silently.  The default is NO (matching an unattended
+     AND-then-OR restriction sequences): rather than interrupt the player with
+     a dialog, resolve it silently.  The default is NO (matching an unattended
      ADRIFT 5 Runner -- the sequence is read verbatim); a hard-wired per-game
-     allow-list forces YES for the few games that need the correction to play or
-     score correctly (a5model_upgrade_forced_yes, keyed on the Babel IFID). */
+     allow-list forces YES for the few games that need the correction to play
+     or score correctly (a5model_upgrade_forced_yes, keyed on the Babel IFID).
+    */
   if (a5model_upgrade_pending (gsc_a5_adv))
     {
       a5model_upgrade_answer (gsc_a5_adv, a5model_upgrade_forced_yes (gsc_a5_adv));
@@ -1341,7 +1343,7 @@ gsc_a5_main_setup (a5_run_t *&run, int autorestore)
  *
  * Bring the new run to its first prompt: play the opening, or -- on a
  * Spatterlight autorestore -- put the saved state in its place.  Does not
- * return for an adventure the runner refuses outright.
+ * return for an adventure the `a5run` code refuses outright.
  */
 static void
 gsc_a5_main_opening (a5_run_t *&run, int autorestore)
@@ -1414,13 +1416,13 @@ gsc_a5_main_opening (a5_run_t *&run, int autorestore)
     }
 #endif
 
-  /* An adventure the runner refuses outright -- today, one with no locations at
-     all -- stops here rather than dropping the player into a world with no
-     room to stand in.  The real Runner shows its window and the game title,
-     then an "ADRIFT Error" dialog carrying this same text, which is why the
-     check comes after the intro (a5model_load_error).  Scarier has no dialog,
-     so the story window stands in for it, as it does for the Adventure-Upgrade
-     question. */
+  /* An adventure the `a5run` code refuses outright -- today, one with no
+     locations at all -- stops here rather than dropping the player into a
+     world with no room to stand in.  The real Runner shows its window and the
+     game title, then an "ADRIFT Error" dialog carrying this same text, which
+     is why the check comes after the intro (a5model_load_error).  Scarier has
+     no dialog, so the story window stands in for it, as it does for the
+     Adventure-Upgrade question. */
   {
     const char *load_err = a5model_load_error (gsc_a5_adv);
     if (load_err != nullptr)
@@ -1525,18 +1527,14 @@ gsc_a5_next_command (char *input, int size)
 #ifdef SPATTERLIGHT
   if (gsc_autorestored)
     {
-      /* The restored transcript already ends with the old prompt; skip
-         printing another and just take input. */
+      /* Skip the prompt; see gsc_read_command(). */
       gsc_autorestored = FALSE;
       gsc_a5_note_turn_start ();
     }
   else
     {
       gsc_a5_put_prompt ("\n");
-      /* Autosave at every top-level prompt: after the prompt is printed
-         (so the GUI snapshot ends with it) but before input is
-         requested (so the archived windows carry no pending request and
-         a restore re-enters cleanly right here). */
+      /* Autosave at every top-level prompt; see gsc_read_command(). */
       gsc_autosave ();
     }
 #else
@@ -1593,7 +1591,7 @@ gsc_a5_host_command (a5_run_t *&run, char *input)
       return GSC_A5_COMMAND_HANDLED;
     }
 
-  /* MAP toggles the map pane.  The runner's map is host chrome rather than
+  /* MAP toggles the map pane.  The Runner's map is host chrome rather than
      a game command, so authors are free to use MAP themselves; when they
      do, theirs wins and the pane is reached with "glk map". */
   if (gsc_map != nullptr && !gsc_map_taken

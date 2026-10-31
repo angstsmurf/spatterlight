@@ -45,7 +45,7 @@ Walkthrough.txt`, with three changes.
    `#Put Pill IN Slime` used to match the put command, fail its restrictions,
    and eat the turn with "Not yet." instead of falling through to the library
    put. Probed live against run400 (`.tas` transplant + probes `FM4`–`FM7`,
-   see `RUNNER_TESTS_TODO.md` §4): the real Runner's put-in family runs ahead
+   see `RUNNER_TESTS.md` §4): the real Runner's put-in family runs ahead
    of a matched-but-failing task whenever the put can complete, and the engine
    now does the same, so the author's original order works: the pill goes
    into the cup via the library, and `take slime` (TASK 40) chains the

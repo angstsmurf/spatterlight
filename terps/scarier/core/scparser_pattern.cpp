@@ -201,7 +201,7 @@ uip_next_token (void)
 
   /*
    * Search for a non-special variable reference.  This is apparently an
-   * Adrift extension to the standard pattern match, allowing %user_var% to
+   * ADRIFT extension to the standard pattern match, allowing %user_var% to
    * be used in patterns.  If found, return a variable with the name as the
    * token value.  We can't interpolate the value into the string either
    * here or earlier, so we have to save the variable's name, and retrieve
@@ -404,10 +404,7 @@ uip_new_node (scr_pttype_t type)
 {
   scr_ptnoderef_t node;
 
-  /*
-   * Unless the pool is empty, search forwards from the next cursor position
-   * until an unused slot is found, or until the index wraps to the cursor.
-   */
+  /* Search the pool as uip_new_word() does. */
   if (uip.pools.node_available > 0)
     {
       scr_int index_;
@@ -555,7 +552,7 @@ uip_parse_element (void)
          * " " -- and 3.7-3.9 checkwild (run390 4346A8) compares literally
          * with nothing collapsed at all.  So a pattern with a double space
          * inside it never matches a normally typed line.  "Ticket to No
-         * Where" (4.00) has task 347 "ask  *girl* about *" -- the girl's
+         * Where" (4.0) has task 347 "ask  *girl* about *" -- the girl's
          * CharTask, meant to run from her walk -- and run400 answers `ask
          * young girl about grantby` from her conversation topic ("Wie
          * bitte? Grantby?", runner_probes/ticket.run400.txt);

@@ -2,7 +2,7 @@
 """ADRIFT 4.0 probe: are ALRs applied before or after characters()?
 
 The open question left by "Ported 2026-09-08: `x <character who is elsewhere>`
-names the character" (notes/WINE-TRANSCRIPTS-TODO.md, at the foot).  run400's
+names the character" (notes/WINE-TRANSCRIPTS.md, at the foot).  run400's
 rewrite -- "<person> cannot see <Name> from here." -- fires out of characters()'
 examine branch only if the message the turn has produced so far IS the examine
 tail, and 4.0 tests that tail by EQUALITY (4801AD-48021F):

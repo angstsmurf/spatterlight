@@ -66,7 +66,7 @@
  * over an NPC named "Mystery" runs in the Runner, and still runs here.
  *
  * MEASURED on p39CASE.taf under run390
- * (runner_probes/case.run390.txt, all 19 commands echoed): 3.90 substitutes
+ * (runner_probes/case.run390.txt, all 19 commands echoed): 3.9 substitutes
  * just as strictly, but it DOES fold case.  The same cells, one Runner down --
  *
  *   task "pa %object%", Short "Widget"          pa widget -> runs
@@ -80,13 +80,13 @@
  *                       Alias "jewel"           pa jewel -> runs
  *                                               pa a gem / pa the gem -> no
  *
- * -- so strict binding starts at 3.90, and only the case fold is lost at 4.0.
+ * -- so strict binding starts at 3.9, and only the case fold is lost at 4.0.
  * run390 does it in Form1.frm:13991ff, through c() and the seen byte at
  * .global_44, rewriting the task command in place.
  *
- * Before 3.90 the substitution is a different animal, and an earlier draft of
+ * Before 3.9 the substitution is a different animal, and an earlier draft of
  * this comment had it wrong: the UTF-16 string census finds "%object%" in all
- * four Runners (only "%character%" is missing below 3.90).  run370 and run380
+ * four Runners (only "%character%" is missing below 3.9).  run370 and run380
  * do substitute, but they pick ONE object by the line rather than by the
  * pattern's position -- see run_pre400_substitute_references() -- and then
  * compare the rewritten pattern against the whole line, so the strict flag
@@ -109,7 +109,7 @@
  * uip_set_strict_reference()
  *
  * Set the strict %object%/%character% comparison, and whether it folds case
- * (cleared for 3.90, which lower-cases the name it substitutes), around task
+ * (cleared for 3.9, which lower-cases the name it substitutes), around task
  * command matching; see above.
  */
 void
@@ -164,7 +164,7 @@ uip_is_word_end (scr_char character)
  * uip_compare_reference_strict()
  *
  * The strict comparator described above: the name must appear at the current
- * position exactly as authored -- 4.0 -- or bar its case -- 3.90 -- against a
+ * position exactly as authored -- 4.0 -- or bar its case -- 3.9 -- against a
  * lowercased view of the input, and must end on a word boundary.  Returns the
  * new position on match, else zero.
  *
@@ -242,7 +242,7 @@ uip_compare_reference (const scr_char *words)
        * same shape; the 4.0 strict comparator above already refuses), so a
        * name authored with a trailing space can only match input holding
        * two consecutive spaces -- which scr_normalize_string() never
-       * delivers.  Measured live on superliam.taf (3.80): object
+       * delivers.  Measured live on superliam.taf (3.8): object
        * Short "necko wafers " makes `take necko wafers` answer "Take
        * what?" in run380.exe, while the (task-matched) `eat necko wafers`
        * still works.  Deliberate deviation: Scarier forgives it outside
@@ -557,7 +557,7 @@ uip_nothing_follows (scr_ptnoderef_t node)
   /*
    * A trailing " *" counts as nothing: the wildcard matches the empty
    * string, so a containing reference that has consumed the whole line
-   * still satisfies "pull %object% *".  Vardock Bates (4.00, run400
+   * still satisfies "pull %object% *".  Vardock Bates (4.0, run400
    * transcript): `tirar de la palanca` -> synonym -> `pull de la
    * palanca` answers "You pull la palanca, but nothing happens." -- the
    * lever found by co() -- where we fell to "You pull, but nothing happens."
@@ -675,7 +675,7 @@ uip_match_remainder (scr_ptnoderef_t node, scr_int extent)
  * command -- only the author's own tasks, which match case-insensitively,
  * can still reach them.
  *
- * Measured on Bandera.taf (4.00), whose SYNONYM table maps
+ * Measured on Bandera.taf (4.0), whose SYNONYM table maps
  * marife/Marife/marife' all to the capitalised "Marife'": run400 answers
  * `x marife`, `x Marife` and `x MARIFE` alike with the ALR'd "You see no
  * such thing." (runner_transcripts/bandera.txt,
@@ -950,8 +950,10 @@ struct uip_entity_sweep_t
 };
 
 
-/* One sweep: reference every admitted entity a name or alias of which
-   matches, and note the extents. */
+/*
+ * One sweep: reference every admitted entity a name or alias of which
+ * matches, and note the extents.
+ */
 void
 uip_entity_sweep_t::run (scr_int scope, scr_int pass)
 {
@@ -1005,7 +1007,7 @@ uip_entity_sweep_t::run (scr_int scope, scr_int pass)
  * A name matched in place is no match when nothing it names has ever been
  * seen and none of it is here: run400's resolver (463640) scores present,
  * seen objects only, so the line is left to whatever else it contains.
- * Scene of the Crime (4.00) has "a small card" in hand and "a tiny card"
+ * Scene of the Crime (4.0) has "a small card" in hand and "a tiny card"
  * (alias "tiny card") not yet in play: `x tiny card` describes the small
  * card (run400x, Delron walkthrough replay), where the in-place
  * match answered "I see no such thing.".  A name seen elsewhere keeps the
@@ -1076,7 +1078,7 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
     gs_clear_object_references (game);
 
   /*
-   * Before 3.90 a task command's %character% matches nothing whatever the
+   * Before 3.9 a task command's %character% matches nothing whatever the
    * player types.  Neither run370.exe nor run380.exe holds the literal
    * "%character%" at all -- the UTF-16 string census finds one copy in
    * run390.exe and one in run400.exe and none in the two older Runners, where
@@ -1113,7 +1115,7 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
    * co() resolves it -- run400 Proc_21_39_46486C, run380 c() @429048 -- by
    * whole-word containment: an object matches when its Short or any Alias
    * occurs as whole words anywhere in the typed command, not only at the
-   * position the pattern has reached.  Measured on man_overboard (4.00) turn
+   * position the pattern has reached.  Measured on man_overboard (4.0) turn
    * 49: `x silver key`, with a "silver key" nowhere in the game but "a key"
    * in the room, examines the key; we answered "You see no such thing."
    * The containing match consumes the rest of the input.  Task commands
@@ -1154,7 +1156,7 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
    * is the absent tails' own test (the ask block at 47F8E5, the attack tail
    * at 47F40D -- lib_attack_absent_npc()), which rescan the line for
    * themselves, and mode 3, at 48B9A5 alone, answers a raised question.  So
-   * an absent character never binds here: mutaydid (4.00) rewrites `butcher
+   * an absent character never binds here: mutaydid (4.0) rewrites `butcher
    * mystery meat` to `attack mystery meat` through its synonym table, and
    * although "meat" is an alias of The Mother Meat (asleep on Planet
    * Mutaydid), run400 answers with the object arm, "You can't see the
@@ -1172,7 +1174,7 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
    * 1) scores every present-and-seen object by Short-as-a-whole-word plus
    * alias-as-a-whole-word, and referencedob's own co(i, 3) loop then counts
    * only present namesakes, so an absent object's Short never outranks a
-   * present object's Alias.  Measured on escape_to_new_york (4.00) turn 107,
+   * present object's Alias.  Measured on escape_to_new_york (4.0) turn 107,
    * `look under table` in Cabin E86: the Runner describes the present
    * "mahogany furniture" (alias "table"); a names-first pass bound the
    * absent "table" (object 50) instead and answered "You see no such
@@ -1222,8 +1224,10 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
 
           sweep.run (scope, pass);
 
-          /* 4.0: a name matched in place that nothing seen or present
-             bears is no match; see drop_unknown(). */
+          /*
+           * 4.0: a name matched in place that nothing seen or present
+           * bears is no match; see drop_unknown().
+           */
           if (pass == 0 && contain && sweep.max_extent > 0 && !is_character
               && version >= TAF_VERSION_400)
             sweep.drop_unknown ();

@@ -38,14 +38,14 @@ static int gsc_help_requested = FALSE,
            gsc_help_hints_silenced = FALSE;
 
 /*
- * Adrift text colours ("glk colour").
+ * ADRIFT text colours ("glk colour").
  *
- * Adrift games are written for a Runner that paints its output pane in a
+ * ADRIFT games are written for a Runner that paints its output pane in a
  * palette rather than in the interpreter's theme: a background, an "output"
- * (replies) colour for the story, and an "input" (typed) colour that <c>...</c>
- * also asks for, on top of whatever <font colour="..."> the text names.  Glk
- * has no colour of its own, so by default this port drops all of that and
- * shows the story in the interpreter's styles, as SCARE always has.
+ * (replies) colour for the story, and an "input" (typed) colour that
+ * <c>...</c> also asks for, on top of whatever <font colour="..."> the text
+ * names.  Glk has no colour of its own, so by default this port drops all of
+ * that and shows the story in the interpreter's styles, as SCARE always has.
  *
  * "glk colour on" turns the palette back on, through the Gargoyle/Spatterlight
  * garglk_set_zcolors extension.  Where that extension is missing (cheapglk,
@@ -54,8 +54,8 @@ static int gsc_help_requested = FALSE,
  *
  * A game that cannot be read without the palette -- an ADRIFT 5 adventure that
  * set colours of its own, or text that paints a background or names a colour
- * too close to the interpreter's to see -- turns the mode on for itself at load
- * time, before a word is printed; gsc_colour_detect is what asks.
+ * too close to the interpreter's to see -- turns the mode on for itself at
+ * load time, before a word is printed; gsc_colour_detect is what asks.
  *
  * Where the palette comes from differs by engine.  ADRIFT 5 stores it in the
  * adventure itself (a5model.h bg_colour and friends).  ADRIFT <=4 stores none:
@@ -63,9 +63,9 @@ static int gsc_help_requested = FALSE,
  * defaults below are the ones run400.exe ships, read out of the settings it
  * writes under HKCU\Software\VB and VBA Program Settings\ADRIFT\Runner:
  * Background 0, Text1 3289855 and Text2 65280 -- OLE colour integers (low byte
- * red), i.e. black, #FF3232 for typed text and #00FF00 for replies.  They match
- * the swatches in the Runner's own Options -> Display & Media dialog ("Set
- * typed colour", "Set replies colour", "Set background colour").
+ * red), i.e. black, #FF3232 for typed text and #00FF00 for replies.  They
+ * match the swatches in the Runner's own Options -> Display & Media dialog
+ * ("Set typed colour", "Set replies colour", "Set background colour").
  */
 /* GSC_HAVE_ZCOLORS is in os_glk_internal.h; the palette itself and the on/off
    flag are with the other module options in os_glk.cpp, since the status line
@@ -152,15 +152,15 @@ gsc_output_provide_help_hint (void)
 /*
  * gsc_colour_lookup()
  *
- * Turn an Adrift colour token -- a name, or a hex triplet with or without its
+ * Turn an ADRIFT colour token -- a name, or a hex triplet with or without its
  * leading '#' -- into an 0xRRGGBB colour.  Returns GSC_COLOUR_NONE for the
  * empty token and for "default", both of which mean "back to the surrounding
  * colour" rather than a colour of their own.
  *
- * The names, and their values, are the Runner's own table (Global.ColourLookup),
- * including its aliases (cyan/turquoise/aqua, magenta/fuchsia) and its
- * treatment of anything unrecognised as a hex triplet right-padded with zeros.
- * `token` must already be lowercased and unquoted.
+ * The names, and their values, are the Runner's own table
+ * (Global.ColourLookup), including its aliases (cyan/turquoise/aqua,
+ * magenta/fuchsia) and its treatment of anything unrecognised as a hex triplet
+ * right-padded with zeros.  `token` must already be lowercased and unquoted.
  */
 glui32
 gsc_colour_lookup (const char *token)
@@ -316,17 +316,18 @@ gsc_colour_from_tag (const scr_char *tag, const char *key)
  * gsc_colour_luminance()
  * gsc_colour_legible()
  *
- * Whether text in one colour can be read against another.  `gsc_colour_legible`
- * answers the WCAG contrast test -- the ratio of the two relative luminances,
- * each lifted by 0.05, against a 3:1 floor, which is the threshold for text
- * that is large or merely decorative rather than a page of body copy.
+ * Whether text in one colour can be read against another.
+ * `gsc_colour_legible` answers the WCAG contrast test -- the ratio of the two
+ * relative luminances, each lifted by 0.05, against a 3:1 floor, which is the
+ * threshold for text that is large or merely decorative rather than a page of
+ * body copy.
  *
  * Luminance is the sRGB one with the transfer curve approximated as a plain
- * square rather than the piecewise 2.4 power, which keeps this in integers (the
- * scale is 255*255) and, checked against the exact formula over the Runner's
- * whole colour table, changes no verdict here: red, green, blue, teal, navy and
- * grey stay legible on white, while white, silver, yellow, lime, cyan, orange
- * and pink stay illegible on it.
+ * square rather than the piecewise 2.4 power, which keeps this in integers
+ * (the scale is 255*255) and, checked against the exact formula over the
+ * Runner's whole colour table, changes no verdict here: red, green, blue,
+ * teal, navy and grey stay legible on white, while white, silver, yellow,
+ * lime, cyan, orange and pink stay illegible on it.
  */
 static glui32
 gsc_colour_luminance (glui32 rgb)
@@ -435,19 +436,20 @@ gsc_colour_wanted_by (const scr_char *text, void *opaque)
  *
  * Whether this game starts in its own palette without being asked for it.
  *
- * ADRIFT 5 answers from its header: an adventure whose palette differs from the
- * Runner's default has a look the author sat down and chose, and showing it in
- * the interpreter's theme instead throws that away.  ADRIFT <=4 has no header
- * to ask -- the .taf carries no colour fields at all, the palette being a Runner
- * preference -- so both engines fall back on the authored text, which is where
- * gsc_colour_wanted_by describes what counts.
+ * ADRIFT 5 answers from its header: an adventure whose palette differs from
+ * the Runner's default has a look the author sat down and chose, and showing
+ * it in the interpreter's theme instead throws that away.  ADRIFT <=4 has no
+ * header to ask -- the .taf carries no colour fields at all, the palette being
+ * a Runner preference -- so both engines fall back on the authored text, which
+ * is where gsc_colour_wanted_by describes what counts.
  *
- * Called while the loading window is still up, so the theme's background can be
- * measured before colour mode publishes stylehints of its own; the answer feeds
- * gsc_colour_startup, which the -c switch also sets, and so reaches the palette
- * by the same path -- hints published before the first window open, and no
- * rebuild.  That also means it is never consulted on an autorestore, which is
- * right: a restored session brings back the mode the player left it in.
+ * Called while the loading window is still up, so the theme's background can
+ * be measured before colour mode publishes stylehints of its own; the answer
+ * feeds gsc_colour_startup, which the -c switch also sets, and so reaches the
+ * palette by the same path -- hints published before the first window open,
+ * and no rebuild.  That also means it is never consulted on an autorestore,
+ * which is right: a restored session brings back the mode the player left it
+ * in.
  */
 scr_bool
 gsc_colour_detect (winid_t window)
@@ -598,7 +600,7 @@ gsc_set_glk_style (void)
   gsc_style_combo_t combo;
 
   /*
-   * In colour mode the Adrift colours ride alongside the Glk style: an
+   * In colour mode the ADRIFT colours ride alongside the Glk style: an
    * explicit <font colour=...> if one is open, otherwise the typed colour
    * while <c> is (the Runner's "replies" colour being the normal one).  The
    * Glk style is still set below, so bold and centering keep working; only
@@ -912,7 +914,7 @@ gsc_reset_glk_style (void)
 #if defined(GLK_MODULE_GARGLK_FILE_RESOURCES) || defined(SPATTERLIGHT)
 /*
  * Tracking for redrawing a graphic that an immediate screen clear would
- * otherwise wipe.  Adrift shows graphics in a separate pane that text clears
+ * otherwise wipe.  ADRIFT shows graphics in a separate pane that text clears
  * don't affect; this port draws them inline in the main window, so a graphic
  * drawn at the start of a turn is lost if that same turn's text then clears
  * the screen (as "examine girl" in Majesty Mall Center does).  We remember the
@@ -973,7 +975,7 @@ gsc_handle_cls_tag (void)
   /*
    * If a graphic was drawn earlier this turn (no player input since), the
    * clear just wiped it.  Redraw it so it survives the clear, matching
-   * Adrift's separate graphics pane.
+   * ADRIFT's separate graphics pane.
    */
   if (gsc_graphic_drawn_since_input)
     gsc_draw_inline_graphic (gsc_pending_graphic_id);
@@ -1115,7 +1117,7 @@ gsc_handle_waitkey_tag (void)
 /*
  * os_print_tag()
  *
- * Interpret selected Adrift output control tags.  Not all are implemented
+ * Interpret selected ADRIFT output control tags.  Not all are implemented
  * here; several are ignored.
  */
 void

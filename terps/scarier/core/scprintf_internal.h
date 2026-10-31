@@ -23,8 +23,7 @@
 
 /*
  * Internal header of the printfilter: what scprintf.cpp and the four files
- * split out of it share.  They were one translation unit, so much here is
- * shared state rather than interface.
+ * listed below share.  Much here is shared state rather than interface.
  *
  *   scprintf.cpp         the filter object, its create/destroy, the ALR
  *                        and synonym caches, tracing
@@ -123,7 +122,8 @@ typedef struct scr_filter_s
    * to treat as if it were not there.  See pf_hide_prefix(). */
   size_t hidden;
   /* Length of a prefix of the buffer the Runner has already printed, and so
-   * already filtered: no later filtering touches it.  See pf_print_so_far(). */
+   * already filtered: no later filtering touches it.  See pf_print_so_far().
+   * */
   size_t frozen;
   /* Buffer length at the last pf_print_so_far(), where the Runner's own
    * string restarted; -1 otherwise.  Unlike frozen, it rides the task
@@ -158,12 +158,13 @@ typedef struct scr_filter_s
  * filter pass, profiling text-heavy ADRIFT 4 games (humbug) put ~30% of engine
  * time there.
  *
- * Each table is resolved once into a flat array the consumer iterates directly,
- * with no prop_get() calls left in the hot loop.  The two tables differ enough
- * to keep separate builders -- ALRs are taken in a length-sorted order held in
- * "ALRs2"/"ALRIndex", synonyms in raw property order -- but they share the
- * entry shape, the storage (pointers straight into the property store, which
- * owns the strings for the game's lifetime; no copies), and the lifetime.
+ * Each table is resolved once into a flat array the consumer iterates
+ * directly, with no prop_get() calls left in the hot loop.  The two tables
+ * differ enough to keep separate builders -- ALRs are taken in a length-sorted
+ * order held in "ALRs2"/"ALRIndex", synonyms in raw property order -- but they
+ * share the entry shape, the storage (pointers straight into the property
+ * store, which owns the strings for the game's lifetime; no copies), and the
+ * lifetime.
  *
  * Lifetime: both are reset by pf_state_reset() from pf_create(), which
  * run_create() calls exactly once per game, so the cached pointers can never

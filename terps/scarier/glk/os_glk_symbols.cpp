@@ -96,7 +96,7 @@ static const glui32 GSC_WEBDINGS_TO_UNICODE[] = {
 };
 
 /*
- * Wingdings, the other symbol face Adrift games reach for -- roughly four
+ * Wingdings, the other symbol face ADRIFT games reach for -- roughly four
  * times as often as Webdings across the v4 corpus.  Read off the `post` table
  * glyph names of Wingdings.ttf the same way the Webdings table above was, and
  * cross-checked against the Unicode character names (Unicode 7.0 encoded this

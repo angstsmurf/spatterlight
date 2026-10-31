@@ -68,7 +68,7 @@ above the catch-all `*` rows so NPC rows still win):
 The indefinite `close` really is `Prefix & " " & Short`, not a typo; and `buy`
 has no branch of its own -- the sentence comes from therest()'s leading
 obhere() clause, which runs before every verb branch.  See
-notes/WINE-TRANSCRIPTS-TODO.md, "FIXED 2026-08-25 -- the 4.0 seen-but-absent
+notes/WINE-TRANSCRIPTS.md, "FIXED 2026-08-25 -- the 4.0 seen-but-absent
 resolver".
 
 Still unmeasured: the 3.70 and 3.80 halves.  The decompiles say 3.8 tracks 3.9
@@ -158,7 +158,7 @@ room("Void Room", "", {3: 1})                     # NO long description at all
 
 # OBJECTS -- all dynamic and loose, so the room listing SEES them (a static is
 # never listed, and an unlisted object is not referenceable; see the object
-# seen model note in notes/WINE-TRANSCRIPTS-TODO.md).
+# seen model note in notes/WINE-TRANSCRIPTS.md).
 def obj(prefix, short, desc, position, container=0, capacity=0, openable=0,
         parent=0, sizeweight=0):
     s(prefix); s(short); s("")       # Prefix Short [1]Alias

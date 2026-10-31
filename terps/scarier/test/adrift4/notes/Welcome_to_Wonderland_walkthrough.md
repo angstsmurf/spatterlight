@@ -51,7 +51,7 @@ back to the legacy recompute-from-held-objects, which weighs only what the
 player actually carries, so the knife is takeable and the route runs. Since
 2026-10-17 this is no longer needed: `obj_weigh` counts only real children
 (position In/On with the matching parent) in the running total too, a
-deliberate deviation from the Runner logged in WINE-TRANSCRIPTS-TODO.md, so
+deliberate deviation from the Runner logged in WINE-TRANSCRIPTS.md, so
 the take succeeds with the default accounting.
 
 ## Scoring (every `ACT type=4`)

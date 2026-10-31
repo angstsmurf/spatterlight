@@ -103,13 +103,13 @@ gsc_status_begin (glui32 *width)
      reversed -- the Runner draws it as the inverse of the story text, the
      game's text colour behind and its background colour for the letters -- but
      the inversion is in the colours named just above rather than in the style.
-     Doing it that way is what makes every library agree: stylehint_ReverseColor
-     is honoured by some and dropped by others once a zcolor is in force, so a
-     User1 bar here would come out inverted in one interpreter and plain in the
-     next.  An interpreter that is ignoring the colours we name takes the
-     reverse-video bar as well: the pair named just above would be dropped,
-     leaving the bar in the theme's plain text colours and so indistinguishable
-     from the story window. */
+     Doing it that way is what makes every library agree:
+     stylehint_ReverseColor is honoured by some and dropped by others once a
+     zcolor is in force, so a User1 bar here would come out inverted in one
+     interpreter and plain in the next.  An interpreter that is ignoring the
+     colours we name takes the reverse-video bar as well: the pair named just
+     above would be dropped, leaving the bar in the theme's plain text colours
+     and so indistinguishable from the story window. */
   glk_set_style (gsc_colour_visible () ? style_Normal : style_User1);
   for (index = 0; index < *width; index++)
     glk_put_char (' ');
@@ -124,9 +124,9 @@ gsc_status_end (void)
 #ifdef GSC_HAVE_ZCOLORS
   /* Name the story window's own colours again.  A library whose zcolors are
      global as well as per-stream (Gargoyle) paints window backgrounds from the
-     last colours it was told about, so leaving the bar's inverted pair in force
-     would tint the story window too.  Safe with respect to the input echo:
-     gsc_colour_echo() runs from gsc_read_line_locale(), after the status
+     last colours it was told about, so leaving the bar's inverted pair in
+     force would tint the story window too.  Safe with respect to the input
+     echo: gsc_colour_echo() runs from gsc_read_line_locale(), after the status
      redraw, so it always has the last word on the prompt's colour. */
   if (gsc_colour_enabled && gsc_main_window)
     garglk_set_zcolors_stream (glk_window_get_stream (gsc_main_window),
@@ -206,8 +206,8 @@ enum { GSC_STATUS_ELLIPSIS = 0x2026, GSC_STATUS_MIN_TAIL = 1 };
  * and must leave at least one blank between the two.
  *
  * A status too long for that gap is truncated at its head: the tail carries
- * the parts that change -- score, moves, time, whatever the game keeps there --
- * so it is the head that gets replaced with an ellipsis.  The ellipsis goes
+ * the parts that change -- score, moves, time, whatever the game keeps there
+ * -- so it is the head that gets replaced with an ellipsis.  The ellipsis goes
  * straight after the room name and the tail straight after the ellipsis, with
  * no blanks around it.  If not even the ellipsis and a character of text will
  * fit, the status is dropped rather than allowed to run into the room name.
@@ -388,7 +388,7 @@ gsc_status_notify (void)
 {
   if (gsc_is_a5)
     {
-      /* ADRIFT 5 games have no scare game state, so both v4 renderers would
+      /* ADRIFT 5 games have no ADRIFT 4 game state, so both v4 renderers would
          ask scr_* about a NULL game and paint "[invalid game]".  os_confirm()
          reaches here for the shared hint display and the quit/restart
          prompts, which both engines use. */
@@ -433,7 +433,7 @@ gsc_status_redraw (void)
                                   1, nullptr);
       if (gsc_is_a5)
         {
-          /* ADRIFT 5 games have no scare game state; use the a5 renderer. */
+          /* ADRIFT 5 games have no ADRIFT 4 game state; use the a5 renderer. */
           if (gsc_a5_run)
             gsc_a5_status (gsc_a5_run);
         }

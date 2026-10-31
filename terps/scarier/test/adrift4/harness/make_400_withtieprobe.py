@@ -2,7 +2,7 @@
 """ADRIFT 4.0 probe: an ambiguity INSIDE a " with " half.
 
 The last unmeasured corner of the second-noun lead in
-notes/WINE-TRANSCRIPTS-TODO.md.  p4LOCK could not raise one -- its stones
+notes/WINE-TRANSCRIPTS.md.  p4LOCK could not raise one -- its stones
 are Shorts "red stone" and "blue stone", and 463640 scores the whole Short,
 so "stone" resolves to nothing rather than to a tie -- so this probe gives
 two objects the SAME Short and tells them apart by Prefix, the way p4CO's

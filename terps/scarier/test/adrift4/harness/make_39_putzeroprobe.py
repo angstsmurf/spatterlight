@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ADRIFT 3.9 probe: the size-0 object, and run390's " is full." arm.
 
-The last open arm of run390 insides()' put (WINE-TRANSCRIPTS-TODO.md,
+The last open arm of run390 insides()' put (WINE-TRANSCRIPTS.md,
 "Put: the ' is full.' arm at 461E59"):
 
     If var_D0 = capacity(36) And flag(29) = 1 And var_E0 = "inside" Then

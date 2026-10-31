@@ -52,7 +52,7 @@ GROUP = re.compile(r'\[[^\[\]{}]*\]|\{[^\[\]{}]*\}')
 def group_tokens(line):
     """The default scan: `*` or `%text%` sitting INSIDE a group.
 
-    run400 refuses such a pattern for every input (RUNNER_TESTS_TODO.md §4);
+    run400 refuses such a pattern for every input (RUNNER_TESTS.md §4);
     Scarier matches two cells of it, so this measures the exposure.
     """
     out = []

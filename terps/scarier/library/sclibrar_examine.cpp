@@ -20,9 +20,6 @@
 /*
  * Examining the player, NPCs and objects, absent-object refusals, and
  * the listing of container/supporter contents.
- *
- * See sclibrar.h for what the library files share and sclibrar_internal.h
- * for what the core files share.
  */
 
 #include "sclibrar.h"
@@ -154,10 +151,10 @@ lib_examine_self_close (scr_gameref_t game, const scr_char *description)
        * loc_471C6D-471D40, also lets "!", ")", "%" and "?" stand.  (When
        * the position clause above is printed its own "." satisfies the same
        * test, so only the bare description needs it here.)  Measured on
-       * Archie's Birthday (3.90, run390): its PlayerDesc is the
+       * Archie's Birthday (3.9, run390): its PlayerDesc is the
        * ALR key "[player=%player val%]", so the Runner appends "." to the
        * key and the substituted paragraph ends "...self-delusions."; and on
-       * yak_shaving (4.00, run400, same day): `x me` answers "You are
+       * yak_shaving (4.0, run400, same day): `x me` answers "You are
        * somewhat raggedy looking after your journey." for a PlayerDesc with
        * no full stop.  3.7/3.8 (run370 examines @435C9C, run380 @43D5EC)
        * build the reply differently and are not modelled.
@@ -306,7 +303,7 @@ lib_absent_seen_object (scr_gameref_t game)
    * with no present namesake pass A marks nothing and they never run; the
    * "co(i, 4)" at 456E6A is a single vestigial call, not a loop.)
    *
-   * Measured on cowboyblues (4.00, runner_probes/cowboyblues.run400.txt line
+   * Measured on cowboyblues (4.0, runner_probes/cowboyblues.run400.txt line
    * 1070): `x wall` in the Sheriff's Office after visiting the Back Room
    * ("east wall" 91, alias "wall") and Blood Alley ("walls" 96, alias "wall")
    * answers "You see no such thing." -- both score 1 on the alias and tie.
@@ -389,7 +386,7 @@ lib_cant_see_absent_object (scr_gameref_t game,
  * North Room and a gem in a room the player never enters, both named from
  * elsewhere:
  *
- *     command       3.80                                3.70
+ *     command       3.8                                 3.7
  *     x statue      seen:   You can't see a statue      the same
  *                           from here!
  *                   unseen: You can't see that.
@@ -644,7 +641,7 @@ lib_describe_npc (scr_gameref_t game, scr_int npc)
    * not on `x bob` itself; a looping walker with enter/exit lines prints
    * nothing on that turn; and `turns` reads 0 after `x bob`, `x carl` (empty
    * description), `look at bob` and `examine bob`, while `x me` and `x pebble`
-   * count.  run390, BobBobsly.taf (3.90), runner_probes/bob_bobsly.run390.txt:
+   * count.  run390, BobBobsly.taf (3.9), runner_probes/bob_bobsly.run390.txt:
    * `turns` climbs by one across `x bouncer`.
    *
    * This is Beanstalk turn 45: the stranger's greeting is a one-turn event
@@ -852,7 +849,7 @@ lib_list_in_object_joined (scr_gameref_t game, scr_int container)
  * the whole of it, `"  Inside " & tense(prefix) & " " & short & " is " &
  * list` -- and neither binary contains " is inside " or " are inside "
  * anywhere; both strings first appear in run390.  Measured live under Wine
- * 2026-08-24 on mikes.taf (3.80) in run380, whose toilet holds exactly one
+ * 2026-08-24 on mikes.taf (3.8) in run380, whose toilet holds exactly one
  * object: `open toilet` answers "You open the toilet.  Inside the toilet is
  * a poop." where 3.9 and 4.0 would say "A poop is inside the toilet."  The
  * same replay shows it again on `look in mailbox`.
@@ -977,7 +974,7 @@ lib_list_on_object_alternate (scr_gameref_t game, scr_int supporter,
  * three or more the normal (prefixed) one -- see lib_list_in_object() for
  * the run400 derivation.  SCARE used the postfixed format unconditionally
  * for surfaces.  Both halves are visible in the Professor Von Witt
- * walkthrough transcript (Runner 4.00): "On the shelves is a
+ * walkthrough transcript (Runner 4.0): "On the shelves is a
  * leg to stand on, a handy dandy extra hand, the sloppy jalopy, a portable
  * doorknob and a pollen popper upper." (5 objects) against "A container of
  * Reggie's Remedy Rust Resolvent is on the shelves." (1 object).
@@ -1042,7 +1039,7 @@ lib_list_on_object (scr_gameref_t game, scr_int supporter,
  *   inside is Gun Holster, Your Cell Phone, Neatly Wrapped Gift and Your
  *   Badge.
  *
- * measured live in run400 on The_X-Files_A_New_Beginning.taf (4.00),
+ * measured live in run400 on The_X-Files_A_New_Beginning.taf (4.0),
  * 2026-08-25, runner_probes/xfiles.run400.txt line 9.  SCARE had it the other
  * way and as two sentences, "Inside Your Desk is ...  Your Coffee Mug and The
  * Memo are on Your Desk."  The single closing '.' is appended once at the end
@@ -1147,7 +1144,7 @@ lib_list_object_state (scr_gameref_t game, scr_int object, scr_bool is_described
       /*
        * run400 examines() builds this line at 4718E1 from a literal " is "
        * and the raw state name, the same as the open/closed suffix above
-       * it; isare() is never consulted.  magicshow (4.00, Prefix "the",
+       * it; isare() is never consulted.  magicshow (4.0, Prefix "the",
        * Short "gates", states "Up|Down") measures `examine gates` as "The
        * gates are down." (runner_probes/magicshow.run400.b.txt T80) only
        * because the game's own ALRs rewrite "The gates is Down." -- an "are"
@@ -1178,31 +1175,12 @@ lib_list_object_state (scr_gameref_t game, scr_int object, scr_bool is_described
 
 
 /*
- * lib_examine_referencedob_400()
+ * lib_co_400_name_word()
  *
- * run400's examine resolver referencedob, Proc_19_88_457034, for a line
- * whose up-front noun score (Proc_21_58_463640, MemVar_4942F8) tied.  It
- * works from co() (Proc_21_39_46486C), whose first step picks ONE name word
- * per object: the Short if it is a whole word of the line (454CB0), else
- * the LAST alias that is (the alias loop 4642DE never breaks).  co() then
- * counts the objects that answer to exactly that word (4465C8) and are
- * present and seen (46435A-46437E).
- *
- *   pass A  456E2D  co(i, 3): marks every object whose word has ANY such
- *                   namesake -- the object itself need not be present.
- *                   None marked -> &HFF; one -> that object.
- *   pass B  456ED3  co(i, 0) over the marked: true when the word has
- *                   exactly one namesake (464853).  One true -> that
- *                   object.  More than one namesake takes the 454454/
- *                   "Which" arm at 464560, modelled for the question it
- *                   leaves by lib_co_400_raise_for_references(), not here.
- *   pass C  456F5D  over the marked, count the words of the Prefix found in
- *                   the line; a new best takes the object, an equal count
- *                   gives &HFE.  With no Prefix word anywhere the answer is
- *                   whatever pass B (or A) touched last.
- *
- * Returns the object, -1 for &HFF, -2 for &HFE, and -3 when pass B met a
- * crowded name and the answer is the unmodelled arm's.
+ * The first step of run400's co() (Proc_21_39_46486C): pick the ONE word an
+ * object answers to on this line.  That is the Short if it is a whole word
+ * of the line (454CB0), else the LAST alias that is (the alias loop 4642DE
+ * never breaks), else NULL.
  */
 const scr_char *
 lib_co_400_name_word (scr_gameref_t game, scr_int object, const scr_char *input)
@@ -1228,6 +1206,12 @@ lib_co_400_name_word (scr_gameref_t game, scr_int object, const scr_char *input)
   return word;
 }
 
+/*
+ * lib_co_400_present_namesakes()
+ *
+ * The count co() takes next: the objects that answer to exactly this word
+ * (4465C8) and are present and seen (46435A-46437E).
+ */
 scr_int
 lib_co_400_present_namesakes (scr_gameref_t game, const scr_char *word)
 {
@@ -1244,6 +1228,35 @@ lib_co_400_present_namesakes (scr_gameref_t game, const scr_char *word)
   return count;
 }
 
+/*
+ * lib_examine_referencedob_ex_400()
+ * lib_examine_referencedob_400()
+ *
+ * run400's examine resolver referencedob, Proc_19_88_457034, for a line
+ * whose up-front noun score (Proc_21_58_463640, MemVar_4942F8) tied.  It
+ * works from co() (Proc_21_39_46486C), which picks one name word per object
+ * (lib_co_400_name_word()) and counts that word's present, seen namesakes
+ * (lib_co_400_present_namesakes()).
+ *
+ *   pass A  456E2D  co(i, 3): marks every object whose word has ANY such
+ *                   namesake -- the object itself need not be present.
+ *                   None marked -> &HFF; one -> that object.
+ *   pass B  456ED3  co(i, 0) over the marked: true when the word has
+ *                   exactly one namesake (464853).  One true -> that
+ *                   object.  More than one namesake takes the 454454/
+ *                   "Which" arm at 464560, modelled for the question it
+ *                   leaves by lib_co_400_raise_for_references(), not here.
+ *   pass C  456F5D  over the marked, count the words of the Prefix found in
+ *                   the line; a new best takes the object, an equal count
+ *                   gives &HFE.  With no Prefix word anywhere the answer is
+ *                   whatever pass B (or A) touched last.
+ *
+ * Returns the object, -1 for &HFF, -2 for &HFE, and -3 when pass B met a
+ * crowded name and the answer is the unmodelled arm's.  With crowd_contest,
+ * pass B instead counts a crowded name as true when the object wins
+ * lib_co_400_prefix_contest(), and -3 does not arise.
+ * lib_examine_referencedob_400() is the form without crowd_contest.
+ */
 scr_int
 lib_examine_referencedob_ex_400 (scr_gameref_t game, const scr_char *input,
                                  scr_bool crowd_contest)
@@ -1391,7 +1404,7 @@ lib_examine_tied_absent_400 (scr_gameref_t game)
  * MemVar_494281, and marking it administrative moves Lair's ambient room text
  * from T180 on out of step with runner_probes/lair.run400.a.txt.
  *
- * Measured on Lair of the Vampire (4.00): in the Ancient Feasthall, static
+ * Measured on Lair of the Vampire (4.0): in the Ancient Feasthall, static
  * object "skeleton" and Havelock's skeleton (alias skeleton) share the room,
  * and `x skeleton` answers only "Havelock's skeletal remains sit on the
  * throne..." (runner_probes/lair.run400.b.txt:1573,
@@ -1400,7 +1413,7 @@ lib_examine_tied_absent_400 (scr_gameref_t game)
  * run390 has the same arm (characters() 459E2A-459FD9, called at 460675
  * below therest), gated only on c(Name) or c(Alias) at 4592B8, no task ran
  * (468198) and the NPC in the player's room, and it too assigns the
- * description untested.  Measured on Lair of the CyberCow (3.90,
+ * description untested.  Measured on Lair of the CyberCow (3.9,
  * runner_transcripts/cybercow_win.txt T72): object 4 "the fairy" and
  * Vluurinik (alias fairy) share the meadow, and `x fairy` answers only "The
  * fairy darts in circles around the warm bowl of CyberCow milk.", the
@@ -1431,9 +1444,8 @@ lib_examine_npc_overwrite_400 (scr_gameref_t game)
    * object name on the line does not count (lib_mask_long_names()).  The
    * Runners' c() finds "dog" in `x dog collar`, so the collar's examine
    * printed the dog, and `take dog collar` took the collar while saying "I
-   * don't think dog would appreciate being handled." (bec2def78, 0b6154aa4,
-   * 9b5cdae73).  A character whose name IS an object's (Lair's skeleton)
-   * still overwrites.
+   * don't think dog would appreciate being handled."  A character whose name
+   * IS an object's (Lair's skeleton) still overwrites.
    */
   const std::string masked = lib_mask_long_names (game, input, TRUE);
 
@@ -1490,7 +1502,7 @@ lib_examine_tail (scr_gameref_t game, scr_int object, scr_bool is_described)
          * no Runner inflects this one.  run370, run380, run390 and run400 each
          * carry only " is open." / " is closed." / " is locked."  (run400
          * examine at 47395C and 4717F5/47183E/471887), with no " are " variant
-         * anywhere in their string pools, and man_overboard (4.00) measures `x
+         * anywhere in their string pools, and man_overboard (4.0) measures `x
          * drawers` as "The set of drawers is closed."  although its prefix is
          * "some"-ish.
          */
@@ -1503,11 +1515,11 @@ lib_examine_tail (scr_gameref_t game, scr_int object, scr_bool is_described)
          * run390 all build the line as `"  The " & Name & " is open."` from
          * the bare Short name -- run370 loc_435629/loc_435659, run380
          * loc_43CF4A/loc_43CF7A, run390 loc_44BE84/loc_44BEB4 -- so a
-         * multi-word prefix vanishes: gamma.taf (3.90, Prefix "a mini",
+         * multi-word prefix vanishes: gamma.taf (3.9, Prefix "a mini",
          * Short "fridge") measures `x mini fridge` as "The fridge is
          * open." (runner_transcripts/gamma.txt).  run400 instead composes the
          * name with the tensed prefix (Proc_21_31_448710 at 4717D1): man
-         * overboard.taf (4.00, Prefix "the set of", Short "drawers")
+         * overboard.taf (4.0, Prefix "the set of", Short "drawers")
          * measures `x drawers` as "The set of drawers is closed."
          */
         lib_new_clause (game, is_described);
@@ -1700,7 +1712,7 @@ lib_cmd_examine_object (scr_gameref_t game)
    * computed from the room alone, and the Runner's object loop never
    * separates the two.
    *
-   * Measured on p39DARK.taf (3.90), runner_probes/dark.run390.seen.txt: with
+   * Measured on p39DARK.taf (3.9), runner_probes/dark.run390.seen.txt: with
    * the box already seen, `x box` in the dark answers "You can't see the box
    * very clearly.  The box is open.  A coin is inside the box.", and `x lamp`
    * -- held -- answers "You can't see the lamp very clearly."
@@ -1770,7 +1782,7 @@ lib_cmd_examine_object (scr_gameref_t game)
    * CHARACTER default, not this one; Scarier already prints it, at
    * lib_cmd_examine_npc.
    *
-   * Measured on p39EXAM.taf (3.90), runner_probes/exam.run390.txt: `x stone`
+   * Measured on p39EXAM.taf (3.9), runner_probes/exam.run390.txt: `x stone`
    * -- the stone is in the room, has an empty Description, and answers
    * "Nothing special."  runner_probes/exam.run390.held.txt repeats it with the
    * stone held, and answers the same, so being carried makes no difference.

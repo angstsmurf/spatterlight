@@ -30,7 +30,7 @@
   scored 260 out of the maximum 300!". Wired as
   `provenance_solution.txt|provenance.taf|Look for PROVENANCE II in the summer of 2006!!!|SCR_SKIP_WAITKEY=1`
   (no seed pin — see the EVENT 7 section below; the row briefly carried
-  `SCR_SEED=2` until §10 of `RUNNER_TESTS_TODO.md` was measured and ported).
+  `SCR_SEED=2` until §10 of `RUNNER_TESTS.md` was measured and ported).
 - **Source:** the author's own `walkthrough_short.txt` from `provenance.zip`
   (copy kept as `downloaded/Provenance_walkthrough_short.txt`), with two
   deliberate departures, both forced — see below. The archive's
@@ -149,7 +149,7 @@ Under Scarier's original **inclusive** `scr_randomint (time1, time2)` roll,
 only some seeds rolled 0 — the default `SCR_SEED=1` rolled 1 and left the suit
 unworn, so the row was first wired with a `SCR_SEED=2` pin to reproduce the
 Runner. That anomaly is what raised **§10** of
-`terps/scarier/RUNNER_TESTS_TODO.md`: is the Runner's event-length roll
+`terps/scarier/test/adrift4/notes/RUNNER_TESTS.md`: is the Runner's event-length roll
 exclusive of `Time2`?
 
 **Answered and ported the same day (2026-08-17).** Live probes in both run400

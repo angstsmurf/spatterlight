@@ -22,7 +22,7 @@
  * Task command matching: the per-task pattern cache, reference
  * substitution, run_match_task_commands() and the take/put class filter.
  *
- * Split out of scrunner.cpp; see scrunner.h for what the runner files
+ * See scrunner.h for what the `run_` files
  * share and scrun_match_internal.h for what the three match files do.
  */
 
@@ -47,7 +47,7 @@
  * exists.  Returns TRUE if function found and handled.
  *
  * The syntax and the selection are measured against the live 4.0 Runner (see
- * "Probe backlog" in test/adrift4/notes/RUNNER_TESTS_TODO.md, probes GDA..GDR
+ * "Probe backlog" in test/adrift4/notes/RUNNER_TESTS.md, probes GDA..GDR
  * of test/adrift4/harness/make_arena_probe.py).  run400 squeezes every space
  * out of the command, requires what is left to open
  * "#%object%=getdynfromroom(" and the *raw* command to end in ")" -- so
@@ -172,11 +172,15 @@ typedef struct
   scr_bool known[2];                          /* indexed [forwards] */
   std::vector<const scr_char *> patterns[2];
   std::vector<scr_pattern_facts_t> facts[2];  /* one per patterns[] entry */
-  /* A command whose markers were lower-cased lives here, and patterns[]
-     points into it.  See run_lower_command_markers(). */
+  /*
+   * A command whose markers were lower-cased lives here, and patterns[]
+   * points into it.  See run_lower_command_markers().
+   */
   std::vector<std::string> rewritten[2];
-  /* run_task_passes_class_filter()'s take/put reading of the forwards
-     patterns, as 1 + (take ? 1 : 0) + (put ? 2 : 0); 0 = not yet read. */
+  /*
+   * run_task_passes_class_filter()'s take/put reading of the forwards
+   * patterns, as 1 + (take ? 1 : 0) + (put ? 2 : 0); 0 = not yet read.
+   */
   scr_byte take_put_class;
 } scr_task_commands_t;
 
@@ -224,7 +228,7 @@ run_clear_cache (void)
  * `frob %Object%`, `nurb %CHARACTER%`, `blip %Number%` and `murg %TEXT%`
  * beside their lower-case twins, fed `frob rock`, `nurb fay`, `blip 7`, `murg
  * quux`.  Every capitalised marker runs its task, in every Runner that knows
- * the marker at all (%character% and %number% from 3.90, %text% at 4.00; below
+ * the marker at all (%character% and %number% from 3.9, %text% at 4.0; below
  * that the command is a literal either way and the cells answer DontUnderstand
  * on both sides).  So X-Files task 30, `Molest *%Character%`, is a live
  * %character% command and not the unknown-marker literal this took it for.
@@ -437,20 +441,26 @@ run_pattern_names_verb (const scr_char *pattern, const scr_char *string)
  * run_match_task_commands(). */
 scr_bool run_rerun_skips_tasks = FALSE;
 
-/* 3.9 runs a prefix rerun as joined and compares task commands against it
-   space for space; see run_match_task_commands(). */
+/*
+ * 3.9 runs a prefix rerun as joined and compares task commands against it
+ * space for space; see run_match_task_commands().
+ */
 scr_bool run_rerun_exact_spaces = FALSE;
 
-/* Set while run_line_yields_to_library() asks whether a task command that
-   names a verb takes the line, and whether that task's restrictions let it
-   run; see there. */
+/*
+ * Set while run_line_yields_to_library() asks whether a task command that
+ * names a verb takes the line, and whether that task's restrictions let it
+ * run; see there.
+ */
 scr_bool run_named_verb_only = FALSE;
 scr_bool run_passing_only = FALSE;
 
 
-/* How many times run_note_task_ran() has noted a task; a caller compares two
-   readings to learn whether a pass ran anything, a task that had already run
-   for the line included. */
+/*
+ * How many times run_note_task_ran() has noted a task; a caller compares two
+ * readings to learn whether a pass ran anything, a task that had already run
+ * for the line included.
+ */
 scr_int run_task_runs_noted = 0;
 
 void
@@ -520,7 +530,7 @@ run_any_task_ran_this_command (void)
  *
  * Turns strict %object% matching on for the lifetime of the guard, and off
  * again however the scope is left.  match_case separates the two Runners that
- * bind strictly: 4.0 substitutes the name as authored, 3.90 lower-cases it.
+ * bind strictly: 4.0 substitutes the name as authored, 3.9 lower-cases it.
  */
 class scr_strict_reference_guard
 {
@@ -577,8 +587,10 @@ run_line_names_word (const std::string &line, const scr_char *name)
 }
 
 
-/* Put WITH in place of every FIND in TEXT, the way VB's Replace() with a
-   count of -1 does. */
+/*
+ * Put WITH in place of every FIND in TEXT, the way VB's Replace() with a
+ * count of -1 does.
+ */
 static void
 run_replace_all (std::string &text, const scr_char *find,
                  const scr_char *with)
@@ -719,8 +731,8 @@ run_line_number_word (const std::string &line, scr_int *number)
  *    (runner_probes/numref.run390.txt, runner_probes/numref.run400.txt).
  *  - the substituted command has to equal the line that produced it, and
  *    Val() makes that fail: `zork 007 apples` spells "zork 7 apples" and
- *    `zork 3x apples` spells "zork 3 apples", so both are refused at 3.90
- *    and at 4.00 while a positional matcher takes them.
+ *    `zork 3x apples` spells "zork 3 apples", so both are refused at 3.9
+ *    and at 4.0 while a positional matcher takes them.
  *
  * Both markers are replaced with digits -- Format(MemVar_4681AC) at 44AE15
  * and CStr(MemVar_4681AC) at 44AEBE -- although the OUTPUT filter spells
@@ -888,7 +900,7 @@ run_pattern_references (scr_gameref_t game, const scr_char *pattern)
  * the rock (index 0) made the string that matched and the gem (index 1) is
  * what %object% expands to (runner_probes/wildref.run390.txt).
  *
- * 3.90 tests the Short (44AAD6) and then the Aliases (44AB65) of the SAME
+ * 3.9 tests the Short (44AAD6) and then the Aliases (44AB65) of the SAME
  * object before it moves on to the next -- one `For var_138 ... Next
  * var_138`, the Next at 44ABE5 -- and the Alias arm substitutes the ALIAS,
  * .global_8, not the Short.  So the order is obj0.Short, obj0.Alias,
@@ -901,7 +913,7 @@ run_pattern_references (scr_gameref_t game, const scr_char *pattern)
  * *", and the rock binds after it.  Both gates are the seen byte .global_44
  * and nothing else -- there is no scope test, so an absent object binds.
  *
- * 4.00 is the one that walks twice, every Short and then every Alias:
+ * 4.0 is the one that walks twice, every Short and then every Alias:
  * run400 answers the same two lines with "WILD [a gem]." -- the rock's
  * Short spells the string and the gem's alias is the last hit either way.
  * That path is uip's, not this one.
@@ -909,21 +921,21 @@ run_pattern_references (scr_gameref_t game, const scr_char *pattern)
  * 3.7/3.8 know only the Short and gate on nothing: p38WILDREF binds the coin
  * two rooms away and unseen, and p38TEXTSRC answers `blip stone` against
  * "blip %object%" with the object catch-all, the alias reaching nothing.
- * %character% arrives at 3.90 (44AD2A), by Name, with no gate whatever: the
+ * %character% arrives at 3.9 (44AD2A), by Name, with no gate whatever: the
  * King binds from the Cave he is not in.
  *
- * %number% and %t_number% follow, at 3.90 and not below -- see
+ * %number% and %t_number% follow, at 3.9 and not below -- see
  * run_substitute_number_references().  A marker this version has never heard
- * of is left standing, which is a substitution of a kind: below 3.90
+ * of is left standing, which is a substitution of a kind: below 3.9
  * "%number%" is a literal the player has to type, exactly as "%character%"
- * is below 3.80 (run370 and run380 hold no "%number%", "%t_number%" or
+ * is below 3.8 (run370 and run380 hold no "%number%", "%t_number%" or
  * "%text%" string anywhere), and "%text%" is one below 4.00.
  *
  * The game's own variables come last (44AF07) -- see
  * run_substitute_variable_references().
  *
  * Not emulated, and measured (p39TEXTSRC, runner_probes/textsrc.run390.txt):
- * the string 3.90 searches is not `line` at all but MemVar_468224, a SNAPSHOT
+ * the string 3.9 searches is not `line` at all but MemVar_468224, a SNAPSHOT
  * of the line taken at the end of the synonym pass (45F20F), so none of
  * generaltasks' own rewrites below it -- "everything"->"all" (45F225),
  * "slap"->"hit" (45F246), "except"/"apart from"->"but" (45F267, 45F288), the
@@ -1167,9 +1179,9 @@ run_command_match_t::classify_references (void)
    * variables are a SUBSTITUTION in every Runner that knows them, never
    * a positional wildcard, so the tree's answer is beside the point:
    * see run_substitute_number_references() and
-   * run_substitute_variable_references().  Below 3.90 numbers are not
-   * markers at all, nor is %text% below 4.00, and a command carrying
-   * one has to be typed with the percent signs in it; below 3.90 the
+   * run_substitute_variable_references().  Below 3.9 numbers are not
+   * markers at all, nor is %text% below 4.0, and a command carrying
+   * one has to be typed with the percent signs in it; below 3.9 the
    * file has no Variables section either, so nothing there can name a
    * variable and the question does not arise.
    */
@@ -1302,13 +1314,13 @@ run_command_match_t::recheck_pre400 (void)
    * Two of checkwild's refusals matter the other way round:
    *
    * - The text after the last '*' must equal the end of the line, so a
-   *   command ending in a stray space matches nothing.  Alchemist (3.90)
+   *   command ending in a stray space matches nothing.  Alchemist (3.9)
    *   task 114's only command taking `give rose to king` is "* rose *
    *   king ", and run390 answers the line with the library's "Rudolph
    *   II. doesn't seem interested in the rose." (runner_transcripts/
    *   alchemist.txt T300).
    * - run380/run370 never pad the line, so "throw %object% *" needs
-   *   something after the object.  Marooned (3.80) T53 `throw map` at the
+   *   something after the object.  Marooned (3.8) T53 `throw map` at the
    *   lagoon: run380 skips task 15 ("You toss it into the water and the
    *   shark darts for it") for task 45's "throw %object%" ("You throw it
    *   and it lands in the ocean", runner_transcripts/marooned.rtf).
@@ -1333,7 +1345,7 @@ run_command_match_t::recheck_pre400 (void)
    * runner_probes/chref.run380.b.rtf).
    * That is 3.9's and 4.0's answer too, where the strict comparator in
    * uip_compare_candidate() already refuses the prefixed forms; the
-   * tolerant tree matcher took all three here because nothing below 3.90
+   * tolerant tree matcher took all three here because nothing below 3.9
    * had ever turned the substitution on outside checkwild.
    */
   /*
@@ -1357,8 +1369,8 @@ run_command_match_t::recheck_pre400 (void)
    * Zero corpus exposure, measured over every .taf in games/ and downloaded/
    * (SCR_DUMP_TASKS, 405 games that load; the 14 pre-4.0 stragglers whose dump
    * never fires scanned raw with taf_pattern_scan.plaintext()): 6685 task
-   * commands carry a group and every one of them is in a 4.00 file.  Below
-   * 4.00 the bracketed lines are all ALR keys and display text ("[month=1]",
+   * commands carry a group and every one of them is in a 4.0 file.  Below
+   * 4.0 the bracketed lines are all ALR keys and display text ("[month=1]",
    * "[talk=3]").
    */
   if (version < TAF_VERSION_400 && !lenient
@@ -1424,9 +1436,11 @@ run_command_match_t::recheck_pre400 (void)
             }
         }
 
-      /* Deliberate deviation: 3.7 keeps the substitution it just made,
-         for good, when the command matched on it -- see the note above
-         run_forget_game() -- and Scarier does not. */
+      /*
+       * Deliberate deviation: 3.7 keeps the substitution it just made,
+       * for good, when the command matched on it -- see the note above
+       * run_forget_game() -- and Scarier does not.
+       */
     }
 }
 
@@ -1533,7 +1547,7 @@ run_match_task_commands (scr_gameref_t game,
   scr_int command;
   scr_bool is_matched;
 
-  /* 3.90 and up bind %object% strictly, and only 4.0 binds it case-
+  /* 3.9 and up bind %object% strictly, and only 4.0 binds it case-
    * sensitively -- see the note above uip_compare_reference_strict().  Task
    * commands only; the library's own patterns keep the tolerant matcher. */
   const scr_int version = run_get_version (gs_get_bundle (game));
@@ -1634,8 +1648,10 @@ run_match_task_commands (scr_gameref_t game,
  */
 static scr_int run_task_class_filter = 0;
 
-/* A held-object put with no in/on split admits put-family tasks only,
-   whatever the caller's mode; see lib_put_held_unsplit_400(). */
+/*
+ * A held-object put with no in/on split admits put-family tasks only,
+ * whatever the caller's mode; see lib_put_held_unsplit_400().
+ */
 scr_bool run_put_class_only = FALSE;
 
 void

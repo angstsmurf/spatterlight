@@ -20,8 +20,6 @@
 
 /*
  * Movement: compass directions and "go to" a named place.
- *
- * See sclibrar.h for what the library files share.
  */
 
 #include "sclibrar.h"
@@ -108,7 +106,7 @@ lib_go (scr_gameref_t game, scr_int direction)
    * that count.  No Runner from 3.7 to 4.0 carries an "(at present)"
    * string at all; Scarier's old "can't go in that direction (at present)"
    * for an exit that exists but is currently shut was an invention.
-   * Measured on humbug (4.00, runner_probes/humbug.run400.b.txt): `W` into the
+   * Measured on humbug (4.0, runner_probes/humbug.run400.b.txt): `W` into the
    * keypad door, an exit gated on a task, answers "I can't go in that
    * direction, but I can move north, east and south."
    */
@@ -176,13 +174,13 @@ lib_go (scr_gameref_t game, scr_int direction)
    * and loc_4319A9 for "(Standing up first)").  An earlier census read
    * run390 as having no "Getting off" literal at all and gated this
    * `< 3.90 || >= 4.00`; the literal lives in run390_3.bas:9909, and the
-   * wingman1.taf (3.90) replay of 2026-08-30 (runner_transcripts/wingman1.txt,
+   * wingman1.taf (3.9) replay of 2026-08-30 (runner_transcripts/wingman1.txt,
    * brackets ON) prints "(Getting off the Barstool first)" before "You
    * move in."
    *
    * Scarier models the Runner with that box ticked -- the reference
    * setting the transcripts are measured under -- so every version prints
-   * the lines.  Measured on monsters (4.00) commands 5 and 23, where
+   * the lines.  Measured on monsters (4.0) commands 5 and 23, where
    * run400 with brackets on answers "in" from the bed with "(Getting off
    * Sissy's four poster bed first)" on its own line before "I move in."
    * (and later "(Getting off the pink plastic chair first)"); with the box
@@ -190,7 +188,7 @@ lib_go (scr_gameref_t game, scr_int direction)
    *
    * The parent-less half -- sitting or lying on the FLOOR, so "(Standing up
    * first)" rather than "(Getting off X first)" -- was measured on Main
-   * Course.taf (4.00, runner_probes/maincourse.run400.txt), whose player
+   * Course.taf (4.0, runner_probes/maincourse.run400.txt), whose player
    * starts sitting with ParentObject 0, and on goldilocks
    * (runner_transcripts/goldilocks.txt) turn 94, where a task action seats the
    * player on an unset object.  Both print the line with the box ticked and
@@ -200,7 +198,7 @@ lib_go (scr_gameref_t game, scr_int direction)
    * From 3.9 the name goes through the object-name composer in mode 0
    * (run390 431943 -> compose_object_name 42B0E8, run400 450354 -> 448710),
    * which answers "that" for an object the player has not seen.  gateway
-   * (3.90) seats the player on a chair only a task's text mentions, and
+   * (3.9) seats the player on a chair only a task's text mentions, and
    * run390x answers `east` with "(Getting off that first)"
    * (runner_transcripts/gateway.txt).  run370/380 concatenate the
    * name directly, with no seen test.  Scarier deliberately names the object
@@ -526,7 +524,7 @@ scr_bool lib_go_place_off = FALSE;
 /*
  * lib_command_slot_370()
  *
- * The game's own word in 3.70 command slot SLOT (MemVar_4460FC(SLOT)),
+ * The game's own word in 3.7 command slot SLOT (MemVar_4460FC(SLOT)),
  * lower-cased; empty from 3.8 on, which has no command block.
  */
 std::string

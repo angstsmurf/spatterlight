@@ -20,8 +20,6 @@
 
 /*
  * Wield, kiss, buy, break, smell, sell and eat.
- *
- * See sclibrar.h for what the library files share.
  */
 
 #include "sclibrar.h"
@@ -75,11 +73,10 @@ lib_wield_names_object (scr_gameref_t game, scr_int object,
   wield_at = at == std::string::npos ? 0 : (scr_int) at + 1;
 
   /*
-   * Deliberate deviation (2026-09-30): the names are lower-cased like the
-   * line, and every Alias counts.  The Runner's test finds a Short or first
-   * Alias as authored in the lower-cased line, so a weapon called
-   * "Excalibur" or "Sword" could never be wielded, and neither could one
-   * named by its second Alias (bec2def78).
+   * Deliberate deviation: the names are lower-cased like the line, and every
+   * Alias counts.  The Runner's test finds a Short or first Alias as authored
+   * in the lower-cased line, so a weapon called "Excalibur" or "Sword" could
+   * never be wielded, and neither could one named by its second Alias.
    */
   auto lowered = [] (const scr_char *name) -> std::string
     {
@@ -447,7 +444,7 @@ lib_cmd_buy_absent (scr_gameref_t game)
  * the plain "<You> might need the rock." (p*WITHPFX,
  * harness/make_withprefixprobe.py; runner_probes/withpfx.run370.pfx4.rtf /
  * runner_probes/withpfx.run380.ws.rtf / runner_probes/withpfx.run390.ws.txt /
- * runner_probes/withpfx.run400.ws.txt).  Below 3.90 the arm ends
+ * runner_probes/withpfx.run400.ws.txt).  Below 3.9 the arm ends
  * in an exclamation mark, with or without an instrument: run370/run380 answer
  * a bare `break rock` "You might need the rock!" where run390/run400 use a
  * full stop (harness/make_withprefixprobe.py;
@@ -518,7 +515,7 @@ lib_cmd_break_absent (scr_gameref_t game)
 /*
  * lib_cmd_turn_absent()
  *
- * The `turn` arm of the same therest() clause.  hcw (4.00,
+ * The `turn` arm of the same therest() clause.  hcw (4.0,
  * runner_probes/hcw.run400.txt turn 81) types `turn on intercom` at the park
  * gates with the limousine's intercom seen but elsewhere and gets "You can't
  * see the intercom." -- not turn_other's "You can't turn that.", which run400
@@ -536,7 +533,7 @@ lib_cmd_turn_absent (scr_gameref_t game)
  * The same therest() clause for verbs whose own rows take no %object% the
  * clause could read back: the candidates are every object the typed line
  * names anywhere, scored as Proc_21_58_463640 scores them, not just what a
- * pattern bound.  Measured on warlord (4.00,
+ * pattern bound.  Measured on warlord (4.0,
  * runner_probes/warlord.run400.txt, xoshiro seed 33):
  *
  *     push barrel           the barrel rolled away    You can't see the barrel.

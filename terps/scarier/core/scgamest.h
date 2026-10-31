@@ -405,6 +405,10 @@ typedef struct scr_game_s
   scr_int redo_sequence;
   scr_bool do_restart;
   scr_bool do_restore;
+  /*
+   * Objects a command is to act on are flagged in object_references; objects
+   * requested but deemed not actionable are flagged in multiple_references.
+  */
   std::vector<scr_bool> object_references;
   std::vector<scr_bool> multiple_references;
   std::vector<scr_bool> npc_references;

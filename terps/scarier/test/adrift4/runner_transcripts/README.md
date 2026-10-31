@@ -247,6 +247,6 @@ that have nothing to do with the patch:
   Runner really did miss that line, so the capture is suspect. Re-drive it
   before reading anything into the turns around it.
 - **Any other differing turn** is a lead to classify with the workflow in
-  `notes/WINE-TRANSCRIPTS-TODO.md`. It may be a capture artefact, the
+  `notes/WINE-TRANSCRIPTS.md`. It may be a capture artefact, the
   harness, the RNG or the engine. `compare/<tag>.txt` shows every
   difference.

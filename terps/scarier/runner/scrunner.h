@@ -22,7 +22,7 @@
 #define SCRUNNER_H
 
 /*
- * Internal header of the runner, shared by scrunner.cpp, scrun_split.cpp,
+ * Internal header of runner/, shared by scrunner.cpp, scrun_split.cpp,
  * scrun_respell.cpp, scrun_match.cpp, scrun_match_run.cpp,
  * scrun_match_refusal.cpp, scrun_tables.cpp, scrun_dispatch.cpp,
  * scrun_input.cpp, and by the dump tools in tools/ (scrun_census.cpp,
@@ -43,7 +43,7 @@ static const scr_char SPECIAL_PATTERN = '#';
 static const scr_char WILDCARD_PATTERN = '*';
 
 
-/* State shared across the runner files, each defined in the file named. */
+/* State shared across the `run_` files, each defined in the file named. */
 
 #ifdef SCARIER_DUMP_TOOLS
 /* tools/scrun_census.cpp */
@@ -242,7 +242,7 @@ enum run_refusal_pass_t
 };
 
 
-/* Functions shared across the runner files, each defined in the file named. */
+/* Functions shared across the `run_` files, each defined in the file named. */
 
 /* scrun_split.cpp */
 extern scr_bool run_counts_line_elements (scr_gameref_t game);

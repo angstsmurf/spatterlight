@@ -1,6 +1,6 @@
 """What a pre-3.9 `drop` line has to be carrying before a task may claim it.
 
-WINE-TRANSCRIPTS-TODO's "bare `Drop what?` arm at run380 @438FE6" row: an
+WINE-TRANSCRIPTS's "bare `Drop what?` arm at run380 @438FE6" row: an
 `Adrift_pretry37c`/`38c` feed showed a literal, unrestricted, all-rooms task
 `drop a coin` running only while the coin was HELD, and `drop a pebble`
 answering "You don't have a pebble!" for a pebble lying in the same room.

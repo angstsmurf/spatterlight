@@ -64,7 +64,7 @@ v39 = version in ("39", "390")
 # Player carry limits.  The packed form is count*10 + size-index, so 102 is the
 # ADRIFT editor default ("10 medium objects") and 994 is the maximum the editor
 # will emit.  Overridable because the Runner's decode of these is itself under
-# investigation -- see RUNNER_TESTS_TODO.md.
+# investigation -- see RUNNER_TESTS.md.
 MAXSIZE = int(sys.argv[3]) if len(sys.argv) > 3 else 994
 MAXWT = int(sys.argv[4]) if len(sys.argv) > 4 else MAXSIZE
 
@@ -212,7 +212,7 @@ OBJECTS = [
 # objects, so the count that fits in each gives the ratio between the decoded
 # capacity and the decoded object size.  Object 0 is a never-touched dummy --
 # run400 charges every parentless object's weight to object index 0 (see the
-# `aaa`/`box` results in RUNNER_TESTS_TODO.md), so index 0 is unusable.
+# `aaa`/`box` results in RUNNER_TESTS.md), so index 0 is unusable.
 CONT = ([("dummy", False, 0, 22), ("baga", True, 0, 22), ("bagb", True, 0, 22)]
         + [("a%d" % i, False, 0, 11) for i in range(1, 10)]
         + [("b%d" % i, False, 0, 31) for i in range(1, 10)])

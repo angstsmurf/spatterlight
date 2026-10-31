@@ -63,7 +63,7 @@
 # alices_restaurant where Obie takes your wallet and your belt at the station.
 # No route broke and no win marker moved.  thetest, gateway and inverness --
 # the games whose always-restarting one-turn events were probed live in
-# run390 for RUNNER_TESTS_TODO.md §2 -- are byte-identical, so this does not
+# run390 for RUNNER_TESTS.md §2 -- are byte-identical, so this does not
 # disturb anything that was arbitrated against a real Runner.
 #
 # One residual divergence, left alone and recorded: the wraith fires 24 times

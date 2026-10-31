@@ -291,8 +291,8 @@ basenames — `ALEXIS.TAF` and `LOST.TAF` have more than one row).
 | Solutions and goldens | `goldens/<name>_solution.txt`, `goldens/<name>_solution.expected.txt` |
 | Per-game write-ups (206 exist) | `notes/<Game>_walkthrough.md` |
 | Games whose *only* write-up is this file | the *Game index* below |
-| Runner ground-truth probes this work opened | `../../../RUNNER_TESTS_TODO.md` (§2 events, §4/§5 refusals, §6 3.70, §8 restart) |
-| Wine Runner transcripts and ported rules | `WINE-TRANSCRIPTS-TODO.md` |
+| Runner ground-truth probes this work opened | `RUNNER_TESTS.md` (§2 events, §4/§5 refusals, §6 3.70, §8 restart) |
+| Wine Runner transcripts and ported rules | `WINE-TRANSCRIPTS.md` |
 | Waitkey audit | `python3 harness/waitkey_audit.py` |
 | Source walkthroughs, FAQs, score sheets | `downloaded/` (`CampWindyLake2_walkthrough/_faq`, `LaraCroft_SunObelisk_walkthrough/_faq`, `DrWho_VortexOfLust_scoresheet`, `GammaGals_scoresheet/_readme`, `SilkNoil_walkthrough`, `ShadricksTravels_walkthrough`, …); unpacked archives in `~/Downloads/More Adrift games/` |
 | Corpus pins | sha256 in `games.manifest.tsv`, `test/fetch_games.sh`, `test/GAMES.md` |
@@ -679,7 +679,7 @@ credits-reel blurbs; trophy/video-library blurbs in LCA and warlord.
 ## Transferable engine findings (index)
 
 Each pinned by a corpus game; the Wine-measured ones are indexed in
-`WINE-TRANSCRIPTS-TODO.md` and the memory `scare-adrift4-engine-index`.
+`WINE-TRANSCRIPTS.md` and the memory `scare-adrift4-engine-index`.
 
 - `SYNONYM` rewrites run **before** task matching (relojero, croft
   `make_39_synprobe.py`/`pSYN.taf`/`synA.png`/`synB.png`, Vardock, Worst Game,

@@ -100,7 +100,7 @@ glk_main (void)
   gsc_main_called = TRUE;
 
   /* ADRIFT 5 games run the dedicated a5 turn loop; everything else (ADRIFT
-   * <=4) uses the scare engine. */
+   * <=4) uses the ADRIFT 4 engine. */
   if (gsc_is_a5)
     gsc_a5_main ();
   else
@@ -239,7 +239,7 @@ glkunix_startup_code (glkunix_startup_t * data)
     }
 
   /* Remember the game file path for hosts that reopen it (graphics/sound via
-   * gsc_open_game_path). ADRIFT 5 game data itself is loaded from the Glk
+   * gsc_open_game_path).  ADRIFT 5 game data itself is loaded from the Glk
    * stream above via a5model_load_buffer. */
   snprintf (gsc_game_path, sizeof gsc_game_path, "%s", argv[argv_index]);
 

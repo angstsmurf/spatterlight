@@ -15,7 +15,7 @@
 # complete, and the engine now matches -- so the author's original order is
 # restored: the pill goes into the cup via the library, and "take slime"
 # (TASK 40) chains the radioactive mix and its +10.  Details in
-# RUNNER_TESTS_TODO.md.)
+# RUNNER_TESTS.md.)
 # Repair 2: one extra "z" before the endgame dash.  The bomb fuse is
 # random -- TASK 38 rerolls "bigboom = random(1,500863)" every single turn --
 # so the blast lands on a different turn under our pinned seed than it did in

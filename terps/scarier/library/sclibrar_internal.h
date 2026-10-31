@@ -50,7 +50,7 @@
  *              by lib_co_400_reset().
  *   long_names the multi-word names lib_mask_long_names() masks, objects
  *              then characters; collected once per bundle, dropped by
- *              lib_forget_bundle() before the runner destroys it.
+ *              lib_forget_bundle() before the `run_` code destroys it.
  *   line       per typed line, set by lib_co_note_line_top(): the 3.7
  *              "a handler settled this line's object" flag, and the
  *              snapshot of which objects fitted the line's co() mode.

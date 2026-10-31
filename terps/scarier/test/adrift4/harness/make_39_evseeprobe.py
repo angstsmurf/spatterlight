@@ -2,7 +2,7 @@
 """ADRIFT 3.9 probe: does an event's text still print while the player is on
 or inside an object?
 
-RUNNER_TESTS_TODO.md section 8, the residual row.  Panic!'s wraith event fires
+RUNNER_TESTS.md section 8, the residual row.  Panic!'s wraith event fires
 24 times for Scarier against the published transcript's 21; the three extra
 are exactly the turns the player spends up the rope on the statue -- i.e.
 parented to an object rather than standing on the room floor.  Scarier's

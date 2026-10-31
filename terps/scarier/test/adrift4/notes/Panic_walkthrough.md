@@ -89,9 +89,9 @@ his bike, cybercow_win's robot, secret_of_lost_world's "It starts to rain." and
 the whole paragraph in alices_restaurant where Obie takes your wallet and your
 belt at the station. No route broke and no win marker moved. `thetest`,
 `gateway` and `inverness` — the games whose always-restarting one-turn events
-were probed live in run390 for `RUNNER_TESTS_TODO.md` §2 — are byte-identical.
+were probed live in run390 for `RUNNER_TESTS.md` §2 — are byte-identical.
 
-The full write-up, with the two open probes, is `RUNNER_TESTS_TODO.md` §8.
+The full write-up, with the two open probes, is `RUNNER_TESTS.md` §8.
 
 ## One residual divergence, recorded not chased
 

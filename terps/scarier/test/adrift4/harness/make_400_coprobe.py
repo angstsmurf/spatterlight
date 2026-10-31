@@ -82,7 +82,7 @@ cells with a neutral `look` and answers the question it opened:
                      own name; `rock` vs `x rock`       Adrift_930
 
 The measurements and the rule they add up to are written up in
-notes/WINE-TRANSCRIPTS-TODO.md and in the lib_co_400_*() block comment in
+notes/WINE-TRANSCRIPTS.md and in the lib_co_400_*() block comment in
 sclibrar.cpp; they were ported 2026-09-07.
 
 Five more feeds (2026-09-20) settle the one string those six never

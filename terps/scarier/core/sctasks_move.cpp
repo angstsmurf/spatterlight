@@ -318,7 +318,7 @@ task_move_object (scr_gameref_t game, scr_int object,
    * (Sub_20_11 @0008C200) skips them at @0008C360 -- "If Objects(o).Static = 1
    * Then <next object>" -- before any destination case runs, so the refusal
    * covers every destination, not just the room ones.  Measured live ("Probe
-   * backlog" in test/adrift4/notes/RUNNER_TESTS_TODO.md): a task whose action
+   * backlog" in test/adrift4/notes/RUNNER_TESTS.md): a task whose action
    * moves the referenced object to "held by player" prints its completion text
    * for "grab plaque" and leaves the plaque exactly where it was, and a
    * move-to-hidden aimed at a static the player is already holding (an event
@@ -590,7 +590,7 @@ task_move_npc_to_room (scr_gameref_t game, scr_int npc, scr_int room)
 /*
  * task_same_room_npc_390()
  *
- * The "to same room as" arm (Var2 = 2) at 3.90 names its NPC by raw array
+ * The "to same room as" arm (Var2 = 2) at 3.9 names its NPC by raw array
  * index: run390 execute_action copies MemVar_468028(Var3).room for the NPC
  * arm (4567C9-4567EB) and the player arm (456514-456531) alike, with no
  * player or referenced-character entries ahead of the NPCs.  run400 decodes

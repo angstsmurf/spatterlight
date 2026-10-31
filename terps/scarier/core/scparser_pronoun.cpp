@@ -148,7 +148,7 @@ uip_pronoun_was_used (void)
  * uip_commit_antecedent_400()
  *
  * Store the line's noted antecedent.  uip_assign_pronouns() calls this for
- * a turn; the runner calls it itself for a 4.0 line that was not one.
+ * a turn; the `run_` code calls it itself for a 4.0 line that was not one.
  */
 void
 uip_commit_antecedent_400 (scr_gameref_t game)
@@ -227,11 +227,10 @@ void
 uip_pronoun_t::find_register ()
 {
   /*
-   * Search for pronouns where we have an assigned object or NPC.  We
-   * can't be sure of getting plurality right, and it's not always
-   * intuitive even in English -- is "a pair of scissors" an "it", or
-   * a "them"?  Because of this, we just treat "it" and "them" equally
-   * for now.
+   * Search for pronouns where we have an assigned object or NPC.  Plurality
+   * isn't modelled, and it's not always intuitive even in English -- is "a
+   * pair of scissors" an "it", or a "them"?  So "it" and "them" are treated
+   * equally.
    */
   if (game->it_object != -1 && scr_compare_word (word, "it", 2))
     {
@@ -289,7 +288,7 @@ uip_pronoun_t::object_phrase ()
    * substitutes the literal on the way in (run380 @4481B2, run370
    * @43F5DA, run400 loc_4900EC), so the antecedent the Runner builds
    * through Proc_21_31_448710 reads "a Cupboard".  Measured on
-   * man_overboard (4.00): `open it` after `x cupboard` echoes "(a
+   * man_overboard (4.0): `open it` after `x cupboard` echoes "(a
    * Cupboard)", and likewise "(a wardrobe)", "(a pantry)", "(a
    * toolbox)".  parse_trim_object_names does the substitution now, so
    * the prefix read back here already carries it.
@@ -303,7 +302,7 @@ uip_pronoun_t::object_phrase ()
    * "some" become "the", anything else is left alone).  Examine
    * composes in mode 1 (loc_471749-471789), take/drop/open/close and
    * the "I don't understand what you want me to do with" reply in
-   * mode 0 -- see uip_definite_form().  Measured on humbug (4.00,
+   * mode 0 -- see uip_definite_form().  Measured on humbug (4.0,
    * runner_probes/humbug.run400.it.txt): `x plane` then
    * `x it` echoes "(a paper aeroplane)", `get plane` then `x it`
    * "(the paper aeroplane)", `open satchel` "(the satchel)", `throw
@@ -315,7 +314,7 @@ uip_pronoun_t::object_phrase ()
    * the typed line, before any handler: when exactly one object is
    * named it becomes tense(Prefix) & " " & Short (run380 441EF1 and
    * 442038, run370 43B696 and 43B805), held or not, whatever the
-   * verb.  Measured on wrecked (3.80, run380x
+   * verb.  Measured on wrecked (3.8, run380x
    * runner_transcripts/wrecked.rtf): `get jacket` then `x
    * it` echoes "(the tweed jacket)", `get form` then `x it` "(an
    * application form)" (Prefix "an", which tense() leaves alone), and
@@ -362,7 +361,7 @@ uip_pronoun_t::no_object ()
    * "Absolutely nothing") -- and never a "no reference" state, so
    * the pronoun is still replaced: "nothing" goes into the command
    * and "Absolutely nothing" is what the bracket echo prints.
-   * Measured on ptgood_again (4.00) turns 5-6: `x it` with nothing
+   * Measured on ptgood_again (4.0) turns 5-6: `x it` with nothing
    * yet referenced answers "(Absolutely nothing)" then "You see no
    * such thing."; `g` repeats "(x it)", "(Absolutely nothing)".
    */
@@ -392,7 +391,7 @@ uip_pronoun_t::no_character ()
    * are the same string, and the whole command is lower-cased after
    * the splice.
    *
-   * Measured on showtime (4.00, runner_transcripts/showtime.txt turn
+   * Measured on showtime (4.0, runner_transcripts/showtime.txt turn
    * 59): `get her hand` with no female yet referenced answers "(No
    * female)" and then runs the game's task, which survives because
    * its command is the wildcard `get * hand` and the rewritten line
@@ -445,7 +444,7 @@ uip_pronoun_t::resolve ()
    * lister builds "<(0)> is <(4)> <(8)>." at loc_459248 -- "Chloe is a girl."
    * -- and matches the typed word against (0) and (8) at loc_4592B8.
    * Prepending the NPC's Prefix too would turn "ask him about pens" into "ask
-   * the Harold about pens" (wrecked, 3.80) where the Runner writes "ask harold
+   * the Harold about pens" (wrecked, 3.8) where the Runner writes "ask harold
    * about pens".
    */
   if (object > -1)
@@ -493,7 +492,7 @@ uip_pronoun_t::substitute (std::string &buffer, scr_int offset) const
    * Proc_19_49_461F38 (him/he/her/she/it/them branches, e.g. "it" at
    * loc_461DA5) tests MemVar_4942BA then prints "(" & antecedent &
    * ")" & vbCrLf through Proc_21_19_47B568.  Measured on adrift_maze
-   * (4.00) commands 24-25: "read it" answers "(a trophy)" then "It
+   * (4.0) commands 24-25: "read it" answers "(a trophy)" then "It
    * has the following engraved on it."
    *
    * 3.9 is the same line behind the same setting: run390 Sub its()
@@ -501,23 +500,20 @@ uip_pronoun_t::substitute (std::string &buffer, scr_int offset) const
    * 43D884 "one") and prints "(" & MemVar_46811C & ")" through
    * Proc_2_28_45CBD0; the menu item is read from ADRIFT\Runner
    * "showbrackets" at loc_44526F with default True (loc_44526B).
-   * Measured on Archie's Birthday (3.90, run390): `x
+   * Measured on Archie's Birthday (3.9, run390): `x
    * camcorder` then `take it` answers "(a camcorder)" then "You take
-   * a camcorder from the desk."; and on veteran (3.90, run390, same
+   * a camcorder from the desk."; and on veteran (3.9, run390, same
    * day) `x bag`, `take it`, `open it` echo "(a bag)" both times --
    * 3.9's takes @455067 and drops @445BE6 compose the antecedent in
    * mode 1 (authored Prefix).  Lines no handler names an object on
    * keep co()'s mode-0 "the X" from its pre-pass (43B69E), a form
-   * Scarier doesn't model: see uip_assign_pronouns() on 8f7dc3d7a.
-   * (An earlier reading of run390 had it keeping showbrackets only
-   * for the "ask about"/"talk about" rewrite at loc_459036/459107
-   * and echoing nothing -- wrong.)
+   * Scarier doesn't model: see uip_assign_pronouns().
    *
    * 3.7 and 3.8 print the same line UNGATED -- run370 Sub Form1.its
    * @2CA9C (loc_42CAFA ...) and run380 @326B4 have no Appearance menu
    * -- with the same antecedents: the NPC's Name, or tense(Prefix) &
    * " " & Short for an object, which is what 'replacement' holds.
-   * Measured on wrecked (3.80, run380x
+   * Measured on wrecked (3.8, run380x
    * runner_transcripts/wrecked.rtf).
    */
   pf_buffer_reference (gs_get_filter (game),
@@ -533,7 +529,7 @@ uip_pronoun_t::substitute (std::string &buffer, scr_int offset) const
    * authored capital in the Name never survives into the parsed
    * command.  Without this, uip_case_folds_name() would refuse the
    * very character the pronoun just named: "ask him about pens" in
-   * wrecked (3.80) becomes "ask harold about pens", not "ask Harold
+   * wrecked (3.8) becomes "ask harold about pens", not "ask Harold
    * about pens".
    *
    * 3.7 and 3.8 echo tense(Prefix) & " " & Short but splice only the
@@ -600,7 +596,7 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
    * first and "it"/"them" on a second pass: the Runner works through them
    * by kind, not by where they stand on the line (run390 its(): "him"
    * 43D310, "he" 43D3EB, "her" 43D4CF, "she" 43D5AA, "it" 43D685, "them"
-   * 43D782), and each prints its bracket echo as it goes.  Blue Sky (3.90,
+   * 43D782), and each prints its bracket echo as it goes.  Blue Sky (3.9,
    * run390x): `give it to her` echoes "(Maria)" and then "(the
    * burger)".
    */
@@ -802,7 +798,7 @@ uip_last_npc_name (scr_gameref_t game, scr_int npc)
  * Name to Proc_21_41_448C24).  Pronoun replacement has already run on the
  * line by then, so it read the previous line's value.  Before 3.9 there is
  * no gender byte and uip_assign_pronouns() keeps the old handling.
- * Measured on British Fox (4.00, runner_transcripts/britishfox.txt turn
+ * Measured on British Fox (4.0, runner_transcripts/britishfox.txt turn
  * 188): Sharon was last seen at reception, yet `ask about grace` in the
  * cells makes `tell her it was sabrina` echo "(Grace)", Grace being named
  * but never seen.
@@ -1120,10 +1116,10 @@ uip_rewrite_references (scr_gameref_t game, const scr_char *string,
  *                              is dead.  A lone namesake stores nothing, so
  *                              this code keeps what was there (UIP_FORM_KEEP)
  *                              and the crowd arms note through
- *                              uip_note_antecedent_400().  (The old "found in
- *                              the room" definite store is run390's co
- *                              @43B69E; `look in dustbin` "(the dustbin)" at
- *                              4.0 is the line-start scorer, 48A3F5.)
+ *                              uip_note_antecedent_400().  (A "found in the
+ *                              room" definite store is run390's co @43B69E;
+ *                              `look in dustbin` "(the dustbin)" at 4.0 is the
+ *                              line-start scorer, 48A3F5.)
  *   examines @471749-471789    mode 1, indefinite: `x shovel` after `get
  *                              shovel` is back to "(a shovel)"; so is `x the
  *                              shovel`.
@@ -1230,9 +1226,9 @@ uip_definite_form (scr_gameref_t game, const scr_char *command,
 
   /*
    * Anything else is not a handler's: what the line leaves is generaltasks'
-   * scorer write or co()'s (uip_note_antecedent_400()).  The old guess here,
-   * "definite for a room object, untouched for a held one", was run390's
-   * co() (43B69E / 43B456).
+   * scorer write or co()'s (uip_note_antecedent_400()).  "Definite for a room
+   * object, untouched for a held one" is run390's co() (43B69E / 43B456), not
+   * this.
    */
   return UIP_FORM_KEEP;
 }
@@ -1321,8 +1317,8 @@ uip_assign_pronouns (scr_gameref_t game, const scr_char *string)
    * then names its own object.  So `get jet` from the open cabinet (takes'
    * auto-"from" rewrite, 4552EE) left "it" on the cabinet, and a put, open
    * or task line on whichever object came last in the file (make_39_itprobe
-   * .py, crossworlds4 T240/T241, 8f7dc3d7a).  Deliberate deviation: 3.9 uses
-   * the assignment below, which follows the objects the line names.
+   * .py, crossworlds4 T240/T241).  Deliberate deviation: 3.9 uses the
+   * assignment below, which follows the objects the line names.
    */
 
   /* Save var references so we can restore them later. */

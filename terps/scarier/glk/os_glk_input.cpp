@@ -189,7 +189,8 @@ gsc_read_command (scr_char *buffer, scr_int length)
 
   /* The map follows the game: the ADRIFT 4 layout is centred on the room you
      are in and grows as you explore, so it is redrawn at every prompt -- and a
-     restart, which reaches the front end no other way, is caught here first. */
+     restart, which reaches the front end no other way, is caught here first.
+    */
   gsc_map_notice_restart ();
   gsc_map_redraw ();
 
@@ -315,17 +316,17 @@ gsc_read_command (scr_char *buffer, scr_int length)
                   gsc_output_silence_help_hints ();
 
                   /* UNDO / RESTORE / RESTART / QUIT happen here rather than in
-                     the handler: the dispatcher above has since freed the line,
-                     and all four may unwind out of the interpreter without
-                     coming back.  A successful one never returns; the rest fall
-                     through to another prompt.
+                     the handler: the dispatcher above has since freed the
+                     line, and all four may unwind out of the interpreter
+                     without coming back.  A successful one never returns; the
+                     rest fall through to another prompt.
 
                      Empty the line first.  It is the interpreter's own input
                      buffer, kept across calls so that "get lamp. go north"
                      runs as two commands, and an unwind skips the point where
-                     the next read would have cleared it -- leaving the restored
-                     or restarted game to parse "glk restart" as its first
-                     command. */
+                     the next read would have cleared it -- leaving the
+                     restored or restarted game to parse "glk restart" as its
+                     first command. */
                   memset (buffer, 0, length);
                   gsc_meta_perform ();
                   return FALSE;

@@ -25,7 +25,7 @@
  * Developer tooling, compiled only with SCARIER_DUMP_TOOLS (see scdump.cpp
  * beside it); the whole file is inside that guard.  Split out of
  * runner/scrun_dispatch.cpp, and still a runner file in everything but its
- * directory: see runner/scrunner.h for what it shares with the runner.
+ * directory: see runner/scrunner.h for what it shares with runner/.
  */
 
 #include <assert.h>

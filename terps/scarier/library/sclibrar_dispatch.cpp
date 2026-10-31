@@ -20,9 +20,6 @@
 /*
  * Retrying library commands as game tasks, and parsing "all"/"except"
  * multiple-object lists.
- *
- * See sclibrar.h for what the library files share and sclibrar_internal.h
- * for what the core files share.
  */
 
 #include "sclibrar.h"
@@ -92,9 +89,9 @@ lib_restore_object_references (scr_gameref_t game, const scr_bool references[])
  * below: if "key" names several objects, a generic game task matched by the
  * bare noun ("get key") is a disambiguation/catch-all handler, not a specific
  * override for the addressed object, and must not block the standard take of a
- * fully-qualified reference ("get brass key").  The Runner never reconstructs a
- * bare noun like this, so it never lets such a task hijack the take; mirror that
- * by only attempting the bare-name retry when the name is unambiguous.
+ * fully-qualified reference ("get brass key").  The Runner never reconstructs
+ * a bare noun like this, so it never lets such a task hijack the take; mirror
+ * that by only attempting the bare-name retry when the name is unambiguous.
  */
 static scr_bool
 lib_object_short_name_is_ambiguous (scr_gameref_t game, scr_int object)
@@ -247,9 +244,11 @@ lib_task_prematches_input (scr_gameref_t game, scr_int class_filter)
   return input && lib_task_prematches_line (game, input, class_filter);
 }
 
-/* The same, answering the pre-matcher's result: 0 miss, 1 a task with text
-   of its own (or a fallback hit), 2 a silent first-pass hit, 3 a failing
-   restriction with a message; see run_does_command_match(). */
+/*
+ * The same, answering the pre-matcher's result: 0 miss, 1 a task with text
+ * of its own (or a fallback hit), 2 a silent first-pass hit, 3 a failing
+ * restriction with a message; see run_does_command_match().
+ */
 scr_int
 lib_task_prematch_kind_input (scr_gameref_t game, scr_int class_filter)
 {
@@ -290,7 +289,7 @@ lib_task_prematches_line (scr_gameref_t game, const scr_char *input,
  * the insides handler (Proc_19_43_46639C @465D21-465EB5) do: pre-match an
  * LCase()d copy, and on a hit dispatch the RAW line, whose capitals the
  * wildcard matcher compares binary (see uip_set_binary_input()).  The hit
- * claims even when the raw dispatch then runs nothing.  hcw (4.00,
+ * claims even when the raw dispatch then runs nothing.  hcw (4.0,
  * runner_probes/hcw.run400.txt turn 162): `put susan in trunk` with the Fembot
  * holding "sleeping Susan" pre-matches task 477 `get * susan` on "get
  * sleeping susan", dispatches "get sleeping Susan", runs nothing, and ends
@@ -581,9 +580,9 @@ lib_try_game_command_common (scr_gameref_t game,
       /*
        * Deliberate deviation: on a line no task matches
        * strictly, the definite rebuild gets the prefix-less retry too.
-       * run400's take piece offers the tasks only "get the X" (9298e56b0),
-       * so `take mailbox` went past an author's literal `get mailbox` task
-       * and its "bolted to the post" restriction, and took the mailbox.
+       * run400's take piece offers the tasks only "get the X", so `take
+       * mailbox` went past an author's literal `get mailbox` task and its
+       * "bolted to the post" restriction, and took the mailbox.
        */
       if (!status && (!use_definite || run_lenient_task_matching ())
           && !lib_object_short_name_is_ambiguous (game, object))
@@ -823,10 +822,10 @@ lib_try_game_command_take_from_parent_400 (scr_gameref_t game, scr_int object,
    * parent's task and not the object's.  run400 lets warlord's `get
    * *stove*` ("The stove is bolted to the floor.") answer `get treat` for
    * the treat on the stove, so the treat, the bone and the cudgel could
-   * never be taken (0806086b4).  Only a task that names the parent and not
-   * the object counts: humbug's `[get/take] {a/the} %object% {from
-   * [dennis/fireman]}` matches "get table" and "get token" alike, and must
-   * not keep `get token` from its `get * token from * table`.
+   * never be taken.  Only a task that names the parent and not the object
+   * counts: humbug's `[get/take] {a/the} %object% {from [dennis/fireman]}`
+   * matches "get table" and "get token" alike, and must not keep `get token`
+   * from its `get * token from * table`.
    */
   if (!status)
     {
@@ -920,8 +919,10 @@ lib_try_game_command_with_object_400 (scr_gameref_t game,
   /* The insides handler pre-matches its rebuilt line in mode 2
    * (run400 @465D39): only tasks carrying the put/drop flag are
    * consulted. */
-  /* The take report ahead of it, if any, is a clause of its own:
-     "Your hands are full.  You dump the wood ..." (House, patched). */
+  /*
+   * The take report ahead of it, if any, is a clause of its own:
+   * "Your hands are full.  You dump the wood ..." (House, patched).
+   */
   const scr_bool joined = pf_buffer_tentative_join (gs_get_filter (game));
 
   run_set_task_class_filter (2);
@@ -1145,9 +1146,9 @@ lib_parse_multiple_objects (scr_gameref_t game, const scr_char *verb,
       scr_int last_object;
 
       /*
-       * If no next object, leave the loop.  If no disambiguation message
-       * then it was probably garble, so print a message for that case.  We
-       * also catch repeated objects here.
+       * If no next object, leave the loop.  With no disambiguation message,
+       * treat the line as garble and print a message for that case.  We also
+       * catch repeated objects here.
        */
       last_object = object;
       if (!lib_parse_next_object (game, verb,

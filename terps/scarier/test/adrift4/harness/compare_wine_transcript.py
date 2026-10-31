@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Align a Wine Runner transcript against a scarier replay of the same feed.
 
-Every measurement in `notes/WINE-TRANSCRIPTS-TODO.md` rests on the same three
+Every measurement in `notes/WINE-TRANSCRIPTS.md` rests on the same three
 rules, in order:
 
   1. rule out Verbose and the Appearance checkboxes;

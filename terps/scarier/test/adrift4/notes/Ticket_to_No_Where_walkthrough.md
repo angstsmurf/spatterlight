@@ -139,4 +139,4 @@ what separates 100 from a full score.
   run370/380/390 all say "nothing to pick up here" and only run400 says "worth
   taking", so the message is now version-gated (`lib_is_version_400()` in
   `sclibrar.cpp`), along with the take template it shares a handler with. See
-  §4 of `RUNNER_TESTS_TODO.md`.
+  §4 of `RUNNER_TESTS.md`.

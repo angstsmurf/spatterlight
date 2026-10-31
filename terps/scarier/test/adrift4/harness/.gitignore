@@ -22,5 +22,5 @@ scmap_dump
 # ones are packed against a donor that IS tracked (p4TAKE.taf and the handful
 # of other p*.taf committed before this rule).  New probe files stay out of
 # the tree -- see "Probes and offline oracles" in
-# ../notes/WINE-TRANSCRIPTS-TODO.md.
+# ../notes/WINE-TRANSCRIPTS.md.
 p[0-9]*.taf

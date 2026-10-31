@@ -503,7 +503,7 @@ gsc_style_walk_tag (scr_int tag, const scr_char *argument, void *opaque)
  * reason game styles exist at all; but not so many that a ten-character
  * byline outranks a state that covers whole rooms.  Across the corpus, ranking
  * the introduction strictly first leaves twice the text without a style of
- * its own that this weight does (see TODO-styles.md, Step 2).
+ * its own that this weight does.
  */
 static const unsigned long GSC_STYLE_INTRO_WEIGHT = 20;
 

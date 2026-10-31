@@ -1,6 +1,6 @@
 """The sit/stand/lie word-anywhere probe with a character and a wearable.
 
-Lead from WINE-TRANSCRIPTS-TODO.md "Engine, needs a probe (3.7 / 3.8)":
+Lead from WINE-TRANSCRIPTS.md "Engine, needs a probe (3.7 / 3.8)":
 lines that `lib_sitstand_anywhere` and `run_wait_anywhere` leave alone
 (give, ask, talk, say, inventory, direction, score, hint, profanity words;
 a successful wear or remove on such a line) were unmeasured at every

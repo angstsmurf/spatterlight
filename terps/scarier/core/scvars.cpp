@@ -67,11 +67,11 @@ static scr_bool var_trace = FALSE;
  *
  * ADRIFT's %time% / elapsed-seconds system variable is
  * difftime(time(NULL), game_start), genuinely non-reproducible: it makes
- * day/night-style displays flip across runs depending on how a replay straddles
- * a wall-clock second boundary.  Freezing it (delta == 0, so only time_offset
- * remains) makes scripted regression replays byte-stable, exactly as seeding
- * the RNG does.  When determinism is off, faithful real-time behaviour (as in
- * the reference Runner) is retained.
+ * day/night-style displays flip across runs depending on how a replay
+ * straddles a wall-clock second boundary.  Freezing it (delta == 0, so only
+ * time_offset remains) makes scripted regression replays byte-stable, exactly
+ * as seeding the RNG does.  When determinism is off, faithful real-time
+ * behaviour (as in the reference Runner) is retained.
  */
 static scr_bool
 var_is_clock_frozen (void)
@@ -334,10 +334,10 @@ var_put (scr_var_setref_t vars,
   else
     {
       /*
-       * Special case %scarier_version%.  If a game defines this and initializes
-       * it to zero, re-initialize it to Scarier's version number.  Games that
-       * define %scarier_version%, initially zero, can use this to test if
-       * running under Scarier or Runner.
+       * Special case %scarier_version%.  If a game defines this and
+       * initializes it to zero, re-initialize it to Scarier's version number.
+       * Games that define %scarier_version%, initially zero, can use this to
+       * test if running under Scarier or Runner.
        */
       if (strcmp (name, "scarier_version") == 0 && vt_value.integer == 0)
         {
@@ -421,8 +421,10 @@ var_append_temp (scr_var_setref_t vars, const scr_char *string)
     }
   else
     {
-      /* Append string to existing temporary; `noted` is already the length to
-         append at, and is reused below to case the first new character. */
+      /*
+       * Append string to existing temporary; `noted` is already the length to
+       * append at, and is reused below to case the first new character.
+       */
       new_sentence = (vars->temporary[0] == NUL);
       noted = strlen (vars->temporary);
       {
@@ -1342,7 +1344,7 @@ var_system_obstatus (scr_var_setref_t vars, const scr_char * /* name */,
       return var_return_string ("[Obstatus unavailable]", type, vt_rvalue);
     }
 
-  /* If not an openable object, return unopenable to match Adrift. */
+  /* If not an openable object, return unopenable to match ADRIFT. */
   if (prop_get_indexed_integer (bundle, "Objects", vars->referenced_object,
                                 "Openable") == 0)
     return var_return_string ("unopenable", type, vt_rvalue);
@@ -1665,7 +1667,7 @@ static scr_bool
 var_system_version (scr_var_setref_t /* vars */, const scr_char * /* name */,
                     scr_int *type, scr_vartype_t *vt_rvalue)
 {
-  /* Return the Adrift emulation level of Scarier. */
+  /* Return the ADRIFT emulation level of Scarier. */
   return var_return_integer (SCARIER_EMULATION, type, vt_rvalue);
 }
 
@@ -1871,7 +1873,7 @@ var_is_user_ordered (scr_var_setref_t vars, const scr_char *name)
  *
  * Which references a Runner knows is a plain string census of the exe, and
  * it splits cleanly by version: "%object%" is in all four, "%character%"
- * from 3.80, "%number%" and "%t_number%" from 3.90, "%text%" at 4.00 only
+ * from 3.8, "%number%" and "%t_number%" from 3.9, "%text%" at 4.0 only
  * (run370 and run380 hold no "%number%", "%t_number%" or "%text%" literal
  * anywhere at all).  p37NUMREF and p38NUMREF confirm the print side:
  * task 5's `zap` answers "ZAP [%number%] [%t_number%]." at every turn of
@@ -1908,10 +1910,10 @@ var_is_unknown_reference (scr_var_setref_t vars, const scr_char *name)
  * runner_probes/varref.run400.txt):
  *
  *  - The value is the NUMERIC one, always.  `word` is the string "quux" at
- *    4.00, and run400 refuses `nurb quux` against task 4's "nurb %word%"
- *    while running it on `nurb 0`.  (3.90 cannot even ask: its VARIABLE
+ *    4.0, and run400 refuses `nurb quux` against task 4's "nurb %word%"
+ *    while running it on `nurb 0`.  (3.9 cannot even ask: its VARIABLE
  *    record has no Type field -- sctafpar.cpp spells it `ZType`, a
- *    defaulted zero read from nothing -- so every 3.90 variable is a
+ *    defaulted zero read from nothing -- so every 3.9 variable is a
  *    number.)
  *  - The command is LOWER-CASED before the walk and the Name is not, so a
  *    marker reaches a variable only when the stored Name is itself all
@@ -1953,13 +1955,12 @@ var_get_command_number (scr_var_setref_t vars, const scr_char *name,
 /*
  * var_get_command_text()
  *
- * Deliberate deviation, for lenient task matching only: a
- * task command's %name% as Scarier read it before the Runner port
- * (72ae49a1e).  The name is found in any case, and a string variable
- * spells its text, so Lair of the Vampire's `drop %item%` and a `call
- * %who%` over who="bob" answer the words the variable holds.  The Runner
- * lower-cases the marker, finds no capitalised Name and spells a string
- * variable as 0 (var_get_command_number()).
+ * Deliberate deviation, for lenient task matching only: a task command's
+ * %name% is read in Scarier's own way, not the Runner's.  The name is found in
+ * any case, and a string variable spells its text, so Lair of the Vampire's
+ * `drop %item%` and a `call %who%` over who="bob" answer the words the
+ * variable holds.  The Runner lower-cases the marker, finds no capitalised
+ * Name and spells a string variable as 0 (var_get_command_number()).
  */
 scr_bool
 var_get_command_text (scr_var_setref_t vars, const scr_char *name,
@@ -2156,8 +2157,8 @@ var_indexed_name (scr_prop_setref_t bundle, scr_int index_)
    * The keys never change once a game is loaded, but finding one means
    * comparing against every earlier variable's Name, and gs_copy() asks for
    * every variable on every turn -- quadratic in the variable count, and a
-   * fifth of some walkthroughs' run time.  So remember each key; the runner
-   * calls var_forget_bundle() before destroying a bundle.
+   * fifth of some walkthroughs' run time.  So remember each key; the `run_`
+   * code calls var_forget_bundle() before destroying a bundle.
    */
   if (bundle != var_names_bundle)
     {
@@ -2381,8 +2382,8 @@ var_get_ref_number (scr_var_setref_t vars)
  *
  * Peek at, and put back, the whole referenced-number state -- the value and
  * the "has one ever been set" flag that %number% substitution tests.  Used by
- * the runner's scr_ref_number_guard (runner/scrunner.h) to keep Scarier's own
- * meta commands ("wait 5", "hist 3") from writing the game's referenced
+ * the `run_` code's scr_ref_number_guard (runner/scrunner.h) to keep Scarier's
+ * own meta commands ("wait 5", "hist 3") from writing the game's referenced
  * number: they match a %number% pattern, but the real Runner has no such
  * commands and only ever sets its referenced number (run400 MemVar_49420C,
  * written solely by numintext/numintext2 off the wildcard expansion in

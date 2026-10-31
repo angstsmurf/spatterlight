@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """A `*` task command that ALSO holds a %object% or %character%.
 
-The unported half of the checkwild lead in WINE-TRANSCRIPTS-TODO.md.  Scarier
+The unported half of the checkwild lead in WINE-TRANSCRIPTS.md.  Scarier
 ran `uip_wildcard_match_pre400()` as the whole test for a pre-4.0 `*` command,
 but only for a command with no reference in it, because the substitution the
 Runner does first was emulated below 3.90 only.  A 3.9 command like

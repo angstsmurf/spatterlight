@@ -29,10 +29,11 @@
 /* The map, shown in a graphics window to the right of the story on request
    ("map").  Both engines use this pane; what differs is where the map comes
    from.  An ADRIFT 5 map is authored data, parsed once per adventure, aliasing
-   its XML, and so dropped whenever the adventure is.  An ADRIFT 4 map has to be
-   derived from the exit graph, and it depends on the room you are standing in
-   and on how much you have explored -- so it is rebuilt on every redraw, as the
-   ADRIFT 4 runner rebuilt it every time it drew (drawmap with mode = 1). */
+   its XML, and so dropped whenever the adventure is.  An ADRIFT 4 map has to
+   be derived from the exit graph, and it depends on the room you are standing
+   in and on how much you have explored -- so it is rebuilt on every redraw, as
+   the ADRIFT 4 Runner rebuilt it every time it drew (drawmap with mode = 1).
+  */
 winid_t gsc_map_window = nullptr;
 map_t *gsc_map = nullptr;
 int gsc_map_shown = FALSE;
@@ -82,18 +83,18 @@ char gsc_map_last_player[256] = "";
 static int gsc_map_chrome_click (int px, int py);
 static int gsc_map_zoom_apply (int dir);
 
-/* The pixels currently on screen, kept so that a redraw need only send the rows
-   that have changed.  The map is redrawn at every prompt, but most turns do not
-   move the player and so do not change a single pixel; a turn that does move him
-   usually changes only part of the pane.  Sending the whole surface regardless
-   is what costs: Glk has no blit, so each row of the map arrives at the display
-   as a run of glk_window_fill_rect() calls, and Spatterlight turns every one of
-   them into an NSRectFill.  Comparing against these pixels first is much cheaper
-   than drawing them again.
-   The comparison is only valid while the window still holds what we last put
-   there, so gsc_map_full_flush forces the whole surface out again whenever it
-   may not: after an arrange or redraw event (the window is resized, and its
-   backing image with it), and when the pane is opened or cleared. */
+/* The pixels currently on screen, kept so that a redraw need only send the
+   rows that have changed.  The map is redrawn at every prompt, but most turns
+   do not move the player and so do not change a single pixel; a turn that does
+   move him usually changes only part of the pane.  Sending the whole surface
+   regardless is what costs: Glk has no blit, so each row of the map arrives at
+   the display as a run of glk_window_fill_rect() calls, and Spatterlight turns
+   every one of them into an NSRectFill.  Comparing against these pixels first
+   is much cheaper than drawing them again.  The comparison is only valid while
+   the window still holds what we last put there, so gsc_map_full_flush forces
+   the whole surface out again whenever it may not: after an arrange or redraw
+   event (the window is resized, and its backing image with it), and when the
+   pane is opened or cleared. */
 static map_surface_t *gsc_map_screen = nullptr;
 int gsc_map_full_flush = TRUE;
 
@@ -277,7 +278,7 @@ gsc_map_click_view (event_t *event)
 
 /*
  * The map view callbacks: what a5map needs to know about this run.  They read
- * the same state the runner's map does -- the player's seen-set, room short
+ * the same state the Runner's map does -- the player's seen-set, room short
  * names, and the restriction-checked exits.
  */
 static int
@@ -360,7 +361,7 @@ gsc_a5_map_ever_blocked (void *ctx, const char *lockey, int dir)
 static void
 gsc_a5_map_view (a5_state_t *st, map_view_t *view)
 {
-  /* The runner draws its map only after PrepareForNextTurn has emptied the
+  /* The Runner draws its map only after PrepareForNextTurn has emptied the
      per-turn route memo, so a route un-blocked late in the turn is re-checked
      fresh by the draw; drop the memo here to match.  (The turn loop clears it
      again at the next command, so entries seeded by drawing never leak into
@@ -380,7 +381,7 @@ gsc_a5_map_view (a5_state_t *st, map_view_t *view)
  * running.  For ADRIFT 5 that is the map parsed at load; for ADRIFT 4 there is
  * nothing to parse, so the layout is recomputed here -- it is derived from the
  * room you are in and the rooms you have seen, both of which change as you
- * play, and the runner likewise recomputed it every time it drew.
+ * play, and the Runner likewise recomputed it every time it drew.
  *
  * Returns FALSE if there is no map to show.  Mid-game ADRIFT 4 HideOnMap keeps
  * the previous layout so the pan/zoom view can freeze on the last-known map
@@ -430,23 +431,23 @@ gsc_map_current (map_view_t *view, const char **player, char *keybuf,
  * Whether opening the pane right now would show the player anything.
  *
  * ADRIFT 5 games routinely run their title, credits and options screens from a
- * staging room the map hides (Location <Hide>), and a page whose only seen room
- * is hidden renders as an empty rectangle -- The Axe of Kolt spends three
+ * staging room the map hides (Location <Hide>), and a page whose only seen
+ * room is hidden renders as an empty rectangle -- The Axe of Kolt spends three
  * screens there before the game proper begins.  Rather than put up a blank
  * pane, opening waits; every redraw asks again, so the map arrives with the
  * first real room.
  *
  * ADRIFT 4 hides its map the same way, but a step earlier: the layout is
- * derived from the room you are standing in, and from a room the author flagged
- * HideOnMap the runner drew nothing at all (Form29.drawmap bails, so scmap_build
- * hands back no map).  The PK Girl opens in such a room and plays its whole
- * introduction there.  That is the same "wait for a real room" case, not a
- * failure, so it defers too.
+ * derived from the room you are standing in, and from a room the author
+ * flagged HideOnMap the Runner drew nothing at all (Form29.drawmap bails, so
+ * scmap_build hands back no map).  The PK Girl opens in such a room and plays
+ * its whole introduction there.  That is the same "wait for a real room" case,
+ * not a failure, so it defers too.
  *
- * A map that cannot be built for any other reason answers TRUE, because that is
- * a different complaint and one the pane makes for itself: the game may have no
- * map to show, or ADRIFT 4's layout may have given up ("too complex"), and the
- * player asking for the map deserves to be told so.
+ * A map that cannot be built for any other reason answers TRUE, because that
+ * is a different complaint and one the pane makes for itself: the game may
+ * have no map to show, or ADRIFT 4's layout may have given up ("too complex"),
+ * and the player asking for the map deserves to be told so.
  */
 static int
 gsc_map_worth_opening (void)
@@ -475,7 +476,7 @@ gsc_map_zoom_apply (int dir)
   int scale = gsc_map_zoom > 0 ? gsc_map_zoom : gsc_map_cam.scale;
   int zoom;
 
-  /* A map with nothing drawn yet steps from the runner's default. */
+  /* A map with nothing drawn yet steps from the Runner's default. */
   if (scale < MAP_ZOOM_MIN)
     scale = MAP_SCALE_MIN;
   zoom = map_zoom_step (scale, dir);
@@ -554,9 +555,9 @@ gsc_map_rect (void * /* ctx */, unsigned int rgb, int x, int y, int w, int h)
  * rectangle (rgbsurf_send_rects): far cheaper than one fill_rect per pixel,
  * or per row.
  *
- * Only the rows that differ from what is already on screen (gsc_map_screen) are
- * flushed, so a turn that leaves the map alone -- most of them -- sends nothing
- * at all.
+ * Only the rows that differ from what is already on screen (gsc_map_screen)
+ * are flushed, so a turn that leaves the map alone -- most of them -- sends
+ * nothing at all.
  */
 void
 gsc_map_redraw (void)
@@ -1006,8 +1007,8 @@ gsc_map_show (void)
 
   /* The ADRIFT 4 layout can give up ("Cannot draw map - too complex.",
      Form29.showmapfail).  Say so here, once, rather than at every prompt: the
-     pane stays open, because a layout that fails from one room may well succeed
-     from the next. */
+     pane stays open, because a layout that fails from one room may well
+     succeed from the next. */
   if (!gsc_is_a5 && gsc_map == nullptr && scmap_failed () != 0)
     gsc_normal_string ("Sorry, this game's map is too complex to draw.\n");
 
@@ -1153,27 +1154,28 @@ gsc_map_auto_reveal (void)
 /*
  * gsc_map_notice_restart()
  *
- * Take the map pane down for a replayed ADRIFT 4 opening, and let it be decided
- * again from scratch.
+ * Take the map pane down for a replayed ADRIFT 4 opening, and let it be
+ * decided again from scratch.
  *
  * The ADRIFT 5 path does this where the restart happens (gsc_a5_restart_run);
- * ADRIFT 4 has nowhere to do it, because the restart never surfaces here.  Both
- * RESTART at the prompt and the restart offered when the game ends are handled
- * inside scr_interpret_game, which just replays the opening -- so the pane goes
- * into the new game still showing the old one's layout, and for a game whose
- * opening plays out in a room the map hides, like The PK Girl, that means the
- * empty rectangle gsc_map_worth_opening exists to keep off the screen.  Watch
- * the interpreter's restart count for a change instead (run_get_restart_count).
+ * ADRIFT 4 has nowhere to do it, because the restart never surfaces here.
+ * Both RESTART at the prompt and the restart offered when the game ends are
+ * handled inside scr_interpret_game, which just replays the opening -- so the
+ * pane goes into the new game still showing the old one's layout, and for a
+ * game whose opening plays out in a room the map hides, like The PK Girl, that
+ * means the empty rectangle gsc_map_worth_opening exists to keep off the
+ * screen.  Watch the interpreter's restart count for a change instead
+ * (run_get_restart_count).
  *
  * The zoom goes with the old run for the same reason it does in ADRIFT 5: the
  * new one is back to a single room, which a scale chosen for a whole map would
  * show far too close in.
  *
- * Called at the first sign of the replayed opening -- its first line of output,
- * or failing that its first prompt -- so that the opening is laid out at the
- * width it will keep.  Opening and closing windows moves the current stream
- * about (gsc_map_show leaves output pointed at the story window), which the
- * caller mid-print is not expecting, so put it back.
+ * Called at the first sign of the replayed opening -- its first line of
+ * output, or failing that its first prompt -- so that the opening is laid out
+ * at the width it will keep.  Opening and closing windows moves the current
+ * stream about (gsc_map_show leaves output pointed at the story window), which
+ * the caller mid-print is not expecting, so put it back.
  */
 void
 gsc_map_notice_restart (void)

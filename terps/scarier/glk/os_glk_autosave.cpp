@@ -385,7 +385,7 @@ gsc_a5_apply_all (const std::string &data)
   if (!a5run_restore (gsc_a5_run, chunk.data (), chunk.size ()))
     return false;
 
-  /* As on the scare side, a truncated undo tail is not fatal. */
+  /* As on the ADRIFT 4 side, a truncated undo tail is not fatal. */
   if (!gsc_container_get_chunk (data, &pos, &chunk))
     return true;
   a5run_set_turn_text (gsc_a5_run, chunk.data (), chunk.size ());

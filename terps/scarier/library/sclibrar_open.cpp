@@ -19,9 +19,6 @@
 
 /*
  * "with" clauses, open, close, lock and unlock.
- *
- * See sclibrar.h for what the library files share and sclibrar_internal.h
- * for what the core files share.
  */
 
 #include "sclibrar.h"
@@ -50,7 +47,7 @@
  * the gem." (p4WITHQ2.taf, runner_probes/withq2.run400.txt).  The
  * "With what?" arm at 488505 tests an instrument neither present nor seen,
  * which 463640 never returns: it is dead.  run390's twin answers differently,
- * and it serves 3.70 and 3.80 as well; see lib_with_clause_390().
+ * and it serves 3.7 and 3.8 as well; see lib_with_clause_390().
  */
 
 scr_int
@@ -129,7 +126,7 @@ lib_with_clause_390 (scr_gameref_t game, const std::string &line,
   /*
    * The count is of the objects the WHOLE line references, not of one per
    * half: `fff with gem rock`, a prefix continuation whose head names
-   * nothing, is still the split's "You don't have the rock." at 3.90
+   * nothing, is still the split's "You don't have the rock." at 3.9
    * (p39WITHPFX, runner_probes/withpfx.run390.pfx6.txt,
    * make_withprefixprobe.py).  Only the suffix arm needs a head
    * object, since it is the one that prints it.
@@ -142,7 +139,7 @@ lib_with_clause_390 (scr_gameref_t game, const std::string &line,
       if (!quiet)
         {
           pf_buffer_string (gs_get_filter (game), "With what?\n");
-          /* 45D1A0; 3.90 alone. See lib_with_prefix_390_note(). */
+          /* 45D1A0; 3.9 alone.  See lib_with_prefix_390_note(). */
           lib_with_prefix_390_note (game);
         }
       return LIB_WITH_ANSWERED;
@@ -388,9 +385,9 @@ lib_cant_do_with_400 (scr_gameref_t game, const scr_char *verb,
  * <X>.") come out instead; see lib_with_clause_390().
  *
  * Measured on p*OPENW.taf: `close rock with gem` is "You can't
- * close the rock with the gem." at 3.70, 3.80 and 3.90 alike, and `open rock
+ * close the rock with the gem." at 3.7, 3.8 and 3.9 alike, and `open rock
  * with slab` / `open slab with gem` are "You can't open the rock with the
- * slab." / "You can't open the slab with the gem." at 3.70
+ * slab." / "You can't open the slab with the gem." at 3.7
  * (runner_probes/openw.run370.ow.rtf, runner_probes/openw.run370.ox.rtf).  The
  * slab is static, so a static instrument does fall through to the suffix, as
  * lib_with_clause_390()'s comment read off the listing -- 3.9 really has no
@@ -549,10 +546,10 @@ lib_open_close_tie_400 (scr_gameref_t game, const scr_char *verb,
  * Proc_21_46 (held-or-worn, recursive) passes, and otherwise answers "<I am>
  * not carrying <the object>!".  The 3.8 and 3.9 handlers have no such test.
  *
- * Deliberate deviation: Scarier opens it where it stands, as at
- * 3.8/3.9 and as it did before the port (e66709de2).  A chest too heavy to
- * lift was otherwise unopenable.  So this logs the deviation and returns
- * FALSE; the Runner's refusal is kept, switched off, for reference.
+ * Deliberate deviation: Scarier opens it where it stands, as at 3.8/3.9.  A
+ * chest too heavy to lift was otherwise unopenable.  So this logs the
+ * deviation and returns FALSE; the Runner's refusal is kept, switched off, for
+ * reference.
  */
 static scr_bool
 lib_open_close_not_carried_400 (scr_gameref_t game, scr_int object)
@@ -613,8 +610,10 @@ lib_cmd_open_object (scr_gameref_t game)
       return TRUE;
 
     case OBJ_CLOSED:
-      /* 4.0's carrying gate, not applied; see
-         lib_open_close_not_carried_400(). */
+      /*
+       * 4.0's carrying gate, not applied; see
+       * lib_open_close_not_carried_400().
+       */
       if (lib_open_close_not_carried_400 (game, object))
         return TRUE;
 
@@ -689,10 +688,10 @@ lib_cmd_open_object (scr_gameref_t game)
    * (run370 runner_probes/exam.run370.txt); run380 (42F071) and
    * later end in "!".
    *
-   * Being therest's tail, 3.70's also carries the " with <the instrument>" of
-   * a two-object split, which openclose's own 3.80 refusal above it does not:
-   * `open rock with slab` is "You can't open the rock with the slab." at 3.70
-   * and the bare "You can't open the rock!" at 3.80 and 3.90 (p*OPENW,
+   * Being therest's tail, 3.7's also carries the " with <the instrument>" of
+   * a two-object split, which openclose's own 3.8 refusal above it does not:
+   * `open rock with slab` is "You can't open the rock with the slab." at 3.7
+   * and the bare "You can't open the rock!" at 3.8 and 3.9 (p*OPENW,
    * runner_probes/openw.run370.ow.rtf / runner_probes/openw.run380.ow.rtf /
    * runner_probes/openw.run390.ow.txt).
    */
@@ -738,8 +737,10 @@ lib_cmd_close_object (scr_gameref_t game)
   switch (openness)
     {
     case OBJ_OPEN:
-      /* Same 4.0-only carrying gate as in lib_cmd_open_object above, and
-         the same deliberate deviation: Scarier closes it where it stands. */
+      /*
+       * Same 4.0-only carrying gate as in lib_cmd_open_object above, and
+       * the same deliberate deviation: Scarier closes it where it stands.
+       */
       if (lib_open_close_not_carried_400 (game, object))
         return TRUE;
 
@@ -777,10 +778,10 @@ lib_cmd_close_object (scr_gameref_t game)
    * down -- which ends in a period (run370 43D231, run380 443D31, run390
    * 45D4BE/45D4CF).  Same sentence, different punctuation.
    *
-   * Measured on p39EXAM.taf (3.90), runner_probes/exam.run390.held.txt:
+   * Measured on p39EXAM.taf (3.9), runner_probes/exam.run390.held.txt:
    *   `open stone` -> "You can't open the stone!"
    *   `close stone` -> "You can't close the stone."
-   * and on p4EXAM.taf (4.00), runner_probes/exam.run400.txt, where both end in
+   * and on p4EXAM.taf (4.0), runner_probes/exam.run400.txt, where both end in
    * "!".
    *
    * Coming from therest, the pre-4.0 line carries the two-object split's "
@@ -979,7 +980,7 @@ lib_lock_therest_400 (scr_gameref_t game, const lib_lock_verb_t *verb,
  * text before "with" (475D5D), and nothing between that and the Key and
  * openness tests looks at where the object is.  So a seen object in another
  * room, or shut inside a closed container, still gets its state refusal:
- * sswhore (4.00) `unlock drawer` and `unlock drawer with skeleton key` with
+ * sswhore (4.0) `unlock drawer` and `unlock drawer with skeleton key` with
  * the desk drawer seen but inside the closed desk answer "The desk drawer is
  * not locked!" (runner_transcripts/sswhore.txt, T84/T97), where our %object%
  * scope saw nothing and answered "You can't unlock that." and a key prompt.
@@ -997,7 +998,7 @@ lib_lock_therest_400 (scr_gameref_t game, const lib_lock_verb_t *verb,
  * inside the closed desk, which is the only corpus case.  An object in
  * another room falls through to the ordinary "You can't lock/unlock that."
  * Logged under "Deliberate deviations" in
- * test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md.
+ * test/adrift4/notes/WINE-TRANSCRIPTS.md.
  *
  * Returns the object, or -1 when the present pass matched or tied, when the
  * head names nothing seen or nothing in the room, or when the object has no
@@ -1156,7 +1157,7 @@ lib_lock_with_key (scr_gameref_t game, const lib_lock_verb_t *verb,
     key = the_key;
 
   /*
-   * The runner asks whether the key is indirectly held by the player,
+   * The Runner asks whether the key is indirectly held by the player,
    * not whether it sits in the hands: a key that is worn, or stowed in
    * an open bag being carried, unlocks perfectly well.  Provenance
    * relies on this -- its walkthrough wears the brass key so that the
@@ -1213,7 +1214,7 @@ lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
    * locked!", " as it is open." and " don't have anything to unlock " are
    * run400's alone (index/pool.py -s ock).  So below 4.0 every lock and
    * unlock line is therest's, which run390 reaches only after the
-   * out-of-room task refusal at loc_45FFE8: thetest (3.90) `unlock door` in
+   * out-of-room task refusal at loc_45FFE8: thetest (3.9) `unlock door` in
    * the Room of Eternal Dialing, with task 14 `unlock door` confined to room
    * 0, is "You can't do that here!" (runner_transcripts/thetest_win.txt
    * T68-77), not "You can't unlock the door.".  Decline, and let the
@@ -1239,11 +1240,11 @@ lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
    * The arm's own object comes first: it resolved the head of the line with
    * 463640 and does not care where the object is, so a seen-but-absent one
    * is locked and unlocked just the same -- in the Runner; Scarier's arm
-   * reaches only into the player's room (lib_lock_absent_object_400(), the
-   * 2026-10-17 deviation).  Its key then comes from the
-   * " with " half alone (475CB0) -- the parser bound no reference text for a
-   * line it could not place -- and a half that resolves to nothing leaves
-   * var_88 at -1, the keyless branch.
+   * reaches only into the player's room (a deliberate deviation,
+   * lib_lock_absent_object_400()).  Its key then comes from the " with " half
+   * alone (475CB0) -- the parser bound no reference text for a line it could
+   * not place -- and a half that resolves to nothing leaves var_88 at -1, the
+   * keyless branch.
    */
   object = lib_lock_absent_object_400 (game);
   if (object >= 0)

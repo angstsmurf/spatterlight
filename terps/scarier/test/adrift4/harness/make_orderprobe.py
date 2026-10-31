@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """The claiming handlers the two-verb rule never measured: where do they sit?
 
-WINE-TRANSCRIPTS-TODO's two-verb entries ("Below 4.0 a two-verb line is
+WINE-TRANSCRIPTS's two-verb entries ("Below 4.0 a two-verb line is
 decided by the call order" and "At 4.0 a two-verb line is decided by a
 DIFFERENT call order") settled takes, drops, wears, removes and examines,
 and left the rest of generaltasks' run alone because nothing had measured

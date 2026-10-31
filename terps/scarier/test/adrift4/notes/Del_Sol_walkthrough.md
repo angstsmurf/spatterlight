@@ -60,7 +60,7 @@ run a KilledTask unconditionally (`battle_kill` → `task_run_task`), so
 channels (KilledTask, StaminaTask) now gate on
 `task_can_run_task_directional`, the same gate as the type-5 exec channel —
 both halves Runner-verified live (room list: Del Sol; done-state: arena probe
-KT2, see `RUNNER_TESTS_TODO.md`). Scarier now prints exactly what run400
+KT2, see `RUNNER_TESTS.md`). Scarier now prints exactly what run400
 prints on this kill: "You hit Moreland with the backpack." and nothing else.
 
 So the reachable game is a **0-ending, score-only sandbox**: you accrue points

@@ -44,7 +44,7 @@ and it is now PORTED (2026-08-25):
 
 run390 answers all four with the ordinary flat refusals, so this is a version
 split like the rest.  The article split is real: `close` composes with the
-object's own Prefix.  See notes/WINE-TRANSCRIPTS-TODO.md, "FIXED 2026-08-25 --
+object's own Prefix.  See notes/WINE-TRANSCRIPTS.md, "FIXED 2026-08-25 --
 the 4.0 seen-but-absent resolver", for the placement footgun (five regressions
 from calling it too early) and the deliberate empty-Prefix deviation.
 

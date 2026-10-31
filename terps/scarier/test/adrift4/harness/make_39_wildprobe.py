@@ -3,7 +3,7 @@
 worn item?
 
 Separates the two candidate causes of the `thetest` divergence recorded in
-RUNNER_TESTS_TODO.md section 2.  One room, two dynamic objects, one task:
+RUNNER_TESTS.md section 2.  One room, two dynamic objects, one task:
 
     rock   -- on the floor; the wildcard's gate.
     cloak  -- on the floor, wearable; NO task references it.
@@ -28,7 +28,7 @@ Session, same for the Runner and for Scarier:
     drop rock
     look              restriction false again; wildcard must be silent.
 
-The six variants that settled RUNNER_TESTS_TODO.md section 2 are one-line
+The six variants that settled RUNNER_TESTS.md section 2 are one-line
 edits of this file:
 
     pWILD2  cloak worn at start (position 5) and the restriction changed to

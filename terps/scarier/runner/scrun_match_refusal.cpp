@@ -23,7 +23,7 @@
  * spent-task claim, run_task_refusal(), the 4.0 put/take rerun and the
  * 3.7 second pass.
  *
- * Split out of scrun_match.cpp; see scrun_match_internal.h.
+ * See scrun_match_internal.h.
  */
 
 #include <assert.h>
@@ -45,11 +45,11 @@
  * TRUE if any of the task's forward command patterns is a bare "*".
  *
  * Such a task matches every line the player types, and the Runner treats it as
- * a deliberate catch-all rather than as something the player got into the wrong
- * room for: run390's checktask sets the room flag for an out-of-room match and
- * then walks the task's own 25 command slots, clearing it again the moment one
- * of them is exactly "*" (loc_44B684 sets it, loc_44B6BC clears it).  Only the
- * forward Command list is walked, not ReverseCommand.
+ * a deliberate catch-all rather than as something the player got into the
+ * wrong room for: run390's checktask sets the room flag for an out-of-room
+ * match and then walks the task's own 25 command slots, clearing it again the
+ * moment one of them is exactly "*" (loc_44B684 sets it, loc_44B6BC clears
+ * it).  Only the forward Command list is walked, not ReverseCommand.
  */
 static scr_bool
 run_task_has_catchall_command (scr_gameref_t game, scr_int task)
@@ -68,7 +68,7 @@ run_task_has_catchall_command (scr_gameref_t game, scr_int task)
 /*
  * Optional "repeat assist" mode (opt-in, off by default; sibling of the
  * combat and move assists).  The pre-4.0 spent-task claim below is the
- * Runner's, measured, but in a few 3.90 games it sits on the critical path:
+ * Runner's, measured, but in a few 3.9 games it sits on the critical path:
  * a finished, non-repeatable task whose command is an exit (Vampire's T61
  * `e` out of the Bozo backyard, Merry Murders' T46 `n` into the archives)
  * answers every later use of that exit with its RepeatText, so the player
@@ -175,8 +175,8 @@ run_spent_task_390 (scr_gameref_t game, const scr_char *string,
        *
        * Deliberate deviation: not ported.  The claim names a
        * task that was never done, in every room, so a room's own `out`
-       * exit could not be taken and `leave box` was refused too
-       * (32a3f3423).  The line goes on to the library.
+       * exit could not be taken and `leave box` was refused too.  The line
+       * goes on to the library.
        */
       if (SCR_TRACING_DEVIATIONS () && !buffer
           && task_is_reverse_refused_390 (game, task)
@@ -309,8 +309,8 @@ run_spent_claim_390 (scr_gameref_t game, const scr_char *message)
  *   - the task has already been done and is not repeatable.  The Runner prints
  *     the task's RepeatText if it has one -- in EVERY version, 4.0 included --
  *     and otherwise "You have already done that.", which like the room refusal
- *     is a pre-4.0 message only (` have already done that.` is a UTF-16 literal
- *     in run370/run380/run390 and absent from run400).
+ *     is a pre-4.0 message only (` have already done that.` is a UTF-16
+ *     literal in run370/run380/run390 and absent from run400).
  *
  * Measured live against run370 (Castle Quest), run380 (Marooned), run390 (The
  * Hangover plus the p39where probe built by test/adrift4/harness/
@@ -324,35 +324,36 @@ run_spent_claim_390 (scr_gameref_t game, const scr_char *message)
  * when nothing else claimed the input.
  *
  * The two refusals are ordered, and the order is measured rather than assumed:
- * probe task "theta" is done AND out of its room, and run390 answers "You can't
- * do that here!", so the room half is tested first.  That is why the
- * already-done test carries the room condition with it (task_is_done_refused()).
+ * probe task "theta" is done AND out of its room, and run390 answers "You
+ * can't do that here!", so the room half is tested first.  That is why the
+ * already-done test carries the room condition with it
+ * (task_is_done_refused()).
  *
- * Within one command the Runner scans every task and does not stop at the first
- * refusable one.  The already-done half writes its message as it goes, so the
- * first such task wins and ends the scan; the room half only raises a flag, and
- * each later out-of-room match overwrites it -- so it is the LAST matching
- * out-of-room task that decides, and a catch-all "*" task clears the flag for
- * good (run_task_has_catchall_command()).  Melbourne Beach (3.90) is the
- * measured case: its task 94 is `*` confined to room 0, so run390 answers "I
- * don't understand what you mean!" and not "You can't do that here!" for `play
- * volleyball` and `use shower` typed outside their rooms
+ * Within one command the Runner scans every task and does not stop at the
+ * first refusable one.  The already-done half writes its message as it goes,
+ * so the first such task wins and ends the scan; the room half only raises a
+ * flag, and each later out-of-room match overwrites it -- so it is the LAST
+ * matching out-of-room task that decides, and a catch-all "*" task clears the
+ * flag for good (run_task_has_catchall_command()).  Melbourne Beach (3.9) is
+ * the measured case: its task 94 is `*` confined to room 0, so run390 answers
+ * "I don't understand what you mean!" and not "You can't do that here!" for
+ * `play volleyball` and `use shower` typed outside their rooms
  * (runner_probes/melbourne_beach.run390.txt).
  *
  * Both count as a turn, unlike DontUnderstand: in the probe, an event ticking
- * once a turn fires on either refusal and not on the parser complaint, matching
- * the `handled = 1` the Runner sets alongside the message.  Hence the TRUE
- * return, which lets the caller run the turn.  (Measured for all three pre-4.0
- * answers, and for 4.0's RepeatText on 2026-09-08: p4REPEAT2/p4REPEAT3 carry a
- * once-a-turn event and every RepeatText line in
+ * once a turn fires on either refusal and not on the parser complaint,
+ * matching the `handled = 1` the Runner sets alongside the message.  Hence the
+ * TRUE return, which lets the caller run the turn.  (Measured for all three
+ * pre-4.0 answers, and for 4.0's RepeatText on 2026-09-08: p4REPEAT2/p4REPEAT3
+ * carry a once-a-turn event and every RepeatText line in
  * runner_probes/repeat2.run400.txt and runner_probes/repeat3.run400.txt is
  * followed by its "TICK.".)
  *
  * The leading word follows Perspective, which pre-4.0 has only two of: run390
- * answers "I can't do that here!" / "I have already done that." for Perspective
- * 0 and the "You" forms for every other value, third person being a 4.0
- * addition (its inventory says "You are carrying nothing." for Perspective 2 as
- * well).
+ * answers "I can't do that here!" / "I have already done that." for
+ * Perspective 0 and the "You" forms for every other value, third person being
+ * a 4.0 addition (its inventory says "You are carrying nothing." for
+ * Perspective 2 as well).
  */
 enum { REFUSAL_NONE = 0, REFUSAL_ROOM, REFUSAL_DONE };
 
@@ -391,8 +392,10 @@ run_refusal_scan (scr_gameref_t game, const scr_char *string,
   task_count = gs_task_count (game);
   for (task = 0; task < task_count; task++)
     {
-      /* The room half first -- see the note on probe task "theta" at
-         run_task_refusal().  */
+      /*
+       * The room half first -- see the note on probe task "theta" at
+       * run_task_refusal().
+       */
       if (version < TAF_VERSION_400)
         {
           for (direction = 0; direction < 2; direction++)
@@ -535,7 +538,7 @@ run_refusal_print (scr_gameref_t game, scr_int version,
 
 /*
  * The two halves do NOT sit at the same point in the dispatch order, and
- * chicago.taf (3.90) is the measurement that separates them.  Its task 18 is
+ * chicago.taf (3.9) is the measurement that separates them.  Its task 18 is
  * `listen`, confined to rooms 2 and 8 and not repeatable, and the walkthrough
  * types `listen` twice inside those rooms.  The second time run390 answers
  * "You have already done that." -- not the library's "You hear nothing out of
@@ -554,12 +557,12 @@ run_refusal_print (scr_gameref_t game, scr_int version,
  * room refusal and leaves it to the ones below.
  *
  * How much later the room half runs is measured, and it is NOT after the whole
- * library.  run390's generaltasks() (Public Sub generaltasks '460D6C, body from
- * loc_45EC34) clears the flag at 45EC7C, runs its() then tasks() (which is what
- * sets the flag, in checktask at loc_44B681), then its named per-verb handlers
- * -- wears() removes() dobattle() dohints() sitstand() openclose() viewroom()
- * the take code, adventure_Click(), whereis(), fonts(), gotoplace() -- and only
- * THEN reaches
+ * library.  run390's generaltasks() (Public Sub generaltasks '460D6C, body
+ * from loc_45EC34) clears the flag at 45EC7C, runs its() then tasks() (which
+ * is what sets the flag, in checktask at loc_44B681), then its named per-verb
+ * handlers -- wears() removes() dobattle() dohints() sitstand() openclose()
+ * viewroom() the take code, adventure_Click(), whereis(), fonts(), gotoplace()
+ * -- and only THEN reaches
  *
  *     loc_45FFE8:  If msg = "" And MemVar_468228 = 1 Then
  *                      msg = person(0) & " can't do that here!"
@@ -574,15 +577,15 @@ run_refusal_print (scr_gameref_t game, scr_int version,
  *
  * Measured on ALEXIS.TAF under run390
  * (runner_probes/alexis_worn_cube.run390.txt): `turn
- * ring`, `buy metal helmet`, `open cupboard`, `open door`, `unlock door`, `give
- * stones to larnt` and `say the password` are all answered "You can't do that
- * here!" where Scarier reached "You can't turn that.", "I don't think that is
- * for sale.", "You can't open that.", "You can't unlock that." and "Uh huh,
- * yes, very interesting." -- eight turns on that row alone, every one of them a
- * STANDARD_FALLBACK_COMMANDS row.  The handlers that run ABOVE loc_45FFE8 keep
- * their answers, which is why the post-library pass has to stay: `put water in
- * pan` on the same row is run390's "You can't do that!" from a handler, not the
- * room refusal.
+ * ring`, `buy metal helmet`, `open cupboard`, `open door`, `unlock door`,
+ * `give stones to larnt` and `say the password` are all answered "You can't do
+ * that here!" where Scarier reached "You can't turn that.", "I don't think
+ * that is for sale.", "You can't open that.", "You can't unlock that." and "Uh
+ * huh, yes, very interesting." -- eight turns on that row alone, every one of
+ * them a STANDARD_FALLBACK_COMMANDS row.  The handlers that run ABOVE
+ * loc_45FFE8 keep their answers, which is why the post-library pass has to
+ * stay: `put water in pan` on the same row is run390's "You can't do that!"
+ * from a handler, not the room refusal.
  *
  * What is NOT above the flag test, contrary to how generaltasks reads at a
  * glance, is the character catch-all.  Both `Call characters()` sites in
@@ -592,11 +595,11 @@ run_refusal_print (scr_gameref_t game, scr_int version,
  * do with <Name>." / "<Name> is not here!" / "Who?" tail rides along there.
  * The object catch-all is below it too (45D35C inside therest(), 46024A in
  * generaltasks' own tail).  So both stay at the foot of the fallback table,
- * and the golden that pins it is the_hangover (3.90): `give approval notes to
+ * and the golden that pins it is the_hangover (3.9): `give approval notes to
  * platypus` with the platypus elsewhere answers "You can't do that here!" and
  * not "Platypus is not here!" (runner_transcripts/the_hangover.txt line
  * 215).  Moving the character row above the refusal also cost goldilocks
- * and yak_shaving (both 4.00) their `give X to Y` -> "Give what?", which is
+ * and yak_shaving (both 4.0) their `give X to Y` -> "Give what?", which is
  * the same ordering seen from 4.0's side.
  *
  * 4.0 has no already-done message at all, only RepeatText, and it sits ahead
@@ -686,11 +689,11 @@ run_task_refusal (scr_gameref_t game, const scr_char *string,
        * Only the DONE half is answered early: the room half is guarded by
        * the Runner's own "did anything print?" test and stays late.
        *
-       * Pre-4.0 this pass is a fallback now.  The claim itself is made in
+       * Pre-4.0 this pass is a fallback.  The claim itself is made in
        * run_all_commands() before any handler runs, by run_spent_task_390(),
-       * which is where run390 makes it; what reaches here is a line that
-       * probe declined because a live task earlier in the table outranked
-       * the spent one, and that live task then did not run after all.
+       * which is where run390 makes it; what reaches here is a line that probe
+       * declined because a live task earlier in the table outranked the spent
+       * one, and that live task then did not run after all.
        */
       if (refusal != REFUSAL_DONE)
         return FALSE;

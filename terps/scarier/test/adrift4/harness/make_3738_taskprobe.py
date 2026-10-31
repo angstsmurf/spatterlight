@@ -1,6 +1,6 @@
 """The pre-4.0 task-comma, drop-"and" and namesake-handler probe.
 
-Three leads from WINE-TRANSCRIPTS-TODO.md's "Engine, needs a probe (3.7 /
+Three leads from WINE-TRANSCRIPTS.md's "Engine, needs a probe (3.7 /
 3.8)" and "(3.9)" lists share one world:
 
   * A comma in a task command match.  The library treats `verb, noun` as

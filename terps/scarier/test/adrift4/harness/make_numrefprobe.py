@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """A task command's %number% and %t_number%, in all four versions.
 
-The last half of the checkwild lead in WINE-TRANSCRIPTS-TODO.md.  Scarier
+The last half of the checkwild lead in WINE-TRANSCRIPTS.md.  Scarier
 matches a %number% command with the PATTERN TREE, positionally:
 `uip_match_number()` (scparser.cpp) sscanf's a number out of the line at the
 point the pattern reached, binds it and walks on.  A pre-4.0 command holding

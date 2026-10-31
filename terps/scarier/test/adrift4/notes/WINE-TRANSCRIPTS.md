@@ -1,4 +1,4 @@
-# TODO: Runner-transcript verification of the v4 walkthroughs
+# Runner-transcript verification of the v4 walkthroughs
 
 Replay a wired walkthrough command for command in the real Windows ADRIFT
 Runner under Wine and diff the Runner's own transcript against Scarier's.
@@ -1531,6 +1531,77 @@ case, and their goldens are re-blessed. The row notes in
     stand and pre-3.9 sit no arm for "on/in the floor", so those lines were
     "You can't lie on that." (a1183ae58).
 ---
+
+- **The pre-3.9 drop gate.** Not ported: it only ever takes an author's
+  task away.  Cave's `leave pool` and timmy's `leave the police station`
+  answer "Drop what?" while the player holds anything at all.  What run370
+  and run380 do:
+
+  ```text
+  Below 3.9 a drop line gets exactly ONE look at the task matcher, and
+  that look is inside drops().  run380 438659 (run370 430475 is the same
+  code) takes every line saying drop / put down / leave / the game's own
+  verb 12, and generaltasks GoTo's past the general tasks(0) pass whenever
+  drops() CLAIMS -- which is not the same as writing a message, because the
+  message buffer is global and survives a handler that hands the line on.
+  drops() claims by setting its handled flag var_94, and the only places
+  that happens on the one-object arm are 438E94 (run370 430C55), reached
+  for any object held or worn at all, and 4389xx (430A1D), the print loop's
+  own act-on-an-object arm.  So:
+
+    - Carrying and wearing NOTHING, drops() writes "Drop what?" into the
+      buffer at 438FE6 (430DCF) and hands the line on anyway.  A task then
+      runs from tasks(0) and overwrites it; nothing matching leaves the
+      "Drop what?" standing.
+    - Carrying or wearing ANYTHING, drops() claims, and the line's one
+      chance at a task is 438F4F (430D38), at the bottom of the object walk
+      438E68 (430C29) behind 438E8E (430C4F) "field 22 is 0 or &H9C" and
+      438EF4 (430CDD) "co() finds this object's name in the line".  Name
+      nothing held or worn and the matched task never runs, while 4386F5
+      (430511) has already set var_A6 = 0 and 438AD5 (4308B0) has shut the
+      whole library print loop -- so the buffer stays empty and 438FE6
+      writes "Drop what?".
+
+  Measured on run370 and run380, which answer identically.
+  p3xDROPGATE (make_3738_dropgateprobe.py: loose coin and pebble, held bean
+  and cloak, tasks `drop a coin` `drop coin bean` `drop zzz` `drop a cloak`),
+  runner_probes/dropgate.run370.rtf / runner_probes/dropgate.run380.rtf:
+
+    drop a coin     "Drop what?"  -- the task matched and did not run
+    drop coin bean  "DROPCB."     -- the held bean is named, the coin is not
+    drop zzz        "Drop what?"  -- the line names nothing that exists
+    drop a cloak    "DROPCLOAK."  -- after `wear cloak`, the &H9C arm
+    drop a coin     "DROPCOIN."   -- once the coin is in hand
+    leave zzz       "Drop what?"  -- `leave` claims too, and `put down`
+    leave bean      "You drop the bean."
+    leave a coin    "You don't have a coin!"  -- no task matched, so the
+                    print loop spoke and the claim only hid the task arm
+
+  p3xEMPTYHAND (loose coin and pebble, nothing held, tasks `drop a coin`
+  and `drop zzz`), transcripts eh37 / eh38 / eh237 / eh238:
+
+    drop a coin     "DROPCOIN."   -- empty-handed, drops() did not claim
+    drop a pebble   "You don't have a pebble!"
+    drop zzz        "DROPZZZ."
+    drop qqq        "Drop what?"  -- the buffer nothing overwrote
+    leave qqq       "Drop what?"
+    put down qqq    "Drop what?"
+    take a coin / drop a coin     "DROPCOIN."  -- now named and held
+
+  Alice's Restaurant (arlo.taf, 3.7) is the corpus case: `leave station` at
+  the police station, carrying nothing, runs its task (run370;
+  runner_transcripts/alices_restaurant.rtf).  With the empty-handed arm
+  missing, Scarier answered "Drop what?" and lost the ending.
+
+  3.9 keeps the same walk (445D79-445DAF) and its own "Drop what?" at 445F0B
+  stays live -- p39DROPGATE `drop qqq` answers it -- but 44562A runs a
+  matching task at the checktask gate itself, before the walk, so the walk's
+  gate never bites: p39DROPGATE answers DROPCOIN and DROPZZZ with nothing in
+  hand (runner_probes/dropgate.run390.txt,
+  runner_probes/dropgate.run390.b.txt).  Hence the 3.9 cut.  Only the
+  one-object arm is measured; the "all" and "and" arms rewrite the line per
+  object and are left alone.
+  ```
 
 ## Rules measured and ported (index)
 

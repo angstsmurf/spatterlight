@@ -1,6 +1,6 @@
 """The take-"and" and take-from-"and" probe, in all four file versions.
 
-Leads from WINE-TRANSCRIPTS-TODO.md, "Engine, needs a probe (3.9)" and
+Leads from WINE-TRANSCRIPTS.md, "Engine, needs a probe (3.9)" and
 "(3.7 / 3.8)":
 
   - take "and" with a candidate present: the rest of run390's multi loop at

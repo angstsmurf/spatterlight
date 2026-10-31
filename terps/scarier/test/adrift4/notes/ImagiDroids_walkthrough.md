@@ -59,7 +59,7 @@ Only "optional whitespace" satisfies both. Fixed 2026-08-04 in `scparser.cpp`
 with a distinct `NODE_JOIN` node; explicit spaces written in a pattern keep the
 strict matcher. The same change repaired *The Forum*'s TASK 15, whose noun is
 `[clog]{s}` — its second blow against Ds490 had been silently failing, with the
-parser refusal blessed into the golden. See `RUNNER_TESTS_TODO.md` §7. No other
+parser refusal blessed into the golden. See `RUNNER_TESTS.md` §7. No other
 row of the 198-row corpus moved.
 
 ## The rest of it

@@ -45,9 +45,8 @@
  * run400 under Wine (harness/make_400_coprobe.py).
  *
  * 4.0 does raise this prompt -- from the two handlers rather than from the
- * turn driver, under
- * two different tests (runner_probes/co.run400.t926.txt, every cell isolated
- * by a neutral `look`):
+ * turn driver, under two different tests
+ * (runner_probes/co.run400.t926.txt, every cell isolated by a neutral `look`):
  *
  *     chop tree   ->  Which tree.  The red tree or the blue tree?
  *     x    tree   ->  Which tree.  The red tree or the blue tree?
@@ -85,7 +84,8 @@
  *                         rock.
  *     x    tree rock  ->  Which tree.  The red tree, the blue tree or the rock?
  *     x    rock tree  ->  Which tree.  The red tree, the blue tree or the rock?
- *     chop tree rock  ->  Which tree.  The red tree, the blue tree or the rock?
+ *     chop tree rock  ->  Which tree.  The red tree, the blue tree or the
+ *                         rock?
  *
  * A name matches whole or not at all -- "key" is a word inside two Shorts and
  * names nothing -- so an ambiguity 4.0 prompts about is always a shared whole
@@ -301,8 +301,10 @@ lib_co_400_set_question (scr_bool pending, const std::string &term,
   disambig.question.candidates = candidates;
   if (offered)
     {
-      /* As the prompt left them (48BB53), with the flag that carries the
-         list past the next begin_line. */
+      /*
+       * As the prompt left them (48BB53), with the flag that carries the
+       * list past the next begin_line.
+       */
       disambig.offered.list = offered_list;
       disambig.offered.seen = TRUE;
       disambig.offered.flagged = TRUE;
@@ -713,8 +715,10 @@ lib_co_400_raise_for_with_tail (scr_gameref_t game, scr_int pending,
   if (!input || pending < 0 || crowd.size () < 2)
     return FALSE;
 
-  /* An open question takes the element first; see
-     lib_co_400_raise_for_short_tie(). */
+  /*
+   * An open question takes the element first; see
+   * lib_co_400_raise_for_short_tie().
+   */
   if (lib_co_400_question_pending ())
     {
       lib_co_400_note_refusal ();
@@ -1021,9 +1025,11 @@ lib_co_400_raise_for_contained_aliases (scr_gameref_t game)
                                                            object, "Short")))
         return FALSE;
 
-      /* Deliberate deviation: an alias the line holds only inside another
-         object's longer name does not make a candidate; see
-         lib_co_term_shadowed(). */
+      /*
+       * Deliberate deviation: an alias the line holds only inside another
+       * object's longer name does not make a candidate; see
+       * lib_co_term_shadowed().
+       */
       hit = FALSE;
       alias_count = lib_alias_prepare (bundle, vt_key, "Objects", object);
       for (alias = 0; alias < alias_count && !hit; alias++)
@@ -1619,7 +1625,7 @@ lib_npc_400_raise_for_line_string (scr_gameref_t game, const scr_char *line)
  * The answer slot's line.  generaltasks does not score the answer against
  * the prompt's candidates at all: it REBUILDS the stored command with the
  * answer words spliced in front of the term and re-runs the whole thing
- * (48B097-48B15B), exactly as 3.90's prompt does -- `chop tree` / `red`
+ * (48B097-48B15B), exactly as 3.9's prompt does -- `chop tree` / `red`
  * re-runs `chop red tree`, and the ordinary noun score settles it there.
  * The term is appended when the answer does not already hold it as a word
  * (the c() test at 48B0D8), and the part of the command past the term goes

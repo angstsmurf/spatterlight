@@ -79,7 +79,7 @@ node. Corpus exposure measured after the fix: 8 games author a bare top-level
 `/` across 36 task commands, nearly all of them `#`-labels or dashes
 (`-2/3/4`, `1 - kridlor66 who killed you/how died`) that had been quietly
 prefix-matching. Zero golden churn across the 190-row v4 suite. Logged in
-`RUNNER_TESTS_TODO.md` §4.
+`RUNNER_TESTS.md` §4.
 
 ## The route
 

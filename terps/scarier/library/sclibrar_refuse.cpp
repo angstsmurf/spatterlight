@@ -20,9 +20,6 @@
 /*
  * Stock refusals: nothing happens, can't do, don't think, and the
  * "<verb> what?" family.
- *
- * See sclibrar.h for what the library files share and sclibrar_internal.h
- * for what the core files share.
  */
 
 #include "sclibrar.h"
@@ -743,12 +740,12 @@ lib_cmd_close_absent (scr_gameref_t game)
  * for an open: every version composes the same flat refusal its `close` twin
  * does.  Measured, not argued, on the examine-refusal probes:
  *
- *   run390, p39EXAM.taf (3.90), runner_probes/exam.run390.txt /
+ *   run390, p39EXAM.taf (3.9), runner_probes/exam.run390.txt /
  *     runner_probes/exam.run390.held.txt --
  *     bare `open`, `open door` (a noun no object bears) and `open statue`
  *     (an object seen in another room, absent from this one) all answer
  *     "You can't open that."
- *   run400, p4EXAM.taf (4.00), runner_probes/exam.run400.txt -- bare
+ *   run400, p4EXAM.taf (4.0), runner_probes/exam.run400.txt -- bare
  *     `open` and `open door` answer "You can't open that." too.  (4.0's
  *     `open statue` answers "You can't see the statue." instead, but that
  *     is the 4.0 absent-object resolver speaking one layer up, not this
@@ -1111,7 +1108,7 @@ lib_cmd_repair_other (scr_gameref_t game)
 /*
  * lib_what()
  *
- * Central handler for doing something, but unsure to what.
+ * Central handler for a verb with no object: asks "<Verb> what?".
  */
 scr_bool
 lib_what (scr_gameref_t game, const scr_char *verb)
@@ -1137,7 +1134,6 @@ lib_what (scr_gameref_t game, const scr_char *verb)
    * the stone.".  p39TASK, run390x runner_probes/task.run390.pfx.txt
    * (harness/make_prefixprobe.py), runner_probes/task.run390.comma.txt
    * (harness/make_3738_taskprobe.py).
-   *
    *
    * What checkverb compares is the line as typed, but what it stores is
    * the line as generaltasks holds it by then -- after the bare-give
@@ -1463,7 +1459,7 @@ lib_cmd_unclear_object (scr_gameref_t game)
  * table).  So `drop cash` with the penny (alias "cash") shut in a dresser
  * two rooms away answers "You don't have a penny!" rather than "Drop what?",
  * which run380 keeps (@438FE6) for a line naming nothing at all.  Measured
- * on Crime_Adventure.taf (3.80) in run380.  Returns the first
+ * on Crime_Adventure.taf (3.8) in run380.  Returns the first
  * object the line names below 3.9, else -1.
  */
 static scr_int
@@ -1538,7 +1534,7 @@ lib_seen_named_object_400 (scr_gameref_t game, const scr_char *input)
  * The pre-3.9 half of lib_cmd_drop_what(), run above the out-of-room task
  * refusal rather than below it.  run380's drops() sets its "You don't have"
  * message and only then calls tasks(), whose " can't do that here." is
- * written only into an empty message.  Measured on cave.taf (3.80) under
+ * written only into an empty message.  Measured on cave.taf (3.8) under
  * run380: `drop robot` up the tree, with task 83 `drop robot` confined to
  * room 17 and the toy robot never held, is "You don't have a toy robot!"
  * (runner_probes/cave.run380.rtf turn 114), where Scarier said "You can't do
@@ -1576,8 +1572,10 @@ lib_cmd_drop_what (scr_gameref_t game)
   if (lib_cmd_drop_absent_pre390 (game))
     return TRUE;
 
-  /* name_object stayed silent for a drop that named nothing with a task
-     pre-matching (see lib_drop_named_400()); the catch-all answers. */
+  /*
+   * name_object stayed silent for a drop that named nothing with a task
+   * pre-matching (see lib_drop_named_400()); the catch-all answers.
+   */
   if (lib_is_version_400 (game) && run_priority_put_was_unnamed ())
     return FALSE;
 
@@ -1833,8 +1831,10 @@ lib_cmd_wear_what (scr_gameref_t game)
    * 4331D4-433218); see lib_absent_named_object_pre_390(). */
   const scr_int object = lib_absent_named_object_pre_390 (game);
 
-  /* From 3.80 the put branch answered above wears(); see
-     lib_wear_is_put_line_380(). */
+  /*
+   * From 3.8 the put branch answered above wears(); see
+   * lib_wear_is_put_line_380().
+   */
   if (lib_wear_is_put_line_380 (game))
     return FALSE;
 

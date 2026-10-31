@@ -52,14 +52,14 @@ static scr_bool obj_trace = FALSE;
  * was a property tree lookup, and together they were up to a fifth of a
  * walkthrough's run time.  So read every object's attributes once, the first
  * time any is asked for, along with the per-kind numberings.  The cache is
- * keyed by bundle, which the undo and temporary game copies share; the runner
- * calls obj_forget_bundle() before destroying a bundle, so a later one
+ * keyed by bundle, which the undo and temporary game copies share; the `run_`
+ * code calls obj_forget_bundle() before destroying a bundle, so a later one
  * allocated at the same address can't inherit it.
  *
  * Every object version carries Static, Container, Surface, Openable, SitLie
  * and CurrentState, and Wearable exactly when it is not static (see the
- * object grammars in sctafpar.cpp), so the reads below are the ones the old
- * object-by-object lookups made.
+ * object grammars in sctafpar.cpp), so the reads below always find their
+ * property.
  *
  * A static object's Where room list and Parent are kept too: every "is it
  * here" question about a static that no event has moved is answered from
@@ -300,11 +300,10 @@ obj_is_surface (scr_gameref_t game, scr_int object)
 /*
  * obj_nth_object()
  *
- * Adrift numbers objects of a given kind separately from objects at large,
+ * ADRIFT numbers objects of a given kind separately from objects at large,
  * so each kind needs a conversion from that numbering to objects at large:
- * the n'th object of the kind.  As the walk over the objects this replaced
- * did, a negative n gives -1 and an n past the last of the kind gives the
- * last object.
+ * the n'th object of the kind.  A negative n gives -1 and an n past the last
+ * of the kind gives the last object.
  */
 static scr_int
 obj_nth_object (scr_gameref_t game, scr_int kind, scr_int n)
@@ -548,7 +547,7 @@ enum { OBJ_WEIGH_DEPTH_LIMIT = 32 };
  * inventory (evt_move_object is the only mover that will), so both functions
  * have to answer for one.  Zero is right: run400 never counts an event-placed
  * object towards the player's limits at all, static or not -- measured live,
- * "Probe backlog" in test/adrift4/notes/RUNNER_TESTS_TODO.md -- so a static,
+ * "Probe backlog" in test/adrift4/notes/RUNNER_TESTS.md -- so a static,
  * which can arrive no other way, contributes nothing to the carried totals in
  * either engine.
  */
@@ -634,7 +633,7 @@ obj_weigh (scr_gameref_t game, scr_int object, scr_int depth)
    * as 3.9 does and as `glk capacity on` (game->capacity_recompute) does at
    * 4.0.  runner_parent itself stays: the possession predicates
    * (gs_runner_possessed()) still read it.  Logged under "Deliberate
-   * deviations" in test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md.
+   * deviations" in test/adrift4/notes/WINE-TRANSCRIPTS.md.
    */
   GS_FOR_EACH_OBJECT (game, other)
     {
@@ -727,7 +726,7 @@ obj_get_player_weight_limit (scr_gameref_t game)
  *
  * A 3.8 object has a single "Size/weight" class, 0..4, and the player has a
  * single "MaxCarried".  Measured in the genuine run380.exe (with probe files
- * patched through the plaintext of a 3.80 .taf, in the Wine Runner harness),
+ * patched through the plaintext of a 3.8 .taf, in the Wine Runner harness),
  * those are one *pooled burden*: each class costs 1, 3, 7, 3 or 7, the costs
  * of everything held are summed, and the sum may not exceed MaxCarried.
  * Pinned at MaxCarried 1, 2, 3, 6, 7 and 8: at 2 a class-1 or class-3 object
@@ -944,11 +943,11 @@ obj_get_container_capacity (scr_gameref_t game, scr_int object)
   count = packed / OBJ_DIMENSION_DIVISOR;
 
   /*
-   * Deliberate deviation (2026-09-30): run390 reads only the first digit
-   * of the count (6db5e9698) -- it would divide count by ten until it fell
-   * below ten -- so a 3.9 container authored to hold ten or more objects
-   * held one.  Scarier honours the authored count; a game the Runner could
-   * finish can never need less room than that.
+   * Deliberate deviation: run390 reads only the first digit of the count -- it
+   * would divide count by ten until it fell below ten -- so a 3.9 container
+   * authored to hold ten or more objects held one.  Scarier honours the
+   * authored count; a game the Runner could finish can never need less room
+   * than that.
    */
   if (prop_get_taf_version (bundle) == TAF_VERSION_390
       && count >= OBJ_DIMENSION_DIVISOR)
@@ -1286,8 +1285,10 @@ static scr_bool
 obj_indirectly_held_by_player_internal (scr_gameref_t game,
                                         scr_int object)
 {
-  /* See if the object is static or dynamic.  A static is held only if an
-     event has moved it into the player's hands. */
+  /*
+   * See if the object is static or dynamic.  A static is held only if an
+   * event has moved it into the player's hands.
+   */
   if (obj_is_static (game, object))
     {
       return !gs_object_static_unmoved (game, object)
@@ -1482,7 +1483,7 @@ obj_shows_initial_description (scr_gameref_t game, scr_int object,
  * examines, charinv, inventory, drops, whatisinon, insides, afteroa,
  * checkevent.
  *
- * Measured in run400's runner_probes/xfiles.run400.txt (The X-Files, 4.00):
+ * Measured in run400's runner_probes/xfiles.run400.txt (The X-Files, 4.0):
  * task 7 "Use Key" carries ShowRoomDesc = 0, so entering Garage 5 through it
  * prints no room description -- and `take knife` there answers "Take what?",
  * although the Small Pocket Knife (object 31, InitialPosition 11 = room 7) is

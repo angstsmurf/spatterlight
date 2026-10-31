@@ -30,7 +30,7 @@ guards deliberately sit at NPC indices 1..3: the flagged namesake index is
 the LAST present namesake's (45E8CA), i.e. Cid's 3, which is past the end
 of the object array, so the object half of the "Which" question (48B6B1)
 can never fire and every character cell reads clean.  See the "names the
-OBJECT that shares the character's index" entry in WINE-TRANSCRIPTS-TODO.md
+OBJECT that shares the character's index" entry in WINE-TRANSCRIPTS.md
 for the collision this dodges.
 
 Both Shorts are "tree" so the object cells need no alias at all; "red" and

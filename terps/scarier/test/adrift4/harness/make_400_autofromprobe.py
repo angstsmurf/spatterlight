@@ -2,7 +2,7 @@
 """ADRIFT 4.0 probe: the take handler's auto-"from" rewrite and its pre-matches.
 
 run400's get_piece (473A34) does three things scarier did not model when the
-warlord T104 port was first tried (WINE-TRANSCRIPTS-TODO.md, "Analysed
+warlord T104 port was first tried (WINE-TRANSCRIPTS.md, "Analysed
 2026-09-13: warlord T104"):
 
   1. 472DC8: with no whole-word "all"/"and" in the line it pre-matches the
@@ -66,7 +66,7 @@ restriction's fail message), and 2 only for a silent first-pass hit.
    i                   a piece of string, a pad, a cup and a plate
 
 warlord_autofrom_400.wip.patch reproduces every cell; see the parked note in
-WINE-TRANSCRIPTS-TODO.md for why it is not applied (professor task 7).
+WINE-TRANSCRIPTS.md for why it is not applied (professor task 7).
 
 Usage:
     python3 make_400_autofromprobe.py p4AUTOFROM.plain

@@ -168,7 +168,7 @@ rock." for `take rock`, `get rock`, the literal verb `pick up rock` and `take
 all`; run390 and run370 say "You pick up …" for all of them. The empty-room
 refusal splits the same way (and 4.0 has no "else" form at all). Ported as
 `lib_is_version_400()` in `sclibrar.cpp`; 71 goldens re-blessed, all of them
-4.0 games, full suite green. See §4 of `RUNNER_TESTS_TODO.md`.
+4.0 games, full suite green. See §4 of `RUNNER_TESTS.md`.
 
 ### The `g` echo is a checkbox, not a divergence — SETTLED 2026-08-15
 
@@ -189,7 +189,7 @@ Ctrl+V menu toggle. And the game's own `(with umbrella)` — the parenthetical
 scarier prints — is authored text, the first characters of task 14's
 CompleteText; it is not an echo of anything.
 
-See §4 of `RUNNER_TESTS_TODO.md`, and `scare-g-means-get` for the earlier
+See §4 of `RUNNER_TESTS.md`, and `scare-g-means-get` for the earlier
 occasion when a Runner display setting faked a `g` divergence that was not
 there.
 

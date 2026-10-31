@@ -524,11 +524,11 @@ gsc_command_patches (const char *argument)
  * gsc_command_verbose()
  *
  * Turn the game's verbose room descriptions on and off.  This mirrors the
- * ADRIFT Runner's Verbose user-interface option: when on, the game always gives
- * long descriptions of locations, even ones already visited.  Handling it as a
- * Glk port command (rather than as a game command) means it works even when a
- * game defines its own "verbose" task that would otherwise shadow it.  The
- * plain "verbose" and "brief" game commands continue to work as before.
+ * ADRIFT Runner's Verbose user-interface option: when on, the game always
+ * gives long descriptions of locations, even ones already visited.  Handling
+ * it as a Glk port command (rather than as a game command) means it works even
+ * when a game defines its own "verbose" task that would otherwise shadow it.
+ * The plain "verbose" and "brief" game commands continue to work as before.
  */
 static void
 gsc_set_verbose (scr_bool state)
@@ -628,9 +628,9 @@ gsc_command_statusline (const char *argument)
  * gsc_set_colour()
  * gsc_command_colour()
  *
- * Turn Adrift colours on and off.
+ * Turn ADRIFT colours on and off.
  *
- * Adrift games are written for a Runner that paints its output pane in a
+ * ADRIFT games are written for a Runner that paints its output pane in a
  * palette of its own rather than in the interpreter's theme -- black behind,
  * green replies, red typed text for ADRIFT 4 (the Runner's defaults, and the
  * only place they live: nothing in the .taf carries a colour), the author's
@@ -843,8 +843,8 @@ gsc_set_colour (scr_bool state)
  * colours, once the story and status windows exist and the ADRIFT 5 loader (if
  * any) has replaced the palette globals with the adventure's own four colours
  * -- both true by the time either main() calls this.  Not called on an
- * autorestore: a restored session brings its own colour state back with it, and
- * neither a switch on the command line nor a guess about the game has any
+ * autorestore: a restored session brings its own colour state back with it,
+ * and neither a switch on the command line nor a guess about the game has any
  * business overriding what the player left the game in.
  */
 void
@@ -882,8 +882,8 @@ gsc_command_colour (const char *argument)
 {
 #ifdef GSC_HAVE_ZCOLORS
   /* A bare "glk colour" turns colours on rather than asking after them, so
-     it is no use as a poll; "status" reports without acting, as it does for the
-     logging commands, and is what the summary asks with. */
+     it is no use as a poll; "status" reports without acting, as it does for
+     the logging commands, and is what the summary asks with. */
   const scr_bool poll = scr_strcasecmp (argument, "status") == 0;
 
   gsc_command_toggle (poll ? "" : argument, "colour",
@@ -918,13 +918,13 @@ gsc_command_colour (const char *argument)
  * and so work wherever a line of input is read.
  *
  * The handlers record what was asked and nothing more; the action itself is
- * carried out by the loop that read the line (gsc_meta_perform for scare,
+ * carried out by the loop that read the line (gsc_meta_perform for ADRIFT 4,
  * gsc_a5_meta_perform for the a5 loop).  It cannot happen here: all four end
- * a turn abruptly -- scare's throw out of the interpreter's main loop, the a5
- * loop's wholesale replacement of the run -- and here we are still inside the
- * command dispatcher, which has the input line to free, and possibly inside
- * the engine itself, midway through rendering the text that asked the
- * question.
+ * a turn abruptly -- the ADRIFT 4 engine's throw out of the interpreter's main
+ * loop, the a5 loop's wholesale replacement of the run -- and here we are
+ * still inside the command dispatcher, which has the input line to free, and
+ * possibly inside the engine itself, midway through rendering the text that
+ * asked the question.
  */
 
 /* The action a handler below asked for, awaiting a safe moment to happen. */
@@ -932,9 +932,9 @@ gsc_meta_t gsc_meta_pending = GSC_META_NONE;
 
 /*
  * Something to say about an action once it has happened.  Held rather than
- * printed because a successful scare restore, undo-from-memo, or restart
- * never returns to the caller that asked for it; whichever of gsc_meta_report()
- * and the next prompt comes first prints it.
+ * printed because a successful ADRIFT 4 restore, undo-from-memo, or restart
+ * never returns to the caller that asked for it; whichever of
+ * gsc_meta_report() and the next prompt comes first prints it.
  */
 static const char *gsc_meta_message = nullptr;
 
@@ -1003,7 +1003,7 @@ gsc_undo_refusal (scr_int turns)
 /*
  * gsc_meta_perform()
  *
- * Carry out a pending meta-command on the scare engine, called from
+ * Carry out a pending meta-command on the ADRIFT 4 engine, called from
  * os_read_line once the line that asked for it has been dealt with.  Each of
  * the four does exactly what the game's own command of that name does,
  * confirmation and all -- the point of these is to reach the action, not to
@@ -1214,7 +1214,7 @@ gsc_a5_hint_text (a5_state_t *st, const a5_xml_node_t *wrapper)
 /*
  * gsc_a5_display_hints()
  *
- * The ADRIFT 5 hints display.  The runner keeps clsHint out of the parser
+ * The ADRIFT 5 hints display.  The Runner keeps clsHint out of the parser
  * altogether and puts it behind a Hints window on the menu bar, so there is no
  * game command to collide with; here it hangs off "glk hints" instead, which
  * also leaves the ~40% of ADRIFT 5 games that implement a HINT task of their
@@ -1680,7 +1680,7 @@ static gsc_command_t GSC_COMMAND_TABLE[] = {
  * gsc_command_in_scope()
  *
  * Return TRUE if a Glk command table entry applies to the engine driving the
- * current game: everything for ADRIFT <=4 (scare), only the entries flagged
+ * current game: everything for ADRIFT <=4, only the entries flagged
  * GSC_CMD_A5 for ADRIFT 5 (the a5 loop).
  */
 static int
@@ -1743,8 +1743,8 @@ gsc_command_lookup (const char *command, int *matches)
  * gsc_command_usage()
  *
  * Print the one-line synopsis of the arguments a Glk command accepts, for
- * example "Glk map can be on, off, top, right, or zoom [in | out | auto]."  Both
- * a command handed an argument it doesn't understand and the foot of that
+ * example "Glk map can be on, off, top, right, or zoom [in | out | auto]."
+ * Both a command handed an argument it doesn't understand and the foot of that
  * command's "glk help" entry print this, so the two can never disagree.
  */
 void
@@ -1794,8 +1794,8 @@ gsc_command_summary (const char *argument)
    * Call handlers that have status to report with an empty argument,
    * prompting each to print its current setting.  The logging commands,
    * the colour mode and verbose act rather than report on an empty argument,
-   * so those (GSC_CMD_STATUS) are polled with an explicit "status" instead.  The
-   * commands that only ever act (GSC_CMD_ACTION) are not called at all:
+   * so those (GSC_CMD_STATUS) are polled with an explicit "status" instead.
+   * The commands that only ever act (GSC_CMD_ACTION) are not called at all:
    * asking after the settings must not display the help, or quit the game.
    */
   for (entry = GSC_COMMAND_TABLE; entry->command; entry++)

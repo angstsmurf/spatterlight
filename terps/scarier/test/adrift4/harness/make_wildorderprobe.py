@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """checkwild's middle pieces: do they have to come in order?
 
-The open half of the pre-4.0 checkwild lead in WINE-TRANSCRIPTS-TODO.md:
+The open half of the pre-4.0 checkwild lead in WINE-TRANSCRIPTS.md:
 `uip_wildcard_match_pre400()` is only a VETO on top of Scarier's pattern
 tree, so a line the tree refuses can never run the task -- but checkwild
 searches each middle piece with `InStr(1, line, piece, 0)` over the WHOLE

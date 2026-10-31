@@ -4,7 +4,7 @@
 Companion to make_39_wildprobe.py, which settled the *event* TaskAffected
 dispatch (run390 submits the task's command text through the normal task
 matcher, so an earlier runnable `*` task steals the execution).  The open
-question from RUNNER_TESTS_TODO.md section 2 is whether a walk's CharTask /
+question from RUNNER_TESTS.md section 2 is whether a walk's CharTask /
 ObjectTask dispatch takes the same path.  Statically it should: the P-code at
 0005AAD5 (CharTask) and 0005AB88 (ObjectTask) in Form1.characters is
 instruction-for-instruction the checkevent dispatch at 00048D83 -- copy

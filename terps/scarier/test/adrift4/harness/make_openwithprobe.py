@@ -90,7 +90,7 @@ also answers to "gem"):
     "Which chest.  The gem, the rock or the chest?", `take gem` is "It is
     not clear which gem you are referring to.", and `open chest with gem`
     is the therest refusal, not an open.  See the open leads in
-    notes/WINE-TRANSCRIPTS-TODO.md.
+    notes/WINE-TRANSCRIPTS.md.
 
 p*OPENL (`low`, cmdfile_popenl.txt, Adrift_234_oz370 .. 237_oz400) moves
 the chest to index 0 and confirms all of it from the other side: `open

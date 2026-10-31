@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Where does dobattle sit in generaltasks' call order?
 
-The two-verb entries in WINE-TRANSCRIPTS-TODO ("Below 4.0 a two-verb line is
+The two-verb entries in WINE-TRANSCRIPTS ("Below 4.0 a two-verb line is
 decided by the call order", "At 4.0 a two-verb line is decided by a
 DIFFERENT call order") left dobattle alone because nothing had measured it.
 Both Runners call it as a plain `Call` straight after removes (run390

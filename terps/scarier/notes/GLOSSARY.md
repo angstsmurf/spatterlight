@@ -1,7 +1,7 @@
 # Glossary and comment style
 
-The comments in `core/`, `library/`, `runner/` and `glk/` use the names
-below in one sense each. `RUNNER_ADDRESSES.md` covers the addresses they
+The comments in `core/`, `library/`, `runner/`, `glk/` and `adrift5/` use the
+names below in one sense each. `RUNNER_ADDRESSES.md` covers the addresses they
 cite.
 
 ## Names
@@ -27,7 +27,8 @@ cite.
 : Any of the original Windows players for ADRIFT 3.7 to 4.0, as opposed to
   SCARE or Scarier. When the build matters it is named: **run370**,
   **run380**, **run390**, **run400** are `run370.exe` to `run400.exe`, the
-  four builds measured under Wine and decompiled.
+  four builds measured under Wine and decompiled. In `adrift5/`, the Runner
+  is the ADRIFT 5 player, `run500.exe`.
 
 **run370x … run400x**
 : The same four Runners with an extra import that hooks Visual Basic's
@@ -46,6 +47,15 @@ cite.
 : Adrian Welcker's port of the ADRIFT 5 Runner. It is the reference for
   `adrift5/` only and is never cited for ADRIFT 4 behaviour.
 
+**`.vb` citations**
+: `File.vb:NNN` in `adrift5/` comments points into one of two source trees.
+  Most point into FrankenDrift at `bfd29fc` (`FrankenDrift.Adrift/`). Others,
+  including every `Map.vb` line and the `FileIO.vb` lines in `a5map.cpp`,
+  point into the original source (`angstsmurf/ADRIFT-5` at `1163031`,
+  `ADRIFT/`), which FrankenDrift derives from and whose files are longer. The
+  comments do not always say which tree. The line numbers are approximate:
+  trust the procedure or property a comment names, and search for it there.
+
 ## Evidence
 
 **probe**
@@ -63,11 +73,16 @@ cite.
   A golden is checked against a Runner transcript; it is not evidence by
   itself.
 
+**gitignored evidence**
+: Some cited transcripts and probes are deliberately not committed, for
+  third-party or explicit game text (see `test/adrift4/.gitignore`), so a fresh
+  clone cannot follow those cites. The cites stay.
+
 **deliberate deviation**
 : A place where Scarier knowingly answers differently from the Runner (a
   Runner bug no game needs, a convenience such as UNDO). The comment at the
   site says so in those words; the larger ones are also listed under
-  "Deliberate deviations" in `test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md`.
+  "Deliberate deviations" in `test/adrift4/notes/WINE-TRANSCRIPTS.md`.
 
 ## Comment style
 
@@ -77,7 +92,24 @@ cite.
   function does. Runner behaviour comes next, with the probe or transcript
   that measured it, then any deliberate deviation. The story of how the
   code got there belongs in the commit message, not the comment.
+- `adrift5/` differs in two ways. Its continuation lines have no ` * ` prefix:
+  they line up under the first word, and `*/` ends the last line. Its
+  function headers, like those in `mapdraw.cpp`, start with what the function
+  does rather than its name. The other rules apply there too. The blocks in
+  `adrift5/` that do have a prefix are not worth changing.
 - ` -- ` (two hyphens, spaced) is the dash. There are no em dashes.
+- `adrift5/` and `glk/` also use one-line labelled dividers, `/* ---- name */`.
+  They stay, under 80 columns.
+- A date on a measurement ("Measured 2026-09-12") stays: it tells the reader
+  which build of the corpus was measured. A date that tells a story does not.
+- Runner addresses appear in several notations (bare hex, `@hex`, `loc_`,
+  `Proc_`, `MemVar_`), which come from the listings. `RUNNER_ADDRESSES.md` says
+  how to read them. They are not worth normalising.
+- A function documented in both places keeps its contract in the `.h` and its
+  evidence in the `.cpp`. Bring existing pairs into line when touching them.
+- `glk/` predates the ` * ` prefix in many blocks, and many library and runner
+  function headers do not start with the name. Bring those into line when
+  touching them, not in a sweep.
 - Files that came from SCARE, and Scarier's own C++ files, start with the
   modeline `/* vi: set ts=2 shiftwidth=2 expandtab:`.
 - `platform/scarier-autosave.{h,mm}` and `common_utils/sc_garglk.{c,h}`

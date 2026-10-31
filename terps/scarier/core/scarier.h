@@ -102,10 +102,10 @@ extern void scr_set_trace_flags (scr_uint trace_flags);
 /*
  * Interpreter interface function prototypes.  This header is a supported
  * embedding API, not just the seam to Spatterlight's Glk front end: the folder
- * is meant to drop into other hosts (Gargoyle among them), so entry points that
- * no front end in this tree calls -- the filename and stream save/load forms,
- * the compile-date, max-score, font, bold-room-name, score-notify, patch,
- * capacity-assist and debugger queries, scr_scarier_version /
+ * is meant to drop into other hosts (Gargoyle among them), so entry points
+ * that no front end in this tree calls -- the filename and stream save/load
+ * forms, the compile-date, max-score, font, bold-room-name, score-notify,
+ * patch, capacity-assist and debugger queries, scr_scarier_version /
  * scr_scarier_emulation -- stay and are kept working.  Do not remove one
  * because nothing here calls it.
  */
@@ -174,8 +174,8 @@ extern scr_bool scr_does_game_use_sounds (scr_game);
 extern scr_bool scr_does_game_use_graphics (scr_game);
 
 /*
- * Offer every authored string in the TAF to `accept`, returning TRUE as soon as
- * one is accepted (nothing further is visited).  The strings arrive as the
+ * Offer every authored string in the TAF to `accept`, returning TRUE as soon
+ * as one is accepted (nothing further is visited).  The strings arrive as the
  * author wrote them, markup included, which is how a host greps a game for the
  * tags it cares about -- ADRIFT <=4 keeps no header fields for any of them.
  */

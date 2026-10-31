@@ -22,7 +22,7 @@
  * Command dispatch: run_line_t and its passes, run_all_commands() and the
  * task-command facets, and the `go <place>` walk state.
  *
- * Split out of scrunner.cpp; see scrunner.h for what the runner files
+ * See scrunner.h for what the `run_` files
  * share.
  */
 
@@ -163,8 +163,10 @@ run_get_dispatch_input (void)
  */
 std::vector<scr_bool> run_tasks_ran_this_command;
 
-/* TRUE while a 4.0 line has a spent task's RepeatText to answer with; set
-   by run_line_t::put_prepass() from its REFUSAL_PASS_PROBE. */
+/*
+ * TRUE while a 4.0 line has a spent task's RepeatText to answer with; set
+ * by run_line_t::put_prepass() from its REFUSAL_PASS_PROBE.
+ */
 scr_bool run_repeat_found_400 = FALSE;
 
 /*
@@ -271,19 +273,27 @@ private:
   const scr_filterref_t filter;
   const scr_char *const string;
 
-  /* status is TRUE once a handler has answered the line; refused, once a
-     put has printed a refusal and left the line to the task passes. */
+  /*
+   * status is TRUE once a handler has answered the line; refused, once a
+   * put has printed a refusal and left the line to the task passes.
+   */
   scr_bool status = FALSE, refused = FALSE;
-  /* The register uip_rewrite_references() reads, as the line found it, and
-     whether the "(<npc>)" echo came out; see spent_claim_390(). */
+  /*
+   * The register uip_rewrite_references() reads, as the line found it, and
+   * whether the "(<npc>)" echo came out; see spent_claim_390().
+   */
   scr_int prior_npc = -1;
   scr_bool ask_echo = FALSE;
-  /* A spent 4.0 task's RepeatText answers the line (repeat_found) and, with
-     no survivor handler, keeps the priority rows off it (repeat_pending). */
+  /*
+   * A spent 4.0 task's RepeatText answers the line (repeat_found) and, with
+   * no survivor handler, keeps the priority rows off it (repeat_pending).
+   */
   scr_bool repeat_found = FALSE, repeat_pending = FALSE;
-  /* put_drop_list's view of the line: the hoisted line it reads, its
-     clauses, whether a named put row has it first, and the battle verbs
-     beside it; see put_prepass(). */
+  /*
+   * put_drop_list's view of the line: the hoisted line it reads, its
+   * clauses, whether a named put row has it first, and the battle verbs
+   * beside it; see put_prepass().
+   */
   std::string put_hoisted;
   const scr_char *put_line = string;
   std::vector<std::string> put_clauses;
@@ -293,21 +303,27 @@ private:
   scr_bool inv_listed = FALSE;
   /* The line the task passes dispatch against. */
   const scr_char *task_string = string;
-  /* get_outer's view of a 4.0 take line, and what its get_piece did; see
-     get_outer_400(). */
+  /*
+   * get_outer's view of a 4.0 take line, and what its get_piece did; see
+   * get_outer_400().
+   */
   std::string outer_battle;
   const scr_char *outer_line = string;
   size_t outer_mark = 0;
-  /* Where the buffer stood when the task dispatcher got the line, and what
-     the passes before and after it settled; see task_peek() and
-     task_passes(). */
+  /*
+   * Where the buffer stood when the task dispatcher got the line, and what
+   * the passes before and after it settled; see task_peek() and
+   * task_passes().
+   */
   size_t task_mark = 0;
   scr_int task_mark_executions = 0;
   scr_bool claimed_before_tasks = FALSE, silent_before_priority = FALSE;
   scr_bool task_claimed = FALSE, silent_task_390 = FALSE;
   scr_bool silent_names_npc_390 = FALSE;
-  /* The line the take and drop rows read, and its goto class; see
-     priority_pass(). */
+  /*
+   * The line the take and drop rows read, and its goto class; see
+   * priority_pass().
+   */
   std::string priority_hoisted, priority_goto_rest;
   const scr_char *priority_line = string;
   scr_int priority_goto = RUN_GOTO_NONE;
@@ -365,8 +381,10 @@ run_line_t::reset ()
 scr_bool
 run_line_t::lenient ()
 {
-  /* Deliberate deviation: see run_line_matches_task_strictly().  The peek
-     runs strictly, so the flag is cleared for it first. */
+  /*
+   * Deliberate deviation: see run_line_matches_task_strictly().  The peek
+   * runs strictly, so the flag is cleared for it first.
+   */
 #ifdef SCARIER_DUMP_TOOLS
   if (run_strict_tasks_requested (string))
     return FALSE;
@@ -492,10 +510,12 @@ run_line_t::put_prepass ()
    * further down -- `blorp drop coin` is "You drop the coin.", not the
    * leftover-word answer the line as typed scores.  See run_hoist_verb_line().
    */
-  /* A battle verb beside another handler's word; see run_battle_line().
-     4.0's put_drop_list, like get_outer_400(), takes its word anywhere on
-     such a line: `hit bob drop coin` with the coin loose is "You are not
-     holding the coin.", no blow. */
+  /*
+   * A battle verb beside another handler's word; see run_battle_line().
+   * 4.0's put_drop_list, like get_outer_400(), takes its word anywhere on
+   * such a line: `hit bob drop coin` with the coin loose is "You are not
+   * holding the coin.", no blow.
+   */
   battle_kinds = repeat_pending ? 0 : run_battle_line_class (game, string);
   if ((battle_kinds & RUN_BATTLE_DROP)
       && run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400)
@@ -724,9 +744,9 @@ run_line_t::get_outer_400 ()
    * into a take-from, so onnafa's `give empty beer mug to perry` first says
    * "You can't take anything from the beer mug." and `x empty beer mug`
    * with the mug gone is "I don't understand where you want to get things
-   * from." (6095ff3b0).  Deliberate deviation: Scarier leaves a line that
-   * only names an "empty ..." object alone; a line starting with "empty" is
-   * the take-from rows' either way.
+   * from."  Deliberate deviation: Scarier leaves a line that only names an
+   * "empty ..." object alone; a line starting with "empty" is the take-from
+   * rows' either way.
    */
 
   /*
@@ -760,8 +780,10 @@ run_line_t::get_outer_400 ()
       && !lib_input_contains_word (outer_line, "all")
       && !lib_input_contains_word (outer_line, "and"))
     {
-      /* The piece names its object by whole-word score, so "get in the
-         van" is a take of the van; see lib_take_scored_400(). */
+      /*
+       * The piece names its object by whole-word score, so "get in the
+       * van" is a take of the van; see lib_take_scored_400().
+       */
       auto outer_take = [&] () -> scr_bool
         {
           const run_dispatch_input_guard input (outer_line);
@@ -845,7 +867,7 @@ run_line_t::get_outer_400 ()
                * which no game was written for.  The line is claimed as
                * get_piece's; whatever the one run printed answers it.
                * Logged under "Deliberate deviations" in
-               * test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md.
+               * test/adrift4/notes/WINE-TRANSCRIPTS.md.
                */
               status = TRUE;
             }
@@ -866,8 +888,10 @@ run_line_t::get_outer_400 ()
         }
       else if (run_get_motion_task_line (game, outer_line, task_string))
         {
-          /* Not a take: the dispatcher has the line.  See
-             run_get_motion_task_line(). */
+          /*
+           * Not a take: the dispatcher has the line.  See
+           * run_get_motion_task_line().
+           */
         }
       else if (lib_take_names_dynamic_400 (game, outer_line))
         {
@@ -907,7 +931,7 @@ run_line_t::task_peek ()
     run_restriction_cache_task_pick (game, task_string);
 
   /*
-   * Below 3.90 a drop line's one and only look at the task matcher is the
+   * Below 3.9 a drop line's one and only look at the task matcher is the
    * one inside drops(), which silences a matched task when nothing named is
    * in hand -- deliberately not ported; see sclibrar_drop.cpp.
    */
@@ -935,8 +959,10 @@ run_line_t::task_peek ()
                    >= TAF_VERSION_400);
       if (run_any_task_ran_this_command ())
         run_takes_second_pass_370 (game, string, task_string, task_mark);
-      /* A silent task on a take or drop line: the handler's own "Take
-         what?" / "Drop what?" claims it (see the helper). */
+      /*
+       * A silent task on a take or drop line: the handler's own "Take
+       * what?" / "Drop what?" claims it (see the helper).
+       */
       if (!status && run_any_task_ran_this_command ()
           && pf_buffer_length (filter) == task_mark
           && lib_move_what_after_silent_task_pre400 (game))
@@ -982,8 +1008,10 @@ run_line_t::priority_pass ()
    */
   if (run_get_version (gs_get_bundle (game)) < TAF_VERSION_400)
     {
-      /* A leading goto word is no verb to takes() and drops(); see
-         run_goto_line_class(). */
+      /*
+       * A leading goto word is no verb to takes() and drops(); see
+       * run_goto_line_class().
+       */
       priority_goto = run_goto_line_class (game, string);
       if (priority_goto != RUN_GOTO_NONE
           && run_goto_strip_head (game, string, priority_goto_rest))
@@ -993,8 +1021,10 @@ run_line_t::priority_pass ()
     }
   else if (battle_kinds & RUN_BATTLE_DROP)
     priority_line = put_line;
-  /* A 4.0 list line with a second verb is put_drop_list's or get_outer's
-     own list; see run_two_verb_line_400(). */
+  /*
+   * A 4.0 list line with a second verb is put_drop_list's or get_outer's
+   * own list; see run_two_verb_line_400().
+   */
   else if ((run_c_word_pre400 (TAF_VERSION_400, string, "all") >= 0
             || run_c_word_pre400 (TAF_VERSION_400, string, "and") >= 0)
            && run_two_verb_line_400 (game, string, priority_hoisted))
@@ -1020,9 +1050,11 @@ run_line_t::priority_pass ()
 
         status = run_priority_commands (game, priority_line);
       }
-      /* Below 4.0 a take or drop that only refused is wiped by dobattle,
-         which then has the line; 4.0's put_drop_list and get_outer claim
-         on a refusal.  See run_battle_line(). */
+      /*
+       * Below 4.0 a take or drop that only refused is wiped by dobattle,
+       * which then has the line; 4.0's put_drop_list and get_outer claim
+       * on a refusal.  See run_battle_line().
+       */
       if (status && battle_kinds
           && run_get_version (gs_get_bundle (game)) < TAF_VERSION_400
           && run_battle_places (game) == battle_places)
@@ -1030,9 +1062,11 @@ run_line_t::priority_pass ()
           pf_truncate (filter, goto_mark);
           status = FALSE;
         }
-      /* A take that refused leaves gotoplace its turn: `take box goto
-         cave` with the box in hand is "You've already got a box!Unknown
-         place." below 4.0.  See run_goto_after(). */
+      /*
+       * A take that refused leaves gotoplace its turn: `take box goto
+       * cave` with the box in hand is "You've already got a box!Unknown
+       * place." below 4.0.  See run_goto_after().
+       */
       if (status && !goto_places.empty ())
         status = run_goto_after (game, string, priority_goto, goto_mark,
                                  goto_places, status);
@@ -1232,8 +1266,10 @@ run_line_t::library ()
           goto_places.push_back (gs_object_position (game, object));
           goto_places.push_back (gs_object_parent (game, object));
         }
-      /* A leading goto word is no verb to the handlers above
-         gotoplace: `goto cave take box` is the take's. */
+      /*
+       * A leading goto word is no verb to the handlers above
+       * gotoplace: `goto cave take box` is the take's.
+       */
       if (run_goto_strip_head (game, library_string, goto_rest))
         {
           library_string = goto_rest.c_str ();
@@ -1252,8 +1288,10 @@ run_line_t::library ()
    */
   if (run_get_version (gs_get_bundle (game)) < TAF_VERSION_400)
     {
-      /* With the repeat assist on, the already-done answer waits for
-         the post-library pass, after movement and the library. */
+      /*
+       * With the repeat assist on, the already-done answer waits for
+       * the post-library pass, after movement and the library.
+       */
       if (!run_repeat_assist)
         status = run_task_refusal (game, library_string,
                                    REFUSAL_PASS_PRE);
@@ -1274,8 +1312,10 @@ run_line_t::library ()
                                       &sitstand_rest);
       if (!status && !sitstand_rest.empty ())
         {
-          /* The move is made; the rest of the line goes on without
-             the sit words, the shape the ask/talk rows know. */
+          /*
+           * The move is made; the rest of the line goes on without
+           * the sit words, the shape the ask/talk rows know.
+           */
           library_string = sitstand_rest.c_str ();
           run_dispatch_input = library_string;
         }
@@ -1295,8 +1335,10 @@ run_line_t::library ()
           run_dispatch_input = library_string;
         }
     }
-  /* whereis is below examines and above therest; see
-     lib_whereis_anywhere(). */
+  /*
+   * whereis is below examines and above therest; see
+   * lib_whereis_anywhere().
+   */
   if (!status)
     status = lib_whereis_anywhere (game, run_line_for_anywhere);
   if (!status)
@@ -1366,7 +1408,7 @@ run_line_t::settle ()
    * names a character keeps its empty buffer AND its turn, and characters()
    * runs over it -- whose ask block (4597FE) writes the topic reply, or the
    * no-response answer over the empty buffer (459B46).  Measured on A Day In
-   * Toronto (toronto.taf, 3.90; run390x runner_transcripts/toronto.txt T9):
+   * Toronto (toronto.taf, 3.9; run390x runner_transcripts/toronto.txt T9):
    * task 3 `ask waiter about burger` has no CompleteText and only moves the
    * burger into the room, and the Runner answers the line with the Waiter's
    * topic "ok", where the substitution alone gives the game's "huh?".
@@ -1513,7 +1555,7 @@ run_line_t::settle ()
    * "Which guard." -- a plain index collision, not a term choice.
    * lib_npc_400_find_namesakes_in() reports the flagged index for it (see
    * "...and its term is the OBJECT that shares the flagged character's
-   * index" in test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md).
+   * index" in test/adrift4/notes/WINE-TRANSCRIPTS.md).
    */
   if (run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
       && game->is_running
@@ -1605,86 +1647,76 @@ scr_bool
 run_all_commands (scr_gameref_t game, const scr_char *string)
 {
   /*
-   * Adrift command matching is just weird, perhaps broken.  In theory, a
-   * game can override system commands with a properly constructed task and
-   * set of command matchers.  However, the Runner isn't terribly consistent
-   * in when this will work and when not, and some games rely on that in-
-   * consistency.  In particular, a game with a "* object" task that has
-   * failing restrictions will not be able to override the system's "take
-   * object", whereas a game's "take object", under the same circumstances,
-   * will.  Yet if the restrictions pass, a game's "* object" overrides the
-   * system's "take object" with no apparent difficulty.
+   * A task overrides a system command only for some shapes of command, and
+   * games rely on which.  A "* object" task with failing restrictions does
+   * not override the system's "take object", whereas a game's "take object"
+   * in the same state does.  If the restrictions pass, a "* object" task
+   * overrides it too (run_command_match_t::tree_match() has the run400
+   * probes).
    *
    * For example, "The Woods Are Dark" has a "* ball *" task with the
-   * restriction "must be holding ball".  Without special casing it, there's
-   * no way to get the ball in the first place.
+   * restriction "must be holding ball", and its ball could not be taken
+   * otherwise.
    *
-   * Trying to find the right way to do things here, then, has been tricky.
-   * Here's the current process:  First, try "priority" system commands; ones
-   * that move objects to inventory.  These system commands will call back
-   * into trying game commands for objects taken or dropped, and in those
-   * tries, allow overrides only if the game task is explicit about what it's
-   * doing -- it doesn't start with "*", or it does but explicitly names a
-   * verb (see run_match_task_commands() for the run400 probe results behind
-   * that rule) -- and handle restrictions in those tries.  Next, run game
-   * commands directly, ignoring any cases where restrictions fail to let the
-   * task run.  After that, retry all game commands again with restrictions
-   * enabled.  And finally, try all other standard library commands.
+   * The order, in run_line_t::run(), is: a peek at the direct task pass; the
+   * "priority" system commands, the ones that move objects to inventory; game
+   * commands directly, ignoring any whose restrictions fail; game commands
+   * again with restrictions enabled; and finally the other standard library
+   * commands.  The priority commands call back into game commands for objects
+   * taken or dropped, and those tries allow an override only if the task is
+   * explicit about what it's doing: it doesn't start with "*", or it does but
+   * names a verb (see tree_match()).
    *
-   * Priority commands go BEFORE the direct game-command pass (not after, as
-   * an earlier version of this had it): probe DONE, task 72 in "Space Boy's
-   * First Adventure" is the literal, unrestricted, textless command "drop
-   * cape to the floor" (+250 score, no message).  run400 answers the typed
-   * command with the library's ordinary "Player drop the cape." and the
-   * score UNCHANGED (runner_probes/et2.run400.txt,
-   * runner_probes/et4.run400.txt) -- the task never runs at all,
-   * even though its own literal pattern matches the raw input exactly.  A
-   * same-shaped task using a bare object with no trailing words ("* drop *
-   * rock *", i.e. equivalent to the library's own canonical "drop <object>"
-   * callback string) DOES run silently alongside the library's message
+   * Priority commands go BEFORE the direct game-command pass: probe DONE, task
+   * 72 in "Space Boy's First Adventure" is the literal, unrestricted, textless
+   * command "drop cape to the floor" (+250 score, no message).  run400 answers
+   * the typed command with the library's ordinary "Player drop the cape." and
+   * the score UNCHANGED (runner_probes/et2.run400.txt,
+   * runner_probes/et4.run400.txt) -- the task never runs at all, even though
+   * its own literal pattern matches the raw input exactly.  A same-shaped task
+   * using a bare object with no trailing words ("* drop * rock *", i.e.
+   * equivalent to the library's own canonical "drop <object>" callback string)
+   * DOES run silently alongside the library's message
    * (runner_probes/et.run400.txt).  So it is specifically the priority
    * command's own callback -- matching only its constructed "verb OBJECT"
    * short form, not the raw typed line -- that gets first refusal on a
    * recognised system verb; a task whose pattern extends past that short form
    * (trailing words the library only swallows as free %text%) is never reached
-   * once the library has already claimed and finished the command.  Swapping
-   * the two passes reproduces that: on a recognised system verb,
-   * run_priority_commands() (and its short-form task callback) gets the first
-   * and often the only look, and the direct, ignore-restrictions task pass
-   * only sees what the priority commands didn't recognise as a system verb at
-   * all (so "etcontrol"-style non-system task commands are unaffected).
+   * once the library has already claimed and finished the command.  This order
+   * reproduces that: on a recognised system verb, run_priority_commands() (and
+   * its short-form task callback) gets the first and often the only look, and
+   * the direct, ignore-restrictions task pass only sees what the priority
+   * commands didn't recognise as a system verb at all (so "etcontrol"-style
+   * non-system task commands are unaffected).
    *
-   * But that swap alone regresses the same game's task 27, "{take/get}
+   * That order alone would lose the same game's task 27, "{take/get}
    * {them/boots}" (CompleteText "Taken."): the callback's constructed short
    * form is built from the object's display Short name ("get pair of Flight
    * Boots"), never from an alias like "boots", so the callback attempt fails
    * for a reason unrelated to task 72's "trailing words" problem, and
-   * priority's own generic take now wins a task the golden walkthrough (and,
-   * definitionally, the pre-swap Runner-matching behaviour this port has
-   * always had) says must win instead.  (The bare swap is not a near miss:
-   * it fails 75 of the 262 corpus walkthroughs, because scarier's callback
-   * string is weaker than the Runner's -- Short name only, no aliases -- so
-   * far more tasks are unreachable here than there.)  So a peek at the direct
-   * task pass runs BEFORE priority after all, and task 72's shape is excluded
-   * from it: silent (no CompleteText, ShowRoomDesc, AdditionalMessage or
-   * status-setting action) AND unreachable from any library short form for
-   * any object ("drop cape" / "drop the cape" can never satisfy a pattern
-   * that insists on "to the floor").  Both halves are needed -- silence alone
-   * loses "Sommeril" task 35 and 3 more walkthroughs, unreachability alone
-   * loses 27 of them.
+   * priority's own generic take would win a task the golden walkthrough says
+   * must win instead.  (Without the peek, 75 of the 262 corpus walkthroughs
+   * fail, because Scarier's callback string is weaker than the Runner's --
+   * Short name only, no aliases -- so far more tasks are unreachable here than
+   * there.)  So a peek at the direct task pass runs BEFORE priority, and task
+   * 72's shape is excluded from it: silent (no CompleteText, ShowRoomDesc,
+   * AdditionalMessage or status-setting action) AND unreachable from any
+   * library short form for any object ("drop cape" / "drop the cape" can never
+   * satisfy a pattern that insists on "to the floor").  Both halves are needed
+   * -- silence alone loses "Sommeril" task 35 and 3 more walkthroughs,
+   * unreachability alone loses 27 of them.
    *
    * Excluding a task means abandoning the ENTIRE peek, not reading past it to
    * the next task.  ADRIFT resolves a command to the lowest-indexed matching
    * task, so stepping over a match to let a later task win invents a Runner
    * behaviour that does not exist: "The Forum" task 1 (silent literal "x ...
-   * hand", which falls through to the library's own examine) was being
-   * skipped in favour of task 2, "[examine/read/x/l/look]{at}[%object%]",
-   * whose CompleteText then answered every examine in the game.  That cost
-   * 8 corpus walkthroughs (forum, forum2, cursed, iqsfot, sommeril, funhouse
-   * and both to_hell_and_beyond replays) until the peek was made all-or-
-   * nothing.  On abandonment priority gets its look next, and if it does not
-   * claim the command the immediately following unexcluded pass re-matches
-   * from task 0, unchanged from the original order.
+   * hand", which falls through to the library's own examine) would be skipped
+   * in favour of task 2, "[examine/read/x/l/look]{at}[%object%]", whose
+   * CompleteText would then answer every examine in the game.  8 corpus
+   * walkthroughs depend on the peek being all-or-nothing (forum, forum2,
+   * cursed, iqsfot, sommeril, funhouse and both to_hell_and_beyond replays).
+   * On abandonment priority gets its look next, and if it does not claim the
+   * command the immediately following unexcluded pass re-matches from task 0.
    */
   /*
    * The carrying-capacity accounting toggle is exposed as a Glk port command

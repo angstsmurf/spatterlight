@@ -89,8 +89,8 @@ extern scr_bool gs_get_capacity_assist (void);
  *     ...
  *
  * is for (object = 0; object < gs_object_count (game); object++).  The index
- * is a variable the caller declares, as in the loops these replaced, so a
- * search loop can still break out and read it afterwards.
+ * is a variable the caller declares, so a search loop can still break out and
+ * read it afterwards.
  */
 #define GS_FOR_EACH_EVENT(game, event) \
   for ((event) = 0; (event) < gs_event_count (game); (event)++)

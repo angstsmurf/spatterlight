@@ -664,13 +664,13 @@ gsc_read_line (scr_char *buffer, scr_int length)
  * The number of grid cells gsc_put_string() will fill for this string.  Nearly
  * always one per byte, but a character with neither an iso 8859-1 nor a
  * printable unicode form falls back to a multi-character ascii substitute (see
- * gsc_put_char_locale()) -- "sh" for a Cyrillic sha, say -- so a plain strlen()
- * can under-count.  This mirrors gsc_put_char_locale()'s decision tree so that
- * right-justification lands where the text actually ends.
+ * gsc_put_char_locale()) -- "sh" for a Cyrillic sha, say -- so a plain
+ * strlen() can under-count.  This mirrors gsc_put_char_locale()'s decision
+ * tree so that right-justification lands where the text actually ends.
  *
- * Upstream instead subtracted a flat ten-column "slop" from the right margin to
- * absorb that case, which left every status line -- all-ascii ones included --
- * floating well short of the right edge.
+ * Upstream instead subtracted a flat ten-column "slop" from the right margin
+ * to absorb that case, which left every status line -- all-ascii ones included
+ * -- floating well short of the right edge.
  */
 glui32
 gsc_status_printed_width (const scr_char *string)

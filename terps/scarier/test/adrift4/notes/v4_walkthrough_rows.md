@@ -108,7 +108,7 @@ Measured against the real ADRIFT 3.90 Runner under Wine on 2026-09-05
 (Adrift_9_veteran.txt, feed cmdfile_w_veteran.txt, 47 commands): all 47 turns
 echoed and IDENTICAL, the only difference being the ending's
 "[Press any key to end]".  No events at all and no silent tasks; both sides
-finish 0/0 at 100%.  See notes/WINE-TRANSCRIPTS-TODO.md.
+finish 0/0 at 100%.  See notes/WINE-TRANSCRIPTS.md.
 ```
 
 ## togetyou_solution.txt
@@ -203,7 +203,7 @@ started by a finishing event's task (evt_finish_event); measured on the
 vardock_bates row.  Battle rolls reorder.
 Re-blessed 2026-08-31 for the exact-tick walk-move gate (the whole walk
 step, move included, runs only when counter == suffix_sum; measured live
-in run390 on Merry_Murders -- see WINE-TRANSCRIPTS-TODO.md).  Walker
+in run390 on Merry_Murders -- see WINE-TRANSCRIPTS.md).  Walker
 pre-move lines between stops disappeared; still wins.
 Re-blessed 2026-09-06: `attack X` on a seen-but-absent X is a REAL turn in run400 ("X isn't here!", dobattle 47EFE5, House Adrift_110), not the no-turn DontUnderstand the header's self-sync trick assumed.  The `z` after each such attack was dropped (31, the attack now supplies the tick) and attacks with no `z` to give up were dropped themselves (Cerberus x7, Edna x4).  Same turn thread, still wins.
 Re-blessed 2026-09-07: run400 capitalises an NPC attacker that leads its own sentence (Proc_11_2 wraps var_88 in the capitaliser Proc_21_3_446BB4 at five sites; Adrift_391_shadowpeak.txt has "Giant spider hits you.").  Nothing else in the battle system is: the bare-handed miss leads with the raw target and the corpse line reads the Name field.
@@ -324,7 +324,7 @@ shape is confirmed live in the xfiles replay, where a "The" prefix survives
 as "The Memo" (Adrift_22_xfiles.txt).
 The Forester Goblin fight lost two of its three `attack goblin` commands, and
 the row gained SCR_SEED=4, when the dead-NPC walk skip landed (2026-08-24,
-see notes/WINE-TRANSCRIPTS-TODO.md): the goblin's corpse used to keep
+see notes/WINE-TRANSCRIPTS.md): the goblin's corpse used to keep
 walking and so stayed attackable, and every kill in the game now consumes
 one `scr_randomint` less per turn (a room-group walk draws a random
 adjacent member), which moves the combat rolls under the old seed far
@@ -339,7 +339,7 @@ cells exactly as run400 gives them.  3.9 stamps inside the same exact-tick
 gate (loc_45ABB8) and shares the gate's "old <> 0" term (loc_45A99B), so
 the 4.0 rule carries here unchanged.
 Both rows re-blessed again 2026-09-09 for the darkness port (see
-notes/WINE-TRANSCRIPTS-TODO.md, "Ported 2026-09-09: a dark room is
+notes/WINE-TRANSCRIPTS.md, "Ported 2026-09-09: a dark room is
 condition AND HideObjects, and it gates the seen flag").  ALEXIS' caves
 are dark rooms, so the port moves them: an object first met in the dark is
 no longer stamped seen, and `x` on a seen one now answers "You can't see
@@ -360,7 +360,7 @@ Trimming further does NOT work: dropping the Forecarn sword trip as well
 shifts the combat rolls and the run finishes 23/65.  alexis_solution.txt
 still wins unchanged under SCR_SEED=3 (55/65) and only needed blessing.
 Both rows re-blessed again 2026-09-10, one line each, for the take-from port
-(see notes/WINE-TRANSCRIPTS-TODO.md, "Ported 2026-09-10: the take-from
+(see notes/WINE-TRANSCRIPTS.md, "Ported 2026-09-10: the take-from
 handler's own answers").  `get all from chest` -- the chest is a "longmore
 chest plate" that is nowhere near -- is run390's "You can't get anything from
 that.", which the old goldens carried as the take catch-all's "Take what?".
@@ -447,7 +447,7 @@ castle room, so the route goes `s`, `e`, `touch ball` (Long room at seed 1),
 All insertions follow command 35, so the lantern timing is untouched.
 Re-blessed 2026-10-15: T99 `open chest` is a silent task's line, and now
 says "Done." where run390 prints the game's DontUnderstand text (deliberate
-deviation, see notes/WINE-TRANSCRIPTS-TODO.md). Nothing else moved.
+deviation, see notes/WINE-TRANSCRIPTS.md). Nothing else moved.
 ```
 
 ## alexis_worn_cube_solution.txt
@@ -490,7 +490,7 @@ with cube` for the bridgekeeper (task 8, +5), wolf (task 9, +2, caught on its
 switches back once the cube is worn again.  Wins at every seed 1-8.
 Re-blessed 2026-10-15: T99 `open chest` is a silent task's line, and now
 says "Done." where run390 prints the game's DontUnderstand text (deliberate
-deviation, see notes/WINE-TRANSCRIPTS-TODO.md). Nothing else moved.
+deviation, see notes/WINE-TRANSCRIPTS.md). Nothing else moved.
 ```
 
 ## topaz_solution.txt
@@ -888,7 +888,7 @@ after two type-7 battle-action rules read off run390 execute_action (4573DC):
     re-arms NPC 1, not Joshua at NPC 0, so Joshua never stabs every third
     turn (T35-T49 "Joshua stabs ... with sword of hope" were Scarier's own).
 Both rules are ported ungated for attitude and `[<4.0]` for the speed index;
-see WINE-TRANSCRIPTS-TODO.md "Battle" in the index.
+see WINE-TRANSCRIPTS.md "Battle" in the index.
 ```
 
 ## funhouse_solution.txt
@@ -1119,7 +1119,7 @@ only happened a turn later, by which time the player had left the room and
 evt_can_see_event() was false.  checkevent() is one straight run of state
 tests -- start and tick happen in the same call, and the task-started path
 adds 1 to the roll so the end time still comes out at start + roll.  See
-scevents.cpp's ES_AWAITING branch and the WINE-TRANSCRIPTS-TODO entry.
+scevents.cpp's ES_AWAITING branch and the WINE-TRANSCRIPTS entry.
 
 What is left in that replay, at SCR_SEED=424242: turns 21, 22 and 37-41 are
 rule 1 (this Wine run had Verbose OFF, so re-entry is one brief line), and
@@ -1272,7 +1272,7 @@ Measured against the real ADRIFT 3.90 Runner under Wine on 2026-09-05
 identical, tail only.  First row driven with the feed generator's new
 trailing-span emission -- the ending is four real-time <wait>s long, and
 without the #sleeps after the last command the transcript broke off at
-"open wooden door".  See notes/WINE-TRANSCRIPTS-TODO.md.
+"open wooden door".  See notes/WINE-TRANSCRIPTS.md.
 ```
 
 ## toxically_earth_solution.txt
@@ -1589,10 +1589,10 @@ whole turn is silent -- run390 then answers with the game's DontUnderstand
 string ("I don't understand what you mean!") where we print the library's
 "You can't turn your tv."  Same rule as the Hangover filing cabinet, reached
 through a reverse command for the first time.  Everything else matches.
-See notes/WINE-TRANSCRIPTS-TODO.md.
+See notes/WINE-TRANSCRIPTS.md.
 Re-blessed 2026-10-15: `turn off tv` is a silent task's line, and now says
 "Done." where run390 prints the game's DontUnderstand text (deliberate
-deviation, see notes/WINE-TRANSCRIPTS-TODO.md). Nothing else moved.
+deviation, see notes/WINE-TRANSCRIPTS.md). Nothing else moved.
 ```
 
 ## matts_house_solution.txt
@@ -1604,7 +1604,7 @@ echoed and IDENTICAL ON EVERY TURN, the last included -- the walkthrough
 ends on `score`, so nothing ends the game and the Runner never prints
 "[Press any key to end]".  The Runner cannot open a .taf whose name contains
 spaces, so it is driven as the space-free copy matts.taf.
-See notes/WINE-TRANSCRIPTS-TODO.md.
+See notes/WINE-TRANSCRIPTS.md.
 ```
 
 ## mr_smith_solution.txt
@@ -1976,7 +1976,7 @@ the Runner's own [Press any key to end].
 Measured 2026-09-05: full run400 replay under Wine (Adrift_42_vagabond.txt,
 feed cmdfile_w_vagabond.txt, 10 commands, PRE=0).  10/10 echoed with ONE
 differing turn, and it is the known ALR-over-a-joined-paragraph residual
-(RUNNER_TESTS_TODO.md section 3, the `thetest` entry), not a new finding.
+(RUNNER_TESTS.md section 3, the `thetest` entry), not a new finding.
 Room 4's Long ends "A toolbox is here." and George's InRoomText is the
 default `#`, so the Runner's joined paragraph reads
 "A toolbox is here.  George is here." -- which is exactly this game's ALR
@@ -2469,7 +2469,7 @@ cmdfile_w_frog.txt): clean, 10/10 echoed, tail only.
 ```text
 Wine 2026-08-23, run400, Adrift_16/17_hauntedhouse.txt.  The feed was
 haunted.taf's solution driven at hauntedhouse.taf -- a mispairing (see
-notes/WINE-TRANSCRIPTS-TODO.md) -- but both engines were fed the same
+notes/WINE-TRANSCRIPTS.md) -- but both engines were fed the same
 nonsense, so the turns still compare: 115 of the 116 commands echoed, the
 first loss at feed[43] "w".  Before that loss, two divergences, and one of
 them is an engine bug we now fix:
@@ -2682,7 +2682,7 @@ Measured against the real ADRIFT 3.90 Runner under Wine on 2026-09-05
 (Adrift_18_lost.txt, feed cmdfile_w_lost.txt, 38 commands, PRE=1): 38/38
 echoed and identical, tail only.  Eleven events, a ghost NPC that walks,
 talks and dissolves over five consecutive `z` turns, and every turn matches.
-See notes/WINE-TRANSCRIPTS-TODO.md.
+See notes/WINE-TRANSCRIPTS.md.
 ```
 
 ## lost_down_solution.txt
@@ -2692,7 +2692,7 @@ Measured against the real ADRIFT 3.90 Runner under Wine on 2026-09-05
 (Adrift_19_lost_down.txt, feed cmdfile_w_lost_down.txt, 38 commands, PRE=1):
 38/38 echoed and identical, tail only.  Same route as the row above with a
 different last command -- `down` instead of `up` -- and so the game's other
-ending.  See notes/WINE-TRANSCRIPTS-TODO.md.
+ending.  See notes/WINE-TRANSCRIPTS.md.
 ```
 
 ## marika_solution.txt
@@ -2836,7 +2836,7 @@ and T14 needs all three.  With SCR_ASSUME_REPEATS=1 too, a second `open
 cabinet` gets the first form out of the filing cabinet.
 Re-blessed 2026-10-15: T35 `open the filing cabinet` is a silent task's
 line, and now says "Done." where run390 prints the game's DontUnderstand
-text (deliberate deviation, see notes/WINE-TRANSCRIPTS-TODO.md). Nothing
+text (deliberate deviation, see notes/WINE-TRANSCRIPTS.md). Nothing
 else moved.
 ```
 
@@ -2853,7 +2853,7 @@ only takeable once the player has seen it listed, and the take names the
 object as "replacement approval form" rather than by its prefix.
 Re-blessed 2026-10-15: T35 `open the filing cabinet` is a silent task's
 line, and now says "Done." where run390 prints the game's DontUnderstand
-text (deliberate deviation, see notes/WINE-TRANSCRIPTS-TODO.md). Nothing
+text (deliberate deviation, see notes/WINE-TRANSCRIPTS.md). Nothing
 else moved.
 ```
 
@@ -3185,7 +3185,7 @@ Measured 2026-08-29: full run400 replay of all 38 commands, Verbose ON and
 5 and 23 -- "in" from Sissy's four poster bed, "s" from the pink plastic
 chair -- print "(Getting off ... first)" on a line of its own before "I move
 ...", which is what put the 4.0 half of the lib_go() bracket lines back
-(FIXED 2026-08-29 in notes/WINE-TRANSCRIPTS-TODO.md).  After the port 37 of
+(FIXED 2026-08-29 in notes/WINE-TRANSCRIPTS.md).  After the port 37 of
 38 turns are identical; the 38th differs only by the [Press any key to end]
 tail the Runner prints as text.
 ```
@@ -3390,7 +3390,7 @@ Three Monkeys, One Cage (Robert Goodwin, 2003) -- WIN, 98/100, and 98 is the
 ceiling: every one of the game's 23 scoring actions is banked.  The author
 wrote a `# jump out` chain whose +2 sits AFTER the two Execute-Task actions
 that end the game.  That +2 IS credited -- both here and in run400, which was
-probed for exactly this in 2026-08-09 (RUNNER_TESTS_TODO.md section 4, the
+probed for exactly this in 2026-08-09 (RUNNER_TESTS.md section 4, the
 `EG` arena probe) -- but the game is over by then and this game's score is an
 author variable that only `score` prints, so nothing can ever show it again.
 98 is the ceiling of what a player can SEE, and that is the game's own
@@ -3459,7 +3459,7 @@ fire`.  The husk is still lying in the Northeast Corner at that point (T41
 `get husk` was "Huh?", above) and the put used to fetch it from there --
 "(Taking the coconut husk first)" / "(first stepping over to the northeast)"
 in runner_transcripts/3monkeys.txt -- a 4.0 rule Scarier dropped as a
-deliberate deviation (notes/WINE-TRANSCRIPTS-TODO.md).  The walk is three
+deliberate deviation (notes/WINE-TRANSCRIPTS.md).  The walk is three
 turns of monkey movement, so the mandrill now escapes the smoke to the
 northeast rather than north and the tail re-spaces; same 98/100 win.  A
 `look` before the earlier `get husk` instead of the walk breaks the timing
@@ -3533,7 +3533,7 @@ The two remaining changed lines (the Tunnel's "Grandad stands nearby." and
 "Grandad walks to the south.") are the NPC_WALK_EXPIRED = -1 sentinel, and
 are NOT measured here: humbug randomises three secrets at start-up (the dial
 combination, the magic word and the keypad code), so a command-for-command
-Wine replay diverges at the keypad -- see notes/WINE-TRANSCRIPTS-TODO.md,
+Wine replay diverges at the keypad -- see notes/WINE-TRANSCRIPTS.md,
 "How humbug was made replayable".  The sentinel rests on the_pk_girl's
 measurement and on run400's own P-code, where the walk counter's reset value
 is `push &HFF 'Byte` = -1 (VB Decompiler prints a signed byte; the same
@@ -3867,7 +3867,7 @@ Measured 2026-09-07 in run400 with the corrected feed
 (Adrift_427_thepkgirl.txt, 407/407 echoed).  Most of the 42 differing turns
 are the umbrella peddler, the pervert and the shopkeeper's idle lines -- all
 walkers or Rnd picks.  Two are not, and both are open leads in
-notes/WINE-TRANSCRIPTS-TODO.md:
+notes/WINE-TRANSCRIPTS.md:
   T103 `east`: run400 "Laurie turns on the toaster.", scarier "The toaster
   is now on."  Task "# Laurie says good morning" ends `... done soon."` and
   executes task 700, whose CompleteText is the toaster line; the game's ALR
@@ -4261,7 +4261,7 @@ castle.taf (Castle Quest, Andrew Cornish, 10-06-2000), both **Version 3.70**
 Scarier gained a 3.70 schema on 2026-08-04 (V370_PARSE_SCHEMA in
 sctafpar.cpp, every guessed field since measured against the real
 run370.exe), so both now sit in games/ with the rest of the corpus and both
-load and run -- see ../ADRIFT_370.md and RUNNER_TESTS_TODO.md section 6.
+load and run -- see ../ADRIFT_370.md and RUNNER_TESTS.md section 6.
 
 2026-08-24 -- ALL NINETEEN PRE-3.9 ROWS RE-BLESSED.  The nineteen rows in
 this suite that come from a 3.70 or 3.80 .taf (the seventeen listed above,
@@ -4319,7 +4319,7 @@ settle: arlo's NPC walks.  run370 prints departure lines scarier omits
 ("Rude Customer walks off.", "Alice walks off to ..."), which desynchronises
 presence state by command 33.  (`get out of bus` at the church, the other
 difference counted here once, is ported: see the alices_restaurant row.)
-See notes/WINE-TRANSCRIPTS-TODO.md.
+See notes/WINE-TRANSCRIPTS.md.
 Re-compared 2026-09-05 (`Adven_7_akron.rtf` against the engine as of
 9c7c1691): still 43/43 identical; no events in the game.
 ```
@@ -4467,7 +4467,7 @@ npc_tick_npc() gates the 0xFF stamp on is_400 and the restart on
 (is_400 || npc_walk_is_loop(...)), so the 3.8 path matches line for line.
 Re-blessed 2026-08-31 for the exact-tick walk-move gate (the whole walk
 step, move included, runs only when counter == suffix_sum; measured live
-in run390 on Merry_Murders -- see WINE-TRANSCRIPTS-TODO.md).  Walker
+in run390 on Merry_Murders -- see WINE-TRANSCRIPTS.md).  Walker
 pre-move lines between stops disappeared; still wins.
 Its four `z` commands are now `wait`: `z` is not in the 3.80 Runner
 vocabulary (see the cave.taf row) and falls to "Say again?" there.
@@ -4652,7 +4652,7 @@ The 3.7 confirmation of the empty-M1 room-alt start rule (see the
 lair-of-the-cybercow rows): measured live in run370 under Wine, cmd 34 is now
 byte-exact against Adven_6_arlo.rtf, taking arlo from 7 differing commands of 85
 down to 6.  Note this corrects an earlier diagnosis recorded in
-notes/WINE-TRANSCRIPTS-TODO.md, which blamed cmd 34 on NPC-walk presence
+notes/WINE-TRANSCRIPTS.md, which blamed cmd 34 on NPC-walk presence
 desync; it is a room-alt selection bug and is unrelated to the walk departure
 announcements, which the block below then ported.
 
@@ -4722,7 +4722,7 @@ Measured live under Wine, one game per generation:
        Stiffdrink walks towards you from inside." and "Oddly Istink wobbles
        in from the east."
 
-Still open, and logged in notes/WINE-TRANSCRIPTS-TODO.md rather than fixed
+Still open, and logged in notes/WINE-TRANSCRIPTS.md rather than fixed
 here: 3.8/3.9/4.0 add one more arrival test we cannot make -- the walker's
 pre-move location must not be the Runner's not-a-room zero (run380 @4416F4,
 run390 loc_45A99B, run400 @468A5D).  The Runner spells "not a room" two
@@ -5183,7 +5183,7 @@ Re-blessed again 2026-08-25, two lines, by the 4.0 seen-but-absent resolver
 can't see the satchel."): TheCellar.taf is a 4.00 file, and both nouns name
 an object the player has seen but is no longer in the room with, so 4.0's
 second binding pass finds it where 3.9's never looks.  Measured on p4EXAM.taf
-under run400 and on p39EXAM.taf under run390; see notes/WINE-TRANSCRIPTS-TODO.md,
+under run400 and on p39EXAM.taf under run390; see notes/WINE-TRANSCRIPTS.md,
 "FIXED 2026-08-25 -- the 4.0 seen-but-absent resolver".
 Measured 2026-08-29: `x papers` is found through containment (the containment pass now
 runs before the catch-all refusals, as run400 does).
@@ -5213,7 +5213,7 @@ ending is a task chain with no ACT type=6, so the marker is the rating line.
 This is the game that found the 3.9/3.8 immediate-restart bug: its ambient
 events are RestartType=1 with Time1=Time2=1 and StartText but no LookText,
 and scarier printed each of them exactly once instead of every turn.  Fixed
-2026-08-04 in scevents.cpp; see the solution header and RUNNER_TESTS_TODO.md
+2026-08-04 in scevents.cpp; see the solution header and RUNNER_TESTS.md
 section 8.
 Re-blessed 2026-08-25, one line (470, `read eye`): the pre-4.0 read-refusal
 wording recorded on the cybercow_win_solution.txt row above.  As there, the
@@ -5253,7 +5253,7 @@ Measured against the real ADRIFT 3.90 Runner under Wine on 2026-09-05
 echoed and identical, tail only.  Screened as a guaranteed silent-task
 divergence and was not one: the win task has no CompleteText but an End game
 action, so the game's own win text prints -- the same reason
-Toxically_Earth.taf measured clean.  See notes/WINE-TRANSCRIPTS-TODO.md.
+Toxically_Earth.taf measured clean.  See notes/WINE-TRANSCRIPTS.md.
 ```
 
 ## forest_on_the_norm_solution.txt
@@ -5279,7 +5279,7 @@ Measured against the real ADRIFT 3.90 Runner under Wine on 2026-09-05
 (Adrift_10_bobbobsly.txt, feed cmdfile_w_bob_bobsly.txt, 25 commands): 25/25
 echoed and identical, tail only -- including the "yes" that answers the
 game's own question and the "beam me up scotty" easter egg.  Both sides win
-155/155.  See notes/WINE-TRANSCRIPTS-TODO.md.
+155/155.  See notes/WINE-TRANSCRIPTS.md.
 ```
 
 ## druggy_lane_solution.txt
@@ -5376,7 +5376,7 @@ run390 lets the silent match claim the command and then prints the game's
 DontUnderstand string, "I don't understand what you mean!"; the diary's own
 read text is never seen in the real Runner.  Scarier runs the task and falls
 through to the library `read`, which prints it.  Same deliberate deviation as
-the Hangover filing cabinet (see notes/WINE-TRANSCRIPTS-TODO.md) -- not ported,
+the Hangover filing cabinet (see notes/WINE-TRANSCRIPTS.md) -- not ported,
 and harmless here: %opinion% is 5 on both sides, so both reach ending5 and the
 win marker.
 Re-blessed 2026-10-15: T38 `read diary` is a silent task's line, and run390
@@ -5395,7 +5395,7 @@ re-teleport it onto the player after every kill, so the `instructions` turn
 and the exact command count before the dog fight are load-bearing.
 Re-blessed 2026-08-31 for the exact-tick walk-move gate (the whole walk
 step, move included, runs only when counter == suffix_sum; measured live
-in run390 on Merry_Murders -- see WINE-TRANSCRIPTS-TODO.md).  Walker
+in run390 on Merry_Murders -- see WINE-TRANSCRIPTS.md).  Walker
 pre-move lines between stops disappeared; still wins.
 ```
 
@@ -5414,7 +5414,7 @@ Measured against the real ADRIFT 3.90 Runner under Wine on 2026-09-05
 and identical, tail only.  Screened as a guaranteed silent-task divergence
 and was not one: task 8 `atacar * chico` has no CompleteText but srd=5, so
 the turn prints a room description and the pre-4.0 silent-task rule never
-applies.  See notes/WINE-TRANSCRIPTS-TODO.md.
+applies.  See notes/WINE-TRANSCRIPTS.md.
 ```
 
 ## ms_mobius_solution.txt
@@ -5513,7 +5513,7 @@ is pitch dark until you find the flashlight under the van.  The elevators,
 the shafts and the entire black-van ending are unreachable: they all hang
 off T8, which ends the game.  "To be continued................"
 darktower: run390 full replay 2026-09-05 (Adrift_6_darktower.txt, 121/121
-echoed), zero divergences -- see notes/WINE-TRANSCRIPTS-TODO.md.
+echoed), zero divergences -- see notes/WINE-TRANSCRIPTS.md.
 ```
 
 ## report_solution.txt
@@ -5640,7 +5640,7 @@ so the `sw` at cmd 116 misses ending T35 and the real Runner falls through to
 T36, the LOSS.  This golden's win is therefore Scarier-only.  When the
 reference-resolution port lands, the route's repair is `take box` (obj12's own
 alias; verified offline to still reach T35).  Write-up:
-notes/WINE-TRANSCRIPTS-TODO.md, "run390 is not longest-match either".
+notes/WINE-TRANSCRIPTS.md, "run390 is not longest-match either".
 PORTED and the route repaired 2026-09-19: takes() lets a held namesake
 indexed below the target speak first (run390 4551E4, lib_co_pre400), so
 `take needle box` is the Runner's "You've already got the sharp needle!" and
@@ -5758,7 +5758,7 @@ longer ticks the clock/decay events; the recompare differs only at T4's
 text (`piss`, the deviation itself).
 Re-blessed 2026-10-15: `piss` is a silent task's line, and now says "Done."
 where run390 prints the game's DontUnderstand text (deliberate deviation,
-see notes/WINE-TRANSCRIPTS-TODO.md). Nothing else moved.
+see notes/WINE-TRANSCRIPTS.md). Nothing else moved.
 ```
 
 ## renuntio_solution.txt
@@ -5875,7 +5875,7 @@ the yeh_solution.txt row above.  These two are the corpus's only exposure.
 Measured against the real ADRIFT 3.90 Runner under Wine on 2026-09-05
 (Adrift_21_richard.txt, feed cmdfile_w_richard.txt, 70 commands): 70/70
 echoed and identical, tail only.  Thirteen events and five NPCs; both sides
-win 1000/1000.  See notes/WINE-TRANSCRIPTS-TODO.md.
+win 1000/1000.  See notes/WINE-TRANSCRIPTS.md.
 ```
 
 ## windy2_solution.txt
@@ -5908,7 +5908,7 @@ Measured against the real ADRIFT 3.90 Runner under Wine on 2026-09-05
 POPUP_ANSWERS="Sam" for the opening name InputBox): 147/147 echoed and
 identical, tail only.  The longest 3.90 row measured -- 400 tasks, eight
 NPCs, 17 variables -- and the second game driven through a popup prompt.
-See notes/WINE-TRANSCRIPTS-TODO.md.
+See notes/WINE-TRANSCRIPTS.md.
 ```
 
 ## salutations_solution.txt
@@ -6241,7 +6241,7 @@ that starts it.  The male career is worth 10 more with the same patch, since
 task 25 unstolen is a task he can walk out of Rage on; not derived here.
 Re-blessed 2026-10-15: `close valve` is a silent task's line, and now says
 "Done." where run390 prints the game's DontUnderstand text (deliberate
-deviation, see notes/WINE-TRANSCRIPTS-TODO.md). Nothing else moved.
+deviation, see notes/WINE-TRANSCRIPTS.md). Nothing else moved.
 ```
 
 ## murder_great_falls_solution.txt
@@ -6614,7 +6614,7 @@ of quartz, the Aztec coin and the Lost Cave's hollowed-out rock altar are
 author-confirmed red herrings and every carried item is taken away before
 the Temple regardless of route, so the route ignores all four.
 croft: run390 full replay 2026-09-05 (Adrift_5_croft.txt, 101/101 echoed),
-zero divergences -- see notes/WINE-TRANSCRIPTS-TODO.md.
+zero divergences -- see notes/WINE-TRANSCRIPTS.md.
 ```
 
 ## dr-who-vortex-lust_solution.txt
@@ -6877,7 +6877,7 @@ load, still in room 165 -- gets the brown tweed suit worn, and four live
 run400.exe runs all wore it, but under the old inclusive [Time1, Time2] roll
 seed 1 rolled 1.  The event-length roll is now exclusive of Time2 (measured
 live in run400 AND run390 with `make_arena_probe.py EL` /
-`make_39_evlenprobe.py`, RUNNER_TESTS_TODO.md section 10), so a 0..1 range
+`make_39_evlenprobe.py`, RUNNER_TESTS.md section 10), so a 0..1 range
 always rolls 0, every seed wears the suit, and the pin came off.
 
 260/300 is a win, not a shortfall: the readme says outright that "it is possible
@@ -7001,7 +7001,7 @@ Re-blessed 2026-08-25, one line (`examine contraption` -> "You can't see the
 flying contraption from here!"): the 4.0 seen-but-absent resolver, measured
 on p4EXAM.taf/run400 vs p39EXAM.taf/run390.  Note the article and the "from
 here!" tail are examine's alone -- open and buy take "the ...", close takes
-the object's own Prefix.  See notes/WINE-TRANSCRIPTS-TODO.md, "FIXED
+the object's own Prefix.  See notes/WINE-TRANSCRIPTS.md, "FIXED
 2026-08-25 -- the 4.0 seen-but-absent resolver".
 ```
 
@@ -7294,7 +7294,7 @@ text alone.  Read off the decompilation the same day: run400's put handler
 (Proc_19_43_46639C) exits its refusal paths WITHOUT setting the result byte,
 so a size-refused put prints and does not claim, and the general task match
 still fires.  Needs a live probe (PUTBIG400); see
-notes/WINE-TRANSCRIPTS-TODO.md.
+notes/WINE-TRANSCRIPTS.md.
 2026-09-06: PUTBIG400 measured and ported -- turn 3 prints the size
 refusal and task 7's text on one line, re-blessed.
 2026-09-27 re-blessed, typed put line reaches the author's task (deliberate deviation): the slot task's text is no longer preceded by the contradictory "Your penknife is too big to fit inside the slot.".
@@ -7473,7 +7473,7 @@ Oh, Human, door ending (60/200): drop the electrical device to free the
 light, cut through the walls at theroom==4, and exit through the door.  The
 door is worth no points (holes 10+20+30); ohhuman_200 below takes the ladder.
 `drop device` is the row that pins the not-held arm of the 4.0 named-drop
-port (2026-09-08, WINE-TRANSCRIPTS-TODO.md divergence (c)): the device is on
+port (2026-09-08, WINE-TRANSCRIPTS.md divergence (c)): the device is on
 the floor, so the library alone would answer "You are not holding the
 device." and the game would be unwinnable -- lib_drop_backend() offers the
 rebuilt "drop the device" to the tasks over multiple_references too, and
@@ -8155,7 +8155,7 @@ static reaching the take piece; the "You are carrying nothing!" the take
 phase closes on, which precedes the handler's task look-up) were measured on
 probe PSTAT, Adrift_941/942_pstat -- see lib_put_named_filter(),
 lib_put_implicit_take() and lib_put_nothing_carried_400(), and the PSTAT
-section of notes/WINE-TRANSCRIPTS-TODO.md.  Byte-identical after the port.
+section of notes/WINE-TRANSCRIPTS.md.  Byte-identical after the port.
 2026-09-27 re-blessed, typed put line reaches the author's task (deliberate deviation): `put knife in hole` loses the contradictory "The little knife can't fit inside the little hole at the moment." ahead of the task's put line.
 ```
 
@@ -8513,7 +8513,7 @@ Re-blessed 2026-09-06 with SCR_SKIP_WAITKEY=1: the two opening [Press a key]
 prompts had been eating `look under mat` and `unlock door with key`, so the old
 golden was a stuck-on-the-porch run that only "won" because the ending is timed.
 The command list now matches run400 Adrift_264 exactly; first real diff is still
-T48 `d` (an RNG-picked flavour line), see notes/WINE-TRANSCRIPTS-TODO.md.
+T48 `d` (an RNG-picked flavour line), see notes/WINE-TRANSCRIPTS.md.
 ```
 
 ## dayattheoffice_solution.txt
@@ -8716,7 +8716,7 @@ through to the task's ALTCMD catch-all) actually sets %text% and scores.
 62 commands (incl. name/gender prompts), no env vars.
 Re-blessed 2026-08-31 for the exact-tick walk-move gate (the whole walk
 step, move included, runs only when counter == suffix_sum; measured live
-in run390 on Merry_Murders -- see WINE-TRANSCRIPTS-TODO.md).  Walker
+in run390 on Merry_Murders -- see WINE-TRANSCRIPTS.md).  Walker
 pre-move lines between stops disappeared; still wins.
 ```
 
@@ -8897,7 +8897,7 @@ the final command).
 
 ```text
 jailbreakbob.taf: WINNABLE (verdict corrected 2026-08-30, proved in the
-real run400.exe under Wine -- see notes/WINE-TRANSCRIPTS-TODO.md). The
+real run400.exe under Wine -- see notes/WINE-TRANSCRIPTS.md). The
 earlier "UNWINNABLE" reading mis-indexed task 35's NPC move: leaving the
 dining hall west with the yard pass puts Hoggins in YOUR CELL (1-based
 room 1), where the cell-scoped events fire his comb request. Give him
@@ -9003,7 +9003,7 @@ apart from the "[Press any key to end]" tail.
 ```text
 zelda.taf: Legend of Zelda fan-fiction (Kokiri Wood, Ganondorf).
 WINNABLE, 197/197 (verdict corrected 2026-08-30; proved in the real
-run400.exe under Wine -- see notes/WINE-TRANSCRIPTS-TODO.md). The earlier
+run400.exe under Wine -- see notes/WINE-TRANSCRIPTS.md). The earlier
 "UNWINNABLE, max 59" reading fixated on the decoy "wooden key" task (3),
 which indeed only prints "Taken." -- but the Tree Room door takes the
 SMALL key that the Like-Like drops in the Graveyard ("CLINK!") after it
@@ -9536,14 +9536,14 @@ visited, so with the faithful seen seed they are unseen and the line falls to th
 game's DontUnderstand "That isn't of any concern to you at the moment." -- run400
 Adrift_256 lines 125-126.
 Re-blessed 2026-09-10, one line, for the take-from port (see
-notes/WINE-TRANSCRIPTS-TODO.md, "Ported 2026-09-10: the take-from handler's
+notes/WINE-TRANSCRIPTS.md, "Ported 2026-09-10: the take-from handler's
 own answers").  `get all from racks` names a rack the room does not have, and
 run400 answers "I don't understand where you want to get things from." --
 Adrift_256_volant.txt line 129, the same turn in the same state, where the
 old golden carried the game task's "You either can't have it, or don't need
 it at this moment."
 Re-blessed 2026-09-19, one line, for the sitstand-anywhere port (see
-notes/WINE-TRANSCRIPTS-TODO.md).  `stand your ground` with no task to take it
+notes/WINE-TRANSCRIPTS.md).  `stand your ground` with no task to take it
 reaches sitstand, whose stand block enters on c("stand") anywhere: "You are
 already standing!" -- Adrift_256_volant.txt line 186, where the old golden
 carried the game's DontUnderstand.
@@ -10721,7 +10721,7 @@ in the game", so this is a deliberate, honest partial-progress
 checkpoint rather than a claim of 200/200. 116 commands.
 Re-blessed 2026-09-07: the `undo` answer is now "Undone." and nothing else --
 no Runner reprints the restored room's name.  See lib_cmd_undo() and
-notes/WINE-TRANSCRIPTS-TODO.md.
+notes/WINE-TRANSCRIPTS.md.
 Raised 2026-09-28, 116 -> 191 commands, 92 -> 208 on the author's "out of
 200" (the 200 undercounts the pool).  Side trips added to the B WALK route:
 Alice (378), the crossing lady (1340), the cowboy outfit (570) and bible
@@ -10789,7 +10789,7 @@ those rooms have no walking connection back from the castle or the
 scripted horse-trip departure not otherwise required for the win).
 518 commands, zero unmatched/refusal lines in the full transcript.
 Re-blessed 2026-09-10, one line, for the take-from port (see
-notes/WINE-TRANSCRIPTS-TODO.md, "Ported 2026-09-10: the take-from handler's
+notes/WINE-TRANSCRIPTS.md, "Ported 2026-09-10: the take-from handler's
 own answers").  `get jewels from sack` names nothing the player can reach --
 the sack's contents have not been revealed -- and 3.9 answers that before it
 ever looks at the sack: "I can't do that!", Adrift_894_alchemist.txt line
@@ -11004,7 +11004,7 @@ for ever (re-measured 2026-09-07, `2` then `e` from a cold start:
 depth-capped, so the walk bottoms out and the filter's next pass
 interpolates what it wrote: "You move east." -- the line the author meant
 a sober player to see (deliberate deviation, see
-notes/WINE-TRANSCRIPTS-TODO.md).  Re-blessed 2026-09-07 with the walk:
+notes/WINE-TRANSCRIPTS.md).  Re-blessed 2026-09-07 with the walk:
 it used to print "%drunk% east.".
 So this row is NOT a usable run400 oracle: the alert costs the Runner the
 WHOLE turn, not just the movement line.  The eight-command probe
@@ -11013,13 +11013,13 @@ no heading, no body, no exits -- and the `look` that follows it prints the
 entire block for the room the move did reach; a *refused* move, raising no
 alert, prints its refusal normally.  Across the 286-command replay
 (Adrift_381_house.txt) that is 45 blank turns and everything downstream of
-the desync they cause.  See notes/WINE-TRANSCRIPTS-TODO.md, "the 48-row
+the desync they cause.  See notes/WINE-TRANSCRIPTS.md, "the 48-row
 re-run".
 2026-09-27: `open bathroom door` is "You can't see the bathroom door." --
 the line names the whole door, not just "door" (deliberate deviation).
 2026-09-27 re-blessed, lenient task matching (deliberate deviation): the web task fires, which moves the scripted death path by one turn; same win.
 2026-09-27, PATCH_HOUSE retired: once the typed put line could reach
-task 459 (deliberate deviation, notes/WINE-TRANSCRIPTS-TODO.md), the
+task 459 (deliberate deviation, notes/WINE-TRANSCRIPTS.md), the
 patch that gave it the rebuild's {the} slot had nothing left to do.  This
 row now plays the old house_patched route, unpatched: `put wood in
 fireplace` answers "Your hands are full.  You dump the wood into the
@@ -11041,7 +11041,7 @@ ahead of `pour honey`'s task text.
 2026-10-17 re-blessed: `put cobweb in kettle`, the duplicate after the `web`
 line, is gone with the 4.0 "a put fetches a seen object from wherever it
 lies" rule, which Scarier dropped as a deliberate deviation
-(notes/WINE-TRANSCRIPTS-TODO.md): the line's "(Taking the cobweb first)" was
+(notes/WINE-TRANSCRIPTS.md): the line's "(Taking the cobweb first)" was
 that fetch and nothing else ever answered it.  Transcript otherwise
 identical through the win; `put wood in fireplace` still answers "Your hands
 are full.  You dump the wood into the fireplace." because the wood is lying
@@ -11092,7 +11092,7 @@ Turn 91 `chop tree` is the cell that found the 4.0 object-ambiguity prompt:
 `chop` is in no task, both trees are present, and run400 answers "Which
 tree.  The tree or the tree?" (Adrift_328_lca.txt:738) where we used to
 print the game's DontUnderstand.  Ported 2026-09-07 -- see
-notes/WINE-TRANSCRIPTS-TODO.md, "Measured 2026-09-07: the 4.0
+notes/WINE-TRANSCRIPTS.md, "Measured 2026-09-07: the 4.0
 object-ambiguity prompt".  The next command, `n`, still moves the player:
 a line that does something is not read as an answer.
 Turn 252 `ne` is the cell that found probe SRD4: task 237 has no
@@ -11724,7 +11724,7 @@ the three bonus points, turned into commands on the dumped map, 8 of 8.
     (run390x, Adrift_namiki_take2.txt, 2026-09-22), hence the x lines.
 Re-blessed 2026-10-15: `open tatami mat` is a silent task's line, and now
 says "Done." where run390 prints the game's DontUnderstand text (deliberate
-deviation, see notes/WINE-TRANSCRIPTS-TODO.md). Nothing else moved.
+deviation, see notes/WINE-TRANSCRIPTS.md). Nothing else moved.
 ```
 
 ## akari_solution.txt
@@ -11840,7 +11840,7 @@ thenightmoon) and Scarier gives the NPC-command refusal.  No task fires on
 that turn in either.
 2026-10-17 re-derived, still 50/50: the 4.0 "a put fetches a seen object
 from another room" rule was removed from Scarier (deliberate deviation,
-notes/WINE-TRANSCRIPTS-TODO.md), and the one-session dungeon scene above
+notes/WINE-TRANSCRIPTS.md), and the one-session dungeon scene above
 leaned on it -- `get bag` / `open bag` / `get silver key` / `put silver key
 in ass` were typed right after `open chest` with the search already due,
 the key still in the bag in another cellar room, and the put fetched it

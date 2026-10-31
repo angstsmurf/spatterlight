@@ -84,7 +84,7 @@ s(0)                     # NoMap
 s(1)                     # bNoAutoComplete -- the Runner's Auto complete
                          # rewrites scripted input before the echo, so the
                          # game turns it off for itself (see the Wine notes
-                         # in RUNNER_TESTS_TODO.md).
+                         # in RUNNER_TESTS.md).
 s(0)                     # bNoControlPanel
 s(0)                     # bNoMouse
 s(0)                     # Sound

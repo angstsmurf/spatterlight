@@ -62,8 +62,8 @@ gsc_a5_draw_image (winid_t win, glui32 number)
  * wins over character styles: centered+bold keeps User2 (weight-hinted);
  * right uses Note with no bold/italic combo.  Unaligned bold+italic (or
  * bold+underline) maps to Alert; italic or underline alone to Emphasized;
- * bold alone to Subheader.  Underline marks are distinct for a future CSS
- * path; for now they share italic's Glk styles.
+ * bold alone to Subheader.  Underline marks are distinct, but share italic's
+ * Glk styles.
  *
  * `input_colour` says the span's ink is the input colour (a <c> span, or the
  * game title, which the Runner Displays as one).  That ink only exists in
@@ -889,11 +889,11 @@ gsc_a5_present_intro_media (a5_run_t *run)
  * gsc_a5_printed_width()
  * gsc_a5_next_char()
  *
- * The grid cells gsc_a5_put_string() fills for a UTF-8 string, and the start of
- * the character following the one a string points at.  With Unicode output each
- * multi-byte sequence prints as a single cell; without it the bytes go out as
- * they are, one cell each.  Stepping is by whole sequences either way, so that
- * a truncated tail stays well-formed UTF-8.
+ * The grid cells gsc_a5_put_string() fills for a UTF-8 string, and the start
+ * of the character following the one a string points at.  With Unicode output
+ * each multi-byte sequence prints as a single cell; without it the bytes go
+ * out as they are, one cell each.  Stepping is by whole sequences either way,
+ * so that a truncated tail stays well-formed UTF-8.
  */
 static glui32
 gsc_a5_printed_width (const char *string)
@@ -930,8 +930,9 @@ static const gsc_status_writer_t GSC_A5_STATUS_WRITER = {
 /*
  * gsc_a5_status()
  *
- * Redraw the one-line status window: the current room name at the left, and the
- * score (when the game keeps a Score variable) plus move count at the right.
+ * Redraw the one-line status window: the current room name at the left, and
+ * the score (when the game keeps a Score variable) plus move count at the
+ * right.
  */
 void
 gsc_a5_status (a5_run_t *run)

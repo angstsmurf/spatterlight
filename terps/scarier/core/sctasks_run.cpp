@@ -73,7 +73,7 @@ task_start_npc_walks (scr_gameref_t game, scr_int task)
  * task_suppresses_additional_message()
  *
  * TRUE if this Runner would drop the task's AdditionalMessage because the
- * turn's output already ends in two spaces.  3.80 games only.
+ * turn's output already ends in two spaces.  3.8 games only.
  *
  * The Runners build a turn's text by concatenating onto one string, two
  * spaces between the pieces, and check first whether the string already ends
@@ -88,7 +88,7 @@ task_start_npc_walks (scr_gameref_t game, scr_int task)
  * Its neighbours in the same sub are written correctly -- the CompleteText at
  * 0004CF26 and the room description at 0004CFB4 guard only the separator, and
  * append (or call viewroom) either way.  run370 at 00041C60 has no check at
- * all and always appends.  3.90 and 4.00 moved the test into a sub of its own
+ * all and always appends.  3.9 and 4.0 moved the test into a sub of its own
  * (Form1.pspace at 0002C880 in run390, General.Sub_22_58 at 0004A948 in
  * run400) that the callers invoke before appending, which fixes it.
  *
@@ -100,7 +100,7 @@ task_start_npc_walks (scr_gameref_t game, scr_int task)
  * on the AdditionalMessage itself change nothing; and turning on "show room
  * description" restores the message, because the room description lands in
  * between and the string no longer ends in spaces.  See the standing
- * divergence table in test/adrift4/notes/RUNNER_TESTS_TODO.md.
+ * divergence table in test/adrift4/notes/RUNNER_TESTS.md.
  */
 static scr_bool
 task_suppresses_additional_message (scr_gameref_t game)
@@ -501,9 +501,9 @@ task_print_additional_message (scr_gameref_t game,
        * version: run370 441C78 appends "  " and the message outright, run380
        * 44D03F guards that with `Right(out, 2) <> "  "` (the superliam
        * suppression, see task_suppresses_additional_message), run390 43F1C5
-       * calls pspace() at 43F1C8, and run400 does the same -- p4SRC.taf
+       * calls pspace() at 43F1C8, and run400 does the same -- p4ALRSRC.taf
        * prints "Y qqball.  ADD qqball." for a CompleteText and an
-       * AdditionalMessage, on one line.  troll t17 (3.90) says it below 4.0:
+       * AdditionalMessage, on one line.  troll t17 (3.9) says it below 4.0:
        * `get in coach` ends with the coach room's block and then "The sun is
        * creeping up in the morning sky..." on the same line
        * (runner_transcripts/troll.txt).
@@ -662,7 +662,8 @@ task_run_task (scr_gameref_t game, scr_int task, scr_bool forwards)
    * first act in the equivalent routine: mdlSpreadTheLoad.Sub_20_22 opens at
    * file offset 0005F750 with
    *
-   *     ImpAdLdUI1 <gameover> ; CI2UI1 ; LitI2_Byte 0 ; GtI2 ; BranchF ; ExitProc
+   *     ImpAdLdUI1 <gameover> ; CI2UI1 ; LitI2_Byte 0 ; GtI2 ; BranchF ;
+   *     ExitProc
    *
    * i.e. "If gameOver > 0 Then Exit Sub", ahead of restrictions, completion
    * text and actions alike.  The one caller that can reach here after an

@@ -23,7 +23,7 @@
  * a line matches: run_game_commands_common(), run_does_command_match(),
  * task dispatch for events and NPC walks.
  *
- * Split out of scrun_match.cpp; see scrun_match_internal.h.
+ * See scrun_match_internal.h.
  */
 
 #include <assert.h>
@@ -115,17 +115,17 @@ run_task_restriction (scr_gameref_t game, scr_int task)
  * excluded it from the peek, and let task 18's refusal (identical literal
  * pattern "in") win the peek instead -- breaking the golden.  Also exclude
  * any task with an Execute-Task (action type 5) or End-Game (action type 6)
- * action: task_run_task_action() (sctasks_action.cpp) is the only place besides
- * CompleteText/ShowRoomDesc/AdditionalMessage that can make a task's status
- * come back TRUE, and only those two action types ever set it -- an
+ * action: task_run_task_action() (sctasks_action.cpp) is the only place
+ * besides CompleteText/ShowRoomDesc/AdditionalMessage that can make a task's
+ * status come back TRUE, and only those two action types ever set it -- an
  * End-Game action prints a score summary/ending text of its own, and an
  * Execute-Task action cascades into another task whose own output can't be
- * predicted from here.  The other action types (move object, move NPC,
- * change object status, change variable, change score, change battle
- * attribute) never do.  A task tripping either check just falls through to
- * a full, unexcluded try in the next pass, same as any wildcard-leading
- * task -- this is a conservative "don't know, so don't peek" exclusion, not
- * a correctness requirement in itself.
+ * predicted from here.  The other action types (move object, move NPC, change
+ * object status, change variable, change score, change battle attribute) never
+ * do.  A task tripping either check just falls through to a full, unexcluded
+ * try in the next pass, same as any wildcard-leading task -- this is a
+ * conservative "don't know, so don't peek" exclusion, not a correctness
+ * requirement in itself.
  */
 /*
  * run_task_reachable_by_library_callback()
@@ -331,7 +331,7 @@ run_task_is_silent_and_literal (scr_gameref_t game, scr_int task)
  * run400's dispatcher reports handled when the buffer is non-empty (44CCC0).
  * So text printed by anything the task's actions set off counts -- an event an
  * execute-task action starts prints its StartText into the same buffer
- * (evt_check_events_started_by_task()).  baroo (4.00,
+ * (evt_check_events_started_by_task()).  baroo (4.0,
  * runner_transcripts/baroo.txt T107): `close machine` runs task 113, which has
  * no CompleteText; its execute-task action starts the convertor event, and the
  * Runner prints that StartText alone, without the library close's "The machine
@@ -783,7 +783,7 @@ run_game_commands_common (scr_gameref_t game, const scr_char *string,
    * the same shape: checktask picks one task, execute_task runs it.  Scarier
    * reaches the same line in several passes (peek, no restrictions,
    * restrictions), and the later passes must not re-scan from task 0 with the
-   * first task now spent: House (4.00, runner_probes/house.run400.kiss.txt)
+   * first task now spent: House (4.0, runner_probes/house.run400.kiss.txt)
    * `kiss cathy` as the first line naming Cathy runs the silent once-only task
    * 200 `*cathy*`, and run400 then prints the library's "I'm not sure she
    * would appreciate that!" -- the game's own kiss task 882
@@ -918,8 +918,10 @@ run_does_command_match (scr_gameref_t game, const scr_char *string,
 {
   scr_int task_count, task, direction;
 
-  /* The pre-matcher takes its caller's mode alone: name_object's unfiltered
-     look-up still sees a non-put task on a held-object put line. */
+  /*
+   * The pre-matcher takes its caller's mode alone: name_object's unfiltered
+   * look-up still sees a non-put task on a held-object put line.
+   */
   struct put_class_suspend
   {
     const scr_bool saved;
@@ -951,7 +953,7 @@ run_does_command_match (scr_gameref_t game, const scr_char *string,
    * for the interface's probe of a raw typed line only.  The Runner's
    * pre-matcher 453C50 applies none: its typed line has been through the
    * synonym table already (run_player_input()), and a line the library
-   * rebuilds reaches it as built.  S.E.R.E. (4.00) maps get -> take and has
+   * rebuilds reaches it as built.  S.E.R.E. (4.0) maps get -> take and has
    * task 40 "take *  sniper * rifle" (two spaces, so the typed line misses)
    * with the alternative "get * rifle": run400 answers `take sniper rifle`
    * in the barn with the task, which the take piece's "get the sniper rifle"
@@ -1099,7 +1101,7 @@ run_does_command_match (scr_gameref_t game, const scr_char *string,
  * Object for the run.  The task's primary command is not in the array it
  * scans, so a task whose only command is the function never evaluates it.
  * Verified live in run400 ("Probe backlog" in
- * test/adrift4/notes/RUNNER_TESTS_TODO.md):
+ * test/adrift4/notes/RUNNER_TESTS.md):
  * wrapping each probe in an "execute task" action is the only way to make its
  * function fire at all, and a probe carrying the function as its sole command
  * stays silent.
@@ -1160,20 +1162,21 @@ run_task_run_by_index (scr_gameref_t game, scr_int task)
  * too: the first task in list order that matches and passes where +
  * restrictions fires, an earlier runnable `*` wildcard steals the execution
  * outright, and a restricted match is skipped silently.  Verified live in
- * run390 (test/adrift4/harness/make_39_walkprobe.py variants E/F/G): with a wildcard first
- * the arrival turn prints the wildcard's text twice and the walk task's
- * never, with the walk task first it fires itself, and a restricted walk
- * task prints nothing.  The matcher dispatch is also what fans one walk
- * trigger out across same-command tasks -- e.g. "Lair of the CyberCow" has
- * two "#lured" tasks (steeple and chapel yard) and the fairy snatches the
- * milk bowl in whichever of those rooms the player is standing.
+ * run390 (test/adrift4/harness/make_39_walkprobe.py variants E/F/G): with a
+ * wildcard first the arrival turn prints the wildcard's text twice and the
+ * walk task's never, with the walk task first it fires itself, and a
+ * restricted walk task prints nothing.  The matcher dispatch is also what fans
+ * one walk trigger out across same-command tasks -- e.g. "Lair of the
+ * CyberCow" has two "#lured" tasks (steeple and chapel yard) and the fairy
+ * snatches the milk bowl in whichever of those rooms the player is standing.
  *
  * The 4.0 Runner instead runs the task directly by index -- its walk handler
  * calls the same direct task runner (Sub_20_22) as its events -- so there is
  * no interception, and a failing restriction prints its FailMessage (which
- * task_run_task does).  Verified live in run400 (test/adrift4/harness/make_400_walkprobe.py
- * variants E/G): the walk task fires with a wildcard listed before it, and
- * a restricted walk task prints its FailMessage on every arrival turn.
+ * task_run_task does).  Verified live in run400
+ * (test/adrift4/harness/make_400_walkprobe.py variants E/G): the walk task
+ * fires with a wildcard listed before it, and a restricted walk task prints
+ * its FailMessage on every arrival turn.
  */
 static void run_task_command_dispatch (scr_gameref_t game, scr_int eventtask);
 
@@ -1208,7 +1211,7 @@ run_npc_walk_task (scr_gameref_t game, scr_int walktask)
  * is standing.  Restricted matches are passed over silently.
  *
  * All of this is verified against the live 3.9 Runner (see the wildcard
- * turn-ordering entry in test/adrift4/notes/RUNNER_TESTS_TODO.md): "thetest"
+ * turn-ordering entry in test/adrift4/notes/RUNNER_TESTS.md): "thetest"
  * depends on the
  * stealing -- its "Nice try fish face!" `*` task fires on the same turn as the
  * library drop because an always-restarting one-turn event executes a task
@@ -1237,7 +1240,7 @@ run_npc_walk_task (scr_gameref_t game, scr_int walktask)
  * examines()'s own "Nothing special." (referencedob -1, 44BF94; the game's
  * ALR makes it "I can tell you nothing about that").
  *
- * 3.80 has the same route and 3.70 has none (measured).
+ * 3.8 has the same route and 3.7 has none (measured).
  * p3xEVQ2 from make_3738_eventflagprobe.py is two hats both Short "hat"
  * with the adjective as the Prefix's last word, plus an immediate event
  * that restarts every turn and runs a `zzev` task; each version is built

@@ -22,10 +22,6 @@
  * the "in" and "on" backends and their validity tests.  The command forms
  * that run them ("put all", the named and multiple-object handlers) are in
  * sclibrar_put_multiple.cpp.
- *
- * See sclibrar.h for what the library files share, sclibrar_internal.h for
- * what the core files share and sclibrar_put_internal.h for what the two
- * put files share.
  */
 
 #include "sclibrar_put_internal.h"
@@ -205,7 +201,7 @@ lib_put_named_filter (scr_gameref_t game, scr_int object)
    * -> "You put the pebble inside the box."
    * (runner_probes/dark.run380.putin2.txt:57 /
    * runner_probes/dark.run370.putin2.txt:57).  So run390's one step of reach
-   * into a carried container is a 3.90 addition.
+   * into a carried container is a 3.9 addition.
    */
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
     return gs_object_position (game, object) == OBJ_HELD_PLAYER
@@ -638,8 +634,10 @@ lib_put_deferred_stage_400 (scr_gameref_t game, const lib_list_t &pending,
         }
     }
 
-  /* The typed line, when the rebuild missed; see
-     lib_try_typed_put_line_400(). */
+  /*
+   * The typed line, when the rebuild missed; see
+   * lib_try_typed_put_line_400().
+   */
   if (!*task_claimed && pending.size () == 1
       && lib_try_typed_put_line_400 (game))
     {
@@ -664,7 +662,7 @@ lib_put_deferred_stage_400 (scr_gameref_t game, const lib_list_t &pending,
    * PSTAT's silent commands 13 and 18 are not a counter-measurement: there the
    * coin, object #1, sits inside the box, and run400's carried-weight cycle
    * (447680) eats the report; see the deliberate deviation in
-   * test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md.
+   * test/adrift4/notes/WINE-TRANSCRIPTS.md.
    */
   for (const scr_int pending_object : pending)
     {
@@ -707,9 +705,6 @@ lib_put_note_output (scr_gameref_t game, lib_put_outcome_t *outcome,
  * Common backend handler for placing objects in containers.  Places all
  * objects currently referenced in the game into a container, trying game
  * commands first, and then moving other unhandled objects into the container.
- *
- * Objects to action are flagged in object_references; objects requested but
- * deemed not actionable are flagged in multiple_references.
  */
 struct lib_put_in_t
 {
@@ -779,7 +774,7 @@ lib_put_in_t::try_game_commands (void)
        * nothing.  Probe PSTAT's silent commands 13 and 18 are not a
        * counter-measurement: there the coin, object #1, sits inside the box,
        * and run400's carried-weight cycle (447680) eats the report; see the
-       * deliberate deviation in test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md.
+       * deliberate deviation in test/adrift4/notes/WINE-TRANSCRIPTS.md.
        */
       {
         scr_bool take_printed = FALSE;
@@ -1705,9 +1700,6 @@ lib_put_in_is_valid (scr_gameref_t game, scr_int container)
  * Common backend handler for placing objects on supporters.  Places all
  * objects currently referenced in the game onto a supporter, trying game
  * commands first, and then moving other unhandled objects onto the supporter.
- *
- * Objects to action are flagged in object_references; objects requested but
- * deemed not actionable are flagged in multiple_references.
  */
 lib_put_outcome_t
 lib_put_on_backend (scr_gameref_t game, scr_int supporter)
@@ -1720,11 +1712,7 @@ lib_put_on_backend (scr_gameref_t game, scr_int supporter)
   lib_put_outcome_t outcome;
   lib_list_t pending;
 
-  /*
-   * Try game commands for all referenced objects first.  If any succeed,
-   * remove that reference from the list.  At the same time, check for and
-   * weed out any moves that result in infinite recursion.
-   */
+  /* Try game commands first, as lib_put_in_t::try_game_commands() does. */
   length_before = lib_output_length (game);
   lib_put_announce_bytes = 0;
   has_printed = FALSE;
@@ -1737,17 +1725,11 @@ lib_put_on_backend (scr_gameref_t game, scr_int supporter)
         continue;
 
       /*
-       * Version 4.0 picks up an object it has been asked to put down, and it
-       * does so BEFORE the handler's task look-up.  run400's name_object
-       * loop runs the take piece at loc_46E2B5 and only then hands the pair
-       * to insides (Proc_19_43_46639C @loc_46E34F), which is where the
-       * canonical line reaches the tasks -- so a task that goes on to claim
-       * the put still carries the announcement ahead of its own text.
-       * Measured on frustrated turns 53-55
-       * (runner_transcripts/frustrated.txt): `put small rock on left pan`
-       * matches task 511 `put*small*left*` and still opens "(Taking the small
-       * rock first)".
-       */
+       * Version 4.0 picks up an object it has been asked to put down, BEFORE
+       * the handler's task look-up, as in lib_put_in_t.  Measured on
+       * frustrated turns 53-55 (runner_transcripts/frustrated.txt): `put small
+       * rock on left pan` matches task 511 `put*small*left*` and still opens
+       * "(Taking the small rock first)". */
       {
         scr_bool take_printed = FALSE;
 

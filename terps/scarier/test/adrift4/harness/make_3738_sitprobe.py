@@ -1,6 +1,6 @@
 """The sit/stand/lie + drop-all-except probe, in 3.70/3.80/3.90/4.00.
 
-Leads from WINE-TRANSCRIPTS-TODO.md "Engine, needs a probe (3.7 / 3.8)":
+Leads from WINE-TRANSCRIPTS.md "Engine, needs a probe (3.7 / 3.8)":
 run370's sitstand loop has no location test (42AEC8), and 3.7
 `drop all except X` with X held (only the nothing-held cell was measured).
 

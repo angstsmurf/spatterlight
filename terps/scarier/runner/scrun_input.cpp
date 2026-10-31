@@ -23,8 +23,7 @@
  * run_all_commands() -- reading, separator cuts, repeat, the spelling
  * filter, questions, the 4.0 co answer, not-understood and the undo note.
  *
- * Split out of scrun_dispatch.cpp; see scrunner.h for what the runner files
- * share.
+ * See scrunner.h for what the `run_` files share.
  */
 
 #include <assert.h>
@@ -48,11 +47,11 @@
  * Deliberate deviation.  TRUE when a task command that itself
  * holds one of the line separators the line holds (" and ", " then ", ",",
  * ". ") matches the whole line; the line is then not cut.  run400 cuts at
- * those words first (7d38fbf08), and from 3.9 the Runners cut at " then "
- * and ". ", so an author's `jump up and down`, `rock and roll` or `search
- * then pray` never reached its task: 4.0 answered `jump up and down` with
- * the jump and then a movement refusal.  A command without the separator
- * (a catch-all `*`) does not count, so `get coin then n` still splits.
+ * those words first, and from 3.9 the Runners cut at " then " and ". ", so an
+ * author's `jump up and down`, `rock and roll` or `search then pray` never
+ * reached its task: 4.0 answered `jump up and down` with the jump and then a
+ * movement refusal.  A command without the separator (a catch-all `*`) does
+ * not count, so `get coin then n` still splits.
  */
 static scr_bool
 run_ci_contains (const scr_char *haystack, const scr_char *needle)
@@ -454,9 +453,8 @@ run_count_element (scr_gameref_t game)
  * run_element_filtered()
  *
  * The element with the game's synonyms and the built-in rewrites applied,
- * or NULL if nothing changed.  Deliberate deviations (2026-09-30), each for
- * the lines where the Runner's own rewrite leaves the author's task out of
- * reach:
+ * or NULL if nothing changed.  Deliberate deviations, each for the lines where
+ * the Runner's own rewrite leaves the author's task out of reach:
  *
  *  - The game's synonyms are applied the Runner's way (pf_apply_synonym())
  *    and Scarier's older way (pf_apply_synonyms_by_word()).  The Runner's
@@ -465,7 +463,7 @@ run_count_element (scr_gameref_t game)
  *    later synonym rewrite an earlier one's text, so Vardock Bates' `hablar
  *    con jason` became "talk con jason jason dhirco" and no task took it.
  *  - run380 rewrites a typed "take" to "get" before any task sees the line,
- *    so a 3.80 task whose commands say only `take X` can never fire:
+ *    so a 3.8 task whose commands say only `take X` can never fire:
  *    great.taf's `take picasso` just picks the painting up.
  *  - Every Runner rewrites everything->all and slap->hit, and 3.8+ the
  *    except/but/apart from words, before the tasks (see pf_filter_input()),
@@ -676,7 +674,7 @@ run_element_begin (scr_gameref_t game, const scr_char *command,
    * and %character% raw on the turn right after `nurb rock` bound the red
    * rock, in all four Runners (runner_probes/objref.run370.rtf,
    * runner_probes/objref.run380.rtf, runner_probes/objref.run390.txt,
-   * runner_probes/objref.run400.txt).  Below 3.90 the reference
+   * runner_probes/objref.run400.txt).  Below 3.9 the reference
    * looks to be local to checktask, which is the same thing seen from the
    * other end.  We kept the older Runners' references across the line and
    * printed "ZORKED a red rock."
@@ -1147,8 +1145,10 @@ run_player_input (scr_gameref_t game)
   if (!is_rerunning)
     run_count_element (game);
 
-  /* Copy the current game to the temporary undo buffer, along with the
-     output that the turn just finished left it with. */
+  /*
+   * Copy the current game to the temporary undo buffer, along with the
+   * output that the turn just finished left it with.
+   */
   gs_copy (game->temporary, game);
   run_temporary_text = pf_take_printed (gs_get_filter (game));
   game->player_moved_by_command = FALSE;
@@ -1160,9 +1160,9 @@ run_player_input (scr_gameref_t game)
    * The repeat words are tested on the whole line before any task gets it:
    * run400 89FE2 and run390 45F094 sit above tasks(0) (45F48B), run380 441B79
    * and run370 43B3C9 likewise, but without `g`.  So a task that listens for
-   * `g` can never see it typed from 3.90 on; shadowpeak's riddle (TASK 404,
+   * `g` can never see it typed from 3.9 on; shadowpeak's riddle (TASK 404,
    * answer `g`) repeats the previous command in run400.  Below
-   * 3.90 the `g` row in the standard table stays a Scarier abbreviation and
+   * 3.9 the `g` row in the standard table stays a Scarier abbreviation and
    * keeps its place after the tasks.
    */
   if (!is_rerunning && run_is_repeat_word (game, run_line_element))

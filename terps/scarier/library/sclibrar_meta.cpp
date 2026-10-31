@@ -22,7 +22,8 @@
  * Look, quit, restart, undo, history/redo, hints, help and the other
  * out-of-game commands, plus wait, verbose/brief, notify and time.
  *
- * See sclibrar.h for what the library files share.
+ * Out-of-game output that is not the game's own text prints directly rather
+ * than through the printfilter, to avoid possible clashes with ALRs.
  */
 
 #include "sclibrar.h"
@@ -58,7 +59,7 @@ lib_cmd_look (scr_gameref_t game)
  * look.  Bare `x`, `ex` and `examine` are not an examine either: examines
  * opens with `If input = "examine" Or "ex" Or "x" Then Exit` (run400 471340,
  * run390 44B758), and the line ends in the game's DontUnderstand.  Measured
- * on Lair of the Vampire (4.00), whose synonym 2 rewrites `look` to `x`:
+ * on Lair of the Vampire (4.0), whose synonym 2 rewrites `look` to `x`:
  * run400 answers `look` with "Try something different." in three separate
  * captures (runner_probes/lair.run400.[abc].txt), and because the room is
  * never listed, the cobalt key an earlier task dropped there stays unseen and
@@ -79,12 +80,10 @@ lib_cmd_look (scr_gameref_t game)
  * Deliberate deviation: any line this row matches that names the room or
  * location looks, so `examine room`, `look at room` and `x the room` show
  * the room instead of "Nothing special." (3.7-3.9) or "You see no such
- * thing." (4.0).  Below 3.9 since 2026-09-27, at every version since
- * 2026-09-30 (bec2def78).  `look around` and `l around` look as well, at
- * every version since 2026-10-15; the Runners answer them as above.  The
- * bare forms keep the Runner's answer.  A
- * typed `l` or `look` that a game synonym would turn into a bare `x` stays
- * a look; see run_element_filtered().
+ * thing." (4.0).  This is at every version.  `look around` and `l around` look
+ * as well; the Runners answer them as above.  The bare forms keep the Runner's
+ * answer.  A typed `l` or `look` that a game synonym would turn into a bare
+ * `x` stays a look; see run_element_filtered().
  */
 scr_bool
 lib_cmd_look_typed (scr_gameref_t game)
@@ -141,9 +140,9 @@ lib_cmd_look_typed (scr_gameref_t game)
  *     run370 loc_43C07E:  Me.Global.Unload MemVar_4461A8
  *     run370 loc_43C089:  MemVar_4460E4 = "I'm so glad you said no..."
  *
- * (run380 loc_44A6xx, run390 loc_45FA5D, run400 loc_48AABA/48AAC2 are the same
- * pair) -- because VB's Unload raises Form_QueryUnload, which is where the
- * Runner puts the "Are you sure?" box.  Confirm and the process is gone before
+ * (run380 loc_4428D2/4428DD, run390 loc_45FB82/45FB8A, run400
+ * loc_48AABA/48AAC2 are the same pair) -- because VB's Unload raises
+ * Form_QueryUnload, which is where the Runner puts the "Are you sure?" box.  Confirm and the process is gone before
  * the assignment can matter; decline and Unload simply returns, leaving the
  * line as the turn's whole output.  Note it is an assignment, not an append,
  * so it *replaces* anything the turn had buffered; here the buffer is
@@ -179,9 +178,11 @@ lib_cmd_quit (scr_gameref_t game)
  * reaches.  run400 loc_48AAC9-48ABB8:
  *
  *     If cmd = "endgame" Then
- *       out &= "You scored" & Str(score) & " out of the maximum" & Str(MaxScore) & "!" & CRLF
+ *       out &= "You scored" & Str(score) & " out of the maximum" &
+ *         Str(MaxScore) & "!" & CRLF
  *       If MaxScore = 0 Then MaxScore = 1
- *       out &= "That is" & Str(Int(score * (100 / MaxScore))) & "% of the game!" & CRLF & CRLF
+ *       out &= "That is" & Str(Int(score * (100 / MaxScore))) &
+ *         "% of the game!" & CRLF & CRLF
  *       out &= "[Press any key to end]"
  *       gameover = 3
  *
@@ -193,7 +194,7 @@ lib_cmd_quit (scr_gameref_t game)
  * one as 100%, so the two printers are deliberately kept apart.
  *
  * All four Runners carry the branch, identically worded (run370 loc_43C095,
- * run380 loc_442xxx, run390 loc_45FB94, run400 loc_48AAC9), and every literal
+ * run380 loc_4428E9, run390 loc_45FB91, run400 loc_48AAC9), and every literal
  * is in all four constant pools, so it is not gated on a version.
  *
  * "[Press any key to end]" is the Runner's own end-of-session prompt, printed
@@ -225,15 +226,19 @@ lib_cmd_endgame (scr_gameref_t game)
   pf_buffer_string (filter, buffer);
   pf_buffer_string (filter, "% of the game!\n");
 
-  /* The second of the block's two CRLFs, and then the Runner's own
-     end-of-session prompt on the far side of the blank line it leaves
-     ("...% of the game!" & CRLF & CRLF & the prompt), exactly as
-     Form1.endmessage closes an ending; see task_print_end_keyprompt(). */
+  /*
+   * The second of the block's two CRLFs, and then the Runner's own
+   * end-of-session prompt on the far side of the blank line it leaves
+   * ("...% of the game!" & CRLF & CRLF & the prompt), exactly as
+   * Form1.endmessage closes an ending; see task_print_end_keyprompt().
+   */
   pf_buffer_answer_break (filter);
   task_print_end_keyprompt (game);
 
-  /* Stop the game, and note that it's not resumeable -- the gameover byte the
-     Runner sets here is the same one an EndGame task action writes. */
+  /*
+   * Stop the game, and note that it's not resumeable -- the gameover byte the
+   * Runner sets here is the same one an EndGame task action writes.
+   */
   game->is_running = FALSE;
   game->has_completed = TRUE;
   return TRUE;
@@ -290,19 +295,19 @@ lib_cmd_restart (scr_gameref_t game)
  * SCARE says.  Measured from the four Runners' constant pools and the handlers
  * that print them:
  *
- *   3.70  has no `undo` at all -- the word does not occur in run370's pool,
+ *   3.7   has no `undo` at all -- the word does not occur in run370's pool,
  *         so the line falls through to the game's DontUnderstand.
- *   3.80  knows the word and has nothing behind it: run380 generaltasks
+ *   3.8   knows the word and has nothing behind it: run380 generaltasks
  *         @442EE9 tests `c("undo")` and answers "I can't undo your
  *         blundering." every time, with no state to restore.
- *   3.90+ answers "Undone." on success (run390 do_undo @436AB5, run400
+ *   3.9+ answers "Undone." on success (run390 do_undo @436AB5, run400
  *         Proc_19_62 @45B0FF) and "I can't undo any more of your
  *         blunderings!" when the history is empty (@45B158).
  *
  * "[The previous turn has been undone.]", "Sorry, no more undo is
  * available." and "You can't undo what hasn't been done." are in no Runner's
  * pool at all, and neither Runner prints a room name with the answer:
- * runner_transcripts/cellar.txt (4.00) reads plain "Undone." three times
+ * runner_transcripts/cellar.txt (4.0) reads plain "Undone." three times
  * running.
  *
  * 3.9 and 4.0 also REPLAY the restored turn's output.  Each Runner keeps a
@@ -326,8 +331,8 @@ lib_cmd_undo (scr_gameref_t game)
   const scr_memo_setref_t memento = gs_get_memento (game);
 
   /*
-   * Deliberate deviation: 3.70 and 3.80 undo as 3.9/4.0 do.  The 3.70
-   * Runner does not know the word and 3.80 refuses it every time, but an
+   * Deliberate deviation: 3.7 and 3.8 undo as 3.9/4.0 do.  The 3.7
+   * Runner does not know the word and 3.8 refuses it every time, but an
    * interpreter that can undo should; a game's own `undo` task still wins,
    * because tasks are matched before the library (Cut_the_Red_Wire).  No
    * 3.7/3.8 corpus game names undo in a task.
@@ -414,8 +419,8 @@ lib_format_elapsed_time (scr_int timestamp, scr_char *buffer, size_t length)
  * lib_cmd_history_number()
  * lib_cmd_history()
  *
- * Prints a history of saved commands for the game.  Print directly rather
- * than using the printfilter to avoid possible clashes with ALRs.
+ * Prints a history of saved commands for the game.  Prints directly; see the
+ * file head.
  */
 static scr_bool
 lib_cmd_history_common (scr_gameref_t game, scr_int limit)
@@ -425,7 +430,7 @@ lib_cmd_history_common (scr_gameref_t game, scr_int limit)
   scr_int first, count, timestamp;
 
   /*
-   * The runner main loop will add an entry for the "history" command that
+   * The Runner main loop will add an entry for the "history" command that
    * got us here, but it hasn't done so yet.  To keep the history list
    * accurate for recalling commands, we add a surrogate "history" command
    * to the history here, and remove it when we've done listing.  This matches
@@ -558,12 +563,12 @@ lib_cmd_redo_number (scr_gameref_t game)
       /*
        * This is a failed redo, but returning FALSE will cause the game's
        * unknown command message to come up.  However, returning TRUE will
-       * cause the runner main loop to add this to its history, and at some
+       * cause the `run_` main loop to add this to its history, and at some
        * point a "redo 7" could cause problems (say, when it's at sequence 7,
        * where it'll cause an infinite loop).  To work round this, here we'll
-       * return a redo_sequence _without_ do_again, and have the runner catch
-       * that as an indication not to save the command in its history.  Sorry
-       * for the ugliness.
+       * return a redo_sequence _without_ do_again, and have the `run_` code
+       * catch that as an indication not to save the command in its history.
+       * Sorry for the ugliness.
        */
       game->do_again = FALSE;
       game->redo_sequence = INT_MAX;
@@ -724,11 +729,13 @@ lib_cmd_hints (scr_gameref_t game)
         }
       else
         {
-          /* The Runners' own line: run380 42D2D4, run390 437A24 and run400
-             45A0CC all say "No hints currently available."; run370 426D72
-             "No hints available.".  Dolg (3.90) ALRs the 3.8+ wording into
-             Russian, so the exact text matters (runner_transcripts/dolg.txt
-             T4). */
+          /*
+           * The Runners' own line: run380 42D2D4, run390 437A24 and run400
+           * 45A0CC all say "No hints currently available."; run370 426D72
+           * "No hints available.".  Dolg (3.9) ALRs the 3.8+ wording into
+           * Russian, so the exact text matters (runner_transcripts/dolg.txt
+           * T4).
+           */
           const scr_prop_setref_t bundle = gs_get_bundle (game);
 
           pf_buffer_string (filter,
@@ -780,8 +787,7 @@ lib_print_string_italics (const scr_char *string)
  * lib_cmd_license()
  *
  * A form of standard help output for games that don't define it themselves,
- * and the GPL licensing.  Print directly rather than using the printfilter
- * to avoid possible clashes with ALRs.
+ * and the GPL licensing.  Prints directly; see the file head.
  */
 scr_bool
 lib_cmd_help (scr_gameref_t game)
@@ -882,8 +888,7 @@ lib_cmd_license (scr_gameref_t game)
  * lib_cmd_information()
  *
  * Display a few small pieces of game information, done by a dialog GUI
- * in real Adrift.  Prints directly rather than using the printfilter to
- * avoid possible clashes with ALRs.
+ * in real ADRIFT.  Prints directly; see the file head.
  */
 scr_bool
 lib_cmd_information (scr_gameref_t game)
@@ -948,8 +953,8 @@ lib_cmd_clear (scr_gameref_t game)
  * lib_cmd_statusline()
  *
  * Display the status line as would be shown by the Runner.  Useful for
- * interpreter builds that can't offer a true status line.  Prints directly
- * rather than using the printfilter to avoid possible clashes with ALRs.
+ * interpreter builds that can't offer a true status line.  Prints directly;
+ * see the file head.
  */
 scr_bool
 lib_cmd_statusline (scr_gameref_t game)
@@ -1000,8 +1005,7 @@ lib_cmd_statusline (scr_gameref_t game)
 /*
  * lib_cmd_version()
  *
- * Display the "Runner version".  Prints directly rather than using the
- * printfilter to avoid possible clashes with ALRs.
+ * Display the "Runner version".  Prints directly; see the file head.
  */
 scr_bool
 lib_cmd_version (scr_gameref_t game)
@@ -1039,7 +1043,7 @@ lib_cmd_version (scr_gameref_t game)
  * lib_cmd_wait_number()
  *
  * Set game waitcounter to a count of turns for which the main loop will run
- * without taking input.  Many Adrift Runners ignore any WaitTurns setting in
+ * without taking input.  Many ADRIFT Runners ignore any WaitTurns setting in
  * the game, and use always use one; this might make a game misbehave, so to
  * try to cover this case we supply 'wait N' as a player control to override
  * the game's setting.  The latter prints directly rather than using the
@@ -1115,8 +1119,7 @@ lib_cmd_wait_number (scr_gameref_t game)
  * lib_cmd_verbose()
  * lib_cmd_brief()
  *
- * Set/clear game verbose flag.  Print directly rather than using the
- * printfilter to avoid possible clashes with ALRs.
+ * Set/clear game verbose flag.  Prints directly; see the file head.
  */
 scr_bool
 lib_cmd_verbose (scr_gameref_t game)
@@ -1154,8 +1157,8 @@ lib_cmd_brief (scr_gameref_t game)
  * lib_cmd_notify_on_off()
  * lib_cmd_notify()
  *
- * Set/clear/query game score change notification flag.  Print directly
- * rather than using the printfilter to avoid possible clashes with ALRs.
+ * Set/clear/query game score change notification flag.  Prints directly; see
+ * the file head.
  */
 scr_bool
 lib_cmd_notify_on_off (scr_gameref_t game)
@@ -1226,7 +1229,7 @@ lib_cmd_notify (scr_gameref_t game)
  * lib_cmd_time()
  * lib_cmd_date()
  *
- * Print elapsed game time, and smart-alec "date" response.  The Adrift
+ * Print elapsed game time, and smart-alec "date" response.  The ADRIFT
  * Runner responds here with the system time and date, but we'll do something
  * different.
  */

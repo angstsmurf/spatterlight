@@ -21,9 +21,9 @@
 /*
  * Module notes:
  *
- * o ADRIFT's optional Battle System, split out of scnpcs.cpp.  The public
- *   entry points are declared in scbattle.h and the per-character mutable
- *   state (scr_battle_s) lives in scgamest.h.
+ * o ADRIFT's optional Battle System.  The public entry points are declared in
+ *   scbattle.h and the per-character mutable state (scr_battle_s) lives in
+ *   scgamest.h.
  */
 
 #include <assert.h>
@@ -136,8 +136,8 @@ battle_get_combat_assist (void)
  * battle_is_legacy_version()
  *
  * Return TRUE for a version 3.9 or 3.8 game, read from the bundle's top-level
- * "Version" integer (written by the parser).  A missing or unrecognised version
- * is treated as modern (4.0), leaving behaviour unchanged.
+ * "Version" integer (written by the parser).  A missing or unrecognised
+ * version is treated as modern (4.0), leaving behaviour unchanged.
  */
 static scr_bool
 battle_is_legacy_version (scr_gameref_t game)
@@ -651,12 +651,12 @@ battle_capped (scr_int value, scr_int cap)
  *
  * Apply a type-7 "Change battle attribute" task action to the player (npc < 0)
  * or an NPC.  attribute is the ADRIFT attribute index (0 = Attitude, 1 =
- * Stamina, 2 = Max Stamina, 3/5/7/9 = Strength/Accuracy/Defence/Agility, 4/6/8/
- * 0xA = their Max caps, 0xB = Speed).  Attitude and Speed are set to the given
- * enum value; every other attribute changes by the signed delta.  Current
- * stamina is re-clamped to its (possibly changed) maximum.  A range change
- * is capped at the attribute's max and a max change is a plain add, in both
- * Runners.  A 3.9 file's attribute numbering (5 = defence, 7 = speed) has
+ * Stamina, 2 = Max Stamina, 3/5/7/9 = Strength/Accuracy/Defence/Agility,
+ * 4/6/8/ 0xA = their Max caps, 0xB = Speed).  Attitude and Speed are set to
+ * the given enum value; every other attribute changes by the signed delta.
+ * Current stamina is re-clamped to its (possibly changed) maximum.  A range
+ * change is capped at the attribute's max and a max change is a plain add, in
+ * both Runners.  A 3.9 file's attribute numbering (5 = defence, 7 = speed) has
  * already been rewritten to this one by the parser
  * (parse_fixup_v390_battle_attribute).
  */
@@ -749,8 +749,10 @@ battle_change_attribute (scr_gameref_t game, scr_int npc,
 
     case 4: case 6: case 8: case 0xA:  /* Max Str/Acc/Def/Agi (delta). */
       slot = (attribute - 4) / 2;
-      /* run400 48E2A6 and run390 457048 (max strength) / 4572A1 (max
-         defence): a plain add, no floor and no re-clamp of lo/hi. */
+      /*
+       * run400 48E2A6 and run390 457048 (max strength) / 4572A1 (max
+       * defence): a plain add, no floor and no re-clamp of lo/hi.
+       */
       battle->max[slot] += value;
       break;
 
@@ -974,7 +976,7 @@ battle_eff_strength (scr_gameref_t game, scr_int npc, scr_int weapon)
        * strength regardless of method: a Str-10 player with a HitValue-30
        * Method-3 blaster one-shots a 35-stamina enemy in run390, where
        * run400 needs two 30-damage hits
-       * ("Battle System" in test/adrift4/notes/RUNNER_TESTS_TODO.md).
+       * ("Battle System" in test/adrift4/notes/RUNNER_TESTS.md).
        */
       if (!battle_legacy
           && battle_object_battle (game, weapon, "Method") == 3)
@@ -1171,16 +1173,17 @@ battle_npc_name (scr_gameref_t game, scr_int npc, scr_int naming,
  * them from the same seven-element pronoun array the library uses -- filled by
  * perspective at run400 48F60C-48F798 (run390 464800-4648A8, two perspectives
  * only): Ary(0) is "I" / "You" / the player's name and Ary(2) "me" / "you" /
- * the player's name.  Battle reads exactly two of the seven slots, and it reads
- * them positionally, not grammatically: Ary(0) wherever the player leads the
- * sentence -- the whole of Proc_11_1, the player's blow, and the bare-handed
- * dodge in Proc_11_2 at loc_46515B -- and Ary(2) wherever the player sits
- * inside one, as the target of an NPC's blow (Proc_11_2 loc_464FDA feeding
- * var_8C, plus the armed miss's two direct reads at loc_4653BB/loc_4653FF).
+ * the player's name.  Battle reads exactly two of the seven slots, and it
+ * reads them positionally, not grammatically: Ary(0) wherever the player leads
+ * the sentence -- the whole of Proc_11_1, the player's blow, and the
+ * bare-handed dodge in Proc_11_2 at loc_46515B -- and Ary(2) wherever the
+ * player sits inside one, as the target of an NPC's blow (Proc_11_2 loc_464FDA
+ * feeding var_8C, plus the armed miss's two direct reads at
+ * loc_4653BB/loc_4653FF).
  *
  * POSSESSIVE is the exception, and stays "your" in every perspective: the only
- * possessive the player has in battle is the one in Proc_11_1's own misses, and
- * the Runner writes it as part of the literal -- " manages to avoid your
+ * possessive the player has in battle is the one in Proc_11_1's own misses,
+ * and the Runner writes it as part of the literal -- " manages to avoid your
  * attack." at loc_45E2EB and " manages to avoid your attack with " at
  * loc_45E519.  Neither touches the array, so a first-person game really does
  * read "The witch manages to avoid your attack." between two lines that say
@@ -1210,9 +1213,9 @@ battle_npc_name (scr_gameref_t game, scr_int npc, scr_int naming,
  * names the attacker raw in the possessive after it, Proc_11_1 -- the player's
  * blow -- has no call to the capitaliser at all, and neither does the corpse
  * line (Proc_11_3 @44B115 reads the Name field directly).  Proc_11_1 needs no
- * capitaliser because it opens with Ary(0), which is already capitalised in the
- * first and second persons -- and in the third it is the player's name, which
- * the Runner splices exactly as authored.
+ * capitaliser because it opens with Ary(0), which is already capitalised in
+ * the first and second persons -- and in the third it is the player's name,
+ * which the Runner splices exactly as authored.
  */
 static void
 battle_print_combatant (scr_gameref_t game, scr_int npc, scr_int form,
@@ -1222,9 +1225,11 @@ battle_print_combatant (scr_gameref_t game, scr_int npc, scr_int form,
 
   if (npc < 0)
     {
-      /* Deliberate deviation: the Runner's "your" is literal in every
-         perspective ("I hit ... The witch manages to avoid your attack.");
-         Scarier matches the possessive to the perspective. */
+      /*
+       * Deliberate deviation: the Runner's "your" is literal in every
+       * perspective ("I hit ... The witch manages to avoid your attack.");
+       * Scarier matches the possessive to the perspective.
+       */
       if (form == BATTLE_FORM_POSSESSIVE)
         {
           const scr_int perspective = lib_get_perspective (game);
@@ -1243,9 +1248,11 @@ battle_print_combatant (scr_gameref_t game, scr_int npc, scr_int form,
           break;
 
         case LIB_THIRD_PERSON:
-          /* Ary(0) and Ary(2) are both the player's name here, so the two
-             forms coincide; %player% is how the rest of the library carries
-             it, and pf_flush() interpolates it the way it does anywhere. */
+          /*
+           * Ary(0) and Ary(2) are both the player's name here, so the two
+           * forms coincide; %player% is how the rest of the library carries
+           * it, and pf_flush() interpolates it the way it does anywhere.
+           */
           pf_buffer_string (filter, "%player%");
           break;
 
@@ -1257,10 +1264,12 @@ battle_print_combatant (scr_gameref_t game, scr_int npc, scr_int form,
       return;
     }
 
-  /* Deliberate deviation: every SUBJECT site leads its sentence, so Scarier
-     capitalises all of them, not only the Runner's five; the Runner's raw
-     "a soldier manages to avoid your attack." is a display accident.  A name
-     the game's ALRs quote keeps the Runner's shape; see battle_npc_name(). */
+  /*
+   * Deliberate deviation: every SUBJECT site leads its sentence, so Scarier
+   * capitalises all of them, not only the Runner's five; the Runner's raw
+   * "a soldier manages to avoid your attack." is a display accident.  A name
+   * the game's ALRs quote keeps the Runner's shape; see battle_npc_name().
+   */
   std::string name;
   const scr_bool pinned = battle_npc_name (game, npc, naming, name);
 
@@ -1318,15 +1327,17 @@ battle_kill (scr_gameref_t game, scr_int npc, scr_bool visible)
       pf_buffer_character (filter, '\n');
       pf_buffer_string (filter, lib_get_death_message (game));
       pf_buffer_character (filter, '\n');
-      /* The score summary follows, as it does after an EndGame death: run400
-         Battles.Sub_12_1 calls the shared death sub General.Sub_22_70
-         (4524FC) from the call site 44AE95; endmessage's EndGame-death
-         branch calls that same sub from 45E10B, and run390 Form1.chardohit
-         builds the same lines inline after the death sentence (442B7F).
-         Measured live: run400 on light_up_4summer_comp.taf
-         (runner_probes/light_up.run400.txt turn 352, "You scored 58 out of
-         the maximum 0!"), and
-         jason_vs_salm / wes_ghn / mr_smith. */
+      /*
+       * The score summary follows, as it does after an EndGame death: run400
+       * Battles.Sub_12_1 calls the shared death sub General.Sub_22_70
+       * (4524FC) from the call site 44AE95; endmessage's EndGame-death
+       * branch calls that same sub from 45E10B, and run390 Form1.chardohit
+       * builds the same lines inline after the death sentence (442B7F).
+       * Measured live: run400 on light_up_4summer_comp.taf
+       * (runner_probes/light_up.run400.txt turn 352, "You scored 58 out of
+       * the maximum 0!"), and
+       * jason_vs_salm / wes_ghn / mr_smith.
+       */
       task_print_end_game_summary (game, FALSE, TRUE);
       task_print_end_keyprompt (game);
       game->is_running = FALSE;
@@ -1375,9 +1386,11 @@ battle_kill (scr_gameref_t game, scr_int npc, scr_bool visible)
   task = battle_npc_battle_task (game, npc, "KilledTask");
   if (task >= 0)
     {
-      /* A dispatch the player is not eligible for is dropped in silence --
-         no task text and no corpse line either (probe KT2: a done
-         non-repeatable KilledTask re-killed prints only the hit line). */
+      /*
+       * A dispatch the player is not eligible for is dropped in silence --
+       * no task text and no corpse line either (probe KT2: a done
+       * non-repeatable KilledTask re-killed prints only the hit line).
+       */
       if (task_can_run_task_directional (game, task, TRUE))
         run_task_run_by_index (game, task);
     }
@@ -1404,13 +1417,13 @@ battle_kill (scr_gameref_t game, scr_int npc, scr_bool visible)
    * it stamina back is not dead for good, so its walk can bring it back as
    * the author meant.  The Town of Azra's KilledTasks (#banditkristdies,
    * #deerdies) hide the NPC and restore its stamina so that a walk
-   * respawns it, and with the NPC dead for good (bc16dfe2d) the house goal
-   * could no longer be reached.  An NPC with no KilledTask, or one left at
-   * no stamina, stays dead.  The Runner side is measured, not inferred:
-   * run390x through Azra's bandit kill and 70 waits brings no bandit back
-   * and answers `where is the bandit` with "Bandit is dead!"
-   * (runner_probes/the_town_of_azra_v390.run390.revive.txt);
-   * Scarier on the same feed has him back after eight waits.
+   * respawns it, and with the NPC dead for good the house goal could not be
+   * reached.  An NPC with no KilledTask, or one left at no stamina, stays
+   * dead.  The Runner side is measured, not inferred: run390x through Azra's
+   * bandit kill and 70 waits brings no bandit back and answers `where is the
+   * bandit` with "Bandit is dead!"
+   * (runner_probes/the_town_of_azra_v390.run390.revive.txt); Scarier on the
+   * same feed has him back after eight waits.
    */
   if (!(task >= 0 && gs_npc_stamina (game, npc) > 0))
     gs_set_npc_dead (game, npc, TRUE);
@@ -1460,9 +1473,11 @@ battle_apply_damage (scr_gameref_t game, scr_int npc, scr_int damage,
   maximum = battle_attribute_max (game, npc, "Stamina");
   if (maximum > 0 && stamina * 10 < maximum)
     {
-      /* StaminaTask goes through the same gated run-task routine as
-         KilledTask (Battles.bas Sub_12_1 -> Sub_20_22, no gating at the call
-         site) -- see the room-eligibility note in battle_kill. */
+      /*
+       * StaminaTask goes through the same gated run-task routine as
+       * KilledTask (Battles.bas Sub_12_1 -> Sub_20_22, no gating at the call
+       * site) -- see the room-eligibility note in battle_kill.
+       */
       task = battle_npc_battle_task (game, npc, "StaminaTask");
       if (task >= 0 && task_can_run_task_directional (game, task, TRUE))
         run_task_run_by_index (game, task);
@@ -1659,14 +1674,18 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
                 scr_int weapon, scr_bool visible)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  /* The player's blow is Proc_11_1 (3.9: dohit) and an NPC's is Proc_11_2
-     (3.9: chardohit), and they name their combatants by different rules --
-     neither of them version-gated; see battle_npc_name(). */
+  /*
+   * The player's blow is Proc_11_1 (3.9: dohit) and an NPC's is Proc_11_2
+   * (3.9: chardohit), and they name their combatants by different rules --
+   * neither of them version-gated; see battle_npc_name().
+   */
   const scr_int naming = (attacker == BATTLE_PLAYER) ? BATTLE_NAME_ALIAS
                          : BATTLE_NAME_ENEMY_ALIAS;
-  /* Deliberate deviation: the Runner splices the player's verbs bare after
-     Ary(0), so a third-person game reads "Anonymous stab the goblin".
-     Scarier conjugates them; `bare` is TRUE only where "you"/"I" leads. */
+  /*
+   * Deliberate deviation: the Runner splices the player's verbs bare after
+   * Ary(0), so a third-person game reads "Anonymous stab the goblin".
+   * Scarier conjugates them; `bare` is TRUE only where "you"/"I" leads.
+   */
   const scr_bool third = (lib_get_perspective (game) == LIB_THIRD_PERSON);
   const scr_bool bare_attacker = (attacker < 0 && !third);
   const scr_bool bare_target = (target < 0 && !third);
@@ -1874,10 +1893,10 @@ battle_recover (scr_gameref_t game, scr_int npc)
  * battle_is_weapon()
  * battle_weapon_method()
  *
- * Public predicates for the command layer.  battle_is_weapon reports whether an
- * object is flagged as a weapon; battle_weapon_method returns a weapon's attack
- * method code (0 chop, 1 cut, 2 hit, 3 shoot, 4 stab, 5 throw), or -1 when the
- * object is not a weapon.
+ * Public predicates for the command layer.  battle_is_weapon reports whether
+ * an object is flagged as a weapon; battle_weapon_method returns a weapon's
+ * attack method code (0 chop, 1 cut, 2 hit, 3 shoot, 4 stab, 5 throw), or -1
+ * when the object is not a weapon.
  */
 scr_bool
 battle_is_weapon (scr_gameref_t game, scr_int object)
@@ -2029,8 +2048,9 @@ battle_attribute_bonus (scr_gameref_t game, scr_int npc, const scr_char *base)
  * battle_player_attack()
  *
  * Resolve a player-initiated attack on an NPC.  When weapon is -1 the wielded
- * weapon, if any, is used (bare hands otherwise) -- the bare-attack auto-select
- * and the ask-with-two-carried-weapons cases live in the command layer.
+ * weapon, if any, is used (bare hands otherwise) -- the bare-attack
+ * auto-select and the ask-with-two-carried-weapons cases live in the command
+ * layer.
  */
 void
 battle_player_attack (scr_gameref_t game, scr_int npc, scr_int weapon)

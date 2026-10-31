@@ -513,11 +513,11 @@ gs_carried_size (scr_gameref_t gs)
   /*
    * Deliberate deviation.  run400 takes only a container's OWN
    * size off the running total when it leaves the player, so whatever was
-   * put inside it stays charged for good (e66709de2): `take bag`, `take
-   * rock`, `put rock in bag`, `drop bag` leaves 3 on `count` with empty
-   * hands, and every such drop brings "hands are full" nearer.  The total
-   * is capped at what the player still possesses by the same rule, so the
-   * Runner's own count stands everywhere it does not leak.
+   * put inside it stays charged for good: `take bag`, `take rock`, `put rock
+   * in bag`, `drop bag` leaves 3 on `count` with empty hands, and every such
+   * drop brings "hands are full" nearer.  The total is capped at what the
+   * player still possesses by the same rule, so the Runner's own count stands
+   * everywhere it does not leak.
    */
   for (object = 0; object < gs->object_count; object++)
     {
@@ -1550,11 +1550,9 @@ gs_populate_dynamic_object (scr_gameref_t game, scr_prop_setref_t bundle,
        * NPC 0, weight 9) does phantom-weigh the package (object 0)
        * too: with the package placed in the start room, `take
        * package` costs 47 in run400 against the seeded-held-only 38.
-       * The earlier "does not weigh" reading was two offsetting
-       * errors: the crown was missing, and the bottle (hidden, raw
-       * Parent 0, weight 9) was still counted after task 54 `water
-       * bean` had moved it to the garden, which in run400 rewrites
-       * its container field (see task_move_object).
+       * The bottle (hidden, raw Parent 0, weight 9) no longer counts after
+       * task 54 `water bean` has moved it to the garden, which in run400
+       * rewrites its container field (see task_move_object).
        */
       gs_set_object_runner_parent (game, index_,
                                    initialparent > 0
@@ -1874,7 +1872,7 @@ gs_populate_player (scr_gameref_t game, scr_prop_setref_t bundle)
      * standing or sitting start, the n-th lieable object for a lying one, 0
      * for the floor -- exactly the encoding the "Move player to standing/
      * sitting/lying on" task action uses (sctasks_move.cpp
-     * task_run_move_player_action), and the restriction "Player must be
+     * task_move_player_action), and the restriction "Player must be
      * sitting on" tests.  Read as a raw 1-based object index, CIBASS.taf
      * (lying, ParentObject 1) would start the player on object 0, the window,
      * and `stand` would answer "I stand up from the window."  run400 answers
@@ -1911,8 +1909,8 @@ gs_populate_seen_sweep (scr_gameref_t game, scr_prop_setref_t bundle)
    * afteroa's start-room seen sweep.
    *
    * gs_populate_objects() stamps the seen byte for held and worn objects only,
-   * so on its own it leaves every static unseen -- and that cannot be the whole
-   * rule, because TenebraeSemper.taf (4.00, DispFirstRoom off, so tstart
+   * so on its own it leaves every static unseen -- and that cannot be the
+   * whole rule, because TenebraeSemper.taf (4.0, DispFirstRoom off, so tstart
    * @0044D68F never calls viewroom and no lister has run) answers `open desk`
    * on turn ONE with "You open your desk.  The pens are inside your desk.",
    * although the desk is a Static in the start room with #InitialPosition 0.
@@ -1933,9 +1931,9 @@ gs_populate_seen_sweep (scr_gameref_t game, scr_prop_setref_t bundle)
    * run390's afteroa (@00441A54) has the same sweep but a much narrower
    * predicate, inline at @004418FF-@0044193C: static flag set AND the
    * presence array covers the player room AND isdark(playerroom) = 0.
-   * Dynamics are not touched there, and neither Runner sweeps before 3.90 --
+   * Dynamics are not touched there, and neither Runner sweeps before 3.9 --
    * co() does not read the byte at all in run370 (@004261B4) or run380
-   * (@0042DE60) -- so the sweep is gated at 3.90 and narrowed to statics
+   * (@0042DE60) -- so the sweep is gated at 3.9 and narrowed to statics
    * below 4.00.  The isdark term is lib_room_alt_darkens(): afteroa calls
    * isdark() itself (@0044192D), the bare condition ladder at @00433920, so
    * unlike every other darkness site it carries no HideObjects term -- a room
@@ -2059,7 +2057,7 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
    * the state to match here; the `notify` command stands in for the menu item.
    * Verified live in run400 and run390 (make_arena_probe.py config SC and
    * make_39_endprobe.py both score +3 on an ordinary turn, in silence).  See
-   * the standing divergence table in test/adrift4/notes/RUNNER_TESTS_TODO.md.
+   * the standing divergence table in test/adrift4/notes/RUNNER_TESTS.md.
    */
   game->notify_score_change = FALSE;
 
@@ -2140,8 +2138,8 @@ gs_create (scr_var_setref_t vars,
   assert (vars && bundle && filter);
 
   /*
-   * Create the initial state structure.  sc_game_s owns std::unique_ptr
-   * status strings (P3 RAII), so it is non-POD and must be new()'d --
+   * Create the initial state structure.  scr_game_s owns std::unique_ptr
+   * status strings, so it is non-POD and must be new()'d --
    * value-init zeroes the POD fields (all of which gs_populate sets
    * explicitly anyway) and default-constructs the owning strings to NULL.
    */

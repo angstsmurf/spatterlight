@@ -25,7 +25,7 @@ The decompiles predicted that 3.8 would track 3.9 on every row.  It does not:
 open / close / buy of an absent object each have their own refusal, several
 of them gated on the seen byte.  The gem separates seen from unseen.  3.7
 also ends `open <present, not openable>` with a period (43D1E0) where 3.8
-(42F071) and 3.9 (43A0C5) end in a bang.  Results in WINE-TRANSCRIPTS-TODO.md,
+(42F071) and 3.9 (43A0C5) end in a bang.  Results in WINE-TRANSCRIPTS.md,
 "PORTED 2026-09-14: the 3.7/3.8 absent-object refusals".
 
 Feeds, each ending in an extra `probe` because 3.7/3.8 Save Transcript is

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """The `with ` history prepend, and what "With what?" leaves behind.
 
-The last open arm of the checkwild/textsrc lead in WINE-TRANSCRIPTS-TODO.md.
+The last open arm of the checkwild/textsrc lead in WINE-TRANSCRIPTS.md.
 p*TEXTSRC (2026-09-20) fed `frob rock` / `with zzz` / `wibb gem` /
 `with rock` and got three cells where 3.90 answers unlike every other
 Runner:

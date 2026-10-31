@@ -389,7 +389,7 @@ expr_next_token_unadjusted (scr_vartype_t *token_value)
 
       /*
        * Copy maximal alphabetical string.  While an ident would normally
-       * be alpha followed by zero or more alnum, for Adrift purposes we
+       * be alpha followed by zero or more alnum, for ADRIFT purposes we
        * use only alpha -- all idents should really be "functions", and
        * in particular we want to see "mod7" as "mod" and 7 separately.
        */
@@ -1063,7 +1063,7 @@ expr_eval_division (scr_int token)
           {
           case TOK_DIVIDE:
             /*
-             * Adrift's division apparently works by dividing using floating
+             * ADRIFT's division apparently works by dividing using floating
              * point, then applying (asymmetrical) rounding, so we have to do
              * the same here.
              */
@@ -1077,7 +1077,7 @@ expr_eval_division (scr_int token)
 
           case TOK_MOD:
             /*
-             * Adrift also breaks numerical consistency by defining mod in a
+             * ADRIFT also breaks numerical consistency by defining mod in a
              * conventional (non-rounded), way, so that A=(AdivB)*B+AmodB
              * does not hold.
              */
@@ -1457,12 +1457,12 @@ typedef struct
 
 
 /*
- * Adrift-like precedence table for the parser.  Exponentiation and modulus
+ * ADRIFT-like precedence table for the parser.  Exponentiation and modulus
  * operations seem to be implemented at the same level as addition and
  * subtraction, and boolean 'and' and 'or' have equal precedence.  This is
  * deliberately not the conventional (BASIC, C) table, where exponentiation
  * binds tightest, then multiplicative, additive, comparison, and boolean
- * combiners in that order; Adrift's evaluator does not do that.
+ * combiners in that order; ADRIFT's evaluator does not do that.
  */
 static const scr_precedence_entry_t PRECEDENCE_TABLE[] = {
   {2, {TOK_OR, TOK_AND}},

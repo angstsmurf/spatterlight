@@ -4,7 +4,7 @@
 The p4PUT probes left two cells unexplained: `put coin in zzz and yyy`
 printed "I don't understand what you want to put things inside." AND the
 DontUnderstand text, and `put coin in jar and zzz` printed the ambiguity
-prompt AND "That is still ambiguous!".  The WINE-TRANSCRIPTS-TODO write-up
+prompt AND "That is still ambiguous!".  The WINE-TRANSCRIPTS write-up
 blamed put_drop_list's own clause loop (459C75), but that loop keeps its
 leftover in a local and could never have reached the answer slot.
 
@@ -69,7 +69,7 @@ no name says "It is not clear which hat you are referring to." (the
 take scorer's first pass skips held objects); an absent `get hat and coin`
 is one flat "There is nothing worth taking here."; and `x coin and a hat`
 ties on the prefix word and prints "Sorry, I'm not sure which object
-you're referring to." as a turn.  Write-up in notes/WINE-TRANSCRIPTS-TODO.md.
+you're referring to." as a turn.  Write-up in notes/WINE-TRANSCRIPTS.md.
 
 Usage:
     python3 make_400_andprobe.py p4AND.plain

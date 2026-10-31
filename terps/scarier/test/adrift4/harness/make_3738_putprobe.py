@@ -2,7 +2,7 @@
 
 `make_surfprobe.py` settled put ON before 3.9 and the dark probes settled put
 IN, but both worlds have at most one static, a surface.  This world is built
-for the leads still open in WINE-TRANSCRIPTS-TODO.md's "Engine, needs a probe
+for the leads still open in WINE-TRANSCRIPTS.md's "Engine, needs a probe
 (3.7 / 3.8)" Put bullet:
 
     Lit Room  --n-->  Cave  (--s--> back)

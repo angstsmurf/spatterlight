@@ -20,7 +20,7 @@
 
 /*
  * Prototypes for runner/: the game runner's entry points and the hooks
- * the library and the engine call.  The runner's own umbrella is
+ * the library and the engine call.  The own umbrella of runner/ is
  * runner/scrunner.h.
  */
 

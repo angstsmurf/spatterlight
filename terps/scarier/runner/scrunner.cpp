@@ -21,7 +21,7 @@
 /*
  * Game lifecycle, session state, the main loop and Runner load-draw replay.
  *
- * Split out of scrunner.cpp; see scrunner.h for what the runner files
+ * See scrunner.h for what the `run_` files
  * share.
  */
 
@@ -49,14 +49,15 @@
  * run_interpret() when a *running* game is quit / restarted / restored / has a
  * turn undone.  This replaces a longjmp(game->quitter) that skipped the
  * destructors of any non-trivial C++ local live in the command/task/print/expr
- * call tree -- undefined behaviour once that tree holds std::string/std::vector,
- * which is what blocked RAII across the runner.  Throwing unwinds the same
- * frames but runs their destructors.  All throw sites and the sole catch are in
- * this file; the meaning (quit vs restart vs restore) is still carried by the
- * game's do_restart/do_restore flags exactly as before, so the type is empty.
+ * call tree -- undefined behaviour once that tree holds
+ * std::string/std::vector, which is what blocked RAII across the `run_` code.
+ * Throwing unwinds the same frames but runs their destructors.  All throw
+ * sites and the sole catch are in this file; the meaning (quit vs restart vs
+ * restore) is still carried by the game's do_restart/do_restore flags exactly
+ * as before, so the type is empty.
  *
- * It is caught specifically (never `catch (...)`) so that a P2 scr_fatal_error
- * -- or any other genuine exception -- still propagates to the scinterf boundary
+ * It is caught specifically (never `catch (...)`) so that a scr_fatal_error --
+ * or any other genuine exception -- still propagates to the scinterf boundary
  * instead of being mistaken for a normal halt.
  */
 namespace { struct run_loop_halt {}; }
@@ -322,8 +323,10 @@ run_session_state (scr_gameref_t game)
       sessrec_put (out, "which_command", command);
       sessrec_put (out, "which_candidates", run_session_join (candidates));
     }
-  /* The list the last prompt offered outlives the question: a line that
-     ties on it again gets "That is still ambiguous!", not the prompt. */
+  /*
+   * The list the last prompt offered outlives the question: a line that
+   * ties on it again gets "That is still ambiguous!", not the prompt.
+   */
   if (offered)
     sessrec_put (out, "which_offered", run_session_join (offered_list));
   lib_battle_who_get_prefix (&prefix, &prefix_at_line);
@@ -537,8 +540,10 @@ run_prompt_player_name (scr_gameref_t game, scr_int resume)
   scr_char buffer[LINE_BUFFER_SIZE];
   const scr_char *name;
 
-  /* Answered before the autosave being resumed was taken; the name came
-     back with the session state. */
+  /*
+   * Answered before the autosave being resumed was taken; the name came
+   * back with the session state.
+   */
   if (resume > RUN_STARTUP_NAME)
     return;
   if (!prop_get_global_boolean (bundle, "PromptName"))
@@ -587,7 +592,7 @@ run_prompt_player_name (scr_gameref_t game, scr_int resume)
 /*
  * run_prompt_player_gender()
  *
- * Adrift stores the player's gender as Male, Female, or Unknown.  When it is
+ * ADRIFT stores the player's gender as Male, Female, or Unknown.  When it is
  * Unknown, the Runner shows a "Please choose player gender" dialog at game
  * start and stores the answer; tasks and restrictions then test it (for
  * example, "the Player is Male").  Without this choice such a restriction can
@@ -718,7 +723,7 @@ run_main_intro (scr_gameref_t game)
    * Print the game name.  The Runner gives this line a look of its own,
    * not the plain body style: one step larger than normal text, in the
    * secondary ("command") colour -- the same red that <c> spans and the
-   * player's own typing come out in.  Measured off a 3.90 Runner shot of
+   * player's own typing come out in.  Measured off a 3.9 Runner shot of
    * rich_text_390.taf: the title's ascenders run 13px against normal
    * text's 11 (12pt -> 14pt), with the stroke weight of normal text, not
    * of bold.
@@ -735,12 +740,12 @@ run_main_intro (scr_gameref_t game)
   pf_buffer_character (filter, '\n');
 
   /*
-   * Print the game header.  Adrift StartupText conventionally ends with a
+   * Print the game header.  ADRIFT StartupText conventionally ends with a
    * <br> tag to set off the intro from the first room.  Scarier supplies its
    * own paragraph break below (the forced newline here plus the leading
    * newline from lib_cmd_look()), so adding a terminator when the text
    * already ends in a line break leaves the first room preceded by two
-   * blank lines.  The Adrift Runner shows just one; only add the
+   * blank lines.  The ADRIFT Runner shows just one; only add the
    * terminator when the displayed text doesn't already end in a newline.
    */
   vt_key[0].string = "Header";
@@ -786,8 +791,10 @@ run_main_startup (scr_gameref_t game)
 
   run_startup_resume = 0;
 
-  /* An autorestore to one of the startup prompts below picks up at that
-     prompt: everything before it is in the restored transcript. */
+  /*
+   * An autorestore to one of the startup prompts below picks up at that
+   * prompt: everything before it is in the restored transcript.
+   */
   if (resume == 0)
     run_main_intro (game);
 
@@ -832,7 +839,7 @@ run_main_startup (scr_gameref_t game)
    * above: its FinishText, TaskAffected and any restart land BELOW the
    * opening description in the real Runner.
    *
-   * Both halves are 3.90+ only.  The startup tick is run390's `tstart'
+   * Both halves are 3.9+ only.  The startup tick is run390's `tstart'
    * (42E940) calling events() at 42E90B straight after viewroom, and
    * run400's tstart calling 449310 the same way; run380's events()
    * (425094) and run370's (432538) have exactly ONE caller each,
@@ -1936,10 +1943,7 @@ run_undo (scr_gameref_t game)
       /* Loading a game clears is_running -- restore it here. */
       game->is_running = is_running;
 
-      /*
-       * If the game is (was) running, set flags so that the interpreter
-       * loop cycles, and exit the main loop by throwing run_loop_halt.
-       */
+      /* If the game is (was) running, cycle as in run_restore_common(). */
       if (game->is_running)
         {
           game->is_running = FALSE;

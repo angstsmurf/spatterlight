@@ -5,7 +5,7 @@ case-sensitive one Runner down?
 4.0 was measured 2026-08-25: it Replace()s the object's Short or Alias into a
 `%object%` task command VERBATIM and compares the result to the lower-cased
 input, so a capitalised Short can never bind (see make_400_burnprobe.py, and
-the FIXED section in notes/WINE-TRANSCRIPTS-TODO.md).  The port is gated at
+the FIXED section in notes/WINE-TRANSCRIPTS.md).  The port is gated at
 TAF_VERSION_400 because 3.90 implements the substitution somewhere else
 entirely -- run390 Form1.frm:13991ff, through c() plus the seen byte at
 .global_44, REWRITING the task command in place with the substituted name --
@@ -37,7 +37,7 @@ Prefix rows) and no golden moved when they were fixed.
 
 Every object is dynamic and loose so the room listing SEES it: an unlisted
 object is not referenceable at all, and that gate would swallow the answer
-(notes/WINE-TRANSCRIPTS-TODO.md, the object seen model).  `probe` is the
+(notes/WINE-TRANSCRIPTS.md, the object seen model).  `probe` is the
 control: it must answer "PROBE OK." or the file is not wired.
 
 The 3.9 object record carries ONE alias slot ([1]$Alias, sctafpar.cpp:214),

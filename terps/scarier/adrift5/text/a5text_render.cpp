@@ -26,7 +26,7 @@
 
 #include "a5text_internal.h"
 
-/* ------------------------------------------------------- media side channel */
+/* ------------------------------------------------------ media side channel */
 
 static a5_media_cb a5_media_sink = nullptr;
 static void *a5_media_sink_ctx = nullptr;
@@ -54,9 +54,9 @@ a5text_interactive (void)
   return a5_interactive_mode;
 }
 
-/* Parse an <img>/<audio> tag body (without the angle brackets) and report it to
-   the installed media sink: src="..." (image/sound file), and for <audio> the
-   play/stop verb, channel=N and an optional loop flag.  Returns the sink's
+/* Parse an <img>/<audio> tag body (without the angle brackets) and report it
+   to the installed media sink: src="..." (image/sound file), and for <audio>
+   the play/stop verb, channel=N and an optional loop flag.  Returns the sink's
    resolved resource number for an image, its recorded-event slot for a sound
    (see a5_media_cb), -1 when the sink has nothing for the caller to mark. */
 static int
@@ -129,14 +129,15 @@ a5_emit_media (const std::string &tag, int is_img)
 /* The value of a <font> tag's attribute called one of NAMES, lowercased and
    with its quotes stripped; "" when the tag has no such attribute.  The
    attribute name is matched only at a word boundary, so the bgcolour= of a
-   <font bgcolour="..."> cannot be read as the text colour.  Whitespace is allowed on either side of
-   the '=', because the Runner hands the tag to an HTML renderer and those
-   allow it: Alyas of Starhollow rewrites the library movement message as
-   "<font color = white>You move %PCase[%direction%]%.</font>", and without
-   this the line comes out in the adventure's output colour rather than white.
-   The result is capped well above any colour name or hex triplet -- it becomes
-   the payload of a mark-delimited span, which nothing downstream should have
-   to treat as unbounded. */
+   <font bgcolour="..."> cannot be read as the text colour.  Whitespace is
+   allowed on either side of the '=', because the Runner hands the tag to an
+   HTML renderer and those allow it: Alyas of Starhollow rewrites the library
+   movement message as "<font color = white>You move
+   %PCase[%direction%]%.</font>", and without this the line comes out in the
+   adventure's output colour rather than white.  The result is capped well
+   above any colour name or hex triplet -- it becomes the payload of a
+   mark-delimited span, which nothing downstream should have to treat as
+   unbounded. */
 static std::string
 a5_font_attribute (const std::string &tag, const char *const *names,
                    int count)
@@ -179,7 +180,7 @@ a5_font_attribute (const std::string &tag, const char *const *names,
   return std::string ();
 }
 
-/* ----------------------------------------------------------- plain renderer */
+/* ---------------------------------------------------------- plain renderer */
 
 /* <del>: delete the previous output glyph. */
 static void
@@ -208,7 +209,7 @@ a5_render_cls (sb_t &sb)
      mirroring the GlkHtmlWin / FrankenDrift.Headless handling of
      <cls>.  An Anno 1700-style intro ends with a <cls>, so its
      credits/preamble are wiped and only the post-clear text survives.
-     But the runner's Display accumulates the whole turn's text and renders it
+     But the Runner's Display accumulates the whole turn's text and renders it
      once, so a <cls> also wipes everything emitted EARLIER in the
      turn (other fragments already in `out`).  Leave a marker byte so
      the per-turn flush can drop that earlier text too.
@@ -431,7 +432,7 @@ a5_render_tag (sb_t &sb, const char *p)
   else
     /* every other tag (<>, <left>...) drops -- but leave A5_ALR_MARK
        so the display-boundary ALR pass cannot match an OldText ACROSS
-       the stripped tag (the runner's ALR sees the
+       the stripped tag (the Runner's ALR sees the
        tag and is blocked; see a5text.h).  finish_turn strips the mark. */
     sb_putc (&sb, A5_ALR_MARK);
   return q;

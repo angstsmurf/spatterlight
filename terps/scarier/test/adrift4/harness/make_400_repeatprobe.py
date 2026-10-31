@@ -2,7 +2,7 @@
 """ADRIFT 4.0 probe: WHERE does a spent task's RepeatText sit relative to the
 standard library?
 
-The parked lead at the foot of WINE-TRANSCRIPTS-TODO.md.  Scarier runs the
+The parked lead at the foot of WINE-TRANSCRIPTS.md.  Scarier runs the
 whole standard library first and only then offers a done, non-repeatable
 task's RepeatText, so the RepeatText is printed only when nothing in the
 library claimed the line at all.  run400 prints it in five corpus games where

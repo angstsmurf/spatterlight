@@ -45,7 +45,7 @@ dir_index (const char *s)
 
 /* The destination of an exit, straight from the location's Movement table --
    the map XML records only which anchors the connector was drawn between, so
-   the runner re-derives the target from arlDirections (FileIO.vb:4100). */
+   the Runner re-derives the target from arlDirections (FileIO.vb:4100). */
 static const char *
 movement_dest (const a5_location_t *loc, const char *dir, int *dotted)
 {
@@ -112,8 +112,8 @@ is_compass_dir (int dir)
 }
 
 /* Compass exit on `loc` that shares destination and restriction style with a
-   badge link.  Basement Up→Kitchen coincides with East→Kitchen even though only
-   Kitchen authors the East-West Map Link. */
+   badge link.  Basement Up -> Kitchen coincides with East -> Kitchen even
+   though only Kitchen authors the East-West Map Link. */
 static int
 find_compass_twin_same_dest (const a5_location_t *loc, const char *dest,
                              int dotted)

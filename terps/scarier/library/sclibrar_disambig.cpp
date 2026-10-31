@@ -21,10 +21,6 @@
  * NPC and object disambiguation: the wording of the "which" question,
  * the NPC pick, and lib_disambiguate_object_common(), the driver every
  * object-taking handler resolves its noun through.
- *
- * See sclibrar.h for what the library files share, sclibrar_internal.h
- * for what the core files share, and sclibrar_disambig_internal.h for
- * what this file shares with the two split out of it.
  */
 
 #include "sclibrar.h"
@@ -378,11 +374,8 @@ lib_trace_runner_co (scr_gameref_t game, const scr_char *verb, scr_int count)
  * lib_disambiguate_object_common()
  * lib_disambiguate_object()
  *
- * Filter, then search the set of object matches.  If only one matched, note
- * and return it.  If multiple matched, print a disambiguation message and
- * the list, and return -1 with *is_ambiguous TRUE.  If none matched, return
- * -1 with *is_ambiguous FALSE if requested, otherwise print a message then
- * return -1.
+ * Filter, then search the set of object matches, with the same results as
+ * lib_disambiguate_npc() gives for NPCs.
  *
  * If normal disambiguation returns more than one object, the resolver
  * function, if supplied, is used to see if the multiple objects can be
@@ -435,7 +428,7 @@ lib_co_note_line_top (scr_gameref_t game)
  * (runner_probes/openw.run370.ow.rtf, runner_probes/openw.run380.ow.rtf,
  * runner_probes/openw.run390.ow.txt, runner_probes/openw.run370.ox.rtf,
  * runner_probes/openw.run380.ox.rtf, runner_probes/openw.run390.ox.txt.)
- * 3.80 gave `open` a refusal of its own inside openclose(), above therest,
+ * 3.8 gave `open` a refusal of its own inside openclose(), above therest,
  * and that one names the lowest object INDEX instead and ends in a bang;
  * `close` got none until 4.0, so it keeps falling through to therest at
  * every pre-4.0 version.
@@ -620,8 +613,10 @@ lib_disambig_t::narrow_named_pre400 (void)
       const scr_char *line = run_get_dispatch_input ();
       scr_int mode = 0, kept = 0;
 
-      /* The wear and remove modes, and all four at 3.8, are Scarier's
-         (deliberate deviation); see lib_co_pre400(). */
+      /*
+       * The wear and remove modes, and all four at 3.8, are Scarier's
+       * (deliberate deviation); see lib_co_pre400().
+       */
       if (strcmp (verb, "drop") == 0)
         mode = 2;
       else if (strcmp (verb, "take") == 0)
@@ -804,20 +799,20 @@ lib_disambig_t::narrow_with_resolver (void)
  * The wear/remove loops are folded here as "act on all but the last
  * directly, hand the last to the handler", so the handler's own wording
  * answers for the last one exactly as the Runner's overwriting loop
- * leaves it.  openclose's loop is the same fold, but 3.80 and 3.90 run it
+ * leaves it.  openclose's loop is the same fold, but 3.8 and 3.9 run it
  * too, so it lives in the pre-4.0 block below.
  */
 /*
  * examines() asks its own question, and it is not openclose's or takes':
  * "Which <Short of the LAST match by index> would you like to examine.
- * <the matches, in index order>?"  3.80 keeps it -- `read rock gem`, `read
+ * <the matches, in index order>?"  3.8 keeps it -- `read rock gem`, `read
  * gem rock` and `examine rock gem` are all "Which rock would you like to
  * examine.  The gem or the rock?" under run370 AND run380, and `read rock
  * with slab` is "Which slab would you like to examine.  The rock or the
  * slab?" (p*OPENW, runner_probes/openw.run370.ow.rtf,
  * runner_probes/openw.run380.ow.rtf, runner_probes/openw.run370.ox.rtf,
  * runner_probes/openw.run380.ox.rtf) -- so the word order on
- * the line never picks here, only the index does.  3.90 replaced the
+ * the line never picks here, only the index does.  3.9 replaced the
  * question with referencedob()'s last-word pass; see
  * lib_examine_crowded_390().
  *
@@ -908,19 +903,19 @@ lib_disambig_t::pick_wear_remove_pre380 (void)
 /*
  * takes() (run370 436280, run380, run390) and drops() (430DDC) walk a crowded
  * line the same way openclose() does: every survivor moves, and the last by
- * index overwrites the message.  Below 3.90 that is the whole rule -- `take
+ * index overwrites the message.  Below 3.9 that is the whole rule -- `take
  * red pin` with pins Prefixed "old red" and "new red" is "You pick up new red
- * pin." at 3.70 AND 3.80, and `i` afterwards lists both; `drop red pin` then
+ * pin." at 3.7 AND 3.8, and `i` afterwards lists both; `drop red pin` then
  * drops both (p*TAKEP, runner_probes/takep.run370.rtf /
- * runner_probes/takep.run380.rtf).  3.90 keeps only the FIRST by index: the
+ * runner_probes/takep.run380.rtf).  3.9 keeps only the FIRST by index: the
  * same line is "You pick up old red pin." and `i` lists it alone.
  *
  * What survives is the Prefix contest, and which crowd runs it is the
  * version split:
  *
- *   3.80/3.90 have co() under every handler, so the crowd is the TERM's
+ *   3.8/3.9 have co() under every handler, so the crowd is the TERM's
  *     present namesakes and the block above has already narrowed it.
- *   3.70 has no co() at all, so a crowd is objects sharing a SHORT the
+ *   3.7 has no co() at all, so a crowd is objects sharing a SHORT the
  *     line names (lib_namesake_crowded_pre380), and the filter runs here:
  *     each crowded namesake keeps its reference only if the last word of
  *     its Prefix is typed (lib_co_names_prefix).  With none left the turn
@@ -928,10 +923,10 @@ lib_disambig_t::pick_wear_remove_pre380 (void)
  *     would you like to take" strings at 430866 are dead code -- and the
  *     line is answered, so no end-of-turn co() question follows it.
  *
- * Note that a one-word Prefix filters NOTHING below 3.90, because the
+ * Note that a one-word Prefix filters NOTHING below 3.9, because the
  * pre-3.9 co() drops the Prefix's first word before taking its last:
  * `take big gem` over gems Prefixed "big" and "small" is "Take what?" at
- * 3.70 and the co() question at 3.80, exactly as bare `take gem` is,
+ * 3.7 and the co() question at 3.8, exactly as bare `take gem` is,
  * while `take red gem` over "a very red" / "a very blue" answers (p*TAKEP
  * / p*TAKEQ, runner_probes/takep.run*.* and runner_probes/takeq.run*.*).
  */
@@ -1079,18 +1074,18 @@ lib_disambig_t::pick_take_drop_pre400 (void)
  * runner_probes/openw.run390.ox.txt), and with two closed
  * containers on the line all three answer `open box gem chest` with "You
  * open the chest." and leave the box open as well (p*OPENT).
- * So 3.7's every-namesake loop is not 3.7's alone: 3.80 and 3.90 run the
+ * So 3.7's every-namesake loop is not 3.7's alone: 3.8 and 3.9 run the
  * same one.
  *
  * The test is "openable at all", not "in the state the verb wants": with
  * the box already open, `open box gem`, `open gem box`, `open gem chest`
  * and `open chest box` are all "The <box|chest> is already open!" at
- * 3.70, 3.80 and 3.90 -- the openable object still wins the line, and the
+ * 3.7, 3.8 and 3.9 -- the openable object still wins the line, and the
  * handler's own already-open wording answers for it.
  *
- * With NONE openable the versions part company.  3.80 gave `open` a
+ * With NONE openable the versions part company.  3.8 gave `open` a
  * refusal of its own inside openclose(), which names the LOWEST object
- * index on the line and ends in a bang; `close` never got one, and 3.70
+ * index on the line and ends in a bang; `close` never got one, and 3.7
  * has neither, so those fall through to therest()'s can-do tail and its
  * first name by WORD POSITION (lib_first_named_pre400()).
  */
@@ -1122,7 +1117,7 @@ lib_disambig_t::pick_open_close_pre400 (void)
               /*
                * The overwritten message was still built, contents list and
                * all, and in 3.9 listing is what makes an object seen.  The
-               * Gamma Gals (3.90, run390x, gamma_fridge probe):
+               * Gamma Gals (3.9, run390x, gamma_fridge probe):
                * `open fridge and cupboards` answers for the cupboards
                * alone, and the `get all` after it takes the can of coke
                * from the refrigerator as well as the glass.  3.7 and 3.8
@@ -1288,8 +1283,10 @@ lib_disambig_t::raise_crowd_400 (void)
       if (lib_with_split_crowd_400 (game, examine, &crowd, &with_pending,
                                     &with_head))
         {
-          /* An examine whose head names one object describes it; see
-             lib_with_split_crowd_400(). */
+          /*
+           * An examine whose head names one object describes it; see
+           * lib_with_split_crowd_400().
+           */
           if (examine && with_head >= 0)
             {
               var_set_ref_object (vars, with_head);

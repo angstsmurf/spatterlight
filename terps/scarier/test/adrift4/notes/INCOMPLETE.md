@@ -162,7 +162,9 @@ hangs T22's missing restriction on it ("T18 remove debris must NOT be done",
 empty FailMessage, mirroring the author's own T18/T19 and T20/T21 pairs).  The
 row still needs the repeat assist: the spent T3 catch-all in the Lair is not
 data-fixable.  30 is the female ceiling — Rage's exit gate names the MALE twin,
-and an exit can name only one task.  Not derived: the same T22 repair unblocks
+and an exit can name only one task.  The other two female twins are broken
+in their own ways: T75 drops no card where T74 drops the King of Spades, and
+the Gnarled Woods' only way back is gated on T74.  Not derived: the same T22 repair unblocks
 the male T25, worth 40 with the walk out intact.  The card game has no starter,
 and the ending is sealed regardless.
 

@@ -4,7 +4,7 @@ the task's Where rooms?
 
 This is the 3.9 twin of make_400_whereprobe.py.  run400 answers the game's own
 DontUnderstand text for BOTH a Where-type-0 task and an out-of-room type-1 task
-(measured live, RUNNER_TESTS_TODO.md section 5); run390 was seen to answer
+(measured live, RUNNER_TESTS.md section 5); run390 was seen to answer
 "You can't do that here!" on *The Hangover*'s two type-0 tasks, so the two
 Runners look like they differ.  Same three tasks, same session, one version
 down, settles it.

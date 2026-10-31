@@ -23,8 +23,7 @@
  * pass, the standard verb and fallback buckets, pre-4.0 therest() and the
  * anywhere handlers.  Which library row answers a line, and when.
  *
- * Split out of scrun_dispatch.cpp; see scrunner.h for what the runner files
- * share.
+ * See scrunner.h for what the `run_` files share.
  */
 
 #include <assert.h>
@@ -121,7 +120,7 @@ static scr_commands_t PRIORITY_COMMANDS[] = {
   {"pick %text% up", lib_cmd_take_multiple},
   {"[get/take/pick up/pick] %text%", lib_cmd_take_multiple},
   /*
-   * "drop X in Y" and "drop X on Y" are Adrift's put handlers wearing a
+   * "drop X in Y" and "drop X on Y" are ADRIFT's put handlers wearing a
    * different verb: `drop wallet in bin` answers "You put your wallet inside
    * the rubbish bin.", and `drop wallet on bin` gives the put-on refusal
    * "You can't put anything onto the rubbish bin!".  "put down" and "all"
@@ -190,7 +189,7 @@ static scr_commands_t PRIORITY_COMMANDS[] = {
    * Inventory display.  Treated as a priority system command so that it is
    * not pre-empted by a game task whose command matches "i"/"inventory" but
    * whose restrictions fail (those tasks print their fail message in a later
-   * pass).  This matches the Adrift runner -- e.g. "i" in Lair of the
+   * pass).  This matches the ADRIFT Runner -- e.g. "i" in Lair of the
    * CyberCow lists the items you hold rather than showing the failing task's
    * "...lost it all in the well" message.  A game task with *passing*
    * restrictions still overrides this, as those run before priority commands.
@@ -298,7 +297,7 @@ static scr_commands_t STANDARD_COMMANDS[] = {
    * c("give"), a present NPC, and then every object whose name appears
    * anywhere in the line (run400 48022F-480384, run390 45A0BA, run380 440E8C,
    * run370 438F79), so `give cathy diary` and `give diary cathy` both offer
-   * the diary.  House (4.00) runner_probes/house.run400.b.txt: `give cathy
+   * the diary.  House (4.0) runner_probes/house.run400.b.txt: `give cathy
    * diary` gets the same reply as `give diary to cathy`, not "Give the diary
    * to who?".
    */
@@ -311,8 +310,8 @@ static scr_commands_t STANDARD_COMMANDS[] = {
    * `get up` is a `stand` synonym in every Runner; `get off` and `get down`
    * are `stand`-off-a-thing synonyms that arrived in 3.9.  The sitstand
    * proc tests `c("get off") Or c("get down")` (run400 loc_46B6E4, run390
-   * loc_44432x); neither string appears anywhere in run370/run380.
-   * Measured live on the one file microwaveman.taf -- a 3.80 game -- run
+   * loc_4443AE); neither string appears anywhere in run370/run380.
+   * Measured live on the one file microwaveman.taf -- a 3.8 game -- run
    * under three Runners, which is the way to see a *library* change rather
    * than a file-format one:
    *
@@ -456,7 +455,7 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"[wait]", lib_cmd_wait},
 #else
   /*
-   * `z` only entered the Runner vocabulary at 3.90 (index/verbs.py; cave.taf
+   * `z` only entered the Runner vocabulary at 3.9 (index/verbs.py; cave.taf
    * run380 live 2026-08-31 answers it "Say again?").  Deliberate deviation:
    * Scarier waits on it at every version.  A game's own `z` task still wins,
    * tasks being matched first, and no 3.7/3.8 corpus game has one.
@@ -516,7 +515,7 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"endgame", lib_cmd_endgame},
   /*
    * Audited against the four Runner constant pools and the 426-game v4
-   * corpus ("Meta commands" in test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md):
+   * corpus ("Meta commands" in test/adrift4/notes/WINE-TRANSCRIPTS.md):
    * besides the `stats` row below, `hints`, `q`, `brief`,
    * `verbose`, `notify`, `notification`, `redo`, `hist`, `gpl`, `license` and
    * `statusline` are all SCARE inventions no Runner accepts (the Runner words
@@ -533,8 +532,8 @@ static scr_commands_t STANDARD_COMMANDS[] = {
    * default build keeps them: they are useful, and the corpus says they are
    * harmless.
    *
-   * `turns`/`undo` are 3.80+ and `version` 3.90+ in the Runner; left ungated
-   * here because no 3.70/3.80 corpus game names them.
+   * `turns`/`undo` are 3.8+ and `version` 3.9+ in the Runner; left ungated
+   * here because no 3.7/3.8 corpus game names them.
    */
   {"turns", lib_cmd_turns},
   {"score", lib_cmd_score},
@@ -573,7 +572,7 @@ static scr_commands_t STANDARD_COMMANDS[] = {
    * four Runner binaries, and in suburbanprodigy3 it would steal T31 from the
    * game's own task.  It is a name for `statusline` above because
    * run_game_owns_scare_word() hands the word to a game with a task for it.
-   * `status` itself is 3.90/4.00 only and lives solely inside the
+   * `status` itself is 3.9/4.0 only and lives solely inside the
    * Battle System handler (run400 47DCA1, run390 44C510), which is why both
    * handlers below are gated on battle_is_enabled().
    */
@@ -598,7 +597,7 @@ static scr_commands_t STANDARD_COMMANDS[] = {
  * above has had both its positional and its containment pass: the Runner's
  * per-verb co() finds an object named anywhere in the line before any
  * "You see no such thing." can fire, so `x silver key` must examine "a key"
- * (man_overboard, 4.00, run400 transcript line 170) rather than fall to
+ * (man_overboard, 4.0, run400 transcript line 170) rather than fall to
  * lib_cmd_examine_other.
  */
 /*
@@ -682,7 +681,7 @@ static scr_commands_t STANDARD_ABOVE_REFUSAL_COMMANDS[] = {
  * out-of-room refusal's `If msg = ""` at 45FFE8, and its tail writes "Nothing
  * special." for a noun that names nothing (44BF94) -- so an examine line that
  * an out-of-room task also matches is "Nothing special.", not "You can't do
- * that here!".  Gamma Gals (3.90) `look under dresser` and `look under bed`
+ * that here!".  Gamma Gals (3.9) `look under dresser` and `look under bed`
  * typed outside the tasks' rooms (run390x, Delron walkthrough replay).  3.9
  * only: 3.7/3.8 have no bare look in examines and are unmeasured; 4.0's
  * refusal is not here.
@@ -761,7 +760,8 @@ static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"buy", lib_cmd_buy_what},
   {"clean %object% *", lib_cmd_clean_object},
   /* clean (488F02), wash (488FFC), cut (489041), shake (48950E), climb
-   * (4898F5) and sell (489A3D) are therest arms below the 4887A0 clause too. */
+   * (4898F5) and sell (489A3D) are therest arms below the 4887A0 clause too.
+   * */
   {"clean %text%", lib_cmd_verb_absent_400},
   {"clean %text%", lib_cmd_clean_other},
   {"clean", lib_cmd_clean_what},
@@ -929,15 +929,15 @@ static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
  * and action any command.  Returns TRUE if the string matched a command
  * that then ran successfully, FALSE otherwise.
  *
- * "Priority" commands are ones that Adrift seems to action no matter what
- * the game tries to override.  For example, a simple game with one "ball"
- * object and a task "* ball *" should, if the task is restricted, override
- * "take ball" such that the ball can never be acquired.  Adrift lets the
- * "take" succeed, though (and more curiously, may respond "I don't
- * understand..." to "drop ball").  This could be an Adrift bug.  Shrug.
+ * "Priority" commands are the ones the Runner actions ahead of game commands
+ * that do not name their verb.  A game with one "ball" object and a task "*
+ * ball *" with failing restrictions does not stop "take ball": the take
+ * succeeds (probes pPREC and pPREC2; see run_command_match_t::tree_match()).
+ * SCARE also noted "I don't understand..." to "drop ball" in that game, a
+ * report no probe here has reproduced or ruled out.
  *
- * For now, I can't find any better way to try to handle it than to make
- * object acquisition take precedence over game commands.
+ * Scarier models that by having object acquisition take precedence over game
+ * commands.
  *
  * The put-in/put-on family runs here TENTATIVELY: probed live against run400
  * (probe FM7 + a TheADRIFTProject .tas transplant), the real Runner lets a put
@@ -1632,7 +1632,7 @@ run_try_command_table (scr_commandsref_t command,
        * run390 guards the same branches with MemVar_468198 (45939D,
        * 459658); run370 has no such flag (4386BC), and run380's rendering
        * of the test (44054B) is too ambiguous to lean on, so pre-3.9 keeps
-       * every row.  Measured live on House (4.00): the silent
+       * every row.  Measured live on House (4.0): the silent
        * task "# attention on cathy grave vision" (`*cathy*`, once only) runs
        * on the first `get cathy` and the library then says "Take what?"
        * (runner_probes/house.run400.t93.txt,
@@ -1662,9 +1662,11 @@ run_try_command_table (scr_commandsref_t command,
 
       if (uip_match (command->command, string, game))
         {
-          /* A SCARE word the game has a task for is the game's; see
-             run_game_owns_scare_word().  Asked once, and only of a line
-             that reaches one of those rows. */
+          /*
+           * A SCARE word the game has a task for is the game's; see
+           * run_game_owns_scare_word().  Asked once, and only of a line
+           * that reaches one of those rows.
+           */
           if (run_is_scare_only_handler (command->handler))
             {
               if (scare_word_owned < 0)
@@ -1733,7 +1735,7 @@ run_standard_verb_commands_inner (scr_gameref_t game, const scr_char *string)
    * The same commands again with whole-word containment for a trailing
    * %object% (uip_match_entity()): the Runner's co() finds an object named
    * anywhere in the line, so `x silver key` examines "a key" (man_overboard,
-   * 4.00).  A separate pass, so that every pattern's positional match has
+   * 4.0).  A separate pass, so that every pattern's positional match has
    * had its turn first, and before the catch-alls below so that they never
    * pre-empt an object the line does name.
    */
@@ -1748,8 +1750,10 @@ run_standard_verb_commands_inner (scr_gameref_t game, const scr_char *string)
   if (run_try_command_table (STANDARD_PUT_COMMANDS, game, string))
     return TRUE;
 
-  /* run390's take handler, still above the refusal; see
-     STANDARD_ABOVE_REFUSAL_COMMANDS. */
+  /*
+   * run390's take handler, still above the refusal; see
+   * STANDARD_ABOVE_REFUSAL_COMMANDS.
+   */
   const scr_containment_guard containment (TRUE);
 
   return run_try_command_table (STANDARD_ABOVE_REFUSAL_COMMANDS, game, string);
@@ -1768,7 +1772,7 @@ run_standard_verb_commands (scr_gameref_t game, const scr_char *string)
    * 45A0BA) or therest()'s (run380 440E8C), both below the room refusal,
    * and run390's give writes only into an empty message (or one holding
    * " might need " / "I don't understand", 45A11D-45A167).  the_hangover
-   * (3.90) T42 `give the doctor some french fries`, with Where=0 task 10
+   * (3.9) T42 `give the doctor some french fries`, with Where=0 task 10
    * matching it: "You can't do that here!" (runner_transcripts/
    * the_hangover.txt), not "Doctor doesn't seem interested in the french
    * fries.".  4.0 gives in the input routine (48A98A), above the refusal.
@@ -1860,7 +1864,7 @@ run_standard_fallback_commands (scr_gameref_t game, const scr_char *string)
   /*
    * The fallback verbs resolve their noun the Runner's way too: generaltasks
    * (Proc_19_85_489F4C) runs co() once, up front, and every generic verb after
-   * it sees the object it found -- `pull de la palanca` (Vardock Bates, 4.00,
+   * it sees the object it found -- `pull de la palanca` (Vardock Bates, 4.0,
    * a `tirar`->`pull` synonym leaving the "de" in place) is "You pull la
    * palanca, but nothing happens." in run400 (transcript), not the object-less
    * "You pull, but nothing happens.".  Containment stays a per-row fallback
@@ -2151,8 +2155,10 @@ run_therest_absent_370 (scr_gameref_t game, const scr_char *string)
     return FALSE;
   if (!run_therest_winner_pre400 (version, string, &offset))
     return FALSE;
-  /* The " with " split is made above this test; see
-     lib_with_clause_claims(). */
+  /*
+   * The " with " split is made above this test; see
+   * lib_with_clause_claims().
+   */
   if (lib_with_clause_claims (game))
     return FALSE;
   for (word = EARLIER; *word; word++)

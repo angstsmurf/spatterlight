@@ -226,6 +226,14 @@ coffee (+1) is the only coffee point that is a real, penalty-free gain, and the
 walkthrough takes it. Points 2 and 3 are genuine design contradictions and are
 left alone; point 1 is a typo, and is repaired below.
 
+In task numbers: `drink coffee` is written four times over, once per cup and
+once per state of `drink oil` (task 7, the game's only penalty; a task-state
+restriction names it 8, one-based). Tasks 41 (yellow cup, oil not drunk) and 42
+(red cup, oil not drunk) would be the pair to have, but the red cup stays hidden
+until the Captain trade in task 36, and that wants the oil drunk, which shuts 42
+and opens 39, whose point the -1 then pays for. At most two of the three ever
+score, and never for more than one point net.
+
 ## With the engine's game patches on — 39/41
 
 Melbourne Beach is in Scarier's targeted game-patch table (`PATCH_TABLE` in

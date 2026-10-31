@@ -2,7 +2,7 @@
 """ADRIFT 4.0 probe: is the whitespace between two adjacent [] / {} groups in a
 task command pattern required, forbidden, or optional?
 
-RUNNER_TESTS_TODO.md §7.  Scarier used to demand a space at every group
+RUNNER_TESTS.md §7.  Scarier used to demand a space at every group
 boundary (NODE_WHITESPACE), which made ImagiDroids' `{go/walk/move}[n/escape/
 out]{orth/out}` exits and The Forum's `{the}{wooden}[clog]{s}` unmatchable; it
 now interposes a NODE_JOIN that eats a space if it is there and never fails.

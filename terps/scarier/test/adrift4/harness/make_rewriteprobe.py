@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """The Runner's own built-in command rewrites, in all four file versions.
 
-WINE-TRANSCRIPTS-TODO's "3.90 rewrites the line too, and Scarier stops at
+WINE-TRANSCRIPTS's "3.90 rewrites the line too, and Scarier stops at
 3.80" lead.  Every Runner edits the typed line before anything -- task
 matcher or library -- ever looks at it, but it does so through two different
 mechanisms, and `scprintf_input.cpp` BUILTIN[] currently knows only the older one:
@@ -80,7 +80,7 @@ only a keyword with a word on BOTH sides of it can be rewritten there.
 `zog get` from it.  The other three answer "Take what?" -- which Scarier does
 NOT: it says "I don't understand."  That is the ONLY cell of this feed that
 still differs, and it is a different rule, written up in
-WINE-TRANSCRIPTS-TODO as "the library verb is matched anywhere in the line",
+WINE-TRANSCRIPTS as "the library verb is matched anywhere in the line",
 measured on these same four probes with cmdfile_pcasc.txt (Adrift_250_
 casc37b.rtf, 249_casc38.rtf, 250_casc39.txt, 251_casc40.txt, 2026-09-20).
 

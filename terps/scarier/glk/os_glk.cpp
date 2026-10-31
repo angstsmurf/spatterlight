@@ -63,8 +63,9 @@ int gsc_in_debug_read = 0;
 #endif
 
 #ifdef GLK_MODULE_GARGLK_FILE_RESOURCES
-/* The game's file name, without its directory: what garglk_add_resource_from_file
-   takes to find a chunk of it (os_glk_resources.cpp). */
+/* The game's file name, without its directory: what
+   garglk_add_resource_from_file takes to find a chunk of it
+   (os_glk_resources.cpp). */
 char gsc_gamefile[1024];
 #endif
 
@@ -122,21 +123,22 @@ glui32 gsc_colour_input = 0xff3232;
    offered and this stays FALSE. */
 int gsc_colour_enabled = FALSE;
 /* Whether colour mode should be on before the game prints a word: the "-c"
-   command line switch, sparing the player a "glk colour on" at every launch, or
-   a game that asks for its own palette by the colours it was written in (see
-   gsc_colour_detect).  Acted on once the windows exist; see
+   command line switch, sparing the player a "glk colour on" at every launch,
+   or a game that asks for its own palette by the colours it was written in
+   (see gsc_colour_detect).  Acted on once the windows exist; see
    gsc_colour_startup_apply. */
 int gsc_colour_startup = FALSE;
 /* True when Normal colour stylehints were already set before the first window
-   open (the -c path, and the detected one).  gsc_set_colour consumes this so it
-   can skip a pointless rebuild of the just-opened tree. */
+   open (the -c path, and the detected one).  gsc_set_colour consumes this so
+   it can skip a pointless rebuild of the just-opened tree. */
 int gsc_colour_hints_preapplied = FALSE;
-/* The colour last named on the story window (gsc_colour_apply), so that drawing
-   the status bar in its own two colours can put the story's back afterwards --
-   a library whose zcolors are global as well as per-stream would otherwise go
-   on painting the story window in the bar's colours.  See gsc_status_end.  Only
-   read while colour mode is on, and gsc_set_colour colours the story window
-   before it turns the mode on, so it is always set by then. */
+/* The colour last named on the story window (gsc_colour_apply), so that
+   drawing the status bar in its own two colours can put the story's back
+   afterwards -- a library whose zcolors are global as well as per-stream would
+   otherwise go on painting the story window in the bar's colours.  See
+   gsc_status_end.  Only read while colour mode is on, and gsc_set_colour
+   colours the story window before it turns the mode on, so it is always set by
+   then. */
 glui32 gsc_colour_main_fg = 0;
 
 /* Cached measurement of the story window's style_Normal colours: -1 for not
@@ -224,16 +226,16 @@ gsc_colour_visible (void)
   return fg == gsc_colour_output && bg == gsc_colour_background;
 }
 
-/* Adrift game to interpret. */
+/* ADRIFT game to interpret. */
 scr_game gsc_game = nullptr;
 
 /* ADRIFT 5 game.  When the file loaded at startup is an ADRIFT 5 game,
  * gsc_a5_adv holds the parsed adventure and gsc_is_a5 is set; glk_main then
- * runs the dedicated a5 turn loop (gsc_a5_main) instead of the scare engine.
- * The game data itself comes off the startup Glk stream (a5model_load_buffer);
- * gsc_game_path is the on-disk path, kept for the things that reopen the file
- * later -- the Blorb resource map (gsc_a5_init_resources) and the autosave
- * directory's file signature. */
+ * runs the dedicated a5 turn loop (gsc_a5_main) instead of the ADRIFT 4
+ * engine.  The game data itself comes off the startup Glk stream
+ * (a5model_load_buffer); gsc_game_path is the on-disk path, kept for the
+ * things that reopen the file later -- the Blorb resource map
+ * (gsc_a5_init_resources) and the autosave directory's file signature. */
 char gsc_game_path[2048];
 a5_adventure_t *gsc_a5_adv = nullptr;
 int gsc_is_a5 = FALSE;
@@ -583,7 +585,7 @@ gsc_event_wait_2 (glui32 wait_type_1, glui32 wait_type_2, event_t * event)
         case evtype_MouseInput:
           /* A click on a room starts a walk, and the cancelled line request
              ends the wait as a LineInput event.  Only where a line is what
-             is being waited for, which is only the scare engine (the a5
+             is being waited for, which is only the ADRIFT 4 engine (the a5
              loop reads its lines through gsc_a5_await_line): the other
              waits of both -- a <waitkey>, a <wait>, a popup choice -- have
              no line request to cancel, and there the click can only work
@@ -842,8 +844,8 @@ gsc_get_ending_option (void)
  * legacy hit model.
  *
  * For these known games the matching assists default to on, applied at game
- * start; "glk assist <name> off" still turns each one off, and a one-line notice is
- * printed at startup (see gsc_main).
+ * start; "glk assist <name> off" still turns each one off, and a one-line
+ * notice is printed at startup (see gsc_main).
  *
  * Games are recognised by the TAF's GameName and GameAuthor, compared
  * case-insensitively, so every release of a game is covered (the two known
@@ -1084,11 +1086,11 @@ gsc_open_loading_window (void)
  * gsc_load_adrift5()
  *
  * ADRIFT 5 detection.  ADRIFT 5 games are zlib-compressed XML (optionally
- * Blorb-wrapped) and unrelated to the ADRIFT <=4 TAF format the scare engine
- * reads.  a5model_load_buffer returns NULL cleanly for a non-ADRIFT-5 file, so
- * we try it first from the already-open Glk stream; on success gsc_a5_adv is
- * set, and the caller sets up the dedicated a5 turn loop (gsc_a5_main) and
- * skips the scare path entirely.
+ * Blorb-wrapped) and unrelated to the ADRIFT <=4 TAF format the ADRIFT 4
+ * engine reads.  a5model_load_buffer returns NULL cleanly for a non-ADRIFT-5
+ * file, so we try it first from the already-open Glk stream; on success
+ * gsc_a5_adv is set, and the caller sets up the dedicated a5 turn loop
+ * (gsc_a5_main) and skips the ADRIFT 4 path entirely.
  *
  * Loading from the Glk stream (rather than fopen of gsc_game_path) is required
  * for hosts like Emglken that open the story via Dialog with FILESYSTEM=0.
@@ -1295,10 +1297,10 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
   /*
    * Select portable, predictable random number generation *before* loading the
    * game.  Game creation (run_create -> gs_create) draws random initial event
-   * times (scr_randomint, scgamest.cpp), so reseeding only after the load would
-   * leave those initial times -- and hence the whole event schedule -- governed
-   * by the unseeded, time-based RNG, making event-heavy games nondeterministic
-   * run to run even with determinism mode on.
+   * times (scr_randomint, scgamest.cpp), so reseeding only after the load
+   * would leave those initial times -- and hence the whole event schedule --
+   * governed by the unseeded, time-based RNG, making event-heavy games
+   * nondeterministic run to run even with determinism mode on.
    */
   if (stable_random)
     {
@@ -1454,9 +1456,9 @@ static scr_bool
 gsc_main_game_over (void)
 {
   /*
-   * If reading from an input log, close it now.  We need to request a
-   * user selection, probably modal, and after that we probably don't
-   * want the follow-on readlog data being used as game input.
+   * If reading from an input log, close it now.  The player answers the
+   * selection that comes next, and the rest of the log must not then be read
+   * as game input.
    */
   if (gsc_readlog_stream)
     {

@@ -101,7 +101,7 @@ main (void)
 
   /* Unary minus, verified against the REAL clsVariable live (2026-08-01, a
      44-row battery through FrankenDrift's SetToExpression -- see
-     test/adrift4/notes/RUNNER_TESTS_TODO.md).  clsVariable tokenises a leading
+     test/adrift4/notes/RUNNER_TESTS.md).  clsVariable tokenises a leading
      '-' as an operator and reduces the dangling `op expr` pair on run 2 --
      AFTER '/' has rounded on run 1 -- where a5sexpr folds the '-' into the
      literal before dividing. The two models agree everywhere BECAUSE v5's
@@ -132,7 +132,7 @@ main (void)
 
   /* Parenthesized group ahead of a division chain -- a DELIBERATE deviation
      (see "ADRIFT 5 paren group + division chain" in the standing divergence
-     table, test/adrift4/notes/RUNNER_TESTS_TODO.md).  clsVariable's run-based
+     table, test/adrift4/notes/RUNNER_TESTS.md).  clsVariable's run-based
      reducer cannot collapse a group whose contents need run 2 (+ - mod ^), so
      `*`/`/` pairs to its RIGHT reduce first and the chain effectively
      right-associates: the real runner gives (A+0)/B/C = A/(B/C) but (A)/B/C =

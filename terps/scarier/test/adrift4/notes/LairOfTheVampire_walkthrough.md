@@ -50,7 +50,7 @@ Letting them isn't just wrong, it doesn't terminate: `x flags` grows one
 word position the first matching synonym fires, and every synonym after it in
 the list gets a look at the replacement **only as a whole** — it fires again
 only when its original is the entire replacement region, and then replaces all
-of it. Zero golden churn across the suite. Logged in `RUNNER_TESTS_TODO.md` §4.
+of it. Zero golden churn across the suite. Logged in `RUNNER_TESTS.md` §4.
 
 ## Correction 1 — the ruined stairs are a coin flip
 

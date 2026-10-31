@@ -18,7 +18,7 @@
 #    opening `look` is that throwaway turn.
 #  * `kiss mystery` needs the parser fix of 2026-08-02: TASK 20's command is
 #    [kiss {the} %character%], and a %character% that closes a [...] group used
-#    to be unmatchable in Scarier (see RUNNER_TESTS_TODO.md section 4).
+#    to be unmatchable in Scarier (see RUNNER_TESTS.md section 4).
 #  * Three tasks award NEGATIVE points (34 -5, 45 -25, 46 -10, 47 -10) for
 #    groping the NPCs.  None is on this route.
 #  * `look under table` is the phrasing that works -- `look under small table`

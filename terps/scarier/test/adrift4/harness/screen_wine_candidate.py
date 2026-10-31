@@ -2,7 +2,7 @@
 """Screen a wired v4 game before driving it through the Wine Runner.
 
 Everything here answers one of the pre-flight questions in
-notes/WINE-TRANSCRIPTS-TODO.md ("Before measuring anything"), from the
+notes/WINE-TRANSCRIPTS.md ("Before measuring anything"), from the
 SCR_DUMP_TASKS dump rather than by eye:
 
   version   the .taf's engine version, so the right Runner is picked

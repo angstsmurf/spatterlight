@@ -5,7 +5,7 @@ parse_fixup_v390_v380_room_alts() only synthesises a task alt when Task1/Task2
 is non-zero, and an object alt when Obj is non-zero.  gen400's own 3.9 -> 4.0
 conversion synthesises them anyway, with Var2/Var3 left at zero, whenever the
 description text is non-empty.  This probe asks the real 3.9 Runner which is
-right.  See RUNNER_TESTS_TODO.md section 3(a).
+right.  See RUNNER_TESTS.md section 3(a).
 
     Room 0: AddDesc1 = "ADD1." with Task1 = 0     (no gating task)
     Room 1: AltDesc  = "ALTD." with Obj  = 0      (no gating object)

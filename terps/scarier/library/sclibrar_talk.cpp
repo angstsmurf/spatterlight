@@ -20,8 +20,6 @@
 
 /*
  * Asking and talking to NPCs.
- *
- * See sclibrar.h for what the library files share.
  */
 
 #include "sclibrar.h"
@@ -177,7 +175,7 @@ lib_cmd_talk_to_npc (scr_gameref_t game)
    *
    * The hint is a plain assignment inside the per-character loop, which has
    * no early exit (47F2C5-4805C8), so with several characters named the
-   * last one answers in 4.0 as well.  Measured on Escape to Freedom (4.00,
+   * last one answers in 4.0 as well.  Measured on Escape to Freedom (4.0,
    * run400x): `talk to man` -- an Alias five characters share, none of them
    * in the room -- is 'Use the format "ask soldier about [subject]".'.
    */
@@ -288,7 +286,7 @@ lib_cmd_talk_to_npc_pre_390 (scr_gameref_t game)
  * after "about".  Scarier's `ask %object% *` row binds a trailing
  * %object% by containment anywhere in the line, hence this test.
  *
- * Measured on Ticket (4.00, runner_probes/ticket.run400.txt turn 154): the
+ * Measured on Ticket (4.0, runner_probes/ticket.run400.txt turn 154): the
  * Runner prints "Young Girl isn't here!" where Scarier used to print "You get
  * no reply from the flowers.".
  */
@@ -369,7 +367,7 @@ lib_cmd_ask_other (scr_gameref_t game)
  * line nothing answers keeps it.  Scarier's grammar puts the character and
  * object rows ahead of this one, which is the same order.
  *
- * Measured on thelasthour (4.00, runner_probes/thelasthour.run400.txt turn
+ * Measured on thelasthour (4.0, runner_probes/thelasthour.run400.txt turn
  * 80): `ask sly about him` -- "sly" is a task word, not a character, and the
  * game has no male to fill "him" in -- answers "(No male)" and then "I can't
  * talk to that.", not the format hint.
@@ -386,7 +384,7 @@ lib_cmd_ask_other (scr_gameref_t game)
  * 440AC0/440ACC, run390 459C0B/459C32 and run370 438C0A do the same, minus
  * the 4.0-only absent-object pass.
  *
- * Measured on Ticket (4.00, runner_probes/ticket.run400.txt turns 154 and
+ * Measured on Ticket (4.0, runner_probes/ticket.run400.txt turns 154 and
  * 156): `ask young girl about flowers` with the girl elsewhere answers "Young
  * Girl isn't here!" while the flowers are held, and "You can't see the
  * flowers." once they have been given away.

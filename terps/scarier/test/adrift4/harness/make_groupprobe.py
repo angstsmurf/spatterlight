@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """A task command holding a `[a/b]` or `{word}` GROUP, in all four versions.
 
-The last half of the checkwild lead in WINE-TRANSCRIPTS-TODO.md.  Scarier
+The last half of the checkwild lead in WINE-TRANSCRIPTS.md.  Scarier
 routes a task command containing `[` or `{` to the 4.0 pattern tree at EVERY
 version -- `run_match_task_commands()` reaches its pre-4.0 arm only under
 `!strpbrk (pattern, "[{")` -- and the tree EXPANDS the group, so `zog

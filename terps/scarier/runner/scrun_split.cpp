@@ -19,9 +19,9 @@
  */
 
 /*
- * Line splitting helpers and the version gate shared by the runner.
+ * Line splitting helpers and the version gate shared by the `run_` files.
  *
- * Split out of scrunner.cpp; see scrunner.h for what the runner files
+ * See scrunner.h for what the `run_` files
  * share.
  */
 

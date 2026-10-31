@@ -25,7 +25,7 @@ to read a status table:
 
 Suggested session:  wait / wait / zop / wait / wait / zap / wait / wait
 
-See RUNNER_TESTS_TODO.md section 3(a).
+See RUNNER_TESTS.md section 3(a).
 
 Usage: python3 make_39_battleattr_probe.py [out.taf]
 """

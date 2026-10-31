@@ -19,9 +19,6 @@
 
 /*
  * Taking objects from containers, supporters and NPCs.
- *
- * See sclibrar.h for what the library files share and sclibrar_internal.h
- * for what the core files share.
  */
 
 #include "sclibrar.h"
@@ -392,7 +389,7 @@ lib_take_from_is_valid (scr_gameref_t game, scr_int associate)
    * (runner_probes/dark.run390.feed3.txt,
    * runner_probes/tfrom.run400.feed2.txt).  run370 has no such
    * literal at all -- its tail at loc_43AF92 tests only c("in") and c("on") --
-   * and 3.70 never gets here: its callers answer with the catch-all first
+   * and 3.7 never gets here: its callers answer with the catch-all first
    * (lib_take_from_answer_370).
    */
   if (!(obj_is_container (game, associate)
@@ -476,8 +473,10 @@ lib_cmd_take_all_from (scr_gameref_t game)
   if (associate == -1)
     return is_ambiguous;
 
-  /* Validate the associate object to take from; 3.7 has its own answer.
-     run380's task sweep follows a refusal too. */
+  /*
+   * Validate the associate object to take from; 3.7 has its own answer.
+   * run380's task sweep follows a refusal too.
+   */
   if (lib_take_from_answer_370 (game, associate))
     return TRUE;
   if (!lib_take_from_is_valid (game, associate))
@@ -1119,8 +1118,10 @@ lib_take_from_resolved (scr_gameref_t game, scr_int associate,
   /* Note single-object takes; the backend prints their prefix raw pre-4.0. */
   lib_take_from_single_named = !is_except && references == 1;
 
-  /* Validate the associate object to take from; 4.0 did it above, and 3.7
-     may decline.  run380's task sweep follows a refusal too. */
+  /*
+   * Validate the associate object to take from; 4.0 did it above, and 3.7
+   * may decline.  run380's task sweep follows a refusal too.
+   */
   if (!is_400 && lib_take_from_answer_370 (game, associate))
     return TRUE;
   if (!is_400 && !lib_take_from_is_valid (game, associate))
@@ -1193,7 +1194,7 @@ lib_take_from_resolved (scr_gameref_t game, scr_int associate,
  * Take the objects inside or on an object and listed in %text%, or -- for
  * is_except -- every one of them but those listed.  Neither is mandatory:
  * plain "take <object>" works fine with containers and surfaces, but they
- * are a standard in Adrift so here they are.
+ * are a standard in ADRIFT so here they are.
  */
 static scr_bool
 lib_take_from_multiple_common (scr_gameref_t game, scr_bool is_except)
@@ -1217,7 +1218,7 @@ lib_take_from_multiple_common (scr_gameref_t game, scr_bool is_except)
    * every object co() names is walked in index order, the first reachable
    * one whose Short or first Alias falls after "from" takes the slot, and a
    * later one replaces it only when its name lies further along the line
-   * (462811-462E75, measured on lockedout T22, 8811c2b76).  Deliberate
+   * (462811-462E75, measured on lockedout T22).  Deliberate
    * deviation: Scarier keeps the parser's best match at 3.9 too.
    */
 
@@ -1232,7 +1233,8 @@ lib_take_from_multiple_common (scr_gameref_t game, scr_bool is_except)
    *   box closed, stone outside `get stone from box`  The box is closed.
    *   box open and empty        `get stone from box`  There is nothing inside the box.
    *   box open and empty        `get coin from box`   There is nothing inside the box.
-   *                             (with the coin in hand -- still the container's answer)
+   *                             (with the coin in hand -- still the
+   *                             container's answer)
    *   box open, coin inside     `get stone from box`  Take what?
    *
    * so the empty-container line precedes the membership test, and a name the
@@ -1274,10 +1276,12 @@ lib_take_from_multiple_common (scr_gameref_t game, scr_bool is_except)
                                    lib_take_from_filter, associate,
                                    &references))
     {
-      /* Pre-3.9 has no parse; the names pick a slot of their own, and the
-         object named is as good a slot as the container (`get gem from box`
-         with the gem elsewhere is "You are not holding a box." with the box
-         on the floor, p37TKA/p38TKA cell 126; see lib_take_from_slot_pre390). */
+      /*
+       * Pre-3.9 has no parse; the names pick a slot of their own, and the
+       * object named is as good a slot as the container (`get gem from box`
+       * with the gem elsewhere is "You are not holding a box." with the box
+       * on the floor, p37TKA/p38TKA cell 126; see lib_take_from_slot_pre390).
+       */
       if (!is_except
           && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
         return lib_take_from_slot_pre390 (game);
@@ -1413,21 +1417,18 @@ lib_cmd_take_from_nowhere (scr_gameref_t game)
   if (lib_take_from_and_line (game))
     return lib_take_from_and (game);
 
-  /*
-   * Not a turn in 4.0: run400 472F31 sets the not-a-turn flag (MemVar_494281)
-   * beside this refusal, so no event, walk or counter ticks -- measured on
-   * escape_to_new_york turn 187 `get all from gladstone bag` (xoshiro trace
-   * 2026-09-12: the Runner drew nothing, Scarier ticked 34 draws).
-   */
+  /* Not a turn in 4.0, as in lib_cmd_take_from_nowhere_all(). */
   if (lib_is_version_400 (game))
     {
       game->is_admin = TRUE;
       return lib_print_message (game, LIB_TAKE_FROM_NOWHERE_400);
     }
 
-  /* 3.7 and 3.8 walk the names for a slot of their own (the one "You can't
-     do that!" when that finds fewer than two); 3.9 answers by the named
-     object, and arms the pending slot. */
+  /*
+   * 3.7 and 3.8 walk the names for a slot of their own (the one "You can't
+   * do that!" when that finds fewer than two); 3.9 answers by the named
+   * object, and arms the pending slot.
+   */
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
     return lib_take_from_slot_pre390 (game);
 

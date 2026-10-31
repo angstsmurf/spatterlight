@@ -21,10 +21,6 @@
  * Taking objects, the command forms: "take all", a noun that names nothing
  * here, "take X and Y", and the multiple-object handler they all end in.
  * The backend they run is in sclibrar_take.cpp.
- *
- * See sclibrar.h for what the library files share, sclibrar_internal.h for
- * what the core files share and sclibrar_take_internal.h for what the two
- * take files share.
  */
 
 #include "sclibrar_take_internal.h"
@@ -54,19 +50,19 @@ lib_take_filter (scr_gameref_t game, scr_int object, scr_int unused)
    * run380's takes() rewrite of a plain "take X" into "take X from
    * <parent>" (loc_43E47B; see lib_take_container_unheld).  run370 has the
    * same rewrite (4368C4), but its insides() only takes a get or remove
-   * line (see the run370 insides() note above), so for take or pick up a bare take
-   * naming something that sits in or on another object names nothing at all
-   * and falls to the catch-all.  Measured on the same turn of two probes,
+   * line (see the run370 insides() note above), so for take or pick up a bare
+   * take naming something that sits in or on another object names nothing at
+   * all and falls to the catch-all.  Measured on the same turn of two probes,
    * `take coin` with the coin inside an open box standing on the cave floor:
    * run370 answers "Take what?" (p37DARK,
    * runner_probes/dark.run370.putin2.txt:48 and again
-   * runner_probes/dark.run370.putin3.txt:41) where run380 answers "You are
-   * not holding a box." (p38DARK, runner_probes/dark.run380.putin2.txt:48 /
-   * runner_probes/dark.run380.putin3.txt:41), i.e. run380 rewrote the line
-   * and then refused it on the hold gate.  2026-09-12.  The explicit form is
+   * runner_probes/dark.run370.putin3.txt:41) where run380 answers "You are not
+   * holding a box." (p38DARK, runner_probes/dark.run380.putin2.txt:48 /
+   * runner_probes/dark.run380.putin3.txt:41), i.e. run380 rewrote the line and
+   * then refused it on the hold gate.  2026-09-12.  The explicit form is
    * untouched -- run370 plays `get coin from box` perfectly well
-   * (runner_probes/dark.run370.putin.txt:27) and applies the same hold gate
-   * to it (runner_probes/dark.run370.putin2.txt:18).
+   * (runner_probes/dark.run370.putin.txt:27) and applies the same hold gate to
+   * it (runner_probes/dark.run370.putin2.txt:18).
    */
   return obj_indirectly_in_room (game, object, gs_playerroom (game))
          && !obj_is_static (game, object)
@@ -498,8 +494,10 @@ lib_take_tie_400 (scr_gameref_t game, const scr_char *line, scr_int pending,
       return TRUE;
     }
 
-  /* Me(428) is joined by a countdown from the pass-0 count; with more marks
-   * than that the Runner runs names together, unmeasured. */
+  /*
+   * As in lib_drop_named_400(), more marks than the pass-0 count are
+   * unmeasured.
+   */
   if ((scr_int) marked.size () != mark_count)
     return FALSE;
 
@@ -554,11 +552,13 @@ lib_take_whole_line_400 (scr_gameref_t game, scr_int *references,
       || lib_input_contains_word_400 (line, "and"))
     return FALSE;
 
-  /* A "from" line names its container first (472E03-472F35), so a line
-     whose container resolves nothing is "I don't understand where you want
-     to get things from." however its piece ties: `take stone from zzz`
-     (p4WTIE, runner_probes/wtie.run400.from.txt).  lib_take_from_piece_400()
-     scores the piece. */
+  /*
+   * A "from" line names its container first (472E03-472F35), so a line
+   * whose container resolves nothing is "I don't understand where you want
+   * to get things from." however its piece ties: `take stone from zzz`
+   * (p4WTIE, runner_probes/wtie.run400.from.txt).  lib_take_from_piece_400()
+   * scores the piece.
+   */
   if (lib_input_contains_word_400 (line, "from"))
     return FALSE;
 
@@ -804,7 +804,7 @@ lib_take_co_pre400 (scr_gameref_t game, const scr_char *line, scr_int object)
  * one line stop it dead.  takes() pre-passes the whole object table (run390
  * 454B95-454C9D, run380 43DCFB-43DE04, run370 4361ED-436301) and, for every
  * dynamic object lying directly in the player's room that co(obj, 1) -- a
- * bare c(Short) at 3.70 -- finds in the line, raises two counters: one for
+ * bare c(Short) at 3.7 -- finds in the line, raises two counters: one for
  * the match (run390 454BF5, run380 43DD53, run370 436250) and, when the last
  * word of that object's own Prefix is NOT typed, a second (454C25 / 43DD8C /
  * 436289) that also stamps a per-object flag (454C85 / 43DDEC / 4362E9).
@@ -825,7 +825,7 @@ lib_take_co_pre400 (scr_gameref_t game, const scr_char *line, scr_int object)
  * with the hat in hand is "You pick up the coin." and carries both, while
  * `take coin hat` with both on the floor is "Take what?" and carries
  * neither.  A word that names nothing costs nothing: `take zzz coin` takes
- * the coin.  4.00 dropped the pre-pass; there the line is the noun scorer's
+ * the coin.  4.0 dropped the pre-pass; there the line is the noun scorer's
  * and the answer is "It is not clear which <object> you are referring to."
  * for the highest-indexed object it names, which Scarier already gives.
  *
@@ -955,9 +955,11 @@ lib_take_held_namesake_preempt_pre400 (scr_gameref_t game,
       if (gs_object_position (game, object) != OBJ_HELD_PLAYER
           && gs_object_position (game, object) != OBJ_WORN_PLAYER)
         continue;
-      /* Deliberate deviation: a held namesake whose Prefix the line rules
-         out (`take old pin`, the new red pin in hand) does not speak; see
-         lib_co_names_prefix(). */
+      /*
+       * Deliberate deviation: a held namesake whose Prefix the line rules
+       * out (`take old pin`, the new red pin in hand) does not speak; see
+       * lib_co_names_prefix().
+       */
       if (lib_take_co_pre400 (game, line, object)
           && !lib_co_prefix_excluded (game, line, object))
         speaker = object;
@@ -1753,7 +1755,7 @@ lib_take_and_400 (scr_gameref_t game, scr_int *references)
  * three older Runners (p37REW/p38REW/p39REW, make_rewriteprobe.py --
  * runner_probes/rew.run370.casc.rtf, runner_probes/rew.run380.casc.rtf,
  * runner_probes/rew.run390.casc.txt), and so are `take zzz hat`
- * and `drop zzz hat` at 3.90 (p39WHAT, runner_probes/what.run390.what2.txt,
+ * and `drop zzz hat` at 3.9 (p39WHAT, runner_probes/what.run390.what2.txt,
  * same day).  Scarier binds %text% positionally, so with the verb hoisted to
  * the front by run_hoist_verb_line() the rest of the line went to the noun
  * and the take fell to "Take what?" while the drop fell to the absent row's
@@ -1812,7 +1814,7 @@ lib_move_named_whole_line_pre400 (scr_gameref_t game,
  * lib_take_npc_overwrite_tail()
  *
  * The tail every take refusal shares: a present character the line names
- * answers over whatever takes() just wrote, and at 3.80 its take-from arm
+ * answers over whatever takes() just wrote, and at 3.8 its take-from arm
  * answers again over that.  See lib_take_npc_overwrite() for the arms and
  * their gates.  Ask it wherever a take writes and returns, not only from
  * the main loop -- the held-namesake pre-empt writes its "You've already
@@ -1914,8 +1916,8 @@ enum lib_take_stage_t
  * `get off X` reaches the take rows first, and below 4.0 takes() names X
  * over the whole line, so a player standing on the stool picked it up
  * (run370x/run380x/run390x p3xSIT).  Deliberate deviation: while the
- * player is on something, leave the line to lib_cmd_get_off_object(); and
- * since 2026-10-15 on nothing too, unless lib_get_off_may_take().
+ * player is on something, leave the line to lib_cmd_get_off_object(); and on
+ * nothing too, unless lib_get_off_may_take().
  */
 static scr_bool
 lib_take_multi_get_off_line (void)
@@ -2012,13 +2014,17 @@ lib_take_multi_unparsed (scr_gameref_t game, scr_bool is_except,
   const scr_char *text = var_get_ref_text (gs_get_vars (game));
   scr_int object;
 
-  /* Pre-4.0: a held or worn namesake still answers; see
-     lib_take_multi_namesake_pre400(). */
+  /*
+   * Pre-4.0: a held or worn namesake still answers; see
+   * lib_take_multi_namesake_pre400().
+   */
   if (!is_except && lib_take_multi_namesake_pre400 (game, TRUE))
     return LIB_TAKE_RETURN_TRUE;
 
-  /* Pre-4.0: takes() names its object over the WHOLE line, co(obj, 1);
-     see lib_move_named_whole_line_pre400(). */
+  /*
+   * Pre-4.0: takes() names its object over the WHOLE line, co(obj, 1);
+   * see lib_move_named_whole_line_pre400().
+   */
   if (!is_except
       && lib_move_named_whole_line_pre400 (game, resolver, 1, references))
     ;
@@ -2085,7 +2091,7 @@ lib_take_multi_crowded_pre400 (scr_gameref_t game)
  * plain miss falls to the catch-all "Take what?" the Runner's empty buffer
  * reaches.
  *
- * 3.70 is not in this: its takes() calls no co() at all, and settles a crowd
+ * 3.7 is not in this: its takes() calls no co() at all, and settles a crowd
  * of its own namesakes in lib_disambiguate_object_common().  A rock ALIASED
  * "gem" beside a gem is no crowd to it -- `take gem` takes both and the rock
  * speaks (p37OPENA, runner_probes/opena.run370.rtf) -- and this gate must not
@@ -2132,8 +2138,10 @@ lib_take_multi_run (scr_gameref_t game, scr_bool is_except,
                               resolver, -1, is_except,
                               &references);
 
-  /* A 3.8 bare take of something in or on an object is a take-from, and
-     gets its task sweep; see lib_take_from_task_sweep_380(). */
+  /*
+   * A 3.8 bare take of something in or on an object is a take-from, and
+   * gets its task sweep; see lib_take_from_task_sweep_380().
+   */
   scr_bool is_take_from_380 = FALSE;
   if (!is_except)
     {
@@ -2257,8 +2265,10 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
   else if (references == 0)
     return TRUE;
 
-  /* Pre-4.0, one object named: a held namesake may answer for it, a crowd
-     of loose candidates declines the row. */
+  /*
+   * Pre-4.0, one object named: a held namesake may answer for it, a crowd
+   * of loose candidates declines the row.
+   */
   if (!is_except && references == 1)
     {
       if (lib_take_multi_namesake_pre400 (game, FALSE))
@@ -2277,9 +2287,9 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
   /*
    * run390 takes() rewrites a bare take of something in or on an object to
    * "<line> from <parent's Prefix Short>" (4552EE) and hands it to
-   * insides(), whose container slot walk may pick another object the
-   * rewritten line names (8811c2b76).  Deliberate deviation: Scarier takes
-   * the object the line named from where it is.
+   * insides(), whose container slot walk may pick another object the rewritten
+   * line names.  Deliberate deviation: Scarier takes the object the line named
+   * from where it is.
    */
 
   return lib_take_multi_run (game, is_except, resolver, references);

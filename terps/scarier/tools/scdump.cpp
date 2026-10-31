@@ -36,7 +36,7 @@
  *                   restriction and action with its Type and Var1/Var2/Var3,
  *                   plus a container-index table and the full event table.
  *                   Object/task references are resolved to names.  Decoding
- *                   keys (verified against the original 3.90/4.0 Runner):
+ *                   keys (verified against the original 3.9/4.0 Runner):
  *                     - action Type: 0 move-obj, 1 move-char, 2 obj-status,
  *                       3 change-var, 4 ChangeScore (Var1=points),
  *                       5 exec/unset, 6 EndGame (Var1: 0 win, 1 lose,
@@ -760,7 +760,7 @@ scdump_objects_lockkeys (scr_gameref_t game)
  * always writes Key = -1), so this is the line that lets the gen400
  * conversion oracle check the V390/V380_OBJECT fixup that swaps Openable
  * 5 and 6.  See "Scarier's own V390 parse fixups" in
- * test/adrift4/notes/RUNNER_TESTS_TODO.md.
+ * test/adrift4/notes/RUNNER_TESTS.md.
  */
 static void
 scdump_objects_openable (scr_gameref_t game)
@@ -854,7 +854,7 @@ scdump_rewrite_rules (scr_gameref_t game)
    * message, typed while looking at the real Runner's output.  That makes the
    * corpus' ALR tables a free, offline oracle for library wording -- see
    * "An empty character Prefix keeps its space in the Which list" in
-   * test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md, where asteroid_after's
+   * test/adrift4/notes/WINE-TRANSCRIPTS.md, where asteroid_after's
    * `Which valve.` and `Which satellite.   satellite,  satellite or
    * satellite?` pin run400's ambiguity message and its
    * `tense(Prefix) & " " & Short` list construction without launching Wine.
@@ -948,7 +948,7 @@ scdump_task_t::summary ()
     /*
      * srd: the task's ShowRoomDesc, as the raw field -- 0 for none, otherwise
      * room + 1.  See the standing divergence table in
-     * test/adrift4/notes/RUNNER_TESTS_TODO.md, where run400 is measured
+     * test/adrift4/notes/RUNNER_TESTS.md, where run400 is measured
      * printing that room's description with no room name heading, and
      * task_run_task_unrestricted() prints both.
      */
@@ -979,8 +979,8 @@ scdump_task_t::summary ()
  * scdump_task_t::where_rooms()
  *
  * For SOME_ROOMS (where=2) tasks, dump the room-group membership (the
- * "Where"/"Rooms" boolean array indexed by room; see sctasks.c
- * task_can_run_task_directional). Lets us tell whether a group-scoped
+ * "Where"/"Rooms" boolean array indexed by room; see sctasks.cpp
+ * task_can_run_task_directional).  Lets us tell whether a group-scoped
  * death (e.g. the Morac castle timer T327) fires in a given room.
  */
 void
@@ -1231,9 +1231,10 @@ scdump_task_t::action (scr_int i)
     {
       /*
        * Object-status ACTIONS index the stateful-object list 0-based
-       * (sctasks.c task_run_change_object_status: obj_stateful_object
+       * (sctasks_action.cpp task_run_change_object_status:
+       * obj_stateful_object
        * (var1)), whereas the matching type-1 RESTRICTION is 1-based
-       * (var1-1, with 0 = "the referenced object"; screstrs.c).  This
+       * (var1-1, with 0 = "the referenced object"; screstrs.cpp).  This
        * is a genuine ADRIFT schema asymmetry, not a bug.  Pass v1+1 so
        * the resolver's -1 cancels and we label the object the runtime
        * actually changes (e.g. Space Boy's task 44 "unlock door" sets
@@ -1453,7 +1454,7 @@ scdump_event (scr_gameref_t game, scr_int e)
   /*
    * Which of the three texts the event actually carries.  This is what decides
    * exposure to the turn-0 ordering divergence (the standing divergence table
-   * in RUNNER_TESTS_TODO.md): the real Runner starts an immediate event during
+   * in RUNNER_TESTS.md): the real Runner starts an immediate event during
    * load, so a StarterType=1 event's StartText is printed into the cleared
    * pre-intro screen and its LookText joins the opening room description.
    */
@@ -1704,7 +1705,7 @@ scdump_npcs (scr_gameref_t game)
  * CompleteText.  (The engine adds nothing of its own there -- the
  * Runners' "Congratulations!" is a status bar caption, not game text.
  * See the standing divergence table in
- * test/adrift4/notes/RUNNER_TESTS_TODO.md.)
+ * test/adrift4/notes/RUNNER_TESTS.md.)
  */
 static void
 scdump_win_text (scr_gameref_t game)
@@ -1753,9 +1754,9 @@ scdump_room_names (scr_gameref_t game)
  *
  * Room exits + their task gates.  The exit array is in ADRIFT's own direction
  * order -- the diagonals are NE,SE,SW,NW, NOT NE,NW,SE,SW (DIRNAMES_8 in
- * sclibrar_room.cpp, and mapdraw.cpp's map_dirs, which both engines share).  Getting
- * this wrong mislabels every diagonal exit and sends a route derivation into
- * the wrong room.
+ * sclibrar_room.cpp, and mapdraw.cpp's map_dirs, which both engines share).
+ * Getting this wrong mislabels every diagonal exit and sends a route
+ * derivation into the wrong room.
  */
 static void
 scdump_room_exits (scr_gameref_t game)
@@ -1838,7 +1839,7 @@ scdump_room_exits (scr_gameref_t game)
  * they are synthesised by parse_fixup_v390_v380_room_alts() from the
  * fixed AltDesc/Task1/Task2/LastDesc fields, so dumping them is how the
  * gen400 conversion oracle checks that fixup (see "Scarier's own V390 parse
- * fixups" in test/adrift4/notes/RUNNER_TESTS_TODO.md).
+ * fixups" in test/adrift4/notes/RUNNER_TESTS.md).
  */
 static void
 scdump_room_alts (scr_gameref_t game)
@@ -1955,8 +1956,8 @@ scr_dump_structure_once (scr_gameref_t game)
 
   /*
    * SCR_TRACE_EVENTS: per-turn event state machine trace (start/tick/finish +
-   * the object moves an event performs).  Separate from SCR_TRACE_TASKS because
-   * an event that silently never fires is invisible in the task trace.
+   * the object moves an event performs).  Separate from SCR_TRACE_TASKS
+   * because an event that silently never fires is invisible in the task trace.
    */
   if (trace_events)
     evt_debug_trace (TRUE);
@@ -2131,7 +2132,7 @@ scr_dump_npc_trace (scr_gameref_t game)
 
 
 /*
- * The deviations already reported on the runner's current input line
+ * The deviations already reported on the `run_` code's current input line
  * (run_trace_last_input, from runner/scrunner.h).
  */
 static std::set<std::string> scr_deviations_seen;

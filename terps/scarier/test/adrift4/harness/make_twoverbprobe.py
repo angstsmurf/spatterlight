@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """A line naming TWO library verbs: which handler answers it.
 
-WINE-TRANSCRIPTS-TODO's "the Runner settles that by its call order" lead.
+WINE-TRANSCRIPTS's "the Runner settles that by its call order" lead.
 Every pre-4.0 handler enters on a whole-word c() test that looks at the
 WHOLE line, so `x get coin` satisfies takes() and examines() alike, and
 generaltasks (run380 4421A3-442201, run370 43B958-43B98A, run390

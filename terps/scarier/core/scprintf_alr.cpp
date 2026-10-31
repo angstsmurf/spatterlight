@@ -33,10 +33,9 @@
  * done, otherwise returns NULL.
  *
  * If a %...% element exists that is not a variable, then it's left in as is.
- * Similarly, an unmatched (single) % in a string is also left as is.  There
- * appears to be no facility in the file format for escaping literal '%'
- * characters, and since some games have strings with this character in them,
- * this is probably all that can be done.
+ * Similarly, an unmatched (single) % in a string is also left as is.  The file
+ * format has no way of escaping a literal '%', and some games have strings
+ * with this character in them.
  */
 scr_char *
 pf_interpolate_vars (const scr_char *string, scr_var_setref_t vars)
@@ -221,8 +220,8 @@ pf_replace_alr (const scr_char *string, std::string &out,
  *
  * This is a pure filter: the answer is exact (an original either occurs or it
  * does not), so the ALRs that fire, and the order they fire in, are unchanged.
- * It matters because ALR tables get big -- cursed.taf carries 9724 of them, and
- * the old all-slots sweep spent 17GB of strstr() on one walkthrough replay.
+ * It matters because ALR tables get big -- cursed.taf carries 9724 of them,
+ * and an all-slots sweep spends 17GB of strstr() on one walkthrough replay.
  */
 static void
 pf_alr_candidates (const scr_char *text, std::vector<scr_int> &candidates)
@@ -408,7 +407,7 @@ static const size_t PF_ALR_SIZE_LIMIT = 65536;
  * the recursion on the REPLACEMENT, not from repeating the pass.  The two
  * differ wherever a replacement combines with the text around it to spell
  * another ALR's original: the recursion cannot see that, a repeated pass
- * would.  Qui a tue Dana (4.00) is the measurement -- its 602 ALRs carry
+ * would.  Qui a tue Dana (4.0) is the measurement -- its 602 ALRs carry
  * both [You move] -> [Vous vous deplacez] and, right after it, the author's
  * attempted fix-up [Vous vous deplacez in.] -> [Vous entrez.] -- and run400
  * answers `in` with "Vous vous deplacez in."
@@ -447,7 +446,7 @@ pf_alr_walk (const scr_char *string, std::string &out, scr_var_setref_t vars,
    * substitute the %...% tags.  At depth 0 the caller has already done this
    * and it is a no-op; what it is here for is the recursion, where it is the
    * step that lets an ALR replacement name a variable and have the ALRs
-   * keyed on that variable's value still fire.  Cursed (4.00) is built on
+   * keyed on that variable's value still fire.  Cursed (4.0) is built on
    * it: [You move north.] -> [You %s north.<br>] with %s a state variable,
    * and then [%s-fox] -> [trot] and so on for each state, so the printed
    * verb follows what the player has been turned into.

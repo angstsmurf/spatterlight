@@ -181,7 +181,7 @@ robber give nothing more):
   укусил меня...»). Only 4.0 makes it a free question. Scarier gated
   `is_admin` on the version from 2026-09-25 to 2026-10-17 and then made the
   question free at every version again (deliberate deviation,
-  WINE-TRANSCRIPTS-TODO.md): the route spends that turn on `инвентарь`
+  WINE-TRANSCRIPTS.md): the route spends that turn on `инвентарь`
   (solution line 217) just before T213 so the RNG stream stays the
   Runner's; every solution line from there on is one later than in the
   Runner transcript's numbering.
@@ -226,7 +226,7 @@ both confirmed in the run390 decompile and ported:
 With both ported, Scarier reproduced the Runner's death turn for turn, so
 the dice ladder was re-derived against the corrected engine (this file's
 phase 7) and the route re-driven. Two Runner artefacts remain and are
-deliberate deviations, not ported (`WINE-TRANSCRIPTS-TODO.md`):
+deliberate deviations, not ported (`WINE-TRANSCRIPTS.md`):
 
 - **T34-45** the Runner prints «чёрную собаку hits me.» where the game's
   own «Чёрная собака меня укусила.» belongs. Its cp1251 text goes through

@@ -14,7 +14,7 @@ happened to need:
 
 Any engine change that consumes a different number of RNG draws re-times all
 three, which is what the 2026-08-04 event-restart arbitration did (§8 of
-RUNNER_TESTS_TODO.md: 3.9 immediate restarts are silent and keep their full
+RUNNER_TESTS.md: 3.9 immediate restarts are silent and keep their full
 period, so events no longer roll a length every turn).  Rather than hand-tune
 the pads again, this replays the prefix after every appended command and
 grows each block until its marker appears.
