@@ -13,7 +13,8 @@
 #
 # x64sc is started (in warp mode, with the scene's `!game` file autostarted) and
 # driven over its binary monitor. Set X64SC to use a particular binary, and
-# VICE_PORT to another monitor port for each capture that runs at the same time.
+# VICE_PORT to another monitor port for each capture that runs at the same time
+# (the text monitor takes the port after it).
 #
 # Scene lines as seen from here:
 #   plain line        typed, followed by RETURN (an empty line is just RETURN)
@@ -22,6 +23,10 @@
 #   !terp <line>      ignored (input only the interpreter needs)
 #   !check <name>     save the screen as <name> once it has settled
 #   !hwwait <secs>    just let the game run (seconds of real time, in warp mode)
+#   !hwnext           let it run until the picture has changed and come to rest
+#                     again: one frame of an animated picture, which never
+#                     settles (a scene with one runs out of warp mode, or the
+#                     frames fly past)
 #   !dump <name>      save the screen right now; a later !check of the same
 #                     name then compares against this dump
 #   !hwpoke <addr>=<bytes>[*<n>]
@@ -54,6 +59,9 @@ POLL = 0.5          # seconds between looks at the screen: entering the
                     # monitor stops the emulation, so looking often slows it
 SETTLE = 3          # looks in a row the screen must stay unchanged (cursor aside)
 SETTLE_LIMIT = 40   # looks before giving up on a screen that keeps changing
+NEXT_POLL = 0.04    # the same for one frame of an animation, at normal speed
+NEXT_STILL = 3
+NEXT_LIMIT = 500
 
 
 class Vice:
@@ -169,18 +177,40 @@ def save(vice, path):
                                          ', %d cells with more than two colours' % bad if bad else ''))
 
 
+def changed(now, last):
+    """Has the screen changed? A blinking cursor does not count: changes that
+    fit in a box the size of a character."""
+    ys = [y for y in range(200) if now[y] != last[y]]
+    if not ys:
+        return False
+    xs = [x for y in ys for x in range(320) if now[y][x] != last[y][x]]
+    return ys[-1] - ys[0] >= 8 or max(xs) - min(xs) >= 8
+
+
+def next_frame(vice):
+    """Run until the picture has changed and stayed the same for a moment."""
+    start = last = vice.screen()
+    moved, same = False, 0
+    for look in range(NEXT_LIMIT):
+        time.sleep(NEXT_POLL)
+        now = vice.screen()
+        moved = moved or changed(now, start)
+        same = same + 1 if moved and not changed(now, last) else 0
+        last = now
+        if same >= NEXT_STILL:
+            break
+    else:
+        print('c64_capture: the picture never changed')
+
+
 def settle(vice):
-    """Wait until the screen has stopped changing. A blinking cursor does not
-    count: changes that fit in a box the size of a character."""
+    """Wait until the screen has stopped changing."""
     last, same = None, 0
     for look in range(SETTLE_LIMIT):
         time.sleep(POLL)
         now = vice.screen()
         if last is not None:
-            ys = [y for y in range(200) if now[y] != last[y]]
-            xs = [x for y in ys for x in range(320) if now[y][x] != last[y][x]]
-            cursor = not ys or (ys[-1] - ys[0] < 8 and max(xs) - min(xs) < 8)
-            same = same + 1 if cursor else 0
+            same = same + 1 if not changed(now, last) else 0
         last = now
         if same >= SETTLE:
             return now
@@ -226,6 +256,8 @@ def main():
         elif word == '!dump':
             dumped.add(rest)
             steps.append(('dump', rest))
+        elif word == '!hwnext':
+            steps.append(('next', None))
         elif word == '!hwwait':
             steps.append(('wait', float(rest)))
         elif word == '!hwpoke':
@@ -249,8 +281,11 @@ def main():
 
     x64sc = os.environ.get('X64SC', 'x64sc')
     restored = steps[:1] == [('load', steps[0][1])]
+    # Animation frames would fly past in warp mode, and the only way to switch
+    # it while running is the text monitor: such a scene runs at normal speed.
+    speed = ['+warp'] if any(kind == 'next' for kind, _ in steps) else ['-warp']
     emulator = subprocess.Popen(
-        [x64sc, '-default', '-warp', '-sounddev', 'dummy', '-binarymonitor',
+        [x64sc, '-default'] + speed + ['-sounddev', 'dummy', '-binarymonitor',
          '-binarymonitoraddress', '127.0.0.1:%d' % PORT]
         + ([] if restored else ['-8' if attach else '-autostart', os.path.join(folder, game)]),
         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -280,6 +315,8 @@ def main():
                 wait(step + 1)
             elif kind == 'wait':
                 time.sleep(arg)
+            elif kind == 'next':
+                next_frame(vice)
             elif kind == 'poke':
                 vice.poke(*arg)
             elif kind in ('snap', 'load'):

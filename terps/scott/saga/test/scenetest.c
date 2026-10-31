@@ -17,13 +17,15 @@
 // scene_* functions defined here. Streams, files and unicode still come from
 // cheapglk.
 //
-//   scenetest [-v|-vv] [-c] [-d dumpdir] <file.scene>
+//   scenetest [-v|-vv] [-c] [-t] [-d dumpdir] <file.scene>
 //     -v  print the game's text output (a transcript) to stdout
 //     -vv the room descriptions too (as a transcript has them), for writing a
 //         scene
 //     -c  print at every check how many rectangles were filled since the one
 //         before: the cost of drawing the picture
 //     -d  write every checked frame to <dumpdir>/<golden>.png
+//     -t  print the game's rooms and items, with their pictures, at the first
+//         input request, and stop: what a scene generator needs to know
 //
 // A .scene file is a command script. Each plain line answers one input request
 // (a command for line input; its first character for a keypress, Return if the
@@ -78,6 +80,9 @@
 //   .scr   ZX Spectrum SCREEN$: 6912 bytes of display file from $4000
 //   .c64   Commodore 64 hires bitmap: 8000 bytes of bitmap + 1000 bytes of
 //          screen RAM (colour nibbles)
+//   .cga   CGA00 grid of dostest (groundtruth_dos/): MS-DOS screen, CGA indices
+//   .c64   of another size: C64C2 grid of c64a8test (groundtruth_c64a8/): a
+//          screen in RGB, its own palette at the start of the file
 //   .vic   Commodore 64 rendered frame: 320x200 bytes of VIC-II colour
 //          numbers, for the multicolour pictures with sprites of the
 //          all-in-one games (Pirate Adventure, Voodoo Castle) and for the
@@ -120,6 +125,7 @@ static char scene_dir[1024];
 static const char *dump_dir;
 static int verbose;
 static int count_rects;
+static int print_tables;
 static int checks_run, checks_failed;
 
 static void scene_fail(const char *msg)
@@ -207,6 +213,7 @@ void scene_exit(void)
 
 #define TRUTH_W 320
 #define TRUTH_H 200
+#define TRUTH_UNSET 0xff /* a C64C2 pixel outside what was captured */
 
 /* Colour indices (into truth_pal) of the hardware picture. */
 static uint8_t truth[TRUTH_H][TRUTH_W];
@@ -215,7 +222,7 @@ static const glui32 *truth_pal;
 
 static int load_truth(const char *path)
 {
-    static uint8_t buf[TRUTH_W * TRUTH_H + 1];
+    static uint8_t buf[TRUTH_W * TRUTH_H + 1024];
     FILE *f = fopen(path, "rb");
     if (!f) {
         perror(path);
@@ -255,7 +262,35 @@ static int load_truth(const char *path)
             }
         return 1;
     }
-    fprintf(stderr, "%s: not a .scr (6912 bytes), .c64 (9000 bytes) or .vic (64000 bytes) golden\n", path);
+    /* The goldens of dostest and c64a8test, which are hardware screens too. */
+    int32_t header[3];
+    if (ext && strcmp(ext, ".cga") == 0 && size >= 13 && memcmp(buf, "CGA00", 5) == 0) {
+        static const glui32 cga_pal[4] = { 0x000000, 0x00ffff, 0xff00ff, 0xffffff };
+        memcpy(header, buf + 5, 8);
+        if (header[0] == TRUTH_W && header[1] == TRUTH_H && size == 13 + (size_t)TRUTH_W * TRUTH_H) {
+            truth_w = TRUTH_W;
+            truth_h = TRUTH_H;
+            truth_pal = cga_pal;
+            memcpy(truth, buf + 13, TRUTH_W * TRUTH_H);
+            return 1;
+        }
+    }
+    if (size >= 17 && memcmp(buf, "C64C2", 5) == 0) {
+        static glui32 own_pal[255];
+        memcpy(header, buf + 5, 12);
+        size_t data = 17 + (size_t)header[2] * 3;
+        if (header[0] == TRUTH_W && header[1] == TRUTH_H && header[2] < 255
+            && size == data + (size_t)TRUTH_W * TRUTH_H) {
+            for (int i = 0; i < header[2]; i++)
+                own_pal[i] = buf[17 + i * 3] << 16 | buf[18 + i * 3] << 8 | buf[19 + i * 3];
+            truth_w = TRUTH_W;
+            truth_h = TRUTH_H;
+            truth_pal = own_pal;
+            memcpy(truth, buf + data, TRUTH_W * TRUTH_H);
+            return 1;
+        }
+    }
+    fprintf(stderr, "%s: not a .scr (6912 bytes), .c64 (9000 bytes), .vic (64000 bytes), .cga or C64C2 golden\n", path);
     return 0;
 }
 
@@ -319,7 +354,8 @@ static void check(char *args)
     for (int y = 0; y < h; y++)
         for (int x = 0; x < w; x++) {
             int tx = x + dx, ty = y + dy;
-            if (canvas[y][x] == UNSET || tx < 0 || ty < 0 || tx >= truth_w || ty >= truth_h)
+            if (canvas[y][x] == UNSET || tx < 0 || ty < 0 || tx >= truth_w || ty >= truth_h
+                || truth[ty][tx] == TRUTH_UNSET)
                 continue;
             total++;
             if (canvas[y][x] == truth_pal[truth[ty][tx]])
@@ -344,6 +380,30 @@ static void check(char *args)
 
 // ---- Events --------------------------------------------------------------------
 
+static void print_game_tables(void)
+{
+    printf("start %d lights %d\n", MyLoc, GameHeader.LightTime);
+    for (int i = 0; i <= GameHeader.NumRooms; i++)
+        printf("room %d image %d exits %d %d %d %d %d %d \"%s\"\n", i, Rooms[i].Image,
+               Rooms[i].Exits[0], Rooms[i].Exits[1], Rooms[i].Exits[2],
+               Rooms[i].Exits[3], Rooms[i].Exits[4], Rooms[i].Exits[5], Rooms[i].Text ? Rooms[i].Text : "");
+    for (int i = 0; i <= GameHeader.NumItems; i++)
+        printf("item %d image %d flag %d loc %d \"%s\"\n", i, Items[i].Image, Items[i].Flag,
+            Items[i].InitialLoc, Items[i].Text ? Items[i].Text : "");
+    for (int i = 0; i <= GameHeader.NumActions; i++) {
+        printf("action %d verb %d noun %d if", i, Actions[i].Vocab / 150, Actions[i].Vocab % 150);
+        for (int c = 0; c < 5; c++)
+            printf(" %d:%d", Actions[i].Condition[c] % 20, Actions[i].Condition[c] / 20);
+        printf(" do %d %d %d %d\n", Actions[i].Opcode[0] / 150, Actions[i].Opcode[0] % 150,
+            Actions[i].Opcode[1] / 150, Actions[i].Opcode[1] % 150);
+    }
+    for (int i = 0; i <= GameHeader.NumMessages; i++)
+        printf("message %d \"%s\"\n", i, Messages[i]);
+    for (int i = 0; i <= GameHeader.NumWords; i++)
+        printf("word %d \"%s\" \"%s\"\n", i, Verbs[i], Nouns[i]);
+    exit(0);
+}
+
 void scene_select(event_t *ev)
 {
     /* A game spinning on timer events forever is a broken scene, not a hang. */
@@ -352,6 +412,8 @@ void scene_select(event_t *ev)
     memset(ev, 0, sizeof *ev);
     for (;;) {
         fakeglk_window *win = fakeglk_requesting_window();
+        if (print_tables && win)
+            print_game_tables();
         if (fakeglk_timer_ms && (ticks_owed > 0 || !win)) {
             if (ticks_owed > 0)
                 ticks_owed--;
@@ -449,13 +511,15 @@ int main(int argc, char **argv)
             verbose = 2;
         else if (strcmp(argv[arg], "-c") == 0)
             count_rects = 1;
+        else if (strcmp(argv[arg], "-t") == 0)
+            print_tables = 1;
         else if (strcmp(argv[arg], "-d") == 0 && arg + 1 < argc)
             dump_dir = argv[++arg];
         else
             break;
     }
     if (arg != argc - 1) {
-        fprintf(stderr, "usage: %s [-v|-vv] [-c] [-d dumpdir] <file.scene>\n", argv[0]);
+        fprintf(stderr, "usage: %s [-v|-vv] [-c] [-t] [-d dumpdir] <file.scene>\n", argv[0]);
         return 2;
     }
     scene_path = argv[arg];

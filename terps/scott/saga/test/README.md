@@ -169,6 +169,13 @@ README with its capture recipe. Open work is in `TODO.md`.
       full set found one renderer bug: room pictures are centred by the
       original (`left = (40 - width) / 2`), which `c64_small.c` now does
       in place of its "left < 10 → column 11" guess.
+- Every picture of the Spectrum Gremlins (English, German, Spanish), Super
+      Gran and Savage Island I and II, gang animations included (309 scenes,
+      `<game>_pictures_zx`, written by `uk_scenes.py`). Samples of those games
+      on the C64, with animations (`c64_capture.py` got `!hwnext`), and of the
+      US Hulk on the Atari 8-bit and MS-DOS, drawn through
+      `PutPixelWithWidth()` (`hulkus_atari8`, `hulkus_dos`). Three Savage
+      pictures differ; see `TODO.md`.
 - **C64/A8 object-overlay golden — investigated, NOT 100%-reachable.**
       Spider-Man's west room (background R001 + objects B015 gem-pedestal +
       B016 orb-altar) composites to **99.80%** (`!cliptop 2`, dx=56 dy=33) and

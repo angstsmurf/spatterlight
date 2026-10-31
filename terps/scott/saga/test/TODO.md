@@ -3,29 +3,21 @@
 Goal: pictures that look like the originals'. What is already tested and settled
 is in `README.md`.
 
-## Coverage
-
-- [ ] Not covered yet: the Gremlins gang animations (square, road), German and
-      Spanish Gremlins, Super Gran, Savage Island, C64 animations
-      (`c64_capture.py` has no `!hwnext`).
-- [ ] Not covered yet: the US SAGA bitmap pictures on MS-DOS and the Atari
-      8-bit as the interpreter draws them. `dostest` and `c64a8test` plot
-      through their own stubs, so nothing goes through `PutPixelWithWidth()`
-      in `sagagraphics.c` and its run merging (2026-10-14). That was checked
-      once by hand: scratch scenes with a `!check` after every walkthrough
-      command, `scenetest -d` with a binary from before and one from after,
-      all 967 frames identical. The C64 ones are covered since 2026-10-31
-      (`groundtruth_scene/hulkus_pictures_c64`, `claymorgueus_pictures_c64`,
-      every picture of both games, `us_scenes.py`); a scene with a hardware
-      dump of one room per other machine would keep those checked.
-      `scenetest -c` prints the rectangles filled per check.
-
 ## Divergences from the originals (found by the scene tests)
 
 Where a picture is compared anyway it is a `!check ... min=N` in its scene,
 with a comment there; those that can't be compared are left out of the scenes.
 Decide per item whether the interpreter should follow the original.
 
+- [ ] **Savage Island part I, room 24 (ZX).** Action 59 makes this room dark,
+      and the interpreter goes dark. The original stays lit, across turns and
+      on a natural walk from room 23. Not understood yet. `min=` in
+      `savage_pictures_zx/room24` (63%).
+- [ ] **Savage Island part I, the bear (ZX).** In room 11 the interpreter draws
+      the bear's own picture 13, the original the beach bear, picture 9; on the
+      beach (room 8) the interpreter draws the beach bear (`scott_display.c`),
+      the original no bear at all. `min=` in `room11` (70%) and
+      `item020_room08` (87%).
 - [ ] **Howarth vector pictures, line colour (ZX).** The Spectrum original
       draws its lines in the complement of the background colour (cyan on the
       oak's red, magenta on the hedge's green); the interpreter uses black,
@@ -162,4 +154,3 @@ is written in **true C64 RGB** and the compare is exact RGB-equality (drop the
 ### References
 - Colodore: https://www.colodore.com (generator + .vpl)
 - VICE palettes ship as `colodore.vpl`, `pepto-pal.vpl`, `pepto-ntsc.vpl`
-
