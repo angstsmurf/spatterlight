@@ -675,7 +675,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 // frame and had it committed before then: it is timed from here, including
 // the style mask change below (which takes about 50 ms), and ends a margin
 // before the deadline.
-static const NSTimeInterval kExitFullScreenMargin = 0.05;
+static const NSTimeInterval kExitFullScreenMargin = 0.08;
 
 - (void)window:(NSWindow *)window startCustomAnimationToExitFullScreenWithDuration:(NSTimeInterval)duration {
     NSDate *startDate = [NSDate date];

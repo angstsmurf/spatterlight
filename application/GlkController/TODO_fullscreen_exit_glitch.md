@@ -1,9 +1,12 @@
 # Fullscreen exit: content briefly stands still while the border moves
 
-Status: cause found and fixed in the working tree (2026-10-30); awaiting the
-user's confirmation on their own runs. The temporary diagnostics are still in
-`GlkController+FullScreen.m`, marked `TEMPORARY`, and should be removed once
-the fix is confirmed. Then delete this file.
+Status: the end-of-animation hold is found and fixed (committed 2026-10-30,
+margin widened to 80 ms 2026-10-31). A second failure on the first exit
+after a launch is reproduced but not explained (see "The first couple of
+exits" section); awaiting the user's confirmation on their own runs. The
+temporary diagnostics are still in `GlkController+FullScreen.m`, marked
+`TEMPORARY`, and should be removed once the fix is confirmed. Then delete
+this file.
 
 ## The problem
 
@@ -57,8 +60,9 @@ In `window:startCustomAnimationToExitFullScreenWithDuration:`:
   `stepFullScreenAnimationWithDuration:from:step:completion:` (the old
   three-argument method calls it with "now", so the enter animation is
   unchanged).
-- The steps run for `duration - kExitFullScreenMargin` (margin 0.05 s), so the
-  final frame is set and committed about 50 ms before the system takes over.
+- The steps run for `duration - kExitFullScreenMargin` (margin 0.08 s), so the
+  final frame is set and committed about 80 ms before the system takes over.
+  The margin was 0.05 s at first; see "Results with margin 80 ms" below.
 
 The first step now arrives 43–79 ms after the call with eased 0.02–0.07; the
 window simply stands still for the style mask change, which is a start delay,
@@ -100,16 +104,66 @@ section, the `fsExitLog*` category methods, the hooks in the exit method and
 in `windowDidEnterFullScreen:`/`windowDidExitFullScreen:`, and
 `#include <unistd.h>`), then `defaults delete net.ccxvii.spatterlight FullscreenExitLog`.
 
+## The "first couple of exits after opening a game" pattern
+
+The user sees the glitch on the first exits after opening a game, then not
+again until the game is closed. Checked on 2026-10-31 with fresh launches of
+the isolated app (`firstexits.sh`: launch, open Curses, three green-button
+exits starting as soon as the window is up; with and without a kept home so
+the game also autorestores). 13 first exits and 32 later exits in all.
+
+What the captures show is a second, different failure, seen only on first
+exits after a launch (2 of 13; never on a later exit):
+
+- `mk1_1` (margin 80 ms, autorestored game): the border shrinks normally
+  until about step 14 (~300 ms), then the picture stops updating while the
+  frame keeps moving: the status band's left edge stays at x=173 from 806 ms
+  to 1014 ms of the capture while the right edge goes on from 713 to 567, and
+  the final picture appears at 1033 ms, right after the Space switch. That is
+  exactly "content stationary while the border moves left".
+- `m1_1` (margin 80 ms, fresh home): the window is never seen shrinking at
+  all. The whole fullscreen Space slides out to the right as one picture with
+  the window still at its fullscreen layout, then a blank white window stands
+  at the final frame from 913 ms, and the content appears at 1034 ms.
+
+The app's log is the same in these two exits as in the good ones: every step
+sets its frame on time (last step 424–435 ms, Space change 530–536 ms), the
+server bounds follow, and every step's Core Animation commit completes in
+20–55 ms. The pictures left the app; the window server or the Space
+transition did not show them. So this one is not the timing bug fixed above,
+and nothing in the log distinguishes it. It needs system-side tracing (or a
+guess at a mitigation, such as doing the style mask change at the end of the
+animation instead of the start, since on these cold exits the transition may
+be capturing the window into the departing Space's picture) before anything
+is changed.
+
+What the fix above does for first exits: the end-of-animation hold, which
+happened on every exit before the fix, is gone on first exits too. The first
+exit after a launch is the slowest one (first step 76–83 ms after the call,
+later exits 38–60 ms; the mid-animation commit stall at step 13–14 is 38–55
+ms instead of 23–32), which is why the old timing hurt most there. With the
+old timing restored for comparison, the hold came back in 3 of 9 exits
+(39–75 ms), not only on first ones; the Space change itself varies between
+506 and 575 ms, and the old timing glitched whenever it came early.
+
+Results with margin 80 ms (15 exits, 5 launches): last step 423–438 ms,
+Space change 508–536 ms, so at least 70 ms of slack; hold 0 ms in every
+capture except the two first-exit cases above, where the tracker's "hold"
+numbers (16 ms at R 1000, 68 ms at R 568) are misreadings of the frozen
+picture, not an end hold. With margin 50 ms the slack was 40–55 ms and one
+single-frame (17 ms) hold was seen on a first exit, hence the change.
+
 ## Harness
 
-In `/private/tmp/claude-502/-Users-administrator-spatterlight/872c519e-caa6-43a5-b06c-48ccc01a76c1/scratchpad/`:
+In `~/spatterlight-harness/fullscreen-exit/` (moved out of the session
+scratchpad, which is wiped daily):
 
-- `relaunch.sh` copies the Debug build to `iso/SpatFS.app` with bundle ID
-  `net.tmp.spatfs`, its own HOME and store, the log on, and opens Curses.
-- `runexit.sh N tag` runs N green-button exits from a window moved to (20, 60),
-  with the time in fullscreen cycling 0.4/0.8/1.5/3/6 s, the time between the
-  title-bar reveal and the click cycling 0.25/0.5/0.9/1.3 s, the pointer
-  sliding to the button and moving away during every other exit.
+- `mkiso.sh` copies the Debug build to `iso/SpatFS.app` with bundle ID
+  `net.tmp.spatfs` and signs it ad hoc.
+- `firstexits.sh LAUNCHES EXITS tag [keephome]` launches that copy afresh
+  (own HOME, `SPATTERLIGHT_TEST_STORE=spatfs`, the log on), opens `curses.z5`,
+  moves the window to (20, 60) and does EXITS green-button exits, capturing
+  each; `keephome` keeps the home folder so the game autorestores.
 - `reccap2 DIR SECONDS Y0 HEIGHT` captures a full-width band of the display at
   60 fps with ScreenCaptureKit into memory and writes PNGs named by ms.
   `mouse move|click|path` posts CGEvents. `act.applescript` drives the window
@@ -118,6 +172,10 @@ In `/private/tmp/claude-502/-Users-administrator-spatterlight/872c519e-caa6-43a5
   the title quote box) against the window's right edge, flags mismatches, and
   prints the "pre-final hold": how long the last non-final picture stayed on
   screen before the final one. That hold is the glitch's measurable signature.
+- `summ.py fsexit.log` prints one line per exit from the diagnostics log:
+  first step, last step, completion, Space change, longest gap and step.
+- `fsexit_fixed_nk.log`, `fsexit_oldtiming.log`, `runs_*.txt` are the logs and
+  capture results behind the numbers above.
 
 Harness notes kept from before: test only on an isolated copy with its own
 bundle ID and inline `tell (first application process whose bundle identifier
