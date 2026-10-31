@@ -56,9 +56,14 @@ $(OBJDIR)/%.o: %.c | $(OBJDIR)
 check: level9_hl
 	@python3 $(PROBE_DIR)/run_script_tests.py test test ./level9_hl
 
+# Plays each script of test/walkthroughs/ through to the end of its game. Rows
+# whose game image is not in $L9_GAMES are skipped.
+walkthroughs: level9_hl
+	@python3 test/walkthroughs/run_walkthroughs.py
+
 clean:
 	rm -rf $(OBJDIR) level9_hl
 
-.PHONY: clean check
+.PHONY: clean check walkthroughs
 
 -include $(OBJS:.o=.d)

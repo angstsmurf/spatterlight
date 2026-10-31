@@ -60,3 +60,31 @@ replay is deterministic, and that is all the test needs.
 | `z80-scape1`…`3`, `z80-ghost1`, `z80-ingrid128` | 128K snapshots of the releases with separate a-code (`try_z80_split_join`). `z80-scape1` has a page other than 0 at 0xC000 and is only joined after the exchange |
 | `tzx-*-128k-*`, `dsk-*` | the same join from tape blocks and from +3/CPC disk files |
 | `tzx-jewels-of-darkness-*`, `dsk-jewels-of-darkness` | a compilation: the first game is carved out |
+
+## Walkthroughs
+
+`make -f Makefile.headless walkthroughs` plays each script of `walkthroughs/`
+through to the end of its game and checks the last score and a phrase from the
+ending. The game images are not in the repository: they are looked for under
+`$L9_GAMES`, default `~/Downloads/Level 9 stuff`, and a row whose image is missing
+or differs is skipped.
+
+The scripts come from Andreas Scherrer's L9TestSuite, some of them based on
+solutions by Jacob Gunness and Dorothy Millard. They have been repaired to reach
+the ending in `level9_hl`, whose random numbers come from the determinism array
+unless a `#SEED` line asks for a seed, so they are only repeatable in that build.
+
+Price of Magik, Red Moon and Knight Orc depend heavily on random events, so a small
+edit to their scripts can break a later step. Try a few extra `WAIT`s in that case.
+
+Knight Orc's gnome asks for a word from the manual. `ORK` works for every question
+on this image, as does `GROK`. `#cheat` cannot find it: it only reports a word when
+the game calls its `restore` function, which this mid-game check never does.
+
+`snowball_v3` expects 950 of 1000. The winning `PULL LEVER` sets the last of the 20
+score flags, but the game then accepts only `SAVE`, `RESTORE` and `RESTART`, so the
+final score is never printed. The script's last `SCORE` comes just before the lever.
+
+Lancelot's mid-script `SCORE` before the part change is needed: only part 1's score
+routine awards the 20 points for emptying the dungeon, and it does so when `SCORE` is
+typed.

@@ -3121,7 +3121,8 @@ void L9Random(void)
 	fprintf(f," %d",randomseed);
 #endif
 #ifdef SPATTERLIGHT
-	if (gli_determinism) {
+	/* A seed asked for with #seed takes precedence: scripts rely on it. */
+	if (gli_determinism && constseed == 0) {
 		randomseed = random_array[random_counter];
 		random_counter++;
 		if (random_counter > 99)
