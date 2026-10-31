@@ -3,7 +3,7 @@
 Byte-exact regression tests for the image-format renderers the Scott
 interpreter ships, and what they found. The goldens live in the
 `groundtruth_*/` folders, which are local and not committed; each has its own
-README with its capture recipe. Open work is in `TODO.md`.
+README with its capture recipe.
 
 ## Renderers
 
@@ -121,6 +121,55 @@ README with its capture recipe. Open work is in `TODO.md`.
 
 ## Settled differences from the originals
 
+Unless an entry says otherwise, the interpreter stays as it is, because the
+original has a bug or because its picture looks better. Where a picture is compared anyway it
+is a `!check ... min=N` in its scene, with a comment there.
+
+- **Savage Island part I, room 24 (ZX).** The action table makes the room dark,
+      as it is in other versions and in the interpreter; the original stays lit
+      (63%).
+- **Savage Island part I, the bears (ZX).** Each bear's background matches the
+      room it was made for. The original draws the beach bear, picture 9, in room
+      11 and no bear on the beach; the interpreter draws picture 13 in room 11 and
+      picture 9 on the beach (`scott_display.c`). 70% and 87%.
+- **Adventureland forest (ZX), one cell.** The picture asks for tile
+      132 + 128 = 260 at cell (5,8). The original reads the 8 bytes past its
+      256-tile table, the start of the image address table, and shows them as
+      noise; the interpreter wraps around to tile 4, a foliage tile. 22 pixels. It
+      could be replicated, but it is hardly noticeable.
+- **Robin of Sherwood, Herne's cave (ZX).** The original leaves a mark of the
+      outside waterfall on the cave picture: the six columns it occupied get
+      scrolled down one more pixel on some rows, which ones depending on the timing
+      of the keypresses (236 pixels in the capture, 99.04%).
+- **Hulk (C64), last line of every picture.** The original switches from bitmap
+      to text mode in the middle of the picture's bottom line: from 112 pixels in,
+      that line shows the empty text screen. 99.29–99.83%.
+- **Spider-Man, Madame Web (C64), one cell.** The tile at cell (24,3) has the
+      wrong colours in the T64 copy; the interpreter patches it (`image_patches` in
+      `sagadraw.c`).
+- **Hulk tape loading screen (ZX).** The original starts by itself once loaded,
+      and the ROM prints `Bytes: hulk (tm)` across the picture for the next block;
+      the interpreter shows the clean picture until a key.
+- **Howarth vector pictures, line colour (ZX).** The Spectrum original draws its
+      lines in the complement of the background colour (cyan on the oak's red,
+      magenta on the hedge's green); the interpreter uses black, white on a black
+      background, like the C64 original. `line_colour = bg_colour ^ 7` in
+      `DrawHowarthVectorPicture` (`ai_uk/line_drawing.c`) would follow it, taking
+      `baton_zx` oak from 93.36% to 97.61% and hedge from 91.36% to 98.75%.
+- **Howarth vector pictures, colour clash (ZX and C64).** Both machines have two
+      colours per 8x8 cell, so an outline changes colour where a fill touches its
+      cell; the interpreter gives every pixel its own colour. The fills match
+      everywhere. `baton_zx` and `baton_c64`: forest 95.26%, stream 93.97%, clearing
+      97.63%, oak 93.36% / 95.96%, hedge 91.36% / 98.75%.
+- **Hulk and Claymorgue US (C64), the palette is global.** Every picture drawn
+      writes its four colours into the whole screen and colour RAM, so a room with
+      object pictures over it ends up in the colours of the last one drawn: Hulk's
+      chair room after the ring (98.4%), its bees after the wax (99.7%), the large
+      hole in the ring's red (94.8%). The interpreter keeps each picture's own
+      colours, which is what the pictures were drawn with.
+- **Seas of Blood, start room before the first move.** The original draws it
+      before the opening automatic actions have placed the coastline; the
+      interpreter draws it after. Not checked for that reason.
 - **Seas of Blood, the stone hall (C64), two cells.** Deliberate: the
       patch table of `sagadraw.c` (`SEAS_OF_BLOOD_C64`, image 34, offset 471)
       takes a stray flip bit off one byte. Rooms 28, 61 and 69 share
@@ -174,8 +223,9 @@ README with its capture recipe. Open work is in `TODO.md`.
       `<game>_pictures_zx`, written by `uk_scenes.py`). Samples of those games
       on the C64, with animations (`c64_capture.py` got `!hwnext`), and of the
       US Hulk on the Atari 8-bit and MS-DOS, drawn through
-      `PutPixelWithWidth()` (`hulkus_atari8`, `hulkus_dos`). Three Savage
-      pictures differ; see `TODO.md`.
+      `PutPixelWithWidth()` (`hulkus_atari8`, `hulkus_dos`). Savage Island's room 24
+      and two bear pictures differ through bugs of the Spectrum original; see
+      Settled differences from the originals.
 - The C64 colours are VICE's `colodore.vpl` in all three renderers:
       `c64colors` in `common_sagadraw/c64a8draw.c` (also used by `c64_small.c`)
       and `c64_rgb` in `aiukgraphics/aiukpalette.c`. `c64test` keeps a copy,

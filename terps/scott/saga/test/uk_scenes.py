@@ -88,9 +88,9 @@ HW_ONLY = {("gremlins", "room42"): ["7b21=0400"], ("gremlins_german", "room42"):
 
 # Pictures that are known to differ: (game, scene) -> (pixels that match, why).
 INEXACT = {
-    ("savage", "room11"): (17229, "the interpreter draws the bear's own picture 13 here; the original the beach bear, picture 9"),
-    ("savage", "item020_room08"): (21290, "the interpreter draws the beach bear here (scott_display.c); the original no bear at all"),
-    ("savage", "room24"): (15561, "the action table makes this room dark and the interpreter does so; the original stays lit"),
+    ("savage", "room11"): (17229, "a bug of the original: it draws the beach bear, picture 9, here, whose background belongs to the beach; the interpreter draws picture 13, made for this room"),
+    ("savage", "item020_room08"): (21290, "a bug of the original: it draws no bear on the beach; the interpreter draws the beach bear, picture 9, whose background matches (scott_display.c)"),
+    ("savage", "room24"): (15561, "a bug of the original: the action table makes this room dark, as it is in other versions and in the interpreter, but it stays lit"),
 }
 
 # Gremlins frames: which of the two the original shows first depends on what
