@@ -3953,7 +3953,7 @@ L9BOOL inputV2(int *wordcount)
 			}
 
 			++ibuffptr;
-			if (!IsDictionaryChar(x&0x7f)) x = 0;
+			if ((x&0x7f)>=0x20 && !IsDictionaryChar(x&0x7f)) x = 0;
 			if (tolower(x&0x7f) != tolower(a))
 			{
 				while (x>0 && x<0x7f) x=*list0ptr++;
