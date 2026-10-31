@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-// aslx-state.cc -- Quest 5 save/restore: the v1 snapshot format (TODO §5).
+// aslx-state.cc -- Quest 5 save/restore: the v1 snapshot format.
 //
 // Design: a restore RELOADS the original game file into a fresh World/Interp
 // and applies this snapshot on top, so only DYNAMIC state is serialized --

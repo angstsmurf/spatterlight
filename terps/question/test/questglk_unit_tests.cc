@@ -289,7 +289,7 @@ test_style_combo ()
 void
 test_style_assign ()
 {
-  /* Only what the old fixed mapping printed: every state keeps its home. */
+  /* Only states with a natural home: every state keeps its home. */
   StyleCensus plain;
   plain.count (0, "Some body text.", false);
   plain.count (COMBO_BOLD, "bold", false);

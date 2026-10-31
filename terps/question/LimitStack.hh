@@ -27,7 +27,6 @@
 template <class T> class LimitStack {
   size_t stack_size, cur_ptr, end_ptr;
   std::vector<T> data;
-  //bool last_push;
 
 
   size_t dofwd (size_t i) const { i ++; return i == stack_size ? 0 : i; }
@@ -35,17 +34,10 @@ template <class T> class LimitStack {
   void fwd (size_t &i) const { i = dofwd(i); }
   void bwd (size_t &i) const { i = dobwd(i); }
 
-  /*
-  void fwd (uint &i) { i ++; if (i == stack_size) i = 0; }
-  void bwd (uint &i) { i = (i == 0 ? stack_size : i) - 1; }
-  uint dofwd (uint i) { uint rv = i; fwd(rv); return rv; }
-  uint dobwd (uint i) { uint rv = i; bwd(rv); return rv; }
-  */
-
  public:
   LimitStack(uint size) : stack_size (size), cur_ptr (0), end_ptr (size - 1), data (std::vector<T> (size)) { }
 
-  void push (T &item) 
+  void push (T &item)
   {
     if (cur_ptr == end_ptr)
       fwd (end_ptr);
@@ -53,8 +45,8 @@ template <class T> class LimitStack {
     fwd (cur_ptr);
   }
 
-  T &pop() 
-  { 
+  T &pop()
+  {
     assert (!is_empty());
     bwd (cur_ptr);
     return data[cur_ptr];
@@ -63,19 +55,19 @@ template <class T> class LimitStack {
   bool is_empty() { return dobwd (cur_ptr) == end_ptr; }
 
   size_t size()
-  { 
+  {
     if (cur_ptr > end_ptr)
-      return cur_ptr - end_ptr - 1; 
-    else 
-      return (cur_ptr + stack_size) - end_ptr - 1; 
+      return cur_ptr - end_ptr - 1;
+    else
+      return (cur_ptr + stack_size) - end_ptr - 1;
   }
 
-  void dump (std::ostream &o) 
+  void dump (std::ostream &o)
   {
-    o << size() << ": < "; 
-    for (uint i = dobwd(cur_ptr); i != end_ptr; bwd(i)) 
-      o << data[i] << " "; 
-    o << ">"; 
+    o << size() << ": < ";
+    for (uint i = dobwd(cur_ptr); i != end_ptr; bwd(i))
+      o << data[i] << " ";
+    o << ">";
   }
 
   T &peek()

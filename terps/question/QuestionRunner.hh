@@ -30,9 +30,7 @@
 #include <string>
 #include <iostream>
 #include "general.hh"
-//#include "Token.hh"
 
-//using namespace std;
 
 typedef std::vector<std::string> vstring;
 typedef std::vector<vstring> v2string;
@@ -41,14 +39,14 @@ enum question_justification { JUSTIFY_LEFT, JUSTIFY_RIGHT, JUSTIFY_CENTER };
 
 /* `size' is in points; 0 is the game's default size (`default fontsize',
  * 10 unless the game says otherwise), which is what |s00 asks for. */
-struct QuestionFontStyle 
+struct QuestionFontStyle
 {
   bool is_underlined, is_italic, is_bold;
   std::string color, font;
   int size;
   question_justification justify;
 
-  QuestionFontStyle () : is_underlined(false), is_italic(false), is_bold(false), 
+  QuestionFontStyle () : is_underlined(false), is_italic(false), is_bold(false),
 		     color(""), font (""), size (0), justify (JUSTIFY_LEFT) {}
 };
 
@@ -103,7 +101,6 @@ private:
   QuestionFontStyle cur_style;
   std::string default_font;
   int default_size = 10;
-  //string fgcolor, bgcolor;
 
 public:
   /* The runner this interface is attached to, set by QuestionRunner's constructor
@@ -148,8 +145,6 @@ public:
    * transcript, so emit a single blank line as a separator instead. */
   virtual QuestionResult clear_screen () { return print_newline (); }
 
-  //virtual QuestionResult set_foreground (string) { return r_not_supported; }
-  //virtual QuestionResult set_background (string) { return r_not_supported; }
   virtual void set_foreground (const std::string &) = 0;
   virtual void set_background (const std::string &) = 0;
   void set_default_font_size (const std::string &s);
@@ -172,11 +167,11 @@ public:
   virtual QuestionResult play_sound (const std::string & /* filename */,
 				 bool /* looped */, bool /* sync */)
   { return r_not_supported; }
-  
+
   /* Asks the user to type a free format string
    */
   virtual std::string get_string () = 0;
-  
+
   /* Presents a list with header 'info', and prompts the user to
    * choose one item from 'choices'.
    * returns the index chosen.
@@ -215,7 +210,7 @@ public:
   virtual ~QuestionInterface() {}
 
   /* This is a notification that some object has changed, and
-   * the interpreter may want to update the inventory or room object 
+   * the interpreter may want to update the inventory or room object
    * listings.
    */
   virtual void update_sidebars() { }
@@ -228,7 +223,7 @@ public:
 
 /* Callback for passing information from the UI to the execution core
  */
-class QuestionRunner 
+class QuestionRunner
 {
 protected:
   QuestionInterface *gi;

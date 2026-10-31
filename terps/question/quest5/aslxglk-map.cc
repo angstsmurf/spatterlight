@@ -54,7 +54,7 @@
  *    almost every game, but a game on black draws white exit lines.
  * Not carried over: pan/drag and zoom gestures, GridSquareClick, and the
  * custom-layer vocabulary (Grid_DrawSquare/Svg/Image/Shape...), which the
- * engine ignores for now.
+ * engine ignores.
  */
 
 #include "aslxglk-map.hh"

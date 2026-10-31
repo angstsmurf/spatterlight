@@ -796,7 +796,7 @@ void glk_main(void)
     if (!mainglkwin) {
         /* It's possible that the main window failed to open. There's
             nothing we can do without it, so exit. */
-        return; 
+        return;
     }
     glk_set_window(mainglkwin);
     /* Coloured text is judged against the theme measured on it. */
@@ -852,9 +852,8 @@ void glk_main(void)
     update_objwin(gr);
 
     /* Only arm the 1-second heartbeat if the game actually defines timers and
-     * real-time delays are enabled. Question used to request timer events
-     * unconditionally. The set of timers is fixed at load time, so a timerless
-     * game never needs the heartbeat at all. And when real-time delays are off
+     * real-time delays are enabled.  The set of timers is fixed at load time, so
+     * a timerless game never needs the heartbeat at all. And when real-time delays are off
      * -- as in the deterministic import tests --
      * suppressing the wall-clock ticks keeps the glk_select/NEXTEVENT count in
      * the input loop deterministic even for games that do use timers (e.g.

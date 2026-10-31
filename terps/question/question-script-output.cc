@@ -38,7 +38,7 @@ bool question_implementation::exec_ignored (const string &, string &,
 {
   /* Recognised statements with nothing to do here -- not "unrecognised
    * script".  helpclear/helpclose really do nothing in Quest 5 either
-   * (V4Game.Part2.cs:5782, 5988); mailto/modvolume/shell/shellexe drive
+   * (V4Game.Part2.cs:ExecuteScript); mailto/modvolume/shell/shellexe drive
    * host facilities Question does not provide; msgto and with are multiplayer
    * (QNSO); font and panes set up the Quest window, which a Glk text
    * frontend lays out itself, so they are ignored on purpose. */
@@ -52,7 +52,7 @@ bool question_implementation::exec_animate (const string &s, string &,
 {
   /* `animate <file>` and `animate persist <file>` are pictures: both go to
    * ShowPicture, at every ASL version and with no gate of their own
-   * (V4Game.Part2.cs:5850-5858), animation being a property of the file
+   * (V4Game.Part2.cs:ExecuteScript), animation being a property of the file
    * rather than of the statement.  `persist' asked Quest to leave the
    * window open; there is no window here.  GetParameter reads from the
    * line's first '<' and never looks at what comes before it, so skipping
@@ -103,7 +103,7 @@ bool question_implementation::exec_debug (const string &s, string &,
 
 /* "helpdisplaytext" is displaytext for the same reason helpmsg is msg: with no
  * separate help window it goes through DisplayTextSection unchanged
- * (V4Game.Part2.cs:5972-5975). */
+ * (V4Game.Part2.cs:ExecuteScript). */
 bool question_implementation::exec_displaytext (const string &s, string &,
 						string tok, std::string::size_type c1,
 						std::string::size_type c2)
@@ -120,12 +120,12 @@ bool question_implementation::exec_displaytext (const string &s, string &,
        * ends the displaytext with one trailing blank line.  (print_formatted
        * already appends a newline by default, so a second print_newline per
        * line would double-space the block -- e.g. Mansion's <intro> blanks.)
-       * For a single-line block this is identical to the old two-newline
-       * behaviour, so <win>/<lose> spacing is unchanged. */
+       * A single-line block therefore prints as the line and a blank line,
+       * the spacing <win>/<lose> need. */
       for (size_t i = 0; i < gb->data.size(); i ++)
 	/* From ASL 3.92 on each line goes through GetParameter first, so a
 	   text block can carry variables: DisplayTextSection prints
-	   GetParameter ("<" + line + ">") (V4Game.Part2.cs:4089-4096).
+	   GetParameter ("<" + line + ">") (V4Game.Part2.cs:DisplayTextSection).
 	   Riddle Run's <win> block greets the player by name, and printing
 	   the line raw left "#playername#" in the winning text. */
 	print_formatted (asl_version_ >= 392 ? eval_string (gb->data[i])
@@ -139,10 +139,10 @@ bool question_implementation::exec_displaytext (const string &s, string &,
 
 /* "helpmsg" is just "msg".  In Quest 4 it printed into the separate help
  * window; the Quest 5 player has no such window, so ExecuteScript sends it to
- * Print exactly like msg (V4Game.Part2.cs:5778-5781), and so does Question, which
- * likewise has one output stream.  It used to be a no-op here, which swallowed
+ * Print exactly like msg (V4Game.Part2.cs:ExecuteScript), and so does
+ * Question, which likewise has one output stream.  As a no-op it would swallow
  * ThunderClan Mystery 1's "***TYPER GET HERB***" prompt whole.  "helpclose"
- * and "helpclear" are the ones that really do nothing (ibid. 5782, 5988). */
+ * and "helpclear" are the ones that really do nothing (ibid. ExecuteScript). */
 bool question_implementation::exec_msg (const string &s, string &,
 					string tok, std::string::size_type c1,
 					std::string::size_type c2)
@@ -152,7 +152,7 @@ bool question_implementation::exec_msg (const string &s, string &,
     : "Expected parameter after helpmsg in ";
   /* Quest reads the message with GetParameter, which takes whatever lies
    * between the line's first '<' and its first '>' and never looks at what
-   * comes before the '<' (V4Game.cs:1858-1874).  So a modifier word
+   * comes before the '<' (V4Game.cs:GetParameter).  So a modifier word
    * between the statement and its parameter is simply invisible to it --
    * `nospeak`, the ASL keyword that suppresses the text-to-speech reading
    * of a message (Libraries/quest.dat:204), is the one games write.  Question
@@ -206,14 +206,15 @@ bool question_implementation::exec_picture (const string &s, string &,
    *   picture <file[@WxH][; caption]>        -- ASL 2.82 to 3.89
    *   picture <file>                         -- ASL >= 3.90, among the text
    *
-   * One if/else-if chain decides it (V4Game.Part2.cs:5836-5858).  `popup'
+   * One if/else-if chain decides it (V4Game.Part2.cs:ExecuteScript).  `popup'
    * is a word only from 3.90 on, and before then a plain `picture' *is*
    * the popup, with the size and caption syntax that goes with it.  From
    * 3.90 the plain form draws among the text and splits nothing, so a
    * filename there keeps any '@' or ';' it happens to contain.  Below 2.82
    * `picture' is not a statement at all -- see exec_show for the spelling it
    * had then.  `picture close' closes a window Question never opened, so it
-   * does nothing here, as it does nothing in QuestViva (ibid. 5836). */
+   * does nothing here, as it does nothing in QuestViva (ibid. ExecuteScript).
+   * */
   tok = next_token (s, c1, c2);
   if (ci_equal (tok, "close"))
     return true;
@@ -261,7 +262,7 @@ bool question_implementation::exec_play_sound (const string &s, string &,
     }
   gi->play_sound (fname, looped, sync);
   /* A synchronous sound holds the turn until it has played out, and Quest
-   * suspends for it too (V4Game.cs:7692-7697). */
+   * suspends for it too (V4Game.cs:PlayMediaAsync). */
   if (sync)
     suspend_turn ();
   return true;

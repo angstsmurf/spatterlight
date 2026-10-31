@@ -40,7 +40,7 @@ void question_implementation::run_procedure (const string &pname)
 {
   /* O(1) name_index lookup rather than a case-insensitive linear scan over
      every procedure block on every call (a profile hotspot).  find_by_name
-     returns the first-defined match, exactly what the old scan did. */
+     returns the first-defined match. */
   const QuestionBlock *proc = gf.find_by_name ("procedure", pname);
   if (proc == NULL)
     {
@@ -84,7 +84,7 @@ string question_implementation::run_function (const string &pname, vector<string
 }
 
 /* $removeformatting(...)$: strip Quest's own "|" markup, code by code
- * (RemoveFormatting, V4Game.cs:121-220).  The table is the original's, in the
+ * (V4Game.cs:RemoveFormatting).  The table is the original's, in the
  * original's order -- the one-letter codes are tested before the "x" ones they
  * share a letter with, "|s" eats three characters (a point size) and every
  * colour is two.
@@ -161,10 +161,11 @@ string question_implementation::game_function (const string &pname, bool &found)
     }
   /* Quest's deprecated "gettag": the parameter of the first line in the named
    * ROOM block that begins with the given statement, with nested define blocks
-   * skipped (FindStatement, V4Game.Part2.cs:6164-6189).  It is room-scoped even
+   * skipped (V4Game.Part2.cs:FindStatement).  It is room-scoped even
    * for names that are also objects -- "gettag" predates the object namespace
-   * (V4Game.cs:6896-6900) -- and a name with no room block yields "", because
-   * DefineBlockParam hands back an empty block whose line range is empty.
+   * (V4Game.cs:DoInternalFunction) -- and a name with no room block yields "",
+   * because DefineBlockParam hands back an empty block whose line range is
+   * empty.
    *
    * "The Devil's Bargain" ships a hand-rolled standard library that leans on it
    * throughout: a container is a room whose contents the player is walked into
@@ -196,8 +197,8 @@ string question_implementation::game_function (const string &pname, bool &found)
 	  string l = lcase (trim (line));
 	  if (l.compare (0, tag.length (), lcase (tag)) != 0)
 	    continue;
-	  /* GetParameter: from the first '<' to the first '>' (V4Game.cs:1865),
-	   * then the usual #/%/$ substitutions. */
+	  /* GetParameter: from the first '<' to the first '>'
+	   * (V4Game.cs:GetParameter), then the usual #/%/$ substitutions. */
 	  string::size_type lt = line.find ('<'), gt = line.find ('>');
 	  if (lt == string::npos || gt == string::npos || gt < lt)
 	    return "";
@@ -227,7 +228,8 @@ string question_implementation::game_function (const string &pname, bool &found)
 	return bad_arg_count(pname);
 
       string timername = function_args[0];
-      /* Timer names CI, like timeron/timeroff (V4Game.cs:7087). */
+      /* Timer names CI, like timeron/timeroff (V4Game.cs:DoInternalFunction).
+       * */
       for (const auto &timer: state.timers)
 	if (ci_equal (timer.name, timername))
 	  return timer.is_running ? "1" : "0";
@@ -239,17 +241,18 @@ string question_implementation::game_function (const string &pname, bool &found)
 	return bad_arg_count (pname);
 
       /* GetObjectId only finds an object that Exists, i.e. is not hidden, and
-       * $displayname$ answers "!" when it finds none (V4Game.cs:6862-6871,
-       * 6174-6179).  q3ext.qlb's realname function leans on that: it matches
-       * the player's noun against the display name of everything in the room,
-       * and a hidden object must not answer -- Get Out Of The House keeps a
-       * hidden `pillow 2' in the room its pillow is taken from. */
+       * $displayname$ answers "!" when it finds none
+       * (V4Game.cs:DoInternalFunction/GetObjectId).  q3ext.qlb's realname
+       * function leans on that: it matches the player's noun against the
+       * display name of everything in the room, and a hidden object must not
+       * answer -- Get Out Of The House keeps a hidden `pillow 2' in the room
+       * its pillow is taken from. */
       for (const auto &o: state.objs)
 	if (ci_equal (o.name, function_args[0]) &&
 	    has_obj_property (o.name, "hidden"))
 	  return "!";
-      /* The alias itself, even an empty one (V4Game.cs:6871); only the lists
-       * fall back to the name. */
+      /* The alias itself, even an empty one (V4Game.cs:DoInternalFunction);
+       * only the lists fall back to the name. */
       string alias;
       if (get_obj_property (function_args[0], "alias", alias) && alias.empty())
 	return "";
@@ -274,17 +277,18 @@ string question_implementation::game_function (const string &pname, bool &found)
       if (function_args.size() != 0)
 	return bad_arg_count(pname);
 
-      /* Deliberately 0 where QuestViva hardcodes "1" (V4Game.cs:7189):
-       * QuestionInterface::speak is r_not_supported in every host, so a game
-       * branching on this would route its text into a no-op. */
+      /* Deliberately 0 where QuestViva hardcodes "1"
+       * (V4Game.cs:DoInternalFunction): QuestionInterface::speak is
+       * r_not_supported in every host, so a game branching on this would route
+       * its text into a no-op. */
       return "0";
     }
   else if (pname == "numberparameters")
     return string_int (function_args.size());
   /* "thisobject" and "objectname" are the same thing -- the calling object's
-   * real name -- and "thisobjectname" is its alias (V4Game.cs:7175-7183),
-   * which Quest fills in with the name itself for an object that has none,
-   * so it is displayed_name here. */
+   * real name -- and "thisobjectname" is its alias
+   * (V4Game.cs:DoInternalFunction), which Quest fills in with the name itself
+   * for an object that has none, so it is displayed_name here. */
   else if (pname == "thisobject" || pname == "objectname")
     return this_object;
   else if (pname == "thisobjectname")
@@ -296,18 +300,19 @@ string question_implementation::game_function (const string &pname, bool &found)
 
       /* Timer names CI and the miss value "!", as in timerstate above; the
        * leading space is VB's Str() and is Quest's too -- "ubound" trims its
-       * result and this one does not (V4Game.cs:7118-7130). */
+       * result and this one does not (V4Game.cs:DoInternalFunction). */
       for (const auto &timer: state.timers)
 	if (ci_equal (timer.name, function_args[0]))
 	  return " " + string_int (timer.interval);
       gi->debug_print ("No such timer '" + function_args[0] + "'");
       return "!";
     }
-  /* An exit *object*, which is a 4.10 notion Question has no model for: its exits
-   * are still the direction properties of a room.  Quest hands back the exit's
-   * object name, or "" when there is none (V4Game.cs:7196-7205); "" is the
-   * closer of the two answers to give, and below 4.10 the name is not a
-   * function at all and falls through to the [ERROR] below. */
+  /* An exit *object*, which is a 4.10 notion Question has no model for: its
+   * exits are still the direction properties of a room.  Quest hands back the
+   * exit's object name, or "" when there is none
+   * (V4Game.cs:DoInternalFunction); "" is the closer of the two answers to
+   * give, and below 4.10 the name is not a function at all and falls through
+   * to the [ERROR] below. */
   else if (pname == "findexit" && asl_version_ >= 410)
     {
       gi->debug_print ("findexit is not supported");
@@ -446,11 +451,11 @@ string question_implementation::text_function (const string &pname, bool &found)
 
       /* Quest maps a float draw onto the range -- Int(NextDouble() * (b-a+1))
        * + a over .NET's Random (DoInternalFunction "rand",
-       * V4Game.cs:6982-6988) -- so no mapping here can reproduce its values
-       * and games cannot depend on specific draws.  The modulo mapping is kept
-       * deliberately: the seeded walkthrough corpus was derived against this
-       * exact draw sequence, and xoshiro128** has full-quality low bits, so
-       * the classic low-bits worry does not apply. */
+       * V4Game.cs:DoInternalFunction) -- so no mapping here can reproduce its
+       * values and games cannot depend on specific draws.  The modulo mapping
+       * is kept deliberately: the seeded walkthrough corpus was derived
+       * against this exact draw sequence, and xoshiro128** has full-quality
+       * low bits, so the classic low-bits worry does not apply. */
       return string_int (lower + (long long) (erkyrath_random() % range));
     }
   else if (pname == "symbol")
@@ -481,16 +486,15 @@ string question_implementation::run_function (const string &pname)
 {
   QUESTION_DBG << "question_implementation::run_function (" << pname << ", " << function_args << ")\n";
   /* Built-in function names are case-sensitive, as in Quest: DoInternalFunction
-   * compares each name with == on the un-lowercased string (V4Game.cs:6862 ff.),
-   * so $UCase(...)$ is "No such function" there and here.  (Question is laxer than
-   * Quest for *user-defined* names below -- Quest's block dictionary is
-   * case-sensitive (DefineBlockParam, V4Game.cs:1195-1233), Question matches them
-   * with ci_equal.) */
+   * compares each name with == on the un-lowercased string
+   * (V4Game.cs:DoInternalFunction ff.), so $UCase(...)$ is "No such function"
+   * there and here.  (Question is laxer than Quest for *user-defined* names
+   * below -- Quest's block dictionary is case-sensitive
+   * (V4Game.cs:DefineBlockParam), Question matches them with ci_equal.) */
   /* A `define function' block wins over a built-in of the same name: DoFunction
    * looks the name up as a block first and only tries DoInternalFunction when
-   * there is none (V4Game.cs:6760-6772).  "Sim Political Career" defines its own
-   * truncating `round'; Quest 4 has no built-in of that name, and the one
-   * Question used to carry shadowed it. */
+   * there is none (V4Game.cs:DoFunction).  "Sim Political Career" defines its
+   * own truncating `round', which no built-in may shadow. */
   string rv = "";
   for (uint i = 0; i < gf.size ("function"); i ++)
     if (ci_equal (gf.block ("function", i).name, pname))
@@ -516,7 +520,7 @@ string question_implementation::run_function (const string &pname)
 
   /* A name that is neither a built-in nor a `define function` block prints a
    * marker rather than nothing: DoFunction logs "No such function" and returns
-   * the literal "[ERROR]" (V4Game.cs:6763-6771).  Returning "" instead closed
+   * the literal "[ERROR]" (V4Game.cs:DoFunction).  Returning "" instead closed
    * the text up over the hole, which hid the author's typo from anyone reading
    * a transcript -- and hid it from this port's own corpus diffs. */
   gi->debug_print ("No function " + pname + " found.");

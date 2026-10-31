@@ -11,6 +11,11 @@ oracle patches described below. The Quest 5 replay figures were last checked on
 2026-10-31, the other corpus figures on 2026-10-17, after the move to that
 revision; the timings are from 2026-10-12.
 
+The `File.cs:NNN` citations in the Question source are approximate. A sample of
+six against the pristine `290a87df` was off by 1 to 13 lines, and the oracle
+patches move a patched checkout by up to about 30 more. Search for the function
+name or the quoted behaviour, not the line.
+
 This is not a comparison of equals. QuestViva *is* Quest's own engine going
 forward, and Question is a from-scratch C++ engine for playing Quest games in
 Spatterlight that uses QuestViva as its answer key. Most of the corpus numbers

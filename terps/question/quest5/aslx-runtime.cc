@@ -1323,7 +1323,7 @@ void Interp::print_via_core(const std::string &text, Context &ctx) {
         // single newline (no blank line: The Zen Garden's 5.3-era
         // ShowRoomDescription ends every autodescription paragraph with one),
         // while <br/><br/> keeps its blank. Appending '\n' to the RAW text
-        // here (the old behaviour) turned every trailing <br/> into a blank
+        // here would turn every trailing <br/> into a blank
         // line. Mirror qvh: only terminate chunks that don't already end in a
         // newline-producing tail. qvh's "<br\s*/?>" regex is lowercase-only,
         // so an uppercase <BR> tail is NOT newline-producing there -- but it
@@ -1386,7 +1386,7 @@ std::string safe_xml_escape(const std::string &s) {
     return out;
 }
 
-// -- input model (TODO §3): host entry points --------------------------------
+// -- input model: host entry points -----------------------------------------
 
 void Interp::send_command(const std::string &command) {
     // HandleCommandAsyncInternal. A pending `get input` consumes the line
@@ -2767,7 +2767,7 @@ Value Interp::call_function(const std::string &name, std::vector<Value> args,
     return local.return_value;
 }
 
-// Quest Viva issue #2189 (open, filed 2026-09-04): CoreGrid only ever assigns
+// Quest Viva issue #2189: CoreGrid only ever assigns
 // map coordinates by walking outward from a charted room -- exit.to for each
 // VISIBLE exit, plus room.parent -- and seeds exactly one origin, the starting
 // room. A room the player reaches any other way has no coordinates by any code
@@ -3141,7 +3141,7 @@ void Interp::exec_request(const std::string &name, const ExprList &args,
         // real newlines ("\n" string escapes); normalise to <br/> so the
         // hook sees the JS contract. Data is only evaluated when a hook
         // will consume it (RequestScript always evaluates; headless
-        // parity keeps the old ignore-unevaluated behaviour).
+        // runs leave it unevaluated, for parity).
         std::string data = to_string(ev(1)), html;
         for (char c : data) {
             if (c == '\n') html += "<br/>";
@@ -3155,7 +3155,7 @@ void Interp::exec_request(const std::string &name, const ExprList &args,
     } else if (req == "PanesVisible" && panes_visible) {
         // PlayerUI.SetPanesVisible(data) -- the pre-JS pairing for
         // JS.panesVisible; the data is the string "on" or "off"
-        // (Player.cs: panesVisible(data == "on")).
+        // (WasmPlayerBridge.cs: JsPanesVisible(data == "on")).
         panes_visible(to_string(ev(1)) == "on");
     } else if (req == "UpdateLocation" && update_location) {
         // PlayerUI.LocationUpdated -- same pre-JS pairing as SetStatus.

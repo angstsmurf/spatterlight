@@ -9,14 +9,14 @@
  *  Like stdverbs.lib, standard.lib and Typelib.qlb, it shipped with Quest
  *  rather than with games, so a game that `!include`s it cannot find the file
  *  on disk under Question.  Quest reads a copy next to the game first and
- *  falls back to its bundled one (V4Game.cs:1397-1415,
- *  V4Game.Part2.cs:8114-8117); readfile.cc does the same (see handle_includes
- *  / is_q3ext).  Question used to include it as nothing, which left
- *  Enterprise without the library's clothing wording and let its room's own
- *  `get in boat` answer where Quest's library `take` gets there first.
+ *  falls back to its bundled one (V4Game.cs:ParseFile,
+ *  V4Game.Part2.cs:GetLibraryLines); question-preprocess.cc does the same (see
+ *  handle_includes / is_q3ext).  Enterprise needs it for the library's
+ *  clothing wording, and for the library's `take` to answer before its room's
+ *  own `get in boat`.
  *
  *  Verbatim, including the `!QDK` editor section (which handle_includes
- *  skips).
+ *  skips).  Library data, so do not reformat it or strip its whitespace.
  *
  *  Source: textadventures/quest, src/Legacy/Libraries/q3ext.qlb (MIT)
  ***************************************************************************/

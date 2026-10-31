@@ -18,7 +18,8 @@
 
 /* questglk-common.hh -- presentation helpers shared by the Question terp's two
    Glk frontends: questionglk.cc (the classic Quest 1-4 runner) and aslxglk.cc
-   (the native Quest 5 engine).  Defined in questglk-common.cc, where each
+   (the native Quest 5 engine).  Defined in questglk-common.cc and, for the
+   style and colour sections, questglk-style.cc, where each
    helper is documented. */
 
 #ifndef QUESTION_QUESTGLK_COMMON_HH

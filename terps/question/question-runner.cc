@@ -63,7 +63,7 @@ void question_implementation::tick_timers()
   if (!state.running)
     return;
 
-  /* Quest's Tick (V4Game.Part2.cs:91-129) walks the timers collecting the
+  /* Quest's Tick (V4Game.Part2.cs:Tick) walks the timers collecting the
    * actions that came due into a list, and only runs them once the walk is
    * over.  That ordering matters: a timer whose action does timeron/timeroff
    * cannot change whether the timers after it in the list count down on this
@@ -79,7 +79,7 @@ void question_implementation::tick_timers()
       if (tr.bypass)
 	{
 	  /* Spent, not counted -- the turn a timer is switched on or off does
-	   * not advance it (SetTimerState, V4Game.Part2.cs:561-574). */
+	   * not advance it (V4Game.Part2.cs:SetTimerState). */
 	  tr.bypass = false;
 	  continue;
 	}
@@ -98,7 +98,7 @@ void question_implementation::tick_timers()
 	   * above reads the interval as it stands on the tick, which is what
 	   * lets `set interval' reach the cycle already in flight -- from
 	   * inside the timer's own action and from outside it alike
-	   * (V4Game.Part2.cs:126-131). */
+	   * (V4Game.Part2.cs:Tick). */
 	  tr.elapsed = 0;
 	  const QuestionBlock *gb = gf.find_by_name ("timer", tr.name);
 	  if (gb != NULL)
@@ -111,7 +111,7 @@ void question_implementation::tick_timers()
 		  string tok = first_token (line, c1, c2);
 		  /* CI: BeginsWith "action " -- and the LAST action line wins,
 		   * since SetUpTimers overwrites TimerAction on each one
-		   * (V4Game.Part2.cs:1337-1340). */
+		   * (V4Game.Part2.cs:SetUpTimers). */
 		  if (ci_equal (tok, "action"))
 		    {
 		      action = line.substr (c2);
@@ -128,22 +128,13 @@ void question_implementation::tick_timers()
     run_script (script);
 }
 
-/***************************************
- *                                     *
- *                                     *
- *                                     *
- * QuestionInterface related functions *
- *                                     *
- *                                     *
- *                                     *
- ***************************************/
+/* ------------------------------------- QuestionInterface related functions */
 
 /* The size in a |sNN code: Quest reads the two characters after the "s" with
- * int.TryParse (TextFormatter.cs:170), which takes an optional sign and then
- * digits, and nothing else -- so "09" and "-1" are sizes and "9|" is not.  The
- * old code parsed "|s" plus the first digit instead of the two digits, so it
- * never read a size at all; nothing in a transcript shows the difference,
- * since the size lands in a Glk style rather than in the text.
+ * int.TryParse (TextFormatter.cs:OutputHTML), which takes an optional sign and
+ * then digits, and nothing else -- so "09" and "-1" are sizes and "9|" is not.
+ * Nothing in a transcript shows the size itself, since it lands in a Glk style
+ * rather than in the text.
  *
  * int.TryParse's default is NumberStyles.Integer, which also skips whitespace
  * at either end, and that half is visible: ChristmaKwanzakkah's title banner
@@ -186,11 +177,10 @@ question_parse_format_code (const string &s, std::string::size_type &i,
   /* Quest tries the two-character codes, then the one-character ones, then
    * |sNN, and if none matches it emits a literal "|" and carries on reading
    * from the character right after the bar, which is then ordinary text
-   * (TextFormatter.cs:161-176).  This used to fall off the end of the
-   * switch with the index already past the code character, so the loop's
-   * own i++ ate it too: The Lazy Gun Cult's |K| sigil and |plaque| emphasis
-   * both lost two characters a bar, which ran the surrounding words
-   * together. */
+   * (TextFormatter.cs:OutputHTML).  That path has to set the index too: left
+   * past the code character, the loop's own i++ eats it as well, and The Lazy
+   * Gun Cult's |K| sigil and |plaque| emphasis lose two characters a bar,
+   * which runs the surrounding words together. */
   std::string::size_type k = i + 1;
 
   /* A bar with nothing after it is a code that matched nothing. */
@@ -211,9 +201,9 @@ question_parse_format_code (const string &s, std::string::size_type &i,
 	switch (s[k + 1])
 	  {
 	  case 'y': style.color = "#ffff00"; i = k + 1; return FMT_STYLE;
-	  /* "green" in the span Quest writes (TextFormatter.cs:99), which a
-	   * browser draws as CSS green; only the `foreground' statement's
-	   * table (GetHTMLColour) makes it #00ff00. */
+	  /* "green" in the span Quest writes (TextFormatter.cs:OutputHTML),
+	   * which a browser draws as CSS green; only the `foreground'
+	   * statement's table (GetHTMLColour) makes it #00ff00. */
 	  case 'g': style.color = "#008000"; i = k + 1; return FMT_STYLE;
 	  case 'l': style.color = "#0000ff"; i = k + 1; return FMT_STYLE;
 	  case 'r': style.color = "#ff0000"; i = k + 1; return FMT_STYLE;
@@ -226,7 +216,7 @@ question_parse_format_code (const string &s, std::string::size_type &i,
       {
 	/* |sNN wants exactly two characters after the "s", and they have to
 	 * parse as a number: Quest reads them with int.TryParse, under a
-	 * guard that there are two of them (TextFormatter.cs:165-176).  A
+	 * guard that there are two of them (TextFormatter.cs:OutputHTML).  A
 	 * malformed one -- Uranus opens with a stray |s9| -- is not a code,
 	 * and prints as itself.  Size 0 is the game's default size, which is
 	 * what |s00 goes back to. */
@@ -277,7 +267,7 @@ question_parse_format_code (const string &s, std::string::size_type &i,
       else
 	/* xb, xi and xu are the only two-character x codes; |xn is read off
 	 * the end of the whole string before formatting starts
-	 * (TextFormatter.cs:29-33), so one in the middle is not a code
+	 * (TextFormatter.cs:OutputHTML), so one in the middle is not a code
 	 * either. */
 	return FMT_LITERAL;
       i = k + 1;
@@ -298,13 +288,13 @@ QuestionResult QuestionInterface::print_formatted (const string &s, bool with_ne
   /* Quest prints a string in pieces rather than all at once: Print walks it a
    * character at a time, accumulating into `printString', and a "|w" or a
    * clearing "|c" hands what has accumulated to DoPrint and starts a fresh
-   * string (V4Game.Part2.cs:6745-6784).  Every DoPrint ends its line, so the
+   * string (V4Game.Part2.cs:Print).  Every DoPrint ends its line, so the
    * codes are paragraph breaks as well as pauses -- the text on either side of
    * one is never on the same line.  The closing DoPrint is the only guarded
-   * one, `If printString <> "" ' (ibid. 6794-6797), so a string that ends with
+   * one, `If printString <> "" ' (ibid. RetrLine), so a string that ends with
    * one of the two codes has already had its last line ended and does not get
    * another.  That is what `pending' is: printString <> "".  It starts true so
-   * that Print's own empty-string case, a bare DoPrint("") (ibid. 6742-6745),
+   * that Print's own empty-string case, a bare DoPrint("") (ibid. Print),
    * still ends a line here. */
   bool pending = true;
 
@@ -330,7 +320,7 @@ QuestionResult QuestionInterface::print_formatted (const string &s, bool with_ne
             case FMT_CLEAR:
 	      /* The clearing "|c" flushes what has been printed so far
 	       * before it wipes, exactly as "|w" does below
-	       * (V4Game.Part2.cs:6761-6784). */
+	       * (V4Game.Part2.cs:Print). */
 	      print_newline();
 	      pending = false;
               clear_screen();

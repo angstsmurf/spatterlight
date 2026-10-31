@@ -19,8 +19,8 @@
 
 /* question-script.cc -- Script execution: apply_type, run_script (which
  * finds a statement's handler; the exec_<statement> handlers themselves are
- * in question-script-flow.cc, -world.cc and -output.cc), plus condition
- * evaluation (eval_cond/eval_conds).
+ * in question-script-flow.cc, question-script-world.cc and
+ * question-script-output.cc), plus condition evaluation (eval_cond/eval_conds).
  *
  * Part of question_implementation; question-runner.cc holds the rest of the
  * preamble and question-internal.hh what these units share. */
@@ -108,12 +108,13 @@ void question_implementation::run_script (const string &s, string &rv)
   ScriptDepth depth_guard (script_depth);
 
   /* Quest's ExecuteScript returns immediately for every line once the game has
-   * finished (V4Game.Part2.cs:5695-5698, the `if (_gameFinished) return;` right
-   * after the empty-line check).  So playerwin / playerlose / stop don't just
-   * end the game, they abandon the rest of the enclosing script and everything
-   * that would have run after it.  Games do lean on this: Ponyville.asl:1752
-   * puts a bare `stop` in the middle of the chapter-2 ending and follows it
-   * with more msg text and a playerwin that real Quest never reaches. */
+   * finished (V4Game.Part2.cs:ExecuteScript, the `if (_gameFinished) return;`
+   * right after the empty-line check).  So playerwin / playerlose / stop don't
+   * just end the game, they abandon the rest of the enclosing script and
+   * everything that would have run after it.  Games do lean on this:
+   * Ponyville.asl:1752 puts a bare `stop` in the middle of the chapter-2
+   * ending and follows it with more msg text and a playerwin that real Quest
+   * never reaches. */
   if (!is_running_)
     return;
 
@@ -143,9 +144,10 @@ void question_implementation::run_script (const string &s, string &rv)
 
   /* One hash probe instead of up to ~60 string compares per executed
    * statement.  The table maps every accepted spelling to its handler, an
-   * exec_<statement> method in question-script-flow.cc, -world.cc or
-   * -output.cc.  A handler returns false when it did not deal with the line,
-   * which is reported as an unrecognised script just as an unknown keyword is. */
+   * exec_<statement> method in question-script-flow.cc,
+   * question-script-world.cc or question-script-output.cc.  A handler returns
+   * false when it did not deal with the line, which is reported as an
+   * unrecognised script just as an unknown keyword is. */
   typedef bool (question_implementation::*StmtFn)
     (const string &, string &, string, std::string::size_type,
      std::string::size_type);
@@ -253,10 +255,8 @@ bool question_implementation::eval_conds (const string &s)
   /* A port of Quest's ExecuteConditions (LegacyGame V4Game.cs): split the list
    * at its "and"/"or" joiners, then fold the conditions LEFT to right, each
    * combined with the joiner that *precedes* it (the first against an initial
-   * true).  So "A and B or C" is "(A and B) or C".  The old code searched the
-   * whole string for "and" and recursed on the remainder, which grouped it the
-   * other way round -- "A and (B or C)" -- and disagreed with Quest whenever a
-   * condition list mixed the two joiners.
+   * true).  So "A and B or C" is "(A and B) or C", not the "A and (B or C)" that
+   * recursing on the remainder after the first "and" would give.
    *
    * Two behaviours of the original are deliberately kept, because games were
    * written against the engine that had them:
@@ -313,7 +313,7 @@ bool question_implementation::eval_conds (const string &s)
 /* One side of an "is <a;b>" or "is <a;!=;b>" comparison, as Quest reads it.
  * From ASL 3.91 on ExecuteIfIs runs both operands through ExpressionHandler and
  * uses the result whenever the operand is arithmetic all the way through
- * (V4Game.cs:7479-7494), so "is <%diceout%+1;%totaldice%>" compares 2 with 2
+ * (V4Game.cs:ExecuteIfIs), so "is <%diceout%+1;%totaldice%>" compares 2 with 2
  * rather than the string "1+1" with the string "2".  Anything that is not
  * arithmetic fails the expression and is compared verbatim, which is what the
  * rest of the games rely on; older games never evaluate either side. */
@@ -370,7 +370,7 @@ bool question_implementation::eval_cond (const string &s)
       bool do_report = false;
       for (uint i = 1; i < args.size(); i ++)
 	/* CI + trimmed: Quest compares LCase(Trim(...)) == "report"
-	 * (V4Game.cs:5905). */
+	 * (V4Game.cs:ExecuteIfExists). */
 	if (ci_equal (trim (args[i]), "report"))
 	  do_report = true;
 	else
@@ -407,7 +407,7 @@ bool question_implementation::eval_cond (const string &s)
       tok = trim (eval_param (tok));
       /* Quest 2.x item inventory -- consulted only below ASL 2.80, since
        * ExecuteIfGot looks at nothing but the object's room from there on
-       * (V4Game.cs:7370-7382). */
+       * (V4Game.cs:ExecuteIfGot). */
       if (asl_version_ < 280)
 	for (const string &it: state.items)
 	  if (ci_equal (it, tok))
@@ -417,20 +417,21 @@ bool question_implementation::eval_cond (const string &s)
 	  const ObjectRecord &o = state.objs[(*v)[0]];
 	  /* "(ContainerRoom == "inventory") & Exists" -- being in the inventory
 	   * is not enough, the object must also not have been hidden
-	   * (V4Game.cs:7370-7378).  Hiding a held object leaves it filed under
-	   * "inventory" but clears Exists, so Quest stops reporting it as got,
-	   * exactly as the inventory listing stops showing it.  This matters for
-	   * the 2.x "give the item, hide the object" idiom the other way round:
-	   * from 2.80 on give/lose really do move the object, so a game that
-	   * hides what it just gave you has taken it back again. */
+	   * (V4Game.cs:ExecuteIfGot).  Hiding a held object leaves it filed
+	   * under "inventory" but clears Exists, so Quest stops reporting it
+	   * as got, exactly as the inventory listing stops showing it.  This
+	   * matters for the 2.x "give the item, hide the object" idiom the
+	   * other way round: from 2.80 on give/lose really do move the object,
+	   * so a game that hides what it just gave you has taken it back
+	   * again. */
 	  /* The room field alone, with no walk up the container chain: something
 	   * in a carried container is already filed under "inventory", because
-	   * DoAddRemove copies the container's ContainerRoom onto whatever is put
-	   * inside it (V4Game.cs:2117-2121) and MoveThing carries the contents
-	   * along afterwards.  "Shipwrecked" turns on this: its box of matches
-	   * only survives the swim to the third island inside the jar of honey,
-	   * and the barrel of gunpowder that clears the rubble is lit by
-	   * `if not got <Box of matches>`. */
+	   * DoAddRemove copies the container's ContainerRoom onto whatever is
+	   * put inside it (V4Game.cs:DoAddRemove) and MoveThing carries the
+	   * contents along afterwards.  "Shipwrecked" turns on this: its box
+	   * of matches only survives the swim to the third island inside the
+	   * jar of honey, and the barrel of gunpowder that clears the rubble
+	   * is lit by `if not got <Box of matches>`. */
 	  return ci_equal (o.parent, "inventory")
 	    && (asl_version_ < 280 || !has_obj_property (o.name, "hidden"));
 	}
@@ -451,10 +452,11 @@ bool question_implementation::eval_cond (const string &s)
       if (const vector<size_t> *v = state.obj_records (tok))
 	{
 	  const ObjectRecord &o = state.objs[(*v)[0]];
-	  /* "here" means filed under this room AND not hidden (ExecuteIfHere,
-	   * V4Game.cs:5880-5891).  What is inside a container here has the same
-	   * room, so it is here too; an object removed with "hide" (e.g. a
-	   * creature that has run off) is not, even though its container stands. */
+	  /* "here" means filed under this room AND not hidden
+	   * (V4Game.cs:ExecuteIfHere).  What is inside a container here has
+	   * the same room, so it is here too; an object removed with "hide"
+	   * (e.g. a creature that has run off) is not, even though its
+	   * container stands. */
 	  return (ci_equal (o.parent, state.location) &&
 		  !has_obj_property (o.name, "hidden"));
 	}
@@ -466,17 +468,17 @@ bool question_implementation::eval_cond (const string &s)
       if (!next_param (s, c1, c2, tok, "expected parameter after is in "))
 	return false;
       tok = eval_param (tok);
-      /* ExecuteIfIs (V4Game.cs:7450-7578) splits the parameter into *fields* on
-       * the first ';' and, if there is one, the second: with three fields the
-       * middle one is the operator and everything after it is the right-hand
-       * side; with two, the operator is "=".  The operator is then matched
-       * whole, and anything but =, !=, gt, lt, gt= or lt= is an error.
+      /* ExecuteIfIs (V4Game.cs:ExecuteIfIs) splits the parameter into *fields*
+       * on the first ';' and, if there is one, the second: with three fields
+       * the middle one is the operator and everything after it is the
+       * right-hand side; with two, the operator is "=".  The operator is then
+       * matched whole, and anything but =, !=, gt, lt, gt= or lt= is an error.
        *
-       * Question used to hunt for the operator as a *substring* of the whole
-       * parameter instead, which quietly misread any operand with those two
-       * letters in it just before a separator: `is <#quest.thing#;bolt>` found
-       * the "lt;" inside "bolt;" and compared "bo" with "bolt" numerically,
-       * i.e. 0 < 0.  (preprocess () rewrites "if (a <= b)" into the canonical
+       * The operator must not be searched for as a *substring* of the whole
+       * parameter, which misreads any operand with those two letters just before
+       * a separator: `is <#quest.thing#;bolt>` would find the "lt;" inside "bolt;"
+       * and compare "bo" with "bolt" numerically, i.e. 0 < 0.  (preprocess ()
+       * rewrites "if (a <= b)" into the canonical
        * three-field "is <a;lt=;b>", so that form arrives here too.) */
       std::string::size_type scp = tok.find (';');
       if (scp == string::npos)

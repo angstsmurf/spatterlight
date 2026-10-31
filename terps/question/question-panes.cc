@@ -33,7 +33,7 @@ v2string question_implementation::get_inventory ()
   /* Below ASL 2.80 the inventory *is* the item table, and objects have nothing
    * to do with it: both the "inventory" command and the inventory pane walk
    * _items from 1 to _numberItems and take every entry whose Got flag is set
-   * (V4Game.Part2.cs:4526-4535 and 7409-7417).  So the order is the order the
+   * (V4Game.Part2.cs:ExecCommand/UpdateItems).  So the order is the order the
    * game block's `items <...>' line declares, not the order the player picked
    * things up in, and an object that happens to be filed under "inventory" is
    * not listed at all. */
@@ -183,10 +183,10 @@ void question_implementation::set_up_items ()
   item_table_.clear ();
   std::string::size_type c1, c2;
   /* Quest declares its "have we reached the end of the list?" flag once, ahead
-     of the loop over the game block, and never resets it (SetUpItemArrays,
-     V4Game.Part2.cs:6963).  So a second items/possitems line contributes only
-     its first entry before the do/while falls straight out again -- a VB6 bug,
-     but one a game could be relying on, so keep it. */
+     of the loop over the game block, and never resets it
+     (V4Game.Part2.cs:SetUpItemArrays).  So a second items/possitems line
+     contributes only its first entry before the do/while falls straight out
+     again -- a VB6 bug, but one a game could be relying on, so keep it. */
   bool last_item = false;
 
   for (const string &line: gf.block ("game", 0).data)
@@ -249,8 +249,8 @@ void question_implementation::set_up_collectables ()
       if (!next_decl_param (*gi, line, c1, c2, "collectables", s))
 	continue;
       /* A second "collectables" line replaces the first rather than adding to
-	 it: SetUpCollectables restarts its counter inside the loop over the game
-	 block (V4Game.Part2.cs:6866). */
+	 it: SetUpCollectables restarts its counter inside the loop over the
+	 game block (V4Game.Part2.cs:SetUpCollectables). */
       collectables.clear ();
       /* Read with no variable substitution -- SetUpCollectables passes
 	 convertStringVariables = false, since this runs before the game does. */
@@ -502,8 +502,7 @@ vstring question_implementation::get_status_vars ()
   vstring rv;
 
   /* Below ASL 2.84 the status pane is the collectables, one line each, and
-     "status <...>" variables do not exist yet (UpdateItems,
-     V4Game.Part2.cs:7398-7420). */
+     "status <...>" variables do not exist yet (V4Game.Part2.cs:UpdateItems). */
   if (asl_version_ < 284 && !collectables.empty ())
     {
       for (size_t i = 0; i < collectables.size (); i ++)
@@ -580,7 +579,7 @@ void question_implementation::print_eval (const string &s)
 
 /* Quest's GetParameter finishes by evaluating any inline {expression} in the
    parameter it just built -- "msg <2 + 2 = {2+2}>" prints 4 -- with "{{" as the
-   escape for a literal brace (EvaluateInlineExpressions, V4Game.cs:2258-2320,
+   escape for a literal brace (V4Game.cs:EvaluateInlineExpressions,
    gated on ASL 3.91).  It applies to every parameter, so games use it to do
    arithmetic on object properties: YOU ARE A TIGER's whiskey shrinks with
    "property <jack_daniels; volume = { #jack_daniels:volume# - 10 }>", and Question,
@@ -666,10 +665,11 @@ string question_implementation::eval_string_body (const string &s)
 	{
 	  for (j = i + 1; j < s.length() && s[j] != '#'; j ++)
 	    ;
-	  /* Quest replaces the *entire* parameter with "<ERROR>" when a conversion
-	   * character has no partner (ConvertParameter, V4Game.cs:6697-6701), and
-	   * logs it as a WarningError the player never sees.  Truncating at the
-	   * stray character instead silently dropped the rest of the text. */
+	  /* Quest replaces the *entire* parameter with "<ERROR>" when a
+	   * conversion character has no partner (V4Game.cs:ConvertParameter),
+	   * and logs it as a WarningError the player never sees.  Truncating
+	   * at the stray character instead silently dropped the rest of the
+	   * text. */
 	  if (j == s.length())
 	    {
 	      gi->debug_print ("Line parameter <" + s + "> has missing #");
@@ -687,9 +687,10 @@ string question_implementation::eval_string_body (const string &s)
 	      /* A property the object hasn't got expands to "!", not to nothing:
 	       * GetStringContents reaches GetObjectProperty with its default
 	       * logError = true, which logs the miss and returns "!"
-	       * (V4Game.Part2.cs:2581, V4Game.cs:6249-6252).  stdverbs.lib makes
-	       * this visible everywhere -- an object with no `article` answers
-	       * "You can't buy !.". */
+	       * (V4Game.Part2.cs:GetStringContents,
+	       * V4Game.cs:GetObjectProperty).  stdverbs.lib makes this visible
+	       * everywhere -- an object with no `article` answers "You can't
+	       * buy !.". */
 	      string propname = s.substr (k+1, j-k-1);
 	      if (s[i+1] == '(')
 		{
@@ -743,7 +744,7 @@ string question_implementation::eval_string_body (const string &s)
 	}
       /* "~name~" is a collectable's value.  The syntax belongs to Quest 2.x and
 	 was dropped in ASL 3.20, from which version a ~ is just a ~
-	 (ConvertParameter, V4Game.cs:1884-1893 and 6723-6726). */
+	 (V4Game.cs:ConvertParameter/GetParameter). */
       else if (s[i] == '~' && asl_version_ < 320)
 	{
 	  for (j = i + 1; j < s.length() && s[j] != '~'; j ++)
@@ -765,19 +766,19 @@ string question_implementation::eval_string_body (const string &s)
 	  /* Quest applies ConvertParameter once per conversion character, with
 	   * one body for all four, so an unpartnered '$' replaces the whole
 	   * parameter with "<ERROR>" exactly as an unpartnered '#', '%' or '~'
-	   * does (V4Game.cs:6697-6701).  Passing the rest of the string through
-	   * instead was the one arm left over. */
+	   * does (V4Game.cs:ConvertParameter).  Passing the rest of the string
+	   * through instead was the one arm left over. */
 	  if (j == string::npos)
 	    {
 	      gi->debug_print ("Line parameter <" + s + "> has missing $");
 	      return "<ERROR>";
 	    }
 	  /* "$$" is the escape for a literal dollar, the same rule the other three
-	   * conversion characters follow: ConvertParameter takes the text between
-	   * the pair, finds it empty and appends the character itself
-	   * (V4Game.cs:6705-6708).  Evaluating the empty name as a function
-	   * instead swallowed the pair whole -- Pure Chaos writes its prices as
-	   * "$$1000000" and the player was shown "1000000". */
+	   * conversion characters follow: ConvertParameter takes the text
+	   * between the pair, finds it empty and appends the character itself
+	   * (V4Game.cs:ConvertParameter).  Evaluating the empty name as a
+	   * function instead swallowed the pair whole -- Pure Chaos writes its
+	   * prices as "$$1000000" and the player was shown "1000000". */
 	  if (j == i + 1)
 	    {
 	      rv += "$";
@@ -787,7 +788,7 @@ string question_implementation::eval_string_body (const string &s)
 	  string tmp1 = s.substr (i + 1, j - i - 1);
 	  QUESTION_DBG << "e_s: first substr was '" << tmp1 << "'\n";
 	  /* Quest evaluates inline {expression}s in the call text before it
-	   * dispatches (ConvertParameter, V4Game.cs:6716), so an argument can be
+	   * dispatches (V4Game.cs:ConvertParameter), so an argument can be
 	   * computed: Sim Political Career's own `round' slices a number with
 	   * "$left(%round.number%; {%round.decimalpos%-1})$". */
 	  string tmp = eval_inline_exprs (eval_string_body (tmp1));
@@ -816,13 +817,13 @@ string question_implementation::eval_string_body (const string &s)
 	  else
 	    {
 	      /* The *last* right paren, as Quest's DoFunction does with
-	       * InStrRev (V4Game.cs:6745): the argument list has already had its
-	       * #vars# and %vars% substituted, so a value carrying parens of its
-	       * own must not end it early.  Barbarian's unwield command computes
-	       * $left(#command1#; %length1%)$ over "Battle axe (wielded)", and
-	       * stopping at the first ')' cut the arg list down to one argument,
-	       * so the function returned nothing and the unwielded weapon was
-	       * never handed back. */
+	       * InStrRev (V4Game.cs:DoFunction): the argument list has already
+	       * had its #vars# and %vars% substituted, so a value carrying
+	       * parens of its own must not end it early.  Barbarian's unwield
+	       * command computes $left(#command1#; %length1%)$ over "Battle
+	       * axe (wielded)", and stopping at the first ')' cut the arg list
+	       * down to one argument, so the function returned nothing and the
+	       * unwielded weapon was never handed back. */
 	      paren_close = tmp.rfind (')');
 	      if (paren_close == string::npos || paren_close < paren_open)
 		gi->debug_print ("No matching right paren in " + tmp);

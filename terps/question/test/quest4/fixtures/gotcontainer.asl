@@ -13,8 +13,8 @@
 ! and `got` tests exactly that field, so an object inside a carried container is
 ! still "got".  Question only looked at the object's immediate parent, which is the
 ! container, not "inventory", so `got` went false the moment you stowed
-! something -- even though the like-named `here` condition already walked the
-! chain with room_of_parent.  Both now do.
+! something -- even though the like-named `here` condition already went by the
+! container's room.  Both now do.
 !
 ! The two conditions stay complementary through the whole nest, which is what the
 ! second half of the script checks: while the jar is carried, the matches inside

@@ -42,10 +42,10 @@ ostream &operator<< (ostream &o, const map <string, string> &m)
   return o;
 }
 
-class QuestionOutputStream { 
-  ostringstream o; 
-  
-public: 
+class QuestionOutputStream {
+  ostringstream o;
+
+public:
   QuestionOutputStream () { o.imbue (std::locale::classic ()); }
   QuestionOutputStream &put (string s) { o << s; o.put (char (0)); return *this; }
   QuestionOutputStream &put (char ch) { o.put (ch); return *this; }
@@ -63,7 +63,7 @@ public:
     o.put (char (0));
     return *this;
   }
-  
+
 
   /* The raw stream bytes, unobfuscated and headerless (the undo-history
    * serializer, which only ever travels inside a Spatterlight autosave). */
@@ -132,15 +132,15 @@ public:
   uint get_uint () { return (uint) strtoul (get_str().c_str(), nullptr, 10); }
 };
 
-template <class T> void write_to (QuestionOutputStream &gos, const vector<T> &v) 
-{ 
+template <class T> void write_to (QuestionOutputStream &gos, const vector<T> &v)
+{
   gos.put(v.size());
   for (const auto &i: v)
     {
       write_to (gos, i);
     }
 }
-  
+
 void write_to (QuestionOutputStream &gos, const string &s)
 {
   gos.put (s);
@@ -173,10 +173,9 @@ static uint ticks_left_to_elapsed (uint interval, uint ticks_left)
 
 void write_to (QuestionOutputStream &gos, const TimerRecord &tr)
 {
-  /* The wire keeps the count-*down* field Question used to hold in the record --
-   * the ticks the timer has left to run -- so that a save written before
-   * timers counted up still loads.  See TimerRecord for why the engine counts
-   * the other way now.
+  /* The wire holds a count-*down* -- the ticks the timer has left to run -- so
+   * that saves from when the record itself counted down still load.  See
+   * TimerRecord for why the engine counts up.
    *
    * A tick leaves `elapsed' below `interval' (it zeroes the count when it
    * fires, :9243), but `set interval' moves the interval under a cycle already
@@ -655,7 +654,6 @@ QuestionState::QuestionState (QuestionInterface &gi, const QuestionFile &gf)
   QUESTION_DBG << "QuestionState::QuestionState()" << endl;
   for (size_t i = 0; i < gf.size ("game"); i ++)
     {
-      //const QuestionBlock &go = gf.game[i];
       ObjectRecord data;
       data.name = "game";
       data.parent = "";
@@ -686,17 +684,17 @@ QuestionState::QuestionState (QuestionInterface &gi, const QuestionFile &gf)
       if (go.parent == "")
 	data.parent = "";
       else
-	//data.parent = lcase (param_contents (go.parent));
 	data.parent = param_contents (go.parent);
       /* An explicit "parent <X>" line says which container the object starts off
        * in.  It says nothing about which *room* it is in: Quest turns the line
        * into the object's own "parent" property and leaves ContainerRoom as the
-       * enclosing "define room" set it (V4Game.Part2.cs:3562-3565), so an object
-       * declared in one room and parented to a container in another is filed
-       * under the room it was written in until something moves it.  (Teaching
-       * questionfile.cc's obj_tag_property list about "parent" would not work
-       * instead: that would rewrite the definition line as a properties line,
-       * and it is the raw line that this loop scans for.) */
+       * enclosing "define room" set it (V4Game.Part2.cs:SetUpCharObjectInfo),
+       * so an object declared in one room and parented to a container in
+       * another is filed under the room it was written in until something
+       * moves it.  (Teaching questionfile.cc's obj_tag_property list about
+       * "parent" would not work instead: that would rewrite the definition
+       * line as a properties line, and it is the raw line that this loop scans
+       * for.) */
       std::string p = first_decl_param (go, "parent", false);
       if (p != "")
 	add_prop (data.name, "properties parent=" + param_contents (p));
@@ -711,8 +709,8 @@ QuestionState::QuestionState (QuestionInterface &gi, const QuestionFile &gf)
       /* Quest's post-definition fixup for visibility.  Only a *bare* "hidden"
        * tag line actually leaves an object non-existent: the loop that reads an
        * object definition raises its local `hidden' flag on
-       * Strings.Trim (_lines[j]) == "hidden" alone, and when the definition ends
-       * it says (V4Game.Part2.cs:3550-3553)
+       * Strings.Trim (_lines[j]) == "hidden" alone, and when the definition
+       * ends it says (V4Game.Part2.cs:SetUpCharObjectInfo)
        *
        *     if (!hidden) o.Exists = true;
        *
@@ -720,7 +718,8 @@ QuestionState::QuestionState (QuestionInterface &gi, const QuestionFile &gf)
        * "properties <hidden; ...>", or through an included type -- is undone on
        * the spot and the object starts off visible after all.  (The property is
        * still recorded, and setting it during play does hide the object;
-       * V4Game.cs:4169-4179.  It is only the load-time write that gets reversed.)
+       * V4Game.cs:AddToObjectProperties.  It is only the load-time write that
+       * gets reversed.)
        *
        * Question rewrites the bare tag into "properties <hidden>" as it reads the
        * file, so by the time anything looks the property up the two spellings
@@ -809,31 +808,31 @@ QuestionState::QuestionState (QuestionInterface &gi, const QuestionFile &gf)
   QUESTION_DBG << "QuestionState::QuestionState() done with variables" << endl;
 }
 
-ostream &operator<< (ostream &o, const PropertyRecord &pr) 
-{ 
-  o << pr.name << ", data == " << pr.data; 
-  return o; 
+ostream &operator<< (ostream &o, const PropertyRecord &pr)
+{
+  o << pr.name << ", data == " << pr.data;
+  return o;
 }
 
-ostream &operator<< (ostream &o, const ObjectRecord &objr) 
-{ 
-  o << objr.name << ", parent == " << objr.parent; 
-  if (objr.hidden) 
-    o << ", hidden"; 
+ostream &operator<< (ostream &o, const ObjectRecord &objr)
+{
+  o << objr.name << ", parent == " << objr.parent;
+  if (objr.hidden)
+    o << ", hidden";
   if (objr.invisible)
     o << ", invisible";
-  return o; 
+  return o;
 }
 
-ostream &operator<< (ostream &o, const ExitRecord &er) 
-{ 
+ostream &operator<< (ostream &o, const ExitRecord &er)
+{
   return o << er.src << ": " << er.dest;
 }
 
-ostream &operator<< (ostream &o, const TimerRecord &tr) 
+ostream &operator<< (ostream &o, const TimerRecord &tr)
 {
-  return o << tr.name << ": " << (tr.is_running ? "" : "not ") << "running (" 
-	   << tr.elapsed << " // " << tr.interval << ")"; 
+  return o << tr.name << ": " << (tr.is_running ? "" : "not ") << "running ("
+	   << tr.elapsed << " // " << tr.interval << ")";
 }
 
 /* A record for the debug log; OPEN and CLOSE bracket each element. */
@@ -861,7 +860,7 @@ ostream &operator<< (ostream &o, const IVarRecord &ir) { return show_var (o, ir,
 ostream &operator<< (ostream &o, const QuestionState &gs)
 {
   o << "location == " << gs.location << "\nprops: \n";
- 
+
   for (size_t i = 0; i < gs.props.size(); i ++)
     o << "    " << i << ": " << gs.props[i] << "\n";
 

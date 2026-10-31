@@ -279,9 +279,9 @@ const std::vector<Element *> &World::field_chain(Element *e) const {
 }
 
 // Live object-kind children of `parent` (nullptr = roots), SortIndex order.
-// Rebuilds the whole index lazily on a containment change -- mirrors the old
-// direct_children scan exactly (kind==Object, live, parent read from the own
-// `parent` field), just amortised across the many reads in a turn.
+// A child is a live element of kind Object whose own `parent` field names the
+// parent.  The whole index is rebuilt lazily on a containment change, so the
+// cost is amortised across the many reads in a turn.
 const std::vector<Element *> &World::children_of(Element *parent) {
     if (children_index_gen_ != containment_gen) {
         children_index_.clear();
@@ -1332,7 +1332,7 @@ struct Loader {
             // A general list of nested <value type="..">s -- each already built
             // as a typed Value (and may itself be a collection). ObjectList when
             // every entry is an object ref, else StringList (TypeOf reports one
-            // of those two; a distinct "list" name is still TODO).
+            // of those two, never a distinct "list" name).
             bool all_obj = !f.values.empty();
             for (const Value &cv : f.values)
                 if (cv.type != Value::Type::ObjectRef) { all_obj = false; break; }
@@ -1671,7 +1671,7 @@ bool load_file(const std::string &path, World &world,
             return false;
         }
         // Packaged games may bundle their own libraries inside the zip; those
-        // are not yet extracted, so only the Core dir resolves for now.
+        // are not extracted, so only the Core dir resolves.
         return load_aslx_buffer(aslx.data(), aslx.size(), world, core_dir, "");
     }
     return load_aslx_buffer(buf.data(), buf.size(), world, core_dir, game_dir);

@@ -32,9 +32,8 @@ using namespace std;
  * (_stringVariable / _numericVariable), so the same name can name one of each
  * and "#x#" and "%x%" then read different values.  Games rely on it: "enter
  * <players>" fills the string, and "set numeric <players; #players#>" converts
- * it (SetNumericVariableContents, V4Game.Part2.cs:477-536, which never
- * consults the string array).  Question used to refuse the second definition
- * and leave %players% undefined.  So everything here works on one array, and
+ * it (V4Game.Part2.cs:SetNumericVariableContents, which never
+ * consults the string array).  So everything here works on one array, and
  * neither looks at the other. */
 template <class Rec>
 static bool find_var (const vector<Rec> &vars, const string &name, size_t &rv)

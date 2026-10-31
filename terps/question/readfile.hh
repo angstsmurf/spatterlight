@@ -41,7 +41,14 @@ extern std::string trim (const std::string &, trim_modes mode = TRIM_SPACES);
 
 extern void report_error(const std::string &s);
 
-//std::ostream &operator<< (std::ostream &o, const std::vector<std::string> &v);
+/* Shared by readfile.cc and question-preprocess.cc. */
+extern std::vector<std::string> split_lines (const std::string &data);
+extern bool is_balanced (std::string str);
+extern bool is_start_textmode (const std::string &s);
+extern bool is_end_define (const std::string &s);
+extern bool preprocess (std::vector<std::string> v, const std::string &fname,
+			std::vector<std::string> &rv, QuestionInterface *gi);
+
 
 
 #endif

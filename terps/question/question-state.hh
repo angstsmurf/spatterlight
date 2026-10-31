@@ -44,7 +44,7 @@ struct ObjectRecord
      be able to tell them apart.  Not serialized: rooms are the only records
      built with hidden and invisible both set, so a loaded state derives it. */
   bool is_room;
-  
+
   //ObjectRecord (std::string in_name, std::string in_parent) : name (in_name), parent (in_parent), hidden (false), concealed (false) {}
 
 };
@@ -62,7 +62,7 @@ struct TimerRecord
   /* Quest counts a timer *up* and compares the count against the interval as
    * it stands on each tick -- "TimerTicks = TimerTicks + elapsedTime; if
    * (TimerTicks >= TimerInterval) { TimerTicks = 0; …}"
-   * (V4Game.Part2.cs:126-131).  For a fixed interval that is the same clock as
+   * (V4Game.Part2.cs:Tick).  For a fixed interval that is the same clock as
    * counting down and re-arming, but `set interval' moves the interval under a
    * cycle already in flight, and only the count-up form lets the change take
    * effect within that cycle -- a shortened interval can fire at once off the
@@ -71,10 +71,11 @@ struct TimerRecord
    * mire" timer down from 15 to 10 to 5 from inside its own action. */
   uint interval, elapsed;
   /* Quest's TimerType.BypassThisTurn: "don't trigger timer during the turn it
-   * was first enabled" (SetTimerState, V4Game.Part2.cs:561-574).  Every
+   * was first enabled" (V4Game.Part2.cs:SetTimerState).  Every
    * timeron/timeroff raises it, and the next tick spends it instead of
    * counting.  Not part of the save format -- Quest saves TimerTicks and not
-   * this flag (V4Game.Part2.cs:344) -- so it defaults to false on load. */
+   * this flag (V4Game.Part2.cs:RestoreGameData) -- so it defaults to false on
+   * load. */
   bool bypass = false;
 };
 
@@ -107,9 +108,9 @@ struct SVarRecord : VarRecord<std::string>
 
   /* An index past the end reads as the empty string, not as a sentinel:
    * GetStringContents logs "Array index ... too big" and returns ""
-   * (V4Game.Part2.cs:2637-2643).  It used to answer "!", which is a marker for
-   * a missing *property*, and it went straight into game text -- Wizard's
-   * spell menu printed "4) !" for each of its nine empty slots. */
+   * (V4Game.Part2.cs:IsAvailable).  "!" is the marker for a missing *property*,
+   * and here it would go straight into game text: Wizard's spell menu would
+   * print "4) !" for each of its nine empty slots. */
   std::string get (size_t i) const { if (i < size()) return data[i]; return "";}
   std::string get() const { return data[0]; }
   /* Element i as a save file holds it. */
@@ -202,7 +203,6 @@ struct UndoState
 struct QuestionState
 {
   //private:
-  //std::auto_ptr<QuestionFile> gf;
 
 public:
   bool running = false;
@@ -214,13 +214,12 @@ public:
    * sync with `props` by add_prop (). */
   mutable PropsIndex props_index;
   std::vector<ObjectRecord> objs;
-  /* Index of `objs` by lower-cased object name, for the container/parent chain
-   * walks (obj_parent, room_of, container_in_scope) that regen runs per object
-   * per turn.  Records change fields but are never removed during play, and the
-   * only thing that appends is `clone` (add_object, which invalidates the
+  /* Index of `objs` by lower-cased object name, for the container/parent
+   * lookups (get_obj_parent, container_room, container_in_scope).  Records
+   * change fields but are never removed during play, and the only thing that appends is `clone` (add_object, which invalidates the
    * index), so the indices stay valid; a copy or undo-restore starts it invalid
    * (see PropsIndex) and it is rebuilt on first use.  Duplicate names keep
-   * definition order, matching the old first-match linear scans. */
+   * definition order, so the first record is the first one defined. */
   mutable PropsIndex objs_index;
   std::vector<ExitRecord> exits;
   std::vector<TimerRecord> timers;
@@ -230,12 +229,8 @@ public:
    * separate from world objects (a game may both give an item and hide the
    * like-named room object).  Held by display name. */
   std::vector<std::string> items;
-  //std::map <std::string, std::string> obj_types;
-
-  //void register_block (std::string blockname, std::string blocktype);
 
   QuestionState () {}
-  //QuestionState (QuestionRunner &, const QuestionFile &);
   QuestionState (QuestionInterface &, const QuestionFile &);
 
   /* Append a runtime property/action record (the only way props grows during

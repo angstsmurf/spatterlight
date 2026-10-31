@@ -316,7 +316,7 @@ struct Element {
     // Fields in insertion order (Quest's field bag is unordered, but preserving
     // order keeps dumps stable and readable). field_index_ maps a field name to
     // its slot in `fields` so field()/set_field() are O(1) instead of a linear
-    // string scan -- the field-resolution walk (collect_field_chain) reads a
+    // string scan -- the field-resolution walk (over World::field_chain) reads a
     // field at every node of the inheritance chain, per attribute, per turn.
     // Always mutate `fields` through set_field/remove_field/clear_all_fields so
     // the index stays in sync.

@@ -119,7 +119,7 @@ CHEAPGLK := ../../cheapglk
 
 # The helpers both Glk frontends share, compiled into every binary that
 # carries a frontend.
-QGLKCOMMON := ../questglk-common.cc
+QGLKCOMMON := ../questglk-common.cc ../questglk-style.cc
 QGLKCOMMONHDR := ../questglk-common.hh ../qstr.hh
 
 # Unit tests for those helpers.  Engine-agnostic, so it stays at the root of

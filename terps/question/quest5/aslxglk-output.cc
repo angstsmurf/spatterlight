@@ -449,10 +449,10 @@ LinkAction link_action(const std::string &tag)
          * JS UI.  Carry the ELEMENT name, not a command: the menu -- and the
          * alias its chosen verb has to be phrased with -- can only be built
          * from the live world at click time (see the element branch in
-         * read_line).  Sending "look at <element name>" here was wrong twice
-         * over: it ignored every verb but the first, and element names are not
-         * what the parser resolves, so any object whose name differs from its
-         * alias answered "I can't see that." */
+         * read_line).  Sending "look at <element name>" here would be wrong twice
+         * over: it would ignore every verb but the first, and element names are
+         * not what the parser resolves, so any object whose name differs from
+         * its alias would answer "I can't see that." */
         std::string cls = tag_attr(tag, "class");
         std::string elem = tag_attr(tag, "data-elementid");
         if (cls.find("elementmenu") != std::string::npos && !elem.empty())
@@ -1015,9 +1015,8 @@ void render_html_inner(const std::string &raw)
                  *
                  * The element is skipped whole either way.  Its text is
                  * FALLBACK content -- shown only by a browser too old to know
-                 * the tag, never alongside playback -- so printing it (which is
-                 * what dropping the tag but keeping its children used to do)
-                 * was always wrong here, whether or not the sound starts. */
+                 * the tag, never alongside playback -- so printing it would
+                 * be wrong here, whether or not the sound starts. */
                 if (!closing) {
                     size_t end = i;
                     std::vector<std::string> srcs =
@@ -1045,8 +1044,8 @@ void render_html_inner(const std::string &raw)
                 if (name == "pre")
                     pre = closing ? std::max(pre - 1, 0) : pre + 1;
             }
-            /* every other tag (table, ul...) is dropped: §4 says
-             * best-effort subset, not a browser. */
+            /* every other tag (table, ul...) is dropped: a best-effort
+             * subset, not a browser. */
         } else if (ch == '&') {
             glui32 c = decode_entity(html, i);
             if (c == ' ' && g_break_owed) {

@@ -44,6 +44,7 @@
 #include "../../../question-util.cc"
 #include "../../../istring.cc"
 #include "../../../readfile.cc"
+#include "../../../question-preprocess.cc"
 #include "../../../standardlib_builtin.cc"
 #include "../../../stdverbs_builtin.cc"
 #include "../../../typelib_builtin.cc"

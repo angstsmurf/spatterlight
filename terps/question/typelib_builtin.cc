@@ -3,25 +3,20 @@
  *  standard Quest 4 type library by Al Bampton (MaDbRiT), v1.009 06-Sep-2003.
  *
  *  The .qlb shipped with Quest/QDK, not with games, so a game that
- *  `!include`s it cannot find the file on disk under Question.  readfile.cc splices
+ *  `!include`s it cannot find the file on disk under Question.  question-preprocess.cc splices
  *  this text in at that point instead (see handle_includes / is_typelib).
  *
  *  Verbatim from the file Quest 4.1.5 installs, including the `!addto game`
  *  block, the `!addto synonyms` block and the `!QDK` editor section (which
  *  handle_includes skips).  The one addition is the `set string <TLSdObj;>`
- *  marked below.
+ *  marked below.  Library data, so do not reformat it or strip its whitespace.
  *
- *  The `!addto game` block used to be cut down to its `startscript` line, on
- *  the grounds that Question implements look/examine/take/drop/give/open/close/
- *  read/wear natively and that the library's room renderer needs gettag(),
- *  which Question did not have.  Both halves of that were wrong: Quest adds the
- *  library's commands ahead of its own verbs and its `description` override in
- *  place of the native room renderer, so a game that includes the library is
- *  meant to be played through TLProomDescription and friends -- and gettag()
- *  has since been implemented (run_function, "gettag").  King's Quest V is the
- *  corpus game that shows it: with the block cut, all 71 of its room renders
- *  came out in the native wording and put the exits above the description
- *  instead of below.
+ *  The `!addto game` block has to stay whole: Quest adds the library's commands
+ *  ahead of its own verbs and its `description` override in place of the native
+ *  room renderer, so a game that includes the library is meant to be played
+ *  through TLProomDescription and friends.  King's Quest V is the corpus game
+ *  that shows it: all 71 of its room renders go through that override, with
+ *  the exits below the description.
  *
  *  Source: Quest 4.1.5, typelib.qlb (byte for byte the same file as
  *  textadventures/quest, src/Legacy/Libraries/Typelib.qlb)

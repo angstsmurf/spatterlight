@@ -19,7 +19,7 @@
 /* The Quest libraries that shipped with Quest itself rather than with the
  * games, and so are never on disk beside one: each is bundled as the text of
  * the library, in a source file of its own that keeps its author's notice
- * (*_builtin.cc).  readfile.cc splices them in where a game !includes them. */
+ * (*_builtin.cc).  question-preprocess.cc splices them in where a game !includes them. */
 
 #ifndef QUESTION_BUILTIN_LIBS_HH
 #define QUESTION_BUILTIN_LIBS_HH

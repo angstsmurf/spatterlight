@@ -16,7 +16,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
  */
 
-// aslx-savenative.cc -- Quest 5 native `.quest-save` compatibility (TODO §5).
+// aslx-savenative.cc -- Quest 5 native `.quest-save` compatibility.
 //
 // This is the interoperable save format: an ASLX document Quest's own desktop
 // player and QuestViva read and write, as opposed to the compact v1 snapshot
@@ -313,8 +313,8 @@ std::string bake_block(const std::string &head, const std::string &block,
 std::string bake_switch(const std::string &stmt, const Stmt &s) {
     // Split off the switch expression like the parser (get_parameter), not on
     // the first '{': a one-line switch arrives with its outer braces already
-    // stripped by get_script, where split_block would take the first CASE's
-    // brace instead and lose the body.
+    // stripped by get_script, where splitting at the first '{' would take the
+    // first CASE's brace instead and lose the body.
     std::string after;
     bool found = false;
     get_parameter(stmt, after, found);
@@ -360,7 +360,7 @@ std::string bake_switch(const std::string &stmt, const Stmt &s) {
 }
 
 // "<keyword> (<parameter>) <block>": the block follows the parameter, as in
-// parse_one_statement. split_block (first '{') would mis-split a one-liner
+// parse_one_statement. Splitting at the first '{' would mis-split a one-liner
 // whose own braces get_script already stripped -- the first brace it finds
 // then belongs to a NESTED statement, and the body text corrupts.
 std::string bake_after_parameter(const std::string &stmt,
@@ -442,8 +442,8 @@ std::string bake_stmt_list(const std::string &inner,
             bool ran = s.ran && *s.ran;
             // The body is everything after the keyword, exactly as the parser
             // sees it -- get_script has already stripped the braces off a
-            // one-line block, so split_block would find no '{' (or a nested
-            // statement's) and lose the body.
+            // one-line block, so a split at the first '{' would find none (or
+            // a nested statement's) and lose the body.
             std::string body =
                 ran ? std::string()
                     : bake_block("firsttime", trim(stmt.substr(9)), s.body);
@@ -945,7 +945,7 @@ bool Interp::restore_game_native(const std::string &data, std::string &err) {
     }
 
     std::set<std::string> overlaid;
-    // Overlay onto world_ (the freshly reloaded original). Note: overlay_aslx
+    // Overlay onto world_ (the freshly reloaded original). Note: overlay_aslx_buffer
     // pushes its own <asl version> onto world_, which equals the current one.
     // A saved game carries no <include>, so the core dir is irrelevant here.
     if (!overlay_aslx_buffer(data.data(), data.size(), world_, overlaid, "")) {

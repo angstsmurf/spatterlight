@@ -702,7 +702,7 @@ inline std::vector<OutSection> g_sections;
 inline const size_t kMaxSections = 8;
 
 /* win_unprint copies into the 64 KB message buffer as uint16_t
- * (glkimp/connect.c:220), so a retract longer than that would overrun it.
+ * (glkimp/connect.c), so a retract longer than that would overrun it.
  * Referenced only by the SPATTERLIGHT unput path; kMaxLogChunks below is
  * sized against it in every build. */
 inline const size_t kMaxUnput = 16384;
@@ -804,7 +804,7 @@ bool engine_state_pending(Interp &in);
  * any typed text (GlkTextBufferWindow+Input.m cancelLine), so the prompt
  * really is the window tail and unput_exact removes it whole.  Whenever it
  * does not (the window moved on, no echo control so the typed text is still
- * on screen, CheapGlk's no-op unput), the fallback is the old behaviour:
+ * on screen, CheapGlk's no-op unput), the fallback is to
  * break the line so the output lands cleanly under the stale prompt.  Typed
  * text survives either way -- the caller re-requests input with the
  * cancelled line as preload (ce.val1). */
@@ -1015,7 +1015,7 @@ bool draw_image_inline(const std::string &name);
  * room description below the fold, and then scrolled away for good, since a
  * re-set of the same file is deduped (The Shack: every room has art).
  *
- * Hosts without graphics (CheapGlk, the smoke harness) keep the old inline
+ * Hosts without graphics (CheapGlk, the smoke harness) keep the inline
  * path, so their transcripts are unchanged. */
 inline winid_t gpanelwin = nullptr;    /* the band, open only while a picture is set */
 

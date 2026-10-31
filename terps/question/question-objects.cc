@@ -88,7 +88,7 @@ bool question_implementation::get_room_action (const string &roomname, const str
   return gf.get_room_action (roomname, actname, rv);
 }
 
-/* Quest's FindLine over the game block (V4Game.Part2.cs:6191-6219): the first
+/* Quest's FindLine over the game block (V4Game.Part2.cs:FindLine): the first
    line whose first token is `tok` and whose first parameter matches `param`
    case-insensitively, with everything after that parameter handed back as the
    script.  Game-block lines are not rewritten into "action <...>" form by
@@ -207,8 +207,8 @@ v2string question_implementation::object_verbs (const string &obj) const
   /* "remove <object>" is a command in its own right, and when the object is not
      inside a container it falls back on the object's own `remove` action or
      property (see the "remove #@object#" handler) -- which is how Shiversword
-     Tales' clothes and Bear Campsite's tangled string come off.  It used to
-     reach the menu only as a side-effect of harvesting the action list below.
+     Tales' clothes and Bear Campsite's tangled string come off.  So the menu
+     asks for it here, and does not leave it to the action list harvested below.
 
      Two other things answer a bare responds("remove") and are not that.  A
      container's `remove` is the container half of "put", the handler for taking
@@ -262,7 +262,7 @@ v2string question_implementation::object_verbs (const string &obj) const
      Quest only ever runs an action whose key the engine dispatches -- the
      universal verbs and the built-in table above, plus the second-noun handlers
      (use/give/put) -- or one named by a `verb`/`lib verb` declaration in the
-     *game* block; ExecVerb (V4Game.cs:2952-2955) scans nowhere else.  So an
+     *game* block; ExecVerb (V4Game.cs:ExecVerb) scans nowhere else.  So an
      author who writes `action <lift>` and no `verb <lift>` has written dead
      code: LIFT PAINTING is "I don't understand your command" in real Quest too.
      Harvesting the action list unconditionally put such a verb in the menu,
@@ -431,8 +431,8 @@ void question_implementation::set_obj_property (const string &obj, const string 
  * is taken apart: below ASL 281 it splits the string at the "@", matches the half
  * after it against the object's ContainerRoom and the half before it against the
  * object's name, and an object that is not in that room is simply not found
- * (V4Game.Part2.cs:2994-3068).  From 281 the form is gone -- the whole string is
- * compared to the object name, so "X@room" matches nothing at all.
+ * (V4Game.Part2.cs:SetAvailability).  From 281 the form is gone -- the whole
+ * string is compared to the object name, so "X@room" matches nothing at all.
  *
  * Question keys properties by object name alone, so the most this can do is say
  * whether the reference resolves and hand back the bare name.  That is enough for
@@ -484,7 +484,7 @@ void question_implementation::move (const string &obj, const string &dest, int d
   state.objs[(*v)[0]].parent = dest;
 
   /* "If this object contains other objects, move them too" -- MoveThing's own
-   * comment (V4Game.cs:6648-6656).  The contents are the objects whose "parent"
+   * comment (V4Game.cs:MoveThing).  The contents are the objects whose "parent"
    * property names this one, and they follow it into the new room, which is how
    * picking up a bag puts everything in it in the inventory as well.  Quest
    * recurses with nothing to stop it if a game has made the chain a cycle; we
@@ -535,15 +535,16 @@ void question_implementation::do_add_remove (const string &child, const string &
   /* From ASL 4.10 on, moving something into or out of a container also marks
    * the container "seen"; Quest's own comment explains why -- otherwise you
    * could LOOK AT the object you just put in and have disambiguation fail
-   * (DoAddRemove, V4Game.cs:2125-2131).  It belongs here, in the one routine
+   * (V4Game.cs:DoAddRemove).  It belongs here, in the one routine
    * every add and every parented remove goes through, rather than at the
    * individual call sites: Quest has exactly two places that set "seen", this
    * one and DoLook, and only this one is version-gated. */
   if (discover_parent && asl_version_ >= 410 && parent != "")
     set_obj_property (parent, "seen");
   /* And re-derive what the container's contents can reach -- the last thing
-   * DoAddRemove does (V4Game.cs:2133).  set_obj_property has already done it if
-   * the "seen" above fired, but that is version-gated and this is not. */
+   * DoAddRemove does (V4Game.cs:DoAddRemove).  set_obj_property has already
+   * done it if the "seen" above fired, but that is version-gated and this is
+   * not. */
   update_container_visibility (parent);
 }
 
@@ -566,7 +567,7 @@ bool question_implementation::is_held (const string &name) const
       return true;
   /* No walk up the container chain here: from 3.91 what is in a carried
    * container is carried too, but that falls out of the container's own room
-   * already, because MoveThing takes the contents with it (V4Game.cs:6648-6656)
+   * already, because MoveThing takes the contents with it (V4Game.cs:MoveThing)
    * and DoAddRemove starts them off in the container's room.  "TARDIS Escape"
    * is the game that notices -- it refused `take sonic screwdriver` as already
    * carried and then refused to *use* the screwdriver because the player did
@@ -634,7 +635,7 @@ bool question_implementation::container_in_scope (const string &name, const vect
   /* Walk up the container chain iteratively, bounded by kMaxContainerDepth: a
    * game can make the chain a cycle (put the bag in the box and the box in the
    * bag), and recursing on the parent would then never bottom out.  See
-   * room_of, which is bounded the same way. */
+   * is_inside, which is bounded the same way. */
   string cur = name;
   for (int guard = 0; guard < kMaxContainerDepth; guard++)
     {
@@ -708,9 +709,9 @@ bool question_implementation::content_available (const string &P) const
   /* "If the parent is a surface, then the contents are always available.
    * Otherwise, only if the parent has been seen, AND is either open or
    * transparent, then the contents are available." -- Quest's own comment on
-   * the one line this is (V4Game.Part2.cs:7721).  No walk: a box shut inside
-   * another box still says its contents are available, and the player is kept
-   * out of them by player_can_access instead. */
+   * the one line this is (V4Game.Part2.cs:PlayerCanAccessObject).  No walk: a
+   * box shut inside another box still says its contents are available, and the
+   * player is kept out of them by player_can_access instead. */
   if (has_obj_property (P, "surface"))
     return true;
   if (!has_obj_property (P, "seen"))
@@ -719,11 +720,11 @@ bool question_implementation::content_available (const string &P) const
 }
 
 /* `only_parent` empty sweeps every contained object, which is what Quest does
- * once at the end of loading (V4Game.Part2.cs:3611).  Every *runtime* call names
- * the one container whose state just changed and updates only its direct
- * children (UpdateVisibilityInContainers' OnlyParent argument,
- * V4Game.Part2.cs:7650-7708); the container's own availability is not in
- * question there, only its contents'. */
+ * once at the end of loading (V4Game.Part2.cs:SetUpCharObjectInfo).  Every
+ * *runtime* call names the one container whose state just changed and updates
+ * only its direct children (UpdateVisibilityInContainers' OnlyParent argument,
+ * V4Game.Part2.cs:UpdateVisibilityInContainers); the container's own
+ * availability is not in question there, only its contents'. */
 void question_implementation::update_container_visibility (const string &only_parent)
 {
   if (sweeping)
@@ -992,11 +993,11 @@ bool question_implementation::remove_from_container (const string &child,
       display_error ("cantremove", child);
       return false;
     }
-  /* Quest asks for "container" and then for "surface or opened" (V4Game.cs:2500,
-   * 2564): a `surface` object is given *both* tags when it is parsed
-   * (V4Game.Part2.cs:3448-3454), so an altar you can lift a ruby off passes the
-   * container test too, while a closed chest fails the second one and the
-   * removal (and any take that asked for it) is refused. */
+  /* Quest asks for "container" and then for "surface or opened"
+   * (V4Game.cs:ExecAddRemove): a `surface` object is given *both* tags when it
+   * is parsed (V4Game.Part2.cs:SetUpCharObjectInfo), so an altar you can lift
+   * a ruby off passes the container test too, while a closed chest fails the
+   * second one and the removal (and any take that asked for it) is refused. */
   if (!has_obj_property (parent, "container") &&
       !has_obj_property (parent, "surface"))
     {

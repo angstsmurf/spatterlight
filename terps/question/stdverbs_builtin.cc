@@ -3,21 +3,19 @@
  *  Quest 4 verb library by Alex Warren, v1.0, Copyright 2007 Axe Software.
  *
  *  The .lib shipped with Quest itself, not with games, so a game that
- *  `!include`s it cannot find the file on disk under Question.  readfile.cc
+ *  `!include`s it cannot find the file on disk under Question.  question-preprocess.cc
  *  splices this text in at that point instead (see handle_includes /
  *  is_stdverbs), exactly as it does for the type library.
  *
- *  Question used to skip the include on the theory that it only supplied verbs
- *  Question already had.  It does not: every line here is content the engine has
- *  no native equivalent for -- twenty-nine default verb responses, seven
- *  extra commands, and the multiple-commands-on-one-line splitter, which is
- *  the library's headline feature.  Without them a game that includes the
- *  library answers "buy the sword" with its own unrecognised-verb error where
- *  Quest answers "You can't buy the sword.", and drops the second half of
- *  "north, then east" on the floor.
+ *  The engine has no native equivalent for any of it: twenty-nine default verb
+ *  responses, seven extra commands, and the multiple-commands-on-one-line
+ *  splitter, the library's headline feature.  With it a game answers "buy the
+ *  sword" with Quest's "You can't buy the sword." and runs both halves of
+ *  "north, then east".
  *
  *  Verbatim from the released source, which asks not to be modified; only the
- *  encoding differs (the original is ISO-8859-1, this is UTF-8).
+ *  encoding differs (the original is ISO-8859-1, this is UTF-8).  Library data,
+ *  so do not reformat it or strip its whitespace.
  *
  *  Source: textadventures/quest, src/Legacy/Libraries/stdverbs.lib
  ***************************************************************************/

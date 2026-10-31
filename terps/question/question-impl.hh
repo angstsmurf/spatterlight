@@ -19,7 +19,13 @@
 
 /* question_implementation, the class behind the QuestionRunner interface
  * (QuestionRunner.hh), whose methods are spread over the question-*.cc files.
- * Those include it through question-internal.hh. */
+ * Those include it through question-internal.hh.
+ *
+ * Citations of the form File.cs:Method throughout the engine point into
+ * QuestViva's src/Legacy (see notes/QUESTION_vs_QUESTVIVA.md), as of v6.0.0+69
+ * (290a87df).  A bare "ibid." repeats the file named just before it.  Search
+ * for the method name; where a method is long, the quoted behaviour is the
+ * rest of the pointer. */
 
 #ifndef __question_impl_hh
 #define __question_impl_hh
@@ -36,7 +42,6 @@ struct match_binding
   std::string var_name;
   std::string var_text;
   uint start, end;
-  //operator std::string();
   std::string tostring();
   match_binding (std::string vn, uint i) : var_name (vn), start (i) {}
   void set (std::string vt, uint i) { var_text = vt; end = i; }
@@ -56,25 +61,10 @@ struct match_rv
 };
 
 extern std::ostream &operator<< (std::ostream &o, const match_rv &rv);
-/*
-  inline ostream &operator<< (ostream &o, const match_rv &rv) 
-{
-  //o << "match_rv {" << (rv.success ? "TRUE" : "FALSE") << ": " << rv.bindings << "}"; 
-  o << "match_rv {" << (rv.success ? "TRUE" : "FALSE") << ": [";
-  //o << rv.bindings.size();
-  //o << rv.bindings;
-  for (uint i = 0; i < rv.bindings.size(); i ++)
-    o << rv.bindings[i] << ", ";
-  o << "]}"; 
-  return o; 
-}
-*/
 
 class question_implementation : public QuestionRunner
 {
-  //QuestionInterface *gi;
   QuestionFile gf;
-  //bool running;
   /* `outputting` gates every print path, and `dont_process` the command
    * dispatch, but both are only assigned once a game has loaded: a game that
    * fails to parse would leave them indeterminate while the interface is still
@@ -133,38 +123,38 @@ class question_implementation : public QuestionRunner
    * looser pass of noun matching: with abbreviations on, Disambiguate falls back
    * to matching the typed word against a whole-word run of the object's name
    * ("paper" -> "Wall Paper") when nothing matched exactly.  Quest gates that
-   * pass on ASLVersion >= 391 and on this option (Disambiguate,
-   * V4Game.cs:4730; the option is read in SetUpOptions,
-   * V4Game.Part2.cs:884-895, and defaults to on, V4Game.Part2.cs:6404).
-   * Games do turn it off to keep a decorative scenery object from swallowing a
-   * puzzle item's alias (Permanant Room has both `define object <Wall Paper>'
-   * and a `Peice of Paper' aliased "paper"). */
+   * pass on ASLVersion >= 391 and on this option (V4Game.cs:Disambiguate; the
+   * option is read in SetUpOptions, V4Game.Part2.cs:SetUpOptions, and defaults
+   * to on, V4Game.Part2.cs:InitialiseGame). Games do turn it off to keep a
+   * decorative scenery object from swallowing a puzzle item's alias (Permanant
+   * Room has both `define object <Wall Paper>' and a `Peice of Paper' aliased
+   * "paper"). */
   bool use_abbreviations_ = true;
   /* DELIBERATE deviation: accept an object's declared (internal) name as a
    * last resort when it names exactly one object in scope.  Quest never does
    * -- an alias *replaces* the name in Disambiguate's eyes (V4Game.cs:
-   * 4704-4767) -- but early Question always did, on purpose: an author's `boat2'
-   * or `Louvre key' in a player's mouth leaves no doubt what was meant, and
-   * refusing it helps nobody.  The unique-match rule is what keeps that safe:
-   * this pass can turn a refusal into a success, never ask a disambiguation
-   * question Quest would not have asked, never pick a different object than
-   * Quest picked.  Only when deriving Quest-compatible walkthroughs must the
-   * leniency be off, so the scripts stay replayable in a real Quest: the
-   * walkthrough runner sets QUESTION_STRICT_NAMES for exactly that reason
-   * (--lenient-names turns it back off per fixture). */
+   * Disambiguate) -- but early Question always did, on purpose: an author's
+   * `boat2' or `Louvre key' in a player's mouth leaves no doubt what was
+   * meant, and refusing it helps nobody.  The unique-match rule is what keeps
+   * that safe: this pass can turn a refusal into a success, never ask a
+   * disambiguation question Quest would not have asked, never pick a different
+   * object than Quest picked.  Only when deriving Quest-compatible
+   * walkthroughs must the leniency be off, so the scripts stay replayable in a
+   * real Quest: the walkthrough runner sets QUESTION_STRICT_NAMES for exactly
+   * that reason (--lenient-names turns it back off per fixture). */
   bool lenient_names_ = std::getenv ("QUESTION_STRICT_NAMES") == nullptr;
   /* Quest displays the game block's <intro> text section automatically once the
    * startscript has run, unless the startscript executed "nointro" -- games that
    * print their own credits sequence use that to show <intro> exactly where they
    * want it with an explicit `displaytext <intro>` (The Devil's Bargain).  Quest
    * clears the flag in ExecuteScript and tests it after the startscripts
-   * (V4Game.Part2.cs:6000-6003 and 7946/7987), so it is session state, not game
-   * state: undo cannot take you back to before the intro. */
+   * (V4Game.Part2.cs:ExecuteScript/DoBeginAsync), so it is session state, not
+   * game state: undo cannot take you back to before the intro. */
   bool auto_intro_ = true;
   /* Quest 2.x "collectables": named numbers with a display string, declared
    * once in the game block as
    *     collectables <Money dp=100 [! Dollars]; Score p=1000 [! Points]>
-   * and shown in the status pane (SetUpCollectables, V4Game.Part2.cs:6838-6935).
+   * and shown in the status pane (V4Game.Part2.cs:SetUpCollectables).
    * "Type" is a range spec that clamps the value after every change ("%" tops
    * out at 100, "p" cannot go below 0, "10r50" bounds both ends) and a leading
    * "d" means "hide this line while the value is zero".
@@ -185,7 +175,7 @@ class question_implementation : public QuestionRunner
    * `possitems') declares every item the player can ever hold, and below ASL
    * 2.80 that table *is* the inventory -- each entry carries a Got flag that
    * give/lose set and clear, and there are no objects in it at all
-   * (SetUpItemArrays, V4Game.Part2.cs:6961-7014).  The names never change, so
+   * (V4Game.Part2.cs:SetUpItemArrays).  The names never change, so
    * like the collectables they are session state; which of them are held lives
    * in QuestionState::items, so save, restore and undo carry it already.
    *
@@ -198,7 +188,6 @@ class question_implementation : public QuestionRunner
 public:
   question_implementation (QuestionInterface *in_gi)
      : QuestionRunner (in_gi), undo_buffer (kUndoLevels), is_running_(true) {}
-  //void set_game (std::string s);
   void set_game (const std::string &s) override;
   /* set_game's steps, in order. */
   void read_version_and_options ();
@@ -231,9 +220,9 @@ public:
   void run_turn (const std::string &, bool is_internal, bool is_normal);
   /* Quest's turn does not run to its end and stop -- it *suspends*, at its
    * first `wait` or `pause` as much as at its close, and SendCommand ticks the
-   * timers the moment it does (V4Game.Part2.cs:78-88).  Called at each such
-   * point; the first one in the turn spends the tick and the rest are no-ops,
-   * exactly as TrySetResult on a completed TaskCompletionSource is. */
+   * timers the moment it does (V4Game.Part2.cs:Initialise).  Called at each
+   * such point; the first one in the turn spends the tick and the rest are
+   * no-ops, exactly as TrySetResult on a completed TaskCompletionSource is. */
   void suspend_turn ();
   /* The |w code inside a printed string is a wait like any other, but it is
    * QuestionInterface::print_formatted that performs it, so the interface calls
@@ -271,10 +260,11 @@ public:
   bool run_commands (std::string, const QuestionBlock *, bool is_internal = false, bool lib_pass = false);
 
   void display_error (std::string errorname, std::string object = "");
-  /* Quest's PlayerErrorMessage_ExtendInfo (V4Game.cs:7652-7667): the same error
-   * message with a reason glued on -- the trailing full stop is dropped, " - "
-   * and the reason take its place, and a new full stop closes the sentence.
-   * Only the container-accessibility refusals use it. */
+  /* Quest's PlayerErrorMessage_ExtendInfo
+   * (V4Game.cs:PlayerErrorMessage_ExtendInfo): the same error message with a
+   * reason glued on -- the trailing full stop is dropped, " - " and the reason
+   * take its place, and a new full stop closes the sentence. Only the
+   * container-accessibility refusals use it. */
   void display_error_info (std::string errorname, std::string object,
 			   const std::string &extra);
   /* Quest's _playerErrorMessageString array, built once per game: the built-in
@@ -327,8 +317,8 @@ public:
   static constexpr size_t kMaxVarIndex = 100000;
 
   /* Flatten type `typenm` onto `obj` at runtime -- the shared half of the
-   * `type <obj; typenm>` statement and of 4.10 `create object` (ExecType,
-   * V4Game.cs:4455-4476).  Records "!type <name>" membership markers, which
+   * `type <obj; typenm>` statement and of 4.10 `create object`
+   * (V4Game.cs:ExecType).  Records "!type <name>" membership markers, which
    * eval_cond's `type` condition consults beside the static block. */
   void apply_type (const std::string &obj, const std::string &typenm);
 
@@ -357,11 +347,11 @@ public:
   void print_room_objects_and_exits ();
 
   /* Display one picture.  Quest 4 had two picture routines and the tag's form
-   * and the game's ASL version chose between them (V4Game.Part2.cs:5836-5858):
-   * ShowPicture opened a picture window, splitting an optional "; <caption>"
-   * and "@<width>x<height>" off the filename, and ShowPictureInTextAsync drew
-   * the image among the game text and split nothing.  `popup' selects the
-   * first. */
+   * and the game's ASL version chose between them
+   * (V4Game.Part2.cs:ExecuteScript): ShowPicture opened a picture window,
+   * splitting an optional "; <caption>" and "@<width>x<height>" off the
+   * filename, and ShowPictureInTextAsync drew the image among the game text
+   * and split nothing.  `popup' selects the first. */
   void show_picture (const std::string &spec, bool popup);
 
   /* The right-hand side of a `set numeric`, evaluated the way the game's own
@@ -370,7 +360,6 @@ public:
   double eval_set_numeric (const std::string &expr);
 
   std::string displayed_name (const std::string &object) const;
-  //std::string get_obj_name (const std::vector<std::string> &args) const;
   std::string get_obj_name (const std::string &name, const std::vector<std::string> &where, bool is_internal) const;
 
   bool has_obj_property (const std::string &objname, const std::string &propname) const;
@@ -444,7 +433,7 @@ public:
    * Quest's way of saying "no such object". */
   bool resolve_at_room (std::string &name) const;
   void set_obj_action (const std::string &obj, const std::string &act);
-  /* Quest's MoveThing (V4Game.cs:6621-6660): put an object in a room (or in
+  /* Quest's MoveThing (V4Game.cs:MoveThing): put an object in a room (or in
    * "inventory").  That is a write to ContainerRoom -- ObjectRecord::parent --
    * and never touches the "parent" property, so an object moved while still
    * inside a container keeps saying it is in that container.  From ASL 3.91 the
@@ -452,7 +441,7 @@ public:
    * property names this object is moved to the same room, recursively.
    * `depth` is the cycle guard on that recursion; callers leave it alone. */
   void move (const std::string &obj, const std::string &dest, int depth = 0);
-  /* Quest's DoAddRemove (V4Game.cs:2113-2133): containment is recorded as the
+  /* Quest's DoAddRemove (V4Game.cs:DoAddRemove): containment is recorded as the
    * child's "parent" *property* (holding the container's definition name, and
    * cleared with "not parent"), which games read back as #child:parent#.
    * Barbarian's pedestal will only swap the sack for the Eye of the East when
@@ -467,11 +456,11 @@ public:
    * From ASL 4.10 the container is also marked "seen" -- one of the engine's
    * only two places that write that property, the other being DoLook.  Quest's
    * comment says why: otherwise you could LOOK AT the object you just put in
-   * and have disambiguation fail (V4Game.cs:2125-2131).  It applies to a
+   * and have disambiguation fail (V4Game.cs:DoAddRemove).  It applies to a
    * removal as well, which is not a slip: the test sits outside DoAddRemove's
    * add/remove branch.  `discover_parent` is how the one caller Quest does
    * *not* route through DoAddRemove -- the bare `remove <object>` statement,
-   * which has no parent to name (ExecAddRemoveScript, V4Game.cs:2686-2697) --
+   * which has no parent to name (V4Game.cs:ExecAddRemoveScript) --
    * opts out of it. */
   void do_add_remove (const std::string &child, const std::string &parent,
 		      bool adding, bool discover_parent = true);
@@ -491,26 +480,26 @@ public:
   /* True if "name" is a reachable, non-hidden, *open* container object (so its
    * contents are reachable too). */
   bool container_in_scope (const std::string &name, const std::vector<std::string> &where) const;
-  /* Quest's PlayerCanAccessObject (V4Game.Part2.cs:7727-7795): can the player
-   * reach whatever this object sits in?  Walks the "parent" property chain and
-   * stops at the first container that is neither a `surface` nor `opened`,
-   * setting errmsg to "inside closed <that container's display name>" -- the
-   * text the caller appends to its refusal.  From ASL 3.91 `take` asks this
-   * before it does anything else. */
+  /* Quest's PlayerCanAccessObject (V4Game.Part2.cs:PlayerCanAccessObject): can
+   * the player reach whatever this object sits in?  Walks the "parent"
+   * property chain and stops at the first container that is neither a
+   * `surface` nor `opened`, setting errmsg to "inside closed <that container's
+   * display name>" -- the text the caller appends to its refusal.  From ASL
+   * 3.91 `take` asks this before it does anything else. */
   bool player_can_access (const std::string &obj, std::string &errmsg) const;
   /* A container's open/closed state: open if opened at runtime or declared
    * "opened", closed if closed at runtime, and (per Quest) closed by default. */
   bool container_is_open (const std::string &name) const;
   /* True if object `obj` is declared inside container `name` (bare "<name>"). */
   bool declared_inside (const std::string &obj, const std::string &name) const;
-  /* Quest's ListContents (V4Game.cs:3298-3431): the sentence an object's
+  /* Quest's ListContents (V4Game.cs:ListContents): the sentence an object's
    * contents add to its description, and the one place the `list`,
    * `list closed` and `list empty` lines are read.  Empty for anything that is
    * not a container, and "<script>" -- Quest's own sentinel -- when one of
    * those lines was a script, which this has already run and whose output is
    * therefore not the caller's to print. */
   std::string list_contents (const std::string &name);
-  /* Quest's DoLook (V4Game.cs:2136-2237): describe an object.  Runs its `look`
+  /* Quest's DoLook (V4Game.cs:DoLook): describe an object.  Runs its `look`
    * action or property and, from ASL 3.91, follows it with list_contents --
    * every description ends in the object's contents, which is why opening a
    * container shows what is in it.  `examine_error` picks defaultexamine over
@@ -535,9 +524,8 @@ public:
    * legitimately drift apart afterwards -- `lose <X>` drops an object into the
    * current room without disturbing its "parent" -- and a game can rely on
    * that: the Wizard's bar-top label is dropped in the tavern while still
-   * counting as the bottle's contents, and so is listed in the room.  Question used
-   * to conflate the two in the single field ObjectRecord::parent, which made
-   * such an object vanish from the world entirely. */
+   * counting as the bottle's contents, and so is listed in the room.  A single
+   * field for both would make such an object vanish from the world entirely. */
   std::string container_room (const std::string &obj) const;
   std::string obj_container (const std::string &obj) const;
   /* Depth cap on every walk up the object parent chain.  A game can create a
@@ -550,9 +538,10 @@ public:
   /* Whether the interior of container/surface P currently makes its contents
    * available.  Quest's test, verbatim and deliberately flat: a surface's
    * contents always are, a container's only when it has been seen and is either
-   * open or transparent (V4Game.Part2.cs:7721).  Whether P is itself reachable
-   * -- shut inside another container, or hidden -- does not come into it; that
-   * is player_can_access's question, asked separately and only of the player. */
+   * open or transparent (V4Game.Part2.cs:PlayerCanAccessObject).  Whether P is
+   * itself reachable -- shut inside another container, or hidden -- does not
+   * come into it; that is player_can_access's question, asked separately and
+   * only of the player. */
   bool content_available (const std::string &P) const;
   /* Quest's UpdateVisibilityInContainers: set each contained object's hidden
    * flag from its container's state, so pane/here/exists/resolution agree. */
@@ -561,7 +550,7 @@ public:
   /* regen_var_objects is deferred: mutators (move, set_obj_property, clone,
    * goto) raise this flag and the derived quest.objects/quest.formatobjects
    * strings are rebuilt only when one of them is actually read (see the flush
-   * in get_svar).  They used to be rebuilt ~2.6x per turn, which profiling
+   * in get_svar).  Rebuilding them eagerly runs ~2.6x per turn, which profiling
    * showed dominating large games (regen_var_objects was 68% of KQ5's
    * inclusive time). */
   bool objs_vars_dirty_ = false;
@@ -574,22 +563,22 @@ public:
   /* "close <container>": mark it closed (its contents leave scope) and re-hide
    * any bare-line contents still inside.  Returns false if not a container. */
   bool close_container (const std::string &name);
-  /* Quest's DoOpenClose (V4Game.cs:2238-2251), the state half of the open/close
-   * verbs from ASL 3.91 on: set (or clear) "opened", and on an open also show
-   * the container -- DoLook with the default description suppressed, which is
-   * what marks it "seen" and so brings its contents into scope.  Only the
-   * *property* branch of ExecOpenClose reaches this; a game's own action
+  /* Quest's DoOpenClose (V4Game.cs:DoOpenClose), the state half of the
+   * open/close verbs from ASL 3.91 on: set (or clear) "opened", and on an open
+   * also show the container -- DoLook with the default description suppressed,
+   * which is what marks it "seen" and so brings its contents into scope.  Only
+   * the *property* branch of ExecOpenClose reaches this; a game's own action
    * <open> script changes nothing by itself.  `show_look` is Quest's own
    * argument of that name: the open *verb* passes true and so describes the
    * container it has just opened, while the `open <obj>` script command passes
-   * false and opens it silently (V4Game.Part2.cs:574). */
+   * false and opens it silently (V4Game.Part2.cs:SetUnknownVariableType). */
   void do_open_close (const std::string &name, bool opening,
 		      bool show_look = false);
   /* Quest's half of "remove <child>" / "remove <child> from <parent>": the
    * *container* decides, through its "remove" action (which is handed the item
    * in quest.remove.object.name and is responsible for the removal itself) or
    * its "remove" text property (after which the engine clears the child's
-   * parent).  ExecAddRemove, V4Game.cs:2578-2624.  Returns false if the
+   * parent).  V4Game.cs:ExecAddRemove.  Returns false if the
    * container refused -- not a container, closed, or no remove of its own -- so
    * a caller doing this on the player's behalf can abandon its own action. */
   bool remove_from_container (const std::string &child, const std::string &parent);
@@ -602,7 +591,7 @@ public:
   std::string eval_string_body (const std::string &s);
   std::string eval_inline_exprs (const std::string &s);
   /* Quest's GetParameter.  Below ASL 3.20 a parameter whose contents start with
-   * "~Internal" is handed back completely unconverted (V4Game.cs:1884-1893):
+   * "~Internal" is handed back completely unconverted (V4Game.cs:GetParameter):
    * those are the procedure names QDK generates for a .cas file, and the ~ that
    * begins them would otherwise open a collectable reference. */
   std::string eval_param (const std::string &s)
@@ -625,8 +614,8 @@ public:
   void set_up_items ();
   /* The declared item of that name, or NULL.  Quest matches an item name
    * exactly and case-sensitively wherever it *writes* the Got flag
-   * (SetUpStartItems and PlayerItem, V4Game.Part2.cs:7050-7057 and 6681-6690)
-   * and case-insensitively wherever it reads it (ExecuteIfGot, V4Game.cs:7382;
+   * (V4Game.Part2.cs:SetUpStartItems and PlayerItem)
+   * and case-insensitively wherever it reads it (V4Game.cs:ExecuteIfGot;
    * ExecDrop; ExecUse), so the two lookups are not interchangeable: a game that
    * writes `lose <hooka>' against an `items <...; Hooka; ...>' declaration is
    * losing nothing at all, and The Dream Weaver is one that does.
@@ -641,26 +630,26 @@ public:
   /* Collectables (see the CollectableDef comment above). */
   void set_up_collectables ();
   /* Quest looks a collectable up by an exact, case-sensitive name match
-   * (ExecuteSetCollectable, V4Game.cs:6059-6066); only the untyped "set" uses a
+   * (V4Game.cs:ExecuteSetCollectable); only the untyped "set" uses a
    * case-insensitive search to pick which kind of variable is meant
-   * (SetUnknownVariableType, V4Game.Part2.cs:612-618), hence the two lookups. */
+   * (V4Game.Part2.cs:SetUnknownVariableType), hence the two lookups. */
   bool find_collectable (const std::string &name, size_t &index) const;
   bool find_collectable_ci (const std::string &name, size_t &index) const;
   /* The reserved numeric-variable name a collectable's value is kept in. */
   std::string collectable_var (const std::string &name) const
   { return "!collectable;" + name; }
   /* Value of a named collectable, 0 if there is no such collectable
-   * (GetCollectableAmount, V4Game.Part2.cs:6221-6232). */
+   * (V4Game.Part2.cs:GetCollectableAmount). */
   double get_collectable (const std::string &name) const;
-  /* Store a value, first clamping it to the type's range (CheckCollectable,
-   * V4Game.Part2.cs:3968-4022). */
+  /* Store a value, first clamping it to the type's range
+   * (V4Game.Part2.cs:CheckCollectable). */
   void set_collectable (size_t index, double value);
   /* "set collectable <name; +N>" -- also every bare "set" below ASL 2.80. */
   void run_set_collectable (const std::string &param);
-  /* "if has <name; +N>" (ExecuteIfHas, V4Game.cs:7395-7448). */
+  /* "if has <name; +N>" (V4Game.cs:ExecuteIfHas). */
   bool eval_has (const std::string &param);
   /* One collectable's status-pane line, or "<null>" when it has none
-   * (DisplayCollectableInfo, V4Game.Part2.cs:4024-4073). */
+   * (V4Game.Part2.cs:DisplayCollectableInfo). */
   std::string collectable_display (size_t index) const;
 
 
@@ -732,12 +721,13 @@ public:
   /* Depth cap on nested script execution.  A game can write a script that
    * re-enters itself with no way out -- the classic case is a variable whose
    * "onchange" script assigns to that same variable, since Quest fires onchange
-   * on every assignment, not just value-changing ones (SetNumericVariableContents,
-   * V4Game.Part2.cs:526).  Two such clamps that disagree ("if too big, shrink"
-   * plus "if too small, grow") oscillate forever.  Quest itself only guards
-   * `exec` (ExecExec, V4Game.Part2.cs:2197, limit 500) and would smash its own
-   * stack here; we cap every nesting path so a buggy game file cannot take the
-   * interpreter down with it.  Quest's number and its wording are reused.
+   * on every assignment, not just value-changing ones
+   * (V4Game.Part2.cs:SetNumericVariableContents).
+   * Two such clamps that disagree ("if too big, shrink" plus "if too small,
+   * grow") oscillate forever.  Quest itself only guards `exec`
+   * (V4Game.Part2.cs:ExecExec, limit 500) and would smash its own stack here;
+   * we cap every nesting path so a buggy game file cannot take the interpreter
+   * down with it.  Quest's number and its wording are reused.
    *
    * Lower under AddressSanitizer: its redzones inflate run_script's frame
    * several-fold, so 500 nested frames overflow the sanitizer's stack before
@@ -791,38 +781,15 @@ public:
   inline void print_normal (const std::string &s) const { if (outputting) gi->print_normal(s); }
   inline void print_newline () const { if (outputting) gi->print_newline(); }
 
-  // Report an unsupported or malformed-game-data condition without aborting.
-  // These sites used to be assert()s, which crash the interpreter (asserts are
-  // live even in release builds here). We always log on the debug channel, and
-  // surface a notice to the player when we are in an output phase, so a stuck
-  // game is at least explicable rather than a hard crash.
+  /* Report an unsupported or malformed-game-data condition without aborting:
+   * asserts are live even in release builds here and would crash the
+   * interpreter.  Always log on the debug channel, and surface a notice to the
+   * player in an output phase, so a stuck game is at least explicable. */
   inline void report_unsupported (const std::string &msg) const {
     gi->debug_print (msg);
     if (outputting)
       gi->print_normal ("\n[question: " + msg + "]\n");
   }
-
-  /*
-  inline void print_formatted (std::string s) const {
-    if (outputting)
-      gi->print_formatted(s); 
-    else
-      gi->print_formatted ("{{" + s + "}}");
-  }
-  inline void print_normal (std::string s) const
-  {
-    if (outputting)
-      gi->print_normal (s);
-    else
-      gi->print_normal("{{" + s + "}}");
-  }
-  inline void print_newline() const { 
-    if (outputting)
-      gi->print_newline();
-    else
-      gi->print_normal ("{{|n}}");
-  }
-  */
 };
 
 #endif

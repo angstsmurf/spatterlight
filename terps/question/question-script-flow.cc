@@ -43,7 +43,7 @@ bool question_implementation::exec_select (const string &s, string &,
    * Run the script of the first case whose (semicolon-separated) value
    * equals the selector; "case else" matches anything. */
   tok = next_token (s, c1, c2);
-  /* CI: BeginsWith "select case " / "case " (V4Game.cs:2877). */
+  /* CI: BeginsWith "select case " / "case " (V4Game.cs:ExecuteSelectCase). */
   if (!ci_equal (tok, "case"))
     {
       gi->debug_print ("Expected 'case' after 'select' in " + s);
@@ -56,8 +56,7 @@ bool question_implementation::exec_select (const string &s, string &,
   if (!next_param (s, c1, c2, tok, "Expected case block in "))  // <!intproc>
     return true;
   string procname = param_contents (tok);
-  /* O(1) name_index lookup instead of the case-insensitive linear scan the
-     other procedure dispatch used to do (see run_procedure). */
+  /* An O(1) name_index lookup, not a linear scan of the procedures. */
   const QuestionBlock *casep = gf.find_by_name ("procedure", procname);
   if (casep == NULL)
     {
@@ -111,8 +110,8 @@ bool question_implementation::exec_choose (const string &s, string &,
     {
       line = gb->data[ln];
       tok = first_token (line, c1, c2);
-      /* Both keywords CI: FindStatement / BeginsWith (SetUpChoiceForm,
-       * V4Game.Part2.cs:627-634). */
+      /* Both keywords CI: FindStatement / BeginsWith
+       * (V4Game.Part2.cs:SetUpChoiceForm). */
       if (ci_equal (tok, "info"))
 	{
 	  if (next_param (line, c1, c2, tok, "Expected parameter after info in "))
@@ -141,16 +140,17 @@ bool question_implementation::exec_do (const string &s, string &rv,
 				       string tok, std::string::size_type c1,
 				       std::string::size_type c2)
 {
-  /* Quest fetches the procedure name with GetParameter (V4Game.Part2.cs:5756),
-   * which scans the whole line for the first <...> instead of demanding that
-   * it be the very next token.  That matters for "do { ... }": de-inlining a
-   * brace block keeps everything before the '{' and appends its own call, so
-   * "if x then do {" becomes "if x then do do <!intprocN>" in Quest
-   * (ConvertMultiLineSections, V4Game.cs:668) and identically in Question
-   * (readfile.cc pass 3).  Requiring the parameter to follow "do" immediately
-   * made Question silently drop every such block -- The Devil's Bargain writes
-   * all of its nested conditionals that way, so e.g. the colour question in
-   * its <Answers> procedure never printed its reply and never re-asked. */
+  /* Quest fetches the procedure name with GetParameter
+   * (V4Game.Part2.cs:ExecuteScript), which scans the whole line for the first
+   * <...> instead of demanding that it be the very next token.  That matters
+   * for "do { ... }": de-inlining a brace block keeps everything before the
+   * '{' and appends its own call, so "if x then do {" becomes "if x then do do
+   * <!intprocN>" in Quest (V4Game.cs:ConvertMultiLineSections) and identically
+   * in Question (question-preprocess.cc pass 3).  Requiring the parameter to
+   * follow "do" immediately made Question silently drop every such block --
+   * The Devil's Bargain writes all of its nested conditionals that way, so
+   * e.g. the colour question in its <Answers> procedure never printed its
+   * reply and never re-asked. */
   tok = next_param_token (s, c1, c2);
   if (tok == "")
     {
@@ -167,7 +167,7 @@ bool question_implementation::exec_do (const string &s, string &rv,
     }
   /* A multi-line brace block is hoisted into a "!intproc" procedure, and
    * from ASL 3.92 Quest runs those in the caller's own context
-   * (ExecuteDo's useNewCtx, V4Game.cs:5767-5776), so a `return' inside
+   * (ExecuteDo's useNewCtx, V4Game.cs:ExecuteDo), so a `return' inside
    * "if ... then {" still sets the enclosing function's result.  Any other
    * procedure gets a copied context and its `return' is lost. */
   else if (asl_version_ >= 392 && fname.compare (0, 8, "!intproc") == 0)
@@ -239,20 +239,20 @@ bool question_implementation::exec_exec (const string &s, string &,
   if (index != string::npos)
     {
       /* Both halves are trimmed, and the modifier compared case-sensitively
-       * with == (V4Game.Part2.cs:2243-2253). */
+       * with == (V4Game.Part2.cs:ExecSetString). */
       string cmd = trim (tok.substr (0, index));
       string tmp = trim (tok.substr (index+1));
       if (tmp != "normal")
 	{
 	  /* Quest logs the bad modifier and runs nothing at all: the else
-	   * arm of ExecExec never reaches ExecCommand (ibid. 2251-2254), so
+	   * arm of ExecExec never reaches ExecCommand (ibid. ExecSetString), so
 	   * there is no turn and no separator either. */
 	  gi->debug_print ("Bad " + tmp + " in exec in " + s);
 	  return true;
 	}
       /* An empty command line is not an error and does not even end a
        * paragraph: ExecCommand returns on the spot, before the hooks, the
-       * error path and its closing Print("") (ibid. 4137-4141).  "The Quest
+       * error path and its closing Print("") (ibid. ExecCommand).  "The Quest
        * to find The Dark Hills" execs one from a `choice` whose "no" branch
        * does nothing. */
       if (cmd == "")
@@ -262,13 +262,13 @@ bool question_implementation::exec_exec (const string &s, string &,
   else
     {
       /* Not trimmed, unlike the two halves of the `;` form: ExecExec hands
-       * this arm the parameter as it stands (ibid. 2231), and a command of
+       * this arm the parameter as it stands (ibid. ExecExec), and a command of
        * nothing but spaces is not the empty one that returns early -- Quest
        * runs the turn and answers the error.
        *
        * An exec'd command that matches nothing gets the same answer a typed
        * one does: ExecuteExec hands the line to the whole of ExecCommand,
-       * error path included (ibid. 2229, 4574).  stdverbs.lib needs it --
+       * error path included (ibid. ExecCommand).  stdverbs.lib needs it --
        * its splitter turns "speak to mr. cake" into "speak to mr" plus a
        * stray "cake", and Quest answers the stray half.  And the whole of
        * ExecCommand means the turn hooks as well, so the exec'd command runs
@@ -277,9 +277,9 @@ bool question_implementation::exec_exec (const string &s, string &,
 	return true;
       run_turn (tok, true, false);
     }
-  /* Quest ends every ExecCommand with Print("") (V4Game.Part2.cs:4606), the
-   * blank line that separates one turn's output from the next.  Question emits
-   * that separator at the top of run_command instead, which comes to the
+  /* Quest ends every ExecCommand with Print("") (V4Game.Part2.cs:ExecCommand),
+   * the blank line that separates one turn's output from the next.  Question
+   * emits that separator at the top of run_command instead, which comes to the
    * same thing for a command the player typed but leaves an exec'd one
    * butted up against whatever follows.  stdverbs.lib's splitter is built
    * entirely out of exec, so "north, then south" needs the break here. */
@@ -295,7 +295,7 @@ bool question_implementation::exec_flag (const string &s, string &,
   tok = next_token (s, c1, c2);
   bool is_on;
   /* CI: ExecuteFlag tests "on "/"off " with BeginsWith
-   * (V4Game.cs:3686-3690). */
+   * (V4Game.cs:ExecuteFlag). */
   if (ci_equal (tok, "on"))
     is_on = true;
   else if (ci_equal (tok, "off"))
@@ -322,17 +322,16 @@ bool question_implementation::exec_for (const string &s, string &,
 {
   tok = next_token (s, c1, c2);
   /* "each" and every sub-keyword below are CI: ExecForEach reads them
-   * all with BeginsWith (V4Game.cs:7212, 4975-5017). */
+   * all with BeginsWith (V4Game.cs:ExecFor/ExecForEach). */
   if (ci_equal (tok, "each"))
     {
       /* Quest's ExecForEach takes three kinds of thing -- "object", "exit"
        * and "room" -- and serves all three from the one _objs array, picking
        * out the records whose IsRoom and IsExit flags match what was asked
-       * for (V4Game.cs:4969-5042).  So "for each object in" never sees a room
+       * for (V4Game.cs:ExecForEach).  So "for each object in" never sees a room
        * or an exit.  Question keeps rooms in state.objs beside the objects (they
        * are the records with is_room set) and does not model exits as objects
-       * at all, so the three cases split up here.  Only "object" used to be
-       * implemented, and it walked the rooms too. */
+       * at all, so the three cases split up here. */
       tok = next_token (s, c1, c2);
       bool want_room = ci_equal (tok, "room"), want_exit = ci_equal (tok, "exit");
       if ((ci_equal (tok, "object") || want_room || want_exit) &&
@@ -409,8 +408,7 @@ bool question_implementation::exec_for (const string &s, string &,
       vector<string> args = split_param (eval_param (tok));
       if (args.size() < 3)
 	{
-	  /* args[1] / args[2] used to be read unconditionally, so a truncated
-	   * "for <i; 5>" indexed off the end of the vector. */
+	  /* A truncated "for <i; 5>" has no args[2] to read. */
 	  gi->debug_print ("Expected <variable; start; end[; step]> in " + s);
 	  return true;
 	}
@@ -459,7 +457,7 @@ bool question_implementation::exec_if (const string &s, string &rv,
 
   /* "then" -- and "else" below -- is matched case-sensitively, as in
    * Quest: ExecuteIf locates both with a plain InStr
-   * (V4Game.Part2.cs:5631, 5644). */
+   * (V4Game.Part2.cs:ExecuteIf). */
   do {
     tok = next_token (s, c1, c2);
   } while (tok != "then" && tok != "");
@@ -475,9 +473,9 @@ bool question_implementation::exec_if (const string &s, string &rv,
   /* The then-branch starts immediately after the "then" token, not one
    * character further on: c2 is already the index just past the 'n', and
    * ExecuteIf likewise takes everything from InStr("then") + 4 onwards
-   * (V4Game.Part2.cs:5641).  The old "c2 + 1" only happened to work because
-   * a space usually follows "then"; when "then" ends the line -- an author
-   * writing
+   * (V4Game.Part2.cs:ExecuteIf).  The old "c2 + 1" only happened to work
+   * because a space usually follows "then"; when "then" ends the line -- an
+   * author writing
    *
    *     if got <sunglasses> then
    *     msg <...>
@@ -531,7 +529,7 @@ bool question_implementation::exec_inc_dec (const string &s, string &,
     }
   /* Quest reads the current value with GetNumericContents, whose "no such
    * variable" answer is -32767, and then clamps anything at or below -32766
-   * to zero before applying the change (ExecuteIncDec, V4Game.cs:3705), so
+   * to zero before applying the change (V4Game.cs:ExecuteIncDec), so
    * inc/dec on a variable the game never declared counts from 0 and creates
    * it.  Without the clamp "inc <degrees turned; 90>" leaves -32677 and
    * every "case <180>" past it is dead -- which is exactly what happened to
@@ -575,7 +573,7 @@ bool question_implementation::exec_repeat (const string &s, string &,
 {
   tok = next_token (s, c1, c2);
   /* CI: ExecuteRepeat tests "while "/"until " with BeginsWith
-   * (V4Game.cs:6002-6007). */
+   * (V4Game.cs:ExecuteRepeat). */
   if (!ci_equal (tok, "while") && !ci_equal (tok, "until"))
     {
       gi->debug_print ("Expected while or until after repeat in " + s);
@@ -584,15 +582,14 @@ bool question_implementation::exec_repeat (const string &s, string &,
   bool is_while = ci_equal (tok, "while");
   std::string::size_type start_cond = c2, end_cond = string::npos;
   /* Quest does not use a keyword to separate the condition from the loop
-   * body: ExecuteRepeat (V4Game.cs:6018-6034) walks the '>' characters and
+   * body: ExecuteRepeat (V4Game.cs:ExecuteRepeat) walks the '>' characters and
    * stops at the first one whose remainder does not continue the condition
    * with "and " or "or ".  Everything up to and including that '>' is the
-   * condition, everything after it is the script.  Question used to look for a
-   * literal "do" instead, which happens to give the same answer for the
-   * common "repeat until flag <f> do <proc>" shape but silently dropped the
-   * whole loop for anything else -- "Shipwrecked" drives its colored-hole
-   * puzzle with "repeat until flag <stoneb1> choose <coloredholes>", which
-   * left the rod doing nothing at all and the game unfinishable.
+   * condition, everything after it is the script.  Looking for a literal "do"
+   * would give the same answer for the common "repeat until flag <f> do <proc>"
+   * shape and lose the whole loop for anything else: "Shipwrecked" drives its
+   * coloured-hole puzzle with "repeat until flag <stoneb1> choose <coloredholes>",
+   * and without that loop the rod does nothing and the game cannot be finished.
    */
   for (std::string::size_type p = start_cond;
        (p = s.find ('>', p)) != string::npos; ++p)
@@ -639,7 +636,7 @@ bool question_implementation::exec_set (const string &s, string &,
   tok = next_token (s, c1, c2);
   /* Below ASL 2.80 "set" means one thing only: a collectable.  Numeric and
      string variables did not exist yet, so ExecuteSet does not even look at
-     the keyword that follows (V4Game.Part2.cs:6157-6160). */
+     the keyword that follows (V4Game.Part2.cs:ExecuteSet). */
   if (asl_version_ < 280)
     {
       /* GetParameter reads the first <...> in the line whatever precedes
@@ -655,7 +652,7 @@ bool question_implementation::exec_set (const string &s, string &,
       return true;
     }
   /* CI, like the type keywords below: ExecuteSet reads them all with
-   * BeginsWith (V4Game.Part2.cs:6104-6141). */
+   * BeginsWith (V4Game.Part2.cs:ExecuteSet). */
   if (ci_equal (tok, "interval"))
     {
       if (!next_param (s, c1, c2, tok, "Expected param after set interval in "))
@@ -670,7 +667,7 @@ bool question_implementation::exec_set (const string &s, string &,
       string timer_name = trim (tok.substr (0, index));
       uint time_val = parse_int (trim (tok.substr (index+1)));
 
-      /* Timer names compare LCase'd (V4Game.Part2.cs:6120). */
+      /* Timer names compare LCase'd (V4Game.Part2.cs:ExecuteSet). */
       for (TimerRecord &i: state.timers)
 	if (ci_equal (i.name, timer_name))
 	  {
@@ -702,22 +699,22 @@ bool question_implementation::exec_set (const string &s, string &,
   if (vartype == "")
     {
       /* An untyped "set" finds its type by name.  Quest scans the string
-	 variables first and only then the numeric ones (SetUnknownVariableType,
-	 V4Game.Part2.cs:592-608), which decides the case where a name has
-	 been used for both -- see set_svar.  Both scans compare with LCase on
-	 each side, so the casing the game happens to type does not matter;
-	 Zombies Attack.cas leans on that, resetting its "Chance factor" (made
-	 by the startscript's `set numeric <Chance factor; 0>`) with `set
-	 <chance factor; 0>` before every random roll.  Missing the variable
-	 there would leave the counter to accumulate and make every one of the
-	 game's chance rolls fail. */
+	 variables first and only then the numeric ones
+	 (V4Game.Part2.cs:SetUnknownVariableType), which decides the case where
+	 a name has been used for both -- see set_svar.  Both scans compare
+	 with LCase on each side, so the casing the game happens to type does
+	 not matter; Zombies Attack.cas leans on that, resetting its "Chance
+	 factor" (made by the startscript's `set numeric <Chance factor; 0>`)
+	 with `set <chance factor; 0>` before every random roll.  Missing the
+	 variable there would leave the counter to accumulate and make every
+	 one of the game's chance rolls fail. */
       size_t vi;
       if (find_svar (varname, vi))
 	vartype = "string";
       else if (find_ivar (varname, vi))
 	vartype = "numeric";
       /* Collectables are searched last, so a variable of the same name
-	 shadows one (SetUnknownVariableType, V4Game.Part2.cs:612-618).  This
+	 shadows one (V4Game.Part2.cs:SetUnknownVariableType).  This
 	 search is case-insensitive too, but the set it dispatches to is not
 	 (run_set_collectable uses find_collectable), so a collectable reached
 	 by a name of the wrong case is then reported as nonexistent -- which
@@ -778,10 +775,10 @@ bool question_implementation::exec_stop (const string &, string &,
 					 string, std::string::size_type,
 					 std::string::size_type)
 {
-  /* "stop" is FinishGame (StopType.Null) (V4Game.Part2.cs:5798-5801): the
+  /* "stop" is FinishGame (StopType.Null) (V4Game.Part2.cs:ExecuteScript): the
    * game is over exactly as it is after playerwin/playerlose, only with no
-   * win/lose text.  Clearing state.running alone left the host prompting
-   * for commands that could no longer do anything. */
+   * win/lose text.  Clearing state.running alone would leave the host prompting
+   * for commands that can do nothing. */
   state.running = false;
   is_running_ = false;
   return true;
@@ -799,24 +796,23 @@ bool question_implementation::exec_timer (const string &s, string &,
     {
       tok = eval_param (tok);
       /* Timer names are matched case-insensitively: SetTimerState LCases
-       * both sides (V4Game.Part2.cs:565). */
+       * both sides (V4Game.Part2.cs:SetTimerState). */
       for (auto &timer: state.timers)
 	if (ci_equal (timer.name, tok))
 	  {
 	    /* Quest's SetTimerState only flips TimerActive and raises
 	     * BypassThisTurn; it never touches TimerTicks
-	     * (V4Game.Part2.cs:561-574).  So timeron does NOT restart the
+	     * (V4Game.Part2.cs:SetTimerState).  So timeron does NOT restart the
 	     * countdown -- a running timer keeps counting from where it
 	     * was, and a timer switched off and on again resumes rather
-	     * than starting over.  Question used to reset timeleft here, which
-	     * deadlocks any pair of timers where a short one re-arms a
-	     * longer one: in "Something 'Bout A Hex" the Louisville
-	     * sightseeing drive is `christchurch' (interval 2) arming
-	     * `christchurch2' (interval 3), and only christchurch2 can turn
-	     * christchurch off, so with a resetting timeron christchurch2
-	     * was re-armed before it could ever reach its interval and the
-	     * chain that opens the way to the old building never advanced
-	     * past its first step. */
+	     * than starting over.  Resetting timeleft here would deadlock any
+	     * pair of timers where a short one re-arms a longer one: in
+	     * "Something 'Bout A Hex" the Louisville sightseeing drive is
+	     * `christchurch' (interval 2) arming `christchurch2' (interval 3),
+	     * and only christchurch2 can turn christchurch off, so christchurch2
+	     * would be re-armed before it could reach its interval, and the
+	     * chain that opens the way to the old building would never get past
+	     * its first step. */
 	    timer.bypass = true;
 	    timer.is_running = running;
 	    return true;
@@ -832,9 +828,9 @@ bool question_implementation::exec_wait (const string &s, string &,
 					 std::string::size_type c2)
 {
   tok = next_token (s, c1, c2);
-  /* Quest tests the *unevaluated* rest of the line (ExecuteWaitAsync,
-   * V4Game.cs:6103-6118), so `wait <>' counts as carrying a message and
-   * prints it -- nothing -- where a `wait' with no parameter at all falls
+  /* Quest tests the *unevaluated* rest of the line
+   * (V4Game.cs:ExecuteWaitAsync), so `wait <>' counts as carrying a message
+   * and prints it -- nothing -- where a `wait' with no parameter at all falls
    * through to the default.  Prison Break and MetroidLite both open with a
    * `wait <>' and neither wants the default text. */
   bool bare_wait = (tok == "");
@@ -851,7 +847,7 @@ bool question_implementation::exec_wait (const string &s, string &,
    * overridable `defaultwait' error message; below 4.10 it prints a fixed
    * string that no `error <defaultwait; ...>' can reach, preceded by a
    * blank line.  Only the `wait' statement does this -- the `|w' code
-   * waits with no message of its own (Part2:6747-6753), which is why the
+   * waits with no message of its own (V4Game.Part2.cs:Print), which is why the
    * message is built here and not in wait_keypress. */
   if (bare_wait)
     {

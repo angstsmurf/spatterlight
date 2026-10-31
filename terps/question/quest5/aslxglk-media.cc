@@ -688,7 +688,7 @@ void panel_contents(const std::string &html)
         return;
 
     if (!panel_band_available()) {
-        /* No band: the old inline draw, so a picture is at least seen. */
+        /* No band: draw it inline, so a picture is at least seen. */
         if (draw_image_inline(src)) {
             g_panel_last = lower(src);
             put_host_string("\n");

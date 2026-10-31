@@ -7,13 +7,14 @@
  *  Like stdverbs.lib and Typelib.qlb, it shipped with Quest itself rather
  *  than with games, so a game that `!include`s it cannot find the file on
  *  disk under Question.  Quest 4 bundles it and splices it in whenever the game
- *  directory has no standard.lib of its own (V4Game.cs:1397-1415); readfile.cc
- *  now does the same (see handle_includes / is_standardlib).  Question used to
- *  skip the include, which made A Certain Oscar play a different game from
- *  the one Quest plays: without the library's synonyms its "get up" command
- *  works, and with them it becomes "take up" and fails -- in real Quest too.
+ *  directory has no standard.lib of its own (V4Game.cs:ParseFile);
+ *  question-preprocess.cc does the same (see handle_includes /
+ *  is_standardlib).  A Certain Oscar depends on it: the library's synonyms
+ *  turn its "get up" command into "take up", which fails, as it does in real
+ *  Quest.
  *
- *  Verbatim from the copy Quest ships; pure ASCII, LF line endings.
+ *  Verbatim from the copy Quest ships; pure ASCII, LF line endings.  Library
+ *  data, so do not reformat it or strip its whitespace.
  *
  *  Source: textadventures/quest, src/Legacy/Libraries/standard.lib
  ***************************************************************************/

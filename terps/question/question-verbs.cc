@@ -72,11 +72,11 @@ bool question_implementation::try_unwear (const string &cmd, bool is_internal)
 /* ---- Generic verb dispatch ---------------------------------------------
  * Quest games attach most verbs to objects through `action <verb>`,
  * `properties <verb=text>`, or (for opening things) the object's anonymous
- * default action.  Question previously hard-coded only look/examine/take/use/
- * give/drop/etc., so common verbs such as open/move/eat/drink/smell fell
- * through to "I don't understand your command".  This table maps the surface
- * phrases a player may type to the canonical key stored in the game file
- * (builtin_verbs, shared with the verb menu).
+ * default action.  This table is what lets common verbs such as
+ * open/move/eat/drink/smell reach them rather than fall through to "I don't
+ * understand your command": it maps the surface phrases a player may type to
+ * the canonical key stored in the game file (builtin_verbs, shared with the
+ * verb menu).
  * It is tried after explicit `command` definitions but before the bare
  * "look #@object#" handler below, so multi-word verbs like "look under" are
  * matched before "look" would swallow them. */
@@ -95,10 +95,10 @@ bool question_implementation::try_builtin_verb (const string &cmd, bool is_inter
 	    string ph = phrase;   /* the actual verb the player typed */
 	    string key = v.key;   /* the canonical verb it dispatches to */
 	    /* "open" and "close" are their own routine in Quest, ExecOpenClose
-	     * (V4Game.cs:2702-2847), and only from ASL 3.91 -- below that there
-	     * is no container model at all and the words are left to the game
-	     * (V4Game.Part2.cs:4448-4455).  Its order of tests is load-bearing,
-	     * so follow it exactly:
+	     * (V4Game.cs:ExecOpenClose), and only from ASL 3.91 -- below that
+	     * there is no container model at all and the words are left to the
+	     * game (V4Game.Part2.cs:ExecCommand).  Its order of tests is
+	     * load-bearing, so follow it exactly:
 	     *
 	     *   not a container       -> cantopen/cantclose
 	     *   already open/closed   -> alreadyopen/alreadyclosed
@@ -146,8 +146,8 @@ bool question_implementation::try_builtin_verb (const string &cmd, bool is_inter
 		    /* Not one of Quest's branches: Question resolves a `define
 		     * object` block's anonymous script line as a last-resort
 		     * action, where Quest folds the game's `default` block into
-		     * the object's own actions as it loads it.  Keep it in the
-		     * place the old dispatch had it, below the property. */
+		     * the object's own actions as it loads it.  It ranks below
+		     * the property. */
 		    else if (v.use_default && gf.get_obj_default_action (obj, script))
 		      run_script_as (obj, script);
 		    else
@@ -165,8 +165,8 @@ bool question_implementation::try_builtin_verb (const string &cmd, bool is_inter
 	      {
 		/* A bare "open"/"close" line in an object definition declares the
 		 * container openable without giving a message.  Quest then prints its
-		 * defaultopen/defaultclose text, not a blank line (ExecOpenClose,
-		 * V4Game.cs:2830). */
+		 * defaultopen/defaultclose text, not a blank line
+		 * (V4Game.cs:ExecOpenClose). */
 		if (script == "" && (key == "open" || key == "close"))
 		  display_error ("default" + key, obj);
 		else
@@ -198,7 +198,7 @@ bool question_implementation::try_builtin_verb (const string &cmd, bool is_inter
 		/* "look in", "look inside" and "look on" are not verbs of
 		 * their own in Quest: ExecLook strips whichever of the
 		 * three the player typed and then describes the object
-		 * exactly as "look at" does (V4Game.Part2.cs:4885-4922).
+		 * exactly as "look at" does (V4Game.Part2.cs:ExecLook).
 		 * From 3.91 that description ends in the object's contents,
 		 * which is where a container's listing comes from -- there
 		 * is no look-inside listing anywhere in the engine.  Question
@@ -254,9 +254,9 @@ bool question_implementation::try_builtin_verb (const string &cmd, bool is_inter
 }
 
 /* "l <thing>" is "look <thing>" -- ExecCommand rewrites it before calling
- * ExecLook, and takes a bare "l" for "look" (V4Game.Part2.cs:4426-4429,
- * 4452-4455).  Realm of Chaos depends on it: its `kill' command execs
- * "l #enemy#" to run the monster's look script, which sets its stats. */
+ * ExecLook, and takes a bare "l" for "look" (V4Game.Part2.cs:ExecCommand).
+ * Realm of Chaos depends on it: its `kill' command execs "l #enemy#" to run
+ * the monster's look script, which sets its stats. */
 bool question_implementation::try_look (const string &cmd, bool is_internal)
 {
   match_rv match;
@@ -285,7 +285,8 @@ bool question_implementation::try_look (const string &cmd, bool is_internal)
       /* ExecExamine answers with the object's own `examine` action or property
        * and stops there -- no "seen", and no contents listing.  Only an object
        * with nothing to say to EXAMINE falls through to DoLook, which is then
-       * told to word its own failure as defaultexamine (V4Game.cs:5680-5717). */
+       * told to word its own failure as defaultexamine
+       * (V4Game.cs:ExecExamine). */
       string object = match.bindings[0].var_text;
       if (!dispatch_obj_verb (object, "examine"))
 	do_look (object, true);
@@ -320,7 +321,7 @@ bool question_implementation::try_look (const string &cmd, bool is_internal)
 
 /* GIVE has two forms, and ExecGive tries them in this order: split on the
  * first " to " and, only if the input has none, on the first " the " -- with
- * the recipient in front of it and the item after (V4Game.Part2.cs:4618-4643).
+ * the recipient in front of it and the item after (V4Game.Part2.cs:ExecGive).
  * "give the gatekeeper the document of approval" is the phrasing QDK's own
  * hint text hands to players, and in Tai & David's Amazing Maze
  * (TDAMAZINGMAZE.cas) it is the only way to hand over the document the gate
@@ -343,7 +344,7 @@ bool question_implementation::try_give (const string &cmd, bool is_internal)
       /* Two blanks, two scopes, as in "use X on Y": the item is looked for in
        * the inventory and the recipient in the current room, and each miss has
        * its own refusal -- NoItem for the item, BadCharacter for the recipient
-       * (ExecGive, V4Game.Part2.cs:4673-4735). */
+       * (V4Game.Part2.cs:ExecGive). */
       vector<match_binding>
 	item_b (1, match.bindings[give_reversed ? 1 : 0]),
 	char_b (1, match.bindings[give_reversed ? 0 : 1]);
@@ -367,9 +368,7 @@ bool question_implementation::try_give (const string &cmd, bool is_internal)
 	display_error ("noitem", first);
       else if (get_obj_action (second, "give " + first, script))
 	run_script_as (second, script);  /* run the action in the recipient's
-	  context; the old run_script(second, script) wrongly executed the
-	  object name "second" as the script (two-arg overload), so giving any
-	  item to an NPC with a give <item> action did nothing. */
+	  context */
       else if (get_obj_action (first, "give to " + second, script))
 	run_script_as (first, script);
       else if (get_obj_action (second, "give anything", script))
@@ -386,14 +385,14 @@ bool question_implementation::try_give (const string &cmd, bool is_internal)
 	{
 	  string tmp;
 	  /* The refusal fills the quest.error.* family as ExecGive does
-	   * (V4Game.Part2.cs:4788-4795, and 4835-4838 on the ASL2 side):
+	   * (V4Game.Part2.cs:ExecGive, on the ASL2 side too):
 	   * charactername is the recipient's object name, gender and article
 	   * come from the two objects. */
 	  set_svar ("quest.error.charactername", second);
 	  if (!get_obj_property (second, "gender", tmp))
 	    tmp = "it";
-	  set_svar ("quest.error.gender", pcase (tmp));   /* capitalised, ibid. 4790 */
-	  if (!get_obj_property (first, "article", tmp))
+	  set_svar ("quest.error.gender", pcase (tmp));   /* capitalised, ibid.
+	  ExecGive */ if (!get_obj_property (first, "article", tmp))
 	    tmp = "it";
 	  set_svar ("quest.error.article", tmp);
 	  display_error ("itemunwanted");
@@ -406,7 +405,7 @@ bool question_implementation::try_give (const string &cmd, bool is_internal)
 
 /* Quest's standard "remove" verb, e.g. "remove book of keys from odd book
  * shelf": from 3.91 it is the container half of "put", handled by the
- * *container*, not by the item (ExecAddRemove, V4Game.cs:2369-2624).  Without
+ * *container*, not by the item (V4Game.cs:ExecAddRemove).  Without
  * a "from", the container is whatever the item's parent property says.
  *
  * Question keeps its own, older reading -- run the named object's own "remove"
@@ -463,8 +462,8 @@ bool question_implementation::try_use (const string &cmd, bool is_internal)
        *     ...
        *     useOnObjectId = await Disambiguate(useOn, _currentRoom, ctx);
        *     if (useOnObjectId > 0) foundUseOnObject = true;
-       *     else { useOnObjectId = await Disambiguate(useOn, "inventory", ctx); ... }
-       *                                ' ExecUse, V4Game.Part2.cs:5289, 5376-5390
+       *     else { useOnObjectId = await Disambiguate(useOn, "inventory",
+       *                                ctx); ... } ' V4Game.Part2.cs:ExecUse
        *
        * The item comes from the inventory alone, and the thing it is used on from
        * the room first, falling back to the inventory only if the room has no
@@ -527,8 +526,8 @@ bool question_implementation::try_use (const string &cmd, bool is_internal)
       /* The catch-all forms tell the script which object filled the blank
        * through a string variable, and its name is "quest.use.object.name" --
        * ExecUse sets exactly that, to the *other* object's name, in both cases
-       * (V4Game.Part2.cs:5439-5460).  Question used to call it "quest.use.object",
-       * which no game ever reads.  "ChristmaKwanzakkah" is the one that cares:
+       * (V4Game.Part2.cs:ExecUse).
+       * "ChristmaKwanzakkah" is the one that cares:
        * every crowd and every boss is a `use anything` whose script tests
        * `#(quest.use.object.name):weapon#` against a threshold, so with the
        * wrong name each weapon reads as having no power at all and the crowds
@@ -572,7 +571,7 @@ bool question_implementation::try_use (const string &cmd, bool is_internal)
        *
        *     if (ASLVersion < 410) { ... foundUseScript = true; ... }
        *     if (!foundUseScript) { useScript = _objs[id].Use; ... }
-       *                                       ' ExecUse, V4Game.Part2.cs:5348-5368
+       *                                       ' V4Game.Part2.cs:ExecUse
        *
        * so from 410 on a room's bare "use <obj>" line is never consulted and the
        * object's own use action always runs.
@@ -580,7 +579,7 @@ bool question_implementation::try_use (const string &cmd, bool is_internal)
        * Below ASL 280 the whole thing is a different piece of code, and there an
        * object's own use action is not in the chain at all: the room's use list
        * is searched, then a "use <obj>" line in the *game* block, and a miss is
-       * the defaultuse error (ExecUse, V4Game.Part2.cs:5472-5497).  The game
+       * the defaultuse error (V4Game.Part2.cs:ExecUse).  The game
        * block is read straight out of the block for the same reason the
        * description fallback above is -- readfile does not rewrite game-block
        * lines into "action <...>" form, so get_obj_action never sees them.  Dom's
@@ -635,22 +634,23 @@ bool question_implementation::try_put (const string &cmd, bool is_internal)
 	  display_error ("noitem", first);
 	/* A closed container refuses the put before any of its add machinery is
 	 * consulted: Quest checks `surface || opened` and answers CantPut ahead
-	 * of the action/property lookups below (ExecAddRemove,
-	 * V4Game.cs:2563-2578; confirmed in the real 4.1.5 runner,
-	 * putprobe.asl).  Barbarian's Sack is the game that cares -- its `add`
-	 * script bags the pile of bones, but only an *opened* sack may take
-	 * them, because the pedestal puzzle wants the bones sealed inside a
-	 * closed sack and OPEN SACK / PUT / CLOSE SACK is the intended dance. */
+	 * of the action/property lookups below (V4Game.cs:ExecAddRemove;
+	 * confirmed in the real 4.1.5 runner, putprobe.asl).  Barbarian's Sack
+	 * is the game that cares -- its `add` script bags the pile of bones,
+	 * but only an *opened* sack may take them, because the pedestal puzzle
+	 * wants the bones sealed inside a closed sack and OPEN SACK / PUT /
+	 * CLOSE SACK is the intended dance. */
 	else if (has_obj_property (second, "container") &&
 		 !has_obj_property (second, "surface") &&
 		 !container_is_open (second))
 	  display_error ("cantput");
 	/* Quest's own container mechanic: the target's "add" action decides what
 	 * happens, and learns which object it was handed through
-	 * quest.add.object.name (DoAddRemove, V4Game.cs:2578-2597).  Such a script
-	 * is responsible for the containment itself, with `add <child; parent>` --
-	 * Shipwrecked's basket accepts only the *lit* lantern, and its script both
-	 * moves it and raises the flag the tomb's archway checks. */
+	 * quest.add.object.name (DoAddRemove, V4Game.cs:ExecAddRemove).  Such
+	 * a script is responsible for the containment itself, with `add
+	 * <child; parent>` -- Shipwrecked's basket accepts only the *lit*
+	 * lantern, and its script both moves it and raises the flag the tomb's
+	 * archway checks. */
 	else if (get_obj_action (second, "add", script))
 	  {
 	    set_svar ("quest.add.object.name", first);
@@ -667,7 +667,7 @@ bool question_implementation::try_put (const string &cmd, bool is_internal)
 	  display_error ("defaultput", first);
 	/* An "add <text>" *property* is the non-scripted half of the same mechanic:
 	 * Quest prints the text and then performs the containment itself
-	 * (V4Game.cs:2600-2636). */
+	 * (V4Game.cs:ExecAddRemove). */
 	else if (get_obj_property (second, "add", addtext) && addtext != "")
 	  {
 	    print_formatted (addtext);
@@ -704,15 +704,15 @@ bool question_implementation::try_take (const string &cmd, bool is_internal)
       (match = match_command (cmd, "pick up #@object#")))
     {
       /* ExecTake disambiguates in the current room and nowhere else
-       * (V4Game.Part2.cs:5132), so a noun that names both something carried and
-       * something lying here is the one lying here, with no menu.  Searching
-       * both at once made The Wizard's fourth yellow bead -- the one just found
-       * in the beds, with three already in hand -- a four-way question Quest
-       * never asks, and the walkthrough's answer to it was read as the next
-       * command.
+       * (V4Game.Part2.cs:ExecTake), so a noun that names both something
+       * carried and something lying here is the one lying here, with no menu.
+       * Searching both at once made The Wizard's fourth yellow bead -- the one
+       * just found in the beds, with three already in hand -- a four-way
+       * question Quest never asks, and the walkthrough's answer to it was read
+       * as the next command.
        *
        * The inventory is consulted afterwards, only from 4.10, and only to pick
-       * the wording of the refusal (ibid. 5143-5167). */
+       * the wording of the refusal (ibid. ExecTake). */
       vector<string> room_only (1, state.location);
       if (!dereference_vars (match.bindings, room_only, is_internal, true))
 	{
@@ -735,8 +735,8 @@ bool question_implementation::try_take (const string &cmd, bool is_internal)
        * so answers to its name from anywhere (see get_obj_name), or something
        * parented into a carried container, which "in hand" reaches into from
        * 3.91 on (see is_held).  TARDIS Escape parents a pocket to a worn
-       * trenchcoat and overrides alreadytaken; Question used to run a whole take
-       * turn, implied remove and all, on things the player already had. */
+       * trenchcoat and overrides alreadytaken; without this it would run a whole
+       * take turn, implied remove and all, on things the player already has. */
       if (is_held (object))
 	{
 	  display_error (asl_version_ >= 410   ? "alreadytaken"
@@ -747,8 +747,8 @@ bool question_implementation::try_take (const string &cmd, bool is_internal)
       /* From 3.91 the object has to be reachable before anything else happens:
        * ExecTake asks PlayerCanAccessObject and, on a no, prints badtake with
        * the reason appended and returns without running any take script at all
-       * (V4Game.Part2.cs:5176-5186).  We went straight to the script, so
-       * Pyramid of Terror handed the player things out of shut containers. */
+       * (V4Game.Part2.cs:ExecTake).  Without this, Pyramid of Terror hands the
+       * player things out of shut containers. */
       if (asl_version_ >= 391)
 	{
 	  string why;
@@ -768,19 +768,20 @@ bool question_implementation::try_take (const string &cmd, bool is_internal)
 	  QUESTION_DBG << "Found property '" << tok << "' for take " << object << endl;
 	  /* Taking something out of a container removes it from that container
 	   * first: Quest announces the implied step and then runs the "remove"
-	   * command on the player's behalf, giving up on the take if the item is
-	   * still parented afterwards (ExecTake, V4Game.Part2.cs:5178-5204).  Only
+	   * command on the player's behalf, giving up on the take if the item
+	   * is still parented afterwards (V4Game.Part2.cs:ExecTake).  Only
 	   * a text/default take does this -- a scripted take is on its own -- and
 	   * the container's own "remove" handling is what actually clears the
 	   * parent property, so a chest that refuses (or is shut) keeps its
 	   * contents.  QuestViva's ExecTake computes the parent and then never sets
 	   * the isInContainer flag that guards this block, so nothing in the port
 	   * ever reaches it; its ExecDrop shows the missing line
-	   * (`if IsYes(GetObjectProperty("parent", ...)) then isInContainer = true`,
-	   * V4Game.cs:5560-5570), and without the step Tim Hamilton's "The Things
-	   * That Go Bump In The Night" cannot be finished -- its water pump wants
-	   * four dead fuses out of the fuse box and a good one in, and its "add"
-	   * script counts what is still parented to the box.  */
+	   * (`if IsYes(GetObjectProperty("parent", ...)) then isInContainer =
+	   * true`, V4Game.cs:ExecDrop), and without the step Tim Hamilton's
+	   * "The Things That Go Bump In The Night" cannot be finished -- its
+	   * water pump wants four dead fuses out of the fuse box and a good
+	   * one in, and its "add" script counts what is still parented to the
+	   * box.  */
 	  string parent;
 	  if (get_obj_property (object, "parent", parent) && parent != "")
 	    {
@@ -790,26 +791,29 @@ bool question_implementation::try_take (const string &cmd, bool is_internal)
 	      pdisp = displayed_name (parent);
 	      print_formatted ("(first removing " + art + " from " + pdisp + ")");
 	      /* The removal is a whole nested turn, not a call to the built-in
-	       * handler: ExecTake hands "remove <name>" back to ExecCommand with
-	       * AllowRealNamesInCommand set (V4Game.Part2.cs:5222-5223), so the
-	       * game's own synonyms, beforeturn, `command' blocks and `verb' blocks
-	       * all get a look at it before the built-in does, and the afterturn
-	       * runs at the end of it.  A `verb <remove>' is what makes the
-	       * difference visible, because a verb is looked up on the object being
-	       * removed rather than on the container: Wizard's game block opens with
-	       * `verb <remove> msg <You can't remove that.>' and hangs an
-	       * `action <remove>' on its beakers, potions and beads, so its church
-	       * offering basket refuses the Yellow Bead until a donation is made.
-	       * Calling remove_from_container straight -- which is only the last of
-	       * those steps, the container's own remove handling -- pocketed the
-	       * bead anyway.  dontSetIt is the pronoun: an implied removal must not
-	       * leave "it" pointing at the thing it removed (ibid. 4616-4622). */
+	       * handler: ExecTake hands "remove <name>" back to ExecCommand
+	       * with AllowRealNamesInCommand set (V4Game.Part2.cs:ExecTake),
+	       * so the game's own synonyms, beforeturn, `command' blocks and
+	       * `verb' blocks all get a look at it before the built-in does,
+	       * and the afterturn runs at the end of it.  A `verb <remove>' is
+	       * what makes the difference visible, because a verb is looked up
+	       * on the object being removed rather than on the container:
+	       * Wizard's game block opens with `verb <remove> msg <You can't
+	       * remove that.>' and hangs an `action <remove>' on its beakers,
+	       * potions and beads, so its church offering basket refuses the
+	       * Yellow Bead until a donation is made. Calling
+	       * remove_from_container straight -- which is only the last of
+	       * those steps, the container's own remove handling -- pocketed
+	       * the bead anyway.  dontSetIt is the pronoun: an implied removal
+	       * must not leave "it" pointing at the thing it removed (ibid.
+	       * ExecGive). */
 	      const string saved_last_object = last_object;
 	      run_turn ("remove " + object, true, false);
 	      last_object = saved_last_object;
-	      /* and the separator the nested ExecCommand ends with, as `exec' does
-	       * (ibid. 4614): Question prints a turn's blank line at the top of
-	       * run_command, so a turn run from inside one has to close itself. */
+	      /* and the separator the nested ExecCommand ends with, as `exec'
+	       * does (ibid. ExecGive): Question prints a turn's blank line at
+	       * the top of run_command, so a turn run from inside one has to
+	       * close itself. */
 	      print_newline ();
 	      string still;
 	      if (get_obj_property (object, "parent", still) && still != "")
@@ -823,21 +827,23 @@ bool question_implementation::try_take (const string &cmd, bool is_internal)
 	  /* A taken object is now in hand, so it's no longer hidden (it may have
 	   * been a hidden item inside a container). */
 	  set_obj_property (object, "not hidden");
-	  /* Quest's ExecTake ends a text/default take with PlayerItem(item, true),
-	   * which runs the object's GainScript (V4Game.Part2.cs:5205-5215,
-	   * 6631-6634).  That is run_script_as inside dispatch_obj_verb, not
-	   * run_script: the two-argument run_script is (script, &return value),
-	   * so passing the object name as the first argument ran the *name* as
-	   * a script and quietly dropped the gain script into the return
-	   * value.  Enterprising in space hangs its entire Youhera chain off
-	   * three bare `take` + `gain` objects and was unwinnable. */
+	  /* Quest's ExecTake ends a text/default take with PlayerItem(item,
+	   * true), which runs the object's GainScript
+	   * (V4Game.Part2.cs:ExecTake/PlayerItem).  That is run_script_as
+	   * inside dispatch_obj_verb, not run_script: the two-argument
+	   * run_script is (script, &return value), so passing the object name
+	   * as the first argument ran the *name* as a script and quietly
+	   * dropped the gain script into the return value.  Enterprising in
+	   * space hangs its entire Youhera chain off three bare `take` +
+	   * `gain` objects and was unwinnable. */
 	  dispatch_obj_verb (object, "gain");
 	}
       else
 	{
 	  QUESTION_DBG << "No match found for take " << object << endl;
 	  /* ExecTake sets only quest.error.article ahead of this refusal
-	   * (V4Game.Part2.cs:5158), which display_error(obj) already covers. */
+	   * (V4Game.Part2.cs:ExecTake), which display_error(obj) already
+	   * covers. */
 	  /* An object that can't be taken may carry a custom refusal message in a
 	   * "noTake" property (the Quest type library sets one by default and lets
 	   * objects override it, e.g. scenery); honour it before the generic
@@ -861,7 +867,7 @@ bool question_implementation::try_drop (const string &cmd, bool is_internal)
   if ((match = match_command (cmd, "drop #@object#")))
     {
       /* The inventory alone: ExecDrop's one Disambiguate is scoped to it, and a
-       * miss is NoItem from 3.91 and BadDrop below (V4Game.cs:5531-5556).  So a
+       * miss is NoItem from 3.91 and BadDrop below (V4Game.cs:ExecDrop).  So a
        * noun shared by a carried object and one already on the floor drops the
        * carried one rather than asking which. */
       vector<string> inv_only (1, "inventory");
@@ -904,7 +910,7 @@ bool question_implementation::try_drop (const string &cmd, bool is_internal)
 	      line = gb->data[i];
 	      tok = first_token (line, c1, c2);
 	      /* CI, sub-keywords included: Quest reads all three with
-	       * BeginsWith (ExecDrop, V4Game.cs:5577-5635). */
+	       * BeginsWith (V4Game.cs:ExecDrop). */
 	      if (ci_equal (tok, "drop"))
 		{
 		  script_begins = c2;
@@ -960,10 +966,10 @@ bool question_implementation::try_speak (const string &cmd, bool is_internal)
       string obj = match.bindings[0].var_text;
       /* Action first, then property -- the order Quest's ExecSpeak uses (it
 	 scans the object's actions for "speak", then its properties, and only
-	 then falls back to the default message).  This used to look at actions
-	 alone, so the common `speak <He jests with you.>` form -- which the
-	 loader stores as a *property* -- printed "He says nothing." for every
-	 character in a game.  Red Sauce Monday is all of them but one. */
+	 then falls back to the default message).  The loader stores the common
+	 `speak <He jests with you.>` form as a *property*, so looking at actions
+	 alone would print "He says nothing." for every such character, which in
+	 Red Sauce Monday is all of them but one. */
       if (!dispatch_obj_verb (obj, "speak"))
 	display_error ("defaultspeak", obj);
       return true;
@@ -977,26 +983,26 @@ bool question_implementation::try_out (const string &cmd, bool)
   if (cmd == "exit" || cmd == "out" || cmd == "go out")
     {
       /* From 4.10 a movement command forgets what "it" was.  Quest clears
-       * its referent for every version (V4Game.Part2.cs:4282-4388), but
+       * its referent for every version (V4Game.Part2.cs:ExecCommand), but
        * below 4.10 the end of the turn puts it straight back (ibid.
-       * 4624-4629); measured against the real runner at 2.80 to 4.10. */
+       * ExecCommand); measured against the real runner at 2.80 to 4.10. */
       if (asl_version_ >= 410)
 	last_object = "";
       /* "out" is the one direction Quest stores as both a destination and a
        * script: before 4.10 the room parser fills Out.Text from the parameter
        * *and* Out.Script from whatever follows the '>'
-       * (V4Game.Part2.cs:1018-1030), and GoDirection runs the script when there
-       * is one and treats the text as a room name when there is not
-       * (ibid. 6324-6356).  A "create exit out <src; dest>" assigns only
-       * Out.Text (V4Game.cs:5482-5485), so a static script still wins over it --
-       * hence the room block is checked for a script first and exit_dest ()
-       * consulted second.  exit_dest () returns the parameter, never a script,
-       * for a pre-4.10 "out"; from 4.10 on "out" is an ordinary exit tag and it
-       * may return either. */
+       * (V4Game.Part2.cs:SetUpRoomData), and GoDirection runs the script when
+       * there is one and treats the text as a room name when there is not
+       * (ibid. GoDirection).  A "create exit out <src; dest>" assigns only
+       * Out.Text (V4Game.cs:ExecuteCreateExit), so a static script still wins
+       * over it -- hence the room block is checked for a script first and
+       * exit_dest () consulted second.  exit_dest () returns the parameter,
+       * never a script, for a pre-4.10 "out"; from 4.10 on "out" is an
+       * ordinary exit tag and it may return either. */
       /* A lock beats both, as it does for every other direction: RoomExit.Go
-       * tests IsLocked before it looks at the script (RoomExit.cs:240-259), and
+       * tests IsLocked before it looks at the script (RoomExit.cs:Go), and
        * "out" is parsed by the same code that gives north/south their "locked"
-       * keyword (RoomExits.cs:143-147).  Only the directional loop below
+       * keyword (RoomExits.cs:AddExitFromTag).  Only the directional loop below
        * checked this, so Exits of The World's `out locked <Skarro; ...>` -- the
        * one exit that is supposed to keep you off the Dalek homeworld until you
        * have a ship -- let the player walk straight through it. */
@@ -1052,7 +1058,7 @@ bool question_implementation::try_out (const string &cmd, bool)
 	/* PlayerError.DefaultOut is GoDirection's, and GoDirection is pre-4.10
 	 * code.  From 4.10 on "out" is dispatched with every other exit by
 	 * RoomExits.ExecuteGo, which cannot find one and answers with BadPlace,
-	 * "You can't go there." (RoomExits.cs:291-296) -- the same refusal a
+	 * "You can't go there." (RoomExits.cs:ExecuteGo) -- the same refusal a
 	 * missing "north" gets. */
 	display_error (asl_version_ >= 410 ? "badplace" : "defaultout");
       else if (is_script)
@@ -1083,14 +1089,14 @@ bool question_implementation::try_direction (const string &cmd, bool)
 	if ((tok = exit_dest (state.location, dir_names[i], &is_script)) == "")
 	  {
 	    /* PlayerError.BadPlace in both eras: GoDirection's final else
-	     * (V4Game.Part2.cs:6336) and 4.10's ExecuteGo (RoomExits.cs:295).
-	     * Via display_error, so a game's "error <badplace; ...>" line
-	     * overrides it, which the old hardcoded string never honoured. */
+	     * (V4Game.Part2.cs:GoDirection) and 4.10's ExecuteGo
+	     * (RoomExits.cs:ExecuteGo). Via display_error, so a game's "error
+	     * <badplace; ...>" line overrides it. */
 	    display_error ("badplace");
 	    return true;
 	  }
 	/* The lock is tested before the script, not instead of it: RoomExit.Go
-	 * refuses a locked exit whatever it carries (RoomExit.cs:240-259). */
+	 * refuses a locked exit whatever it carries (RoomExit.cs:Go). */
 	if (exit_locked (state.location, dir_names[i]))
 	  {
 	    string lm = exit_lock_message (state.location, dir_names[i]);
@@ -1139,11 +1145,11 @@ bool question_implementation::try_goto (const string &cmd, bool)
 					   : current_places[i][2];
 	  if (ci_equal (destination, target) || ci_equal (alt, target))
 	    {
-	      /* Same test, in the same place, as for a directional exit: RoomExit
-	       * .Go refuses a locked exit whatever it carries, script included
-	       * (RoomExit.cs:240-259).  A place is keyed on its destination room
-	       * -- see exit_declared_locked -- and can only be locked from 4.10,
-	       * where a room's exits are exit objects. */
+	      /* Same test, in the same place, as for a directional exit:
+	       * RoomExit .Go refuses a locked exit whatever it carries, script
+	       * included (RoomExit.cs:Go).  A place is keyed on its
+	       * destination room -- see exit_declared_locked -- and can only
+	       * be locked from 4.10, where a room's exits are exit objects. */
 	      const string &dest = current_places[i][3];
 	      if (asl_version_ >= 410 && exit_locked (state.location, dest))
 		{
@@ -1181,7 +1187,7 @@ bool question_implementation::try_inventory (const string &cmd, bool)
 	 inventory as one sentence: each entry is prefix + name + suffix, the
 	 entries are joined with ", ", the last comma becomes " and", the first
 	 letter is capitalised and the line is stopped with a full stop
-	 (V4Game.Part2.cs:4496-4561).  An empty inventory is a sentence of its
+	 (V4Game.Part2.cs:ExecCommand).  An empty inventory is a sentence of its
 	 own.  The last comma is found by scanning the built string, as Quest
 	 does, so an object whose own name contains a comma moves the join.
 
@@ -1242,9 +1248,10 @@ bool question_implementation::try_meta (const string &cmd, bool is_internal)
    * sources the engine actually dispatches through: the universal verbs, the
    * built-in multi-synonym verbs the object responds to, and any global `verb`
    * declaration it handles.  (Quest's own pane menu is a fixed four-entry list
-   * that ignores the object entirely -- _listVerbs, V4Game.Part2.cs:6458-6471 --
-   * so this is deliberately richer, but it must never offer a verb the parser
-   * would reject; see the note in object_verbs.) */
+   * that ignores the object entirely -- _listVerbs,
+   * V4Game.Part2.cs:InitialiseGame -- so this is deliberately richer, but it
+   * must never offer a verb the parser would reject; see the note in
+   * object_verbs.) */
   if ((match = match_command (cmd, "verbs #@object#")))
     {
       if (!dereference_vars (match.bindings, is_internal))
@@ -1305,7 +1312,7 @@ bool question_implementation::try_meta (const string &cmd, bool is_internal)
 	    print_formatted (label + eval_param (t));
       };
       /* "Version:", with the colon: ShowGameAbout prints |bVersion:|xb
-       * (V4Game.Part2.cs:3648), like the other three labels. */
+       * (V4Game.Part2.cs:ShowPicture), like the other three labels. */
       emit ("version",   "Version: ");
       emit ("author",    "Author: ");
       emit ("copyright", "Copyright: ");
@@ -1315,8 +1322,8 @@ bool question_implementation::try_meta (const string &cmd, bool is_internal)
     }
 
   /* SAVE is a built-in command of the engine's, not of the game's
-   * (V4Game.Part2.cs:4468), even though the dialog it opens belongs to the
-   * frontend -- which is why a typed SAVE never gets this far: questionglk
+   * (V4Game.Part2.cs:ExecCommand), even though the dialog it opens belongs to
+   * the frontend -- which is why a typed SAVE never gets this far: questionglk
    * intercepts it (handle_saverestore_command) and so does the
    * walkthrough runner's --save-scum.  What does get here is `exec <save;
    * normal>`, the "do you want to save?" that several corpus games offer from

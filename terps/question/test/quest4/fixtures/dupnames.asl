@@ -9,9 +9,8 @@
 ' "Pipe" in two -- QDK 1.0 duplicated the scenery instead of moving it.  Listing
 ' a room's contents by name put all three rings in the first of those rooms and
 ' none in the other two, and the inventory reported one ring per definition after
-' taking any of them.  regen_var_objects and get_room_contents therefore start
-' their container walk from each record's own parent (room_of_parent) rather than
-' from its name (room_of).
+' taking any of them.  regen_var_objects and get_room_contents therefore read
+' each record's own parent field rather than looking the parent up by name.
 '
 ' What must NOT change, because Quest is name-keyed here too:
 '
@@ -27,9 +26,9 @@
 '     room and "A jewelled ring." in the east one.
 '
 ' The lantern pair covers the container case: one lantern is nested in a chest in
-' the west room and the other stands loose in the east room.  room_of_parent has
-' to walk up through the chest to reach West, and must not credit the east
-' lantern to West on the way.  The chest is `opened` but not yet `seen`, so its
+' the west room and the other stands loose in the east room.  The listing has
+' to place the nested one in West, and must not credit the east lantern to West
+' along with it.  The chest is `opened` but not yet `seen`, so its
 ' contents stay hidden until the first LOOK AT CHEST -- which is why the opening
 ' room description lists no lantern and the next one does.
 

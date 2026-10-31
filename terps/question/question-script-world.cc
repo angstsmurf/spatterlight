@@ -56,7 +56,7 @@ bool question_implementation::exec_type (const string &s, string &,
 					 string tok, std::string::size_type c1,
 					 std::string::size_type c2)
 {
-  /* Runtime `type <obj; typename>` (ExecType, V4Game.cs:4425-4476):
+  /* Runtime `type <obj; typename>` (V4Game.cs:ExecType):
    * flatten the type's properties and actions onto the object now, and
    * remember the membership for `if type`.  The marker is a
    * "!type <name>" property, following the "!exitlock"/"!clones"
@@ -85,7 +85,7 @@ bool question_implementation::exec_type (const string &s, string &,
  * "open <container>" / "close <container>" set the open state silently -- no
  * message, no action or property lookup and no container check at all, unlike
  * the open/close *verbs* (ExecuteScript -> SetOpenClose -> DoOpenClose,
- * V4Game.cs:2240, and -> ExecAddRemoveScript -> DoAddRemove, V4Game.cs:2113).
+ * V4Game.cs:DoOpenClose, and -> ExecAddRemoveScript -> V4Game.cs:DoAddRemove).
  * Below 3.91 Quest has no such statements, so the line falls through to the
  * unrecognised-script path exactly as it would there. */
 bool question_implementation::exec_add_remove (const string &s, string &,
@@ -121,9 +121,10 @@ bool question_implementation::exec_add_remove (const string &s, string &,
       /* A parentless "remove" is the one containment change that never
        * reaches DoAddRemove.  It clears the property itself and then sweeps
        * with the name of object number zero -- ExecAddRemoveScript never
-       * assigns parentId on this branch (V4Game.cs:2695-2699) -- so the name
-       * is empty and the sweep is the whole-game one.  See removenoparent:
-       * this is what puts Pyramid Of Terror's goth out of scope for good. */
+       * assigns parentId on this branch (V4Game.cs:ExecAddRemoveScript) -- so
+       * the name is empty and the sweep is the whole-game one.  See
+       * removenoparent: this is what puts Pyramid Of Terror's goth out of
+       * scope for good. */
       do_add_remove (child, "", false, false);
     }
   else
@@ -137,7 +138,7 @@ bool question_implementation::exec_add_remove (const string &s, string &,
       do_add_remove (child, parent, adding);
     }
   /* No sweep here: do_add_remove has already re-derived the one container
-   * Quest names (V4Game.cs:2133, 2698). */
+   * Quest names (V4Game.cs:DoAddRemove/ExecAddRemoveScript). */
   gi->update_sidebars ();
   return true;
 }
@@ -191,7 +192,7 @@ bool question_implementation::exec_clone (const string &s, string &,
 					  string tok, std::string::size_type c1,
 					  std::string::size_type c2)
 {
-  /* clone <src; newname[; room]> -- ExecClone, V4Game.cs:4352-4400.
+  /* clone <src; newname[; room]> -- V4Game.cs:ExecClone.
    *
    * Quest appends a byte copy of the source's record to _objs, overwrites
    * its ObjectName with the new name and its ContainerRoom with the third
@@ -266,8 +267,8 @@ bool question_implementation::exec_create (const string &s, string &,
 {
   tok = next_token (s, c1, c2);
   /* The created kind is CI: ExecuteCreate tests "room "/"exit " with
-   * BeginsWith (V4Game.cs:5240-5244), as ExecuteCreateExit does the
-   * direction names (V4Game.cs:5432 ff.). */
+   * BeginsWith (V4Game.cs:ExecuteCreate), as ExecuteCreateExit does the
+   * direction names (V4Game.cs:ExecuteCreateExit ff.). */
   if (ci_equal (tok, "exit")) // create exit
     {
       string dir = "";
@@ -296,17 +297,17 @@ bool question_implementation::exec_create (const string &s, string &,
       /* Quest never lists the same "go to" exit twice.  Below ASL 4.10
        * ExecuteCreateExit looks the destination up in the room's Places list
        * first and, if it is already there, logs "Exit from 'X' to 'Y'
-       * already exists" and does nothing at all (V4Game.cs:5385-5409).  From
-       * 4.10 on the places live in a dictionary keyed by destination room, so
-       * AddPlaceExit deletes the old entry before inserting the new one
-       * (RoomExits.cs:46-56): the exit is replaced rather than duplicated,
-       * and moves to the end of the listing.  Either way one destination
-       * means one entry.  Question simply appended, so DJay32's "Metroid" Lite
-       * (ASL 400), whose Boardroom East does "create exit <Hallway; Hidden
-       * Secrets>" every time you walk into the hallway, wound up saying "You
-       * can go to Piperoom, Boardroom, Storage Room, or Storage Room.".
-       * Below 4.10 the comparison is LCase'd; the 4.10 dictionary key is
-       * case-sensitive.  Replaying the destroy-exit record is how the 4.10
+       * already exists" and does nothing at all (V4Game.cs:ExecuteCreateExit).
+       * From 4.10 on the places live in a dictionary keyed by destination
+       * room, so AddPlaceExit deletes the old entry before inserting the new
+       * one (RoomExits.cs:AddPlaceExit): the exit is replaced rather than
+       * duplicated, and moves to the end of the listing.  Either way one
+       * destination means one entry.  Question simply appended, so DJay32's
+       * "Metroid" Lite (ASL 400), whose Boardroom East does "create exit
+       * <Hallway; Hidden Secrets>" every time you walk into the hallway, wound
+       * up saying "You can go to Piperoom, Boardroom, Storage Room, or Storage
+       * Room.". Below 4.10 the comparison is LCase'd; the 4.10 dictionary key
+       * is case-sensitive.  Replaying the destroy-exit record is how the 4.10
        * side removes a place it does not own, and it works for statically
        * declared places too because get_places () replays these records in
        * order. */
@@ -336,7 +337,7 @@ bool question_implementation::exec_create (const string &s, string &,
     }
   else if (ci_equal (tok, "object")) // create object
     {
-      /* ExecuteCreate's object half (V4Game.cs:5278-5325): a fresh object
+      /* ExecuteCreate's object half (V4Game.cs:ExecuteCreate): a fresh object
        * named by the first field, placed in the room named by the second
        * -- or nowhere at all when there is none.  Alias, gender and
        * article take the same defaults Question already falls back on, and
@@ -366,7 +367,7 @@ bool question_implementation::exec_create (const string &s, string &,
   else if (ci_equal (tok, "room")) // create room
     {
       /* Quest appends an empty room to _rooms -- no description, no exits
-       * (ExecuteCreate, V4Game.cs:5244-5276) -- so the only thing that
+       * (V4Game.cs:ExecuteCreate) -- so the only thing that
        * changes for the player is that GetRoomID now finds the name and
        * "goto" and "create exit" can reach it.  Recording the name is
        * therefore the whole of it here; the room's contents, if the game
@@ -437,7 +438,7 @@ bool question_implementation::exec_give (const string &s, string &,
 					 std::string::size_type c2)
 {
   /* Quest takes the first <...> on the line whatever sits before it
-   * (GetParameter, V4Game.Part2.cs:5796-5799), so QDK's long-hand `give
+   * (GetParameter, V4Game.Part2.cs:ExecuteScript), so QDK's long-hand `give
    * object <pretty hairdo>' in On Time's elf menu still hands it over. */
   tok = next_param_token (s, c1, c2);
   if (tok == "")
@@ -450,7 +451,7 @@ bool question_implementation::exec_give (const string &s, string &,
    * item and then hide the like-named room object, so items are tracked
    * separately from objects.  Only below ASL 2.80, though: from there on
    * PlayerItem ignores the item table entirely and just moves the *object*
-   * of that name into "inventory" (V4Game.Part2.cs:6594-6647), so keeping a
+   * of that name into "inventory" (V4Game.Part2.cs:PlayerItem), so keeping a
    * parallel item would outlive the object -- a 3.x game that gives the
    * stone and later drops it would still list it and still pass
    * "if got <stone>". */
@@ -459,7 +460,7 @@ bool question_implementation::exec_give (const string &s, string &,
       /* Below 2.80 "give" sets the Got flag of a *declared* item and does
        * nothing else: PlayerItem walks the table for an exact, case-
        * sensitive name match and simply falls off the end when there is
-       * none (V4Game.Part2.cs:6681-6690).  So a game can only ever hand
+       * none (V4Game.Part2.cs:PlayGame).  So a game can only ever hand
        * over something its `items' line named, and the spelling stored is
        * the table's, not the give's -- which is what the inventory prints.
        * The Hobbit's "give <Goblin knife>" and "give <ring>" name nothing
@@ -475,9 +476,9 @@ bool question_implementation::exec_give (const string &s, string &,
     }
   /* From ASL 2.80 on there is no item table to speak of: PlayerItem looks up
    * the *object* of that name and moves it to "inventory", running its gain
-   * script (V4Game.Part2.cs:6604-6647).  Below 2.80 it only sets the Got
+   * script (V4Game.Part2.cs:PlayerItem).  Below 2.80 it only sets the Got
    * flag on the item and never touches an object, even one with exactly the
-   * same name (ibid. 6658-6669), so an object must not follow the item into
+   * same name (ibid. PlayerItem), so an object must not follow the item into
    * the inventory here: The Dream Weaver (Bad Omen, ASL 217) takes the Hooka
    * with "give <Hooka>  hideobject <Hooka>", the 2.x idiom of handing over
    * the item and hiding the like-named scenery object it was sitting as, and
@@ -493,7 +494,7 @@ bool question_implementation::exec_give (const string &s, string &,
     {
       /* "Unset parent information, if any" -- taking something into the
        * inventory takes it out of whatever container it was in, from ASL
-       * 391 on (PlayerItem, V4Game.Part2.cs:6646-6652).  It has to happen
+       * 391 on (V4Game.Part2.cs:PlayerItem).  It has to happen
        * before the move, because move drags a container's contents along
        * with it: Gathered in Darkness opens its radio with `show
        * <Batteries>  give <Batteries>  move <Radio; INVENT HOLD>', and the
@@ -555,7 +556,7 @@ bool question_implementation::exec_show (const string &s, string &,
 {
   /* Below ASL 2.82 `show <...>' is the *picture* statement: the picture
    * branch of the dispatcher sits above the object one and claims the word
-   * (V4Game.Part2.cs:5842 against 5904), so showing an object by that
+   * (V4Game.Part2.cs:ExecuteScript), so showing an object by that
    * spelling effectively begins at 2.82 even though its own gate reads
    * >= 2.81.  A game older than that says `showobject' or `showchar'. */
   if (tok == "show" && asl_version_ < 282)
@@ -588,14 +589,14 @@ bool question_implementation::exec_lose (const string &s, string &,
   tok = eval_param (tok);
 
   /* Clear the Got flag of the Quest 2.x item, matched the same exact,
-   * case-sensitive way "give" sets it (PlayerItem, V4Game.Part2.cs:
-   * 6681-6690).  A miscased name therefore takes nothing away, and two of
-   * The Dream Weaver's procedures are written that way: "lose <hooka>" and
-   * "lose <good nugget>" against an `items <Good Nugget; Hooka; ...>'
-   * declaration match nothing at all, so in Quest the player keeps both.
-   * (Only a script line can hit this.  A name the player typed has been
-   * lowercased by the time a command's parameter reaches here, so it can
-   * only ever match a table entry that is lowercase already.) */
+   * case-sensitive way "give" sets it (V4Game.Part2.cs:PlayerItem).  A
+   * miscased name therefore takes nothing away, and two of The Dream Weaver's
+   * procedures are written that way: "lose <hooka>" and "lose <good nugget>"
+   * against an `items <Good Nugget; Hooka; ...>' declaration match nothing at
+   * all, so in Quest the player keeps both. (Only a script line can hit this.
+   * A name the player typed has been lowercased by the time a command's
+   * parameter reaches here, so it can only ever match a table entry that is
+   * lowercase already.) */
   if (const string *decl = find_item (tok))
     {
       for (auto it = state.items.begin(); it != state.items.end(); )
@@ -609,11 +610,11 @@ bool question_implementation::exec_lose (const string &s, string &,
 
   /* The mirror image of give: only from ASL 2.80 on does losing an item mean
    * moving the object of that name into the current room (V4Game.Part2.cs:
-   * 6636-6647).  Below that, items and objects are separate tables and
+   * PlayerItem).  Below that, items and objects are separate tables and
    * "lose" is a flag on the item alone. */
   /* Wherever the object was: Quest's PlayerItem moves it into the current
    * room and runs its lose script without looking at where it came from
-   * (V4Game.Part2.cs:6652-6660), so "lose" means "put this object where I
+   * (V4Game.Part2.cs:PlayerItem), so "lose" means "put this object where I
    * am standing", not "drop it if I am holding it".  exec_give, its mirror
    * image, has never had such a test either. */
   bool is_object = (asl_version_ >= 280 && state.obj_records (tok) != NULL);

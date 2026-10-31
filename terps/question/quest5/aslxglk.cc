@@ -22,7 +22,7 @@
 // questionglk.cc's glk_main sniffs the story file and hands Quest 5 games to
 // aslx_glk_main() below, while .asl/.cas keep going to the classic runner.
 //
-// The interaction model is the QuestViva pending-callback port (§3): the
+// The interaction model is the QuestViva pending-callback port: the
 // engine never blocks mid-script -- `get input` / `show menu` / `ask` / `wait`
 // register callbacks and the prompt loop here asks the engine what it is
 // waiting for (pending_menu / pending_question / pending_wait / else a
@@ -36,9 +36,10 @@
 // {command:}/{object:} links).  render_html() maps it onto Glk styles and
 // hyperlinks: <br/> is the newline, bold/italic/underline come from both the
 // tags and the span-style CSS, cmdlinks become Glk hyperlinks whose click
-// sends their data-command (or fires their ASLEvent) as if typed.  Everything
-// else -- fonts, colours, alignment -- is deliberately dropped (§4: don't
-// write a browser).  Images and sounds are presentation-milestone work.
+// sends their data-command (or fires their ASLEvent) as if typed.  Font size
+// and family, colours, backgrounds and alignment map as far as Glk allows.  It
+// is a best-effort subset, not a browser: other tags are dropped.  Images and
+// sounds are in aslxglk-media.cc.
 
 #include "aslxglk-internal.hh"
 
@@ -1164,7 +1165,7 @@ extern "C" void aslx_glk_main(const char *storyfile)
     /* Prompt-first needs the library to suppress line-input echo (the host
      * echoes instead).  Without it (CheapGlk) keep the reference player's
      * game-side-echo presentation -- the smoke harness's transcripts depend
-     * on it.  ASLXGLK_PROMPT_FIRST=1 forces the new mode there for testing:
+     * on it.  ASLXGLK_PROMPT_FIRST=1 forces prompt-first there for testing:
      * under CheapGlk the typed line never reaches the output stream, so
      * manual echo is right for a piped harness too. */
     g_echo_control = glk_gestalt(gestalt_LineInputEcho, 0) != 0;

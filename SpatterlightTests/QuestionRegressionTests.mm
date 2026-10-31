@@ -28,6 +28,7 @@ extern "C" {
 #include "../terps/question/question-util.cc"
 #include "../terps/question/istring.cc"
 #include "../terps/question/readfile.cc"
+#include "../terps/question/question-preprocess.cc"
 #include "../terps/question/standardlib_builtin.cc"
 #include "../terps/question/stdverbs_builtin.cc"
 #include "../terps/question/typelib_builtin.cc"

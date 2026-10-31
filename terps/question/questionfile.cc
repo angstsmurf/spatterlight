@@ -69,8 +69,8 @@ void QuestionFile::build_name_key (std::string &out, const string &type,
 std::string QuestionFile::name_key (const string &type, const string &name)
 {
   /* Keep the same key bytes as build_name_key so load-time keys (readfile) and
-   * lookup-time keys agree.  ASCII fold matches the old lcase() under C
-   * locale. */
+   * lookup-time keys agree.  The fold is ASCII only, the same as
+   * lcase(). */
   std::string out;
   build_name_key (out, type, name);
   return out;
@@ -81,7 +81,7 @@ const QuestionBlock *QuestionFile::find_by_name (const string &type, const strin
 {
   /* O(1) lookup via name_index instead of scanning every block of the type.
    * The candidate list is in definition order, so the first-match fallback and
-   * the preferred-parent tie-break behave exactly as the old linear scan. */
+   * the preferred-parent tie-break both go by definition order too. */
   build_name_key (name_key_scratch, type, name);
   auto it = name_index.find (name_key_scratch);
   if (it == name_index.end ())
@@ -103,7 +103,7 @@ const QuestionBlock *QuestionFile::find_by_name (const string &type, const strin
   return first;
 }
 
-const QuestionBlock &QuestionFile::block (const std::string &type, size_t index) const { 
+const QuestionBlock &QuestionFile::block (const std::string &type, size_t index) const {
   std::map<std::string, std::vector<size_t> >::const_iterator iter;
   iter = type_indecies.find(type);
   if (iter != type_indecies.end() && index < (*iter).second.size())
@@ -128,7 +128,7 @@ size_t QuestionFile::size (const std::string &type) const {
     {
       return 0;
     }
-  return (*iter).second.size(); 
+  return (*iter).second.size();
 }
 
 
@@ -176,8 +176,8 @@ void QuestionFile::ensure_cached (const QuestionBlock &b) const
 
       /* Keyword compares here are CI: a `type` line and a raw (game-written)
        * properties/action line are read by Quest with the lowercasing
-       * BeginsWith (GetPropertiesInType, V4Game.cs:6291-6328; InitialiseObject,
-       * V4Game.Part2.cs:3378-3405). */
+       * BeginsWith (V4Game.cs:GetPropertiesInType; InitialiseObject,
+       * V4Game.Part2.cs:SetUpCharObjectInfo). */
       if (ci_equal (tok, "type"))
 	{
 	  string p = next_token (line, c1, c2);
@@ -200,9 +200,10 @@ void QuestionFile::ensure_cached (const QuestionBlock &b) const
       /* Per-turn block directives (room & game blocks).  These never overlap
        * with property/action/type lines, so handle and skip the rest.
        * All of these keywords are matched with the case-insensitive
-       * BeginsWith (V4Game.cs:1094): "command " V4Game.Part2.cs:1215, the
-       * "command"/"lib command" tags 2350-2375, "beforeturn "/"afterturn "
-       * 1276/1281 (rooms) and 1387/1392 (game). */
+       * BeginsWith (V4Game.cs:BeginsWith): "command " and the rooms'
+       * "beforeturn "/"afterturn " in V4Game.Part2.cs:SetUpRoomData, the
+       * "command"/"lib command" tags in ibid. ExecUserCommand, the game's
+       * "beforeturn "/"afterturn " in ibid. SetUpTurnScript. */
       if (ci_equal (tok, "command") || ci_equal (tok, "lib"))
 	{
 	  bool is_lib = ci_equal (tok, "lib");
@@ -219,7 +220,7 @@ void QuestionFile::ensure_cached (const QuestionBlock &b) const
 		   * DELIBERATE deviation: Quest trims the alternatives only
 		   * as it cuts them apart at a `;' and takes a list with no
 		   * semicolon whole (`curCmd = commandList', ExecUserCommand,
-		   * V4Game.Part2.cs:2324-2332), so the stray space in
+		   * V4Game.Part2.cs:ExecUserCommand), so the stray space in
 		   * `command <How do I get a MC? >' is part of the pattern
 		   * and, the player's input being trimmed, nothing typed can
 		   * ever match it.  That only ever loses the author's answer,
@@ -239,7 +240,8 @@ void QuestionFile::ensure_cached (const QuestionBlock &b) const
       if (ci_equal (tok, "beforeturn") || ci_equal (tok, "afterturn"))
 	{
 	  /* Script starts after the keyword, or after a following "override"
-	   * (also a case-insensitive BeginsWith: V4Game.Part2.cs:4205/4595). */
+	   * (also a case-insensitive BeginsWith: V4Game.Part2.cs:ExecCommand).
+	   * */
 	  std::string::size_type scr_starts = c2;
 	  bool ov = ci_equal (next_token (line, c1, c2), "override");
 	  if (ov)
@@ -267,13 +269,14 @@ void QuestionFile::ensure_cached (const QuestionBlock &b) const
 	      {
 		std::string::size_type idx;
 		QuestionBlock::dir d;
-		/* CI: BeginsWith "not " (AddToObjectProperties, V4Game.cs:4034). */
+		/* CI: BeginsWith "not " (V4Game.cs:AddToObjectProperties). */
 		if (starts_with_i (j, "not "))
 		  d = {false, trim (j.substr (4)), "!", false};
 		else if ((idx = j.find ('=')) != string::npos)
-		  /* Quest trims both sides of the "=" (AddToObjectProperties,
-		   * V4Game.cs:4021-4025), so "volume = 30" is the value 30, not
-		   * " 30" -- which a game then prints, or does arithmetic on. */
+		  /* Quest trims both sides of the "="
+		   * (V4Game.cs:AddToObjectProperties), so "volume = 30" is the
+		   * value 30, not " 30" -- which a game then prints, or does
+		   * arithmetic on. */
 		  d = {false, trim (j.substr (0, idx)),
 		       trim (j.substr (idx + 1)), true};
 		else
@@ -281,9 +284,10 @@ void QuestionFile::ensure_cached (const QuestionBlock &b) const
 		b.obj_prop.push_back (d);
 		/* Into the type-side list too: GetPropertiesInType accepts a
 		 * "properties <...>" line inside a define type
-		 * (V4Game.cs:6335-6337), accumulating it exactly like the bare
-		 * lines below, and the object loader flattens the result onto
-		 * the object (V4Game.Part2.cs:3388-3389).  Without this,
+		 * (V4Game.cs:GetPropertiesInType), accumulating it exactly
+		 * like the bare lines below, and the object loader flattens
+		 * the result onto the object
+		 * (V4Game.Part2.cs:SetUpCharObjectInfo).  Without this,
 		 * get_type_property never saw such a line and the property was
 		 * invisible through inheritance. */
 		b.type_prop.push_back (d);
@@ -318,12 +322,13 @@ void QuestionFile::ensure_cached (const QuestionBlock &b) const
 		? line.substr (c2 + 1) : "";
 	      /* An action with nothing after the closing ">" is thrown away, not
 	       * registered empty: AddToObjectActions logs "No script given for
-	       * '<name>' action data" and returns (V4Game.cs:3934-3939).  The
-	       * loader has already trimmed the line (V4Game.cs:1335), so "the
-	       * first '>' is the last character" and "no script" are the same
-	       * test.  Registering it shadowed the object's like-named
-	       * `properties <verb = ...>` text, and the verb printed nothing --
-	       * Sutekh Is Hiding In Your Priory has both on its television. */
+	       * '<name>' action data" and returns
+	       * (V4Game.cs:AddToObjectActions).  The loader has already
+	       * trimmed the line (V4Game.cs:ParseFile), so "the first '>' is
+	       * the last character" and "no script" are the same test.
+	       * Registering it shadowed the object's like-named `properties
+	       * <verb = ...>` text, and the verb printed nothing -- Sutekh Is
+	       * Hiding In Your Priory has both on its television. */
 	      if (trim (script).empty ())
 		continue;
 	      b.obj_act.push_back ({false, name, script, true});
@@ -364,7 +369,6 @@ set<string> QuestionFile::get_obj_keys (const string &obj) const
 void QuestionFile::get_obj_keys (const string &obj, set<string> &rv) const
 {
   QUESTION_DBG << "get_obj_keys (gf, <" << obj << ">)\n";
-  //set<string> rv;
 
   std::string::size_type c1, c2;
   string tok, line;
@@ -430,8 +434,7 @@ void QuestionFile::get_obj_keys (const string &obj, set<string> &rv) const
 	  if (is_param (tok))
 	    get_type_keys (param_contents(tok), rv);
 	}
-      //else if (has (tag_property, tok) && tag_property[tok])
-      else if (rw != NULL && rw->has(tok)) 
+      else if (rw != NULL && rw->has(tok))
 	{
 	  string tok1 = next_token (line, c1, c2);
 	  if (is_param (tok1))
@@ -492,9 +495,7 @@ void QuestionFile::get_type_keys (const string &typen, set<string> &rv,
  * obj_prop / type_prop, an `action <...>` line in obj_act / type_act, and the
  * four lookups over each differ only in which list they read, in whether an
  * entry carries its own truth value, and in the noun their diagnostics use.
- * They used to be written out twice and kept in step by hand -- each half's
- * comments pointed at the other -- so both are expressed once here and selected
- * with an `entry_kind`. */
+ * So both are expressed once here and selected with an `entry_kind`. */
 namespace {
 
 struct entry_kind
@@ -548,13 +549,14 @@ void get_type_entry (const QuestionFile &gf, const entry_kind &k,
  * and a `type <...>` line is an entry source like any other -- it pushes the
  * whole type through the same AddToObjectProperties a `properties <...>` line
  * uses, and that overwrites an entry of the same name (InitialiseObject,
- * V4Game.Part2.cs:3398-3405; V4Game.cs:4042-4069), just as AddObjectAction
- * overwrites a like-named action (V4Game.cs:3784-3816).  So a type named
- * *below* a tag beats it, and only a tag below the type survives.  For the
- * usual type-first ordering this is the same answer as resolving the types
- * first, which is what Question used to do unconditionally; Operation: Sleepover
- * writes the other order eight times, and lost an adjective off each garment
- * ("a black sweater" for Quest's "a sweater"). */
+ * V4Game.Part2.cs:SetUpCharObjectInfo; V4Game.cs:AddToObjectProperties), just
+ * as AddObjectAction overwrites a like-named action
+ * (V4Game.cs:AddObjectAction).  So a type named *below* a tag beats it, and
+ * only a tag below the type survives.  For the usual type-first ordering this
+ * is the same answer as resolving the types first.  Operation: Sleepover
+ * writes the other order eight times, and resolving the types first there gets
+ * each garment's adjective wrong ("a black sweater" for Quest's "a sweater").
+ * */
 bool block_entry (const QuestionFile &gf, const entry_kind &k,
 		  const QuestionBlock &block, const string &name, string &string_rv)
 {
@@ -762,7 +764,7 @@ void QuestionFile::get_type_action (const string &typenamex, const string &actna
 {
   get_type_entry (*this, act_kind, typenamex, actname, bool_rv, string_rv);
 }
- 
+
 const std::string *QuestionFile::obj_type_of (const string &name) const
 {
   fold_lower_into (obj_type_scratch, name);
@@ -1023,8 +1025,8 @@ string QuestionFile::static_eval (const string &input) const
 	  size_t j;
 	  for (j = i+1; j < input.length() && input[j] != '#'; j ++)
 	    ;
-	  /* An unmatched conversion character is not fatal in Quest: each pass of
-	   * ConvertParameter (V4Game.cs:6697-6701) reports
+	  /* An unmatched conversion character is not fatal in Quest: each pass
+	   * of ConvertParameter (V4Game.cs:ConvertParameter) reports
 	   * "Line parameter <...> has missing #" to the log -- a WarningError, so
 	   * nothing the player sees -- and yields the string "<ERROR>" for the
 	   * whole parameter, after which play continues normally.  Throwing here
@@ -1033,17 +1035,19 @@ string QuestionFile::static_eval (const string &input) const
 	   * "The Statue of Riddles" has a room described as "100% empty" and was
 	   * unplayable for that one stray percent sign.
 	   *
-	   * Quest stores the literal text "<ERROR>" as the value instead, and this
-	   * is the only chance to do the same: it resolves definition-level text
-	   * once at load, exactly as we do here (SetUpRoomData calls GetParameter on
-	   * a room's "look" line, V4Game.Part2.cs:1170-1172), and never re-converts
-	   * it when the room is shown.  We cannot, though -- these results are
-	   * re-emitted as "properties <name=value>" lines, and next_token
-	   * (readfile.cc:56-62) ends a <...> token at the *first* '>', so "<ERROR>"
-	   * would be read back as "<ERROR".  Leaving the text alone thus prints the
-	   * raw "100% empty" where Quest prints "<ERROR>"; the runtime paths
-	   * (eval_string, for msg and script parameters) do emit the marker, and
-	   * those are the ones games actually build text with. */
+	   * Quest stores the literal text "<ERROR>" as the value instead, and
+	   * this is the only chance to do the same: it resolves
+	   * definition-level text once at load, exactly as we do here
+	   * (SetUpRoomData calls GetParameter on a room's "look" line,
+	   * V4Game.Part2.cs:SetUpRoomData), and never re-converts it when the
+	   * room is shown.  We cannot, though -- these results are re-emitted
+	   * as "properties <name=value>" lines, and next_token
+	   * (readfile.cc) ends a <...> token at the *first* '>', so
+	   * "<ERROR>" would be read back as "<ERROR".  Leaving the text alone
+	   * thus prints the raw "100% empty" where Quest prints "<ERROR>"; the
+	   * runtime paths (eval_string, for msg and script parameters) do emit
+	   * the marker, and those are the ones games actually build text with.
+	   * */
 	  if (j == input.length())
 	    {
 	      debug_print ("Line parameter <" + input + "> has missing #");
@@ -1051,8 +1055,8 @@ string QuestionFile::static_eval (const string &input) const
 	    }
 	  /* Two conversion characters in a row are a literal one: Quest's
 	   * ConvertParameter has an explicit empty-name case that appends the
-	   * character and moves on (V4Game.cs:6704-6708).  eval_string has it
-	   * (eval_string_body); this, its load-time twin, did not, so a
+	   * character and moves on (V4Game.cs:ConvertParameter).  eval_string
+	   * has it (eval_string_body); this, its load-time twin, did not, so a
 	   * room aliased "Room ##1" -- RiddleRun's five are -- looked up a string
 	   * variable with no name and came out as "Room 1". */
 	  if (j == i + 1)
@@ -1065,10 +1069,7 @@ string QuestionFile::static_eval (const string &input) const
 	  for (k = i + 1; k < j && input[k] != ':'; k ++)
 	    ;
 	  /* k < j means we found a ':', i.e. this is "#object:property#" rather
-	   * than a plain "#variable#".  The test used to be "k == ':'", comparing
-	   * the *index* against the character ':' (58), so this branch effectively
-	   * never ran -- and every substring length inside it was left off by one,
-	   * unnoticed.  Those are corrected below. */
+	   * than a plain "#variable#". */
 	  if (k < j)
 	    {
 	      string objname;
@@ -1078,10 +1079,9 @@ string QuestionFile::static_eval (const string &input) const
 	      else
 		objname = input.substr (i+1, k-i-1);
 	      QUESTION_DBG << "  objname == '" << objname << endl;
-	      //rv += get_obj_property (objname, input.substr (k+1, j-k-2));
 	      string tmp;
 	      bool had_var;
-	      
+
 	      string objprop = input.substr (k+1, j-k-1);
 	      QUESTION_DBG << "  objprop == " << objprop << endl;
 	      had_var = get_obj_property (objname, objprop, tmp);
@@ -1104,11 +1104,12 @@ string QuestionFile::static_eval (const string &input) const
 	  /* Definition-level text goes through GetParameter with the null
 	   * context, functions and all, and the null context's calling object
 	   * is the unused object 0, whose name and alias are empty
-	   * (V4Game.cs:7177-7184).  So "$thisobject$" there is nothing at all:
-	   * q3ext.qlb's clothing type says properties <alias=$thisobject$>,
-	   * which gives every piece of clothing an empty alias, and the room
-	   * then lists it under its own name.  Only these three are resolved
-	   * here; any other function is left for the runtime. */
+	   * (V4Game.cs:DoInternalFunction).  So "$thisobject$" there is
+	   * nothing at all: q3ext.qlb's clothing type says properties
+	   * <alias=$thisobject$>, which gives every piece of clothing an empty
+	   * alias, and the room then lists it under its own name.  Only these
+	   * three are resolved here; any other function is left for the
+	   * runtime. */
 	  static const char *const null_ctx[] =
 	    { "$thisobject$", "$thisobjectname$", "$objectname$" };
 	  bool hit = false;
@@ -1122,9 +1123,10 @@ string QuestionFile::static_eval (const string &input) const
 		  break;
 		}
 	    }
-	  /* A doubled dollar is a literal one (V4Game.cs:6705-6708); the rest
-	   * of the dollar pass calls user functions, which need a running
-	   * game.  Pure Chaos describes a hoard as "It's about $1000000.". */
+	  /* A doubled dollar is a literal one (V4Game.cs:ConvertParameter);
+	   * the rest of the dollar pass calls user functions, which need a
+	   * running game.  Pure Chaos describes a hoard as "It's about
+	   * $1000000.". */
 	  if (!hit && input.compare (i, 2, "$$") == 0)
 	    i ++;
 	  if (!hit)

@@ -45,10 +45,10 @@ using namespace std;
  *
  *   strict (eval_numeric_expr) -- refuse everything Quest's ExpressionHandler
  *     refuses.  Quest splits the expression on + - * / and demands that every
- *     element between the operators be numeric (V4Game.cs:3190-3200), so an
- *     operand that is not arithmetic through and through fails instead of being
- *     read up to the first unusable character; `ok` goes false and the caller
- *     leaves the operand as it was.
+ *     element between the operators be numeric (V4Game.cs:ExpressionHandler),
+ *     so an operand that is not arithmetic through and through fails instead
+ *     of being read up to the first unusable character; `ok` goes false and
+ *     the caller leaves the operand as it was.
  *
  * `ok` is only ever cleared in strict mode, so the `ok &&` guards on the two
  * operator loops -- which stop the descent as soon as a sub-expression has
@@ -153,7 +153,8 @@ static double vb_val_num (const string &s)
 double eval_double_pre391 (const string &expr, bool &div_by_zero)
 {
   div_by_zero = false;
-  /* ObscureNumericExps (V4Game.cs:3434-3455) blanks the character after every
+  /* ObscureNumericExps (V4Game.cs:ObscureNumericExps) blanks the character
+   * after every
      "E" so that the sign of an exponent -- 2.345E+20 -- cannot be mistaken for
      an operator.  The operator is then looked for in this copy but read out of
      the original, so the two must stay in step character for character. */
@@ -169,7 +170,7 @@ double eval_double_pre391 (const string &expr, bool &div_by_zero)
   /* One operation only, and the search order is the operator's own: the first
      "+" anywhere, else the first "*", else the first "/", else a "-" at the
      second character or later -- a leading one being the sign of a negative
-     number (ExecSetVar, V4Game.cs:7286-7304). */
+     number (V4Game.cs:ExecSetVar). */
   string::size_type op = obscured.find ('+');
   if (op == string::npos)
     op = obscured.find ('*');
@@ -210,7 +211,7 @@ bool eval_numeric_expr (const string &s, string &result)
   if (!p.ok || p.i != p.n)
     return false;
   /* An arithmetic result is stringified with plain Double.ToString()
-     (ExpressionHandler, V4Game.cs:3272), which keeps the leading zero of a
+     (V4Game.cs:ExpressionHandler), which keeps the leading zero of a
      fraction where the Str() used for display drops it. */
   result = fmt_double_net (v);
   return true;
@@ -255,9 +256,9 @@ string fmt_double_net (double d)
 }
 
 /* VB's Str(), which is how Quest prints a numeric variable or a collectable
-   (Trim(Conversion.Str(...)), V4Game.cs:6721): the .NET rendering with the
-   leading zero of a fraction dropped, so a third is ".3333333333333333" and a
-   negative half is "-.5". */
+   (Trim(Conversion.Str(...)), V4Game.cs:ConvertParameter): the .NET rendering
+   with the leading zero of a fraction dropped, so a third is
+   ".3333333333333333" and a negative half is "-.5". */
 string fmt_double (double d)
 {
   string rv = fmt_double_net (d);
@@ -348,9 +349,6 @@ void split_verb_names (const string &names_str, vstring &names, string &key)
     key = trim (names[0]);
 }
 
-//ostream &operator << (ostream &o, const QuestionBlock &gb) { return o; }
-//string trim (string s, trim_modes) { return s; }
-
 std::string string_question_block (const QuestionBlock &gb)
 {
   ostringstream oss;
@@ -363,13 +361,11 @@ std::string string_question_block (const QuestionBlock &gb)
 bool starts_with_i (const string &a, const string &b)
 {
   return (a.length() >= b.length()) && ci_equal (a.substr (0, b.length()), b);
-  //  return starts_with (lcase(a), lcase(b));
 }
 bool ends_with_i (const string &a, const string &b)
 {
-  return (a.length() >= b.length()) && 
+  return (a.length() >= b.length()) &&
     ci_equal (a.substr (a.length() - b.length(), b.length()), b);
-  //return ends_with (lcase(a), lcase(b));
 }
 
 string pcase (string s)
@@ -398,8 +394,8 @@ string lcase (string s)
 {
   /* ASCII fold rather than the locale-aware isupper/tolower (which showed up
    * hot in the profile): Question works in ASCII/Latin-1 and sets no locale, so
-   * this matches the old C-locale behaviour while avoiding the per-char locale
-   * lookups.  Matches the fold in ci_equal / QuestionFile::build_name_key. */
+   * this gives the C-locale result without the per-char locale lookups.
+   * Matches the fold in ci_equal / QuestionFile::build_name_key. */
   for (char &c : s)
     if (c >= 'A' && c <= 'Z')
       c += 32;

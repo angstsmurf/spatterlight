@@ -33,23 +33,9 @@
 // same Wedged-vs-Finished distinction (a Finished forced by the 20-error
 // breaker reports as Wedged, via Interp::script_errors_fatal()).
 //
-// Baseline at first light (2026-07-16, input-model commit) was ~30-70%
-// matching lines and 0 games finishing; by end of day 16 of 17 goldens
-// replay BYTE-IDENTICAL (incl. Whitefield's Wedged error-cascade and Bony
-// King's depth-cap death spiral). The one remaining diff, I Contain
-// Multitudes, is a DOCUMENTED QuestViva artifact: its pending
-// synchronous-sound TCS leak means the oracle never shows the ending; the
-// native engine ends the game like real Quest. Do not chase.
-//
-// 2026-07-17: corpus grown to 25 goldens (the six formerly hints-only games
-// + the PDF-only Jenny Lee, each driven by a curated override); 24 of 25
-// replay byte-identical (ICM = the same documented artifact). The batch cost
-// three engine/harness fixes: GetExitByLink + dictionary ListCount (Hawk),
-// deferred else-if condition compile (Serpent's Eye's literal `else if ()`),
-// and .NET-TrimEnd-equivalent Unicode whitespace stripping here (Hawk's
-// literal trailing U+00A0s). Then 26 goldens (The Deer Trail, an override
-// rendering the author's "Direction to <room>" shorthand into parser
-// commands); it replayed byte-identical with no engine changes — 25 of 26.
+// I Contain Multitudes differs, and that is a documented QuestViva artifact: its
+// pending synchronous-sound TCS leak means the oracle never shows the ending,
+// while the native engine ends the game like real Quest.  Do not chase.
 #include "aslx_drive.hh"
 
 #include <fstream>

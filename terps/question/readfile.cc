@@ -32,7 +32,6 @@
 
 using namespace std;
 
-//string readfile (string s);
 
 string next_token (const string &full, std::string::size_type &tok_start, std::string::size_type &tok_end, bool cvt_paren)
 {
@@ -130,32 +129,32 @@ bool find_token (const string &s, const string &tok, std::string::size_type &tok
 static bool is_define (const string &s)
 {
   /* CI: Quest spots block headers with the lowercasing BeginsWith
-   * ("define ", V4Game.cs:241). */
+   * ("define ", V4Game.cs:CheckSections). */
   return ci_equal (get_token (s), "define");
 }
 
 
-static bool is_start_textmode (const string &s)
+bool is_start_textmode (const string &s)
 {
   std::string::size_type start_char, end_char = 0;
   if (!ci_equal (next_token (s, start_char, end_char), "define")) return false;
   string tmp = next_token (s, start_char, end_char);
-  /* CI: BeginsWith "define text" / "define synonyms" (V4Game.cs:246). */
+  /* CI: BeginsWith "define text" / "define synonyms"
+   * (V4Game.cs:CheckSections). */
   return ci_equal (tmp, "text") || ci_equal (tmp, "synonyms");
 }
 
-static bool is_end_define (const string &s)
+bool is_end_define (const string &s)
 {
   std::string::size_type start_char, end_char = 0;
   /* Case-sensitive, as in Quest: the section scan closes a block only on
-   * Trim(line) == "end define", raw (V4Game.cs:248). */
+   * Trim(line) == "end define", raw (V4Game.cs:CheckSections). */
   return (next_token (s, start_char, end_char) == "end" &&
 	  next_token (s, start_char, end_char) == "define");
 }
 
 
 
-static vector<string> split_lines (const string &data);
 
 
 
@@ -167,21 +166,22 @@ static reserved_words dir_tag_property ("north", "south", "east", "west", "north
  * A tag like `look <...>` is read into a field of the room or object record
  * first; only afterwards, and only from the version that introduced the
  * behaviour, is the same text pushed through AddToObjectProperties as
- * "look=<value>", which splits a `;`-separated list (V4Game.cs:4011-4040).
- * Below that version the field is all there is, and the field holds the whole
- * value: what the player reads still has its semicolons in it.
+ * "look=<value>", which splits a `;`-separated list
+ * (V4Game.cs:AddToObjectProperties). Below that version the field is all there
+ * is, and the field holds the whole value: what the player reads still has its
+ * semicolons in it.
  *
- * Every one of a room's tags crossed over at 3.50 (SetUpRoomData,
- * V4Game.Part2.cs:989-1200), and an object's descriptive ones at 3.11
- * (InitialiseObject, ibid. 3271-3392).  An object's container tags -- `open`,
- * `close`, `add`, `remove`, `parent` -- were properties from the start and are
- * cut at every version, because what those print is the property
- * (ExecOpenClose reads it with GetObjectProperty, V4Game.cs:2814-2830).
+ * Every one of a room's tags crossed over at 3.50
+ * (V4Game.Part2.cs:SetUpRoomData), and an object's descriptive ones at 3.11
+ * (InitialiseObject, ibid. SetUpCharObjectInfo).  An object's container tags
+ * -- `open`, `close`, `add`, `remove`, `parent` -- were properties from the
+ * start and are cut at every version, because what those print is the property
+ * (ExecOpenClose reads it with GetObjectProperty, V4Game.cs:ExecOpenClose).
  *
  * `take` is the one tag that is a property and yet never cut: ExecTake prints
- * the field, `Print(t.Data)` (V4Game.Part2.cs:5226-5228), and below 3.11 it
+ * the field, `Print(t.Data)` (V4Game.Part2.cs:ExecTake), and below 3.11 it
  * does not even do that -- it goes back to the source line and runs what
- * follows the keyword (ibid. 5242-5255).  The truncated "take" property is
+ * follows the keyword (ibid. ExecTake).  The truncated "take" property is
  * still written, but nothing reads it for its text.
  *
  * Question has no field/property split: a tag becomes a property whatever the
@@ -189,8 +189,8 @@ static reserved_words dir_tag_property ("north", "south", "east", "west", "north
  * what the gate decides here is only whether the value is split, which is the
  * half of the difference a game can see.  Magic Sword (2.17) is the corpus
  * game that needs it: its training room's `look` names two rooms in one
- * sentence each, "...replicas of enemys; using weapons.|n And...", of which
- * Question used to print the first eight words and stop. */
+ * sentence each, "...replicas of enemys; using weapons.|n And...", and unsplit
+ * it stops after the first eight words. */
 static bool tag_property_splits (const string &blocktype, const string &tag,
 				 int version)
 {
@@ -261,7 +261,7 @@ void QuestionFile::read_block_line (string line, const string &blocktype,
   /* Quest recognises a keyword with something after it via the
    * lowercasing BeginsWith ("alias ", "use ", "north ", ...), but a
    * bare-word line with a raw Trim(line) == "hidden" compare
-   * (InitialiseObject, V4Game.Part2.cs:3242-3376).  So fold the token
+   * (InitialiseObject, V4Game.Part2.cs:SetUpCharObjectInfo).  So fold the token
    * whenever the line carries more, and compare it raw when the
    * keyword is the whole line. */
   string ltok = (rest == "") ? tok : lcase (tok);
@@ -277,11 +277,12 @@ void QuestionFile::read_block_line (string line, const string &blocktype,
      a plain <message>, as a *property*; only a scripted form ("open msg
      <...>", "open { ... }") becomes an action.  ExecOpenClose reads that
      property both to decide whether the container may be opened at all and
-     for the text to print (V4Game.Part2.cs:3470-3503, V4Game.cs:2814).
-     Checked ahead of the generic handling below, where "open"/"close" appear
-     in `actions` and so would become an empty action that opens the
-     container while printing nothing -- or, for the <message> form, a line
-     Question recognises as neither property nor action and drops. */
+     for the text to print (V4Game.Part2.cs:SetUpCharObjectInfo,
+     V4Game.cs:ExecOpenClose). Checked ahead of the generic handling below,
+     where "open"/"close" appear in `actions` and so would become an empty
+     action that opens the container while printing nothing -- or, for the
+     <message> form, a line Question recognises as neither property nor action
+     and drops. */
   if (actions[ltok] && (ltok == "open" || ltok == "close") &&
       (rest == "" || is_param (rest)))
     {
@@ -292,18 +293,17 @@ void QuestionFile::read_block_line (string line, const string &blocktype,
      `list empty` and `list closed` as a property of that name and the
      scripted form as an action; "list empty off"/"list closed off" are the
      defaults and record nothing, while "list off" records the property
-     "not list" to suppress listing altogether (ProcessListInfo,
-     V4Game.cs:3457-3528, reached from the container branch of the object
-     loader, V4Game.Part2.cs:3542-3546).  Question dropped all of them on the
-     floor -- "list" is in neither the props nor the actions word list, so
-     the raw line fell through to become a *type* property named after the
-     whole line -- which left the "list closed" text unreachable and, worse,
-     made `property <X; list empty>` always false.  Games use that condition
-     to ask "is this container empty?", because Quest's `property` condition
-     only tests whether the property exists (ExecuteIfProperty,
-     V4Game.cs:5991) and a container that is not empty prints its contents
-     instead.  "Shipwrecked" is unwinnable without it: the raft's last piece
-     is `use <crate2>`, guarded by `if property <crate2; list empty>`. */
+     "not list" to suppress listing altogether (V4Game.cs:ProcessListInfo,
+     reached from the container branch of the object loader,
+     V4Game.Part2.cs:SetUpCharObjectInfo).  "list" is in neither the props nor
+     the actions word list, so it needs this case: the raw line would become a
+     *type* property named after the whole line, leaving the "list closed" text
+     unreachable and `property <X; list empty>` always false.  Games use that condition to ask
+     "is this container empty?", because Quest's `property` condition only
+     tests whether the property exists (ExecuteIfProperty,
+     V4Game.cs:ExecuteRepeat) and a container that is not empty prints its
+     contents instead.  "Shipwrecked" is unwinnable without it: the raft's last
+     piece is `use <crate2>`, guarded by `if property <crate2; list empty>`. */
   else if (ltok == "list")
     {
       string propname = "list";
@@ -336,16 +336,16 @@ void QuestionFile::read_block_line (string line, const string &blocktype,
 	 differently, and this rewrite is exactly what makes them
 	 indistinguishable afterwards, so record which one we saw while we
 	 still can.  Only a bare "hidden" line raises the loader's local
-	 `hidden' flag (V4Game.Part2.cs:3238-3248); "properties <hidden>"
-	 and a hidden inherited from a type merely add the property
-	 (V4Game.Part2.cs:3378-3381), and when the definition ends the
+	 `hidden' flag (V4Game.Part2.cs:SetUpCharObjectInfo); "properties
+	 <hidden>" and a hidden inherited from a type merely add the property
+	 (V4Game.Part2.cs:SetUpCharObjectInfo), and when the definition ends the
 	 loader undoes their effect on visibility with
-	 "if (!hidden) o.Exists = true" (V4Game.Part2.cs:3550-3553).  So
-	 only the bare tag hides an object at load time; the property still
+	 "if (!hidden) o.Exists = true" (V4Game.Part2.cs:SetUpCharObjectInfo).
+	 So only the bare tag hides an object at load time; the property still
 	 hides it if something *writes* it later at runtime
-	 (V4Game.cs:4169-4179).  Revenge of the Shadow Masters depends on
-	 this: its Mug o' Grog is "properties <hidden; ...>" and has to be
-	 on sale in the bar from turn one, and the grog gates the whole
+	 (V4Game.cs:AddToObjectProperties).  Revenge of the Shadow Masters
+	 depends on this: its Mug o' Grog is "properties <hidden; ...>" and has
+	 to be on sale in the bar from turn one, and the grog gates the whole
 	 second half of the game.  QuestionState's constructor reads the marker
 	 back; types are excluded because a type's hidden goes through the
 	 property path in Quest too.  */
@@ -354,15 +354,15 @@ void QuestionFile::read_block_line (string line, const string &blocktype,
 
       /* A bare "surface" line declares a container as well: Quest's object
 	 loader answers it with two AddToObjectProperties calls, "container"
-	 and then "surface" (V4Game.Part2.cs:3472-3477).  That matters because
-	 ListContents refuses outright anything without the "container"
-	 property (V4Game.cs:3306-3309), so a surface that was only ever
-	 tagged "surface" lists nothing at all -- which is how Barbarian's
-	 Mantle came to swallow the Vase standing on it, and the Wizard's
-	 bar-top the bottle of sludge.  Only the bare line does this: a
+	 and then "surface" (V4Game.Part2.cs:SetUpCharObjectInfo).  That
+	 matters because ListContents refuses outright anything without the
+	 "container" property (V4Game.cs:ListContents), so a surface that was
+	 only ever tagged "surface" lists nothing at all -- which is how
+	 Barbarian's Mantle came to swallow the Vase standing on it, and the
+	 Wizard's bar-top the bottle of sludge.  Only the bare line does this: a
 	 "properties <surface>" adds just the one property, and so does a
 	 surface inherited from a type, whose lines Quest folds straight into
-	 a property string (GetPropertiesInType, V4Game.cs:6335-6342).
+	 a property string (V4Game.cs:GetPropertiesInType).
 	 Below ASL 3.91 the loader's surface branch is empty, so a bare
 	 line records neither property and the whole line goes. */
       if (tok == "surface" && blocktype != "type")
@@ -385,17 +385,17 @@ void QuestionFile::read_block_line (string line, const string &blocktype,
     }
   /* The use/give forms and their on/to/anything sub-keywords are all CI:
    * AddToUseInfo/AddToGiveInfo read them with BeginsWith
-   * (V4Game.cs:4230-4330). */
+   * (V4Game.cs:AddToUseInfo). */
   else if (actions[ltok] &&
 	   (ltok == "use" || ltok == "give" || !is_param(rest)))
     {
       /* The partner object's name is trimmed here for the same reason the
        * `define` header above trims its own.  Quest trims neither: both
        * ObjectName and UseData().UseObject are raw GetParameter results
-       * (V4Game.Part2.cs:3229, V4Game.cs:4257-4283), so its two spellings
-       * of a padded name agree and the use succeeds.  Question trimmed only
-       * the declaration, so an object written "<Warrior >" was registered
-       * as "Warrior" while its partner's handler was filed under
+       * (V4Game.Part2.cs:SetUpCharObjectInfo, V4Game.cs:AddToUseInfo), so its
+       * two spellings of a padded name agree and the use succeeds.  Question
+       * trimmed only the declaration, so an object written "<Warrior >" was
+       * registered as "Warrior" while its partner's handler was filed under
        * "use on Warrior " and get_obj_action missed -- Londe Perplex's
        * Rage lost its whole scripted attack that way.  */
       if (ltok == "use")
@@ -451,11 +451,9 @@ void QuestionFile::read_block_line (string line, const string &blocktype,
 
 void QuestionFile::read_into (const vector<string> &in_data,
 			  const string &in_parent, uint cur_line, bool recurse,
-			  const reserved_words &props, 
+			  const reserved_words &props,
 			  const reserved_words &actions)
 {
-  //output.push_back (QuestionBlock());
-  //QuestionBlock &out_block = output[output.size() - 1];
   size_t blocknum = blocks.size();
   blocks.push_back (QuestionBlock());
   QuestionBlock &out_block = blocks[blocknum];
@@ -473,7 +471,7 @@ void QuestionFile::read_into (const vector<string> &in_data,
    * lowercasing BeginsWith ("define room ", "define type ", "define timer ",
    * ...), so "define Room" is a room there.  (Its procedure/function/
    * selection/text lookups go through a case-sensitive dictionary instead
-   * (DefineBlockParam, V4Game.cs:1207-1214) -- Question is deliberately laxer
+   * (V4Game.cs:DefineBlockParam) -- Question is deliberately laxer
    * there, as it already is about those blocks' names.) */
   string blocktype = out_block.blocktype = lcase (next_token (line, t1, t2));
   type_indecies[blocktype].push_back (blocknum);
@@ -496,7 +494,6 @@ void QuestionFile::read_into (const vector<string> &in_data,
     {
       throw string ("Expected parameter; " + name + " found instead.");
     }
-  //out_block.lname = lcase (out_block.nname);
 
   /* Only the block types that name a thing in the game world go into the
    * "what is <name>?" map; procedures, functions, texts and the rest are
@@ -525,12 +522,12 @@ void QuestionFile::read_into (const vector<string> &in_data,
     }
   /* From ASL 3.91 every object is created with the "list" property already set,
      right after the `default` type has been folded in and before its own
-     definition lines are read (V4Game.Part2.cs:3240-3252).  That property is
-     what ListContents asks about before it will list anything, so the default
-     is what makes an ordinary container describe its contents at all -- and
-     `list off`, which the loader below records as "not list", is how a game
-     opts out.  Pushed here, in Quest's own order, so a `list <header>` line of
-     the object's own still overrides it. */
+     definition lines are read (V4Game.Part2.cs:SetUpCharObjectInfo).  That
+     property is what ListContents asks about before it will list anything, so
+     the default is what makes an ordinary container describe its contents at
+     all -- and `list off`, which the loader below records as "not list", is
+     how a game opts out.  Pushed here, in Quest's own order, so a `list
+     <header>` line of the object's own still overrides it. */
   if (blocktype == "object" && asl_version >= 391)
     {
       out_data.push_back ("properties <list>");
@@ -563,7 +560,7 @@ QuestionFile::QuestionFile (const vector<string> &v, QuestionInterface *_gi) : g
 
   /* The version has to be known before the first block is read, because
    * read_into's tag rewriting is version-dependent (tag_property_splits).
-   * Quest reads the line out of the game block (V4Game.cs:1489-1503); the
+   * Quest reads the line out of the game block (V4Game.cs:ParseFile); the
    * scan here is over the raw file, which reaches the same line -- the only
    * "asl-version" a game file has is the game block's, a library's being
    * spelt "!asl-version". */
@@ -585,21 +582,19 @@ QuestionFile::QuestionFile (const vector<string> &v, QuestionInterface *_gi) : g
      "function", "selection", "synonyms", "text", "timer",
      /* "define options" is a nameless block like "define synonyms"; without a
 	pass for it the whole block was dropped, so "abbreviations off" -- the
-	only line in it Question acts on -- could never be seen (SetUpOptions,
-	V4Game.Part2.cs:875-896). */
+	only line in it Question acts on -- could never be seen
+	(V4Game.Part2.cs:SetUpOptions). */
      "options"};
 
   reserved_words recursive_passes ("game", "room", (char*) NULL),
     object_passes ("game", "room", "objects", (char*) NULL);
-  
 
-  //vector <QuestionBlock> outv;
+
   for (size_t pass = 0; pass < sizeof (pass_names) / sizeof (*pass_names);
        pass ++)
     {
       string this_pass = pass_names[pass];
       bool recursive = recursive_passes[this_pass];
-      //bool is_object = object_passes[this_pass];
 
       reserved_words actions ((char *) NULL), props ((char *) NULL);
       if (this_pass == "room")
@@ -609,20 +604,22 @@ QuestionFile::QuestionFile (const vector<string> &v, QuestionInterface *_gi) : g
 	}
       else if (this_pass == "object" || this_pass == "character")
 	{
-	  /* "add" belongs in both lists for the same reason "remove" does: Quest's
-	     container mechanic looks for an *action* called "add" on the container
-	     first and falls back to a *property* of that name (DoAddRemove,
-	     V4Game.cs:2578-2636), so `add { ... }` / `add msg <...>` is a script and
-	     `add <text>` / a bare `add` is a property.  It used to be in neither, so
-	     an `add` block was emitted as a raw line that nothing ever read -- which
-	     silently disabled every scripted container in the game.  "Shipwrecked"
-	     is unwinnable without it: its lit lantern only reaches the tomb by way
-	     of `put lantern in basket`, and the basket's `add` script is what sets
-	     the flag the tomb doors check. */
+	  /* "add" belongs in both lists for the same reason "remove" does:
+	   * Quest's
+	     container mechanic looks for an *action* called "add" on the
+	     container first and falls back to a *property* of that name
+	     (DoAddRemove, V4Game.cs:ExecAddRemove), so `add { ... }` / `add
+	     msg <...>` is a script and `add <text>` / a bare `add` is a
+	     property.  In neither list, an `add` block would be emitted as a
+	     raw line that nothing reads, which silently disables every
+	     scripted container in the game.  "Shipwrecked" is unwinnable
+	     without it: its lit lantern only reaches the tomb by way of `put
+	     lantern in basket`, and the basket's `add` script is what sets the
+	     flag the tomb doors check. */
 	  props = reserved_words ("look", "examine", "speak", "take", "alias", "prefix", "suffix", "detail", "displaytype", "gender", "article", "hidden", "invisible", "container", "surface", "transparent", "seen", "opened", "closed", "add", "remove", (char *) NULL);
 	  actions = reserved_words ("look", "examine", "speak", "take", "gain", "lose", "use", "give", "open", "close", "add", "remove", (char *) NULL);
 	}
-	  
+
       depth = 0;
       /* The body of a text or synonyms block is prose, not structure: a line
        * in it that happens to start with "Define" must not open a block, or
@@ -666,15 +663,16 @@ QuestionFile::QuestionFile (const vector<string> &v, QuestionInterface *_gi) : g
 	    }
 	  else if (is_end_define (v[i]))
 	    {
-	      /* An "end define" with no block open.  Quest's section scan starts at
-	       * each line beginning "define", counts its way to the matching "end
-	       * define" and then jumps the loop counter past it
-	       * (V4Game.cs:1745-1787), so a stray one at top level is a line the
-	       * scan simply steps over: the sections after it are still found.  The
-	       * only code that objects is CheckSections, which calls it a fatal
-	       * error and refuses the file -- except that Quest skips that check
-	       * outright for three games it names in its own source, "bargain.cas",
-	       * "easymoney.asl" and "musicvf1.cas" (V4Game.cs:106-110, 1735-1741).
+	      /* An "end define" with no block open.  Quest's section scan
+	       * starts at each line beginning "define", counts its way to the
+	       * matching "end define" and then jumps the loop counter past it
+	       * (V4Game.cs:ParseFile), so a stray one at top level is a line
+	       * the scan simply steps over: the sections after it are still
+	       * found.  The only code that objects is CheckSections, which
+	       * calls it a fatal error and refuses the file -- except that
+	       * Quest skips that check outright for three games it names in
+	       * its own source, "bargain.cas", "easymoney.asl" and
+	       * "musicvf1.cas" (V4Game.cs:V4Game/ParseFile).
 	       *
 	       * "Venus flytrap: Romantic Music" (musicvf1.cas) is one of them: it
 	       * closes `define procedure <noclothesdie>` twice.  Letting depth go
@@ -696,7 +694,6 @@ QuestionFile::QuestionFile (const vector<string> &v, QuestionInterface *_gi) : g
 
 static bool decompile (const string &data, int cas_version, vector<string> &rv);
 
-static bool preprocess (vector<string> v, const string &fname, vector<string> &rv, QuestionInterface *gi);
 
 QuestionFile read_question_file (QuestionInterface *gi, const string &filename)
 {
@@ -712,10 +709,9 @@ QuestionFile read_question_file (QuestionInterface *gi, const string &filename)
 
   QUESTION_DBG << "Header is '" << file_contents.substr (0, 7) << "'.\n";
   /* Three compiled-game container versions exist, and Quest reads all three
-     with one decompiler (LoadCASFile, V4Game.cs:1921): QCGF001 is the Quest 2.x
+     with one decompiler (V4Game.cs:LoadCASFile): QCGF001 is the Quest 2.x
      era format, 002 adds three more text-mode block types, and 003 appends a
-     resource catalogue.  Only 002 used to be recognised here, so a 001 or 003
-     game fell through to the plain-text path and loaded as nothing at all. */
+     resource catalogue. */
   int cas_version = 0;
   if (file_contents.size() > 8 && file_contents.compare (0, 4, "QCGF") == 0)
     {
@@ -742,8 +738,8 @@ QuestionFile read_question_file (QuestionInterface *gi, const string &filename)
 	 works on raw bytes) and after !include has pulled every other file in.
 	 Quest reads its files through VB's Chr(), which is code page 1252 on the
 	 Windows these games were written for, so that is the encoding the text
-	 is in; Question used to hand the bytes straight to Glk, where they were read
-	 as Latin-1 and every ©, £, dash and curly quote came out wrong.
+	 is in; passed straight to Glk, the bytes would be read as Latin-1 and every
+	 ©, £, dash and curly quote would come out wrong.
 	 Skipped when the file is already well-formed UTF-8: a game saved that
 	 way by a later author would only be double-encoded by the conversion.
 	 (Quest itself has no such escape hatch and would mangle such a file --
@@ -762,7 +758,7 @@ QuestionFile read_question_file (QuestionInterface *gi, const string &filename)
 	  line = cp1252_to_utf8 (line);
       return QuestionFile (data, gi);
     }
-  
+
   gi->debug_print ("Unable to read file " + filename);
   return QuestionFile();
 }
@@ -822,10 +818,10 @@ ostream &operator << (ostream &o, const QuestionFile &gf)
    control codes (!null, !quote, !startcat, !endcat, !unknown, !cr) rather than
    keywords; decompile() recognises those by byte value, so they stay empty here.
 
-   Everything from 96 (verb) up used to be missing, which is why decompiling a
-   .cas game silently *deleted* those keywords from the line -- so containers,
-   surfaces, verbs, menus and lock/unlock, all of which Question implements, were
-   dead for every compiled game while working fine in the .asl equivalent. */
+   A keyword missing from this table is silently *deleted* from its line when a
+   .cas game is decompiled.  Without slots 96 (verb) and up, containers, surfaces,
+   verbs, menus and lock/unlock would all be dead for every compiled game while
+   working fine in the .asl equivalent. */
 static const string compilation_tokens[256] =
 {"", "game", "procedure", "room", "object", "character", "text",
  "selection", "define", "end", "", "asl-version", "game", "version",
@@ -875,10 +871,10 @@ bool decompile (const string &s, int cas_version, vector<string> &rv)
       ch = s[i];
       /* CAS v3 appends a resource catalogue (!startcat .. !endcat) followed by
 	 the packed resource data.  Quest stops scanning script the moment it
-	 meets !startcat at a token position (V4Game.cs:1947) -- everything past
-	 it is binary, not script -- and so do we.  The test has to be at a token
-	 position: inside a quoted string, a text block or an !unknown run the
-	 same byte is just data. */
+	 meets !startcat at a token position (V4Game.cs:LoadCASFile) --
+	 everything past it is binary, not script -- and so do we.  The test
+	 has to be at a token position: inside a quoted string, a text block or
+	 an !unknown run the same byte is just data. */
       if (cas_version >= 3 && ch == 252 && obfus == 0 && expect_text != 2)
 	break;
       if (obfus == 1 && ch == 0)
@@ -939,8 +935,9 @@ bool decompile (const string &s, int cas_version, vector<string> &rv)
 	{
 	  tok = compilation_tokens[ch];
 	  /* Blocks whose body is stored as raw obfuscated text rather than as
-	     tokens.  "define text" is text-mode in every version; synonyms, type
-	     and menu only from v2 on (V4Game.cs:2059), since v1 predates them. */
+	     tokens.  "define text" is text-mode in every version; synonyms,
+	     type and menu only from v2 on (V4Game.cs:LoadCASFile), since v1
+	     predates them. */
 	  if (cur_line == "define " &&
 	      (tok == "text" ||
 	       (cas_version >= 2 &&
@@ -981,7 +978,7 @@ vector<string> tokenize (const string &s)
 
 void report_error (const string &s)
 {
-  QUESTION_DBG << s << endl; 
+  QUESTION_DBG << s << endl;
   throw s;
 }
 
@@ -1006,7 +1003,7 @@ vector<string> split_lines (const string &data)
 	      if (i < data.length() && data[i] == '\r' && data[i+1] == '\n')
 		++ i;
 	      ++ i;
-	      while (i < data.length() && data[i] != '\r' && 
+	      while (i < data.length() && data[i] != '\r' &&
 		     data[i] != '\n' && isspace(data[i]))
 		{
 		  ++ i;
@@ -1037,14 +1034,12 @@ void show_tokenize (string /* s */)
 void say_push (const vector<string> & /* v */)
 {
 }
-	  
 
 
 
 
-//enum trim_modes { TRIM_SPACES, TRIM_UNDERSCORE, TRIM_BRACE };
 
-//string trim (string s, trim_modes trim_mode = TRIM_SPACES)
+
 string trim (const string &s, trim_modes trim_mode)
 {
   std::string::size_type i, j;
@@ -1064,7 +1059,7 @@ string trim (const string &s, trim_modes trim_mode)
 }
 
 /* bool is_balanced (string)
- * 
+ *
  * Decides whether the string has balanced braces (and needn't be deinlined)
  * - Track the nesting depth, starting at first lbrace to end of line
  * - If it is ever at depth 0 before the end, it's balanced
@@ -1084,592 +1079,6 @@ bool is_balanced (string str)
   return depth == 0;
 }
 
-/* The file an !include names, without its directory and in lower case: what
- * the bundled-library tests below compare.  A game may spell the path either
- * way round, so both separators count. */
-static string include_basename (const string &name)
-{
-  std::string::size_type slash = name.find_last_of ("/\\");
-  return lcase (slash == string::npos ? name : name.substr (slash + 1));
-}
-
-/* net.lib is Quest's multiplayer/networking library.  It ships with Quest
- * rather than with the games, so it is never on disk for us to load, and
- * nothing in it means anything to a single-player replay.  Recognise it by
- * name so we don't fruitlessly look for the file (which would print a
- * "Couldn't open ..." error) when a game !includes it. */
-static bool is_builtin_quest_library (const string &name)
-{
-  return include_basename (name) == "net.lib";
-}
-
-/* stdverbs.lib, Quest's "Additional verbs" library, ships with Quest too, but
- * unlike net.lib it is all content: default responses for verbs the engine has
- * none for, a handful of extra commands, and the splitter that makes
- * "north, then east" two turns.  Splice in the bundled copy (see
- * question_builtin_stdverbs in stdverbs_builtin.cc) rather than dropping the
- * include, or a game that !includes it plays differently from Quest. */
-static bool is_stdverbs (const string &name)
-{
-  return include_basename (name) == "stdverbs.lib";
-}
-
-/* A.G. Bampton's standard.lib (the Quest 2-era container library) also ships
- * with Quest rather than with games.  Quest 4 looks for a copy next to the
- * game first and falls back to its bundled one (V4Game.cs:1397-1415), and its
- * content changes play: its !addto synonyms block rewrites "get X" to
- * "take X" before any game command can match, and its LOOK AT override lists
- * a container's contents.  Splice in the bundled copy (see
- * question_builtin_standardlib in standardlib_builtin.cc) when no file is on
- * disk, or a game that !includes it plays differently from Quest. */
-static bool is_standardlib (const string &name)
-{
-  return include_basename (name) == "standard.lib";
-}
-
-/* MaDbRiT's Type Library (typelib.qlb / typelib.lib) is another standard Quest
- * library that ships with Quest/QDK rather than with games, so it is never on
- * disk for us to load.  Unlike stdverbs/net, it supplies content Question does NOT
- * implement natively -- a set of object types (TLTscenery, TLTactor, TLTobject,
- * the clothing hierarchy, ...) with their default properties and action
- * overrides -- so instead of skipping it we splice in a bundled copy (see
- * question_builtin_typelib in typelib_builtin.cc). */
-static bool is_typelib (const string &name)
-{
-  string base = include_basename (name);
-  return base == "typelib.qlb" || base == "typelib.lib";
-}
-
-/* MaDbRiT's older extension library, q3ext.qlb, is the same story as his Type
- * Library: it shipped with Quest, and it is all content -- its own LOOK/TAKE/
- * DROP/GIVE/WEAR commands, synonyms and object types -- so a game that names
- * it plays a different game without it (see q3ext_builtin.cc). */
-static bool is_q3ext (const string &name)
-{
-  return include_basename (name) == "q3ext.qlb";
-}
-
-/* A library's own asl-version, which decides how its !addto game lines merge
- * into the game block.  Quest reads it only when the file opens with
- * "!library"; a file that does not is a pre-3.x library and counts as 100, and
- * a !library with no version line counts as 200 (V4Game.cs:1445-1470). */
-static int library_asl_version (const vector<string> &lines)
-{
-  std::string::size_type c1, c2;
-  bool is_library = false;
-  for (uint i = 0; i < lines.size(); i ++)
-    {
-      string tok = first_token (lines[i], c1, c2);
-      if (tok == "")
-	continue;
-      is_library = (tok == "!library");
-      break;
-    }
-  if (!is_library)
-    return 100;
-  for (uint i = 0; i < lines.size(); i ++)
-    {
-      std::string::size_type d1, d2;
-      if (first_token (lines[i], d1, d2) != "!asl-version")
-	continue;
-      string p = next_token (lines[i], d1, d2);
-      if (is_param (p))
-	return atoi (param_contents (p).c_str());
-    }
-  return 200;
-}
-
-/* Prefix a library's !addto game lines with "lib " where Quest does.
- *
- * The prefix is what makes a library's contribution lose to the game's own:
- * ExecCommand runs the game's commands, then the game's verbs, then the
- * commands tagged "lib command", then the verbs tagged "lib verb"
- * (V4Game.Part2.cs:4224-4241), and startscript is prefixed so a library's
- * initialisation runs before the game's (V4Game.cs:1553-1567).  Without it
- * stdverbs.lib's `command <ask #stdverbs.command#>` would answer "You get no
- * reply." to a game's own ASK command, and its `command <#stdverbs.command#.>`
- * splitter would swallow every command a player ended with a full stop.
- *
- * Lines already carrying the prefix belong to a library this one !included,
- * and were tagged by that library's own version; leave them alone. */
-static void mark_library_addtos (vector<string> &lines, int libver)
-{
-  std::string::size_type c1, c2;
-  bool in_addto_game = false;
-  for (uint i = 0; i < lines.size(); i ++)
-    {
-      string tok = first_token (lines[i], c1, c2);
-      if (tok == "!addto")
-	{
-	  in_addto_game = (next_token (lines[i], c1, c2) == "game");
-	  continue;
-	}
-      if (tok == "!end")
-	{
-	  in_addto_game = false;
-	  continue;
-	}
-      if (!in_addto_game || tok == "lib")
-	continue;
-      if ((libver >= 311 && tok == "startscript") ||
-	  (libver >= 392 && (tok == "command" || tok == "verb")))
-	lines[i] = "lib " + lines[i];
-    }
-}
-
-static void handle_includes (const vector<string> &in_data_arg,
-			     const string &filename, vector<string> &out_data,
-			     QuestionInterface *gi, vector<string> &open);
-
-/* Whether `name' -- already lower-cased, as `open' holds them -- is one of the
- * files whose !includes are being expanded right now. */
-static bool being_included (const vector<string> &open, const string &name)
-{
-  return std::find (open.begin(), open.end(), name) != open.end();
-}
-
-/* Splice in a library bundled with Question, under the name `open' knows it
- * by.  It goes through the same include pipeline as a file would, so its own
- * directives are processed normally; one that is already being expanded is
- * passed over without comment. */
-static void include_builtin (const char *name, const char *text,
-			     vector<string> &out_data, QuestionInterface *gi,
-			     vector<string> &open)
-{
-  if (!being_included (open, name))
-    handle_includes (split_lines (text), name, out_data, gi, open);
-}
-
-/* `open` holds the files whose !includes are currently being expanded, from the
- * top-level game file down.  A file that !includes something already on that
- * list -- itself, most simply -- would otherwise recurse until the stack blows,
- * so we report the cycle and skip that one include instead. */
-static void handle_includes (const vector<string> &in_data_arg, const string &filename, vector<string> &out_data, QuestionInterface *gi, vector<string> &open)
-{
-  string line, tok;
-  std::string::size_type tok_start, tok_end;
-  /* An empty `open` means this is the game file itself; anything below it is a
-   * library, whose !addto game lines need Quest's "lib" tagging. */
-  vector<string> in_data (in_data_arg);
-  if (!open.empty ())
-    mark_library_addtos (in_data, library_asl_version (in_data));
-  open.push_back (lcase (filename));
-  for (uint ln = 0; ln < in_data.size(); ln ++)
-    {
-      line = in_data[ln];
-      tok = first_token (line, tok_start, tok_end);
-      if (tok == "!include")
-	{
-	  tok = next_token (line, tok_start, tok_end);
-	  if (!is_param(tok))
-	    {
-	      gi->debug_print ("Expected parameter after !include");
-	      continue;
-	    }
-	  /* The networking library means nothing to a single-player replay; don't
-	   * try to load it from disk. */
-	  if (is_builtin_quest_library (param_contents (tok)))
-	    continue;
-	  /* The verb library isn't on disk either, but we do need its content:
-	   * splice in the bundled copy (run through the same include pipeline so
-	   * its own directives are processed normally). */
-	  if (is_stdverbs (param_contents (tok)))
-	    {
-	      include_builtin ("stdverbs.lib", question_builtin_stdverbs, out_data,
-			       gi, open);
-	      continue;
-	    }
-	  /* Likewise the type library. */
-	  if (is_typelib (param_contents (tok)))
-	    {
-	      include_builtin ("typelib.qlb", question_builtin_typelib, out_data,
-			       gi, open);
-	      continue;
-	    }
-	  /* The container library and MaDbRiT's q3ext.  Unlike the two above, a
-	     game could ship its own copy, and Quest reads an adjacent file
-	     before falling back to the bundled one (V4Game.cs:1397-1415); do
-	     the same. */
-	  if (is_standardlib (param_contents (tok)) ||
-	      is_q3ext (param_contents (tok)))
-	    {
-	      bool q3ext = is_q3ext (param_contents (tok));
-	      string libname = gi->absolute_name (param_contents (tok), filename);
-	      string contents = gi->get_file (libname);
-	      if (contents.empty ())
-		{
-		  if (q3ext)
-		    include_builtin ("q3ext.qlb", question_builtin_q3ext, out_data,
-				     gi, open);
-		  else
-		    include_builtin ("standard.lib", question_builtin_standardlib,
-				     out_data, gi, open);
-		}
-	      else if (being_included (open, lcase (libname)))
-		gi->debug_print ("Ignoring recursive !include of " + libname);
-	      else
-		handle_includes (split_lines (contents), libname, out_data, gi,
-				 open);
-	      continue;
-	    }
-	  //handle_includes (split_lines (gi->get_file (param_contents (tok))), out_data, gi);
-	  string newname = gi->absolute_name (param_contents(tok), filename);
-	  if (being_included (open, lcase (newname)))
-	    {
-	      gi->debug_print ("Ignoring recursive !include of " + newname);
-	      continue;
-	    }
-	  handle_includes (split_lines (gi->get_file (newname)), newname, out_data, gi, open);
-	}
-      else if (tok == "!QDK")
-	{
-	  while (ln < in_data.size() &&
-		 first_token (in_data[ln], tok_start, tok_end) != "!end")
-	    ++ ln;
-	}
-      else
-	out_data.push_back (line);
-    }
-  open.pop_back ();
-}
-
-/* preprocess, pass 0b: gather the body of every "!addto game|synonyms|type
- * <default>|<defaultroom>" ... "!end" section, keyed by the block it is
- * meant for. */
-static void collect_addtos (const vector<string> &v2,
-			    map <string, vector<string> > &addtos,
-			    QuestionInterface *gi)
-{
-  std::string::size_type tok_start, tok_end;
-  string tok;
-
-  for (uint line = 0; line < v2.size(); line ++)
-    {
-      tok = first_token (v2[line], tok_start, tok_end);
-      if (tok == "!addto")
-	{
-	  /* Quest's library loader knows exactly three forms (V4Game.cs
-	   * 1497-1660): "!addto game", "!addto synonyms" and "!addto type
-	   * <name>" for any type name, which it compares lowercased against
-	   * the "define type <name>" line and whose block it creates when the
-	   * game has none.  The key here is the "define" line's own tokens,
-	   * which is what splice_addtos builds from the other side. */
-	  tok = next_token (v2[line], tok_start, tok_end);
-	  if (!(tok == "game" || tok == "synonyms" || tok == "type"))
-	    {
-	      gi->debug_print ("Error: Had addto for '" + tok + "'.");
-	      continue;
-	    }
-	  if (tok == "type")
-	    tok = tok + " " + lcase (next_token (v2[line], tok_start, tok_end));
-	  ++ line; // skip !addto
-	  while (line < v2.size() && 
- 		 first_token (v2[line], tok_start, tok_end) != "!end")
-	    addtos[tok].push_back (v2[line ++]);
-	}
-    }
-}
-
-/* preprocess, pass 0c: copy v2 to v without its !addto sections, splicing
- * each section's lines into the block it names; a section whose block never
- * turns up gets a block of its own at the end. */
-static void splice_addtos (const vector<string> &v2,
-			   map <string, vector<string> > &addtos,
-			   vector<string> &v)
-{
-  std::string::size_type tok_start, tok_end;
-  string tok;
-
-  /* One entry per open "define" block: the addtos key whose lines are owed to
-   * that block when it closes, or "" for a block nothing is owed to.  Quest
-   * splices an !addto's lines in immediately *before* the block's "end define"
-   * (V4Game.cs:1497-1568), not after its header, and that is not cosmetic:
-   * within a block Quest matches commands and verbs in file order, so lines
-   * put at the front would beat the author's own.  A key that no block in
-   * the game answers to (a type the library adds outright) becomes a block
-   * of its own after the last line, as Quest's AddLine does. */
-  vector<string> owed;
-  /* Inside a text or synonyms block only its "end define" counts: a line of
-   * prose starting "define" would otherwise push an entry nothing pops. */
-  bool in_text_body = false;
-  for (uint line = 0; line < v2.size(); line ++)
-    {
-      if (in_text_body)
-	{
-	  if (!is_end_define (v2[line]))
-	    {
-	      v.push_back (v2[line]);
-	      continue;
-	    }
-	  in_text_body = false;
-	}
-      else if (first_token (v2[line], tok_start, tok_end) == "define"
-	       && is_start_textmode (v2[line]))
-	in_text_body = true;
-      tok = first_token (v2[line], tok_start, tok_end);
-      if (tok == "!addto")
-	{
-	  while (line < v2.size() && 
-		 first_token (v2[line], tok_start, tok_end) != "!end")
-	    line ++;
-	  continue;
-	}
-      if (tok == "define")
-	{
-	  string key = next_token (v2[line], tok_start, tok_end);
-	  if (key == "type")
-	    key = key + " " + lcase (next_token (v2[line], tok_start, tok_end));
-	  v.push_back (v2[line]);
-	  owed.push_back (addtos.find (key) != addtos.end() ? key : string ());
-	  continue;
-	}
-      if (tok == "end" && next_token (v2[line], tok_start, tok_end) == "define"
-	  && !owed.empty())
-	{
-	  string key = owed.back();
-	  owed.pop_back();
-	  if (key != "")
-	    {
-	      vector<string> &lines = addtos[key];
-	      for (uint line2 = 0; line2 < lines.size(); line2 ++)
-		v.push_back (lines[line2]);
-	      addtos.erase (key);
-	    }
-	}
-      v.push_back (v2[line]);
-    }
-
-  for (map<string, vector<string> >::iterator i = addtos.begin();
-       i != addtos.end(); i ++)
-    {
-      v.push_back ("define " + i->first);
-      for (uint j = 0; j < i->second.size(); j ++)
-	v.push_back (i->second[j]);
-      v.push_back ("end define");
-    }
-}
-
-/* preprocess, pass 1: look for "if/and/or (.. <.. )" or the like and convert
- * the parenthesised group to "if/and/or is <..;lt;..>". */
-static void convert_friendly_ifs (vector<string> &v)
-{
-  /* Both "!=" and "<>" mean not-equal.  The table is in Quest's search order
-   * (ConvertFriendlyIfs, V4Game.cs:425-470): the first symbol of the list
-   * that occurs anywhere in the group is the one the group is split at, so
-   * "!=" beats "<>", and the two-character symbols are tried before the
-   * one-character ones they contain. */
-  static string comps[][2] = 
-    { { "!=", "!=;" },  { "<>", "!=;" },  { "<=", "lt=;" },  { ">=", "gt=;" }, 
-      { "<",  "lt;" },  { ">",  "gt;" },  { "=",  "" } };
-
-  std::string::size_type tok_start, tok_end;
-  string tok;
-
-  /* The words a parenthesised condition may follow are Quest's six:
-   * ConvertFriendlyIfs (V4Game.cs:353-380) looks for "if (", "until (",
-   * "while (", "not (", "and (" and "or (".  "not" and "while" were missing
-   * here, and their absence does not merely leave the condition unconverted:
-   * the raw "<" that survives opens a <parameter> as far as the tokeniser is
-   * concerned, so the search for "then" runs off the end of the line and the
-   * whole if-statement is dropped -- neither branch runs.  Kingdom's
-   * `if not ( %V1pop% <= 0 ) then do <V1riot>' was the game that showed it:
-   * Village1 never rioted, never sent its leader with the tribute, and never
-   * appeared in the season report at all, and `repeat while ( %p% < 3 )' did
-   * not loop even once. */
-  for (uint line = 0; line < v.size(); line ++)
-    {
-      tok_end = 0;
-      while (tok_end < v[line].length())
-	{
-	  tok = next_token (v[line], tok_start, tok_end, false);
-	  /* A while loop rather than an if: the word that follows one of these
-	   * may be another of them ("if not (", "repeat while ("), and Quest,
-	   * which looks for the six pairs as plain substrings, sees the inner
-	   * one either way. */
-	  while (tok == "if" || tok == "repeat" || tok == "until" ||
-		 tok == "while" || tok == "not" ||
-		 tok == "and" || tok == "or")
-	    {
-	      tok = next_token (v[line], tok_start, tok_end, true);
-	      if (tok.length() > 2 && tok[0] == '(' && 
-		  tok [tok.length() - 1] == ')')
-		{
-		  tok = tok.substr (1, tok.length() - 2);
-		  string str = v[line];
-		  std::string::size_type cmp_start;
-		  for (uint cmp = 0; cmp < ARRAYSIZE(comps); cmp ++)
-		    if ((cmp_start = tok.find(comps[cmp][0])) != string::npos)
-		      {
-			std::string::size_type cmp_end = cmp_start + comps[cmp][0].length();
-			str = str.substr(0, tok_start) + 
-			  "is <" + trim (tok.substr(0, cmp_start)) + ";" + 
-			  comps[cmp][1] + 
-			  trim (tok.substr(cmp_end)) + ">" + 
-			    str.substr(tok_end);
-			cmp = ARRAYSIZE(comps);
-			v[line] = str;
-			tok_end = tok_start; // old value of tok_end invalid
-		      }
-		  break;   /* the parenthesised group ends this condition */
-		}
-	    }
-	}
-    }
-}
-
-/* preprocess, pass 2: extract comments from non-text blocks. */
-static void strip_comments (vector<string> &v)
-{
-  bool in_text_block = false;
-  for (uint line = 0; line < v.size(); line ++)
-    {
-      if (!in_text_block && is_start_textmode (v[line]))
-	in_text_block = true;
-      else if (in_text_block && is_end_define (v[line]))
-	in_text_block = false;
-      else if (!in_text_block)
-	{
-	  std::string::size_type start_ch = 0, end_ch = 0;
-	  while (start_ch < v[line].length())
-	    if (next_token (v[line], start_ch, end_ch)[0] == '\'')
-	      {
-		v[line] = v[line].substr (0, start_ch);
-		break;
-	      }
-	}
-    }
-}
-
-/* preprocess, pass 3: deinline braces.  Reads v, appending the generated
- * !intproc procedures to it, and writes the main-line result to v2.  False
- * if a brace block never closes.
- *
- * There should be a pass 2.5: check that lbraces count equals
- * rbrace count, but I'm skipping that
- */
-static bool deinline_braces (vector<string> &v, vector<string> &v2)
-{
-  bool in_text_block = false;
-  int int_proc_count = 0;
-  for (uint line = 0; line < v.size(); line ++)
-    {
-      string str = v[line];
-      if (!in_text_block && is_start_textmode (str))
-	in_text_block = true;
-      else if (in_text_block && is_end_define (str))
-	in_text_block = false;
-      else if (!is_balanced (str))
-	{
-	  /* This line opens a brace block that does not close on the same line.
-	   * Extract the block into a procedure and replace it with a call.  The
-	   * body runs from just after the first '{' up to the matching '}', which
-	   * may sit mid-line (as in "...} else {").  Anything after that '}' is
-	   * left in place to be processed normally, so that "} else {" and
-	   * "} else msg <...>" split into separate statements rather than being
-	   * miscounted as a balanced pair. */
-	  std::string::size_type init_size = v.size();
-	  int procnum = ++int_proc_count;
-	  v.push_back ("define procedure <!intproc" + string_int (procnum) + ">");
-
-	  std::string::size_type tmp_index = str.find ('{');
-	  v2.push_back (trim (str.substr (0, tmp_index)) +
-			" do <!intproc" + string_int (procnum) + "> ");
-
-	  int depth = 1;
-	  string rest = str.substr (tmp_index + 1);
-	  uint cur = line;
-	  bool closed = false;
-	  string remainder;
-	  for (;;)
-	    {
-	      std::string::size_type p = 0;
-	      while (p < rest.length())
-		{
-		  if (rest[p] == '{')
-		    ++ depth;
-		  else if (rest[p] == '}' && -- depth == 0)
-		    break;
-		  ++ p;
-		}
-	      if (depth == 0 && p < rest.length())
-		{
-		  v.push_back (rest.substr (0, p));   /* body up to closing '}' */
-		  remainder = rest.substr (p + 1);    /* e.g. " else { ... }"   */
-		  closed = true;
-		  break;
-		}
-	      v.push_back (rest);                     /* whole line is body     */
-	      if (++ cur >= init_size)
-		break;
-	      rest = v[cur];
-	    }
-	  if (!closed)
-	    {
-	      report_error ("Braces Unbalanced");
-	      return false;
-	    }
-	  v.push_back ("end define");
-
-	  /* Reprocess the closing line in place, now holding only the remainder
-	   * (often empty, or an "else ..." clause), and skip the consumed body. */
-	  line = cur;
-	  v[line] = remainder;
-	  line --;
-	  continue;
-	  // The continue is to avoid the v2.push_back(...);
-	  // this block pushes stuff onto v2 on its own.
-	}
-      v2.push_back (str);
-    }
-  return true;
-}
-
-/* preprocess, pass 4: trim lines, drop blank lines, combine elses. */
-static void trim_and_join_elses (const vector<string> &v2, vector<string> &rv)
-{
-  bool in_text_block = false;
-  for (uint line = 0; line < v2.size(); line ++)
-    {
-      string str = v2[line];
-      if (!in_text_block && is_start_textmode (str))
-	in_text_block = true;
-      else if (in_text_block && is_end_define (str))
-	in_text_block = false;
-      else if (rv.size() > 0 && !in_text_block && get_token (str) == "else")
-	{
-	  rv[rv.size() - 1] = rv[rv.size() - 1] + " " + trim (str);
-	  continue;
-	}
-      if (!in_text_block)
-	str = trim (str);
-      if (in_text_block || str != "")
-	rv.push_back (str);
-    }
-}
-
-bool preprocess (vector<string> v, const string &fname, vector<string> &rv,
-		 QuestionInterface *gi)
-{
-  // preprocessing step 0:
-  // Loop through the lines.  Replace !include with appropriate text
-  vector<string> v2, open_includes;
-  handle_includes (v, fname, v2, gi, open_includes);
-  v.clear();
-
-  map <string, vector<string> > addtos;
-  collect_addtos (v2, addtos, gi);
-  splice_addtos (v2, addtos, v);
-  v2.clear();
-
-  convert_friendly_ifs (v);
-  strip_comments (v);
-  if (!deinline_braces (v, v2))
-    return false;
-  trim_and_join_elses (v2, rv);
-  return true;
-}
-
-
 void show_find (string s, char ch)
 {
   QUESTION_DBG << "Finding '" << ch << "' in '" << s << "': " << s.find(ch)+1 << endl;
@@ -1680,16 +1089,16 @@ void show_trim (string s)
   QUESTION_DBG << "Trimming '" << s << "': spaces (" << trim (s)
        << "), underscores (" << trim (s, TRIM_UNDERSCORE)
        << "), braces (" << trim (s, TRIM_BRACE) << ").\n";
-  
+
 }
 
-template<class T> vector<T> &operator<< (vector<T> &v, T val) 
+template<class T> vector<T> &operator<< (vector<T> &v, T val)
 {
   v.push_back (val);
   return v;
 }
 
-template<class T> class makevector { 
+template<class T> class makevector {
   vector<T> dat;
 public:
   makevector<T> &operator << (T it) { dat.push_back(it); return *this; }

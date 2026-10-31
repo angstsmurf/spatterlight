@@ -70,12 +70,12 @@ extern bool parse_game_verb_line (const std::string &line, GameVerbLine &out);
 /* Split a *resolved* verb name list into the names the verb answers to and the
  * key it looks for on the object.  The key is whatever follows a ':', and the
  * colon is taken out of the name list; with no colon it is the first (or only)
- * name (V4Game.cs:2958-2976).  So "verb <hoist;lift:raise>" is typed as HOIST or
+ * name (V4Game.cs:ExecVerb).  So "verb <hoist;lift:raise>" is typed as HOIST or
  * LIFT, labelled "Hoist", and looks for `action <raise>'.
  *
  * Quest walks the list with a do-while that trims every segment it splits off
  * at a semicolon but leaves the *last* one (the whole parameter, when there is
- * no semicolon at all) exactly as written (V4Game.cs:2978-3003).  A verb
+ * no semicolon at all) exactly as written (V4Game.cs:ExecVerb).  A verb
  * declared "verb <use >" is therefore matched as BeginsWith (cmd, "use  ") --
  * two spaces -- and can never fire.  QDK 4.1.5 emits such names whenever the
  * author leaves a trailing space in the verb box, and games rely on the
@@ -121,7 +121,7 @@ extern double eval_double (const std::string &s);
  * reached at those versions: ExecSetVar finds one operator -- the first "+",
  * else the first "*", else the first "/", else a "-" anywhere but the front --
  * and performs that single operation, reading each side with VB's Val(), which
- * takes as much of a number as it finds and stops (V4Game.cs:7286-7343).  So
+ * takes as much of a number as it finds and stops (V4Game.cs:ExecSetVar).  So
  * "10*3/4" is thirty, and there is no precedence to speak of.  DIV_BY_ZERO is
  * set when a division was refused, which Quest logs and answers with zero. */
 extern double eval_double_pre391 (const std::string &expr, bool &div_by_zero);
@@ -182,23 +182,6 @@ extern std::string cp1252_to_utf8 (const std::string &s);
  * validator. */
 extern bool text_is_utf8 (const std::string &s);
 
-//ostream &operator<< (ostream &o, const vector<string> &v);
-//template<class T> std::ostream &operator<< (std::ostream &o, const std::vector<T> &v) { return o;}
-
-/*
-template<class K, class V, class CMP, class ALLOC> ostream &operator<< (ostream &o, map<K, V, CMP, ALLOC> &m)
-{
-  //map <K,V, CMP, ALLOC>::iterator i;
-  std::string i;
-  for (i = m.begin(); i != m.end(); i ++)
-    ;
-  //o << "    " << i->first << ", " << i->second << "\n";
-  return o;
-};
-*/
-
-
-
 template<class T> std::ostream &operator << (std::ostream &o, std::vector<T> v)
 {
   o << "{ '";
@@ -212,10 +195,9 @@ template<class T> std::ostream &operator << (std::ostream &o, std::vector<T> v)
   return o;
 }
 
-/* Take the map and key by const reference: passing the map by value (as this
- * did originally) deep-copied the entire red-black tree on every call just to
- * do one lookup, which dominated the runtime profile because obj_types is
- * probed on every property/action lookup inside the per-object scope loops. */
+/* Takes the map and key by const reference: by value, every call deep-copies the
+ * entire red-black tree just to do one lookup, and obj_types is probed on every
+ * property/action lookup inside the per-object scope loops. */
 template <class KEYTYPE, class VALTYPE> bool has (const std::map<KEYTYPE, VALTYPE> &m, const KEYTYPE &key) { return m.find (key) != m.end(); };
 
 class Logger

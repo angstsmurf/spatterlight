@@ -57,6 +57,7 @@
 		55368B71272BF24700740A0A /* question-util.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B5D272BF24700740A0A /* question-util.cc */; };
 		55368B72272BF24700740A0A /* question-state.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B5E272BF24700740A0A /* question-state.cc */; };
 		55368B73272BF24700740A0A /* readfile.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B5F272BF24700740A0A /* readfile.cc */; };
+		7A51E0010000000000000001 /* question-preprocess.cc in Sources */ = {isa = PBXBuildFile; fileRef = 7A51E0010000000000000002 /* question-preprocess.cc */; };
 		55368B74272BF24700740A0A /* questionglk.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B60272BF24700740A0A /* questionglk.cc */; };
 		55368B75272BF24700740A0A /* istring.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B61272BF24700740A0A /* istring.cc */; };
 		55368B76272BF24700740A0A /* questionglkterm.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368B6A272BF24700740A0A /* questionglkterm.c */; };
@@ -911,6 +912,7 @@
 		C3A51F00000000000000001A /* aslx-savenative.cc in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F000000000000000011 /* aslx-savenative.cc */; };
 		C3A51F00000000000000001B /* aslxglk-map.cc in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F000000000000000012 /* aslxglk-map.cc */; };
 		C3A51F000000000000000021 /* questglk-common.cc in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F000000000000000022 /* questglk-common.cc */; };
+		7A51E0010000000000000003 /* questglk-style.cc in Sources */ = {isa = PBXBuildFile; fileRef = 7A51E0010000000000000004 /* questglk-style.cc */; };
 		C3A51F0000000000000000A1 /* questionglk-autosave.mm in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F0000000000000000A2 /* questionglk-autosave.mm */; };
 		C3A51F0000000000000000B1 /* scarier-autosave.mm in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F0000000000000000B2 /* scarier-autosave.mm */; };
 		C3A51F0000000000000000C1 /* autosavefiles.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F0000000000000000C2 /* autosavefiles.m */; };
@@ -1913,6 +1915,7 @@
 		55368B5D272BF24700740A0A /* question-util.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-util.cc"; sourceTree = "<group>"; };
 		55368B5E272BF24700740A0A /* question-state.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-state.cc"; sourceTree = "<group>"; };
 		55368B5F272BF24700740A0A /* readfile.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = readfile.cc; sourceTree = "<group>"; };
+		7A51E0010000000000000002 /* question-preprocess.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = question-preprocess.cc; sourceTree = "<group>"; };
 		55368B60272BF24700740A0A /* questionglk.cc */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = questionglk.cc; sourceTree = "<group>"; };
 		55368B61272BF24700740A0A /* istring.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = istring.cc; sourceTree = "<group>"; };
 		55368B62272BF24700740A0A /* general.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = general.hh; sourceTree = "<group>"; };
@@ -3449,6 +3452,7 @@
 		C3A51F000000000000000013 /* aslx-runtime-internal.hh */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.h; path = "aslx-runtime-internal.hh"; sourceTree = "<group>"; };
 		C3A51F000000000000000014 /* aslxglk-map.hh */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.h; path = "aslxglk-map.hh"; sourceTree = "<group>"; };
 		C3A51F000000000000000022 /* questglk-common.cc */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "questglk-common.cc"; sourceTree = "<group>"; };
+		7A51E0010000000000000004 /* questglk-style.cc */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "questglk-style.cc"; sourceTree = "<group>"; };
 		C3A51F000000000000000023 /* questglk-common.hh */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.h; path = "questglk-common.hh"; sourceTree = "<group>"; };
 		C3A51F0000000000000000A2 /* questionglk-autosave.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "questionglk-autosave.mm"; sourceTree = "<group>"; };
 		C3A51F0000000000000000A3 /* questionglk-autosave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "questionglk-autosave.h"; sourceTree = "<group>"; };
@@ -4229,6 +4233,7 @@
 				55368B6B272BF24700740A0A /* questionfile.cc */,
 				C3A51F000000000000000023 /* questglk-common.hh */,
 				C3A51F000000000000000022 /* questglk-common.cc */,
+				7A51E0010000000000000004 /* questglk-style.cc */,
 				55368B60272BF24700740A0A /* questionglk.cc */,
 				C3A51F0000000000000000A3 /* questionglk-autosave.h */,
 				C3A51F0000000000000000A2 /* questionglk-autosave.mm */,
@@ -4239,6 +4244,7 @@
 				55368B6D272BF24700740A0A /* LimitStack.hh */,
 				55368B69272BF24700740A0A /* readfile.hh */,
 				55368B5F272BF24700740A0A /* readfile.cc */,
+				7A51E0010000000000000002 /* question-preprocess.cc */,
 				A96F706FE94CA20FD7525B14 /* q3ext_builtin.cc */,
 				BAD7DE6B7E0065C57E47FEEC /* typelib_builtin.cc */,
 				6FCE9E36BEC7877F0B424AD5 /* stdverbs_builtin.cc */,
@@ -8148,6 +8154,7 @@
 			files = (
 				55368B74272BF24700740A0A /* questionglk.cc in Sources */,
 				C3A51F000000000000000021 /* questglk-common.cc in Sources */,
+				7A51E0010000000000000003 /* questglk-style.cc in Sources */,
 				C3A51F0000000000000000A1 /* questionglk-autosave.mm in Sources */,
 				C3A51F00000000000000000A /* aslxglk.cc in Sources */,
 				4021F39B8AC8ABBA7E0946BF /* aslxglk-autosave.cc in Sources */,
@@ -8181,6 +8188,7 @@
 				55368B76272BF24700740A0A /* questionglkterm.c in Sources */,
 				55368B75272BF24700740A0A /* istring.cc in Sources */,
 				55368B73272BF24700740A0A /* readfile.cc in Sources */,
+				7A51E0010000000000000001 /* question-preprocess.cc in Sources */,
 				7C959AB571C19322DCCCF5E1 /* q3ext_builtin.cc in Sources */,
 				1AED5820C50C4A1A3BBB670D /* typelib_builtin.cc in Sources */,
 				A3AE326945A0BA809FB0DEFF /* stdverbs_builtin.cc in Sources */,

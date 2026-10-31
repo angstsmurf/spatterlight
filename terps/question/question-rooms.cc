@@ -30,9 +30,9 @@
 using namespace std;
 
 /* Is `room` somewhere the player can actually stand?  Quest's GetRoomID scans
- * _rooms for a RoomName match (V4Game.cs:6348-6365) -- the room's *alias* is
+ * _rooms for a RoomName match (V4Game.cs:GetRoomID) -- the room's *alias* is
  * never consulted -- and "create room" appends a new, empty entry to that same
- * array (ExecuteCreate, V4Game.cs:5244-5276), which is why runtime-created
+ * array (V4Game.cs:ExecuteCreate), which is why runtime-created
  * rooms count too. */
 bool question_implementation::room_exists (const string &room) const
 {
@@ -43,13 +43,13 @@ bool question_implementation::room_exists (const string &room) const
 void question_implementation::goto_room (string room)
 {
   /* PlayGame refuses a room that does not exist: it logs "No such room 'X'" and
-   * returns without touching _currentRoom (V4Game.Part2.cs:6674-6684), so the
-   * player stays where they were.  Question used to move anyway, which invented a
-   * phantom room -- and since rooms and objects share the property table, a
-   * name that belongs to an object rendered that object's prefix and look text
-   * as the room description.  "pure chaos" (game.asl) does `goto <bed>` when
-   * `bed` is an object and the room it means only carries `alias <bed>`, and
-   * ended up describing the bed as though it were a place. */
+   * returns without touching _currentRoom (V4Game.Part2.cs:PlayGame), so the
+   * player stays where they were.  Moving anyway would invent a phantom room --
+   * and since rooms and objects share the property table, a name that belongs
+   * to an object would render that object's prefix and look text as the room
+   * description.  "pure chaos" (game.asl) does `goto <bed>` when `bed` is an
+   * object and the room it means only carries `alias <bed>`, which would
+   * describe the bed as though it were a place. */
   if (!room_exists (room))
     {
       gi->debug_print ("No such room '" + room + "'");
@@ -61,7 +61,7 @@ void question_implementation::goto_room (string room)
   regen_var_look();
   objs_vars_dirty_ = true;
   /* PlayGame stamps the room object with a "visited" property, which games test
-   * with `property <room; visited>` (V4Game.Part2.cs:6688-6708).  Which side of
+   * with `property <room; visited>` (V4Game.Part2.cs:PlayGame).  Which side of
    * the room's own entry script that happens on is version-dependent: 391..409
    * mark it on the way in, 410 and later only after the script has run, so a
    * 410 room script still sees its own room as unvisited the first time.  The
@@ -70,14 +70,14 @@ void question_implementation::goto_room (string room)
    * check lives in the script of the room you walk back into.
    *
    * Quest overwrites the property in place rather than appending a second copy
-   * (AddToObjectProperties, V4Game.cs:4041-4059), so only stamp it once -- a
+   * (V4Game.cs:AddToObjectProperties), so only stamp it once -- a
    * long game would otherwise pile up one property record per step taken. */
   if (asl_version_ >= 391 && asl_version_ < 410 && !has_room_property (room, "visited"))
     set_obj_property (room, "visited");
   /* Quest's order (PlayGame): describe the room first, then run its entry
    * script.  If that script gotos another room, the nested goto describes the
-   * destination -- so, unlike the old script-then-look order, there is no
-   * trailing look() here to redescribe after a redirect. */
+   * destination -- so there is no trailing look() here to redescribe after a
+   * redirect. */
   look();
   string scr;
   if (get_room_action (room, "script", scr))
@@ -87,17 +87,18 @@ void question_implementation::goto_room (string room)
 }
 
 /* Quest keeps its player-error messages in a single array indexed by the
- * PlayerError enum (V4Game.Types.cs:287-326).  SetDefaultPlayerErrorMessages
- * fills it with the built-in texts (V4Game.Part2.cs:425-471) and
+ * PlayerError enum (V4Game.Types.cs:CopyContext).
+ * SetDefaultPlayerErrorMessages fills it with the built-in texts
+ * (V4Game.Part2.cs:SetDefaultPlayerErrorMessages) and
  * SetUpUserDefinedPlayerErrors then walks the game block overwriting entries
- * from "error <name; text>" lines (ibid. 1392-1625) -- so the LAST matching
- * line in the block wins, not the first.  error_table is that array in enum
- * order.  "id" is the name Question's own call sites pass to display_error; the
- * name a game writes in ASL is not always the same word (Quest spells
- * DefaultTake "defaultake"), which asl_error_index sorts out.  An entry marked
- * pcase is printed through print_eval_p, which capitalises the first letter
- * after substitution -- the message may open with a #quest.error.gender#
- * pronoun. */
+ * from "error <name; text>" lines (ibid. SetUpUserDefinedPlayerErrors) -- so
+ * the LAST matching line in the block wins, not the first.  error_table is
+ * that array in enum order.  "id" is the name Question's own call sites pass
+ * to display_error; the name a game writes in ASL is not always the same word
+ * (Quest spells DefaultTake "defaultake"), which asl_error_index sorts out.
+ * An entry marked pcase is printed through print_eval_p, which capitalises the
+ * first letter after substitution -- the message may open with a
+ * #quest.error.gender# pronoun. */
 namespace {
 
 enum player_error {
@@ -156,10 +157,11 @@ const error_entry error_table[] = {
 static_assert (sizeof error_table / sizeof error_table[0] == PE_COUNT,
 	       "error_table must cover every PlayerError");
 
-/* Quest's switch on the error name (V4Game.Part2.cs:1410-1610).  The name is
- * compared un-lowercased and un-trimmed, and -- the part that bites -- an
- * unrecognised name leaves currentError at 0, so the line overwrites
- * BadCommand instead of being ignored. */
+/* Quest's switch on the error name
+ * (V4Game.Part2.cs:SetUpUserDefinedPlayerErrors).  The name is compared
+ * un-lowercased and un-trimmed, and -- the part that bites -- an unrecognised
+ * name leaves currentError at 0, so the line overwrites BadCommand instead of
+ * being ignored. */
 int asl_error_index (const string &name, int asl_version)
 {
   if (name == "defaultake")
@@ -200,7 +202,7 @@ void question_implementation::init_error_messages ()
   for (size_t li = 0; li < game->data.size (); li ++)
     {
       /* The keyword is CI -- Quest scans for it with BeginsWith
-       * (SetUpUserDefinedPlayerErrors, V4Game.Part2.cs:1404). */
+       * (V4Game.Part2.cs:SetUpUserDefinedPlayerErrors). */
       const QuestionBlock::line_first &lt = gf.line_tok (*game, li);
       if (!ci_equal (lt.tok, "error"))
 	continue;
@@ -251,7 +253,7 @@ void question_implementation::display_error_info (string errorname, string obj,
 	tmp = "it";
       /* Capitalised: every quest.error.gender Quest writes goes through
        * UCase(Left(...)) or GetGender(..., capitalise: true)
-       * (V4Game.Part2.cs:4790-4792, 5046-5047, 5094), so a custom message
+       * (V4Game.Part2.cs:ExecGive/ExecSpeak), so a custom message
        * reading it mid-sentence sees "He", not "he". */
       set_svar ("quest.error.gender", pcase (tmp));
 
@@ -302,8 +304,8 @@ string question_implementation::displayed_name (const string &obj) const
   string rv = obj, tmp;
 
   /* An alias that is there but empty shows the name, as Quest's lists do
-   * (V4Game.Part2.cs:7538-7550, 4522-4528, 3811-3821); q3ext.qlb's clothing
-   * type leaves every piece of clothing with one. */
+   * (V4Game.Part2.cs:UpdateObjectList/ExecCommand/ShowRoomInfo); q3ext.qlb's
+   * clothing type leaves every piece of clothing with one. */
   if (get_obj_property (obj, "alias", tmp) && !tmp.empty())
     rv = tmp;
   else
@@ -322,14 +324,15 @@ string question_implementation::displayed_name (const string &obj) const
  * keyword consumed and `locked` set from it.
  *
  * AddExitFromTag strips a leading "locked " after the direction word, and
- * "place" is one of the direction words it accepts (RoomExits.cs:120-149), so a
- * place locks exactly as a compass direction does.  That parser is 4.10's: the
- * older loader hands the whole line to GetParameter, which scans for the "<" and
- * so walks straight past the keyword without noticing it (V4Game.Part2.cs:
- * 1216-1234).  The keyword is therefore eaten at every version -- otherwise the
- * line reads as malformed and the place disappears -- but only marks the exit
- * locked from 4.10 on, and below that the parameter keeps its older
- * "prefix; dest" reading, which is what Quest makes of it there. */
+ * "place" is one of the direction words it accepts
+ * (RoomExits.cs:AddExitFromTag), so a place locks exactly as a compass
+ * direction does.  That parser is 4.10's: the older loader hands the whole
+ * line to GetParameter, which scans for the "<" and so walks straight past the
+ * keyword without noticing it (V4Game.Part2.cs: SetUpRoomData).  The keyword
+ * is therefore eaten at every version -- otherwise the line reads as malformed
+ * and the place disappears -- but only marks the exit locked from 4.10 on, and
+ * below that the parameter keeps its older "prefix; dest" reading, which is
+ * what Quest makes of it there. */
 static string place_tag_param (const string &line, std::string::size_type &c1,
 			       std::string::size_type &c2, int version,
 			       bool &locked)
@@ -381,7 +384,7 @@ vector<vector<string> > question_implementation::get_places (const string &room)
 	      continue;
 	    }
 	  /* A locked place is still advertised in the exits line: locking gates
-	   * the crossing and nothing else (RoomExit.Go, RoomExit.cs:240-259), so
+	   * the crossing and nothing else (RoomExit.cs:Go), so
 	   * `locked` is of no interest here -- the "go to" handler asks
 	   * exit_locked() about it.  From 4.10 the second field of the parameter
 	   * is that exit's lock message rather than a prefix, which is why the
@@ -391,9 +394,9 @@ vector<vector<string> > question_implementation::get_places (const string &room)
 	  string rest = trim (line.substr (c2));
 	  /* The destination room's alias replaces its name only for a *plain*
 	   * place, and only from ASL 3.11 up.  Both halves of that condition are
-	   * one `&' in Quest, and it guards the listing (GetGoToExits,
-	   * V4Game.Part2.cs:7790-7818) and the name the player has to type
-	   * (PlaceExist, ibid. 6568-6594) alike:
+	   * one `&' in Quest, and it guards the listing
+	   * (V4Game.Part2.cs:GetGoToExits) and the name the player has to type
+	   * (V4Game.Part2.cs:PlaceExist) alike:
 	   *
 	   *   if ((ASLVersion >= 311) & string.IsNullOrEmpty(Places[i].Script))
 	   *
@@ -401,9 +404,8 @@ vector<vector<string> > question_implementation::get_places (const string &room)
 	   * "elevatorroom" even when that room is aliased "elevator", which is what
 	   * World's End's weapon store does; and below 3.11 a place is named by the
 	   * tag whatever the destination is aliased, which is what saves Space, its
-	   * <Science Lab> being a room its author aliased "Sciece Lab".  Question used
-	   * to alias every kind at every version, so the listing advertised a name
-	   * that GO TO then rejected.
+	   * <Science Lab> being a room its author aliased "Sciece Lab".  Aliasing every
+	   * kind at every version would advertise a name that GO TO then rejects.
 	   *
 	   * The room the player is *in* is unaffected: an alias always names that
 	   * one (see regen_var_room). */
@@ -415,18 +417,19 @@ vector<vector<string> > question_implementation::get_places (const string &room)
 	   * hand.  Quest's own cut has a fencepost error in it: ShowRoomInfoV2
 	   * takes the prefix as Trim(Left(place, InStr(place, ";") - 1)) but the
 	   * name as Right(place, Len(place) - (InStr(place, ";") + 1)), one
-	   * character short, because that +1 assumes a space after the semicolon
-	   * (V4Game.Part2.cs:1988-1999).  The usual `place <The; Library>'
-	   * spelling has one and comes out right; "Magic Sword" writes `place
-	   * <Your Training room;Training Room 1>' without one, and Quest really
-	   * does offer to take the player to "Your Training room raining Room
-	   * 1".  Question splits properly instead -- a DELIBERATE deviation: the
-	   * mangled name is one Quest's own PlaceExist would accept from the
-	   * player (it splits the parameter properly, ibid. 6568-6594, which is
-	   * why "go to training room 1" works even there), so printing it whole
-	   * only ever helps.  The oracle sweep carries the resulting Magic Sword
-	   * diff as `deliberate:' -- see FINDINGS.md.  A parameter with no
-	   * semicolon at all is printed whole, unTrimmed (ibid. 2000-2003). */
+	   * character short, because that +1 assumes a space after the
+	   * semicolon (V4Game.Part2.cs:ShowRoomInfoV2).  The usual `place
+	   * <The; Library>' spelling has one and comes out right; "Magic
+	   * Sword" writes `place <Your Training room;Training Room 1>' without
+	   * one, and Quest really does offer to take the player to "Your
+	   * Training room raining Room 1".  Question splits properly instead
+	   * -- a DELIBERATE deviation: the mangled name is one Quest's own
+	   * PlaceExist would accept from the player (it splits the parameter
+	   * properly, ibid. PlaceExist, which is why "go to training room 1"
+	   * works even there), so printing it whole only ever helps.  The
+	   * oracle sweep carries the resulting Magic Sword diff as
+	   * `deliberate:' -- see FINDINGS.md.  A parameter with no semicolon
+	   * at all is printed whole, unTrimmed (ibid. ShowRoomInfoV2). */
 	  if (asl_version_ < 280)
 	    {
 	      std::string::size_type semi = dest_param.find (';');
@@ -498,8 +501,9 @@ vector<vector<string> > question_implementation::get_places (const string &room)
 	   * door opener created it again) and the padlocked Work Shed could be
 	   * walked into before its chain was cut.  Quest matches the name in
 	   * full, and case-sensitively: at 4.10 FindExit looks the place up in
-	   * the room's places dictionary (V4Game.Part2.cs:7885-7891), and below
-	   * that DestroyExit compares PlaceName with = (V4Game.cs:3632-3641). */
+	   * the room's places dictionary (V4Game.Part2.cs:FindExit), and below
+	   * that DestroyExit compares PlaceName with =
+	   * (V4Game.cs:DestroyExit). */
 	  string dest_name = trim (line.substr (c2));
 
 	  for (v2string::iterator j = rv.begin(); j != rv.end(); j ++)
@@ -517,10 +521,10 @@ vector<vector<string> > question_implementation::get_places (const string &room)
 }
 
 /* An exit in Quest 4.10 is an object like any other: RoomExit's constructor
- * appends a record to _objs with IsExit set (RoomExit.cs:16-27) and names it
+ * appends a record to _objs with IsExit set (RoomExit.cs:RoomExit) and names it
  * "<room>.<direction>" for a compass exit, or "<room>.exitN" -- N counted per
  * room, from the room object's own quest.lastexitid property -- for a
- * directionless "place" (UpdateObjectName, RoomExit.cs:172-232).  The objects
+ * directionless "place" (RoomExit.cs:UpdateObjectName).  The objects
  * are created as the room's exit tags are read, in source order, so that is the
  * order "for each exit in <room>" walks them.
  *
@@ -528,28 +532,28 @@ vector<vector<string> > question_implementation::get_places (const string &room)
  *
  *  - a destroyed exit is still in the list.  DestroyExit hands the exit to
  *    RoomExits.RemoveExit, which only clears the object's Exists flag
- *    (RoomExits.cs:575-591), and ExecForEach filters on IsRoom/IsExit alone --
- *    it never looks at Exists (V4Game.cs:5029-5040).  Tim Hamilton's "The Things
- *    That Go Bump In The Night" is built on this: its game-block description
- *    counts the exits with "for each exit in <#quest.currentroom#> inc
- *    <exitcheck>" and prints "You can go nowhere." when the count is zero, and
- *    the one room it wants to say that about (the Nickel Building, before the
- *    cargo door opens) gets there with a "dec <exitcheck>" *inside* the same
- *    loop -- which only ever cancels out if the two exits it destroyed in the
- *    startscript are still being counted.
+ *    (RoomExits.cs:RemoveExit), and ExecForEach filters on IsRoom/IsExit alone
+ *    -- it never looks at Exists (V4Game.cs:ExecForEach).  Tim Hamilton's "The
+ *    Things That Go Bump In The Night" is built on this: its game-block
+ *    description counts the exits with "for each exit in <#quest.currentroom#>
+ *    inc <exitcheck>" and prints "You can go nowhere." when the count is zero,
+ *    and the one room it wants to say that about (the Nickel Building, before
+ *    the cargo door opens) gets there with a "dec <exitcheck>" *inside* the
+ *    same loop -- which only ever cancels out if the two exits it destroyed in
+ *    the startscript are still being counted.
  *
  *  - re-creating a compass exit does not add a second object.  SetDirection
  *    reuses the existing RoomExit for a direction the room has already had
- *    (RoomExits.cs:20-33), with a comment saying as much, so "create exit north"
- *    after "destroy exit north" leaves the count alone.  A *place* exit is not
- *    reused -- AddPlaceExit builds a fresh RoomExit and merely marks the old one
- *    non-existent -- so repeatedly destroying and re-creating one place would
- *    keep growing Quest's list.  Nothing in the corpus does that, and Question keeps
- *    no history of destroyed places, so places are deduplicated by destination
- *    here. */
-/* One of the eleven direction tags?  "out" counts: Quest gives it a Direction of
- * its own, so it is an exit object like the compass points and takes part in the
- * 4.10 folded exits line (RoomExits.AddExitFromTag, RoomExits.cs:57-115). */
+ *    (RoomExits.cs:SetDirection), with a comment saying as much, so "create
+ *    exit north" after "destroy exit north" leaves the count alone.  A *place*
+ *    exit is not reused -- AddPlaceExit builds a fresh RoomExit and merely
+ *    marks the old one non-existent -- so repeatedly destroying and
+ *    re-creating one place would keep growing Quest's list.  Nothing in the
+ *    corpus does that, and Question keeps no history of destroyed places, so
+ *    places are deduplicated by destination here. */
+/* One of the eleven direction tags?  "out" counts: Quest gives it a Direction
+ * of its own, so it is an exit object like the compass points and takes part
+ * in the 4.10 folded exits line (RoomExits.cs:AddExitFromTag). */
 static bool is_dir_name (const string &t)
 {
   for (size_t i = 0; i < ARRAYSIZE (dir_names); i ++)
@@ -699,19 +703,20 @@ string question_implementation::exit_dest (const string &room, const string &dir
 	    continue;
 	  }
 	/* From ASL 4.10 on, "destroy exit <room; north>" takes a *directional*
-	 * exit away too, not just a "go to" place: DestroyExit hands the exit to
-	 * RoomExits.RemoveExit, which clears the exit object's Exists flag
-	 * whichever kind it is (V4Game.cs:3595-3606, RoomExits.cs:575-591).
-	 * Before 4.10 the same statement only ever searched the room's *places*
-	 * list, so a direction name matched nothing and the statement did nothing
-	 * at all (V4Game.cs:3608-3654) -- hence the version test.  Question only ever
-	 * read these records in get_places (), so a destroyed direction stayed
-	 * walkable and stayed in the "You can go ..." list.  Tim Hamilton's "The
-	 * Maze" is the game that cares: its one room is a 15x20 hedge maze held in
-	 * four strings of y/n, and every move runs a procedure that destroys and
-	 * re-creates the four compass exits to match the walls around the new
-	 * square.  Without this the maze has no walls at all.  A place exit's
-	 * record names a room rather than a direction, so it falls through to
+	 * exit away too, not just a "go to" place: DestroyExit hands the exit
+	 * to RoomExits.RemoveExit, which clears the exit object's Exists flag
+	 * whichever kind it is (V4Game.cs:DestroyExit,
+	 * RoomExits.cs:RemoveExit). Before 4.10 the same statement only ever
+	 * searched the room's *places* list, so a direction name matched
+	 * nothing and the statement did nothing at all (V4Game.cs:DestroyExit)
+	 * -- hence the version test. Unless the records are read beyond
+	 * get_places (), a destroyed direction stays walkable and stays
+	 * in the "You can go ..." list.  Tim Hamilton's "The Maze" is the game
+	 * that cares: its one room is a 15x20 hedge maze held in four strings
+	 * of y/n, and every move runs a procedure that destroys and re-creates
+	 * the four compass exits to match the walls around the new square.
+	 * Without this the maze has no walls at all.  A place exit's record
+	 * names a room rather than a direction, so it falls through to
 	 * get_places (). */
 	if (tok == "destroy")
 	  {
@@ -747,12 +752,12 @@ string question_implementation::exit_dest (const string &room, const string &dir
       return dyn_dest;
     }
 
-  /* From ASL 4.10 on a direction's exit is one long-lived object whose script is
-   * set once and never cleared: "create exit <dir> <room; dest>" reuses the
-   * existing object (SetDirection, RoomExits.cs:20-33), assigns the new
+  /* From ASL 4.10 on a direction's exit is one long-lived object whose script
+   * is set once and never cleared: "create exit <dir> <room; dest>" reuses the
+   * existing object (RoomExits.cs:SetDirection), assigns the new
    * destination, and only calls SetScript if the new tag brings a script of its
    * own -- and Go checks for a script before the destination
-   * (RoomExit.cs:240-259).  So a declared script exit survives being destroyed
+   * (RoomExit.cs:Go).  So a declared script exit survives being destroyed
    * and re-created with a plain destination, and still runs.  That is precisely
    * what "The Maze" relies on: its four exits are scripts that move the player
    * by adjusting %xpos% and %ypos%, and the re-creating procedure passes them
@@ -761,11 +766,12 @@ string question_implementation::exit_dest (const string &room, const string &dir
    *
    * Before 4.10 there are no exit objects: "create exit north <room; dest>"
    * assigns the room's North field directly and stamps its type back to Text
-   * (V4Game.cs:5429-5450), wiping whatever script the block declared.  Half a
-   * dozen games in the corpus depend on that -- "Bear Campsite" (ASL 400)
-   * declares `south { msg <a Grizzly Bear blocks your path> ... }` and opens the
-   * way out with `create exit south <Campsite; Freedom>` once the bear has
-   * choked on the fish -- so the dynamic destination has to win there. */
+   * (V4Game.cs:ExecuteCreateExit), wiping whatever script the block declared.
+   * Half a dozen games in the corpus depend on that -- "Bear Campsite" (ASL
+   * 400) declares `south { msg <a Grizzly Bear blocks your path> ... }` and
+   * opens the way out with `create exit south <Campsite; Freedom>` once the
+   * bear has choked on the fish -- so the dynamic destination has to win
+   * there. */
   bool declared_is_script = false;
   string declared = declared_exit_dest (gb, dir, declared_is_script);
   if (declared_is_script && (asl_version_ >= 410 || !have_dyn))
@@ -780,9 +786,9 @@ string question_implementation::exit_dest (const string &room, const string &dir
 }
 
 /* The LAST declaration of a direction wins: the pre-4.10 loader assigns the
- * room's field afresh on every "north " line (V4Game.Part2.cs:1042-1044),
+ * room's field afresh on every "north " line (V4Game.Part2.cs:SetUpRoomData),
  * and 4.10's AddExitFromTag re-uses and re-assigns the direction's existing
- * exit object (SetDirection, RoomExits.cs:20-33), so a later line overwrites
+ * exit object (RoomExits.cs:SetDirection), so a later line overwrites
  * an earlier one either way.
  *
  * ...among the lines Quest reads at all: BeginsWith ("south ") needs the
@@ -824,13 +830,13 @@ string question_implementation::declared_exit_dest (const QuestionBlock *gb,
    * looking at the line; "out" is cut in two at its first '>' and both
    * halves are kept -- Out.Text is GetParameter, the contents of the first
    * <...>, and Out.Script is everything after that '>'
-   * (V4Game.Part2.cs:1018-1030).  So the parameter is always a destination,
+   * (V4Game.Part2.cs:SetUpRoomData).  So the parameter is always a destination,
    * whatever keyword stands in front of it: "out msg <You need to get up
    * first.>" leaves Out.Script empty, and GoDirection then hands the message
-   * to PlayGame as a room name (ibid. 6324-6356), which prints nothing
+   * to PlayGame as a room name (ibid. GoDirection), which prints nothing
    * because no room is called that.  UpdateDoorways advertises Out.Text
-   * either way (ibid. 7218-7233), so the room still says "You can go out to
-   * You need to get up first..".  The script half is the caller's business.
+   * either way (ibid. UpdateDoorways), so the room still says "You can go out
+   * to You need to get up first..".  The script half is the caller's business.
    *
    * From 4.10 on AddExitFromTag parses "out" with all the rest and a leading
    * keyword really does make the tag a script. */
@@ -846,7 +852,7 @@ string question_implementation::declared_exit_dest (const QuestionBlock *gb,
    *
    * A locked exit that carries a *script* is different: it has no
    * destination at all, and its parameter -- if it has one -- is the lock
-   * message (RoomExits.cs:186-191).  Reading that field as a room name
+   * message (RoomExits.cs:AddExitFromTag).  Reading that field as a room name
    * would send the player to a room named after the refusal text. */
   if (ci_equal (tok, "locked")) {
     std::string::size_type after_lock = c2;
@@ -881,13 +887,14 @@ string question_implementation::declared_exit_dest (const QuestionBlock *gb,
 /* Split the parameter of a directional exit -- "north <...>", and "out <...>" --
  * into the room it leads to and the prefix printed ahead of that room's name.
  *
- * The two ASL generations read a two-field parameter the other way round.  Up to
- * 3.53 GoDirection enters everything *after* the semicolon, so "out <the; town>"
- * means prefix "the" plus destination "town" (V4Game.Part2.cs:6319-6326).  From
- * 4.10 on the exit tag is parsed by AddExitFromTag, which takes the *first*
- * field as the destination and the second as a lock message -- inert unless the
- * tag also says "locked" (RoomExits.cs:186-191); a prefix, if any, comes from
- * the destination room's own "prefix" line instead (RoomExit.cs:231). */
+ * The two ASL generations read a two-field parameter the other way round.  Up
+ * to 3.53 GoDirection enters everything *after* the semicolon, so "out <the;
+ * town>" means prefix "the" plus destination "town"
+ * (V4Game.Part2.cs:GoDirection).  From 4.10 on the exit tag is parsed by
+ * AddExitFromTag, which takes the *first* field as the destination and the
+ * second as a lock message -- inert unless the tag also says "locked"
+ * (RoomExits.cs:AddExitFromTag); a prefix, if any, comes from the destination
+ * room's own "prefix" line instead (RoomExit.cs:UpdateObjectName). */
 void question_implementation::split_exit_dest (const string &raw, string &dest,
 					   string &prefix) const
 {
@@ -929,8 +936,8 @@ bool question_implementation::exit_declared_locked (const string &room, const st
       vector<string> p = split_param (param_contents (tok));
       /* A directional exit that runs a script has no destination to spend the
        * first field on, so the whole parameter is the lock message
-       * (RoomExits.cs:186-191).  A *place* exit keeps its destination there even
-       * when scripted -- see the place scan below. */
+       * (RoomExits.cs:AddExitFromTag).  A *place* exit keeps its destination
+       * there even when scripted -- see the place scan below. */
       if (trim (line.substr (c2)) != "") {
 	if (!p.empty ())
 	  message = trim (p[0]);
@@ -943,7 +950,7 @@ bool question_implementation::exit_declared_locked (const string &room, const st
 
   /* A directionless exit has no direction word to key on, so it answers to its
    * destination room's name, which is what FindExit looks a place up by
-   * (V4Game.Part2.cs:7877-7913).  Only from 4.10: below it a room's places are
+   * (V4Game.Part2.cs:FindExit).  Only from 4.10: below it a room's places are
    * plain records with nothing to lock, and "lock" cannot reach them either. */
   if (asl_version_ >= 410)
     {
@@ -994,10 +1001,10 @@ bool question_implementation::exit_locked (const string &room, const string &dir
 
 /* The right-hand side of a `set numeric <var; ...>`, evaluated as the game's own
  * ASL version does it.  From 3.91 ExecSetVar hands the text to
- * ExpressionHandler, which is the full precedence-respecting evaluator Question has
- * always used; below that it is one binary operation and nothing more
- * (V4Game.cs:7272-7343 -- see eval_double_pre391), so Kingdom's `set numeric
- * <x; 10*3/4>` is thirty there and seven and a half here. */
+ * ExpressionHandler, which is the full precedence-respecting evaluator
+ * Question has always used; below that it is one binary operation and nothing
+ * more (V4Game.cs:ExecSetVar -- see eval_double_pre391), so Kingdom's `set
+ * numeric <x; 10*3/4>` is thirty there and seven and a half here. */
 double question_implementation::eval_set_numeric (const string &expr)
 {
   if (asl_version_ >= 391)
@@ -1028,8 +1035,8 @@ bool question_implementation::run_room_description ()
     {
       /* A room with no description tag of its own falls back to a "description"
        * line in the game block, which stands in for every such room
-       * (V4Game.Part2.cs:3899-3921).  It is read straight out of the block: a
-       * parameter is text, anything else is a script.  This cannot go through
+       * (V4Game.Part2.cs:ShowRoomInfo).  It is read straight out of the block:
+       * a parameter is text, anything else is a script.  This cannot go through
        * get_obj_action/get_obj_property, because the game block's lines are not
        * rewritten into "action <...>"/"properties <...>" form the way a room's
        * are (the QuestionFile constructor gives the game pass no reserved words), so
@@ -1068,15 +1075,15 @@ void question_implementation::print_room_location_line ()
 					tmp);
   /* From ASL 3.50 the loader mirrors a room's tags into the object-property
    * table as well as into the room record, and AddToObjectProperties trims
-   * whatever follows the "=" (V4Game.cs:4025) before writing it back over
-   * InDescription (V4Game.cs:4111-4118).  So from 3.50 on the stored value
-   * has no outer whitespace, and one made of nothing but spaces is stored
-   * as the empty string.  TARDIS Escape's Console Room writes
-   * `indescription < >` and depends on that without meaning to. */
+   * whatever follows the "=" (V4Game.cs:AddToObjectProperties) before writing
+   * it back over InDescription (V4Game.cs:AddToObjectProperties).  So from
+   * 3.50 on the stored value has no outer whitespace, and one made of nothing
+   * but spaces is stored as the empty string.  TARDIS Escape's Console Room
+   * writes `indescription < >` and depends on that without meaning to. */
   if (has_in_desc && asl_version_ >= 350)
     tmp = trim (tmp);
   /* What Quest tests is whether the stored text is empty, not whether the
-   * tag was there (ShowRoomInfo, V4Game.Part2.cs:3746), so an `indescription
+   * tag was there (V4Game.Part2.cs:ShowRoomInfo), so an `indescription
    * <>` takes the default line below. */
   if (has_in_desc && !tmp.empty ())
     {
@@ -1093,7 +1100,7 @@ void question_implementation::print_room_location_line ()
     }
   else
     /* The sentence ends in a full stop: "You are in " + roomDisplayName +
-     * "." (ShowRoomInfo, V4Game.Part2.cs:3764; the pre-2.80 display builds
+     * "." (V4Game.Part2.cs:ShowRoomInfo; the pre-2.80 display builds
      * the same line at 2050). */
     print_formatted (string ("You are in") + " "
 		     + get_svar ("quest.formatroom") + ".");
@@ -1120,9 +1127,9 @@ void question_implementation::print_room_objects_and_exits ()
    * UpdateDoorways hands the whole job to
    * RoomExits.GetAvailableDirectionsDescription, which lists compass
    * exits (with "out" among them as a bare word) and places together in
-   * the order the room's tags created them (V4Game.Part2.cs:7207-7211,
-   * RoomExits.cs:304-353).  quest.doorways holds the list without the
-   * sentence around it. */
+   * the order the room's tags created them (V4Game.Part2.cs:UpdateDoorways,
+   * RoomExits.cs:GetAvailableDirectionsDescription).  quest.doorways holds the
+   * list without the sentence around it. */
   if (asl_version_ >= 410)
     {
       if ((tmp = get_svar ("quest.doorways")) != "")
@@ -1132,17 +1139,15 @@ void question_implementation::print_room_objects_and_exits ()
     {
       /* From 2.80 the places line is part of roomDisplayText and the
        * out/directions string is printed after it, so places come first
-       * (V4Game.Part2.cs:3838-3874, 3948-3955).  Below 2.80 the three are
-       * all part of roomDisplayText, in the other order (ShowRoomInfoV2,
-       * ibid. 2022, 2056, 2092) -- which is the order Question used at every
-       * version.
+       * (V4Game.Part2.cs:ShowRoomInfo).  Below 2.80 the three are
+       * all part of roomDisplayText, in the other order (ibid. ShowRoomInfoV2).
        *
        * The out and directions sentences are also one *line* from 2.80 on,
        * not two: UpdateDoorways returns them as a single string with a space
-       * between (V4Game.Part2.cs:7308-7312, 7353) and ShowRoomInfo prints
-       * that string with one Print (ibid. 3951-3954).  Below 2.80 each ends
+       * between (V4Game.Part2.cs:UpdateDoorways) and ShowRoomInfo prints
+       * that string with one Print (ibid. ShowRoomInfo).  Below 2.80 each ends
        * in its own vbCrLf, so there they really are separate lines (ibid.
-       * 2022, 2056).  2.80 bolds the word "out" too, where the older path
+       * ShowRoomInfoV2).  2.80 bolds the word "out" too, where the older path
        * leaves it plain; both bold the directions, which is where
        * quest.doorways.dirs already carries its own markup. */
       bool places_first = (asl_version_ >= 280);
@@ -1176,24 +1181,24 @@ void question_implementation::look()
 {
   string tmp;
   /* The look text is read fresh at every room display, not cached from the last
-   * move: ShowRoomInfo asks GetObjectProperty("look", ...) each time it runs and
-   * writes quest.lookdesc from it, falling back to the room's own tag
-   * (V4Game.Part2.cs:3879-3893).  Question only refreshed it on arrival, so a script
-   * that did `property <room; look=...>` while the player stood there left the
-   * old text on screen until they walked out and back in -- Beam's !intproc116
-   * rewrites the Inside Machine that way.  Quest computes it here, before the
-   * description tag is found, so a description that changes the property still
-   * gets the text as it was when the display began.
+   * move: ShowRoomInfo asks GetObjectProperty("look", ...) each time it runs
+   * and writes quest.lookdesc from it, falling back to the room's own tag
+   * (V4Game.Part2.cs:ShowRoomInfo).  So a script that does `property <room;
+   * look=...>` while the player stands there changes the very next display,
+   * without a walk out and back in -- Beam's !intproc116 rewrites the Inside
+   * Machine that way.  Quest computes it here,
+   * before the description tag is found, so a description that changes the
+   * property still gets the text as it was when the display began.
    *
-   * The room's displayed name is the same story: ShowRoomInfo assembles alias,
-   * prefix and suffix a few hundred lines above that (ibid. 3709-3730), so a
+   * The room's displayed name works the same way: ShowRoomInfo assembles alias,
+   * prefix and suffix a few hundred lines above that (ibid. ShowRoomInfo), so a
    * `property <room; alias=...>` shows on the very next display too. */
   regen_var_room ();
   regen_var_look ();
   /* The objects pair too, and eagerly, because this is the one writer that
    * punctuates: ShowRoomInfo fills quest.objects and quest.formatobjects a
    * couple of hundred lines above the point where it looks for a description
-   * tag (V4Game.Part2.cs:3799-3830 against 3924-3956), so a described room sets
+   * tag (V4Game.Part2.cs:ShowRoomInfo), so a described room sets
    * them just as an undescribed one does, and a description that prints
    * "#quest.formatobjects#" without disturbing anything first gets the " and ".
    * One that does disturb something -- a `show', a `create' -- raises the dirty
@@ -1206,8 +1211,8 @@ void question_implementation::look()
    * a description tag replaces that display whole: ShowRoomInfo builds "You are
    * in ...", the object list and the three exit lines into one roomDisplayText
    * and prints it only when no description tag was found, then runs the tag
-   * instead (V4Game.Part2.cs:3924-3956; the pre-2.80 path does the same at
-   * 2088-2117).  A description that wants any of it prints it itself, which is
+   * instead (V4Game.Part2.cs:ShowRoomInfo; the pre-2.80 path, ShowRoomInfoV2,
+   * does the same).  A description that wants any of it prints it itself, which is
    * exactly what "Barbarian" and "The Maze" do -- both end their description
    * with `msg <You can go #quest.doorways#.>`, and Question adding its own copy gave
    * them the line twice.
@@ -1224,19 +1229,19 @@ void question_implementation::look()
   /* ...and the punctuated pair lives no longer than the display that made it.
    * ShowRoomInfo's last act, after the default display has been printed or the
    * description tag has run, is a call to UpdateObjectList
-   * (V4Game.Part2.cs:3974; ShowRoomInfoV2 does the same at 2156), which rebuilds
-   * both strings as the pane's flat comma list.  So the " and " is readable from
-   * inside a description tag and from nowhere else: a game that reads
-   * quest.formatobjects on any later turn gets the comma list, even though
-   * nothing has moved since.  Raising the flag rather than regenerating here
-   * keeps that off the cost of walking into a room. */
+   * (V4Game.Part2.cs:ShowRoomInfo; ShowRoomInfoV2 does the same), which
+   * rebuilds both strings as the pane's flat comma list.  So the " and " is
+   * readable from inside a description tag and from nowhere else: a game that
+   * reads quest.formatobjects on any later turn gets the comma list, even
+   * though nothing has moved since.  Raising the flag rather than regenerating
+   * here keeps that off the cost of walking into a room. */
   objs_vars_dirty_ = true;
 
   /* The room's "look" text is the one part of this that a description tag does
    * not always replace.  Below ASL 3.10 it is printed after the tag as well as
-   * after the default display, and only from 3.10 on is a described room left to
-   * print it itself: showLookText starts true and is cleared by
-   * `descTagExist And ASLVersion >= 310` (V4Game.Part2.cs:3881-3927, 3958-3963).
+   * after the default display, and only from 3.10 on is a described room left
+   * to print it itself: showLookText starts true and is cleared by
+   * `descTagExist And ASLVersion >= 310` (V4Game.Part2.cs:ShowRoomInfo).
    *
    * Below 2.80 there is no quest.lookdesc to read it back out of -- see
    * regen_var_look -- so the text comes from the copy that made. */
@@ -1254,7 +1259,7 @@ void question_implementation::show_picture (const string &spec, bool popup)
 
   if (popup)
     {
-      /* ShowPicture (V4Game.Part2.cs:3664-3690) takes the caption off first
+      /* ShowPicture (V4Game.Part2.cs:ShowRoomInfo) takes the caption off first
        * and then looks for the size in what is left, so
        * "map.jpg@640x480; The Shire" yields all three -- and a ';' anywhere
        * after an '@' belongs to the caption, not to the size. */
@@ -1275,12 +1280,12 @@ void question_implementation::show_picture (const string &spec, bool popup)
   /* Quest 4 used the caption as the title bar of the picture window rather
    * than as game text -- "If a caption is specified, that caption is used for
    * the window title, rather than the default 'Picture'" (Quest 4.1.5's own
-   * quest.chm, script-script.htm).  Neither QuestViva nor Question has a window to
-   * title: both draw the image among the text, so the only place left for the
-   * author's caption is with it.  QuestViva prints it ahead of the image
-   * (ibid. 3686) and Question follows, so that the caption survives a host that
-   * cannot show pictures at all -- which is also what keeps the two
-   * transcripts together. */
+   * quest.chm, script-script.htm).  Neither QuestViva nor Question has a
+   * window to title: both draw the image among the text, so the only place
+   * left for the author's caption is with it.  QuestViva prints it ahead of
+   * the image (ibid. ShowRoomInfo) and Question follows, so that the caption
+   * survives a host that cannot show pictures at all -- which is also what
+   * keeps the two transcripts together. */
   if (caption != "")
     print_formatted (caption);
   gi->show_image (file, res, caption);

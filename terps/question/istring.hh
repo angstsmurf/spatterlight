@@ -18,7 +18,7 @@
  */
 
 /* istring.hh
- * 
+ *
  * Case-insensitive string
  */
 
@@ -28,15 +28,7 @@
 #include <string>
 #include <cctype>
 
-//bool   ci_equal    (char ch1, char ch2);
-//bool   ci_less_eq  (char ch1, char ch2);
-//bool   ci_less     (char ch1, char ch2);
-//size_t ci_find     (const std::string &str1, const std::string &str2);
-//size_t ci_diff     (const std::string &str1, const std::string &str2);
-//bool   cis_equal   (const std::string &str1, const std::string &str2);
-//bool   cis_less_eq (const std::string &str1, const std::string &str2);
-//bool   cis_less    (const std::string &str1, const std::string &str2);
-  
+
 extern bool c_equal_i (char ch1, char ch2);
 extern size_t ci_find     (const std::string &str1, const std::string &str2);
 extern bool   ci_equal    (const std::string &str1, const std::string &str2);
@@ -61,7 +53,7 @@ public:
 class CI_LESS {
 public:
   bool operator() (const std::string &str1, const std::string &str2)
-  { 
+  {
     return ci_less (str1, str2);
   }
 };

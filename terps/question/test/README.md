@@ -113,7 +113,7 @@ relaunch is addressed by number (`link:PEER:N`) rather than by text; see the
 
 ## Game colours
 
-A game's own colours (`../questglk-common.cc`: detection, the palette and the
+A game's own colours (`../questglk-style.cc`: detection, the palette and the
 COLOURS toggle; the per-span colour in each frontend's printer) are pinned by
 `styles/run_styles_tests.py`, which prints a `ZCOLOR peer fg bg` line between
 the SPAN lines from the zcolors `glkdrive.py` records. `styles_colours.asl`
@@ -137,7 +137,7 @@ Still open:
 ## Shared frontend helpers (`questglk_unit_tests.cc`)
 
 Both Glk frontends (`questionglk.cc` and `quest5/aslxglk.cc`) draw on
-`../questglk-common.cc`; this binary compiles that file in and links the
+`../questglk-common.cc` and `../questglk-style.cc`; this binary compiles them in and links the
 in-repo CheapGlk for the `glk_*` symbols its helpers reference. It belongs to
 neither engine, so it stays here and is built at the root as
 `./questglk_unit_tests`. Exit 0 is a pass.
@@ -148,8 +148,8 @@ Two engines and two Glk frontends share `terps/question`:
 
 - **Quest 4 engine.** `QuestionRunner.hh` is the interface a frontend sees,
   `question-impl.hh` the class behind it, `question-*.cc` the engine.
-  `readfile.cc` reads and preprocesses the `.asl`/`.cas` file; `preprocess`
-  is its passes (`collect_addtos`, `splice_addtos`, `convert_friendly_ifs`,
+  `readfile.cc` reads the `.asl`/`.cas` file and `question-preprocess.cc`
+  preprocesses it; `preprocess` is its passes (`collect_addtos`, `splice_addtos`, `convert_friendly_ifs`,
   `strip_comments`, `deinline_braces`, `trim_and_join_elses`). A script runs
   through a table of `exec_<statement>` handlers: `question-script.cc`
   tokenises, dispatches and evaluates conditions, the handlers are in

@@ -232,9 +232,9 @@ bool question_implementation::load_undo_history (const string &data)
   return true;
 }
 
-/* Seed the RNG once per game.  Real Quest randomises every run; Question used to
- * leave the generator unseeded, so any random fight played out identically
- * each time -- which left World's End's final fight permanently unwinnable.
+/* Seed the RNG once per game, since real Quest randomises every run.  Unseeded,
+ * any random fight would play out identically each time, which would leave
+ * World's End's final fight permanently unwinnable.
  * Seed 0 means "true" randomness; QUESTION_SEED overrides it for reproducible
  * testing, and so does the app's determinism mode. */
 static void seed_random_for_new_game ()
@@ -276,13 +276,13 @@ void question_implementation::read_version_and_options ()
 
 /* The initial value of a variable is a *parameter*, not a literal.
  * SetUpDisplayVariables runs each `value <...>` through GetParameter as
- * it walks the game block (V4Game.Part2.cs:744), so a "#var#" or "%var%"
- * naming a variable defined earlier is substituted, and a "$rand(a;b)$"
- * is rolled -- once each, in definition order, before anything else in
- * the game has run.  QuestionState stores the text raw, which left Kingdom's
- * 23 `value <$rand(...)$>` village statistics all sitting at zero and put
- * the RNG stream one draw per variable out of step with Quest's from the
- * first turn.
+ * it walks the game block (V4Game.Part2.cs:SetUpDisplayVariables), so a
+ * "#var#" or "%var%" naming a variable defined earlier is substituted, and a
+ * "$rand(a;b)$" is rolled -- once each, in definition order, before anything
+ * else in the game has run.  QuestionState stores the text raw, which left
+ * Kingdom's 23 `value <$rand(...)$>` village statistics all sitting at zero
+ * and put the RNG stream one draw per variable out of step with Quest's from
+ * the first turn.
  *
  * It is one pass in source order, and each variable comes into existence
  * as it is reached, so a value can only see the ones above it: a
@@ -358,7 +358,8 @@ string question_implementation::read_game_directives ()
 	{
 	  tok = next_token (s, tok_start, tok_end);
 	  /* Sub-keywords are CI too: Quest matches the whole "default
-	   * fontname" phrase with BeginsWith (V4Game.Part2.cs:661-669). */
+	   * fontname" phrase with BeginsWith
+	   * (V4Game.Part2.cs:SetUpDefaultFonts). */
 	  if (ci_equal (tok, "fontname"))
 	    {
 	      if (next_decl_param (*gi, s, tok_start, tok_end,
@@ -383,14 +384,14 @@ string question_implementation::read_game_directives ()
 	  /* Quest itself never reads this declaration: the only place
 	     "gametype"/"multiplayer" appear in the runner is the keyword
 	     table (quest.dat:98,100), and the game block is scanned solely
-	     for "start " when play begins (V4Game.Part2.cc / .Part2.cs:
-	     7992-7999).  A multiplayer game therefore loads and runs as an
-	     ordinary single-player game from its declared start room.  We
-	     used to throw here, which aborted the rest of this loop before
-	     it reached "start" and left the player in room "" -- the game
-	     came up with no location, listing every room as an object in
-	     scope.  Ignore the declaration instead; the multiplayer-only
-	     features (chat, challenges) simply never happen.  */
+	     for "start " when play begins (V4Game.Part2.cs:DoBeginAsync).  A
+	     multiplayer game therefore loads and runs as an ordinary
+	     single-player game from its declared start room. Throwing here
+	     would abort the rest of this loop before it reached "start" and
+	     leave the player in room "", with no location and every room
+	     listed as an object in scope.  So the declaration is ignored; the
+	     multiplayer-only features (chat, challenges) simply never happen.
+	     */
 	  tok = next_token (s, tok_start, tok_end);
 	  if (ci_equal (tok, "singleplayer") || ci_equal (tok, "multiplayer"))
 	    continue;
@@ -419,7 +420,7 @@ string question_implementation::read_game_directives ()
    From ASL 3.11 the library ones ("lib startscript", tagged in
    mark_library_addtos) all run first and in *reverse* order, the innermost
    library initialising first; below 3.11 the tag means nothing and they run
-   in place with the rest (V4Game.Part2.cs:7967-7997). */
+   in place with the rest (V4Game.Part2.cs:DoBeginAsync). */
 void question_implementation::run_startscripts (const QuestionBlock &game)
 {
   std::string::size_type c1, c2;
@@ -432,7 +433,7 @@ void question_implementation::run_startscripts (const QuestionBlock &game)
   for (const auto &i: game.data)
     {
       /* CI: Quest matches "startscript " with BeginsWith
-       * (V4Game.Part2.cs:7971). */
+       * (V4Game.Part2.cs:DoBeginAsync). */
       string tok = first_token (i, c1, c2);
       if (ci_equal (tok, "lib") && asl_version_ < 311)
 	tok = next_token (i, c1, c2);
@@ -443,10 +444,10 @@ void question_implementation::run_startscripts (const QuestionBlock &game)
 
 /* set_game: the game starts in the `start' room whatever the startscript did:
  * Quest reads the tag only now and hands it to PlayGame
- * (V4Game.Part2.cs:8026-8040), so a startscript `goto' shows its room
- * and is then overridden.  q3ext.qlb's force_refresh is why it matters --
- * it parks the player in a dummy room and goes "back" to a current room
- * that, this early, is still empty. */
+ * (V4Game.Part2.cs:DoBeginAsync/HandleCommandAsync), so a startscript `goto'
+ * shows its room and is then overridden.  q3ext.qlb's force_refresh is why it
+ * matters -- it parks the player in a dummy room and goes "back" to a current
+ * room that, this early, is still empty. */
 void question_implementation::enter_start_room (const string &start_room)
 {
   state.location = start_room;
@@ -577,15 +578,16 @@ void question_implementation::regen_var_objects (bool room_display)
   objs_vars_dirty_ = false;
   /* No container-visibility sweep here.  Quest re-derives the contents' hidden
    * flags only when the container itself changes -- on open/close, on look at,
-   * on put/take, and once when the game loads (UpdateVisibilityInContainers,
-   * V4Game.Part2.cs:7650 and its four callers) -- so a "show <X>" aimed at
-   * something parented inside a shut container sticks, and the object stays
-   * referrable: Disambiguate scopes on the hidden flag and the object's room
-   * alone, never on the container chain (DisambObjHere, V4Game.cs:4303).  Two
-   * games in the corpus reveal a parented object that way and nothing else ever
-   * opens the container: Christmas Day's Knife and Darkness's Hammer.  Sweeping
-   * here (i.e. after every turn) hid them again on the next redraw.  See
-   * set_obj_property and move for the sweep's real call sites. */
+   * on put/take, and once when the game loads
+   * (V4Game.Part2.cs:UpdateVisibilityInContainers and its four callers) -- so
+   * a "show <X>" aimed at something parented inside a shut container sticks,
+   * and the object stays referrable: Disambiguate scopes on the hidden flag
+   * and the object's room alone, never on the container chain
+   * (V4Game.cs:DisambObjHere).  Two games in the corpus reveal a parented
+   * object that way and nothing else ever opens the container: Christmas Day's
+   * Knife and Darkness's Hammer.  Sweeping here (i.e. after every turn) hid
+   * them again on the next redraw.  See set_obj_property and move for the
+   * sweep's real call sites. */
   string tmp;
   vector <string> objs, chars;
   for (const auto &i: state.objs)
@@ -603,14 +605,15 @@ void question_implementation::regen_var_objects (bool room_display)
 	  /* Below 2.80 Quest keeps characters in a table of their own and
 	   * gives them a line of their own, so one never turns up among the
 	   * objects (ShowRoomInfoV2 walks _chars and then _objs,
-	   * V4Game.Part2.cs:1824-1886; the `define character' branch of the
-	   * loader that fills _chars is itself gated on ASLVersion <= 280,
-	   * ibid. 3571).  From 2.80 on there is no such table and a character
-	   * is an object like any other -- which is how Question stores them at
-	   * every version, so the split has to happen here.  The two gates really
-	   * do differ by one: at exactly 2.80 the loader still fills _chars but
-	   * the room description is ShowRoomInfoV2's successor, which never reads
-	   * it, so a character there is listed nowhere at all. */
+	   * V4Game.Part2.cs:ShowRoomInfoV2; the `define character' branch of
+	   * the loader that fills _chars is itself gated on ASLVersion <= 280,
+	   * ibid. SetUpCharObjectInfo).  From 2.80 on there is no such table
+	   * and a character is an object like any other -- which is how
+	   * Question stores them at every version, so the split has to happen
+	   * here.  The two gates really do differ by one: at exactly 2.80 the
+	   * loader still fills _chars but the room description is
+	   * ShowRoomInfoV2's successor, which never reads it, so a character
+	   * there is listed nowhere at all. */
 	  if (asl_version_ <= 280 && gf.find_by_name ("character", i.name) != NULL)
 	    chars.push_back (i.name);
 	  else
@@ -622,22 +625,23 @@ void question_implementation::regen_var_objects (bool room_display)
    * quest.objects is the plain one the game is meant to reuse: prefix and name,
    * joined with ", " and nothing else.  It has no suffix and never has an
    * " and ", in any of the three routines that write it (ShowRoomInfo,
-   * V4Game.Part2.cs:3799-3822; ShowRoomInfoV2, ibid. 1884-1896; UpdateObjectList,
-   * ibid. 7521-7550).  Nearco prints "#quest.objects#" itself and so reads the
-   * comma list where Question used to hand it "un hueso, una piedra and una roca".
+   * ShowRoomInfoV2, UpdateObjectList; all in V4Game.Part2.cs).  Nearco prints
+   * "#quest.objects#" itself and so reads the comma list, not "un hueso, una
+   * piedra and una roca".
    *
    * The " and " in quest.formatobjects is the room display's alone.  The pane
    * refresh rebuilds the pair after every show, hide, create, move and take
-   * (SetAvailability, ibid. 3087-3088, and eleven other callers) and joins with
-   * ", " throughout, so a script that changes what is visible and then prints
-   * "#quest.formatobjects#" reads an unpunctuated list.  Sleepover's <bed2>
-   * description does exactly that: two `show' lines, then the list. */
+   * (SetAvailability, ibid. SetStringContents, and eleven other callers) and
+   * joins with ", " throughout, so a script that changes what is visible and
+   * then prints "#quest.formatobjects#" reads an unpunctuated list.
+   * Sleepover's <bed2> description does exactly that: two `show' lines, then
+   * the list. */
   string qobjs = "", qfobjs = "";
   string objname, prefix, main, suffix, propval, plain, print2;
   for (uint i = 0; i < objs.size(); i ++)
     {
       objname = objs[i];
-      /* An empty alias lists the name (V4Game.Part2.cs:7538-7550). */
+      /* An empty alias lists the name (V4Game.Part2.cs:UpdateObjectList). */
       if (!get_obj_property (objname, "alias", main) || main.empty())
 	main = objname;
       plain = main;
@@ -648,7 +652,8 @@ void question_implementation::regen_var_objects (bool room_display)
 	  print2 = prefix + " " + print2;
 	}
       /* An empty suffix is no suffix, and takes no joining space
-       * (V4Game.Part2.cs:7532-7536); Shipwrecked's timber has `suffix < >'. */
+       * (V4Game.Part2.cs:UpdateObjectList); Shipwrecked's timber has `suffix <
+       * >'. */
       if (get_obj_property (objname, "suffix", suffix) && !suffix.empty())
 	print2 = print2 + " " + suffix;
       qobjs = qobjs + plain;
@@ -664,9 +669,9 @@ void question_implementation::regen_var_objects (bool room_display)
 
   /* The pre-2.80 characters line.  quest.characters gets the comma-joined
    * list, without the " and " the printed sentence gets, because Quest sets
-   * the variable before it rewrites the last comma (V4Game.Part2.cs:1836-1856)
-   * -- and gets "" when there is nobody here, where the line itself still
-   * prints. */
+   * the variable before it rewrites the last comma
+   * (V4Game.Part2.cs:ShowRoomInfoV2) -- and gets "" when there is nobody here,
+   * where the line itself still prints. */
   characters_display_ = "";
   if (asl_version_ < 280)
     {
@@ -703,11 +708,12 @@ void question_implementation::regen_var_room ()
   string tmp, formatroom;
   if (!get_room_property (state.location, "alias", formatroom))
     {
-      /* Quest displays _rooms[id].RoomName -- the spelling used by `define room`
-       * -- not whatever casing the goto happened to use (ShowRoomInfo,
-       * V4Game.Part2.cs:3709-3712).  The Birthday Assignment's `goto <Edock>`
-       * into `define room <EDock>` is the case in point.  A room made at
-       * runtime by `create room` has no block, so fall back to the name given. */
+      /* Quest displays _rooms[id].RoomName -- the spelling used by `define
+       * room` -- not whatever casing the goto happened to use
+       * (V4Game.Part2.cs:ShowRoomInfo).  The Birthday Assignment's `goto
+       * <Edock>` into `define room <EDock>` is the case in point.  A room made
+       * at runtime by `create room` has no block, so fall back to the name
+       * given. */
       const QuestionBlock *gb = gf.find_by_name ("room", state.location);
       formatroom = (gb != NULL && gb->name != "") ? gb->name : state.location;
     }
@@ -716,9 +722,9 @@ void question_implementation::regen_var_room ()
     formatroom = tmp + " " + formatroom;
   /* No suffix: Quest has a Suffix field on objects and on characters, and none
    * on a room -- ShowRoomInfo builds the displayed name out of the alias and
-   * the prefix and nothing else (V4Game.Part2.cs:3724-3742).  A `suffix' tag on
-   * a room is read into the property table like any other and never displayed.
-   * See finding 73. */
+   * the prefix and nothing else (V4Game.Part2.cs:ShowRoomInfo).  A `suffix'
+   * tag on a room is read into the property table like any other and never
+   * displayed. See finding 73. */
   set_svar ("quest.formatroom", formatroom);
 
 }
@@ -728,13 +734,13 @@ void question_implementation::regen_var_look ()
   /* Below 2.80 the look text is read straight off the room block's source and
    * printed from there: ShowRoomInfoV2 walks the block for the first line
    * beginning "look" outside any nested define and takes GetParameter of it
-   * (V4Game.Part2.cs:2157-2183).  Two things follow.  The line's *first*
-   * parameter is the text whether or not the line is a script, so a `look msg
-   * <...>' reads here as the message it prints -- everywhere else that line is
-   * an action and has no text at all.  And there is no quest.lookdesc: the
-   * variable is written by the 2.80 display alone (ibid. 3897), so a 2.x game
-   * that prints "#quest.lookdesc#" gets an empty string, and Question keeps its own
-   * copy for the display instead. */
+   * (V4Game.Part2.cs:ShowRoomInfoV2/AddToObjectList).  Two things follow.  The
+   * line's *first* parameter is the text whether or not the line is a script,
+   * so a `look msg <...>' reads here as the message it prints -- everywhere
+   * else that line is an action and has no text at all.  And there is no
+   * quest.lookdesc: the variable is written by the 2.80 display alone (ibid.
+   * ShowRoomInfo), so a 2.x game that prints "#quest.lookdesc#" gets an empty
+   * string, and Question keeps its own copy for the display instead. */
   if (asl_version_ < 280)
     {
       look_desc_ = "";
@@ -786,22 +792,23 @@ void question_implementation::regen_doorways_dirs (bool old_vars)
   if (asl_version_ >= 280)
     {
       /* 2.80 to 4.09: the fixed compass order, straight out of UpdateDoorways'
-       * ten `if` statements (V4Game.Part2.cs:7229-7286).  The -1 skips "out",
-       * which regen_doorways_out handles. */
+       * ten `if` statements (V4Game.Part2.cs:UpdateDoorways).  The -1 skips
+       * "out", which regen_doorways_out handles. */
       for (size_t i = 0; i < ARRAYSIZE (dir_names) - 1; i ++)
 	if (exit_dest (state.location, dir_names[i]) != "")
 	  dirs.push_back (dir_names[i]);
     }
   else
     {
-      /* Below 2.80 there is no room object to read the exits off: ShowRoomInfoV2
-       * walks the room block's own lines and appends each direction as it meets
-       * it (V4Game.Part2.cs:1935-1980), so the line follows the order the author
-       * wrote the tags in.  QDK writes its diagonals NW, NE, SW, SE, which is
-       * why the fixed order showed up as a swapped pair -- Fade To White (210)
-       * listed "northeast, northwest, southeast or southwest" where Quest says
-       * "northwest, northeast, southwest or southeast", and Koww (200) had its
-       * two exits the wrong way round.
+      /* Below 2.80 there is no room object to read the exits off:
+       * ShowRoomInfoV2 walks the room block's own lines and appends each
+       * direction as it meets it (V4Game.Part2.cs:ShowRoomInfoV2), so the line
+       * follows the order the author wrote the tags in.  QDK writes its
+       * diagonals NW, NE, SW, SE, which is why the fixed order showed up as a
+       * swapped pair -- Fade To White (210) listed "northeast, northwest,
+       * southeast or southwest" where Quest says "northwest, northeast,
+       * southwest or southeast", and Koww (200) had its two exits the wrong
+       * way round.
        *
        * That loop also has no branch for "up" or "down": below 2.80 the two of
        * them are walkable but never named in the line. */
@@ -835,7 +842,7 @@ void question_implementation::regen_doorways_out (bool old_vars)
    * walks the room block's own source lines, takes GetParameter of the last one
    * beginning "out" -- whatever that tag was written for -- looks the result up
    * as a room name to find an alias, and prints it plain
-   * (V4Game.Part2.cs:1939-1942, 2004-2025).  So a *scripted* out advertises
+   * (V4Game.Part2.cs:ShowRoomInfoV2).  So a *scripted* out advertises
    * whatever its first parameter happens to be: Fade to White's `out msg <You
    * need to get up first.>' really does print "You can go out to You need to
    * get up first..", where 2.80's UpdateDoorways would have printed no line at
@@ -868,14 +875,15 @@ void question_implementation::regen_doorways_out (bool old_vars)
     ? "" : exit_dest (state.location, "out");
   /* Whatever the "out" tag was written for, the line UpdateDoorways prints is
    * built from Out.Text -- its first parameter -- and nothing else
-   * (V4Game.Part2.cs:7218-7233).  A scripted out is no exception, because before
-   * 4.10 the loader fills Out.Text from every out line, script or not (see
-   * declared_exit_dest): an "out { ... }" block, which readfile de-inlines into
-   * "out do <!intprocNNN>" exactly as Quest's own ConvertMultiLineSections does,
-   * really does advertise "You can go out to !intprocNNN.".  (From ASL 410 on
-   * Quest folds "out" into the single directions line instead, via
-   * RoomExits.GetAvailableDirectionsDescription; Question still prints the pre-410
-   * two-line form -- and old_vars keeps this block off those games anyway.) */
+   * (V4Game.Part2.cs:UpdateDoorways).  A scripted out is no exception, because
+   * before 4.10 the loader fills Out.Text from every out line, script or not
+   * (see declared_exit_dest): an "out { ... }" block, which readfile
+   * de-inlines into "out do <!intprocNNN>" exactly as Quest's own
+   * ConvertMultiLineSections does, really does advertise "You can go out to
+   * !intprocNNN.".  (From ASL 410 on Quest folds "out" into the single
+   * directions line instead, via RoomExits.GetAvailableDirectionsDescription;
+   * Question still prints the pre-410 two-line form -- and old_vars keeps this
+   * block off those games anyway.) */
   if (!old_vars || asl_version_ < 280)
     ;   /* the "out" pair belongs to the pre-4.10 block too, and below 2.80 it
 	 * has been written already */
@@ -902,15 +910,14 @@ void question_implementation::regen_doorways_out (bool old_vars)
 
       /* The prefix is the article/preposition the author put in front of the
        * destination ("out <the; town>" -> "the |btown|xb"), so it goes outside
-       * the bold, exactly as get_places () renders a place's prefix.  It used to
-       * be dropped whenever the destination had a display name -- i.e. always,
-       * for a room that exists -- which left it visible only in the one case it
-       * was not written for.
+       * the bold, exactly as get_places () renders a place's prefix.  A
+       * destination with a display name keeps it too, and that is every room
+       * that exists.
        *
        * An aliased destination below ASL 3.60 loses it, though: UpdateDoorways
        * keeps "prefix name" together only while there is no alias to replace
        * the name with, and reattaches the prefix to an alias from 3.60 on
-       * (V4Game.Part2.cs:7294-7305).  King's Quest V (350) goes `out <the;
+       * (V4Game.Part2.cs:UpdateDoorways).  King's Quest V (350) goes `out <the;
        * small country inn -outdoors>' to an aliased room, and Quest's line is
        * "You can go out to small country inn -outdoors." */
       string out_alias;
@@ -938,10 +945,11 @@ void question_implementation::regen_doorways_places (bool old_vars)
       /* Quest builds the list with ", " after every entry, strips the trailing
        * one and then turns the last remaining comma into " or" -- so from 2.80
        * the separator before the final place is " or ", with no comma of its
-       * own however many places there are (V4Game.Part2.cs:3845-3868).  The
+       * own however many places there are (V4Game.Part2.cs:ShowRoomInfo).  The
        * pre-2.80 display keeps the comma: it splits at Left(places, lastComma)
-       * rather than lastComma - 1 (ibid. 2073-2085), which is where Question's
-       * Oxford comma came from -- it just applied it at every version. */
+       * rather than lastComma - 1 (ibid. ShowRoomInfoV2), which is where
+       * Question's Oxford comma came from -- it just applied it at every
+       * version. */
       if (i == 0)
 	printed_places = current_places[i][0];
       else if (i + 1 < current_places.size())
@@ -957,15 +965,15 @@ void question_implementation::regen_doorways_places (bool old_vars)
 
 /* "quest.doorways" -- the ASL 4.10 single folded list of everywhere you can go
  * from here, which is what a 4.10 game writes its own exits line from.  It is
- * set by RoomExits.GetAvailableDirectionsDescription (RoomExits.cs:303-353),
+ * set by RoomExits.GetAvailableDirectionsDescription (RoomExits.cs),
  * called from UpdateDoorways only when ASLVersion >= 410 (V4Game.Part2.cs:
- * 7191-7194) -- below 4.10 the variable is never assigned at all, so leave it
- * alone there.  (The three ".dirs"/".out"/".places" variables are the other way
- * round: 4.10 stops setting those -- see regen_var_dirs.)
+ * UpdateDoorways) -- below 4.10 the variable is never assigned at all, so
+ * leave it alone there.  (The three ".dirs"/".out"/".places" variables are the
+ * other way round: 4.10 stops setting those -- see regen_var_dirs.)
  *
  * Every exit that still exists goes in one list, the compass ones first --
  * AllExits() walks the directions dictionary before the places dictionary
- * (RoomExits.cs:545-573) -- in the order the room's tags created them, with
+ * (RoomExits.cs:AllExits) -- in the order the room's tags created them, with
  * "out" among them rather than on a line of its own.  Two games in the corpus
  * would print a bare "You can go ." without this: Tim Hamilton's "Barbarian"
  * and his "The Things That Go Bump In The Night" both replace the room display
@@ -979,9 +987,10 @@ void question_implementation::regen_doorways_folded ()
 	parts.push_back ("|b" + dir + "|xb");
     /* A place is the one kind of exit that keeps a destination in the line:
      * GetDirectionNameDisplay returns "to [prefix ]|bname|xb" for it, and
-     * the prefix is the *destination room's* (RoomExits.cs:512-528, set from
-     * _rooms[GetRoomId()].Prefix by RoomExit.cs:231) -- not the one written
-     * on the "place <the; X>" line, which is the pre-4.10 rule. */
+     * the prefix is the *destination room's*
+     * (RoomExits.cs:GetDirectionNameDisplay, set from
+     * _rooms[GetRoomId()].Prefix by RoomExit.cs:UpdateObjectName) -- not the
+     * one written on the "place <the; X>" line, which is the pre-4.10 rule. */
     for (const auto &p: current_places)
       {
 	string entry = "|b" + p[2] + "|xb", roomprefix;
@@ -1009,9 +1018,9 @@ void question_implementation::regen_var_dirs()
   /* From 4.10 the three older doorway variables are not written at all.
    * UpdateDoorways hands the whole job to GetAvailableDirectionsDescription and
    * skips the block that sets ".dirs" and the "out" pair
-   * (V4Game.Part2.cs:7207-7211), and ShowRoomInfo's places half is inside its
-   * own `if ASLVersion < 410` (ibid. 3838-3874).  So a 4.10 game that prints
-   * one of them gets an empty string: Nearco's "Puedes ir al: |b#quest.
+   * (V4Game.Part2.cs:UpdateDoorways), and ShowRoomInfo's places half is inside
+   * its own `if ASLVersion < 410` (ibid. ShowRoomInfo).  So a 4.10 game that
+   * prints one of them gets an empty string: Nearco's "Puedes ir al: |b#quest.
    * doorways.dirs#|xb" is a bare label in Quest, and Question filled it with all
    * eight compass points.  quest.doorways is the mirror image -- set only from
    * 4.10 (see regen_doorways_folded) -- so exactly one of the two forms is live at a time. */

@@ -604,7 +604,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     // change moves the element to the end of its new parent's children.
     // Served from World's lazily-rebuilt containment index (kind==Object, live,
     // parent read from the own `parent` field, SortIndex order) -- an
-    // O(children) lookup rather than the full O(N) world scan this used to be.
+    // O(children) lookup rather than an O(N) world scan.
     if (fn == B_getdirectchildren && n == 1) {
         Element *e = obj_of(arg(0));
         std::vector<std::string> names;
@@ -617,7 +617,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         std::vector<std::string> names;
         // Recurse through the parent-field tree. A visited set guards against a
         // cycle introduced by a bad runtime parent assignment (an O(1) hash
-        // membership test rather than the old O(M^2) linear scan of `names`).
+        // membership test, since a linear scan of `names` would be O(M^2)).
         std::unordered_set<std::string> seen;
         std::function<void(Element *)> rec = [&](Element *x) {
             for (Element *k : world_.children_of(x)) {
@@ -869,7 +869,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         return vstr(s);
     }
     // VB Trim/LTrim/RTrim strip only the space and the ideographic space
-    // (U+3000); tabs and newlines survive, unlike rt_trim.
+    // (U+3000); tabs and newlines survive, unlike qstr::trim.
     if ((fn == B_trim || fn == B_ltrim || fn == B_rtrim) && n == 1) {
         std::string s = sarg(0);
         static const std::string ideo = "\xE3\x80\x80";

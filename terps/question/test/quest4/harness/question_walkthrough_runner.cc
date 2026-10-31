@@ -144,7 +144,7 @@ protected:
   }
   /* There is no key to press here, but the message that asks for one is real
    * output: the Glk frontend prints it (QuestionGlkInterface::wait_keypress,
-   * questionglk.cc:1135-1141) and so does Quest, and a `wait <...>` whose message
+   * questionglk.cc) and so does Quest, and a `wait <...>` whose message
    * runs to several lines through |n hid all of them from the transcript. */
   QuestionResult wait_keypress (const std::string &msg) override
   {

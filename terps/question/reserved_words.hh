@@ -35,7 +35,7 @@ private:
 public:
   bool operator[] (const std::string &s) const { return has(s); }
   bool has (const std::string &s) const
-  {  
+  {
     maptype::const_iterator i = data.find (s);
     return i != data.end() && (*i).second;
   }
@@ -59,10 +59,9 @@ public:
     va_list ap;
     va_start (ap, c);
 
-    while (c != NULL) 
+    while (c != NULL)
       {
 	data[std::string(c)] = true;
-	//std::cout << "Pushing <" << c << "> into map" << std::endl;
 	c = va_arg (ap, char*);
       }
     va_end(ap);

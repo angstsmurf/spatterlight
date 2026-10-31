@@ -35,22 +35,18 @@ class reserved_words;
 
 struct QuestionBlock
 {
-  ////// lname == lowercase name
-  ////// nname == normal name
-  ////// parent == initial parent object (lowercased)
-  // name == name
-  // parent == initial parent object
+  /* `name' and `parent' (the initial parent object) keep the case the game
+   * file wrote them in. */
   std::string blocktype, name, parent;
   std::vector<std::string> data;
-  //QuestionBlock (const std::vector<std::string> &, std::string, uint, bool);
   QuestionBlock () {}
 
   /* Parsed cache of `data`, built lazily on first property/action lookup (see
-   * QuestionFile::ensure_cached).  The original getters re-tokenized every raw line
-   * of `data` on every call, and those getters sit inside per-object loops, so a
-   * single turn re-parsed the same text thousands of times.  Since `data` never
-   * changes after load, we tokenize each block once into ordered directives and
-   * the getters then walk these with no string parsing.
+   * QuestionFile::ensure_cached).  The getters sit inside per-object loops, so
+   * re-tokenizing the raw lines of `data` on every call would parse the same
+   * text thousands of times a turn.  Since `data` never changes after load,
+   * each block is tokenized once into ordered directives, and the getters walk
+   * these with no string parsing.
    *
    * A `dir` is either a type-recursion (is_type, the parent type's name in `a`)
    * or a value assignment (key in `a`, value in `b`, truthiness in `bv`).  Order
@@ -98,11 +94,11 @@ struct QuestionBlock
 };
 
 /* A `define variable` block, read the way Quest's loader reads one
- * (SetUpDisplayVariables, V4Game.Part2.cs:707-760): one pass over the lines,
+ * (V4Game.Part2.cs:SetUpDisplayVariables): one pass over the lines,
  * each keyword overwriting what an earlier line of its kind set.  The keywords
  * are CI (BeginsWith lowercases); the type *value* is not -- Quest compares the
- * raw text (ibid. 707), so "type String" is an unrecognised type there and
- * here.
+ * raw text (ibid. SetUpDisplayVariables), so "type String" is an unrecognised
+ * type there and here.
  *
  * Give `complain` to have the malformed lines reported through its
  * debug_print.  The state constructor does, once per load; everything that
@@ -154,12 +150,8 @@ struct QuestionFile
   QuestionInterface *gi;
   void debug_print (const std::string &s) const;
 
-  //vector<QuestionBlock> rooms, objects, textblocks, functions, procedures, types;
-  //QuestionBlock synonyms, game;
   std::vector <QuestionBlock> blocks;
 
-  //std::vector<QuestionBlock> rooms, objects, textblocks, functions, procedures,
-  //  types, synonyms, game, variables, timers, choices;
   /* Object/room/procedure name -> block type.  Keyed by the ASCII-lowercased
    * name, because Quest's own name lookups are case-insensitive throughout
    * (GetRoomID, GetObjectIDNoAlias and friends all compare LCase to LCase), and
@@ -188,7 +180,8 @@ struct QuestionFile
   /* Fast lookup for find_by_name: maps "<blocktype>\1<lowercased name>" to the
    * indices (into blocks) of every block with that type and name, in definition
    * order.  Populated alongside type_indecies as blocks are parsed, so
-   * find_by_name no longer has to scan every block of a type. */
+   * find_by_name does not have to scan every block of a type.  blocks is only
+   * appended to while loading, so the index never needs invalidating. */
   std::unordered_map <std::string, std::vector<size_t> > name_index;
   static std::string name_key (const std::string &type, const std::string &name);
   /* Build a name_index key ("<type>\1<ascii-lowercased name>") into `out`,
@@ -200,7 +193,7 @@ struct QuestionFile
 
   void register_block (const std::string &blockname, const std::string &blocktype);
   /* Make `newname` resolve to `srcname`'s definition, for Quest's runtime
-   * `clone <src; newname[; room]>` (ExecClone, V4Game.cs:4352-4400).  Quest
+   * `clone <src; newname[; room]>` (V4Game.cs:ExecClone).  Quest
    * copies the whole ObjectType record, definition and all; Question keeps
    * definitions in the immutable QuestionFile and only the mutable half of an
    * object in QuestionState, so the clone shares the source's block instead of
@@ -269,7 +262,7 @@ public:
    * property (name, value -- "!" for a negated one) and action (name, script)
    * the type carries, recursing through included types in declaration order,
    * plus the names of every type visited.  Mirrors GetPropertiesInType and
-   * ExecType's flattening (V4Game.cs:6257-6345, 4455-4476). */
+   * ExecType's flattening (V4Game.cs:GetPropertiesInType/ExecType). */
   void flatten_type (const std::string &typenamex,
 		     std::vector<std::pair<std::string, std::string>> &props,
 		     std::vector<std::pair<std::string, std::string>> &actions,

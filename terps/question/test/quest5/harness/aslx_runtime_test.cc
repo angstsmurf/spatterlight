@@ -431,7 +431,7 @@ static void test_new_builtins() {
     CHECK_STR(evals(in, "ObjectListItem(AllObjects(), 0)"), "room");
 }
 
-// Constructs the real-game boot smoke test hit (TODO §Status): multi-word
+// Constructs the real-game boot smoke test hit: multi-word
 // identifiers, in/not in, "=>" script assignment, headless media no-ops, and
 // graceful degradation on a parse error.
 static void test_realgame_constructs() {
@@ -1116,7 +1116,7 @@ static void test_command_driving() {
     CHECK_STR(Interp::to_string(in.eval("player.parent", boot)), "garden");
 }
 
-// The §3 input model, end to end through send_command: `get input` command
+// The input model, end to end through send_command: `get input` command
 // override, engine `show menu` (+ `on ready` deferral until the response),
 // `ask`, real pending `wait`, and Core's own ASLX disambiguation menu
 // (game.menucallback -> HandleMenuTextResponse), which needs no engine prompt
@@ -1316,7 +1316,7 @@ static void test_self_parent_guard() {
     }
 }
 
-// The 2026-07-16 golden-parity batch: timers, turn suspension, clone-on-set,
+// Golden parity: timers, turn suspension, clone-on-set,
 // v530 null-removal, per-expression RNG, create exit, Clone, expression
 // ShowMenu. Each mirrors a QuestViva behaviour verified against a golden.
 static void test_parity_batch() {
@@ -2114,8 +2114,8 @@ static void test_attribute_names_deep() {
 // HandleCommand. Legacy Quest 5.8.0 skipped it while ANY callback was
 // outstanding -- wait, get input, ask or show menu -- and ran it after the
 // callback (RunCallbackAndFinishTurn); Quest Viva #2177/#2182 restored that
-// order. The engine used to defer only across `wait`, which put Dream Pieces'
-// "type HELP" turnscript nag before its birthdate `get input` instead of after.
+// order. Dream Pieces shows it: its "type HELP" turnscript nag comes after its
+// birthdate `get input`, not before.
 static void test_finish_turn_deferred_across_prompts() {
     const char *xml =
         "<asl version=\"550\">"

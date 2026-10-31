@@ -29,13 +29,13 @@
 
 using namespace std;
 
-/* Synonym matching follows Quest (V4Game.Part2.cs:4143-4164): the typed command
- * is lowercased before this runs, and each synonym's left-hand word is searched
- * for verbatim -- case-sensitively, whitespace-flanked -- within it, in file
- * order, left to right, repeatedly.  So a capitalised synonym word in the game
- * file never fires, in Quest or here.
+/* Synonym matching follows Quest (V4Game.Part2.cs:ExecCommand): the typed
+ * command is lowercased before this runs, and each synonym's left-hand word is
+ * searched for verbatim -- case-sensitively, whitespace-flanked -- within it,
+ * in file order, left to right, repeatedly.  So a capitalised synonym word in
+ * the game file never fires, in Quest or here.
  *
- * The order is settled by SetUpSynonyms (V4Game.Part2.cs:1277-1313): one
+ * The order is settled by SetUpSynonyms (V4Game.Part2.cs:SetUpSynonyms): one
  * record per left-hand word, file line by file line, words left to right
  * within a line -- the same order the nested loops below walk.  One divergence
  * is deliberate: Quest refuses at load any synonym whose word appears whole
@@ -155,7 +155,8 @@ std::string question_implementation::get_banner ()
           for (const string &line: gb->data)
             {
               /* CI: Quest reads these with FindStatement ("game version" etc.),
-               * which matches with BeginsWith (V4Game.Part2.cs:3616-3619). */
+               * which matches with BeginsWith (V4Game.Part2.cs:ShowGameAbout).
+               * */
               if (ci_equal (first_token (line, c1, c2), "game") &&
                   ci_equal (next_token (line, c1, c2), "version") &&
                   is_param (tok = next_token (line, c1, c2)))
@@ -194,7 +195,7 @@ string input_to_utf8 (const string &s)
 }
 
 /* Quest's SendCommand starts the turn, waits for it to *suspend*, and only then
- * ticks the timers (V4Game.Part2.cs:78-88):
+ * ticks the timers (V4Game.Part2.cs:Tick):
  *
  *     _turnSuspendedTcs = new TaskCompletionSource();
  *     _ = HandleCommandAsync(command);
@@ -202,15 +203,15 @@ string input_to_utf8 (const string &s)
  *     if (elapsedTime > 0) await Tick(elapsedTime);
  *
  * A turn suspends when it finishes -- but also at its first `wait` or `pause`,
- * which is precisely what those do (DoWaitAsync/PauseAsync, V4Game.cs:3674-3680
- * and 6663-6669, both SignalTurnSuspended before awaiting the player).  So in a
- * turn that waits for a keypress the timers fire *at the wait*, and the rest of
- * the turn's script runs after them.  Only the first one counts: the turn's
- * TaskCompletionSource is created once per SendCommand and TrySetResult on an
- * already-completed one does nothing.
+ * which is precisely what those do (V4Game.cs:DoWaitAsync and
+ * PauseAsync, both SignalTurnSuspended before
+ * awaiting the player).  So in a turn that waits for a keypress the timers
+ * fire *at the wait*, and the rest of the turn's script runs after them.  Only
+ * the first one counts: the turn's TaskCompletionSource is created once per
+ * SendCommand and TrySetResult on an already-completed one does nothing.
  *
  * The quieter half of the same rule is that Tick skips a timer on the turn it
- * was armed (BypassThisTurn, ibid. 118-123, which tick_timers has too), so a
+ * was armed (BypassThisTurn, V4Game.Part2.cs:Tick, which tick_timers has too), so a
  * `timeron` *after* the turn's wait has already missed that turn's Tick and
  * spends its bypass on the next one instead -- the timer starts a whole turn
  * later than it would if the tick came at the end of the turn.  King's Quest V
@@ -295,11 +296,11 @@ void question_implementation::run_command_body (const string &s1)
 }
 
 /* One pass of Quest's ExecCommand: synonyms, the beforeturn hooks, the command
- * itself, the afterturn hooks (V4Game.Part2.cs:4127-4608).  The player's own
+ * itself, the afterturn hooks (V4Game.Part2.cs:ExecCommand).  The player's own
  * commands come through run_command_body, which adds the echo and the undo
  * snapshot around this; `exec' re-enters here instead, because `exec' is not a
  * dispatch shortcut -- ExecuteExec hands its parameter to the whole of
- * ExecCommand (ibid. 2229-2251), so an exec'd command gets its own beforeturn
+ * ExecCommand (ibid. ExecExec), so an exec'd command gets its own beforeturn
  * and its own afterturn, and a turn built out of exec really does run the
  * afterturn twice.  Magic Sword (217) needs that: its `command <use #obj# on
  * #char#> exec <use #obj# on #char#; normal>' doubles the afterturn on every
@@ -315,7 +316,7 @@ void question_implementation::run_turn (const string &input, bool is_internal,
 {
   /* Quest lowercases the input before storing it, so quest.originalcommand is
    * "original" only in that it precedes synonym substitution
-   * (V4Game.Part2.cs:4143-4145). */
+   * (V4Game.Part2.cs:ExecCommand). */
   set_svar ("quest.originalcommand", lcase (input));
   string s = substitute_synonyms (lcase (input));
   set_svar ("quest.command", s);
@@ -328,13 +329,14 @@ void question_implementation::run_turn (const string &input, bool is_internal,
 
   bool overridden = false;
   /* dontprocess is Quest's ctx.DontProcessCommand, a per-call flag
-   * (V4Game.Part2.cs:4219); an exec'd turn must not lose the outer turn's. */
+   * (V4Game.Part2.cs:ExecCommand); an exec'd turn must not lose the outer
+   * turn's. */
   const bool outer_dont_process = dont_process;
   dont_process = false;
 
   /* Quest reads the room index *once*, before the command is dispatched
-   * (V4Game.ExecCommand, V4Game.Part2.cs:4116), and uses that same index for
-   * both the beforeturn hook (4177-4188) and the afterturn hook (4567-4581).
+   * (V4Game.Part2.cs:ExecCommand), and uses that same index for
+   * both the beforeturn hook and the afterturn hook.
    * So the afterturn that runs at the end of a turn belongs to the room you
    * started the turn in -- a room you walk into does not get its afterturn
    * until the turn *after* you arrive.  "Blight of Elantria" is built on this:
@@ -476,9 +478,9 @@ match_rv question_implementation::match_command (const string &input, uint ichar
  * name an object by part of its name: "rose" matches "Red Rose", "tondy"
  * matches "Head General Tondy", "board" matches "Notice board". */
 /* need_right_boundary=false is Quest's abbreviation test, which is
- * `InStr(" " + thisName, " " + name)` (V4Game.cs:4759): the typed noun has to
- * start a word of the object's name, but it need not finish one.  So "old
- * jacket" reaches an object actually called `old jacket.', which is how
+ * `InStr(" " + thisName, " " + name)` (V4Game.cs:Disambiguate): the typed noun
+ * has to start a word of the object's name, but it need not finish one.  So
+ * "old jacket" reaches an object actually called `old jacket.', which is how
  * "Where's my cell phone" expects its jacket to be taken -- stdverbs.lib's
  * full-stop splitter hands the take the noun with the stop shaved off. */
 static bool word_match (const string &text, const string &target,
@@ -501,14 +503,15 @@ static bool word_match (const string &text, const string &target,
 }
 
 /* Quest compares a typed noun against each alt name case-insensitively
- * (Disambiguate lowercases both sides, V4Game.cs:4717-4731), so the comparison
- * here has to be case-insensitive too: `alt <Man>' on The Mansion's man in a
- * black suit is capitalised, and a case-sensitive test made EXAMINE MAN and
- * USE FIRE AX ON MAN miss him entirely.  That went unnoticed for as long as the
- * loose whole-word pass in get_obj_name ran for every game, because word_match
- * *is* case-insensitive and quietly picked the object up on the second pass;
- * once that pass was correctly gated on ASLVersion >= 391 and `abbreviations',
- * every pre-391 game with a capitalised alt lost its alt names. */
+ * (Disambiguate lowercases both sides, V4Game.cs:Disambiguate), so the
+ * comparison here has to be case-insensitive too: `alt <Man>' on The Mansion's
+ * man in a black suit is capitalised, and a case-sensitive test made EXAMINE
+ * MAN and USE FIRE AX ON MAN miss him entirely.  That went unnoticed for as
+ * long as the loose whole-word pass in get_obj_name ran for every game,
+ * because word_match *is* case-insensitive and quietly picked the object up on
+ * the second pass; once that pass was correctly gated on ASLVersion >= 391 and
+ * `abbreviations', every pre-391 game with a capitalised alt lost its alt
+ * names. */
 static bool match_object_alts (string text, const vector<string> &alts, bool is_internal)
 {
   for (const string &i: alts)
@@ -565,8 +568,8 @@ bool question_implementation::match_object (const string &text, const string &na
    * can refer to an object by part of its name ("rose" -> "Red Rose").  Only
    * used as a fallback (see get_obj_name) so exact matches win.  The alias
    * only, never the definition name: Quest's abbreviation pass reads
-   * ObjectAlias (V4Game.cs:4738-4760), which is *initialised* to the name and
-   * *replaced* by `alias' -- so an aliased object's definition name is not
+   * ObjectAlias (V4Game.cs:Disambiguate), which is *initialised* to the name
+   * and *replaced* by `alias' -- so an aliased object's definition name is not
    * typeable at all.  Blight of Elantria's island boat is `boat2' aliased
    * "boat", and USE OAR ON BOAT2 is "That doesn't work." in Quest.  Question
    * deliberately re-admits the declared name, but only through the
@@ -581,7 +584,7 @@ bool question_implementation::match_object (const string &text, const string &na
       for (const string &line: gb->data)
 	{
 	  string tok = first_token (line, c1, c2);
-	  /* CI: BeginsWith "alt " (V4Game.Part2.cs:3287). */
+	  /* CI: BeginsWith "alt " (V4Game.Part2.cs:SetUpCharObjectInfo). */
 	  if (ci_equal (tok, "alt"))
 	    {
 	      tok = next_token (line, c1, c2);
@@ -625,20 +628,20 @@ bool question_implementation::dereference_vars (vector<match_binding> &bindings,
 	string lc = lcase (trim (binding.var_text));
 	string obj_name;
 	/* Quest clears quest.lastobject on entry to Disambiguate and writes the
-	 * resolved name into it before returning (V4Game.cs:4623, 4646-4689),
+	 * resolved name into it before returning (V4Game.cs:Disambiguate),
 	 * so a fallback message printed after the object was found can name it.
 	 * stdverbs.lib is built entirely out of that: every one of its verb
 	 * responses is "You can't <verb> #(quest.lastobject):article#.". */
 	const_cast<question_implementation *> (this)->set_svar ("quest.lastobject", "");
 	/* Disambiguate's pronouns, and the three kinds it sorts them into
-	 * (V4Game.cs:4653-4695). */
+	 * (V4Game.cs:Disambiguate). */
 	bool is_pronoun = lc == "it" || lc == "them" || lc == "this" ||
 			  lc == "those" || lc == "these" || lc == "that" ||
 			  lc == "him" || lc == "her";
 	/* A DELIBERATE deviation: an object in scope that is itself called by
 	 * the pronoun wins over the pronoun.  Disambiguate tests for "it",
 	 * "them", "him" and "her" before it looks at a single object
-	 * (V4Game.cs:4655-4697), so in Quest such an object can never be
+	 * (V4Game.cs:Disambiguate), so in Quest such an object can never be
 	 * referred to at all -- Bob's Adventure names its beggar `him' and its
 	 * lady `Her', and every verb the author wrote for them answers "I don't
 	 * know what 'him' you are referring to."  The author plainly meant the
@@ -676,10 +679,10 @@ bool question_implementation::dereference_vars (vector<match_binding> &bindings,
 	    /* A pronoun stands for the last object only while that object is
 	     * still in scope and of the pronoun's kind -- "him" for an object
 	     * whose article is him, "her" likewise, everything else for the
-	     * rest (V4Game.cs:4773-4791).  Otherwise the answer is BadPronoun,
-	     * "I don't know what 'it' you are referring to.", and nothing
-	     * more: Disambiguate returns -2, which its callers take as "already
-	     * answered" (V4Game.cs:4653-4695). */
+	     * rest (V4Game.cs:Disambiguate).  Otherwise the answer is
+	     * BadPronoun, "I don't know what 'it' you are referring to.", and
+	     * nothing more: Disambiguate returns -2, which its callers take as
+	     * "already answered" (V4Game.cs:Disambiguate). */
 	    const_cast<question_implementation *> (this)
 	      ->set_svar ("quest.error.pronoun", lc);
 	    bool ok = last_object != "" &&
@@ -721,14 +724,15 @@ bool question_implementation::dereference_vars (vector<match_binding> &bindings,
 	else if (obj_name == "!")
 	  {
 	    /* Disambiguate's failure path stores the unresolved noun in
-	     * quest.error.object (V4Game.cs:4859-4860).  const_cast because
+	     * quest.error.object (V4Game.cs:Disambiguate).  const_cast because
 	     * this const path legitimately updates that error variable, like
 	     * the oops state below (both are mutable-by-design). */
 	    const_cast<question_implementation *> (this)
 	      ->set_svar ("quest.error.object", binding.var_text);
 	    /* The miss is an overridable player error, not a fixed sentence:
 	     * MatchCommand answers an unresolved #@object# with BadThing from
-	     * ASL 3.91 and BadItem below it (V4Game.Part2.cs:2490-2500). */
+	     * ASL 3.91 and BadItem below it
+	     * (V4Game.Part2.cs:GetCommandParameters). */
 	    if (!quiet_notfound)
 	      const_cast<question_implementation *> (this)
 		->display_error (asl_version_ >= 391 ? "badthing" : "baditem");
@@ -764,9 +768,9 @@ string question_implementation::get_obj_name (const string &typed, const vector<
   vector<string> objs, printed_objs;
   /* Disambiguate drops a leading "the " from the noun before it looks at any
    * object, and its exact pass then takes a name that is either the noun or
-   * "the " + the noun (V4Game.cs:4699-4720) -- so LOOK AT THE RAT finds `rat',
-   * and both THE BRIDGE and BRIDGE find an object aliased "The Bridge".  The
-   * abbreviation pass sees the stripped noun and nothing else. */
+   * "the " + the noun (V4Game.cs:Disambiguate) -- so LOOK AT THE RAT finds
+   * `rat', and both THE BRIDGE and BRIDGE find an object aliased "The Bridge".
+   * The abbreviation pass sees the stripped noun and nothing else. */
   string name = typed;
   if (lcase (name).compare (0, 4, "the ") == 0)
     name = name.substr (4);
@@ -775,8 +779,8 @@ string question_implementation::get_obj_name (const string &typed, const vector<
    * whole-word matches.  This keeps exact names unambiguous ("ice" matching an
    * alt "ice") while still letting "rose" find "Red Rose" when nothing else
    * matches.  Quest runs the same two passes and gates the second one on
-   * ASLVersion >= 391 and on "define options / abbreviations" (Disambiguate,
-   * V4Game.cs:4724-4767), so honour both: the loose pass is not merely a
+   * ASLVersion >= 391 and on "define options / abbreviations"
+   * (V4Game.cs:Disambiguate), so honour both: the loose pass is not merely a
    * nicety, it decides which of two like-named objects a puzzle sees, and
    * Permanant Room turns it off precisely so that "use pen on paper" reaches
    * the held `Peice of Paper' (aliased "paper") instead of stopping at the
@@ -817,18 +821,19 @@ string question_implementation::get_obj_name (const string &typed, const vector<
 	  bool is_used = false;
 	  for (auto &loc: where)
 	    {
-	      /* Quest scopes a typed noun on the object's room and its hidden flag
-	       * alone: DisambObjHere matches ContainerRoom against the room (and
-	       * the inventory) and tests Exists, which is what the hidden property
-	       * sets (V4Game.cs:4303-4350, 4165-4178).  Something parented inside a
-	       * container keeps the room it was defined in, so the container chain
-	       * only reaches scope through those hidden flags -- which the engine
-	       * re-derives on container events, not continuously (see
-	       * update_container_visibility).  Hence the room alone, rather than a
-	       * reachability test on the container: a game that reveals a parented
-	       * object with "show" and never opens the container (Darkness's
-	       * Hammer, Christmas Day's Knife) still leaves it referrable, as Quest
-	       * does. */
+	      /* Quest scopes a typed noun on the object's room and its hidden
+	       * flag alone: DisambObjHere matches ContainerRoom against the
+	       * room (and the inventory) and tests Exists, which is what the
+	       * hidden property sets
+	       * (V4Game.cs:DisambObjHere/AddToObjectProperties). Something
+	       * parented inside a container keeps the room it was defined in,
+	       * so the container chain only reaches scope through those hidden
+	       * flags -- which the engine re-derives on container events, not
+	       * continuously (see update_container_visibility). Hence the room
+	       * alone, rather than a reachability test on the container: a
+	       * game that reveals a parented object with "show" and never
+	       * opens the container (Darkness's Hammer, Christmas Day's Knife)
+	       * still leaves it referrable, as Quest does. */
 	      if (loc == "game" || ci_equal (state.objs[objnum].parent, loc))
 		is_used = true;
 	    }
@@ -842,13 +847,14 @@ string question_implementation::get_obj_name (const string &typed, const vector<
 	    {
 	      string printed_name, tmp, oname = state.objs[objnum].name;
 	      objs.push_back (oname);
-	      /* What the disambiguation menu calls this object: its `detail', or
-	       * failing that its alias with the `prefix' in front (V4Game.cs:
-	       * 4810-4820 -- ObjectType.Prefix is stored with the trailing space
-	       * already on it, Part2:3273).  A prefix is only ever an article, so
-	       * it is what tells two same-named objects apart in the list:
-	       * "a bed" / "bed" / "a rickety bed" for three beds carrying,
-	       * respectively, a prefix, nothing, and a detail. */
+	      /* What the disambiguation menu calls this object: its `detail',
+	       * or failing that its alias with the `prefix' in front
+	       * (V4Game.cs: Disambiguate -- ObjectType.Prefix is stored with
+	       * the trailing space already on it,
+	       * V4Game.Part2.cs:SetUpCharObjectInfo).  A prefix is only ever
+	       * an article, so it is what tells two same-named objects apart
+	       * in the list: "a bed" / "bed" / "a rickety bed" for three beds
+	       * carrying, respectively, a prefix, nothing, and a detail. */
 	      if (!get_obj_property (oname, "alias", printed_name))
 		printed_name = oname;
 	      if (get_obj_property (oname, "prefix", tmp) && tmp != "")
@@ -875,10 +881,11 @@ string question_implementation::get_obj_name (const string &typed, const vector<
       uint num = 0;
       /* Quest's wording, which it prints into the main text as
        * "- |iPlease select which bed you mean:|xi" ahead of the menu and
-       * echoes the chosen option back under as "- a bed" (V4Game.cs:4802-4803,
-       * 4854).  The marker and the italics are that window's presentation of
-       * a menu; here the caption is handed to the host, which lays the menu
-       * out its own way (see QuestionGlkInterface::make_choice). */
+       * echoes the chosen option back under as "- a bed"
+       * (V4Game.cs:Disambiguate).  The marker and the italics are that
+       * window's presentation of a menu; here the caption is handed to the
+       * host, which lays the menu out its own way (see
+       * QuestionGlkInterface::make_choice). */
       num = gi->choose_object ("Please select which " + name + " you mean:",
 			       printed_objs);
 
@@ -911,12 +918,12 @@ bool question_implementation::run_commands (string cmd, const QuestionBlock *roo
     }
 
   /* Commands and their split patterns are pre-parsed once (see QuestionBlock /
-   * ensure_cached); we no longer re-tokenize every line of the block each turn.
+   * ensure_cached), so a turn does not re-tokenize every line of the block.
    * Order within a pass is file order.
    *
    * The two passes are Quest's: ExecCommand tries the game's own commands, then
    * its verbs, then the commands a library contributed, then the library's
-   * verbs (V4Game.Part2.cs:4224-4241).  stdverbs.lib is why that matters --
+   * verbs (V4Game.Part2.cs:ExecCommand).  stdverbs.lib is why that matters --
    * its `command <#stdverbs.command#.>` matches literally anything ending in a
    * full stop, so on one pass it would eat commands the game means to handle
    * itself. */
@@ -929,9 +936,10 @@ bool question_implementation::run_commands (string cmd, const QuestionBlock *roo
 	  /* A command whose pattern fits has claimed the input even when its
 	   * #@object# names nothing: ExecUserCommand sets foundCommand on the
 	   * pattern alone and returns it whether or not GetCommandParameters
-	   * succeeds (V4Game.Part2.cs:2405-2413).  Returning false here let the
-	   * input fall through to the built-in verbs, so Hungry Goblin's
-	   * `command <eat #@food#>` answered EAT XYZZY with the error twice. */
+	   * succeeds (V4Game.Part2.cs:GetCommandParameters).  Returning false
+	   * here let the input fall through to the built-in verbs, so Hungry
+	   * Goblin's `command <eat #@food#>` answered EAT XYZZY with the error
+	   * twice. */
 	  if (!dereference_vars (match.bindings, is_internal))
 	    return true;
 	  set_vars (match.bindings);
@@ -953,11 +961,11 @@ bool question_implementation::try_game_verb (const string &cmd, bool is_internal
    * These run before every built-in: ExecCommand tries user commands, then
    * ExecVerb, then library commands and library verbs, and only reaches its own
    * "speak to"/"use "/movement handling if none of them claimed the input
-   * (V4Game.Part2.cs:4205-4240).  So a game that declares "verb <Use>" takes over
-   * USE entirely -- which is how Operation Rising Star is won, its Card Reader
-   * carrying "action <Use> playerwin" for a card the player never has -- and a
-   * QDK-generated "verb <take>" is why games like Magic World give their takeable
-   * objects an explicit "action <take>". */
+   * (V4Game.Part2.cs:ExecCommand).  So a game that declares "verb <Use>" takes
+   * over USE entirely -- which is how Operation Rising Star is won, its Card
+   * Reader carrying "action <Use> playerwin" for a card the player never has
+   * -- and a QDK-generated "verb <take>" is why games like Magic World give
+   * their takeable objects an explicit "action <take>". */
   const QuestionBlock *game = gf.find_by_name ("game", "game");
   if (game != NULL)
     for (const string &line: game->data)
@@ -967,20 +975,20 @@ bool question_implementation::try_game_verb (const string &cmd, bool is_internal
 	    continue;
 	  if (v.is_lib != lib_pass)
 	    continue;
-	  /* ExecVerb reads the name list with GetParameter, so #string#, %numeric%
-	   * and $function$ references inside it are substituted before any matching
-	   * happens (V4Game.cs:2946).  That matters for a mistake QDK invites: an
-	   * author who types the *command* form into the verb box ends up with
-	   * "verb <drop #@object#>", and Quest turns that into the unmatchable name
-	   * "drop " -- there is no string variable "object", so the reference
-	   * collapses to nothing and leaves the trailing space that
-	   * BeginsWith (cmd, name + " ") can never satisfy.  The verb is dead and
-	   * DROP falls through to Quest's own handling.  Reading the name
-	   * unevaluated instead made Question match "drop #@object#" as a two-noun
-	   * pattern, so in "Pyramid Of Terror" DROP GINGERBREAD MAN answered
-	   * "Consider it dropped." and never ran the gingerbread man's own drop
-	   * script -- the script that unlocks the only way into the second half of
-	   * the game. */
+	  /* ExecVerb reads the name list with GetParameter, so #string#,
+	   * %numeric% and $function$ references inside it are substituted
+	   * before any matching happens (V4Game.cs:ExecVerb).  That matters
+	   * for a mistake QDK invites: an author who types the *command* form
+	   * into the verb box ends up with "verb <drop #@object#>", and Quest
+	   * turns that into the unmatchable name "drop " -- there is no string
+	   * variable "object", so the reference collapses to nothing and
+	   * leaves the trailing space that BeginsWith (cmd, name + " ") can
+	   * never satisfy.  The verb is dead and DROP falls through to Quest's
+	   * own handling.  Reading the name unevaluated instead made Question
+	   * match "drop #@object#" as a two-noun pattern, so in "Pyramid Of
+	   * Terror" DROP GINGERBREAD MAN answered "Consider it dropped." and
+	   * never ran the gingerbread man's own drop script -- the script that
+	   * unlocks the only way into the second half of the game. */
 	  vector<string> names;
 	  string key;
 	  split_verb_names (eval_param (v.names_tok), names, key);
@@ -1002,9 +1010,9 @@ bool question_implementation::try_game_verb (const string &cmd, bool is_internal
 		   * writes the same name into the object: `properties <Waste
 		   * the =He falls.>'.  Quest keeps the space on the verb and
 		   * loses it from the property name, so the two never meet and
-		   * the verb's default answers instead (ExecVerb,
-		   * V4Game.cs:2971, 3051-3058) -- Bob's Adventure's gangster.
-		   * Here the property is found and the author's text printed. */
+		   * the verb's default answers instead (V4Game.cs:ExecVerb) --
+		   * Bob's Adventure's gangster. Here the property is found and
+		   * the author's text printed. */
 		  else if (get_obj_property (obj, key, script))
 		    print_formatted (script);
 		  else if (v.deflt != "")
@@ -1026,7 +1034,7 @@ bool question_implementation::try_match (string cmd, bool is_internal, bool is_n
       /* is_internal rides along: Quest's AllowRealNamesInCommand lives in the
        * ctx that ExecCommand hands ExecUserCommand, so a `command' block hit
        * from an exec'd or implied turn resolves its `#@...#' blanks with real
-       * names allowed too (V4Game.Part2.cs:2228-2231, 4232-4242).  Things That
+       * names allowed too (V4Game.Part2.cs:ExecExec/ExecCommand).  Things That
        * Go Bump's `command <remove #@ob#>' is the witness: the implied removal
        * of TAKE DUSTY FUSE hands it "remove fuse3", and `fuse3' is a real name
        * its alias has replaced. */
@@ -1038,7 +1046,8 @@ bool question_implementation::try_match (string cmd, bool is_internal, bool is_n
       if (try_game_verb (cmd, is_internal))
 	return true;
       /* Then, and only then, whatever a library contributed: its commands, then
-       * its verbs.  Both lose to everything above (V4Game.Part2.cs:4224-4241). */
+       * its verbs.  Both lose to everything above
+       * (V4Game.Part2.cs:ExecCommand). */
       if (run_commands (cmd, gf.find_by_name ("game", "game"), is_internal, true))
 	return true;
       if (try_game_verb (cmd, is_internal, true))

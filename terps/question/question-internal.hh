@@ -69,8 +69,8 @@ extern const std::string short_dir_names[11];
  *
  * Shared by the two places that must agree about them: try_match, which
  * dispatches a typed command, and object_verbs, which lists the verbs an
- * object responds to.  They used to keep separate tables, so a verb added to
- * one was silently missing from the other. */
+ * object responds to.  With one table, a verb added for one is there for the
+ * other. */
 struct verb_def
 {
   const char *key;

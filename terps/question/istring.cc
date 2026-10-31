@@ -30,7 +30,7 @@ CI_EQUAL   ci_equal_obj;
 CI_LESS    ci_less_obj;
 CI_LESS_EQ ci_less_eq_obj;
 
-// Code for testing case insensitively by John Harrison 
+// Code for testing case insensitively by John Harrison
 
 bool c_equal_i(char ch1, char ch2)
 {
@@ -44,21 +44,9 @@ bool c_equal_i(char ch1, char ch2)
   return a == b;
 }
 
-/*
-bool ci_less_eq (char ch1, char ch2)
-{
-  return tolower((unsigned char)ch1) <= tolower((unsigned char)ch2);
-}
-
-bool ci_less (char ch1, char ch2)
-{
-  return tolower((unsigned char)ch1) < tolower((unsigned char)ch2);
-}
-*/
-
 size_t ci_find(const string& str1, const string& str2)
 {
-  string::const_iterator pos = search (str1.begin (), str1.end (), 
+  string::const_iterator pos = search (str1.begin (), str1.end (),
 				       str2.begin (), str2.end (), c_equal_i);
   if (pos == str1.end())
     return string::npos;
@@ -74,8 +62,8 @@ bool ci_equal(const string &str1, const string &str2) {
    * strcasecmp() routes through the locale-aware strcasecmp_l() which dominated
    * the profile.  A length check rejects the common mismatch with no scan, and
    * exact-equal characters need no folding; we only ASCII-fold on a mismatch.
-   * Question works in ASCII/Latin-1 and sets no locale, so this matches the old
-   * behaviour (C-locale strcasecmp folds only A-Z too). */
+   * Question works in ASCII/Latin-1 and sets no locale, so this is enough
+   * (C-locale strcasecmp folds only A-Z too). */
   size_t n = str1.size();
   if (n != str2.size())
     return false;
@@ -99,7 +87,7 @@ bool ci_less(const string &str1, const string &str2) {
   return strcasecmp (str1.c_str(), str2.c_str()) < 0;
 }
 bool ci_notequal(const string &str1, const string &str2) {
-  QUESTION_DBG << "ci_notequal ('" << str1 << "', '" << str2 << "') -> " 
+  QUESTION_DBG << "ci_notequal ('" << str1 << "', '" << str2 << "') -> "
 	    << ( strcasecmp (str1.c_str(), str2.c_str()) != 0) << "\n";
   return strcasecmp (str1.c_str(), str2.c_str()) != 0; }
 bool ci_gt_eq(const string &str1, const string &str2) {

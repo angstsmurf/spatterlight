@@ -266,7 +266,7 @@ public:
         return !deferred_on_ready_.empty() || !nested_on_ready_.empty();
     }
 
-    // -- input model (TODO §3) ------------------------------------------------
+    // -- input model -----------------------------------------------------------
     // Engine-level prompts are fire-and-forget (QuestViva): the script command
     // registers a callback and execution continues; the host later resolves it.
     // At the prompt, the host should check, in this order: pending_menu() ->
@@ -410,7 +410,7 @@ public:
     std::function<void(const std::string &name)> hide_output_section;
 
     // Host hook for script errors ("Error running script: ..."). WorldModel's
-    // RunScript catch boundary (WorldModel.cs:1094) Prints them, and the
+    // RunScript catch boundary (WorldModel.cs) Prints them, and the
     // headless transcripts / goldens contain them at that spot -- but the
     // reference WEB player does not put them on the page: they surface only in
     // the browser's JavaScript console (verified against The Zen Garden's
@@ -465,7 +465,7 @@ public:
                (undo_logging_ && current_txn_ && !current_txn_->actions.empty());
     }
 
-    // -- save/restore (TODO §5) ------------------------------------------------
+    // -- save/restore ----------------------------------------------------------
     // v1 snapshot format (not Quest's ASLX re-serialization -- that is the
     // optional native-compat milestone): a restore RELOADS the original game
     // file into a fresh World/Interp and applies the snapshot, so only the
@@ -678,7 +678,7 @@ public:
     // missing.
     std::function<bool(const std::string &name, std::string &data)> resource_provider;
 
-    // -- timers (TimerRunner port, TODO §3) -----------------------------------
+    // -- timers (TimerRunner port) ---------------------------------------------
     // Quest timers are <timer> elements with `enabled`/`interval`/`trigger`/
     // `script` fields against a game.timeelapsed clock; the enable/disable/
     // SetTimeout layer is Core ASLX (CoreTimers.aslx). The engine only needs
