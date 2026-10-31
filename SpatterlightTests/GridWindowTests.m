@@ -31,6 +31,7 @@
 
 #include "glk.h"
 #include "protocol.h"
+#include <objc/runtime.h>
 
 // NEWWIN only creates the first unused id, so the only window is 0.
 static const int kGrid = 0;
@@ -44,6 +45,34 @@ static const unichar kNBSP = 0xa0;
 - (void)setUp {
     [super setUp];
     [self makeGameWithIfid:@"ZCODE-1-261019-0000" theme:self.theme];
+}
+
+- (void)tearDown {
+    [self setLiveResize:NO];
+    [super tearDown];
+}
+
+#pragma mark - Pretending a drag
+
+// inLiveResize is NSWindow's to set, while the user drags its edge. The tests
+// stand in for it, as the views ask NSView, and leave the real answer in
+// place for every view when they are not pretending.
+static BOOL gPretendLiveResize = NO;
+static IMP gRealInLiveResize = NULL;
+
+static BOOL pretendInLiveResize(NSView *self, SEL _cmd) {
+    if (gPretendLiveResize)
+        return YES;
+    return ((BOOL (*)(id, SEL))gRealInLiveResize)(self, _cmd);
+}
+
+- (void)setLiveResize:(BOOL)live {
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        Method method = class_getInstanceMethod([NSView class], @selector(inLiveResize));
+        gRealInLiveResize = method_setImplementation(method, (IMP)pretendInLiveResize);
+    });
+    gPretendLiveResize = live;
 }
 
 #pragma mark - A grid without an interpreter
@@ -85,6 +114,108 @@ static const unichar kNBSP = 0xa0;
     XCTAssertEqual(rows.count, expected.count);
     for (NSUInteger i = 0; i < MIN(rows.count, expected.count); i++)
         XCTAssertEqualObjects(rows[i], [self row:expected[i] width:width], @"row %lu", i);
+}
+
+#pragma mark - Live resize
+
+// A drag on the window's edge reaches the grid through autoresizing, with
+// inLiveResize set, and no arrange event reaches the interpreter before the
+// drag ends (GlkHelperView). The grid takes every frame of the drag, but
+// only cuts its rows once the drag is over: a drag that comes back would
+// want their ends again.
+
+- (void)testLiveNarrowingWaitsForTheEndOfTheDragButTheViewFollows {
+    GlkTextGridWindow *grid = [self gridWithColumns:10 rows:3];
+    [grid moveToColumn:0 row:0];
+    [grid putString:@"abcdefghij" style:style_Normal];
+    [self setLiveResize:YES];
+    NSRect narrow = [self frameForColumns:6 rows:3];
+    grid.frame = narrow;
+    XCTAssertTrue(NSEqualRects(grid.frame, narrow));
+    [self assertGrid:grid is:@[@"abcdefghij", @"", @""] width:10];
+
+    // What the interpreter prints during the drag goes on the grid it knows.
+    [grid moveToColumn:0 row:1];
+    [grid putString:@"0123456789" style:style_Normal];
+    [grid flushDisplay];
+    XCTAssertTrue(NSEqualRects(grid.frame, narrow));
+    [self assertGrid:grid is:@[@"abcdefghij", @"0123456789", @""] width:10];
+
+    [self setLiveResize:NO];
+    [grid viewDidEndLiveResize];
+    XCTAssertEqual(grid.currentSizeInChars.width, 6);
+    [self assertGrid:grid is:@[@"abcdef", @"012345", @""] width:6];
+}
+
+// Autoresizing moves a view by each step's change in its superview, from the
+// frame it has. A grid that kept its old frame while narrowing was deferred
+// drifted: the steps back out were added to the wide frame, and a drag that
+// returned to where it started left a grid a drag's width too wide, which no
+// arrange event put right since the window had not changed.
+- (void)testLiveNarrowingAndWideningBackLeavesTheGridAsItWas {
+    GlkTextGridWindow *grid = [self gridWithColumns:10 rows:3];
+    [grid moveToColumn:0 row:0];
+    [grid putString:@"abcdefghij" style:style_Normal];
+    NSRect wide = grid.frame;
+    NSRect narrow = [self frameForColumns:6 rows:3];
+    [self setLiveResize:YES];
+    grid.frame = narrow;
+    NSRect back = grid.frame;
+    back.size.width += NSWidth(wide) - NSWidth(narrow);
+    grid.frame = back;
+    [self setLiveResize:NO];
+    [grid viewDidEndLiveResize];
+    [grid flushDisplay];
+    XCTAssertTrue(NSEqualRects(grid.frame, wide), @"%@", NSStringFromRect(grid.frame));
+    XCTAssertEqual(grid.currentSizeInChars.width, 10);
+    [self assertGrid:grid is:@[@"abcdefghij", @"", @""] width:10];
+}
+
+- (void)testLiveWideningAppliesAtOnce {
+    GlkTextGridWindow *grid = [self gridWithColumns:10 rows:3];
+    [grid moveToColumn:0 row:0];
+    [grid putString:@"abcdefghij" style:style_Normal];
+    [self setLiveResize:YES];
+    NSRect wide = [self frameForColumns:12 rows:3];
+    grid.frame = wide;
+    XCTAssertTrue(NSEqualRects(grid.frame, wide));
+    XCTAssertEqual(grid.currentSizeInChars.width, 12);
+    [self assertGrid:grid is:@[@"abcdefghij", @"", @""] width:12];
+    [grid flushDisplay];
+    XCTAssertTrue(NSEqualRects(grid.textview.frame, grid.bounds));
+}
+
+- (void)testLiveWideningAndNarrowingBackIsSettledWhenTheDragEnds {
+    GlkTextGridWindow *grid = [self gridWithColumns:10 rows:3];
+    [grid moveToColumn:0 row:0];
+    [grid putString:@"abcdefghij" style:style_Normal];
+    NSRect original = grid.frame;
+    [self setLiveResize:YES];
+    grid.frame = [self frameForColumns:12 rows:3];
+    grid.frame = original;
+    XCTAssertTrue(NSEqualRects(grid.frame, original));
+    XCTAssertEqual(grid.currentSizeInChars.width, 12);
+    [self setLiveResize:NO];
+    [grid viewDidEndLiveResize];
+    [grid flushDisplay];
+    XCTAssertTrue(NSEqualRects(grid.frame, original));
+    XCTAssertEqual(grid.currentSizeInChars.width, 10);
+    [self assertGrid:grid is:@[@"abcdefghij", @"", @""] width:10];
+}
+
+// The full-row cursor through a drag: a cursor resting past the right edge
+// of a row that is still full after the drag wraps as before, and one on a
+// row the drag made longer goes on along it.
+- (void)testCursorOnAFullRowThroughALiveNarrowing {
+    GlkTextGridWindow *grid = [self gridWithColumns:10 rows:3];
+    [grid moveToColumn:0 row:0];
+    [grid putString:@"abcdefghij" style:style_Normal];
+    [self setLiveResize:YES];
+    grid.frame = [self frameForColumns:6 rows:3];
+    [self setLiveResize:NO];
+    [grid viewDidEndLiveResize];
+    [grid putString:@"X" style:style_Normal];
+    [self assertGrid:grid is:@[@"abcdef", @"X", @""] width:6];
 }
 
 #pragma mark - Layout

@@ -344,6 +344,19 @@ static const CGFloat kUnlimitedTextSize = 10000000;
 #pragma mark Printing, moving, resizing
 
 - (void)setFrame:(NSRect)frame {
+    [self layOutForFrame:frame liveResize:self.inLiveResize];
+}
+
+// The end of a drag lays the grid out for the frame it has, which
+// layOutForFrame: deferred while the drag lasted. An arrange event follows
+// from GlkHelperView, but not when the window ends the drag the size it
+// started it, so the grid cannot wait for the SIZWIN.
+- (void)viewDidEndLiveResize {
+    [super viewDidEndLiveResize];
+    [self layOutForFrame:self.frame liveResize:NO];
+}
+
+- (void)layOutForFrame:(NSRect)frame liveResize:(BOOL)live {
     GlkController *glkctl = self.glkctl;
 
     if (glkctl.ignoreResizes) {
@@ -423,11 +436,15 @@ static const CGFloat kUnlimitedTextSize = 10000000;
     if (_restoredSelection.length == 0)
         _restoredSelection = _textview.selectedRange;
 
-    if ((NSInteger)newcols > 0 && (NSInteger)newrows > 0) {
+    // Narrowing waits for the end of a drag: it cuts the ends of the rows,
+    // which a drag that comes back would want again. The view still takes
+    // the frame below, as autoresizing moves it by each step's change in the
+    // window: a view left at its old width drifted, and a drag that went back
+    // to where it started ended with a grid a drag's width too wide, which
+    // no arrange event put right since the window had not changed.
+    BOOL deferred = live && newcols < cols;
 
-        if (self.inLiveResize && newcols < cols) {
-            return;
-        }
+    if ((NSInteger)newcols > 0 && (NSInteger)newrows > 0 && !deferred) {
 
         [self rememberSelectionCell:_restoredSelection.location];
 
@@ -460,7 +477,7 @@ static const CGFloat kUnlimitedTextSize = 10000000;
 
     }
 
-    if (self.inLiveResize) {
+    if (live) {
         super.frame = frame;
         self.framePending = NO;
     }
