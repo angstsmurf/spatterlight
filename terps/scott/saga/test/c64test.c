@@ -73,6 +73,13 @@ void DrawPatternAndAdvancePos(int x, int *y, uint8_t pattern) {
 // DrawSprite, AddSprite and sprites[].
 #include "c64_small.c"
 
+// c64a8draw.c defines this, and can't be linked here: it shares a routine
+// with what c64_small.c is built from. Its values are VICE's colodore.vpl.
+const uint32_t c64colors[16] = {
+    0x000000, 0xffffff, 0x96282e, 0x5bd6ce, 0x9f2dad, 0x41b936, 0x2724c4, 0xeff347,
+    0x9f4815, 0x5e3500, 0xda5f66, 0x474747, 0x787878, 0x91ff84, 0x6864ff, 0xaeaeae,
+};
+
 // ---- loader stubs the unity-included c64_small.c references ------------------
 // Only DrawMiniC64ImageFromData / DrawSprite are called; the file's loader path
 // (handle_all_in_one) and higher-level DrawMiniC64 are compiled but never run.

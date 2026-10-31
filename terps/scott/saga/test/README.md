@@ -176,11 +176,15 @@ README with its capture recipe. Open work is in `TODO.md`.
       US Hulk on the Atari 8-bit and MS-DOS, drawn through
       `PutPixelWithWidth()` (`hulkus_atari8`, `hulkus_dos`). Three Savage
       pictures differ; see `TODO.md`.
+- The C64 colours are VICE's `colodore.vpl` in all three renderers:
+      `c64colors` in `common_sagadraw/c64a8draw.c` (also used by `c64_small.c`)
+      and `c64_rgb` in `aiukgraphics/aiukpalette.c`. `c64test` keeps a copy,
+      since it can't link `c64a8draw.c`.
 - **C64/A8 object-overlay golden — investigated, NOT 100%-reachable.**
       Spider-Man's west room (background R001 + objects B015 gem-pedestal +
       B016 orb-altar) composites to **99.80%** (`!cliptop 2`, dx=56 dy=33) and
       that is the ceiling — _not_ the orb. The 90 stuck px are all identical:
-      the renderer plots them blue (`#5f48e9`, R001 background slot 2 = palette
+      the renderer plots them blue (R001 background slot 2 = palette
       value 135) where VICE shows purple (`#aa40f5` → nearest renderer colour
       `#b159b9`). They are the ceiling perspective lines along the top edge, all
       from the R001 background (B015/B016 never touch them — verified), so it is

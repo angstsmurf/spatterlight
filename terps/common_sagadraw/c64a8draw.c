@@ -83,23 +83,24 @@ enum c64_color {
     C64_LGREY
 };
 
+// VICE's colodore.vpl
 const uint32_t c64colors[16] = {
     [C64_BLACK]  = 0x000000,
     [C64_WHITE]  = 0xffffff,
-    [C64_RED]    = 0xbf6148,
-    [C64_CYAN]   = 0x99e6f9,
-    [C64_PURPLE] = 0xb159b9,
-    [C64_GREEN]  = 0x79d570,
-    [C64_BLUE]   = 0x5f48e9,
-    [C64_YELLOW] = 0xf7ff6c,
-    [C64_ORANGE] = 0xba8620,
-    [C64_BROWN]  = 0x837000,
-    [C64_LRED]   = 0xe79a84,
-    [C64_DGREY]  = 0x454545,
-    [C64_GREY]   = 0xa7a7a7,
-    [C64_LGREEN] = 0xc0ffb9,
-    [C64_LBLUE]  = 0xa28fff,
-    [C64_LGREY]  = 0xc8c8c8,
+    [C64_RED]    = 0x96282e,
+    [C64_CYAN]   = 0x5bd6ce,
+    [C64_PURPLE] = 0x9f2dad,
+    [C64_GREEN]  = 0x41b936,
+    [C64_BLUE]   = 0x2724c4,
+    [C64_YELLOW] = 0xeff347,
+    [C64_ORANGE] = 0x9f4815,
+    [C64_BROWN]  = 0x5e3500,
+    [C64_LRED]   = 0xda5f66,
+    [C64_DGREY]  = 0x474747,
+    [C64_GREY]   = 0x787878,
+    [C64_LGREEN] = 0x91ff84,
+    [C64_LBLUE]  = 0x6864ff,
+    [C64_LGREY]  = 0xaeaeae,
 };
 
 // The colour values in the image files are Atari 8-bit colours: hue in the

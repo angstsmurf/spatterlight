@@ -88,8 +88,7 @@
 //          all-in-one games (Pirate Adventure, Voodoo Castle) and for the
 //          US bitmap games (Hulk, Claymorgue)
 // All are decoded to colour indices and looked up in the interpreter's own
-// palette (pal[]; for a .vic, the C64 palette the game draws with: colorC64[]
-// of c64_small.c, or c64colors[] of c64a8draw.c for a US game), so a wrong
+// palette (pal[]; for a .vic, c64colors[] of c64a8draw.c), so a wrong
 // palette or remap fails the test just like a wrong pixel.
 
 #include <ctype.h>
@@ -236,7 +235,7 @@ static int load_truth(const char *path)
     if (ext && strcmp(ext, ".vic") == 0 && size == TRUTH_W * TRUTH_H) {
         truth_w = TRUTH_W;
         truth_h = TRUTH_H;
-        truth_pal = USImages && USImages->systype == SYS_C64_TINY ? colorC64 : c64colors;
+        truth_pal = c64colors;
         for (int y = 0; y < TRUTH_H; y++)
             for (int x = 0; x < TRUTH_W; x++)
                 truth[y][x] = buf[y * TRUTH_W + x] & 15;

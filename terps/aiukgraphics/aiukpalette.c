@@ -55,27 +55,27 @@ static const glui32 zxopt_rgb[16] = {
     0x000000, 0x0000ff, 0xff0014, 0xff00ff, 0x00ff00, 0x00ffff, 0xffff00, 0xffffff,
 };
 
-/* Commodore 64 palette based on pepto's analysis (used by the
-   VICE emulator), in the C64's native colour order. That order has
-   nothing in common with the Spectrum's, so Remap() translates
+/* Commodore 64 palette, VICE's colodore.vpl, the same as c64colors[] in
+   common_sagadraw/c64a8draw.c, in the C64's native colour order. That order
+   has nothing in common with the Spectrum's, so Remap() translates
    Spectrum colour indices into C64 palette entries. */
 static const glui32 c64_rgb[16] = {
     0x000000, /* black */
     0xffffff, /* white */
-    0xbf6148, /* red */
-    0x99e6f9, /* cyan */
-    0xb159b9, /* purple */
-    0x79d570, /* green */
-    0x5f48e9, /* blue */
-    0xf7ff6c, /* yellow */
-    0xba8620, /* orange */
-    0x746900, /* brown */
-    0xe79a84, /* light red */
-    0x454545, /* dark grey */
-    0xa7a7a7, /* grey */
-    0xc0ffb9, /* light green */
-    0xa28fff, /* light blue */
-    0xc8c8c8, /* light grey */
+    0x96282e, /* red */
+    0x5bd6ce, /* cyan */
+    0x9f2dad, /* purple */
+    0x41b936, /* green */
+    0x2724c4, /* blue */
+    0xeff347, /* yellow */
+    0x9f4815, /* orange */
+    0x5e3500, /* brown */
+    0xda5f66, /* light red */
+    0x474747, /* dark grey */
+    0x787878, /* grey */
+    0x91ff84, /* light green */
+    0x6864ff, /* light blue */
+    0xaeaeae, /* light grey */
 };
 
 /* Populate the 16-entry pal[] array with RGB values for the chosen

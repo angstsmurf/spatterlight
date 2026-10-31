@@ -399,25 +399,6 @@ GameIDType handle_all_in_one(uint8_t **sf, size_t *extent, c64rec c64_registry)
 }
 
 /* Standard Commodore 64 color palette (16 colors, RGB) */
-glui32 colorC64[16] = {
-    0x000000, // black
-    0xffffff, // white
-    0xbf6148, // red
-    0x99e6f9, // cyan
-    0xb159b9, // purple
-    0x62D375, // green
-    0x5f48e9, // blue
-    0xf7ff6c, // yellow
-    0xba8620, // orange
-    0x877219, // brown
-    0xe79a84, // light red
-    0x7B7B7B, // light grey
-    0xa7a7a7, // grey
-    0xc0ffb9, // light green
-    0xa28fff, // light blue
-    0x454545, // dark grey
-};
-
 /* Decode and draw an RLE-compressed multicolor bitmap.
    Returns a pointer past the consumed data, or NULL on error.
 
@@ -474,7 +455,7 @@ static uint8_t *DrawMiniC64ImageFromData(uint8_t *ptr, size_t datasize, int cent
             fprintf(stderr, "Error Illegal color!\n");
             return NULL;
         } else if (color != 0) {
-            SetColor(i, colorC64[color]);
+            SetColor(i, c64colors[color]);
         }
     }
 

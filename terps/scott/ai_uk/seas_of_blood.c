@@ -358,7 +358,7 @@ static void setup_battle_screen(int boatflag)
     }
 
     if (palchosen >= C64A)
-        dice_colour = 0x5f48e9;
+        dice_colour = 0x2724c4;
     else
         dice_colour = 0xff0000;
 
