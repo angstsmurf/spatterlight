@@ -12,6 +12,8 @@ interpreter ships, and pictures that look like the originals'. See
 - [x] C64 "tiny" / mini-C64 (`saga/c64_small.c`) — `make c64test`
       - keystone `build/extract_images_c64` (real unp64 + c64decrunch) unblocks
         packed C64 games; composite room rendering via `.spec`; Pirate room 0 100%
+      - every picture of both games as scene tests (`.vic` goldens), see
+        `groundtruth_scene/README.md`
 - [x] **C64/Atari-8 full bitmap** (`common_sagadraw/c64a8draw.c`,
       `DrawC64A8ImageFromData`) — `make c64a8test`
       - Blobs: `build/c64extract` reads the loose `R###`/`B###`/`S###` files off
@@ -307,8 +309,13 @@ is written in **true C64 RGB** and the compare is exact RGB-equality (drop the
 - Related: `saga-c64-groundtruth` work in the project memory notes
 
 ## Possible follow-ups
-- [ ] More C64-tiny goldens (Voodoo Castle; other Pirate rooms — object-free
-      rooms need no `.spec` overlays).
+- [x] More C64-tiny goldens — done as scene tests instead of `.spec`s:
+      `groundtruth_scene/pirate_c64`, `voodoo_c64` (walked) and
+      `pirate_pictures_c64`, `voodoo_pictures_c64` (every picture, written by
+      `aio_scenes.py`), `.vic` goldens captured by `c64_capture.py`. The
+      full set found one renderer bug: room pictures are centred by the
+      original (`left = (40 - width) / 2`), which `c64_small.c` now does
+      in place of its "left < 10 → column 11" guess.
 - [x] **C64/A8 object-overlay golden — investigated, NOT 100%-reachable.**
       Spider-Man's west room (background R001 + objects B015 gem-pedestal +
       B016 orb-altar) composites to **99.80%** (`!cliptop 2`, dx=56 dy=33) and

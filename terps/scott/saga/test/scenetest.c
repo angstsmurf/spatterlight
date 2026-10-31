@@ -17,8 +17,10 @@
 // scene_* functions defined here. Streams, files and unicode still come from
 // cheapglk.
 //
-//   scenetest [-v] [-c] [-d dumpdir] <file.scene>
+//   scenetest [-v|-vv] [-c] [-d dumpdir] <file.scene>
 //     -v  print the game's text output (a transcript) to stdout
+//     -vv the room descriptions too (as a transcript has them), for writing a
+//         scene
 //     -c  print at every check how many rectangles were filled since the one
 //         before: the cost of drawing the picture
 //     -d  write every checked frame to <dumpdir>/<golden>.png
@@ -72,8 +74,12 @@
 //   .scr   ZX Spectrum SCREEN$: 6912 bytes of display file from $4000
 //   .c64   Commodore 64 hires bitmap: 8000 bytes of bitmap + 1000 bytes of
 //          screen RAM (colour nibbles)
-// Both are decoded to colour indices and looked up in the interpreter's own
-// pal[], so a wrong palette or remap fails the test just like a wrong pixel.
+//   .vic   Commodore 64 rendered frame: 320x200 bytes of VIC-II colour
+//          numbers, for the multicolour pictures with sprites of the
+//          all-in-one games (Pirate Adventure, Voodoo Castle)
+// All are decoded to colour indices and looked up in the interpreter's own
+// palette (pal[], or colorC64[] for a .vic), so a wrong palette or remap fails
+// the test just like a wrong pixel.
 
 #include <ctype.h>
 #include <stdint.h>
@@ -92,6 +98,7 @@ extern void glk_main(void);
 
 #include "aiukpalette.h"
 #include "scott.h"
+#include "c64_small.h"
 #include "fake_glk_window.h"
 #include "test_util.h"
 
@@ -192,13 +199,14 @@ void scene_exit(void)
 #define TRUTH_W 320
 #define TRUTH_H 200
 
-/* Colour indices (into the interpreter's pal[]) of the hardware picture. */
+/* Colour indices (into truth_pal) of the hardware picture. */
 static uint8_t truth[TRUTH_H][TRUTH_W];
 static int truth_w, truth_h;
+static const glui32 *truth_pal;
 
 static int load_truth(const char *path)
 {
-    static uint8_t buf[9001];
+    static uint8_t buf[TRUTH_W * TRUTH_H + 1];
     FILE *f = fopen(path, "rb");
     if (!f) {
         perror(path);
@@ -207,7 +215,17 @@ static int load_truth(const char *path)
     size_t size = fread(buf, 1, sizeof buf, f);
     fclose(f);
 
+    truth_pal = pal;
     const char *ext = strrchr(path, '.');
+    if (ext && strcmp(ext, ".vic") == 0 && size == TRUTH_W * TRUTH_H) {
+        truth_w = TRUTH_W;
+        truth_h = TRUTH_H;
+        truth_pal = colorC64;
+        for (int y = 0; y < TRUTH_H; y++)
+            for (int x = 0; x < TRUTH_W; x++)
+                truth[y][x] = buf[y * TRUTH_W + x] & 15;
+        return 1;
+    }
     if (ext && strcmp(ext, ".scr") == 0 && size == 6912) {
         truth_w = 256;
         truth_h = 192;
@@ -228,7 +246,7 @@ static int load_truth(const char *path)
             }
         return 1;
     }
-    fprintf(stderr, "%s: not a .scr (6912 bytes) or .c64 (9000 bytes) golden\n", path);
+    fprintf(stderr, "%s: not a .scr (6912 bytes), .c64 (9000 bytes) or .vic (64000 bytes) golden\n", path);
     return 0;
 }
 
@@ -295,7 +313,7 @@ static void check(char *args)
             if (canvas[y][x] == UNSET || tx < 0 || ty < 0 || tx >= truth_w || ty >= truth_h)
                 continue;
             total++;
-            if (canvas[y][x] == pal[truth[ty][tx]])
+            if (canvas[y][x] == truth_pal[truth[ty][tx]])
                 match++;
             else if (firstx < 0) {
                 firstx = x;
@@ -311,7 +329,7 @@ static void check(char *args)
             fprintf(stderr, "  expected at least %ld matching pixels\n", min);
         if (firstx >= 0)
             fprintf(stderr, "  first diff at (%d,%d): got #%06x, hardware #%06x\n", firstx, firsty,
-                canvas[firsty][firstx], pal[truth[firsty + dy][firstx + dx]]);
+                canvas[firsty][firstx], truth_pal[truth[firsty + dy][firstx + dx]]);
     }
 }
 
@@ -410,6 +428,8 @@ int main(int argc, char **argv)
     for (; arg < argc && argv[arg][0] == '-'; arg++) {
         if (strcmp(argv[arg], "-v") == 0)
             verbose = 1;
+        else if (strcmp(argv[arg], "-vv") == 0)
+            verbose = 2;
         else if (strcmp(argv[arg], "-c") == 0)
             count_rects = 1;
         else if (strcmp(argv[arg], "-d") == 0 && arg + 1 < argc)
@@ -418,7 +438,7 @@ int main(int argc, char **argv)
             break;
     }
     if (arg != argc - 1) {
-        fprintf(stderr, "usage: %s [-v] [-c] [-d dumpdir] <file.scene>\n", argv[0]);
+        fprintf(stderr, "usage: %s [-v|-vv] [-c] [-d dumpdir] <file.scene>\n", argv[0]);
         return 2;
     }
     scene_path = argv[arg];
@@ -446,6 +466,8 @@ int main(int argc, char **argv)
     fakeglk_null_stream = glk_stream_open_memory(NULL, 0, filemode_Write, 0);
     fakeglk_text_stream = verbose ? glk_window_get_stream(glk_window_open(0, 0, 0, wintype_TextBuffer, 0))
                                   : fakeglk_null_stream;
+    if (verbose > 1)
+        Transcript = fakeglk_text_stream; /* the game copies the room descriptions here */
 
     char *game_argv[] = { argv[0], game_path, NULL };
     glkunix_startup_t startdata = { 2, game_argv };

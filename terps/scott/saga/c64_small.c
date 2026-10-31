@@ -434,32 +434,34 @@ glui32 colorC64[16] = {
      count <  0: one pair follows, repeated (count & 0x7f)+1 times
 
    Pixels are drawn in 8-pixel-wide columns, top to bottom. When the
-   bottom edge is reached, drawing advances to the next column. */
-static uint8_t *DrawMiniC64ImageFromData(uint8_t *ptr, size_t datasize)
+   bottom edge is reached, drawing advances to the next column.
+
+   A room picture is centred: the original rewrites its left and right
+   columns as left = (40 - (right - left)) / 2 and right = left + (right -
+   left) before it draws (Voodoo Castle's hidden voodoo room, 2..18, is
+   drawn at 12..28). An object picture is drawn where its header says. */
+static uint8_t *DrawMiniC64ImageFromData(uint8_t *ptr, size_t datasize, int centre)
 {
     if (datasize < 8)
         return NULL;
 
     uint8_t *endptr = ptr + datasize - 1;
 
-    /* Parse the bounding rectangle (in character-cell coordinates).
-       Images with left < 10 are shifted right so all images align to
-       column 11, with the right edge extended to match. */
-    int shifted = 0;
+    /* Parse the bounding rectangle (in character-cell coordinates). */
     int left = *ptr++;
-    if (left < 10) {
-        shifted = 11 - left;
-        left = 11;
+    int top = *ptr++;
+    int right = *ptr++;
+    int bottom = *ptr++;
+
+    if (centre) {
+        int width = right - left;
+        left = (40 - width) / 2;
+        right = left + width;
     }
     left *= 8;
+    right *= 8;
     int xpos = left;
-
-    int top = *ptr++;
     int ypos = top;
-
-    int right = (*ptr++ + shifted) * 8;
-
-    int bottom = *ptr++;
 
     /* Read and apply the 4-entry palette (multicolor mode: 2 bits per pixel.) */
     /* Overlay images have all colors set to 0. For these, don't apply the palette –
@@ -546,7 +548,7 @@ int DrawMiniC64(USImage *img) {
             }
         }
     }
-    uint8_t *result  = DrawMiniC64ImageFromData(img->imagedata, img->datasize);
+    uint8_t *result  = DrawMiniC64ImageFromData(img->imagedata, img->datasize, img->usage == IMG_ROOM);
     if (result == NULL)
         return 0;
 

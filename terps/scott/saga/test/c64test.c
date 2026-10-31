@@ -117,12 +117,12 @@ static void render_object(int objindex, uint8_t *blob, size_t sz) {
             return;
         }
     }
-    DrawMiniC64ImageFromData(blob, sz);
+    DrawMiniC64ImageFromData(blob, sz, 0);
 }
 
 static void draw_spec_image(int isobj, int objindex, uint8_t *blob, size_t sz) {
     if (isobj) render_object(objindex, blob, sz);
-    else       DrawMiniC64ImageFromData(blob, sz);
+    else       DrawMiniC64ImageFromData(blob, sz, 1); // a room picture: centred
 }
 
 // Parse a render spec and composite it into `grid`. Returns 0 on success.

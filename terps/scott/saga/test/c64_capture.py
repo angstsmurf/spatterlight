@@ -4,7 +4,10 @@
 # plays the same .scene script the interpreter is tested with, feeding each
 # command to the emulated keyboard, and at every `!check <name>.c64` line saves
 # the screen next to the scene as <name>.c64 (8000 bytes of hires bitmap + 1000
-# bytes of screen RAM, the layout scenetest reads).
+# bytes of screen RAM, the layout scenetest reads). A `!check <name>.vic` saves
+# the rendered frame as it is instead, 320x200 bytes of VIC-II colour numbers:
+# for the multicolour pictures with sprites of Pirate Adventure and Voodoo
+# Castle, which no hires bitmap can hold.
 #
 #   c64_capture.py groundtruth_scene/gremlins_c64/gremlins.scene
 #
@@ -141,6 +144,12 @@ def encode(rows):
 def save(vice, path):
     """The games scroll the picture up or down a line or two to hide their
     screen split. Find the shift that puts it back on the cell grid."""
+    if path.endswith('.vic'):
+        with open(path, 'wb') as f:
+            for row in vice.screen():
+                f.write(bytes(c & 15 for c in row))
+        print('c64_capture: wrote %s' % path)
+        return
     best = None
     for shift in (0, -1, 1, -2, 2, -3, 3, 4):
         data, bad = encode(vice.screen(shift))
@@ -205,7 +214,7 @@ def main():
             game = rest
         elif word == '!check':
             name = rest.split()[0]
-            if name.endswith('.c64') and name not in dumped:
+            if name.endswith(('.c64', '.vic')) and name not in dumped:
                 steps.append(('check', name))
         elif word == '!dump':
             dumped.add(rest)

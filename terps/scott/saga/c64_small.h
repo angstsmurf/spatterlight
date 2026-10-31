@@ -9,8 +9,12 @@
 #define c64_small_h
 
 #include "c64decrunch.h"
+#include "sagagraphics.h"
 
 GameIDType handle_all_in_one(uint8_t **database, size_t *datasize, c64rec c64_registry);
 int DrawMiniC64(USImage *img);
+
+/* The C64 palette the pictures are drawn in */
+extern glui32 colorC64[16];
 
 #endif /* c64_small_graphics_h */
