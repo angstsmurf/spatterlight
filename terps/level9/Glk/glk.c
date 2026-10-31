@@ -22,7 +22,7 @@
  * Glk interface for Level 9
  * -------------------------
  *
- * This module contains the the Glk porting layer for the Level 9
+ * This module contains the Glk porting layer for the Level 9
  * interpreter.  It defines the Glk arguments list structure, the
  * entry points for the Glk library framework to use, and all
  * platform-abstracted I/O to link to Glk's I/O.
@@ -30,9 +30,12 @@
  * The following items are omitted from this Glk port:
  *
  *  o Glk tries to assert control over _all_ file I/O.  It's just too
- *    disruptive to add it to existing code, so for now, the Level 9
- *    interpreter is still dependent on stdio and the like.
+ *    disruptive to add it to existing code, so the Level 9 interpreter
+ *    keeps using stdio and the like.
  *
+ * Spatterlight adds to the original port: picture files extracted from .dsk
+ * images into a temporary directory, the hold that keeps a picture on screen,
+ * and fixed random seeds when determinism is on.
  */
 
 #include <assert.h>
@@ -71,7 +74,7 @@ static int gli_slowdraw = 0;
 # define TRUE (!FALSE)
 #endif
 
-/* File path delimiter, used to be #defined in v2 interpreter. */
+/* File path delimiter. */
 #if defined(_Windows) || defined(__MSDOS__) \
     || defined (_WIN32) || defined (__WIN32__)
 static const char GLN_FILE_DELIM = '\\';
@@ -434,13 +437,8 @@ static const char *gln_gameid_game_name = NULL;
 
 
 /*
- * The following game database is obtained from L9cut's l9data_d.h, and
- * lets us find a game's name from its data CRC.  Entries marked "WANTED" in
- * l9data_d.h, and file commentary, have been removed for brevity, and the
- * file has been reformatted (patchlevel data removed).
- *
- * The version of l9data_d.h used is 050 (22 Oct 2002).
- * A number of MSX entries have been added on top of that.
+ * Game database, to find a game's name from its data CRC: from L9cut's
+ * l9data_d.h version 050 (22 Oct 2002), with added MSX entries.
  */
 typedef const struct
 {
@@ -898,12 +896,9 @@ static gln_game_table_t GLN_GAME_TABLE[] = {
 
 
 /*
- * The following patch database is obtained from L9cut's l9data_p.h, and
- * allows CRCs from patched games to be translated into original CRCs for
- * lookup in the game database above.  Some file commentary has been removed
- * for brevity, and unused patch fields deleted.
- *
- * The version of l9data_p.h used is 012 (22 May 2001).
+ * Patch database, to translate the CRCs of patched games into original CRCs
+ * for the game database above: from L9cut's l9data_p.h version 012 (22 May
+ * 2001).
  */
 typedef const struct
 {
@@ -1654,8 +1649,9 @@ gln_graphics_interpreter_state = GLN_GRAPHICS_OFF;
 
 /*
  * Pointer to the two graphics buffers, one the off-screen representation
- * of pixels, and the other tracking on-screen data.  These are temporary
- * graphics malloc'ed memory, and should be free'd on exit.
+ * of pixels, and the other tracking on-screen data.  They are malloc'ed anew
+ * for each picture (the on-screen one also for each repaint) and freed by
+ * gln_graphics_cleanup().
  */
 static gln_byte *gln_graphics_off_screen = NULL,
                 *gln_graphics_on_screen = NULL;
@@ -3032,7 +3028,7 @@ gln_write_pic_file (const char *name8, L9BYTE *data, L9UINT32 len, void *vctx)
   outname[w] = '\0';
 
   snprintf (outpath, sizeof outpath, "%s%s", ctx->dir, outname);
-  f = fopen (outpath, "rb");           /* keep the first disk's copy on a clash */
+  f = fopen (outpath, "rb");           /* keep the first disk's copy */
   if (f)
     { fclose (f); return; }
   f = fopen (outpath, "wb");
@@ -3379,8 +3375,8 @@ os_show_bitmap (int picture, int x, int y)
  * Called on arrange/redraw events, which Glk delivers when the preference is
  * toggled.  Returns TRUE if it re-decoded the picture (so the caller can skip
  * the normal repaint), or FALSE when there is nothing to recolor — preference
- * unchanged, no current picture, or graphics not displayed — in which case the
- * caller's gln_graphics_paint() handles the event as usual.
+ * unchanged, no current picture, or graphics not displayed — in which case
+ * the caller's gln_graphics_paint() handles the event as usual.
  */
 static int
 gln_graphics_recolor (void)
@@ -3748,7 +3744,6 @@ gln_linegraphics_set_pixel (int x, int y, gln_byte color)
     todraw->x = x;
     todraw->y = y;
     todraw->colour = color;
-    //  fprintf(stderr, "gln_linegraphics_set_pixel: total_draw_instructions: %d\n", total_draw_instructions);
   }
 }
 
@@ -4798,7 +4793,8 @@ gln_status_redraw (void)
        * doesn't check for actual arrangement changes in any way before
        * invalidating its windows.  The hack should be harmless to Glk
        * libraries other than Xglk, moreover, we're careful to activate it
-       * only on resize and arrange events.
+       * only on resize and arrange events.  The port no longer opens a status
+       * window (see glk_main), so this does not run at present.
        */
       parent = glk_window_get_parent (gln_status_window);
       glk_window_set_arrangement (parent,
@@ -7433,7 +7429,8 @@ os_set_filenumber (char *newname, int size, int file_number)
       /* +3/CPC disk compilations (e.g. Time and Magik) pack their sub-games
        * as GAMEDAT_N + ACODE_N in a single image; the disk filename carries
        * no part digit to bump.  Select the Nth sub-game with a "#N" suffix
-       * that level9.c's load()/extract_dsk parse, replacing any existing one. */
+       * that level9.c's load()/extract_dsk parse, replacing any existing
+       * one. */
       char *write_at;
       int room;
       if (hash) *hash = '\0';
@@ -7928,24 +7925,25 @@ gln_main (void)
   if (gln_graphics_possible)
     gln_graphics_locate_bitmaps (gln_gamefile);
 
-  /* Try to create a one-line status window.  We can live without it. */
-/*
-  gln_status_window = glk_window_open (gln_main_window,
-                                       winmethod_Above | winmethod_Fixed,
-                                       1, wintype_TextGrid, 0);
-*/
+  /*
+   * No status window is opened: gln_status_window stays NULL, and
+   * gln_status_notify() prints the status line to the main window instead.
+   */
 
   /*
-   * The main interpreter uses rand(), but never seeds the random number
-   * generator.  This can lead to predictability in games that might be
-   * better with a little less, so here, we'll seed the random number
-   * generator ourselves.
+   * The main interpreter never seeds the generator behind erkyrath_random(),
+   * so seed it here: from the system when the game should be unpredictable,
+   * and with a fixed value when determinism is on.
    */
 #ifdef SPATTERLIGHT
   if (!gli_determinism)
       set_erkyrath_random (0);
   else {
-      /* When implementing predictable random number generation, I found that at least The Growing Pains of Adrian Mole breaks if a) the randomseed global never changes and b) it is set to certain values. So we generate a set array of 100  values here that are known to work */
+      /*
+       * At least The Growing Pains of Adrian Mole breaks if the randomseed
+       * global never changes or is set to certain values, so determinism
+       * steps through this array of values known to work.
+       */
       set_erkyrath_random (1234);
       L9UINT16 seed = 2;
       for (int i = 0; i < 99; i++) {

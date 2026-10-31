@@ -50,10 +50,14 @@
 #ifdef SPATTERLIGHT
 extern int gli_determinism;
 
+/* The seeds randomnumber() steps through when determinism is on (Glk/glk.c). */
 extern L9UINT16 random_array[];
 int random_counter = 0;
 #endif
 
+/* Debug options, all off. L9DEBUG prints each A-code driver call and scan
+ * failure, CODEFOLLOW logs every executed instruction to CODEFOLLOWFILE, and
+ * FULLSCAN runs FullScan() over the game file before the normal Scan(). */
 /* #define L9DEBUG */
 /* #define CODEFOLLOW */
 /* #define FULLSCAN */
@@ -920,8 +924,8 @@ static L9BOOL try_extract_tzx_blocks(uint8_t *raw_tzx, size_t raw_size)
 /* Tape/disk data-block table + split-join, used by the container loaders and
  * by the 128K-snapshot path below. */
 #define L9_MAXBLK 256
-static L9UINT32 cblk_start[L9_MAXBLK];	/* payload offset of each tape data block */
-static L9UINT32 cblk_len[L9_MAXBLK];	/* its length (for a-code size-word match) */
+static L9UINT32 cblk_start[L9_MAXBLK];	/* payload offset of each block */
+static L9UINT32 cblk_len[L9_MAXBLK];	/* its length, for size-word match */
 static int cblk_n;
 static L9BOOL try_join_split(int part_index);
 static L9BOOL try_carve_datafile(int part_index);
@@ -988,7 +992,8 @@ static void find_game_in_z80_image(void)
  * =================================================================== */
 
 /* TRUE if a Level 9 V3/V4 data image with a valid byte-sum-zero checksum AND a
- * stub acodeptr (near EOF) sits at p[off] — i.e. the split "small gamedata". */
+ * stub acodeptr (near EOF) sits at p[off] — i.e. the split "small gamedata".
+ */
 static L9BOOL l9_is_stub_image(L9BYTE *p, L9UINT32 off, L9UINT32 max)
 {
 	L9UINT16 w0, w2, w4, w6, w8, w10, acp;
@@ -1065,9 +1070,9 @@ static L9BYTE *l9_build_combined(L9BYTE *dimg, L9UINT32 dlen,
 
 /* Extract the data-block payloads of a .tzx or .tap tape into a flat buffer,
  * recording each payload's offset/length in cblk[] for a-code detection. The
- * generic tape walk lives in decompressz80/tapetzx.c (ExtractTapePayloads), shared with
- * the other Spectrum terps; this wrapper just adapts its block table into the
- * file-scope cblk[] used by try_join_split. */
+ * generic tape walk is ExtractTapePayloads in decompressz80/tapetzx.c, shared
+ * with the other Spectrum terps; this wrapper just adapts its block table into
+ * the file-scope cblk[] used by try_join_split. */
 static L9BYTE *extract_tape(L9BYTE *raw, L9UINT32 rawlen, int is_tzx, L9UINT32 *outlen)
 {
 	size_t boff[L9_MAXBLK], blen[L9_MAXBLK], olen = 0;
@@ -1090,8 +1095,8 @@ static L9BYTE *extract_tape(L9BYTE *raw, L9UINT32 rawlen, int is_tzx, L9UINT32 *
  * The A-code block is identified at a recorded tape-block boundary (so a stray
  * 2-byte value mid-block can't match): it must not itself be a data image, its
  * size word must be a plausible A-code length, and where the block length is
- * known a matching size-word is preferred. Among candidates the one nearest the
- * chosen data image wins (its own game part). */
+ * known a matching size-word is preferred. Among candidates the one nearest
+ * the chosen data image wins (its own game part). */
 static L9BOOL try_join_split(int part_index)
 {
 	L9BYTE *p = startfile;
@@ -1177,14 +1182,16 @@ static L9UINT32 pic_trail_length(L9BYTE *p, L9UINT32 base, L9UINT32 maxend)
 }
 
 /* Locate a run of vector graphics subroutines (findsubs-style: >10 chained
- * subroutines) nearest to `anchor`, skipping any run that overlaps the datafile
- * region [ex0, ex1).  Returns TRUE and sets *off to the run's first header.
+ * subroutines) nearest to `anchor`, skipping any run that overlaps the
+ * datafile region [ex0, ex1).  Returns TRUE and sets *off to the run's first
+ * header.
  *
  * The 128K tape editions (e.g. Jewels of Darkness Side B) page their picture
- * subroutines in from a separate tape block that is not adjacent to — and may
- * precede — the datafile, so the graphics are not part of the carved datafile
- * and pic_trail_length() finds nothing.  This scans the whole tape buffer for
- * the graphics belonging to the chosen part (the run closest to its datafile). */
+ * subroutines in from a separate tape block that is not adjacent to — and
+ * may precede — the datafile, so the graphics are not part of the carved
+ * datafile and pic_trail_length() finds nothing.  This scans the whole tape
+ * buffer for the graphics belonging to the chosen part (the run closest to its
+ * datafile). */
 static L9BOOL find_gfx_run(L9BYTE *p, L9UINT32 n, L9UINT32 anchor,
 			   L9UINT32 ex0, L9UINT32 ex1, L9UINT32 *off)
 {
@@ -1216,8 +1223,8 @@ static L9BOOL find_gfx_run(L9BYTE *p, L9UINT32 n, L9UINT32 anchor,
 /* Carve out the part_index'th complete (self-contained) Level 9 datafile from
  * the current startfile and replace startfile with that single game. Without
  * this step Scan() picks the LARGEST datafile in a tape compilation, which is
- * not necessarily part 1 — e.g. Lancelot ships three complete parts on Side A
- * and part 2's a-code is the biggest, so Scan() would otherwise load part 2.
+ * not necessarily part 1 — e.g. Lancelot ships three complete parts on Side
+ * A and part 2's a-code is the biggest, so Scan() would otherwise load part 2.
  *
  * Adrian Mole (Spectrum tape) appends its vector picture subroutines to the
  * tape block immediately after the a-code, outside the a-code's own size
@@ -1500,8 +1507,8 @@ static L9BYTE *extract_dsk(L9BYTE *raw, L9UINT32 rawlen, int part_index,
  * the number of files emitted, or -1 if raw is not a CPC/+3 disk image.
  *
  * This shares dsk_to_logical() and dsk_read_file() with extract_dsk(); the
- * graphics layer uses it to pull picture files (title.pic / 1.pic / allpics.pic)
- * out of a disk image when they are not present as loose files. */
+ * graphics layer uses it to pull picture files (title.pic / 1.pic /
+ * allpics.pic) out of a disk image when they are not present as loose files. */
 int DiskCatalogue(L9BYTE *raw, L9UINT32 rawlen, const char *ext3,
 		  void (*cb)(const char *name8, L9BYTE *data, L9UINT32 len, void *ctx),
 		  void *ctx)
@@ -3219,7 +3226,8 @@ void keepinputstate(void)
 
 /* A failed restore puts back the state from before the command, which the
    A-code may already have changed (Ingrid's Back zeroes thispart), and asks
-   for input again. The original restarts the A-code instead (INT.S restore). */
+   for input again. The original restarts the A-code instead (INT.S
+   restore). */
 void rewindtoinput(void)
 {
 	memmove(&workspace,&InputWorkspace,sizeof(GameState));
@@ -5112,7 +5120,7 @@ L9BOOL LoadGame2(char *filename,char *picname)
 	fclose(f);
 #endif
 
-	/* may be already running a game, maybe in input routine */
+	/* A game may already be running, possibly inside the input routine. */
 	Running=FALSE;
 	ibuffptr=NULL;
 
