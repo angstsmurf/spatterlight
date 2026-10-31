@@ -475,9 +475,9 @@ what `1 —or— 2` (sent verbatim) triggered before the extractor fix.
 
 ## Oracle vs goldens at the pinned revision
 
-`./check_golden.sh` against v6.0.0+69 (2026-10-17): **354 passed, 0 failed** —
-no golden moved from rc.4+9, and the Quest 4 oracle's transcripts are
-byte-identical too.
+`./check_golden.sh` against v6.0.0+69 (2026-10-31): **374 passed, 0 failed**.
+When the pin moved there (2026-10-17, 354 games then), no golden moved from
+rc.4+9, and the Quest 4 oracle's transcripts were byte-identical too.
 The goldens are the oracle's own transcripts (regenerated with
 `update_golden.sh`, or by driving one game from its `overrides/` script), so a
 native/oracle disagreement shows up in `../run_replays.sh`, not here.
