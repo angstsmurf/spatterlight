@@ -80,10 +80,16 @@
 // reverse-video space at the cursor, and erased with a plain one. The cursor
 // position is left where it was.
 - (void)drawBureaucracyCursor:(BOOL)visible {
+    // Nothing to draw with the cursor off the grid, as after a field that
+    // ends at the right edge: printing there would wrap it to the next row.
+    if (xpos >= cols || ypos >= rows)
+        return;
+    NSUInteger x = xpos, y = ypos;
     self.currentReverseVideo = visible;
     [self putString:@" " style:style_Normal];
     self.currentReverseVideo = NO;
-    xpos--;
+    xpos = x;
+    ypos = y;
 }
 
 - (void)initChar {
@@ -208,6 +214,12 @@
     }
 
     terminator = 0;
+
+    // After a full row, the input is the next thing printed, so it wraps.
+    if (cols && xpos == cols) {
+        xpos = 0;
+        ypos++;
+    }
 
     if (xpos > cols || maxLength == 0) {
         return;

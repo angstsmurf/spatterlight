@@ -447,13 +447,153 @@ static const unichar kNBSP = 0xa0;
     [self assertGrid:grid is:@[@"abcdefghi", @"X", @""] width:10];
 }
 
-// A full row has already put the cursor on the next row, so a newline after
-// it moves on once more.
+// A full row is not followed by a blank row either (Space Shooter's 80-column
+// rows in a window 80 columns wide), as the cursor only wraps when the next
+// character is printed.
 - (void)testNewlineAfterAFullRow {
     GlkTextGridWindow *grid = [self gridWithColumns:10 rows:3];
     [grid moveToColumn:0 row:0];
     [grid putString:@"abcdefghij\nX" style:style_Normal];
+    [self assertGrid:grid is:@[@"abcdefghij", @"X", @""] width:10];
+}
+
+- (void)testNewlineInALaterStringAfterAFullRow {
+    GlkTextGridWindow *grid = [self gridWithColumns:10 rows:3];
+    [grid moveToColumn:0 row:0];
+    [grid putString:@"abcdefghij" style:style_Normal];
+    [grid putString:@"\n" style:style_Normal];
+    [grid putString:@"X" style:style_Normal];
+    [self assertGrid:grid is:@[@"abcdefghij", @"X", @""] width:10];
+}
+
+- (void)testTwoNewlinesAfterAFullRowLeaveOneBlankRow {
+    GlkTextGridWindow *grid = [self gridWithColumns:10 rows:3];
+    [grid moveToColumn:0 row:0];
+    [grid putString:@"abcdefghij\n\nX" style:style_Normal];
     [self assertGrid:grid is:@[@"abcdefghij", @"", @"X"] width:10];
+}
+
+- (void)testCursorStaysOnAFullRowUntilTheNextCharacter {
+    GlkTextGridWindow *grid = [self gridWithColumns:10 rows:3];
+    [grid moveToColumn:0 row:0];
+    [grid putString:@"abcdefghij" style:style_Normal];
+    XCTAssertEqual(grid.indexOfPos, 10UL);
+    [grid putString:@"K" style:style_Normal];
+    [self assertGrid:grid is:@[@"abcdefghij", @"K", @""] width:10];
+    XCTAssertEqual(grid.indexOfPos, 11UL + 1);
+}
+
+- (void)testMoveAfterAFullRow {
+    GlkTextGridWindow *grid = [self gridWithColumns:10 rows:3];
+    [grid moveToColumn:0 row:0];
+    [grid putString:@"abcdefghij" style:style_Normal];
+    [grid moveToColumn:2 row:2];
+    [grid putString:@"X" style:style_Normal];
+    [self assertGrid:grid is:@[@"abcdefghij", @"", @"  X"] width:10];
+}
+
+// A cursor moved past the right edge wraps once, to the start of the next
+// row, as glk_window_move_cursor is specified and as Gargoyle does. It used
+// to be divided into whole rows, which put this X on the third row.
+- (void)testMoveToColumnPastTheEdgeWrapsToTheNextRow {
+    GlkTextGridWindow *grid = [self gridWithColumns:10 rows:3];
+    [grid moveToColumn:25 row:0];
+    [grid putString:@"X" style:style_Normal];
+    [self assertGrid:grid is:@[@"", @"X", @""] width:10];
+}
+
+// The cursor left on a full row is wrapped by the next character even after
+// the grid has changed width, like Gargoyle's: in a narrower grid it is past
+// the edge and wraps, in a wider one it goes on along its row.
+- (void)testNarrowingWithTheCursorOnAFullRow {
+    GlkTextGridWindow *grid = [self gridWithColumns:10 rows:3];
+    [grid moveToColumn:0 row:0];
+    [grid putString:@"abcdefghij" style:style_Normal];
+    grid.frame = [self frameForColumns:6 rows:3];
+    [grid flushDisplay];
+    [grid putString:@"X" style:style_Normal];
+    [self assertGrid:grid is:@[@"abcdef", @"X", @""] width:6];
+}
+
+- (void)testWideningWithTheCursorOnAFullRow {
+    GlkTextGridWindow *grid = [self gridWithColumns:10 rows:3];
+    [grid moveToColumn:0 row:0];
+    [grid putString:@"abcdefghij" style:style_Normal];
+    grid.frame = [self frameForColumns:12 rows:3];
+    [grid flushDisplay];
+    [grid putString:@"X" style:style_Normal];
+    [self assertGrid:grid is:@[@"abcdefghijX", @"", @""] width:12];
+}
+
+// Bureaucracy's form cursor is a reverse-video space printed at the cursor,
+// which is then put back. At the last cell of a row the printing used to
+// wrap the cursor, and stepping it back took it below zero.
+- (void)testBureaucracyCursorAtTheEndOfARowLeavesTheCursorInPlace {
+    GlkTextGridWindow *grid = [self gridWithColumns:10 rows:2];
+    grid.glkctl.gameID = kGameIsBureaucracy;
+    [grid moveToColumn:9 row:1];
+    [grid initChar];
+    XCTAssertEqual(grid.indexOfPos, 11UL + 9);
+    [grid cancelChar];
+    [grid putString:@"Z" style:style_Normal];
+    [self assertGrid:grid is:@[@"", @"         Z"] width:10];
+}
+
+- (void)testBureaucracyCursorAfterAFullRowIsNotDrawn {
+    GlkTextGridWindow *grid = [self gridWithColumns:10 rows:2];
+    grid.glkctl.gameID = kGameIsBureaucracy;
+    [grid moveToColumn:0 row:1];
+    [grid putString:@"abcdefghij" style:style_Normal];
+    [grid initChar];
+    XCTAssertEqual(grid.indexOfPos, 11UL + 10);
+    [grid cancelChar];
+    [self assertGrid:grid is:@[@"", @"abcdefghij"] width:10];
+    [grid moveToColumn:0 row:0];
+    [grid putString:@"K" style:style_Normal];
+    [self assertGrid:grid is:@[@"K", @"abcdefghij"] width:10];
+}
+
+// A game may fill the whole grid, last cell included, as the Z-machine abuses do.
+- (void)testFillingTheWholeGridIsKept {
+    GlkTextGridWindow *grid = [self gridWithColumns:4 rows:2];
+    [grid moveToColumn:0 row:0];
+    [grid putString:@"abcd\nefgh" style:style_Normal];
+    [self assertGrid:grid is:@[@"abcd", @"efgh"] width:4];
+    XCTAssertEqual(grid.bufferTextStorage.length, 2UL * 5 - 1);
+
+    [grid putString:@"lost" style:style_Normal];
+    [grid putString:@"\nlost" style:style_Normal];
+    [self assertGrid:grid is:@[@"abcd", @"efgh"] width:4];
+    XCTAssertEqual(grid.bufferTextStorage.length, 2UL * 5 - 1);
+}
+
+// The last cell can be written by moving to it, which leaves the rows intact.
+- (void)testWritingTheLastCellOfARowKeepsTheNextRow {
+    GlkTextGridWindow *grid = [self gridWithColumns:4 rows:2];
+    [grid moveToColumn:0 row:1];
+    [grid putString:@"efgh" style:style_Normal];
+    [grid moveToColumn:3 row:0];
+    [grid putString:@"d" style:style_Normal];
+    [self assertGrid:grid is:@[@"   d", @"efgh"] width:4];
+}
+
+- (void)testAGridAsTallAsTheScreenKeepsItsText {
+    GlkTextGridWindow *grid = [self gridWithColumns:10 rows:3];
+    NSScreen *screen = grid.glkctl.window.screen;
+    if (!screen)
+        return;
+    Theme *theme = self.theme;
+    NSUInteger tallRows = (NSUInteger)((NSHeight(screen.frame) - 2 * theme.gridMarginY) / theme.cellHeight);
+    NSRect tall = [self frameForColumns:10 rows:tallRows];
+    // Only taller than the visible frame where there is a menu bar or a Dock
+    if (NSHeight(tall) <= NSHeight(screen.visibleFrame) || NSHeight(tall) > NSHeight(screen.frame))
+        return;
+    [grid moveToColumn:0 row:0];
+    [grid putString:@"kept" style:style_Normal];
+    grid.frame = tall;
+    [grid flushDisplay];
+    XCTAssertEqual(grid.currentSizeInChars.height, (CGFloat)tallRows);
+    XCTAssertEqualObjects([self rowsOf:grid][0], [self row:@"kept" width:10]);
 }
 
 - (void)testPrintingOverwritesInPlace {
@@ -500,6 +640,15 @@ static const unichar kNBSP = 0xa0;
     XCTAssertEqual(grid.indexOfPos, 11UL + 2);
 }
 
+- (void)testUnputStringAfterAFullRow {
+    GlkTextGridWindow *grid = [self gridWithColumns:10 rows:2];
+    [grid moveToColumn:0 row:0];
+    [grid putString:@"abcdefghij" style:style_Normal];
+    XCTAssertEqual([grid unputString:@"HIJ"], 3UL);
+    [self assertGrid:grid is:@[@"abcdefg", @""] width:10];
+    XCTAssertEqual(grid.indexOfPos, 7UL);
+}
+
 - (void)testUnputStringThatDoesNotMatchLeavesTheGridAlone {
     GlkTextGridWindow *grid = [self gridWithColumns:10 rows:2];
     [grid moveToColumn:2 row:1];
@@ -537,6 +686,44 @@ static const unichar kNBSP = 0xa0;
                                (20 + 1 - 4) * theme.cellWidth, 0.01, @"clipped to the rest of the row");
 }
 
+- (void)testLineInputAfterAFullRowStartsTheNextRow {
+    GlkTextGridWindow *grid = [self gridWithColumns:20 rows:3];
+    [grid moveToColumn:0 row:0];
+    [grid putString:@"abcdefghijklmnopqrst" style:style_Normal];
+    [grid initLine:@"" maxLength:100];
+    Theme *theme = self.theme;
+    XCTAssertEqualWithAccuracy(NSMinY(grid.input.frame), theme.gridMarginY + theme.cellHeight, 0.01);
+    XCTAssertEqualWithAccuracy(NSWidth(grid.input.frame) - grid.textview.textContainer.lineFragmentPadding,
+                               21 * theme.cellWidth, 0.01);
+}
+
+// A cursor the game moved to the edge is wrapped the same way, where it used
+// to get a one-cell field at the edge.
+- (void)testLineInputAtACursorMovedToTheEdgeStartsTheNextRow {
+    GlkTextGridWindow *grid = [self gridWithColumns:20 rows:3];
+    [grid moveToColumn:20 row:0];
+    [grid initLine:@"" maxLength:100];
+    XCTAssertNotNil(grid.input);
+    Theme *theme = self.theme;
+    XCTAssertEqualWithAccuracy(NSMinY(grid.input.frame), theme.gridMarginY + theme.cellHeight, 0.01);
+    XCTAssertEqualWithAccuracy(NSMinX(grid.input.frame),
+                               theme.gridMarginX + grid.textview.textContainer.lineFragmentPadding / 2, 0.01);
+}
+
+// A prompt that fills the bottom row leaves no row for the input, which goes
+// over the prompt at the start of the last row rather than nowhere.
+- (void)testLineInputAfterAFullBottomRowGoesOnTheLastRow {
+    GlkTextGridWindow *grid = [self gridWithColumns:20 rows:3];
+    [grid moveToColumn:0 row:2];
+    [grid putString:@"abcdefghijklmnopqrst" style:style_Normal];
+    [grid initLine:@"" maxLength:100];
+    XCTAssertNotNil(grid.input);
+    Theme *theme = self.theme;
+    XCTAssertEqualWithAccuracy(NSMinY(grid.input.frame), theme.gridMarginY + 2 * theme.cellHeight, 0.01);
+    XCTAssertEqualWithAccuracy(NSMinX(grid.input.frame),
+                               theme.gridMarginX + grid.textview.textContainer.lineFragmentPadding / 2, 0.01);
+}
+
 - (void)testLineInputBelowTheGridIsMovedToTheLastRow {
     GlkTextGridWindow *grid = [self gridWithColumns:20 rows:3];
     [grid moveToColumn:0 row:7];
@@ -566,6 +753,17 @@ static const unichar kNBSP = 0xa0;
     XCTAssertEqual(grid.indexOfPos, 2UL * 21, @"the cursor moves to the start of the next row");
     XCTAssertEqual(ctl.queue.count, queued + 1);
     XCTAssertEqual(((GlkEvent *)ctl.queue.lastObject).type, EVTLINE);
+}
+
+// An entered line that reaches the right edge leaves the cursor one row down,
+// not two, as Gargoyle's win_textgrid_accept_line does.
+- (void)testEnteredLineFillingTheRowMovesTheCursorOneRowDown {
+    GlkTextGridWindow *grid = [self gridWithColumns:10 rows:3];
+    [grid moveToColumn:5 row:0];
+    [grid initLine:@"" maxLength:10];
+    [grid sendCommandLine:@"abcde"];
+    [self assertGrid:grid is:@[@"     abcde", @"", @""] width:10];
+    XCTAssertEqual(grid.indexOfPos, 11UL);
 }
 
 #pragma mark - Mouse input

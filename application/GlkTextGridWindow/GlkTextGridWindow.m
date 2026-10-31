@@ -367,9 +367,16 @@ static const CGFloat kUnlimitedTextSize = 10000000;
         return;
     }
 
+    // A sanity limit on the grid: the largest screen, as a window in
+    // fullscreen is taller than the visible frame, and a window on its way
+    // between displays may for a moment belong to the smaller one.
     NSSize screensize = NSMakeSize(CGFLOAT_MAX, CGFLOAT_MAX);
-    if (glkctl) {
-        screensize = glkctl.window.screen.visibleFrame.size;
+    if (glkctl && NSScreen.screens.count) {
+        screensize = NSZeroSize;
+        for (NSScreen *screen in NSScreen.screens) {
+            screensize.width = MAX(screensize.width, NSWidth(screen.frame));
+            screensize.height = MAX(screensize.height, NSHeight(screen.frame));
+        }
         if (frame.size.height > screensize.height)
             frame.size.height = glkctl.gameView.frame.size.height;
     }
@@ -681,9 +688,13 @@ static const CGFloat kUnlimitedTextSize = 10000000;
     if (string.length == 0)
         return;
 
-    if (xpos > cols) {
-        ypos += xpos / cols;
-        xpos = xpos % cols;
+    // A cursor past the right edge, whether left there by a full row or
+    // moved there by the game, wraps once to the start of the next row, as
+    // in Gargoyle and glkterm. It used to be divided into whole rows, which
+    // after a width change put a cursor left on a full row a row too far.
+    if (xpos >= cols) {
+        xpos = 0;
+        ypos++;
     }
 
     if (self.indexOfPos > textstoragelength) {
@@ -743,17 +754,13 @@ static const CGFloat kUnlimitedTextSize = 10000000;
         [_bufferTextStorage
          replaceCharactersInRange:replaceRange withAttributedString:partString];
 
-        // Update the x position (and the y position if necessary). Advance to
-        // the next row only once the cursor has actually filled the last column
-        // (xpos == cols); using cols - 1 here wrapped one column early, so a row
-        // exactly cols - 1 long was followed by a spurious blank row when the
-        // caller then printed a newline (e.g. Comprehend's room descriptions).
+        // Update the x position. The cursor stays past the last column of a
+        // full row until the next character wraps it, so that a newline right
+        // after a row exactly cols long doesn't leave a spurious blank row
+        // (e.g. Comprehend's room descriptions, or Space Shooter's 80-column
+        // rows in a window 80 columns wide).
         xpos += amountToDraw;
         pos += amountToDraw;
-        if (xpos >= cols) {
-            xpos = 0;
-            ypos++;
-        }
     }
 
     _hasNewText = YES;
