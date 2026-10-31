@@ -7946,7 +7946,7 @@ gln_main (void)
        */
       set_erkyrath_random (1234);
       L9UINT16 seed = 2;
-      for (int i = 0; i < 99; i++) {
+      for (int i = 0; i < 100; i++) {
           seed=(((seed<<8) + 0x0a - seed) <<2) + seed + 1;
           random_array[i] = seed;
       }
