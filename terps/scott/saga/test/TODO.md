@@ -8,15 +8,17 @@ is in `README.md`.
 - [ ] Not covered yet: the Gremlins gang animations (square, road), German and
       Spanish Gremlins, Super Gran, Savage Island, C64 animations
       (`c64_capture.py` has no `!hwnext`).
-- [ ] Not covered yet: the US SAGA bitmap pictures (MS-DOS, C64, Atari 8-bit)
-      as the interpreter draws them. `dostest` and `c64a8test` plot through
-      their own stubs, so nothing goes through `PutPixelWithWidth()` in
-      `sagagraphics.c` and its run merging (2026-10-14). That was checked
+- [ ] Not covered yet: the US SAGA bitmap pictures on MS-DOS and the Atari
+      8-bit as the interpreter draws them. `dostest` and `c64a8test` plot
+      through their own stubs, so nothing goes through `PutPixelWithWidth()`
+      in `sagagraphics.c` and its run merging (2026-10-14). That was checked
       once by hand: scratch scenes with a `!check` after every walkthrough
       command, `scenetest -d` with a binary from before and one from after,
-      all 967 frames identical. A scene with a hardware dump of one room per
-      machine would keep it checked. `scenetest -c` prints the rectangles
-      filled per check.
+      all 967 frames identical. The C64 ones are covered since 2026-10-31
+      (`groundtruth_scene/hulkus_pictures_c64`, `claymorgueus_pictures_c64`,
+      every picture of both games, `us_scenes.py`); a scene with a hardware
+      dump of one room per other machine would keep those checked.
+      `scenetest -c` prints the rectangles filled per check.
 
 ## Divergences from the originals (found by the scene tests)
 
@@ -47,6 +49,13 @@ Decide per item whether the interpreter should follow the original.
 - [ ] **Hulk (C64), last line of every picture.** The original switches from
       bitmap to text mode in the middle of the picture's bottom line: from 112
       pixels in, that line shows the empty text screen. 99.29–99.83%.
+- [ ] **Hulk and Claymorgue US (C64), the palette is global.** Every picture
+      drawn writes its four colours into the whole screen and colour RAM, so
+      a room with object pictures over it ends up in the colours of the last
+      one drawn: Hulk's chair room after the ring (98.4%), its bees after the
+      wax (99.7%), the large hole in the ring's red (94.8%). The interpreter
+      keeps each picture's own colours, which is what the pictures were drawn
+      with. Likely leave as it is.
 - [ ] **Spider-Man, Madame Web (C64), one cell.** The tile at cell (24,3) has
       the wrong colours in the T64 copy; the interpreter patches it on purpose
       (`image_patches` in `sagadraw.c`). Nothing to do unless the patch is

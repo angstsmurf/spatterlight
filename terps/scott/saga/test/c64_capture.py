@@ -34,6 +34,10 @@
 #                     every line before this one. For a game that takes long to
 #                     load when many scenes begin the same way (delete the
 #                     snapshot if those lines change)
+#   !hwattach         only attach the `!game` disk as drive 8 instead of
+#                     autostarting it; the scene types the LOAD and RUN itself
+#                     with !hw lines (for a disk whose first file is a BASIC
+#                     program that autostart loads to the wrong address)
 # Everything else (!game, !tick, !slowdraw, comments) is skipped.
 #
 # The original stops with <HIT RETURN> whenever its text window fills up, and
@@ -95,8 +99,9 @@ class Vice:
         name = path.encode()
         if len(name) > 255:
             sys.exit('c64_capture: the path of the snapshot is too long for VICE')
-        # dump: with the ROMs, without the disks
-        self.command(0x42 if load else 0x41, (b'' if load else b'\x01\x00') + bytes([len(name)]) + name)
+        # dump: with the ROMs and with the disks (a disk game restored without
+        # its disk hangs at its first picture load)
+        self.command(0x42 if load else 0x41, (b'' if load else b'\x01\x01') + bytes([len(name)]) + name)
         self.resume()
 
     def ram(self):
@@ -206,12 +211,14 @@ def paused(rows):
 def main():
     scene = os.path.abspath(sys.argv[1])
     folder = os.path.dirname(scene)
-    steps, dumped, game = [], set(), None
+    steps, dumped, game, attach = [], set(), None, False
     for line in open(scene, encoding='latin-1').read().splitlines():
         word, _, rest = line.partition(' ')
         rest = rest.strip()
         if word == '!game':
             game = rest
+        elif word == '!hwattach':
+            attach = True
         elif word == '!check':
             name = rest.split()[0]
             if name.endswith(('.c64', '.vic')) and name not in dumped:
@@ -245,7 +252,7 @@ def main():
     emulator = subprocess.Popen(
         [x64sc, '-default', '-warp', '-sounddev', 'dummy', '-binarymonitor',
          '-binarymonitoraddress', '127.0.0.1:%d' % PORT]
-        + ([] if restored else ['-autostart', os.path.join(folder, game)]),
+        + ([] if restored else ['-8' if attach else '-autostart', os.path.join(folder, game)]),
         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     try:
         for attempt in range(100):

@@ -114,6 +114,9 @@ static const c64rec c64_registry[] = {
 
 
     { CLAYMORGUE_US, 0x2adab, 0x1fac, TYPE_US, 0, NULL, "SAGA.DB", 0, 0, 0, 0, 0 },
+    { CLAYMORGUE_US, 0x2adab, 0x1fba, TYPE_US, 0, NULL, "SAGA.DB", 0, 0, 0, 0, 0 }, // The same disk with the error bytes of track 34, sectors 3-16, set to 3
+                                                                                   // (the "21" errors its copy protection looks for; VICE needs them so):
+                                                                                   // saga/test/groundtruth_scene/claymorgueus_pictures_c64/clay.d64
     { CLAYMORGUE_US, 0x2ab00, 0xa957, TYPE_US, 0, NULL, "SAGA.DB", 0, 0, 0, 0, 0 }, // Sorcerer Of Claymorgue Castle US side A (D64)
     { CLAYMORGUE_US, 0x2ab00, 0xfbb6, TYPE_US, 0, NULL, "SAGA.DB", 0, 0, 0, 0, 0 },
     { CLAYMORGUE_US, 0x2ab00, 0x0b54, TYPE_US, 0, NULL, "SAGA.DB", 0, 0, 0, 0, 0 },

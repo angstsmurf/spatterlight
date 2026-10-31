@@ -40,6 +40,9 @@ struct c64a8_bounds {
 typedef void (*c64a8_adjust_fn)(struct c64a8_bounds *bounds);
 
 int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, c64a8_adjust_fn adjust, enum c64a8_variant variant);
+// The colours the C64 variants draw with, by VIC-II colour number (for the
+// tests, which look hardware screen dumps up in the palette the game uses).
+extern const uint32_t c64colors[16];
 // Draws one bitmap byte as four double-width pixels at (x, *y), two bits
 // per pixel with the high pair leftmost, then moves *y down one row.
 void DrawPatternAndAdvancePos(int x, int *y, uint8_t pattern);

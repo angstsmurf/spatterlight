@@ -40,7 +40,11 @@
 //                      shows it): for pictures no script can walk to. The
 //                      original gets a `!hwpoke` of its picture table instead.
 //                      Also blanks the picture, as the original does before
-//                      it draws a room: some pictures are only overlays
+//                      it draws a room: some pictures are only overlays.
+//                      A US game (saga.c) draws its pictures by number: there
+//                      the picture is shown at once, with no LOOK, as the
+//                      original shows it when the poked table entry is looked
+//                      at (`!hw look`)
 //   !room <n>          put the player in room n, and
 //   !item <i> <n>      item i in room n,
 //   !counter <c> <n>   n in the stored counter c, and
@@ -76,10 +80,12 @@
 //          screen RAM (colour nibbles)
 //   .vic   Commodore 64 rendered frame: 320x200 bytes of VIC-II colour
 //          numbers, for the multicolour pictures with sprites of the
-//          all-in-one games (Pirate Adventure, Voodoo Castle)
+//          all-in-one games (Pirate Adventure, Voodoo Castle) and for the
+//          US bitmap games (Hulk, Claymorgue)
 // All are decoded to colour indices and looked up in the interpreter's own
-// palette (pal[], or colorC64[] for a .vic), so a wrong palette or remap fails
-// the test just like a wrong pixel.
+// palette (pal[]; for a .vic, the C64 palette the game draws with: colorC64[]
+// of c64_small.c, or c64colors[] of c64a8draw.c for a US game), so a wrong
+// palette or remap fails the test just like a wrong pixel.
 
 #include <ctype.h>
 #include <stdint.h>
@@ -98,7 +104,10 @@ extern void glk_main(void);
 
 #include "aiukpalette.h"
 #include "scott.h"
+#include "saga.h"
 #include "c64_small.h"
+#include "c64a8draw.h"
+#include "sagagraphics.h"
 #include "fake_glk_window.h"
 #include "test_util.h"
 
@@ -220,7 +229,7 @@ static int load_truth(const char *path)
     if (ext && strcmp(ext, ".vic") == 0 && size == TRUTH_W * TRUTH_H) {
         truth_w = TRUTH_W;
         truth_h = TRUTH_H;
-        truth_pal = colorC64;
+        truth_pal = USImages && USImages->systype == SYS_C64_TINY ? colorC64 : c64colors;
         for (int y = 0; y < TRUTH_H; y++)
             for (int x = 0; x < TRUTH_W; x++)
                 truth[y][x] = buf[y * TRUTH_W + x] & 15;
@@ -370,9 +379,17 @@ void scene_select(event_t *ev)
             check(args);
             free(args);
         } else if (strncmp(line, "!picture", 8) == 0) {
-            for (int i = 0; i <= GameHeader.NumRooms; i++)
-                Rooms[i].Image = atoi(line + 8);
             fakeglk_clear_canvas();
+            if (USImages) {
+                /* A US game draws its pictures by number, not by room:
+                   show this one now, as a LOOK of the room whose entry in
+                   the original's picture table was pointed at it does. */
+                DrawUSRoom(atoi(line + 8));
+                DrawImageOrVector();
+            } else {
+                for (int i = 0; i <= GameHeader.NumRooms; i++)
+                    Rooms[i].Image = atoi(line + 8);
+            }
         } else if (strncmp(line, "!room", 5) == 0) {
             MyLoc = atoi(line + 5);
         } else if (strncmp(line, "!counter", 8) == 0) {

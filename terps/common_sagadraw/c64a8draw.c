@@ -83,7 +83,7 @@ enum c64_color {
     C64_LGREY
 };
 
-static const glui32 c64colors[16] = {
+const uint32_t c64colors[16] = {
     [C64_BLACK]  = 0x000000,
     [C64_WHITE]  = 0xffffff,
     [C64_RED]    = 0xbf6148,

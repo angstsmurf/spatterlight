@@ -175,8 +175,10 @@ static void DumpAction(int ct)
 {
     const Action *a = &Actions[ct];
 
-    printf("    %3d: verb %d noun %d |", ct, a->Vocab / VOCAB_MULTIPLIER,
-        a->Vocab % VOCAB_MULTIPLIER);
+    int verb = a->Vocab / VOCAB_MULTIPLIER, noun = a->Vocab % VOCAB_MULTIPLIER;
+    printf("    %3d: verb %d (%s) noun %d (%s) |", ct, verb,
+        verb <= GameHeader.NumWords ? Verbs[verb] : "?", noun,
+        noun <= GameHeader.NumWords ? Nouns[noun] : "?");
     for (int cc = 0; cc < NUM_CONDITIONS; cc++)
         printf(" %s(%d)", cond_names[a->Condition[cc] % CONDITION_MULTIPLIER],
             a->Condition[cc] / CONDITION_MULTIPLIER);
@@ -405,6 +407,15 @@ void glk_main(void)
     else {
         AuditStandard();
         lines = GameHeader.NumActions + 1;
+    }
+
+    /* The items as they start, to read the dumped lines by. */
+    if (dump_all) {
+        printf("items:\n");
+        for (int i = 0; i <= GameHeader.NumItems; i++)
+            printf("    %3d: room %3d \"%s\"%s%s\n", i, Items[i].InitialLoc,
+                Items[i].Text ? Items[i].Text : "",
+                Items[i].AutoGet ? " /" : "", Items[i].AutoGet ? Items[i].AutoGet : "");
     }
 
     printf("game %d \"%s\" sys %d: %d lines; items 0..%d, highest named %d (%d checked); "
