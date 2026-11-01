@@ -39,6 +39,15 @@ The whole table:
 ./run_walkthroughs.sh "~/Downloads/comprehend games"
 ```
 
+The table covers the Apple II disks and the DOS releases (Oo-Topos, Crimson Crown,
+Talisman and both Transylvanias). A DOS entry expects the game's files in a folder
+named `oo-topos`, `crimson-crown`, `talisman-challenging-the-sands-of-time`,
+`transylvania` or `TransylvaniaPC` under the games directory; a missing game is
+reported as SKIP. The same scripts win on both platforms. The Crimson Crown DOS
+entry guards the ending: its strings are at 0x21c/0x21d in the DOS data, where
+0x21a/0x21b are just "x", so the "THE END." marker fails if the Apple II indexes
+are used.
+
 ## A note on timers
 
 The interpreter has no real-time clock here, but turn timers still tick: the
@@ -96,9 +105,9 @@ identical across runs), and all five are full winning playthroughs:
     shell-shield, and flee the collapsing fortress to the beach while Erik shakes
     off the spell and dons the crown. (Two disk-two endgame bugs had to be fixed
     first: handle_restart() dereferenced a null _gameStrings on any disk-two
-    death, and the win printed strings 0x21c/0x21d -- two off from the real
-    victory text, the merchant-ship rescue 0x21a and the "THE END." epilogue
-    0x21b. The original stops on "THE END." -- confirmed on the woz in MAME; the
+    death, and on the Apple II disks the win printed strings 0x21c/0x21d -- two
+    off from the real victory text, the merchant-ship rescue 0x21a and the
+    "THE END." epilogue 0x21b; the DOS data does have them at 0x21c/0x21d. The original stops on "THE END." -- confirmed on the woz in MAME; the
     adjacent "...completion code is @." string is a dead contest stub the game
     never prints.)
   * **Talisman** -- a *full* winning playthrough to "the Empire shalt flourish

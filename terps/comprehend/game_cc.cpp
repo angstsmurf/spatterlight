@@ -157,11 +157,12 @@ void CrimsonCrownGame::handleSpecialOpcode() {
 			console_println(_strings[407].c_str());
 
 		} else {
-			// Won the game: the merchant ship plucks the party off the beach
-			// (0x21a), then the rescue/collapse epilogue that ends "...THE END."
-			// (0x21b, a multi-paragraph string). The old 0x21c/0x21d were off by
-			// two and printed the troll/mud daemon lines instead -- never noticed
-			// because no walkthrough drove the game to the win.
+			// Won the game: the merchant ship plucks the party off the beach,
+			// then the rescue/collapse epilogue that ends "...THE END." (a
+			// multi-paragraph string). These are 0x21a/0x21b on the Apple II
+			// disks and 0x21c/0x21d in the DOS data. Each index is wrong on the
+			// other platform: on Apple II 0x21c/0x21d are the troll/mud daemon
+			// lines, and in the DOS data 0x21a/0x21b are just "x".
 			//
 			// The original Apple II game stops right here, on "THE END." It does
 			// NOT print the adjacent string 0x219 ("...Your completion code is
@@ -175,8 +176,9 @@ void CrimsonCrownGame::handleSpecialOpcode() {
 			// "completion code" was a dead contest stub.)
 			g_comprehend->drawLocationPicture(29, false);
 			g_comprehend->drawItemPicture(20);
-			console_println(stringLookup(0x21a).c_str());
-			console_println(stringLookup(0x21b).c_str());
+			const bool apple2 = Common::DiskImageFS::active();
+			console_println(stringLookup(apple2 ? 0x21a : 0x21c).c_str());
+			console_println(stringLookup(apple2 ? 0x21b : 0x21d).c_str());
 
 			g_comprehend->readChar();
 			g_comprehend->quitGame();

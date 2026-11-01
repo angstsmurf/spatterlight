@@ -13,7 +13,7 @@
 # script has driven the game to that point -- exactly as the Question runner's
 # --win does. Exit status is 0 only if every present game passes.
 #
-# NOTE on coverage: all five games are FULL playthroughs to their win lines, the
+# NOTE on coverage: every entry, Apple II and DOS, is a FULL playthrough to its win line, the
 # Coveted Mirror included (its wandering-NPC waits are pinned by count under the
 # fixed test seed; see README.md).
 set -u
@@ -72,6 +72,29 @@ play Transylvania transylvania \
 
 play TransylvaniaV2 transylvaniav2 \
     "TransylvaniaPC/G0" \
+    transylvania.txt \
+    "Well Done!!!"
+
+# The DOS releases. The data differs from the Apple II disks (string numbering,
+# for one: the Crimson Crown ending is at different indexes), so a win on one
+# platform says nothing about the other.
+play OoTopos-DOS ootopos \
+    "oo-topos/NOVEL.EXE" \
+    ootopos.txt \
+    "But your part has been done!"
+
+play CrimsonCrown-DOS crimsoncrown \
+    "crimson-crown/NOVEL.EXE" \
+    crimsoncrown.txt \
+    "THE END."
+
+play Talisman-DOS talisman \
+    "talisman-challenging-the-sands-of-time/NOVEL.EXE" \
+    talisman.txt \
+    "the Empire shalt flourish through eternity"
+
+play Transylvania-DOS transylvania \
+    "transylvania/NOVEL.EXE" \
     transylvania.txt \
     "Well Done!!!"
 
