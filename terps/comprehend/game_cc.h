@@ -53,6 +53,7 @@ public:
 	void beforePrompt() override;
 	void beforeTurn() override;
 	void handleSpecialOpcode() override;
+	bool prepareRestore(const std::vector<byte> &payload) override;
 	void synchronizeSave(Common::Serializer &s) override;
 
 	void setupDisk(uint diskNum);

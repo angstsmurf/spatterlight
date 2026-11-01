@@ -66,6 +66,7 @@
 - The guess between MacRoman, Windows and Cyrillic text in older games is better: the bullets in the status line of *Ruined Robots* no longer turn into Cyrillic letters.
 
 ### Comprehend
+- Saved games from the second disk of *The Crimson Crown* and the Lands Beyond half of *Talisman* load correctly from the start of the game or from an earlier part. Earlier *Talisman* saves from the desert still load, but some need the Lands Beyond half to be running first.
 - A picture whose drawing instructions end in the middle of an operation stops drawing there instead of reading past the end of the picture data. A double hi-res line that spans all 256 rows is drawn, where it used to scribble across the whole page.
 - In the Lands Beyond half of *Talisman*, a double hi-res picture that changes the colour its current fill pattern is built from now repaints with the new pattern at once, as the Apple II interpreter does. The pattern used to keep its old colours until the next fill-colour change, so five desert pictures came out with wrong fills. Every Lands Beyond room picture now matches the original byte for byte.
 

@@ -72,7 +72,9 @@ public:
 	TalismanGame();
 	~TalismanGame() override {}
 
-	void prepareRestore(const std::vector<byte> &payload) override;
+	bool prepareRestore(const std::vector<byte> &payload) override;
+	void upgradeSavePayload(std::vector<byte> &payload, byte version) override;
+	void synchronizeSave(Common::Serializer &s) override;
 	void playGame() override;
 	void beforeGame() override;
 	void beforeTurn() override;

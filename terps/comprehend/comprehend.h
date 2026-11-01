@@ -177,6 +177,8 @@ public:
 	bool loadStateFromPath(const char *path);
 
 private:
+	bool restorePayload(const std::vector<byte> &payload);
+
 	// Save/restore live game state to/from an already-created fileref (shared
 	// by the slot-based and prompt-based paths). The file carries a small
 	// header so a wrong/corrupt file is rejected instead of crashing the game.

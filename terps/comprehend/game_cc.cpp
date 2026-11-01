@@ -102,6 +102,19 @@ void CrimsonCrownGame::beforeGame() {
 	g_comprehend->readChar();
 }
 
+bool CrimsonCrownGame::prepareRestore(const std::vector<byte> &payload) {
+	// The payload starts with the disk number (see synchronizeSave)
+	if (payload.empty() || (payload[0] != 1 && payload[0] != 2))
+		return false;
+
+	if (payload[0] != _diskNum) {
+		_newDiskNum = payload[0];
+		setupDisk(_newDiskNum);
+		loadGame();
+	}
+	return true;
+}
+
 void CrimsonCrownGame::synchronizeSave(Common::Serializer &s) {
 	if (s.isSaving()) {
 		s.syncAsByte(_diskNum);

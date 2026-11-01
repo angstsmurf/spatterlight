@@ -31,6 +31,7 @@ fixtures were captured:
 | `cm/`, `cm_dhgr/` | The Coveted Mirror panel and hourglass, hi-res and double hi-res, byte-exact page fixtures; `cm/strings_oracle.sh` diffs every reachable game string against the original's decoder run in MAME |
 | `title_dhgr/` | double hi-res title screens |
 | `walkthrough/` | six full-game scripted plays (CM, CC, OO, TM, TR, TR v2) with byte-identical transcripts |
+| `walkthrough/run_save_resume.sh` | saves at 85% of each script, then finishes the game from that save in a new process, so a game has to load the part the save came from |
 | `test_gm_stream` | the shared opcode dispatcher against a recording mock renderer: operand decode, `DRAW_BOX` order, `end()` on every exit, truncation |
 | `gm_stream_diff.sh <ref>` | differential: every renderer's page after random streams, working tree against a git ref; needs no fixtures |
 | `gm_stream_exact.sh` | random streams, some cut short, each in a heap block of its exact length under ASan; any operand over-read aborts |

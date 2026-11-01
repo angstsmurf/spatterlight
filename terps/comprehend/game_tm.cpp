@@ -51,37 +51,50 @@ TalismanGame::TalismanGame() : ComprehendGameV2() {
 	}
 }
 
-void TalismanGame::prepareRestore(const std::vector<byte> &payload) {
+bool TalismanGame::prepareRestore(const std::vector<byte> &payload) {
 	// Talisman is two games in one: part 2 (the desert) is a separate database
 	// with its own room/item/function tables, dictionary, '@'-replacement words
 	// AND string banks. A saved game stores only the dynamic state (rooms,
-	// items, flags, variables); the static tables are reloaded from disk. So a
-	// part-2 save restored while part 1's database is loaded resolves every
-	// part-2 index against part-1's data -- the desert beach (room 55) prints
-	// part 1's "King's audience chamber", and its "@ern horizon" direction word
-	// indexes part 1's replacement table (printing garbage like "She's not").
-	//
-	// _inPart2 is not itself persisted (and a part-2 save is the same size as a
-	// part-1 one, so it can't be told apart by length), so detect a desert save
-	// by flag 79: the moving-wall maze, armed by part 2's func 44. It is clear
-	// at the end of part 1 and set on entry to part 2, so a restored save with
-	// flag 79 set can only be from the desert. Swap in the whole part-2 database
-	// before the saved state is deserialized over it.
-	//
-	// Payload layout (see ComprehendGame::synchronizeSave): currentRoom (2) +
-	// variables (MAX_VARIABLES * 2) + flags (MAX_FLAGS), so flag N is at
-	// 2 + MAX_VARIABLES * 2 + N.
-	const uint flag79Off = 2 + MAX_VARIABLES * 2 + 79;
-	if (_inPart2 || payload.size() <= flag79Off || !payload[flag79Off])
+	// items, flags, variables); the static tables are reloaded from disk. So
+	// swap in the database of the save's part before the state is read into it.
+	// The part is the last byte of the payload (see synchronizeSave).
+	if (payload.empty() || payload.back() > 1)
+		return false;
+
+	const bool part2 = payload.back() != 0;
+	if (part2 == _inPart2)
+		return true;
+
+	_inPart2 = part2;
+	if (Common::DiskImageFS::active())
+		Common::DiskImageFS::selectDiskByGameMagic(part2 ? 0x94c6 : 0xa429);
+	else
+		_gameDataFile = part2 ? "H0" : "G0";
+	loadGame();      // that part's rooms/items/functions/dictionary/replace-words
+	loadStrings();   // that part's string banks
+	return true;
+}
+
+void TalismanGame::synchronizeSave(Common::Serializer &s) {
+	ComprehendGameV2::synchronizeSave(s);
+
+	byte part2 = _inPart2 ? 1 : 0;
+	s.syncAsByte(part2);
+}
+
+void TalismanGame::upgradeSavePayload(std::vector<byte> &payload, byte version) {
+	if (version >= 3)
 		return;
 
-	_inPart2 = true;
-	if (Common::DiskImageFS::active())
-		Common::DiskImageFS::selectDiskByGameMagic(0x94c6);
-	else
-		_gameDataFile = "H0";
-	loadGame();      // part-2 rooms/items/functions/dictionary/replace-words
-	loadStrings();   // part-2 string banks
+	// Older saves don't record the part. Flag 79, the moving-wall maze armed by
+	// part 2's func 44, is the best guess they allow: it is clear at the end of
+	// part 1, but also clear in parts of the desert. Those saves still need part
+	// 2 to be loaded already, as they always did.
+	// Payload layout (see ComprehendGame::synchronizeSave): currentRoom (2) +
+	// variables (MAX_VARIABLES * 2) + flags (MAX_FLAGS).
+	const uint flag79Off = 2 + MAX_VARIABLES * 2 + 79;
+	const bool part2 = _inPart2 || (payload.size() > flag79Off && payload[flag79Off]);
+	payload.push_back(part2 ? 1 : 0);
 }
 
 void TalismanGame::playGame() {

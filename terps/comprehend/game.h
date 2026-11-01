@@ -225,11 +225,19 @@ public:
 
 	virtual void synchronizeSave(Common::Serializer &s);
 
-	// Hook run just before a saved game's payload is deserialized over the live
-	// state, given the raw payload bytes. Lets a game swap in a different static
-	// database first (Talisman uses it to load its part-2 desert database when
-	// restoring a desert save while part 1 is loaded). Default: nothing to do.
-	virtual void prepareRestore(const std::vector<byte> &payload) { (void)payload; }
+	// Hook run before a saved game's payload is checked and deserialized over the
+	// live state, given the raw payload bytes. Lets a game load the static database
+	// of the part the save came from, since the state size can differ per part
+	// (Crimson Crown's disks, Talisman's desert). Returns false if the payload
+	// names no valid part. Default: nothing to do.
+	virtual bool prepareRestore(const std::vector<byte> &payload) { (void)payload; return true; }
+
+	// Brings the payload of a saved game with an older header version up to the
+	// current layout. Default: the layout did not change.
+	virtual void upgradeSavePayload(std::vector<byte> &payload, byte version) {
+		(void)payload;
+		(void)version;
+	}
 
 	// Called for every OPCODE_DRAW_OBJECT, with the 0-based item-picture number
 	// just drawn. The Coveted Mirror uses it to remember which mirror pieces have

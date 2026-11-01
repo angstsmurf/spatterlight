@@ -49,7 +49,9 @@ struct GlkReadStream : public Common::SeekableReadStream {
 static const char kSaveMagic[4] = { 'C', 'M', 'S', 'V' };
 // v2 added the live '@'-replacement selector (_currentReplaceWord and friends)
 // to the payload; v1 saves are rejected (the layout is otherwise unchanged).
-static const byte kSaveVersion = 2;
+// v3 added Talisman's part byte; v2 saves still load, through upgradeSavePayload().
+static const byte kSaveVersion = 3;
+static const byte kOldestSaveVersion = 2;
 
 // Serialize the live game state out to an already-created fileref. Shared by
 // the slot-based save (autosave/launcher) and the SAVE-verb prompt path.
@@ -73,6 +75,39 @@ Common::Error Comprehend::saveToFileref(frefid_t fref) {
 
 	glk_stream_close(str, nullptr);
 	return Common::Error(Common::kNoError);
+}
+
+// Replace the live state with a save's payload, or leave it as it was and return
+// false if the payload doesn't fit.
+bool Comprehend::restorePayload(const std::vector<byte> &payload) {
+	std::vector<byte> snapshot;
+	if (!serializeGameState(snapshot))
+		return false;
+
+	// A save can come from another part of the game, whose database has other
+	// room and item counts, so load that part before checking the size.
+	if (!_game->prepareRestore(payload))
+		return false;
+
+	// The state layout is fixed-size for a given part, so the live state's
+	// serialized length is exactly how long a genuine save's payload must be.
+	// A truncated or otherwise wrong-sized file is rejected here, before it can
+	// reach synchronizeSave() (which asserts on a mismatched room/item count).
+	std::vector<byte> expected;
+	if (!serializeGameState(expected) || payload.size() != expected.size()) {
+		deserializeGameState(snapshot);
+		return false;
+	}
+
+	deserializeGameState(payload);
+
+	// A right-sized but internally inconsistent payload still shouldn't be able
+	// to strand the player in a non-existent room: roll back if so.
+	if (!_game->saveStateLooksValid()) {
+		deserializeGameState(snapshot);
+		return false;
+	}
+	return true;
 }
 
 // Restore live game state from an already-created fileref. Validates the header
@@ -101,7 +136,7 @@ Common::Error Comprehend::loadFromFileref(frefid_t fref) {
 		rs.read(idBuf, idLen);
 	bool headerOk = !rs.eos() &&
 					memcmp(magic, kSaveMagic, sizeof(kSaveMagic)) == 0 &&
-					ver == kSaveVersion &&
+					ver >= kOldestSaveVersion && ver <= kSaveVersion &&
 					_gameId == Common::String(idBuf, idLen);
 	if (!headerOk) {
 		glk_stream_close(str, nullptr);
@@ -116,23 +151,9 @@ Common::Error Comprehend::loadFromFileref(frefid_t fref) {
 		rs.read(payload.data(), (uint32)payload.size());
 	glk_stream_close(str, nullptr);
 
-	// The state layout is fixed-size for a given story, so the live state's
-	// serialized length is exactly how long a genuine save's payload must be.
-	// A truncated or otherwise wrong-sized file is rejected here, before it can
-	// reach synchronizeSave() (which asserts on a mismatched room/item count).
-	std::vector<byte> snapshot;
-	bool haveSnapshot = serializeGameState(snapshot);
-	if (!haveSnapshot || payload.size() != snapshot.size()) {
-		print("That saved game appears to be damaged.\n");
-		return Common::Error(Common::kNoGameDataFoundError);
-	}
+	_game->upgradeSavePayload(payload, ver);
 
-	deserializeGameState(payload);
-
-	// A right-sized but internally inconsistent payload still shouldn't be able
-	// to strand the player in a non-existent room: roll back if so.
-	if (!_game->saveStateLooksValid()) {
-		deserializeGameState(snapshot);
+	if (!restorePayload(payload)) {
 		print("That saved game appears to be damaged.\n");
 		return Common::Error(Common::kNoGameDataFoundError);
 	}
@@ -268,14 +289,8 @@ bool Comprehend::loadStateFromPath(const char *path) {
 	memcpy(rng, payload.data() + payload.size() - RNG_TRAILER_SIZE, RNG_TRAILER_SIZE);
 	payload.resize(payload.size() - RNG_TRAILER_SIZE);
 
-	std::vector<byte> snapshot;
-	if (!serializeGameState(snapshot) || payload.size() != snapshot.size())
+	if (!_game || !restorePayload(payload))
 		return false;
-	deserializeGameState(payload);
-	if (_game && !_game->saveStateLooksValid()) {
-		deserializeGameState(snapshot);
-		return false;
-	}
 
 	// Restore the exact RNG stream position captured at #savestate time.
 	deserializeRngState(rng);
@@ -299,9 +314,8 @@ bool Comprehend::serializeGameState(std::vector<byte> &out) {
 
 void Comprehend::deserializeGameState(const std::vector<byte> &in) {
 	if (!_game) return;
-	// Let the game swap in a different static database before the payload is
-	// applied (Talisman loads its part-2 desert tables when restoring a desert
-	// save). Must run before synchronizeSave reads the rooms/items into them.
+	// Load the database of the payload's part (an undo can cross into another
+	// part too). Must run before synchronizeSave reads the rooms/items into it.
 	_game->prepareRestore(in);
 	Common::MemoryReadWriteStream mem(Common::YES);
 	mem.write(in.data(), (uint32)in.size());
