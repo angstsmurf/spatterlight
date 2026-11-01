@@ -34,6 +34,7 @@
 #include "slow_draw_page.h"     // shared progressive-reveal helper
 #include "gm_span_fill.h"       // shared op14 flood fill
 #include "graphics_magician_vector.h"  // shared circle stepper
+#include <algorithm>
 #include <cstdlib>
 #include <cstring>
 
@@ -433,12 +434,15 @@ static void flood_fill(uint16_t x, uint8_t y) {
 					g_fill.top, g_fill.bottom);
 }
 
-// op15 sub-op 3: fill the clip rectangle with the current fill pattern.
+// op15 sub-op 3: fill the op15 bounds with the current fill pattern: rows top..bottom,
+// DHGR columns 2*left..2*right+1 (Talisman $0A4E). Bounds default to the whole picture,
+// and Talisman's OA 2 and OA 4 use small ones. The clamps only guard malformed bytes.
 static void fill_rect() {
-	for (int row = 0; row <= 0x9f; row++) {
+	const int bottom = std::min<int>(g_fill.bottom, 0x9f), right = std::min<int>(2 * g_fill.right + 1, 0x4f);
+	for (int row = g_fill.top; row <= bottom; row++) {
 		uint16_t base = CALC(row);
 		const uint8_t *pat = (row & 1) ? s_fillPatternOdd : s_fillPatternEven;
-		for (int col = 0; col <= 0x4f; col++)
+		for (int col = 2 * g_fill.left; col <= right; col++)
 			dhgr_put(col & 1 ? s_main : s_aux, (uint16_t)(base + (col >> 1)), pat[col & 7]);
 	}
 }

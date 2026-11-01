@@ -8,8 +8,10 @@ game disks of *Talisman -- Challenging the Sands of Time* (woz-a-day collection)
 | `T5` | the boot disk's double hi-res interpreter (3994 bytes). It loads into AUX RAM at `$4000`; the renderer's colour subindex (`$41B2`), sub-table (`$421E`), dither patterns (`$441E`), brushes (`$4B2E`) and picture font (`$4C2E`) are read from it at runtime by `gmDhgrInstallDrawingTables()`. The Coveted Mirror's T5 is byte-identical. |
 | `RA` | room picture file of the Empire disk (16 pictures, LE16 offset table first) |
 | `RF`, `RG` | room picture files of the Lands Beyond disk (part 2) |
+| `OA` | item picture file of the Empire disk, same layout |
 | `cell_main.bin`, `cell_aux.bin` | main and aux `$2000..$3FFF` pages of RA 4, the prison cell, captured from MAME |
 | `lb_<file><idx>_main.bin`, `..._aux.bin` | the same for Lands Beyond pictures: RF 3 and RG 2, 6, 10, 11, 12 |
+| `cell_oa2_main.bin`, `cell_oa2_aux.bin`, `cell_oa4_...` | the same for RA 4 with OA 2 or OA 4 drawn on top, without clearing the screen in between |
 
 `test_dhgr_pics` renders each case and asserts the pages are byte-exact over the
 picture rows (0..0x9f); `test_dhgr_determinism` renders every RA picture after
@@ -20,6 +22,12 @@ fill pattern was built from (op7 `PALSUB` after `FILLCOL` of the same colour),
 which the interpreter answers by rebuilding the pattern at once (`$0951`:
 `cpx $0837 / bne / jmp $0d1a`); RG 10 does it twelve times. RF 3 ends in forty
 tiny brush-1 dots.
+
+OA 2 and OA 4 (the beaver dam, rooms 15 and 16) fill rectangles with op15 sub-op 3,
+which covers only rows top..bottom and columns `2*left..2*right+1` (`$0A4E`). A fill
+of the whole picture wipes the room and fails these cases by about 5,900 of the
+6,400 picture cells. RA 4 is only a background here: the pair never appears in the
+game, which is why it can be captured but not played to.
 
 ## Capturing a page pair from MAME
 
@@ -73,3 +81,15 @@ the disk with `dhgrtrace`:
 reports every op that writes one page byte, which is how a differing byte is
 traced to its op. `pixtest` renders a stream through the same renderer with
 `PIXTEST_DHGR_MAIN=<out> PIXTEST_DHGR_AUX=<out>`.
+
+## Drawing a chosen stream in MAME
+
+To capture a combination the game won't show, call the interpreter directly. Don't
+use `-state` at launch here, it can hang the Lua bridge. Boot the 4am Talisman boot
+`.dsk`, press `D`, and wait for the prompt to insert the Empire disk: the interpreter
+is now live. Put the stream at `$9000`, its address in zero page `$00/$01`, and a
+small stub at `$0300` that waits on a GO byte, then does `JSR $0888`.
+
+Before dumping the pages, poll until PC stays inside the stub's wait loop. A counter
+incremented after the `JSR` is not enough: it gave captures one draw behind. Check the
+stub by dumping RA 4 alone and comparing it with `cell_main.bin`.

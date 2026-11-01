@@ -9,8 +9,10 @@
  * Cases: the prison cell (Empire disk, RA 4) and, from the Lands Beyond disk,
  * every picture that re-patches the colour its current fill pattern was built
  * from (RG 2, 6, 10, 11, 12: op7 has to rebuild the pattern at once, see op7()
- * in the renderer) plus RF 3, whose stream ends in forty brush-1 dots. The
- * fixtures and the MAME capture recipe are described in test/dhgr/README.md.
+ * in the renderer) plus RF 3, whose stream ends in forty brush-1 dots. The cell
+ * is also drawn with the beaver dam items OA 2 and OA 4 on top: they fill small
+ * op15 rectangles, which must not spill over the room. The fixtures and the MAME
+ * capture recipe are described in test/dhgr/README.md.
  *
  * Text rows 0xa0..0xbf are a separate text subsystem and intentionally excluded.
  *
@@ -33,7 +35,19 @@ struct Case {
 	const char *mainPage; // MAME capture of main $2000..$3FFF
 	const char *auxPage;  // ... and of aux $2000..$3FFF
 	const char *label;
+	const char *overlayFile; // item picture file drawn on top of the room (OA..), or null
+	int overlayIdx;
 };
+
+// A picture file starts with 16 LE16 stream offsets. Each stream ends at its own
+// END opcode, so it is handed over up to the end of the file.
+static bool drawPicture(const std::vector<uint8_t> &file, int idx) {
+	uint32_t start = file[idx * 2] | (file[idx * 2 + 1] << 8);
+	if (start >= file.size())
+		return false;
+	gmDhgrDrawImage(file.data() + start, file.size() - start);
+	return true;
+}
 
 static const Case kCases[] = {
 	{"RA",  4, "cell_main.bin",   "cell_aux.bin",   "Empire RA 4, the prison cell"},
@@ -43,6 +57,8 @@ static const Case kCases[] = {
 	{"RG", 10, "lb_RG10_main.bin", "lb_RG10_aux.bin", "Lands Beyond RG 10, 12 pattern rebuilds"},
 	{"RG", 11, "lb_RG11_main.bin", "lb_RG11_aux.bin", "Lands Beyond RG 11, 6 pattern rebuilds"},
 	{"RG", 12, "lb_RG12_main.bin", "lb_RG12_aux.bin", "Lands Beyond RG 12, 2 pattern rebuilds"},
+	{"RA",  4, "cell_oa2_main.bin", "cell_oa2_aux.bin", "Empire RA 4 + OA 2, bounded fills", "OA", 2},
+	{"RA",  4, "cell_oa4_main.bin", "cell_oa4_aux.bin", "Empire RA 4 + OA 4, bounded fills", "OA", 4},
 };
 
 int main(int argc, char **argv) {
@@ -61,14 +77,12 @@ int main(int argc, char **argv) {
 	int failed = 0;
 	for (size_t c = 0; c < sizeof(kCases) / sizeof(kCases[0]); c++) {
 		const Case &k = kCases[c];
-		// A room picture file starts with 16 LE16 stream offsets. Each stream ends
-		// at its own END opcode, so it is handed over up to the end of the file.
-		auto file = load(k.file);
-		uint32_t start = file[k.idx * 2] | (file[k.idx * 2 + 1] << 8);
-		if (start >= file.size()) { printf("FAIL: %s %d: bad offset\n", k.file, k.idx); return 1; }
-
 		gmDhgrResetScreen(false);
-		gmDhgrDrawImage(file.data() + start, file.size() - start);
+		if (!drawPicture(load(k.file), k.idx)) { printf("FAIL: %s %d: bad offset\n", k.file, k.idx); return 1; }
+		if (k.overlayFile && !drawPicture(load(k.overlayFile), k.overlayIdx)) {
+			printf("FAIL: %s %d: bad offset\n", k.overlayFile, k.overlayIdx);
+			return 1;
+		}
 
 		auto gm = load(k.mainPage);
 		auto ga = load(k.auxPage);
