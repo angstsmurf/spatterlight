@@ -33,6 +33,7 @@
  * game; each constant and code pool page in a TADS 3 game.  Each blob has a
  * tag stack of its own, and a run of text counts only while some tag is
  * open.  TADS 2's \( and \) count as <b> and </b>.
+ * The next such run after a <TAB ALIGN=center> counts as centred.
  */
 
 #include <stdio.h>
@@ -403,6 +404,7 @@ static void scan_blob(scan *sc, const char *s, size_t len)
     int text = 0;               /* the run of text so far isn't all spaces */
 
     sc->depth = 0;
+    sc->tabc = 0;
     while (pos < len)
     {
         int c = (unsigned char)s[pos];

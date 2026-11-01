@@ -129,6 +129,7 @@ def count(blobs, escapes):
     tok = TOK_ESC if escapes else TOK
     for s in blobs:
         st = []                         # (name, changes)
+        tabc = False                    # a centred <TAB> waits for text
         for m in tok.finditer(s):
             text = m.group(5) if escapes else m.group(4)
             if text is not None:
@@ -141,6 +142,9 @@ def count(blobs, escapes):
                      | (CENTER if k["align"] else 0)
                      | (FIXED if k["fam"] == "mono" else 0)
                      | (INPUT if k["fam"] == "input" else 0))
+                if tabc:
+                    c |= CENTER
+                    tabc = False
                 counts[c] = counts.get(c, 0) + 1
                 continue
             if escapes and m.group(4) is not None:
@@ -156,7 +160,10 @@ def count(blobs, escapes):
             at = {a.group(1).decode("latin1").upper():
                   (a.group(2) or b"").strip(b"\"'").decode("latin1")
                   for a in ATTR.finditer(m.group(3))}
-            centred = at.get("ALIGN", "").lower() in ("center", "right")
+            align = at.get("ALIGN", "").lower()
+            if n == "TAB" and align == "center":
+                tabc = True
+            centred = align in ("center", "right")
             ch = None
             if n in ("B", "STRONG"):
                 ch = {"b": 1}
