@@ -37,7 +37,7 @@
 
 #include <math.h>
 #ifdef SPATTERLIGHT
-#include "glkimp.h"                 /* for-size to-contents hack */
+#include "glkimp.h"                 /* a window's peer, for its width */
 #endif /* SPATTERLIGHT */
 
 /* ------------------------------------------------------------------------ */
@@ -99,7 +99,7 @@ typedef struct tagban_s
 
     /*
      *   If it's one picture, that is drawn in the graphics window, as the
-     *   pictures beside the page are (osglk.c), and the text window gets
+     *   pictures beside the page are (osglkpage.c), and the text window gets
      *   none of it: the pictures, the widest, and whether it's drawn so
      */
     int px_pics;
@@ -119,9 +119,10 @@ typedef struct tagban_s
     glui32 screen;
 
     /*
-     *   Under the text of a picture over it, the room the cell leaves: the
-     *   text window is as tall as its text, as Gargoyle keeps a text
-     *   buffer's lines at its bottom
+     *   When a picture sits above the text in a cell, this window under the
+     *   text takes the room the cell has left over.  The text window is only
+     *   as tall as its text, as Gargoyle keeps a text buffer's lines at its
+     *   bottom.
      */
     winid_t padwin;
 
@@ -808,8 +809,8 @@ void *osglk_tag_banner_open(const oshtml_banner *ban,
     vertical = tag_vertical(method);
 
     /*
-     *   a window can't turn into another kind, or to the other axis, or
-     *   take its size from a graphics window or stop
+     *   a window can't change its kind or its axis, or start or stop taking
+     *   its size from a graphics window, so open a new one
      */
     if (tb->win && (type != tb->type
                     || tag_vertical(tb->method) != vertical
@@ -968,9 +969,10 @@ static glui32 tag_pixel_height(winid_t win)
 /*
  *   the table window is as tall as the table, or what the text leaves of
  *   the banner, so the table sits under the text as in HTML TADS; a page
- *   of pictures is all of the banner.  A picture over the text is at the
- *   bottom of its window, which is as tall as puts the two together where
- *   their cell aligns them, and what's left goes under the text.
+ *   of pictures is all of the banner.  A picture above the text sits at the
+ *   bottom of its window, and that window is just tall enough to bring the
+ *   two together where their cell aligns them.  What's left of the room
+ *   goes under the text.
  */
 static void tag_table_place(tagban_t *tb)
 {

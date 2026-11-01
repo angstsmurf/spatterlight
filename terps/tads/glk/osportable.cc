@@ -7,7 +7,7 @@
  * are provided by tads2/osnoui.c and tads2/osgen3.c.
  *
  * This file implements the "portable" subset of these functions;
- * functions that depend upon curses/ncurses are defined in oscurses.cc.
+ * the display and input functions are in the Glk layer (osglk.c, osmisc.c).
  */
 
 #include <stdio.h>

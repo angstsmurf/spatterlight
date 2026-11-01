@@ -21,7 +21,7 @@
  *                                                                            *
  *****************************************************************************/
 
-/* osansi4.c -- glk banner interface */
+/* osglkban.c -- glk banner interface */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -37,7 +37,7 @@
 
 #include <math.h>
 #ifdef SPATTERLIGHT
-#include "glkimp.h"                 /* for-size to-contents hack */
+#include "glkimp.h"                 /* a window's peer and bbox, for sizes */
 #endif /* SPATTERLIGHT */
 
 typedef struct os_banner_s *osbanid_t;
@@ -51,7 +51,7 @@ typedef struct os_banner_s
 
     osbanid_t prev;                 /* previous sibling */
     osbanid_t next;                 /* next sibling */
-    osbanid_t children;             /* child's descendents */
+    osbanid_t children;             /* child's descendants */
     osbanid_t parent;               /* child's parent */
 
     glui32 method;                  /* glk window method */
@@ -185,14 +185,6 @@ void banner_contents_display(contentid_t contents);
 void banner_contents_repad(osbanid_t banner);
 
 /* Implementation-specific functions for managing banner windows */
-/*
-    os_banner_init();
-    os_banner_insert();
-    os_banner_styles_apply();
-    os_banners_close();
-    os_banners_open();
-    os_banners_redraw();
-*/
 
 osbanid_t os_banner_init(void)
 {
@@ -650,12 +642,6 @@ void os_banners_redraw()
 }
 
 /* Implementation-specific functions for managing banner contents */
-/*
-    banner_contents_init();
-    banner_contents_insert();
-    banner_contents_display();
-    banner_contents_clear();
-*/
 
 contentid_t banner_contents_init(void)
 {
@@ -1075,8 +1061,8 @@ void os_banner_set_size(void *banner_handle, int siz, int siz_units,
         return;
 #ifdef OSGLK_PIXELS
     /*
-     *   the game will fit a text banner to its contents after, which we
-     *   can, so the size until then would only make it jump
+     *   the game will fit a text banner to its contents afterwards, which
+     *   works here, so this size until then would only make it jump
      */
     if (is_advisory && (banner->type != wintype_TextGrid || banner->repad))
         return;
@@ -1284,20 +1270,15 @@ void os_banner_orphan(void *banner_handle)
 int os_banner_getinfo(void *banner_handle, os_banner_info_t *info)
 {
     osbanid_t banner = banner_handle;
-    // Return FALSE (not 1) when we have no window to measure yet: a
-    // size-to-contents banner is created at size 0, so os_banners_open()
-    // skips glk_window_open() and banner->win is still 0 when
-    // CVmConsoleBanner's constructor calls us. Reporting success here
-    // without populating *info left the caller reading an uninitialized
-    // info.os_line_wrap off the stack, which flipped the banner's line-wrap
-    // mode (and hence the per-character BANNERCOLS query storm)
-    // nondeterministically between runs.
-    // Returning FALSE makes the caller fall back to its own os_line_wrap
-    // (TRUE for a text banner: see CVmConsoleBanner in vmconsol.cpp).
+    /*
+     *   A banner created at size 0 has no window yet when CVmConsoleBanner's
+     *   constructor asks.  Return FALSE, as *info isn't filled in: the caller
+     *   then falls back on its own os_line_wrap (TRUE for a text banner, in
+     *   vmconsol.cpp).
+     */
     if (!banner || !banner->valid || !banner->win)
         return FALSE;
 
-//    winid_t win = banner->win;
     glui32 gwintype = banner->type;
     glui32 gwinmeth = banner->method;
     glui32 gstyletab = banner->status;

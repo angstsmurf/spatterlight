@@ -42,6 +42,9 @@ the spec and has none of Spatterlight's extensions.
 | `osfrobtads.h`, `osspatter.h` | The OS header (`tads2/os.h` → `osspatter.h` → `osfrobtads.h`). `osfrobtads.h` keeps FrobTADS's unused parts as `#if 0` on purpose, for diffing with new FrobTADS releases. |
 | `osparse.c` | Character sets; upstream Gargoyle code. |
 | `t23run.cpp` | `glk_main`: picks the engine, sets up resources (`CVmHostIfcGlk`, built `-fno-rtti` like tads3). |
+| `osmisc.c`, `osextra.c`, `osbuffer.c`, `memicmp.c`, `osunixt.h`, `osgarglk.h`, `t2*`, `t3*`, `vmuni_cs.cpp` | The remaining `os_*` functions and small engine stubs. `osgarglk.h` is for Gargoyle only. |
+
+Comments cite HTML TADS functions such as `end_normal_tag` and `CHtmlSoundQueue`. Those are in `htmltads` in the QTads 3.2.0 source, not in this repository.
 
 ## How markup gets out of the engines
 
@@ -393,7 +396,7 @@ as pictures above.
   same traces. With Delays off, a game's sleep is skipped and the clock
   moved on by its length.
 - **Styles**: `test/check_styles.py` builds `osstyles.c` alone
-  (`test/stylescan.c`) and checks its counts against `stylecount.py`'s
+  (`test/stylescan.c`) and checks its counts against `test/stylecount.py`'s
   rules on both corpora.
 - **Scanner unit test**: `test/scantest.c` tests `oshtml_scan.c` alone; the
   build line is in its header.

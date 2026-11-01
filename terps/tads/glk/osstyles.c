@@ -1,3 +1,23 @@
+/******************************************************************************
+ *                                                                            *
+ * Copyright (C) 2026 by Petter Sjölund.                                      *
+ *                                                                            *
+ * This file is free software; you can redistribute it and/or modify          *
+ * it under the terms of the GNU General Public License as published by       *
+ * the Free Software Foundation; either version 2 of the License, or          *
+ * (at your option) any later version.                                        *
+ *                                                                            *
+ * This file is distributed in the hope that it will be useful,               *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of             *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the              *
+ * GNU General Public License for more details.                               *
+ *                                                                            *
+ * You should have received a copy of the GNU General Public License          *
+ * along with this file; if not, write to the Free Software                   *
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA *
+ *                                                                            *
+ ******************************************************************************/
+
 /* osstyles.c -- the 11 Glk styles, chosen per game
  *
  * HTML TADS can combine bold, italic, fixed pitch, the input font and
@@ -8,7 +28,7 @@
  * The combinations used most get a style each, and the hints that make the
  * style look like its combination.  See README.md, "Styles".
  *
- * The count works as test/.work/bin/stylecount.py does, on the same blobs:
+ * The count works as test/stylecount.py does, on the same blobs:
  * the data of each object and function, and the format strings, in a TADS 2
  * game; each constant and code pool page in a TADS 3 game.  Each blob has a
  * tag stack of its own, and a run of text counts only while some tag is

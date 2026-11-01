@@ -1,3 +1,23 @@
+/******************************************************************************
+ *                                                                            *
+ * Copyright (C) 2026 by Petter Sjölund.                                      *
+ *                                                                            *
+ * This file is free software; you can redistribute it and/or modify          *
+ * it under the terms of the GNU General Public License as published by       *
+ * the Free Software Foundation; either version 2 of the License, or          *
+ * (at your option) any later version.                                        *
+ *                                                                            *
+ * This file is distributed in the hope that it will be useful,               *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of             *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the              *
+ * GNU General Public License for more details.                               *
+ *                                                                            *
+ * You should have received a copy of the GNU General Public License          *
+ * along with this file; if not, write to the Free Software                   *
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA *
+ *                                                                            *
+ ******************************************************************************/
+
 /* oshtml.h -- HTML TADS markup to Glk */
 
 #ifndef OSHTML_H
@@ -95,7 +115,7 @@ void osglk_api_banner_request_links(void);
 
 /*
  *   Show the picture of a table's first or last cell beside the page, at
- *   the main window's left or right (osglk.c): false if it can't be
+ *   the main window's left or right (osglkpage.c): false if it can't be
  */
 int osglk_side_picture(int right, const oshtml_image *img);
 
@@ -147,7 +167,8 @@ void osglk_set_window_bg(winid_t win, glui32 color);
  *   A text buffer banner at the top or bottom fitted to its text: as tall as
  *   the text's pixels, or 0 for the lines it was split off with.  A line in
  *   a font other than the buffer's may be taller than the buffer's lines, so
- *   counting lines would cut off the bottom.  Only Spatterlight can.
+ *   counting lines would cut off the bottom.  Does nothing outside
+ *   Spatterlight, which alone can size a window in pixels.
  */
 void osglk_set_text_height(winid_t win, int pixels);
 
@@ -238,7 +259,7 @@ glui32 osglk_banner_line_pixels(void);
 
 /*
  *   Show the table at the end of a tag banner under its text, as a picture
- *   whose tiles can be clicked (osglkban.c): false if it can't be
+ *   whose tiles can be clicked (osglktagban.c): false if it can't be
  */
 int osglk_tag_banner_table(void *ctx, const oshtml_pictable *t);
 
@@ -271,8 +292,8 @@ void osglk_tag_banner_redraw(void);
 void osglk_api_banner_redraw(void);
 
 /*
- *   Draw again those of them the interpreter's own rearranging resized,
- *   which no Redraw event tells of
+ *   Draw again the ones that the interpreter's own rearranging resized, as
+ *   no Redraw event reports that
  */
 void osglk_api_banner_resized(void);
 
@@ -369,7 +390,7 @@ void osglk_set_body_text(os_color_t fg);
 os_color_t osglk_body_color(os_color_t fg);
 
 /*
- *   TADS 2's <BANNER> tags, which oshtml.c reads and osglkban.c shows.  A
+ *   TADS 2's <BANNER> tags, which oshtml.c reads and osglktagban.c shows.  A
  *   size is in pixels or per cent, or 'previous' (the banner's size so
  *   far), or not given (the size of its contents).
  */

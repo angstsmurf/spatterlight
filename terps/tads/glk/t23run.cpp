@@ -106,8 +106,11 @@ static int main_t2(int argc, char **argv)
     os_instbrk(1);
 
 #ifdef SPATTERLIGHT
-    // argv[0] is the path to the interpreter here, and argv[1] is the path to the game file,
-    // but os0main2 really wants the game file to be argv[0]???
+    /*
+     *   The engine takes argv[0] as the program's path, and looks for its own
+     *   files in that folder (os_locate).  Have it look beside the game rather
+     *   than in the app.
+     */
     argv[0] = argv[1];
 #endif
 
@@ -184,9 +187,9 @@ static int main_t3(int argc, char **argv)
 #endif
 
     /* 
-     *   Initialize the OS layer.  Since this is a command-line-only
-     *   implementation, there's no need to ask the OS layer to try to get
-     *   us a filename to run, so pass in null for the prompt and filename
+     *   Initialize the OS layer.  The game's filename is on the command
+     *   line, so there's no need to ask the OS layer to try to get
+     *   us a filename to run: pass in null for the prompt and filename
      *   buffer.  
      */
     oshtml_set_tads3(1);

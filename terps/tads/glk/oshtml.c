@@ -1,3 +1,23 @@
+/******************************************************************************
+ *                                                                            *
+ * Copyright (C) 2026 by Petter Sjölund.                                      *
+ *                                                                            *
+ * This file is free software; you can redistribute it and/or modify          *
+ * it under the terms of the GNU General Public License as published by       *
+ * the Free Software Foundation; either version 2 of the License, or          *
+ * (at your option) any later version.                                        *
+ *                                                                            *
+ * This file is distributed in the hope that it will be useful,               *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of             *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the              *
+ * GNU General Public License for more details.                               *
+ *                                                                            *
+ * You should have received a copy of the GNU General Public License          *
+ * along with this file; if not, write to the Free Software                   *
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA *
+ *                                                                            *
+ ******************************************************************************/
+
 /* oshtml.c -- HTML TADS markup to Glk
  *
  * The TADS 2 formatter is built with USE_HTML, so once a game turns on HTML
@@ -43,16 +63,20 @@
  *     INDENT and MULTIPLE;
  *   - <a href> is a link (osglk.c), unless the href is a URL;
  *   - <img> draws its picture where the window can show one, and prints
- *     its ALT text where it can't; the ALT text of <sound> is printed;
+ *     its ALT text where it can't; <sound> plays (ossound.c), and prints its
+ *     ALT text only if it can't;
  *   - Glk can't make parts of a picture clickable, so the <area>s of an
  *     <img usemap> are a row of links under the pictures, named by their
- *     ALT text or else their hrefs (which are commands); at the end of a
- *     banner, the picture goes in a graphics window, where they're clicked;
+ *     ALT text or else their hrefs (which are commands); the picture also
+ *     goes in a graphics window, where they're clicked, at the end of a banner
+ *     or above the page (osglkpage.c);
+ *   - for <table>, see README.md, "Tables", and for pictures beside the page,
+ *     "Images";
  *   - <title> sets the window title, and nothing inside <title> or
  *     <aboutbox> (or in TADS 3, <banner>) is shown;
  *   - in TADS 2, the text of a <banner> is kept until its </banner>, and
- *     then replaces what the banner's window had (osglkban.c), through a
- *     parser of the banner's own;
+ *     then replaces what the banner's window had (oshtml_banner.c,
+ *     osglktagban.c), through a parser of the banner's own;
  *   - every other tag is dropped and its contents shown.
  *
  * In TADS 2, the main window and the status line share one parser, as they
@@ -65,8 +89,7 @@
  * own (osglkban.c), as it has a formatter of its own.
  *
  * Text reaches the parser in Unicode: each os_print chunk is decoded with
- * os_parse_chars first, exactly as os_put_buffer decoded it, so the
- * character set is guessed from the same text as before.
+ * os_parse_chars first, as os_put_buffer does.
  */
 
 #include <stdio.h>
@@ -1846,7 +1869,9 @@ glui32 href_link(const glui32 *v, size_t len, int flags)
 /*
  *   Image maps.  Glk can't make part of a picture a link, so the <AREA>s of
  *   an <IMG USEMAP> are shown as a row of links under it, each named by its
- *   ALT, or failing that its HREF, which is the command it types.  The maps
+ *   ALT, or failing that its HREF, which is the command it types.  Where a
+ *   window can take the picture, its areas can be clicked too (map_window).
+ *   The maps
  *   are kept for every window, as HTML TADS keeps them for the document, and
  *   a <MAP> with a name we have replaces the old one.  In the corpus the
  *   <MAP> always comes before its <IMG>.
@@ -2118,7 +2143,8 @@ static int label_cmp(const maplink *a, const maplink *b, size_t skip)
  *   page, where its areas can be clicked (osglkpage.c), rather than in the
  *   text, where it could be only one link.  Not one in a table, unless it
  *   starts the table's first cell (School's map, in a table that centres
- *   it), or that floats, or the tiles of a picture in several (Golden Skull's compass):
+ *   it), or that floats, or the tiles of a picture in several (Golden Skull's
+ *   compass):
  *   when a second tile comes, the first goes back in the text after all,
  *   where it would have been.  The row of links is put out all the same,
  *   for the keyboard and VoiceOver.
@@ -3432,7 +3458,7 @@ static void tag_pre(parser *p, const tag_info *tg)
     }
 }
 
-/* the tags we show, by name; a tag that isn't here isn't shown */
+/* the tags we handle, by name; any other is dropped, and its contents shown */
 static const struct tag_handler
 {
     const char *name;
@@ -3780,10 +3806,9 @@ void oshtml_flush_parser(oshtml_parser *p)
     flush_out(p);
 }
 
-/* the window was cleared */
 /*
- *   HTML TADS clears the page by closing every tag (clear_page in
- *   htmlprs.cpp), which ends a <DIV> or <CENTER> a game left open
+ *   The window was cleared.  HTML TADS clears the page by closing every tag
+ *   (clear_page in htmlprs.cpp), which ends a <DIV> or <CENTER> a game left open
  */
 static void close_all(parser *p)
 {

@@ -1,3 +1,25 @@
+/******************************************************************************
+ *                                                                            *
+ * Copyright (C) 2006-2009 by Tor Andersson.                                  *
+ * Copyright (C) 2010-2011 by Ben Cressey.                                    *
+ * Copyright (C) 2026 by Petter Sjölund.                                      *
+ *                                                                            *
+ * This file is free software; you can redistribute it and/or modify          *
+ * it under the terms of the GNU General Public License as published by       *
+ * the Free Software Foundation; either version 2 of the License, or          *
+ * (at your option) any later version.                                        *
+ *                                                                            *
+ * This file is distributed in the hope that it will be useful,               *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of             *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the              *
+ * GNU General Public License for more details.                               *
+ *                                                                            *
+ * You should have received a copy of the GNU General Public License          *
+ * along with this file; if not, write to the Free Software                   *
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA *
+ *                                                                            *
+ ******************************************************************************/
+
 /* osglkpage.c -- pictures in windows of their own around the main
    window: beside its page, and a page of pictures on a background */
 
@@ -114,9 +136,10 @@ static oshtml_pictable page_pt;
 static glui32 page_total, page_x;
 
 /*
- *   The movie of the page is the picture in the main window's text, which
- *   animates there and not in a graphics window: the starfield is in a
- *   window on each side of it, as wide as what is left of the window
+ *   The page's picture is a movie, so it goes in the main window's text: it
+ *   animates there, and not in a graphics window.  The background (the
+ *   starfield) goes in a window on each side of it, each as wide as what
+ *   the picture leaves.
  */
 static void main_page_draw(void)
 {

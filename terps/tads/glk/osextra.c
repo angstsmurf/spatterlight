@@ -42,7 +42,7 @@
  *
  *   This is provided because the noui version only knows about DOS, not
  *   Windows, so will not handle drive letters properly, assuming
- *   something like C:/foo is not absoolute. The macro
+ *   something like C:/foo is not absolute. The macro
  *   OSNOUI_OMIT_IS_FILE_ABSOLUTE must be defined so that the noui version
  *   is not built.
  */
