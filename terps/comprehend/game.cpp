@@ -115,8 +115,7 @@ void Sentence::format() {
 	}
 
 	// The first noun slot's gender/number nibble drives article agreement for
-	// the @-replacement words (OPCODE_SET_STRING_REPLACEMENT3).  Mirrors the
-	// Apple II cm_format_sentence_words setting cm_current_noun_flags ($5b6a).
+	// the @-replacement words (OPCODE_SET_STRING_REPLACEMENT3).
 	_wordFlags = wordTypes[2];
 }
 
@@ -167,11 +166,10 @@ void ComprehendGame::synchronizeSave(Common::Serializer &s) {
 	for (i = 0; i < _items.size(); ++i)
 		_items[i].synchronize(s);
 
-	// The current '@'-replacement selector. This is live per-turn state set by
-	// the OPCODE_SET_STRING_REPLACEMENT* opcodes, not derivable from the rooms
-	// and items, so persist it -- otherwise a restored room whose description
-	// ends in "@ern horizon" shows a stale direction word until the next turn
-	// re-derives it (most visible restoring into Talisman's desert maze).
+	// The current '@'-replacement selector is live per-turn state set by the
+	// OPCODE_SET_STRING_REPLACEMENT* opcodes and can't be derived from rooms and items.
+	// Without it, a restored room whose description ends in "@ern horizon" shows a stale
+	// direction word until the next turn (most visible in Talisman's desert maze).
 	s.syncAsByte(_currentReplaceWord);
 	byte replaceIsNumber = _replaceWordIsNumber ? 1 : 0;
 	s.syncAsByte(replaceIsNumber);
@@ -186,14 +184,10 @@ Common::String ComprehendGame::stringLookup(uint16 index) {
 	uint8 table;
 
 	/*
-	 * There are two tables of strings. The first is stored in the main
-	 * game data file, and the second is stored in multiple string files.
-	 *
-	 * In instructions string indexes are split into a table and index
-	 * value. In other places such as the save files strings from the
-	 * main table are occasionally just a straight 16-bit index. We
-	 * convert all string indexes to the former case so that we can handle
-	 * them the same everywhere.
+	 * There are two tables of strings: one in the main game data file, one spread
+	 * over multiple string files. Instructions split a string index into a table and an
+	 * index value; elsewhere (e.g. save files) a main-table string may be a plain 16-bit
+	 * index. All indexes are converted to the split form here.
 	 */
 	table = (index >> 8) & 0xff;
 	string = index & 0xff;
@@ -207,12 +201,10 @@ Common::String ComprehendGame::stringLookup(uint16 index) {
 	case 0x80:
 		if (string < _strings.size())
 			return _strings[string];
-		// A reference past the end of the main table prints nothing in the
-		// original: its seek walks null-terminated entries past the table into
-		// the zero-filled RAM behind it, so the "string" it lands on is empty.
-		// The Coveted Mirror has one such reference, EXIT at the Color Fairy's
-		// with the door open (function 22 prints S1 428 of 155); the original
-		// shows a blank line there (test/cm/strings_oracle.sh, 2026-11-01).
+		// A reference past the end of the main table prints nothing in the original:
+		// its seek walks null-terminated entries past the table into zero-filled RAM, so
+		// the string it lands on is empty. The Coveted Mirror has one such reference, EXIT
+		// at the Color Fairy's with the door open (function 22 prints S1 428 of 155).
 		return "";
 
 	case 0x05:
@@ -252,13 +244,11 @@ int ComprehendGame::console_get_key() {
 	return g_comprehend->readChar();
 }
 
-// A handful of game strings are hand-drawn ASCII boxes -- a horizontal rule of
-// dashes, then text bracketed by '!' side borders, then another rule (Talisman's
-// "departing the Persian Empire" sign is the example). The normal word printer
-// collapses the runs of padding spaces that hold the right border in place, and
-// the buffer window's proportional font would misalign the columns anyway. Detect
-// such a string by its rule line -- one made up solely of spaces and a run of at
-// least four dashes -- so it can be printed verbatim in a monospace style.
+// A handful of game strings are hand-drawn ASCII boxes: a rule of dashes, text between
+// '!' side borders, another rule (e.g. Talisman's "departing the Persian Empire" sign).
+// The word printer would collapse the padding spaces holding the right border, and a
+// proportional font would misalign the columns. Such a string is detected by its rule
+// line, solely spaces and a run of at least four dashes, and printed verbatim in monospace.
 static bool looksLikeAsciiSign(const char *text) {
 	const char *lineStart = text;
 	for (const char *p = text;; ++p) {
@@ -314,10 +304,8 @@ void ComprehendGame::console_println(const char *text) {
 			/* Replace word */
 			if (_replaceWordIsNumber) {
 				/*
-				 * Number mode: render a variable's value as a decimal
-				 * number (e.g. Talisman's bazaar prices). Mirrors the
-				 * original interpreter's capital-space number branch,
-				 * which formats variables[index] as decimal.
+				 * Number mode: render a variable's value as a decimal number
+				 * (e.g. Talisman's bazaar prices).
 				 */
 				snprintf(bad_word, sizeof(bad_word), "%u",
 						 _variables[_replaceNumberVar]);
@@ -339,12 +327,10 @@ void ComprehendGame::console_println(const char *text) {
 			word_len = strcspn(p, " \n");
 			if (word_len == 0) {
 				/*
-				 * A space at the start of a parse iteration -- e.g. the
-				 * indentation that follows a newline in a multi-line string
-				 * such as Talisman's death menu. ('\n' has its own case, so
-				 * strcspn can only be zero here for a space.) Emit one space
-				 * and advance past the run; otherwise p never moves and we
-				 * spin forever.
+				 * A space at the start of a parse iteration, e.g. the indentation after a
+				 * newline in Talisman's death menu. ('\n' has its own case, so strcspn can
+				 * only be zero here for a space.) Emit one space and skip the run, or p
+				 * never moves and this spins forever.
 				 */
 				g_comprehend->print(" ");
 				do {
@@ -468,9 +454,8 @@ static size_t matchSlotList(const Common::String &s, size_t i) {
 	return 0;
 }
 
-// The original games' SAVE/RESTORE prompts instruct the player to pick a
-// numbered slot, but we now route to Spatterlight's file dialog. Keep the
-// games' flavour text but rewrite the slot reference so it reads naturally.
+// The original SAVE/RESTORE prompts ask the player to pick a numbered slot, but saving
+// goes through the save dialog. Keep the flavour text and rewrite the slot reference.
 // The phrasing differs per game, e.g.
 //   "Emergency Saving Procedure:\nChoose 1, 2, or 3"  (Oo-Topos)
 //   "...Ghost of Transylvania Future. Save 1,2,or 3?" (Transylvania)
@@ -603,11 +588,10 @@ void ComprehendGame::update_graphics() {
 	type = roomIsSpecial(_currentRoomCopy, nullptr);
 
 	// A full repaint (UPDATE_GRAPHICS) clears the background and redraws the
-	// location plus its items; an items-only refresh (UPDATE_GRAPHICS_ITEMS,
-	// e.g. an object moved into the room) just layers items on the existing
-	// screen. Either way we hand the list of pictures to the host, which knows
-	// what is already on screen and paints unchanged repaints instantly instead
-	// of re-running the slow-draw reveal.
+	// location plus its items; an items-only refresh (UPDATE_GRAPHICS_ITEMS, e.g. an
+	// object moved into the room) just layers items on the existing screen. Either way
+	// the list of pictures goes to the host, which knows what is already on screen and
+	// paints unchanged repaints instantly instead of re-running the slow-draw reveal.
 	bool fullRepaint = (_updateFlags & UPDATE_GRAPHICS) != 0;
 
 	switch (type) {
@@ -632,19 +616,11 @@ void ComprehendGame::update_graphics() {
 			for (i = 0; i < _items.size(); i++) {
 				item = &_items[i];
 
-				// Skip items whose picture the bytecode has suppressed via
-				// flag bit 0x40 (ITEMF_NO_PICTURE). The original interpreter's
-				// per-turn presentation draws an item's picture only when this
-				// bit is clear (cm_describe_room_and_items $4dc1: object picture
-				// drawn iff (item_flags & 0x40) == 0); there is no dark-room
-				// test in the draw path. This is a *separate* flag from the
-				// 0x80 ITEMF_INVISIBLE the text listing uses: e.g. in The
-				// Coveted Mirror the medallion in the unlit room behind the
-				// prison tower's hole has 0x40 set (not drawn over the black
-				// dark-room screen), while the moved-bed item has only 0x80 set
-				// -- hidden from the text listing but its picture (the shifted
-				// bed and the hole behind it) must still be drawn. Gating on
-				// 0x80 wrongly hid the bed picture.
+				// Skip items whose picture the bytecode has suppressed via flag bit 0x40
+				// (ITEMF_NO_PICTURE); the draw path has no dark-room test. This is separate
+				// from the 0x80 ITEMF_INVISIBLE the text listing uses: in The Coveted Mirror
+				// the moved-bed item has only 0x80 set, hidden from the listing, but its
+				// picture (the shifted bed and the hole behind it) must still be drawn.
 				if (item->_room == _currentRoom &&
 						item->_graphic != 0 &&
 						!(item->_flags & ITEMF_NO_PICTURE))
@@ -719,10 +695,10 @@ void ComprehendGame::update() {
 
 	if (_updateFlags & UPDATE_ROOM_DESC) {
 		Common::String desc = stringLookup(room_desc_string);
-		// When the room description is shown in the status grid (printRoomDesc),
-		// don't duplicate it into the scroll-back buffer -- but still record it
-		// in the transcript, which has no status grid. If there is no grid, fall
-		// back to printing it in the buffer as before.
+		// In text mode the room description is shown in the status grid (printRoomDesc),
+		// so it isn't duplicated into the scroll-back buffer, but it is still recorded in
+		// the transcript, which has no status grid. In graphics mode there is no grid, so
+		// it goes in the buffer.
 		if (g_comprehend->_statusWindow) {
 			g_comprehend->redirectOutputToTranscript(true);
 			console_println(desc.c_str());
@@ -890,7 +866,6 @@ bool ComprehendGame::handle_sentence(Sentence *sentence) {
 		return true;
 	}
 
-	// Set up default sentence
 	Common::Array<byte> words;
 	const byte *src = &sentence->_formattedWords[0];
 
@@ -975,19 +950,16 @@ bool ComprehendGame::handle_sentence(uint tableNum, Sentence *sentence, Common::
 	for (uint i = 0; i < table.size(); i++) {
 		const Action &action = table[i];
 
-		// Check for a match on the words of the action
 		bool isMatch = true;
 		for (uint idx = 0; idx < action._nr_words && isMatch; ++idx)
 			isMatch = action._words[idx] == words[idx];
 
 		if (isMatch) {
-			// Match
 			_functionNum = action._function;
 			return true;
 		}
 	}
 
-	// No matching action
 	return false;
 }
 
@@ -1032,28 +1004,24 @@ void ComprehendGame::read_sentence(Sentence *sentence) {
 
 	sentence->clear();
 
-	// V2 interpreters zero the input-number register (variable 0) at the start
-	// of each sentence parse (NOVEL.EXE read_sentence_format writes 0x34bb = 0).
-	// A subsequent numeric token fills it; otherwise it stays 0. This matters
-	// for e.g. the curio dealer's yes/no haggling, whose accept test compares
-	// variable 0 against 0. (V1 instead uses variable 0 as the persisted
-	// inventory weight, so it must not be cleared.)
+	// V2 interpreters zero the input-number register (variable 0) at the start of each
+	// sentence parse; a numeric token fills it. This matters for e.g. the curio dealer's
+	// yes/no haggling, whose accept test compares variable 0 against 0. (V1 uses variable
+	// 0 as the persisted inventory weight, so it must not be cleared.)
 	if (hasNumberRegister())
 		_variables[0] = 0;
 
 	for (;;) {
-		// Get the next word
 		skip_whitespace(&p);
 		word_string = p;
 		skip_non_whitespace(&p);
 
 		Common::String wordStr(word_string, p);
 
-		// A purely numeric token is the player entering a number (e.g. a price
-		// when haggling in Talisman's bazaar). The original interpreter parses
-		// it into variable 0 -- its input-number register -- rather than
-		// treating it as a dictionary word. Game logic and the number-mode '@'
-		// string marker then read the value back from the variables array.
+		// A purely numeric token is the player entering a number (e.g. a price when
+		// haggling in Talisman's bazaar). It goes into variable 0, the input-number
+		// register, instead of being treated as a dictionary word. Game logic and the
+		// number-mode '@' string marker read the value back from the variables array.
 		bool allDigits = hasNumberRegister() && !wordStr.empty();
 		for (uint di = 0; di < wordStr.size(); ++di) {
 			if (wordStr[di] < '0' || wordStr[di] > '9') {
@@ -1068,27 +1036,23 @@ void ComprehendGame::read_sentence(Sentence *sentence) {
 			_variables[0] = (uint16)value;
 		}
 
-		// Check for end of sentence
 		// A simplified version of how the original handles lists like
 		// "get item1, item2": each separator just ends the sentence.
 		if (*p == ',' || *p == '\n' || wordStr.equalsIgnoreCase("and")) {
-			// Sentence separator
 			++p;
 			sentence_end = true;
 		} else if (*p == '\0') {
 			sentence_end = true;
 		}
 
-		// Single-letter shortcuts for modern-IF conventions. The Comprehend data
-		// makes a bare "I" a synonym for the "IN" direction, which surprises
-		// players who expect "I" = inventory; "X" and "Z" aren't dictionary words
-		// at all. Expand each to its full verb -- but only when this game's
-		// dictionary actually defines it, so the token is left untouched (and the
-		// original "IN" behaviour preserved) in any game that lacks the verb.
+		// Single-letter shortcuts for modern-IF conventions. The Comprehend data makes a
+		// bare "I" a synonym for the "IN" direction, which surprises players who expect
+		// inventory; "X" and "Z" aren't dictionary words at all. Each expands to its full
+		// verb only when this game's dictionary defines it; otherwise the token is left
+		// untouched, preserving the original "IN" behaviour.
 		if (wordStr.size() == 1)
 			wordStr = expandLetterShortcut(wordStr[0]);
 
-		/* Find the dictionary word for this */
 		word = dict_find_word_by_string(this, wordStr.c_str());
 		if (!word)
 			sentence->_words[sentence->_nr_words].clear();
@@ -1107,7 +1071,7 @@ void ComprehendGame::read_sentence(Sentence *sentence) {
 
 	// Latch the command's first-noun flags so they persist through this turn's
 	// function/daemon opcode execution (the article picker runs later, and may
-	// run with a null sentence).  Faithful to the Apple II global $5b6a.
+	// run with a null sentence).
 	_wordFlags = sentence->_wordFlags;
 
 	_inputLineIndex = p - _inputLine;
@@ -1117,24 +1081,19 @@ void ComprehendGame::parse_sentence_word_pairs(Sentence *sentence) {
 	if (sentence->_nr_words < 2)
 		return;
 
-	// Iterate through the pairs
 	for (uint idx = 0; idx < _wordMaps.size(); ++idx) {
 		for (int firstWord = 0; firstWord < (int)sentence->_nr_words - 1; ++firstWord) {
 			for (int secondWord = firstWord + 1; secondWord < (int)sentence->_nr_words; ) {
 				if (sentence->_words[firstWord] == _wordMaps[idx]._word[0] &&
 					sentence->_words[secondWord] == _wordMaps[idx]._word[1]) {
-					// Found a word pair match
-					// Delete the second word
 					for (; secondWord < (int)sentence->_nr_words - 1; ++secondWord)
 						sentence->_words[secondWord] = sentence->_words[secondWord + 1];
 
 					sentence->_words[sentence->_nr_words - 1].clear();
 					sentence->_nr_words--;
 
-					// Replace the first word with the target
 					sentence->_words[firstWord] = _wordMaps[idx]._word[2];
 				} else {
-					// Move to next word
 					++secondWord;
 				}
 			}
@@ -1143,7 +1102,6 @@ void ComprehendGame::parse_sentence_word_pairs(Sentence *sentence) {
 }
 
 void ComprehendGame::doBeforeTurn() {
-	// Make  a copy of the current room
 	_currentRoomCopy = _currentRoom;
 	_roomBeforeTurn = _currentRoom;
 
@@ -1153,25 +1111,7 @@ void ComprehendGame::doBeforeTurn() {
 		update();
 }
 
-// The each-turn daemon (function 0) is NOT run here. Every original
-// interpreter evaluates it exactly once per turn, inside the dispatch, straight
-// after the matched action; that is handleAction() above. None has a daemon pass
-// before the parser: what the originals do ahead of the prompt is only the
-// room/item description and the picture, which is update().
-//
-// Verified in the V2 engine from a live Apple II RAM dump of The Coveted Mirror
-// (main loop cm_main_command_loop $404c, dispatch cm_dispatch_action_and_daemon
-// $4f80), which Oo-Topos shares, and in the DOS Transylvania v2 Novel.exe (main
-// loop FUN_1000_05a0, dispatch FUN_1000_0a90); and in the V1 engine from Crimson
-// Crown's DOS NOVEL.EXE (main loop FUN_1000_0455, dispatch FUN_1000_0e73, whose
-// evaluator FUN_1000_0eb4 has no other caller), which Transylvania v1 shares.
-//
-// Don't call eval_function(0) here as well: the daemon would run twice a turn,
-// doubling every per-turn effect. The Coveted Mirror's hourglass would drain
-// two grains a turn, and Oo-Topos would print the guard's capture message twice
-// and draw the cell a turn late.
-//
-// A game overrides this only for its own native per-turn routine.
+// The daemon runs in handleAction(); do not run it here too.
 void ComprehendGame::beforeTurn() {
 }
 
@@ -1309,11 +1249,10 @@ turn:
 			continue;
 		}
 
-		// #dhgr [on|off]: toggle the Apple II double hi-res ("<D>") renderer,
-		// mirroring the original's Standard/Double hi-res prompt. Available only
-		// on an Apple disk whose boot disk shipped a <D> interpreter (T5 drawing
-		// tables installed); reports unavailable otherwise. On a switch we redraw
-		// the current picture so the change shows immediately.
+		// #dhgr [on|off]: toggle the Apple II double hi-res ("<D>") renderer, mirroring
+		// the original's Standard/Double hi-res prompt. Available only on an Apple disk
+		// whose boot disk shipped a <D> interpreter (T5 drawing tables installed). A switch
+		// redraws the current picture so the change shows immediately.
 		if (scumm_strnicmp(_inputLine, "#dhgr", 5) == 0 &&
 			(_inputLine[5] == '\0' || _inputLine[5] == ' ')) {
 #ifndef SPATTERLIGHT
@@ -1423,12 +1362,10 @@ turn:
 
 		read_sentence(&tempSentence);
 
-		// Carry the previous turn's verb over only when the new input is a bare
-		// noun (the "reuse the last verb" feature). If it parsed to no recognised
-		// words at all, replace the sentence wholesale instead of keeping the old
-		// verb -- otherwise an unintelligible command silently re-runs the last
-		// one (e.g. repeating "Ye cannot travel..." ) rather than reporting that
-		// it was not understood.
+		// Carry the previous turn's verb over only when the new input is a bare noun (the
+		// "reuse the last verb" feature). Input with no recognised words replaces the
+		// sentence wholesale, otherwise an unintelligible command silently re-runs the last
+		// one (e.g. repeating "Ye cannot travel...") instead of reporting it wasn't understood.
 		bool newHasWords = false;
 		for (uint fw = 0; fw < ARRAY_SIZE(tempSentence._formattedWords); ++fw)
 			if (tempSentence._formattedWords[fw]) {
@@ -1436,14 +1373,10 @@ turn:
 				break;
 			}
 
-		// After OPCODE_SAVE_ACTION (NOUNSTATE_QUERY) the next input re-uses the
-		// previous command's verb, so a bare answer with no verb of its own is
-		// matched as "<saved verb> <answer>". This is how Talisman's shop clerk
-		// reads the 5-digit product code: the verb stays the product-prefix word
-		// the player gave (e.g. "cp"), and entering just "65013" re-runs that
-		// product's handler -- which, with its prompt flag now set, prints "A
-		// fine choice." rather than rejecting the input. Keep the new verb when
-		// the answer does carry one (e.g. a "yes"/"no" reply to a yes/no query).
+		// After OPCODE_SAVE_ACTION (NOUNSTATE_QUERY) a bare answer is matched as "<saved
+		// verb> <answer>". Talisman's shop clerk reads the 5-digit product code this way:
+		// the verb stays the product-prefix word (e.g. "cp"), and "65013" re-runs that
+		// product's handler. An answer with its own verb (e.g. "yes"/"no") keeps it.
 		bool copyNoun;
 		if (prevNounState == NOUNSTATE_QUERY)
 			copyNoun = tempSentence._formattedWords[0] != 0;

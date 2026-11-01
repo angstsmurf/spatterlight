@@ -1,45 +1,33 @@
-/* gm_span_fill.h -- the Graphics Magician op14 flood fill, shared by the
- * Apple II standard hi-res, double hi-res and DOS CGA renderers.
- *
- * op14 fills the connected region of "set" (white) pixels reachable from a seed,
- * replacing them with the current fill-colour dither pattern and stopping at clear
- * (black) pixels and the clip rectangle.
- *
- * It is a queue-based span fill: painting one horizontal run of pixels spawns
- * child runs on the rows immediately above and below it, which are processed in
- * turn from a 32-entry circular queue. A merge step folds together runs that an
- * opposite-direction span has already claimed so no pixel is painted twice.
- * Painting modifies the very screen bits that later boundary tests read, so the
- * traversal/merge order is part of the algorithm and is preserved here. The 6502
- * and the 8086 interpreters walk the queue identically; they differ in how a row
- * is scanned and painted, and in a few edge rules, which the Geom policy supplies.
- *
- * A pixel position is an ordinary integer along the row (column*7 + bit on the
- * Apple II, a global pixel column on CGA): comparisons are <, == and stepping one
- * pixel is ++/--. Rows are int while the cursor moves (CGA probes row -1 above
- * row 0, which reads black) and are stored and compared as uint8_t, as both
- * originals do.
- *
- * GmSpanFill<Geom> is the traversal. Geom provides, for the row last selected:
- *
- *   void setRow(int row);                           // select the row to address
- *   bool isSet(int pos);                            // is the pixel at pos white?
- *   void scanPaint(int pos, int &left, int &right); // paint the white run through
- *                                                   //  pos; return its inclusive edges
- *   bool acceptSpan(uint8_t row, int left, int right, uint8_t dir);
- *                                                   // queue this span? (clip rows,
- *                                                   //  DHGR single-pixel rule)
- *   void notePush(uint8_t row, int left, int right, uint8_t dir,
- *                 uint8_t head, uint8_t tail);      // trace hook, before acceptSpan
- *   static const bool kAbortOnOverflow;             // CGA stops the whole fill when
- *                                                   //  the queue fills; the 6502
- *                                                   //  just wraps
- *
- * GmHiresSpanFill<Page> binds it to the Apple II 7-pixel byte geometry; the CGA
- * renderer has its own policy in graphics_magician_cga.cpp.
- *
- * Header-only, in the style of graphics_magician_vector.h and slow_draw_page.h.
- */
+// The Graphics Magician op14 flood fill, shared by the Apple II standard hi-res, double hi-res and
+// DOS CGA renderers. It fills the connected "set" (white) pixels reachable from a seed with the
+// current dither pattern, stopping at clear pixels and the clip rectangle.
+//
+// Painting a horizontal run spawns child runs on the rows above and below, taken in turn from a
+// 32-entry circular queue; a merge step folds runs already claimed by an opposite-direction span.
+// Painting changes the bits later boundary tests read, so traversal and merge order are part of
+// the algorithm. The 6502 and 8086 interpreters walk the queue identically; the Geom policy
+// supplies how a row is scanned and painted, and a few edge rules.
+//
+// A position is an integer along the row (column*7 + bit on the Apple II, a global pixel column on
+// CGA). Rows are int while the cursor moves (CGA probes row -1, which reads black) and are stored
+// and compared as uint8_t, as in both originals.
+//
+// GmSpanFill<Geom> is the traversal. Geom provides, for the row last selected:
+//
+//   void setRow(int row);                           // select the row to address
+//   bool isSet(int pos);                            // is the pixel at pos white?
+//   void scanPaint(int pos, int &left, int &right); // paint the white run through pos; return
+//                                                   //  its inclusive edges
+//   bool acceptSpan(uint8_t row, int left, int right, uint8_t dir);
+//                                                   // queue this span? (clip rows, DHGR
+//                                                   //  single-pixel rule)
+//   void notePush(uint8_t row, int left, int right, uint8_t dir,
+//                 uint8_t head, uint8_t tail);          // trace hook, before acceptSpan
+//   static const bool kAbortOnOverflow;             // CGA stops the fill when the queue fills;
+//                                                   //  the 6502 just wraps
+//
+// GmHiresSpanFill<Page> binds it to the Apple II 7-pixel byte geometry; the CGA renderer has its
+// own policy in graphics_magician_cga.cpp.
 
 #ifndef GLK_COMPREHEND_GM_SPAN_FILL_H
 #define GLK_COMPREHEND_GM_SPAN_FILL_H
@@ -137,14 +125,14 @@ private:
 		if (!push(left, right, parent.dir))
 			return STEP_ABORT;
 
-		// Left overhang: the part of the run reaching left of the parent's left edge
-		// is re-scanned in the opposite vertical direction.
+		// Left overhang: the part of the run reaching left of the parent's left edge is
+		// re-scanned in the opposite vertical direction.
 		if (left < parent.left - 1)
 			if (!push(left, parent.left - 2, parent.dir ^ 1))
 				return STEP_ABORT;
 
-		// Right overhang, likewise. If there is one we are finished with this run; if
-		// the run ended inside the parent we keep walking from its right edge.
+		// Right overhang, likewise. If there is one, this run is finished; if the run ended inside
+		// the parent, the walk continues from its right edge.
 		_pos = right;
 		if (parent.right + 1 < right) {
 			if (!push(parent.right + 2, right, parent.dir ^ 1))
@@ -211,25 +199,21 @@ private:
 	}
 };
 
-/* The Apple II geometry. A pixel position is column*7 + bit, where `column`
- * selects the hi-res byte (each byte holds 7 visible pixels) and `bit` is 0..6
- * within it. Stepping left of column 0 yields a negative index, which correctly
- * sorts below every on-screen pixel (matching the signed-byte boundary tests of
- * the 6502 original) and is never used to address the screen.
- *
- * The standard and double hi-res renderers differ only in how a column of the
- * current row is read, written and patterned, which the Page policy supplies:
- *
- *   void    setRow(uint8_t row);        // select the row the calls below address
- *   uint8_t read(int col) const;        // screen byte at `col`
- *   void    write(int col, uint8_t v);  // store a screen byte at `col`
- *   uint8_t pattern(int col) const;     // fill-pattern byte for `col`
- *   static const bool kDropSinglePixelSpans;
- *
- * kDropSinglePixelSpans is a real behavioural difference, not a tuning knob: the
- * double hi-res interpreter's span fill ($0F50) rejects a span whose left and
- * right edges coincide, and the standard hi-res one does not.
- */
+// The Apple II geometry. A position is column*7 + bit, where `column` selects the hi-res byte (7
+// visible pixels) and `bit` is 0..6. Stepping left of column 0 gives a negative index, which sorts
+// below every on-screen pixel (matching the 6502's signed-byte boundary tests) and never addresses
+// the screen.
+//
+// The standard and double hi-res renderers differ only in the Page policy:
+//
+//   void    setRow(uint8_t row);        // select the row the calls below address
+//   uint8_t read(int col) const;        // screen byte at `col`
+//   void    write(int col, uint8_t v);  // store a screen byte at `col`
+//   uint8_t pattern(int col) const;     // fill-pattern byte for `col`
+//   static const bool kDropSinglePixelSpans;
+//
+// kDropSinglePixelSpans is a real behavioural difference: the double hi-res interpreter rejects a
+// span whose left and right edges coincide, and the standard hi-res one does not.
 template <typename Page>
 class GmHiresSpanGeom {
 public:
@@ -262,15 +246,15 @@ public:
 		uint8_t left_bit = 0xff;
 		uint8_t bit = 7;
 
-		// Seed byte: intersect the right-edge and left-edge masks so we paint only
-		// the run that actually touches the seed bit.
+		// Seed byte: intersect the right-edge and left-edge masks to paint only the run that
+		// touches the seed bit.
 		uint8_t existing = _page.read(col);
 		uint8_t right_mask = rightEdgeMask(static_cast<uint8_t>(existing | rightMask(seed_bit)), left_bit);
 		uint8_t left_input = static_cast<uint8_t>(leftMask(seed_bit) | existing);
 		uint8_t mask = static_cast<uint8_t>(leftEdgeMask(left_input, bit) & right_mask);
 
-		// Walk left across whole columns, painting each, until a right-edge boundary
-		// turns up or we reach the clip edge (left_bit stays 0xff).
+		// Walk left across whole columns, painting each, until a right-edge boundary turns up or
+		// the clip edge is reached (left_bit stays 0xff).
 		for (;;) {
 			blendByte(mask, col);
 			if (left_bit != 0xff) break;
@@ -283,9 +267,8 @@ public:
 		if (edge_bit == 7) { edge_bit = 0; col++; }
 		left = toPos(col, edge_bit);
 
-		// Walk right from the seed, painting whole columns, until the run ends (the
-		// bit index runs off the left of a column with no continuation) or we reach
-		// the clip edge.
+		// Walk right from the seed, painting whole columns, until the run ends (the bit index runs
+		// off the left of a column with no continuation) or the clip edge is reached.
 		col = colOf(pos);
 		for (;;) {
 			if (bit == 7 && col != _clipRight) {

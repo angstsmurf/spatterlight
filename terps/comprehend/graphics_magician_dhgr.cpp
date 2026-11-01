@@ -1,29 +1,15 @@
-/* graphics_magician_dhgr.cpp -- Apple II DOUBLE hi-res ("<D>" mode) renderer for
- * the V2 Comprehend / Polarware games (Talisman, OO-Topos, Transylvania v2, The
- * Coveted Mirror).
- *
- * Companion to graphics_magician.cpp (the STANDARD hi-res renderer). Both consume
- * the SAME Penguin "Graphics Magician" / Picture Painter vector stream from the
- * RA/OA picture files -- the format is resolution-independent, the double-hi-res
- * interpreter simply doubles the X coordinate and plots into a 560-wide aux/main
- * framebuffer (7 px/byte, column even -> aux, odd -> main, byte index col>>1).
- * The finished pages are converted to RGBA with MAME's composite-DHGR NTSC
- * artifact-colour kernel (gm_render_dhgr_line_colors in common_sagadraw).
- *
- * The line / flood-fill / brush primitives are ported byte-faithfully from the
- * real 6502 double-hi-res interpreter (validated pixel-exact against MAME for
- * Talisman's prison cell, RA image 4 -- see the regressions in test/).
- * The colour, sub-table, pattern and brush tables are loaded at runtime from
- * the boot disk's "T5" file (gmDhgrInstallDrawingTables); NOTHING is baked.
- * Per-image colour overrides arrive as op7 commands (see below).
- *
- * op7 (0x7x) -- reverse-engineered from the interpreter ($0951): NOT a no-op. It
- * is a per-image SET-PALETTE-SUBINDEX command: `aux[$41B2 + operand1] = operand2`,
- * patching the colour subindex table so the following op6 SET_FILL_COLOR resolves
- * to the image's intended pattern. The op6 builder ($0D1A) does:
- *   idx = subindex[colour];  b0,b1 = subtable[2*idx{,+1}];
- *   even[y] = pattern[(b0<<3)+y];  odd[y] = pattern[(b1<<3)+y].
- */
+// Apple II double hi-res ("<D>" mode) renderer for the V2 games (Talisman, OO-Topos, Transylvania
+// v2, The Coveted Mirror). It takes the same vector stream as graphics_magician.cpp but doubles X
+// and plots into a 560-wide aux/main framebuffer (7 px/byte, column even -> aux, odd -> main, byte
+// index col>>1). The pages convert to RGBA with the composite-DHGR kernel in gm_artifact.cpp.
+// The primitives were derived from the 6502 double hi-res interpreter. The tables are loaded from
+// the boot disk's "T5" file.
+//
+// op7 (0x7x) is not a no-op here: it is a per-image SET-PALETTE-SUBINDEX,
+// s_subidx[operand1] = operand2, so that the following op6 SET_FILL_COLOR resolves to the image's
+// intended pattern. op6 builds it as:
+//   idx = subindex[colour];  b0,b1 = subtable[2*idx{,+1}];
+//   even[y] = pattern[(b0<<3)+y];  odd[y] = pattern[(b1<<3)+y].
 
 #include "graphics_magician_dhgr.h"
 #include "graphics_magician.h"
@@ -41,7 +27,6 @@
 namespace Glk {
 namespace Comprehend {
 
-// ---- framebuffer --------------------------------------------------------------
 #define A2_PAGE_SIZE   GM_HIRES_PAGE_SIZE
 #define DHGR_HEIGHT    192
 #define DHGR_PIC_ROWS  160   // picture region (text rows 0xa0..0xbf excluded)
@@ -52,31 +37,13 @@ static uint8_t s_aux[A2_PAGE_SIZE];
 
 #define CALC(y) gm_row_address(y)
 
-// ---- Slow ("animated") draw ---------------------------------------------------
-//
-// Mirrors the standard-hi-res renderer (graphics_magician.cpp): when recording
-// is enabled (gmDhgrSetSlowDraw(true)), every byte the interpreter plots goes
-// both into the final pages (s_main/s_aux, as before) and onto an ordered op
-// list, with op13 DELAY operands recorded as pause markers. The visible pages
-// (s_slowMain/s_slowAux) start at the background and the host re-applies the ops
-// a chunk at a time on a Glk timer, re-blitting after each chunk. Item overlays
-// start from whatever is already on the slow pages (the room just finished), so
-// they compose exactly as on the real machine.
-
-// The reveal state machine, op list and dirty band live in the shared
-// SlowDrawEngine (slow_draw_page.h); the DHGR policy below supplies the
-// renderer-specific behaviour: dual main/aux pages, a page-aware run test, and
-// the Coveted-Mirror panel-column exclusion during a reveal.
+// Slow draw, as in graphics_magician.cpp. The reveal state machine is the shared SlowDrawEngine;
+// the policy below supplies the dual main/aux pages, a page-aware run test and the Coveted Mirror
+// panel-column exclusion. op13 DELAY operands are recorded as pause markers.
 static uint8_t s_slowMain[A2_PAGE_SIZE]; // progressively-revealed pages
 static uint8_t s_slowAux[A2_PAGE_SIZE];
 
-// The reveal maps a byte write back to its row (dirty band) and column (so the CM
-// panel columns can be excluded from the reveal -- see dhgr_apply_slow) with
-// gm_row_of_offset / gm_col_of_offset; both give -1 in the inter-row gaps of the
-// page address space.
-
-// Apply one recorded byte to the matching slow page; defined after the CM-panel
-// state it consults (forward-declared here for the policy).
+// Apply one recorded byte to the matching slow page; defined after the CM panel state it consults.
 static bool dhgr_apply_slow(const SlowWriteOp &op);
 
 // DHGR page: a main/aux pair (op.page picks which), so the run test also keys on
@@ -114,19 +81,15 @@ static inline void dhgr_put(uint8_t *page, uint16_t off, uint8_t value) {
 	s_slow.record(off, (uint8_t)(page == s_main ? 1 : 0), value);
 }
 
-// ---- drawing tables (loaded at runtime from T5) -------------------------------
-// T5 is the boot disk's headerless double-hi-res interpreter file; it loads at
-// $4000, so file_offset = RAM_addr - $4000. The four tables sit at fixed offsets.
+// Drawing tables, loaded at runtime from T5, the boot disk's headerless double hi-res interpreter.
+// It loads at $4000, so file_offset = RAM_addr - $4000. The tables sit at fixed offsets.
 static uint8_t s_subidx[256];     // $41B2 colour subindex (patched per-image by op7)
 static uint8_t s_subidxDefault[256]; // pristine T5 copy, restored at each image's start
 static uint8_t s_subtbl[512];     // $421E sub-table (idx -> two pattern rows)
 static uint8_t s_pattern[2048];   // $441E pattern rows (8 bytes each)
 static uint8_t s_brush[256];      // $4B2E brush bitmaps (8 brushes x 4 quad x 8)
-// op3/op5 picture font: 128 chars x 8 rows, sharing the brush table's base
-// ($4B2E -> file 0xB2E). The 6502 glyph handler ($0c60) computes the glyph
-// pointer as $4B2E + ch*8, so the 8 brush bitmaps (256 bytes) double as the
-// control-char glyphs $00..$1f and the printable glyphs follow -- exactly the
-// standard-hi-res renderer's layout (graphics_magician.cpp s_fontGlyphs).
+// op3/op5 picture font: 128 chars x 8 rows, sharing the brush table's base, so the 8 brush
+// bitmaps double as the control-char glyphs $00..$1f, as in standard hi-res.
 static uint8_t s_fontGlyphs[128 * 8];
 static bool s_tablesInstalled = false;
 
@@ -136,11 +99,8 @@ bool gmDhgrInstallDrawingTables(const uint8_t *t5, size_t size) {
 		return false;
 	std::memcpy(s_subidx,  t5 + 0x1B2, sizeof(s_subidx));
 	std::memcpy(s_subidxDefault, s_subidx, sizeof(s_subidx));
-	// Full 512-byte sub-table ($421E..$441E): a colour's subindex can be up to 255,
-	// so the builder reads subtbl[2*idx{,+1}] up to index 510/511. Copying only 500
-	// left those high entries zero, so high-subindex fills (e.g. Talisman's lamp
-	// body, fill colour 60 -> idx 255 -> subtbl[510]=0x0a) resolved to pattern row 0
-	// (black) instead of their real grey dither.
+	// Full 512-byte sub-table: a colour's subindex can be up to 255, so the builder reads
+	// subtbl[2*idx{,+1}] up to index 511 (e.g. Talisman's lamp body, fill colour 60).
 	std::memcpy(s_subtbl,  t5 + 0x21E, 512);
 	std::memcpy(s_pattern, t5 + 0x41E, 1808);
 	std::memcpy(s_brush,   t5 + 0xB2E, sizeof(s_brush));
@@ -156,10 +116,10 @@ bool gmDhgrInstallDrawingTables(const uint8_t *t5, size_t size) {
 
 bool gmDhgrHaveDrawingTables() { return s_tablesInstalled; }
 
-// ---- op6 SET_FILL_COLOR (the $0D1A builder) -----------------------------------
+// op6 SET_FILL_COLOR.
 // The current fill pattern: one byte per column (mod 8), on even and odd scanlines.
 static uint8_t s_fillPatternEven[8], s_fillPatternOdd[8];
-static uint8_t s_fillColor = 0x4d;             // the colour the pattern was built from ($0837)
+static uint8_t s_fillColor = 0x4d;             // the colour the pattern was built from
 static uint8_t g_brush = 5;
 
 static void set_fill_color(uint8_t color) {
@@ -173,7 +133,6 @@ static void set_fill_color(uint8_t color) {
 	}
 }
 
-// ---- line subsystem -----------------------------------------------------------
 // Pen position: x doubled to the 560-wide raster, and y.
 static uint16_t s_penX;
 static uint8_t s_penY;
@@ -209,17 +168,13 @@ static void plot_pen(int x, uint8_t y) {
 		plot_pixel(x + i, y, pattern & (8 >> i));
 }
 
-// op10 DRAW_LINE from the pen position to (x2d, y2), leaving the pen there.
-//
-// A port of the 6502 run-slice line: the longer axis is cut into one run per
-// step of the shorter axis, each run major / minor pixels long, with an
-// accumulator adding the remainder that decides which runs get an extra pixel.
-// Quirks of the original that are kept, as they decide which pixels are lit:
-//  - the axis lengths are counted in pixels (|d| + 1), and a tie is y-major;
-//  - a colour pen steps x by a whole 4-pixel group, from and to x aligned down
-//    to a multiple of 4, and leaves the pen at that aligned end x;
-//  - when the accumulator lands exactly on zero, the next run is not lengthened
-//    and the accumulator restarts at the remainder.
+// op10 DRAW_LINE from the pen position to (x2d, y2), leaving the pen there. The longer axis is
+// cut into one run per step of the shorter axis, with an accumulator deciding which runs get an
+// extra pixel. Quirks of the original, kept as they decide which pixels are lit: axis lengths
+// count pixels (|d| + 1) and a tie is y-major; a colour pen steps x by a whole 4-pixel group, from
+// and to x aligned down to a multiple of 4, and leaves the pen at that aligned x; when the
+// accumulator lands exactly on zero, the next run is not lengthened and it restarts at the
+// remainder.
 static void line(uint16_t x2d, uint8_t y2) {
 	const int group = pen_is_mono() ? 1 : 4;
 	if (group == 4)
@@ -255,7 +210,7 @@ static void line(uint16_t x2d, uint8_t y2) {
 	move_pen(x2d, y2);
 }
 
-// ---- op12 brush ($105A) -------------------------------------------------------
+// op12 brush.
 static const uint8_t DHGR_DOUBLE_BITS[16] = {0x00, 0x03, 0x0c, 0x0f, 0x30, 0x33, 0x3c, 0x3f,
 									 0xc0, 0xc3, 0xcc, 0xcf, 0xf0, 0xf3, 0xfc, 0xff};
 static void brush_blit_col(int row, int col, uint8_t bits) {
@@ -285,26 +240,14 @@ static void draw_brush(uint16_t x16, uint8_t y, uint8_t brush) {
 	brush_quadrant(col + 2, y + 8, bit, bb + 24);
 }
 
-// ---- op11 DRAW_CIRCLE ---------------------------------------------------------
-//
-// Port of the <D> circle (FUN_0aeb + plot8 FUN_0bcb). The centre is the current
-// pen position (s_penX, s_penY), which the circle leaves unchanged.
-// The x extents run to +-2*radius and x is advanced at DOUBLE resolution (a plot
-// between two single x steps) while y advances at single resolution, so the
-// outline is round on the 560-wide raster AND gap-free. This matters for fill
-// containment: the Talisman title's lamp-knob circle (op DRAW_CIRCLE r=4 @135,90)
-// must close, or the following fill=62 PAINT leaks out of the lamp into the sky.
-//
-// The (i, r) walk is the shared 6502 stepper (gmvAppleCircleSteps). Each full
-// step plots the eight-way symmetric points (+-2i, +-r) and (+-2r, +-i); the
-// half step after each advance plots them again half a step back, at the odd
-// x in between. This loop tests r < i before a full step rather than after
-// the advance, so it plots one full step more than the hi-res one, at the
-// (i, r) the stepper ends on. That step only repaints pixels of the step
-// before it, for every radius, but it is kept so the slow-draw reveal
-// sequence is unchanged.
+// op11 DRAW_CIRCLE, centred on the pen position, which it leaves unchanged. x extends to
+// +-2*radius and advances at double resolution (a half step plots the odd x between full steps),
+// so the outline is round on the 560-wide raster and gap-free. Fill containment depends on this:
+// the Talisman title's lamp-knob circle must close or the following PAINT leaks into the sky.
+// The extra full step at the stepper's final (i, r) only repaints pixels, but changing it would
+// change the slow-draw reveal sequence.
 static void circle_point(int x, int y) {
-	if (y < 0 || y > 0x9f || x < 0 || x >= 0x230) return;  // FUN_0c35 bounds
+	if (y < 0 || y > 0x9f || x < 0 || x >= 0x230) return;  // the original's bounds
 	plot_pen(x, (uint8_t)y);
 }
 static void draw_circle(uint8_t radius) {
@@ -321,18 +264,13 @@ static void draw_circle(uint8_t radius) {
 	full(e.i, e.r);
 }
 
-// ---- op1/op3/op5 text glyphs --------------------------------------------------
-//
-// Text cursor (op1 SET_TEXT_POS). x is kept in 560-wide DHGR pixels: the 6502
-// handler ($09e6 -> $09f9) doubles the operand x exactly like MOVE_TO, then op3/
-// op5 advance it by 14 (= 7 source px doubled) per character ($093d ADC #$0e).
+// Text cursor (op1 SET_TEXT_POS). x is in 560-wide pixels: op1 doubles the operand like MOVE_TO,
+// and op3/op5 advance it by 14 (7 source pixels doubled) per character.
 static uint16_t s_textX = 0;
 static uint8_t  s_textY = 0;
 
-// op3 TEXT_CHAR plot: XOR the 7-bit glyph bits onto the page byte. Because `bits`
-// is 7-bit, bit 7 is preserved -- on the white subtitle cloud this paints the
-// letters in the contrasting artifact colour, leaving solid text. (FUN_108e
-// $1111 branch, taken when the mode flag $0839 == 1.)
+// op3 TEXT_CHAR plot: XOR the 7-bit glyph bits onto the page byte. Bit 7 is preserved; on the
+// white subtitle cloud this paints the letters in the contrasting artifact colour.
 static void glyph_xor_col(int row, int col, uint8_t bits) {
 	if (!bits) return;
 	uint16_t base = CALC(row);
@@ -341,10 +279,9 @@ static void glyph_xor_col(int row, int col, uint8_t bits) {
 	dhgr_put(pg, (uint16_t)a, (uint8_t)(pg[a] ^ bits));
 }
 
-// Blit one 7-bit glyph half: shift it right by `bit` (spilling the high bits into
-// `e`, the next column), then plot the two resulting bytes into col / col+1. op3
-// XORs (glyph_xor_col); op5 -- and the brush blitter -- blend through the fill
-// pattern (brush_blit_col). Matches the $0839 flag.
+// Blit one 7-bit glyph half: shift it right by `bit` (spilling the high bits into `e`, the next
+// column), then plot the two resulting bytes into col / col+1. op3 XORs (glyph_xor_col); op5 and
+// the brush blitter blend through the fill pattern (brush_blit_col).
 static void glyph_blit_half(int row, int col, uint8_t half, int bit, bool normal) {
 	if (!half) return;
 	uint8_t A = (uint8_t)(half << 1), e = 0;
@@ -353,16 +290,14 @@ static void glyph_blit_half(int row, int col, uint8_t half, int bit, bool normal
 	else        { brush_blit_col(row, col, (uint8_t)(A >> 1)); brush_blit_col(row, col + 1, e); }
 }
 
-// Expand one source byte into its DHGR nibble-doubled 14-bit pattern -- two 7-bit
-// halves (left = cbf, right = cc0 with carry) via DHGR_DOUBLE_BITS (FUN_0c8d) -- and blit
-// both across three columns at (row, col..col+2). The shared core of the op12 brush
-// blitter (normal=false) and the op3/op5 glyph blitter (FUN_0c60 -> FUN_108e). A
-// zero byte expands to two empty halves, i.e. a no-op.
+// Expand one source byte into two nibble-doubled 7-bit halves via DHGR_DOUBLE_BITS and blit both
+// across three columns at (row, col..col+2). The shared core of the op12 brush blitter
+// (normal=false) and the op3/op5 glyph blitter. A zero byte is a no-op.
 static void dhgr_blit_byte(int row, int col, uint8_t b, int bit, bool normal) {
 	if (row < 0 || row > 0xbf) return;
 	uint8_t cc0 = DHGR_DOUBLE_BITS[b >> 4], lo = DHGR_DOUBLE_BITS[b & 0xf];
 	uint8_t cy = (uint8_t)(lo >> 7); lo = (uint8_t)(lo << 1); cc0 = (uint8_t)((cc0 << 1) | cy); lo >>= 1;
-	glyph_blit_half(row, col,     lo,  bit, normal);   // left half (cbf)
+	glyph_blit_half(row, col,     lo,  bit, normal);   // left half
 	glyph_blit_half(row, col + 1, cc0, bit, normal);   // right half (+carry)
 }
 
@@ -376,13 +311,9 @@ static void dhgr_draw_glyph(uint16_t x, uint8_t y, uint8_t ch, bool normal) {
 		dhgr_blit_byte(y + r, col, glyph[r], bit, normal);
 }
 
-// ---- op14 flood fill ----------------------------------------------------------
-
-// op15 fill-bounds rectangle, in source byte columns (0..39) and rows (0..0x9f),
-// set by op15/1 (full screen) and op15/2 (4 explicit bounds). op14 PAINT clips
-// the flood fill to this rectangle, exactly as the standard renderer does
-// (ctx->fill_*): without it a room whose floor opens toward the right edge -- the
-// Coveted Mirror prison tower -- leaks the fill up and over the whole picture.
+// op15 fill-bounds rectangle, in source byte columns (0..39) and rows (0..0x9f). op14 PAINT clips
+// to it: otherwise a room whose floor opens toward the right edge (the Coveted Mirror prison
+// tower) leaks the fill over the whole picture.
 static GmFillBounds g_fill;
 
 // The span-fill engine is shared with the standard hi-res and CGA renderers
@@ -390,25 +321,17 @@ static GmFillBounds g_fill;
 // alternating aux/main bytes, patterned from an 8-byte-wide dither selected by
 // row parity.
 struct DhgrFillPage {
-	// Drop a single-pixel span (left == right): the real CM <D> span fill ($0F50)
-	// rejects it, and without it a flood leaks through the 1-cell gaps that the
-	// doubled DHGR boundaries leave in a drawn outline. This matters whenever the
-	// fill bounds are full-screen so only the drawn boundary contains the flood --
-	// e.g. the prison-tower floor (RA idx0), whose op15/0 RLE bounds are re-opened
-	// to full by a following op15/2, so the floor fill leaks up over the whole
-	// picture without this guard. It is merely redundant (not wrong) for scenes
-	// like the cupboard door (OE idx0), where the op15/0 RLE bounds persist and
-	// already clip the fill; that scene stays byte-exact with the guard in place.
+	// Drop a single-pixel span (left == right), as the Coveted Mirror <D> span fill does. Otherwise
+	// a flood leaks through the 1-cell gaps that doubled boundaries leave in an outline when the
+	// fill bounds are full-screen (e.g. the prison-tower floor, RA idx0).
 	static const bool kDropSinglePixelSpans = true;
 
 	uint16_t rowAddr;
 	bool oddRow;
 
 	void setRow(uint8_t row) { rowAddr = CALC(row); oddRow = (row & 1) != 0; }
-	// A malformed op15/2 (unclamped fill-bounds bytes) or an op14 PAINT with an
-	// out-of-range row can drive rowAddr + (col >> 1) past A2_PAGE_SIZE. Valid
-	// images never exceed 0x1ff7, so these guards only bite in the corrupt regime;
-	// they mirror the explicit bounds checks the other dhgr_put callers already do.
+	// A malformed op15/2 or an op14 PAINT with an out-of-range row can drive
+	// rowAddr + (col >> 1) past A2_PAGE_SIZE. Valid images never exceed 0x1ff7.
 	uint8_t read(int col) const {
 		uint16_t off = (uint16_t)(rowAddr + (col >> 1));
 		if (off >= A2_PAGE_SIZE) return 0;
@@ -426,10 +349,8 @@ static DhgrFillPage s_fillPage;
 static GmHiresSpanFill<DhgrFillPage> s_spanFill(s_fillPage);
 
 static void flood_fill(uint16_t x, uint8_t y) {
-	// Clip to the op15 fill-bounds rectangle. The fill runs in DHGR columns
-	// (0..0x4f); a source byte column B spans DHGR columns 2B and 2B+1, so the
-	// byte-column bounds double (left -> 2*left, right -> 2*right+1). Rows are not
-	// doubled. Matches the standard renderer, which clips PAINT to ctx->fill_*.
+	// Clip to the op15 rectangle. A source byte column B spans DHGR columns 2B and 2B+1, so the
+	// column bounds double (left -> 2*left, right -> 2*right+1); rows do not.
 	s_spanFill.fill(x, y, (uint8_t)(2 * g_fill.left), (uint8_t)(2 * g_fill.right + 1),
 					g_fill.top, g_fill.bottom);
 }
@@ -447,27 +368,16 @@ static void fill_rect() {
 	}
 }
 
-// op15 sub-op 0: RLE-compressed bitmap rectangle (The Coveted Mirror). Mirrors
-// the standard-mode drawer in graphics_magician.cpp exactly -- 4 bounds bytes
-// (right/left/bottom/top), then raw page bytes streamed column-major
-// (top->bottom within a column, then the next column), with a 0x80 byte escaping
-// a run (next two bytes are count and value, written count+1 times); it stops
-// the moment the bottom-right cell is written. The one difference is the write:
-// the 6502 <D> routine ($0a7b) splits each source byte through the nibble-
-// doubling table (DHGR_DOUBLE_BITS) into a main + aux byte and stores both at the same
-// page offset (logical DHGR columns 2*col / 2*col+1) -- the same expansion the
-// brush blitter above performs. Without this, op15/0 would fall through doing
-// nothing AND consuming no operand bytes, so the bounds+RLE stream would be
-// misparsed as opcodes and the picture would collapse to the white reset page.
+// op15 sub-op 0: RLE-compressed bitmap rectangle (The Coveted Mirror), decoded by
+// gmDecodeRleBitmap. Each source byte is split through the nibble-doubling table into a main + aux
+// byte stored at the same page offset (logical columns 2*col / 2*col+1), the same expansion the
+// brush blitter performs.
 static void rle_bitmap_dhgr(const uint8_t **pp, const uint8_t *end) {
 	const uint8_t *p = *pp;
-	// The real CM op15/0 reads its four bounds bytes through gm_op15_read_bounds
-	// (cm_ram_raw.bin @0x0a17), which is the SAME routine op15/2 uses: it stores
-	// them as the fill-clip rectangle (left/right/top/bottom). A later PAINT flood
-	// is clipped to this rectangle. The cupboard-door overlay (OE idx0) relies on
-	// this -- its only op15 is this RLE bitmap (rows 97..135), and the following
-	// fill=62 PAINT must not leak below row 135 onto the floor. (Rooms like RA idx2
-	// re-open the bounds with an explicit op15/2 after their RLE, so this is safe.)
+	// The four bounds bytes become the fill-clip rectangle, as with op15/2, and a later PAINT is
+	// clipped to it. The cupboard-door overlay (OE idx0) relies on this: its only op15 is this
+	// bitmap (rows 97..135), and the following PAINT must not leak onto the floor. Rooms like
+	// RA idx2 re-open the bounds with an explicit op15/2.
 	if (!g_fill.read(p, end)) { *pp = end; return; }
 	gmDecodeRleBitmap(g_fill, p, end, [](int row, int col, uint8_t b) {
 		uint16_t off = (uint16_t)(CALC(row) + col);
@@ -482,15 +392,9 @@ static void rle_bitmap_dhgr(const uint8_t **pp, const uint8_t *end) {
 	*pp = p;
 }
 
-// ---- public API ---------------------------------------------------------------
-// ---- The Coveted Mirror persistent right-hand panel ---------------------------
-// Double-hi-res analogue of the standard-hi-res panel (graphics_magician.cpp).
-// The panel (logo + hourglass frame + static bottom mound) is drawn once into the
-// pages by the caller, captured here by byte-column, and re-composited on top of
-// every in-game picture; the draining top-bulb grains are stamped per turn. The
-// source column indices match the standard page: the DHGR renderer doubles each
-// Apple column into the matching aux+main byte (logical cols 2c / 2c+1), so the
-// panel occupies the same byte columns 24..39 in both pages as it does standard.
+// The Coveted Mirror's right-hand panel, as in graphics_magician.cpp: captured by byte column and
+// re-composited on every in-game picture, with the grains stamped per turn. Each Apple column
+// doubles into the matching aux+main byte, so the panel is byte columns 24..39 on both pages.
 static CMPanelStore<2> s_cmPanel;     // planes: 0 = aux, 1 = main
 
 // The live and slow plane pairs, in CMPanelStore's plane order.
@@ -519,10 +423,10 @@ void gmDhgrEndCMPanelRebuild() {
 	s_slow.setRecording(s_cmPanel.endRebuild(live, slow));
 }
 
-// Panel-column helpers shared by the overlay / band-restore / grain-mirror paths.
-// cm_panel_to_pages copies the saved static panel onto BOTH the final and the slow
-// pages (rows y0..y1); cm_panel_final_to_slow mirrors the final pages' panel columns
-// (e.g. with freshly stamped grains) onto the slow pages only.
+// Panel-column helpers shared by the overlay, band-restore and grain-mirror paths.
+// cm_panel_to_pages copies the saved static panel onto both the final and the slow pages (rows
+// y0..y1); cm_panel_final_to_slow mirrors the final pages' panel columns (e.g. with freshly
+// stamped grains) onto the slow pages only.
 static void cm_panel_to_pages(int y0, int y1) {
 	DHGR_LIVE_PLANES;
 	DHGR_SLOW_PLANES;
@@ -534,10 +438,8 @@ static void cm_panel_final_to_slow(int y0, int y1) {
 	s_cmPanel.finalToSlow(live, slow, y0, y1);
 }
 
-// Copy the saved panel byte-columns onto both the final and the
-// progressively-revealed pages, so the panel is present immediately even while a
-// room's slow-draw reveal is still running (mirrors the standard renderer, which
-// writes the panel to s_screenmem and s_slowScreen alike).
+// Copy the saved panel byte-columns onto both the final and the slow pages, so the panel is
+// present even while a room's reveal is still running.
 void gmDhgrOverlayCMPanel() {
 	if (!s_cmPanel.valid())
 		return;
@@ -570,13 +472,9 @@ void gmDhgrDrawCMHourglass(int sand) {
 	cm_panel_final_to_slow(0, DHGR_HEIGHT - 1);
 }
 
-// --- The Coveted Mirror per-turn grain fall (double hi-res) -------------------
-// Double-hi-res counterpart of the standard fall (gmCMHourglassFall* in
-// graphics_magician.cpp). The resting pile is already stamped at the post-drop
-// level by gmDhgrDrawCMHourglass(); these paint the single freed grain travelling
-// down the neck. The frame sequence and geometry are CMGrainFall's (cm_panel.h),
-// shared with the standard renderer; the grain x is doubled onto the 560-wide
-// pages (draw_brush(x<<1,...)), the same way gmDhgrDrawCMHourglass stamps the pile.
+// The Coveted Mirror per-turn grain fall. The resting pile is already stamped at the post-drop
+// level by gmDhgrDrawCMHourglass(); these paint the freed grain travelling down the neck. The frame
+// sequence and geometry are CMGrainFall's (cm_panel.h); the grain x is doubled.
 static CMGrainFall s_dhgrCmFall;
 
 // Restore the saved static panel (no grains) for rows [y0,y1] onto both the final
@@ -622,11 +520,8 @@ void gmDhgrResetScreen(bool white) {
 	s_slow.clear();
 }
 
-// ---- Opcode interpreter -------------------------------------------------------
-// The loop and operand decode are the shared gmRunStream (gm_stream.h); this is
-// the double hi-res side of it.  Pen, text cursor, brush and fill bounds are the
-// file statics above, so a renderer object carries only the stream base for the
-// DHGR_WATCH trace.
+// The loop and operand decode are the shared gmRunStream (gm_stream.h). Pen, text cursor, brush and
+// fill bounds are the file statics above.
 struct DhgrRenderer {
 	const uint8_t *base;
 
@@ -636,31 +531,21 @@ struct DhgrRenderer {
 	int penY() const { return s_penY; }
 
 	void begin() {
-		// Restore the T5 default colour subindex FIRST, so the per-image init below
-		// (and the image's own op7 SET_PALETTE_SUBINDEX commands) start from a clean
-		// baseline. op7 overrides are per-image: the same streams render self-coloured
-		// under std-hires, where op7 is a no-op. Order matters -- set_fill_color(0x4d)
-		// reads s_subidx to build the default fill pattern used by fill_rect (the
-		// full-screen background many rooms paint), so it must see the defaults, not a
-		// previous room's patches (which turned e.g. the hill pink after the bazaar).
+		// Restore the T5 default colour subindex table first: op7 overrides are per-image, and
+		// set_fill_color(0x4d) below reads s_subidx to build the default fill pattern, so it
+		// must not see a previous room's patches.
 		std::memcpy(s_subidx, s_subidxDefault, sizeof(s_subidx));
 		s_penColor = 4; move_pen(140 * 2, 96); // per-image draw init (pen colour 4, centre)
 		set_fill_color(0x4d);             // default fill colour
-		// Default PAINT clip = full screen, until an op15/1 or op15/2 narrows it
-		// (matches the standard renderer's ctx->fill_* defaults).
+		// Default PAINT clip = full screen, until an op15/1 or op15/2 narrows it.
 		g_fill.reset(0x9f);
-		g_brush = 5;                      // default shape; reset per image (matches the
-										  // std-hires init ctx.BRUSH=5). Without this an
-										  // item overlay inherits the room's last op4
-										  // SET_SHAPE, drawing its brushes with the wrong
-										  // shape so the fills find no seed (e.g. the
-										  // OO-Topos prison-cell bottle/food went the
-										  // colour of the floor/table beneath them).
+		// Default shape, reset per image: an item overlay that inherits the room's last op4
+		// SET_SHAPE draws its brushes with the wrong shape, so its fills find no seed (e.g. the
+		// OO-Topos prison-cell bottle and food).
+		g_brush = 5;
 	}
-	// When not animating, keep the visible pages in step with the final pages so a
-	// later slow-drawn overlay (e.g. a moved object) composes onto the right
-	// background instead of a stale/blank page -- exactly what the standard hi-res
-	// renderer does at the end of gmDrawImage.
+	// When not animating, keep the visible pages in step with the final pages so a later
+	// slow-drawn overlay (e.g. a moved object) composes onto the right background.
 	void end() { s_slow.syncIfNotRecording(); }
 
 	void beforeOp(const uint8_t *p, const uint8_t *, uint8_t, uint8_t) {
@@ -678,12 +563,10 @@ struct DhgrRenderer {
 	void setPen(uint8_t param) { s_penColor = param; }
 	void setShape(uint8_t param) { g_brush = param; }
 	void setFill(uint8_t b) { set_fill_color(b); }
-	// SET_PALETTE_SUBINDEX. The interpreter ($0951) ends with `cpx $0837 / bne /
-	// jmp $0d1a`: patching the colour that the current fill pattern was built from
-	// rebuilds that pattern at once, so a picture can select a colour once and
-	// repaint it between PAINTs (Talisman's Lands Beyond rooms do: FILLCOL 70,
-	// PALSUB[70], PAINT, PALSUB[70], PAINT ...). Patching any other colour only
-	// takes effect at its next SET_FILL_COLOR.
+	// SET_PALETTE_SUBINDEX. Patching the colour the current fill pattern was built from rebuilds
+	// that pattern at once, so a picture can select a colour once and repaint it between PAINTs
+	// (Talisman's Lands Beyond rooms do). Patching any other colour only takes effect at its next
+	// SET_FILL_COLOR.
 	bool op7(const uint8_t *&p, const uint8_t *e) {
 		if (!gmHave(p, e, 2))
 			return true;
@@ -713,7 +596,7 @@ struct DhgrRenderer {
 			if (!g_fill.read(p, e))
 				return true;
 			break;
-		default: // param 3: fill the rectangle with the current pattern
+		default: // param 3: fill the picture area with the current pattern
 			fill_rect();
 			break;
 		}
@@ -743,19 +626,9 @@ void gmDhgrBlitToSurface(uint32_t *out, int w, int h) {
 	blit_pages(s_aux, s_main, out, w, h);
 }
 
-// ---- Slow-draw control (host-driven) ------------------------------------------
-// The machinery lives in the shared SlowDrawEngine (slow_draw_page.h); the DHGR
-// policy's apply hook is dhgr_apply_slow below.
-
-// Apply one recorded byte to the matching slow page, skipping the CM panel.
-// Returns false (suppressing dirty marking) when the byte is skipped.
-//
-// The Coveted Mirror's panel occupies columns [col0,col1] and is composited on
-// top of every finished picture (gmDhgrOverlayCMPanel writes it to the slow pages
-// directly). A room drawn with a full-width op15/0 RLE bitmap, however, records
-// writes across those columns too; replaying them during the reveal would wipe
-// the panel off the slow pages. Skip panel-column ops so the overlaid panel
-// survives the reveal (it is already correct on the final pages).
+// Apply one recorded byte to the matching slow page. Returns false (no dirty marking) for CM panel
+// columns: a room drawn with a full-width op15/0 RLE bitmap records writes across them, and
+// replaying those would wipe the overlaid panel off the slow pages.
 static bool dhgr_apply_slow(const SlowWriteOp &op) {
 	if (s_cmPanel.skipsReveal(op.offset))
 		return false;

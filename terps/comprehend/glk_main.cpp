@@ -18,18 +18,31 @@ extern const char *comprehend_storyfile;
 extern const char *comprehend_gameid;
 }
 
-// Guess the game id from the filename when -g wasn't supplied. This is a
-// fallback for direct double-launches; Spatterlight normally passes -g.
+// Guess the game id from the filename when -g wasn't supplied, for direct
+// double-launches.
 static Common::String guessGameId(const char *path) {
-	Common::String p(path ? path : "");
-	Common::String lower = p;
+	static const struct {
+		const char *substring;
+		const char *gameId;
+	} kFileNames[] = {
+		{ "cc1",            "crimsoncrown" },
+		{ "crimson",        "crimsoncrown" },
+		{ "ootopos",        "ootopos" },
+		{ "oo-topos",       "ootopos" },
+		{ "talisman",       "talisman" },
+		{ "mirror",         "covetedmirror" },
+		{ "coveted",        "covetedmirror" },
+		{ "trv2",           "transylvaniav2" },
+		{ "transv2",        "transylvaniav2" },
+		{ "transylvaniav2", "transylvaniav2" },
+	};
+
+	Common::String lower(path ? path : "");
 	lower.toLowercase();
-	if (lower.contains("cc1") || lower.contains("crimson"))     return Common::String("crimsoncrown");
-	if (lower.contains("ootopos") || lower.contains("oo-topos")) return Common::String("ootopos");
-	if (lower.contains("talisman"))                              return Common::String("talisman");
-	if (lower.contains("mirror") || lower.contains("coveted"))   return Common::String("covetedmirror");
-	if (lower.contains("trv2") || lower.contains("transv2") || lower.contains("transylvaniav2"))
-		return Common::String("transylvaniav2");
+	for (const auto &name : kFileNames) {
+		if (lower.contains(name.substring))
+			return Common::String(name.gameId);
+	}
 	return Common::String("transylvania");
 }
 
@@ -39,13 +52,9 @@ void glk_main(void) {
 		return;
 	}
 
-	// If the storyfile is an Apple II disk image, extract its files (and any
-	// companion disk sides) into the in-memory VFS so the engine can open
-	// them by name, just as it would the DOS/PC files on disk. This must run
-	// before the chdir below: loadAppleDiskImage() resolves the image and its
-	// companion sides relative to the storyfile path, which no longer points at
-	// the file once we have cd'd into its directory (a relative path would then
-	// fail to open, silently dropping us into the DOS loader path).
+	// Extract an Apple II disk image and its companion sides into the in-memory
+	// filesystem. Must run before the chdir below, since a relative storyfile
+	// path would then fail to open.
 	bool fromDisk = false;
 	if (Glk::Comprehend::isAppleDiskImage(comprehend_storyfile)) {
 		if (Glk::Comprehend::loadAppleDiskImage(comprehend_storyfile) > 0)
@@ -54,10 +63,7 @@ void glk_main(void) {
 			glk_put_string((char *)"Comprehend: could not read Apple II disk image.\n");
 	}
 
-	// Comprehend's game classes open their data file by basename
-	// (tr.gda / cc1.gda / g0), so we cd into the directory of the
-	// storyfile first. This matches how ScummVM's SearchMan picks up
-	// every file in the game's directory.
+	// The game classes open their data files by basename (tr.gda, cc1.gda, g0).
 	Common::String path(comprehend_storyfile);
 	size_t slash = path.find_last_of("/\\");
 	if (slash != std::string::npos)

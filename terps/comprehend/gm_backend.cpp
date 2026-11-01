@@ -1,4 +1,4 @@
-/* gm_backend.cpp -- the per-renderer entry point tables. See gm_backend.h. */
+// The per-renderer entry point tables. See gm_backend.h.
 
 #include "gm_backend.h"
 #include "graphics_magician.h"

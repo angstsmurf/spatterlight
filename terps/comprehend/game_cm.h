@@ -27,25 +27,17 @@
 namespace Glk {
 namespace Comprehend {
 
-// Item-picture numbers of the four mirror pieces, in panel bit order. Each is
-// drawn once by the bytecode (OPCODE_DRAW_OBJECT) when the piece is found, into a
-// fixed spot in the black band left of the hourglass; the original never repaints
-// that band, so the pieces persist. _mirrorPieceMask records which have been
-// found and the graphics layer (pics.cpp) folds them into the panel snapshot so
-// our per-turn panel re-composite keeps showing them. RE'd by logging the draw
-// opcodes through a winning playthrough: maze room 0x57 -> OF img6 (86), art room
-// 0x16 -> OE img11 (75), prison cell 0x01 -> OF img4 (84), chapel 0x0b -> OE img15
-// (79). Verified each lands in screen columns 25..31 (left of the hourglass at 32+).
+// Item-picture numbers of the four mirror pieces, in panel bit order. Each
+// lands in screen columns 25..31, left of the hourglass: maze room 0x57 -> OF
+// img6 (86), art room 0x16 -> OE img11 (75), prison cell 0x01 -> OF img4 (84),
+// chapel 0x0b -> OE img15 (79). See
+// CovetedMirrorGame::recordItemPictureDrawn().
 static const int CM_PIECE_PICS[4] = {86, 75, 84, 79};
 
 /**
- * The Coveted Mirror (Polarware, 1985). A version 2 Comprehend game built like
+ * The Coveted Mirror (Polarware, 1986). A version 2 Comprehend game built like
  * OO-Topos and Talisman: a single packed "G0" main data file, with room (RA-RG)
  * and object (OA-OG) pictures and the title in a separate vector image (T0).
- *
- * This is a first-pass port: detection and the data/graphic file wiring are in
- * place, but the game-specific special opcodes and extra string banks (MA-ML on
- * the Apple II disks) still need to be mapped from play-testing.
  */
 class CovetedMirrorGame : public ComprehendGameV2 {
 public:
@@ -63,8 +55,8 @@ public:
 	void synchronizeSave(Common::Serializer &s) override;
 
 private:
-	// Last room for which the engine's wandering-NPC spawn was rolled (the
-	// original keeps this in $4037 and only re-rolls on entering a new room).
+	// Last room the wandering-NPC spawn was rolled for; it re-rolls only on
+	// entering a new room.
 	uint8 _lastSpawnRoom = 0;
 
 	// Bitmask of collected mirror pieces (bit i set => CM_PIECE_PICS[i] found).

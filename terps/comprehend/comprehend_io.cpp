@@ -1,5 +1,5 @@
-/* Comprehend engine glue: text output, the status window, transcripts and
- * keyboard / script input. */
+// Comprehend engine glue: text output, the status window, transcripts and
+// keyboard / script input.
 
 #include "comprehend.h"
 #include "comprehend_internal.h"
@@ -57,8 +57,7 @@ void Comprehend::putBottomUni(const glui32 *s) {
 }
 
 void Comprehend::transcript(const char *arg) {
-	// "#transcript off" stops; "#transcript [on]" starts; bare "#transcript"
-	// toggles. (Mirrors the scott/taylor/plus metacommand behaviour.)
+	// "#transcript off" stops; "#transcript [on]" starts; bare "#transcript" toggles.
 	while (*arg == ' ') ++arg;
 	if (scumm_stricmp(arg, "off") == 0)
 		transcriptOff();
@@ -95,7 +94,7 @@ void Comprehend::transcriptOn() {
 	glk_window_set_echo_stream(_bottomWindow, _transcript);
 
 	// Record the room the player is currently standing in, so the transcript
-	// doesn't begin mid-room with no description (matches scott's behaviour).
+	// doesn't begin mid-room with no description.
 	if (_game)
 		_game->transcribeCurrentRoom();
 }
@@ -163,9 +162,8 @@ void Comprehend::printRoomDesc(const Common::String &desc) {
 		str.wordWrap(width - 2);
 	str += '\n';
 
-	// Size the window to the wrapped text plus one blank line at the bottom,
-	// used as a delimiter (as UnQuill and others do), rather than leaving it at
-	// a fixed height with empty rows below the description.
+	// Size the window to the wrapped text plus one blank line at the bottom, used as a
+	// delimiter, rather than leaving it at a fixed height with empty rows below the description.
 	int lines = 0;
 	for (uint i = 0; i < str.size(); ++i)
 		if (str[i] == '\n') ++lines;
@@ -186,7 +184,7 @@ void Comprehend::printRoomDesc(const Common::String &desc) {
 		str = Common::String(str.c_str() + idx + 1);
 	}
 
-	// Fill the bottom row with underscores as a delimiter (as UnQuill does).
+	// Fill the bottom row with underscores as a delimiter.
 	glk_window_move_cursor(_statusWindow, 0, (glui32)lines);
 	strid_t stream = glk_window_get_stream(_statusWindow);
 	for (glui32 col = 0; col < width; ++col)

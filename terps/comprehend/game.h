@@ -45,10 +45,9 @@ struct Sentence {
 	size_t _nr_words;
 	byte _formattedWords[6];
 	byte _specialOpcodeVal2;
-	// Gender/number nibble (_type & 0xf0) of the first noun, captured by
-	// format().  Copied into GameData::_wordFlags so OPCODE_SET_STRING_REPLACEMENT3
-	// can pick the article-agreeing @-replacement word (matches the Apple II
-	// interpreter's cm_current_noun_flags / $5b6a, set by cm_format_sentence_words).
+	// Gender/number nibble (_type & 0xf0) of the first noun, captured by format().
+	// Copied into GameData::_wordFlags so OPCODE_SET_STRING_REPLACEMENT3 can pick the
+	// article-agreeing @-replacement word.
 	byte _wordFlags;
 
 	Sentence() {
@@ -90,7 +89,7 @@ protected:
 	// move this turn. Unlike _currentRoomCopy (which move_to() updates so the
 	// graphics path can draw the room just moved into), this is left alone by
 	// move_to, so Talisman's special-opcode 3 can remember where the player
-	// came from -- e.g. the tunnel the magic lamp whisks them out of.
+	// came from, e.g. the tunnel the magic lamp whisks them out of.
 	int _roomBeforeTurn;
 	int _functionNum;
 	int _specialOpcode;
@@ -133,7 +132,7 @@ protected:
 	// key the player pressed at the prompt: if it is the undo key and there is a
 	// turn to step back to, restores that turn, clears the ended state, refreshes
 	// the display and returns true (the caller should resume play). Steps back a
-	// single turn -- these games' deaths are immediate, unlike Talisman's delayed
+	// single turn: these games' deaths are immediate, unlike Talisman's delayed
 	// countdowns (which undo two; see TalismanGame::deathMenu). Returns false
 	// otherwise, leaving restart/quit to the caller.
 	bool undoAfterDeath(int key);
@@ -147,19 +146,16 @@ protected:
 	void console_println(const char *text);
 	// Expand '@' string-replacement markers (the current replacement word or
 	// number) the same way console_println does, but return the result rather
-	// than printing it -- used so the room-description status window shows the
+	// than printing it, so the room-description status window shows the
 	// substituted text instead of a literal '@'.
 	Common::String expandReplacementWords(const Common::String &text);
 	void move_object(Item *item, int new_room);
 
 	/*
-	 * V2 interpreters (e.g. Talisman) reserve variable 0 as the input-number
-	 * register: read_sentence_format zeroes it each turn and a numeric token
-	 * fills it, and the VAR_*1 opcodes compare against it. V1 interpreters
-	 * instead use variable 0 as the persisted inventory weight. The two uses
-	 * collide, so number-register handling (the per-turn reset and numeric
-	 * token capture in read_sentence, and suppressing the move_object weight
-	 * write) is gated on this predicate.
+	 * V2 interpreters (e.g. Talisman) reserve variable 0 as the input-number register:
+	 * it is zeroed each turn, a numeric token fills it, and the VAR_*1 opcodes compare
+	 * against it. V1 interpreters use variable 0 as the persisted inventory weight. This
+	 * predicate gates the per-turn reset, numeric token capture and the move_object weight.
 	 */
 	virtual bool hasNumberRegister() const { return false; }
 
@@ -251,7 +247,7 @@ public:
 	virtual uint8 cmMirrorPieceMask() const { return 0; }
 
 	// True if the just-restored state is self-consistent enough to keep playing
-	// (mainly: the current room is in range). Used to reject a corrupt restore
+	// (mainly: the current room is in range). Rejects a corrupt restore
 	// before the bad state crashes the renderer.
 	bool saveStateLooksValid() const {
 		return _currentRoom >= 1 && _currentRoom < _rooms.size();

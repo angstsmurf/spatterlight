@@ -1,24 +1,8 @@
-/* graphics_magician_vector.h -- shared Graphics Magician pen-geometry
- * rasterizers: line + circle for the CGA and PCjr renderers, and the 6502
- * circle stepper for the Apple II hi-res and DHGR renderers.
- *
- * draw_line and draw_circle are byte-for-byte identical between
- * graphics_magician_cga.cpp and graphics_magician_pcjr.cpp: both are faithful
- * ports of the same native primitives -- PicDrawLineBresenham (PC_GRAPH.OVR
- * 0x2c00) and PicDrawCircleBresenham (0x2b10) -- and the PCjr JR_GRAPH.OVR
- * copies are identical, so the PCjr renderer was hand-cloned from the CGA one.
- * They differ ONLY in the per-pixel writer (write_2bpp vs plot_pen), so we
- * factor the geometry here and let each renderer pass its own plot callback.
- *
- * NOT shared: the fill, brush and glyph primitives genuinely diverge between the
- * two renderers (2-bpp dither phase-walk + 3-byte spill vs straight 4-bpp nibble
- * writes), so they stay in their respective files.
- *
- * Templated on a Plot functor `void plot(int x, int y)` (the pen colour is
- * captured by the caller's lambda) so it inlines with no per-pixel indirection,
- * matching the header-only style of slow_draw_page.h.  The plot order is
- * preserved exactly so the slow-draw reveal sequence is unchanged.
- */
+// Shared Graphics Magician pen geometry: line and circle for the CGA and PCjr renderers, which
+// differ only in their per-pixel writer, and the 6502 circle stepper for the Apple II hi-res and
+// DHGR renderers. The fills diverge (2-bpp dither vs 4-bpp nibble writes) and stay in their files.
+// The geometry is templated on a Plot functor `void plot(int x, int y)`. The plot order must not
+// change, as it is the slow-draw reveal sequence.
 
 #ifndef COMPREHEND_GRAPHICS_MAGICIAN_VECTOR_H
 #define COMPREHEND_GRAPHICS_MAGICIAN_VECTOR_H
@@ -112,15 +96,10 @@ inline void gmvDrawGlyph(const uint8_t *font, int x, int y, uint8_t ch, Pixel pi
 	}
 }
 
-// Major-axis Bresenham (PicDrawLineBresenham @0x2c00): the longer axis is
-// stepped every pixel; the error term (minor - major) decides when the minor
-// axis advances.  This exact formulation matters -- the symmetric two-axis
-// variant tie-breaks the other way on 45deg-ish lines, shifting a line (and the
-// fill it bounds) by one pixel.
-//
-// A y-major line is drawn by swapping x and y, walking it as x-major, and
-// swapping them back when plotting.  Lines with dx == dy stay x-major, as in
-// the original.
+// Major-axis Bresenham: the longer axis is stepped every pixel; the error term (minor - major)
+// decides when the minor axis advances. This exact formulation matters: the symmetric two-axis
+// variant tie-breaks the other way on near-45-degree lines, shifting a line and the fill it
+// bounds by one pixel. A y-major line is walked with x and y swapped; dx == dy stays x-major.
 template <typename Plot>
 inline void gmvDrawLine(int x0, int y0, int x1, int y1, Plot plot) {
 	const bool steep = abs(y1 - y0) > abs(x1 - x0);
@@ -144,16 +123,15 @@ inline void gmvDrawLine(int x0, int y0, int x1, int y1, Plot plot) {
 	}
 }
 
-// Midpoint circle (PicDrawCircleBresenham @0x2b10).  NOT the Apple renderer's
-// variant: the error term starts at -r, the radius itself shrinks as the arc
-// closes, and -- a genuine quirk -- the "error went non-negative" test is
-// TEST [d],0x80, i.e. bit 7 of the 16-bit error word, not its sign.  This rounds
-// the diagonal steps one pixel wider than the textbook midpoint circle.
+// Midpoint circle of the DOS renderers, not the Apple variant: the error term starts at -r, the
+// radius shrinks as the arc closes, and the "error went non-negative" test checks bit 7 of the
+// 16-bit error word rather than its sign. That quirk of the original rounds the diagonal steps
+// one pixel wider than the textbook circle.
 template <typename Plot>
 inline void gmvDrawCircle(int cx, int cy, int radius, Plot plot) {
-	uint16_t d = (uint16_t)(0 - radius);                 // [0xb1f2] = -r
-	int i = 0;                                           // [0xb1f0]
-	int r = radius;                                      // [0x9d39], mutated
+	uint16_t d = (uint16_t)(0 - radius);
+	int i = 0;
+	int r = radius;
 	for (;;) {
 		plot(cx - i, cy - r);
 		plot(cx + i, cy - r);
@@ -163,20 +141,19 @@ inline void gmvDrawCircle(int cx, int cy, int radius, Plot plot) {
 		plot(cx - r, cy - i);
 		plot(cx - r, cy + i);
 		plot(cx + r, cy + i);
-		d = (uint16_t)(d + 2 * i + 1);                   // 2bae
+		d = (uint16_t)(d + 2 * i + 1);
 		i++;
-		if (!(d & 0x80)) {                               // 2bbd: TEST d,0x80
+		if (!(d & 0x80)) {
 			d = (uint16_t)(d + 2 - 2 * r);
 			r--;
 		}
-		if (r < i)                                       // 2be0: JL -> done
+		if (r < i)
 			break;
 	}
 }
 
-// The eight-way symmetric plot of the Apple II circle loops (hi-res $0b4b..,
-// DHGR FUN_0bcb): (+-ax, +-ay) near the top and bottom, then (+-bx, +-by) near
-// the sides, in the original's order.
+// The eight-way symmetric plot of the Apple II circle loops: (+-ax, +-ay) near the top and bottom,
+// then (+-bx, +-by) near the sides, in the original's order.
 template <class Plot>
 inline void gmvCirclePlot8(int cx, int cy, int ax, int ay, int bx, int by, Plot plot) {
 	plot(cx - ax, cy - ay);
@@ -189,15 +166,12 @@ inline void gmvCirclePlot8(int cx, int cy, int ax, int ay, int bx, int by, Plot 
 	plot(cx + bx, cy + by);
 }
 
-// Midpoint circle stepper of the Apple II renderers: the hi-res op11 loop
-// ($0b92-$0be1) and the DHGR one (FUN_0aeb).  Both walk i up from 0 while r
-// shrinks from the radius, with the decision variable starting at radius / 2,
-// and plot an eight-way step at each (i, r): `step(i, r)`.  The DHGR loop also
-// plots between steps, at the odd x of its doubled raster, so after each
-// advance `half(i, r, shrink)` is called with the new (i, r) and whether r just
-// shrank.  The walk ends once r < i, after the half step of that advance, and
-// returns that (i, r).  The hi-res code tests there; the DHGR code tests one
-// full step later, so it plots one more step at the returned (i, r) itself.
+// Midpoint circle stepper of the Apple II renderers. i walks up from 0 while r shrinks from the
+// radius, the decision variable starting at radius / 2, calling `step(i, r)` at each point. The
+// DHGR loop also plots at the odd x between steps, so after each advance `half(i, r, shrink)` gets
+// the new (i, r) and whether r just shrank. The walk ends once r < i, after that half step, and
+// returns that (i, r). The hi-res loop stops there; the DHGR loop tests one full step later, so
+// it plots one more step at the returned (i, r) itself.
 struct GmvCircleEnd { int i, r; };
 template <class Step, class Half>
 inline GmvCircleEnd gmvAppleCircleSteps(uint8_t radius, Step step, Half half) {
@@ -207,15 +181,15 @@ inline GmvCircleEnd gmvAppleCircleSteps(uint8_t radius, Step step, Half half) {
 	for (int i = 0;;) {
 		step(i, r);
 		i++;
-		const bool shrink = d < i;                        // $0b94: BCS
+		const bool shrink = d < i;
 		if (shrink) {
 			r--;
-			d += r - i;                                   // ADC r, carry clear
+			d += r - i;
 		} else {
 			d -= i;
 		}
 		half(i, r, shrink);
-		if (r < i)                                       // CMP; BCC done
+		if (r < i)
 			return { i, r };
 	}
 }

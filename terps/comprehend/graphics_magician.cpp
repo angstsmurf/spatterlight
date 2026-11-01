@@ -1,43 +1,19 @@
-/* graphics_magician.cpp -- pixel-faithful renderer for the Apple II Comprehend
- * games (Transylvania, OO-Topos, Crimson Crown, Talisman), STANDARD hi-res mode.
- *
- * Their room/item/title pictures are drawn with Penguin Software's "Graphics
- * Magician" / "Picture Painter" vector format -- the SAME engine the Apple II
- * Scott Adams games use. The drawing primitives render into a real Apple hi-res
- * framebuffer (s_screenmem); a second pass converts that to RGBA using the
- * Apple NTSC artifact-colour algorithm (from terps/common_sagadraw/apple2draw.c).
- *
- * Each primitive here was transliterated from, and verified byte-for-byte
- * against, the games' own 6502 routines (Ghidra on a MAME RAM dump, plus running
- * the real ROM routines on identical inputs and diffing the resulting hi-res
- * page): line = Applesoft HLINE ($F53A); box = four HLINEs ($095B); circle =
- * midpoint circle ($0AD3); brush = $0FFB/$102E; flood fill = the queue-based
- * span fill ($0CCA); background fill = op15 sub-op3 ($0A2D); delay = the $09BB
- * counting loop. Output matches the hardware byte-exactly over every picture row
- * in the regression set (test/test_talisman_pics.cpp).
- *
- * This is the STANDARD hi-res renderer (the games' <S> boot option, where
- * offered); the canonical double hi-res renderer (<D>) is a separate, much
- * larger porting effort and is not used here.
- *
- * The four titles share one engine but in two dialects, selected by
- * gmSetLegacyFormat() (verified against MAME + the disassembly at
- * https://6502disassembly.com/a2-graphics-magician/PICDRAWH_1984.html):
- *   - Talisman and OO-Topos use the later variant: op7 (0x7x) is a 2-operand
- *     NO-OP and op15 (0xf, "RESET") is a low-nibble sub-op (param1 sets the fill
- *     rectangle to full screen, param2 reads 4 bytes of bounds, param3 fills the
- *     rectangle with the current colour pattern -- the per-image background).
- *   - Transylvania and Crimson Crown use the older variant (the legacy flag):
- *     op7 and op15 end the image, and fills clip to the full screen (their
- *     background PAINT seeds in the bottom text rows).
- *
- * The colour/pattern tables (s_patternData, s_colorPatternSubindices,
- * s_brushBitmaps) are not hard-coded: they are pulled at runtime out of the
- * Graphics Magician code file "T2" on the boot disk by gmInstallDrawingTables()
- * (located by signature, since each release places them at a different offset).
- * apple2.cpp calls it once the disks are mounted; the regression test loads each
- * game's captured T2 fixture.
- */
+// Standard hi-res renderer for the Apple II Comprehend games. Their pictures use Penguin
+// Software's Graphics Magician vector format: the primitives plot into a real hi-res page
+// (s_screenmem), which a second pass converts to RGBA with the NTSC artifact-colour kernel
+// (gm_artifact.cpp). The model was derived from the games' own 6502 routines.
+//
+// There are two dialects, selected by gmSetLegacyFormat(); see
+// https://6502disassembly.com/a2-graphics-magician/PICDRAWH_1984.html
+//  - Later (Talisman, OO-Topos, Transylvania v2, The Coveted Mirror): op7 (0x7x) is a 2-operand
+//    no-op and op15 takes a sub-op in its low nibble: 0 draws an RLE bitmap, 1 sets the fill
+//    rectangle to the full picture, 2 reads 4 bytes of bounds, 3 fills the rectangle with the
+//    current colour pattern (the per-image background).
+//  - Older (Transylvania, Crimson Crown): op7 and op15 end the image, and fills clip to the full
+//    screen, as the background PAINT seeds in the bottom text rows.
+//
+// The colour, pattern and brush tables come from the Graphics Magician code file "T2" on the
+// boot disk (gmInstallDrawingTables).
 
 #include "graphics_magician.h"
 #include "gm_vector.h"
@@ -52,34 +28,24 @@
 namespace Glk {
 namespace Comprehend {
 
-// ---- Drawing tables ----------------------------------------------------------
-// Populated by gmInstallDrawingTables() from the boot disk's T2 file.
-// Until then they stay zero, which renders nothing (matches the behaviour of an
-// Apple II that hasn't loaded the Graphics Magician code yet).
+// Populated by gmInstallDrawingTables() from the boot disk's T2 file. Until then they stay
+// zero, which renders nothing.
 
 static uint8_t s_patternData[120];              // 30 colour patterns x 4 bytes
 static uint8_t s_colorPatternSubindices[216];   // 108 fills x (even,odd) index
 static uint8_t s_brushBitmaps[256];             // 8 brushes x 4 quadrants x 8
 static uint8_t s_fontGlyphs[128 * 8];           // op3/op5 picture font, 8 bytes/char
 
-// T2 is a headerless ProDOS BIN that loads at $0800. The three drawing tables
-// live at fixed absolute addresses inside it (matches the MAME RAM dump):
-//   $1132 -> s_colorPatternSubindices (216 bytes)
-//   $120A -> s_patternData            (120 bytes)
-//   $1282 -> s_brushBitmaps           (256 bytes)
+// T2 is a headerless ProDOS BIN that loads at $0800.
 bool gmInstallDrawingTables(const uint8_t *t2, size_t size) {
 	if (!t2)
 		return false;
 
-	// The three drawing tables are byte-identical across every Graphics Magician
-	// title we support (Talisman, Transylvania, ...) and sit contiguously as
+	// The tables are byte-identical across titles and sit contiguously as
 	//   [ colour subindices : 216 ][ pattern data : 120 ][ brush bitmaps : 256 ]
-	// but at a load-address-dependent offset inside T2 (Talisman puts pattern
-	// data at $120a, Transylvania at $1278). Rather than hard-code per-game
-	// offsets, locate the pattern-data table by its unmistakable signature -- the
-	// Apple hi-res colour patterns black/green-violet/white/orange-blue -- and
-	// derive the neighbours from it. pattern_data[0..3] are zero, so the run that
-	// actually identifies it starts at byte 4.
+	// but at a different offset in each release's T2, so the pattern data is located by its
+	// signature, the Apple hi-res colour patterns. Its first four bytes are zero, so the
+	// signature starts at byte 4.
 	static const uint8_t kPatternSig[] = {
 		0x55,0x2a,0x55,0x2a, 0x2a,0x55,0x2a,0x55, 0x7f,0x7f,0x7f,0x7f,
 		0x80,0x80,0x80,0x80, 0xd5,0xaa,0xd5,0xaa, 0xaa,0xd5,0xaa,0xd5,
@@ -112,17 +78,13 @@ bool gmInstallDrawingTables(const uint8_t *t2, size_t size) {
 	std::memcpy(s_patternData,            t2 + patBase,   kPatLen);
 	std::memcpy(s_brushBitmaps,           t2 + brushBase, kBrushLen);
 
-	// The op3/op5 picture font shares the brush table's base: glyph(ch) lives at
-	// brushBase + ch*8 (so the brush bitmaps double as the unused control-char
-	// glyphs $00..$1f, and the printable glyphs follow). Copy the whole 128-char
-	// range; leave it zero (blank text) if T2 ends early rather than failing the
-	// critical tables above.
+	// The op3/op5 picture font shares the brush table's base: glyph(ch) is at
+	// brushBase + ch*8, so the brushes double as the unused control-char glyphs $00..$1f.
+	// If T2 ends early the font stays blank rather than failing the tables above.
 	if (brushBase + sizeof(s_fontGlyphs) <= size)
 		std::memcpy(s_fontGlyphs, t2 + brushBase, sizeof(s_fontGlyphs));
 	return true;
 }
-
-// ---- Apple hi-res framebuffer -------------------------------------------------
 
 #define A2_SCREEN_MEM_SIZE   GM_HIRES_PAGE_SIZE
 #define APPLE2_SCREEN_HEIGHT GM_HIRES_ROWS
@@ -130,40 +92,20 @@ bool gmInstallDrawingTables(const uint8_t *t2, size_t size) {
 #define RIGHT_EXPAND_MASK 0x40
 
 
-// Persistent across calls: item / overlay images are drawn straight on top of
-// the room already rendered into the Apple hi-res page (the real interpreter
-// never clears the screen for an item picture), so callers reset it explicitly
-// via gmResetScreen() only when starting a fresh room.
+// Persistent across calls: item pictures draw on top of the room already on the page, as the
+// original never clears the screen for them. gmResetScreen() starts a fresh room.
 static uint8_t s_screenmem[A2_SCREEN_MEM_SIZE];
 
 static inline bool valid_offset(uint16_t off) { return off <= GM_MAX_SCREEN_ADDR; }
 
-// ---- Slow ("animated") draw -------------------------------------------------
-//
-// Like the Apple II Scott Adams and Level 9 renderers, the picture can be
-// revealed progressively in the order the interpreter actually plotted it,
-// imitating the few seconds the real Graphics Magician took to paint a hi-res
-// page. When recording is enabled (gmSetSlowDraw(true)), every hi-res
-// byte written goes both into the final page (s_screenmem, as before) and onto
-// an ordered op list. The visible page (s_slowScreen) starts at the background
-// and the host re-applies the ops a chunk at a time on a Glk timer, re-blitting
-// after each chunk. Item overlays start from whatever is already on s_slowScreen
-// (the room just finished), so they compose exactly as on the real machine.
-
-// The reveal state machine, op list and dirty band live in the shared
-// SlowDrawEngine (slow_draw_page.h); the Apple II policy below supplies the only
-// renderer-specific behaviour -- the hi-res offset -> row mapping for the dirty
-// band.  s_screenmem is the fully-drawn page; s_slowScreen is the page the host
-// progressively reveals (and onto which CM-panel overlays composite directly).
+// Slow draw. While recording (gmSetSlowDraw), every byte written goes to the final page
+// (s_screenmem) and onto the op list of the shared SlowDrawEngine (slow_draw_page.h). The host
+// replays the ops onto s_slowScreen a chunk at a time on a Glk timer, starting from the
+// background. Item overlays start from whatever is already on s_slowScreen, so they compose as
+// on the real machine, and CM panel overlays composite onto it directly.
 static uint8_t s_slowScreen[A2_SCREEN_MEM_SIZE]; // progressively-revealed page
 
-// The reveal maps a byte write back to its row (dirty band) and column (so the CM
-// panel columns can be excluded from the reveal -- see apple_apply_slow) with
-// gm_row_of_offset / gm_col_of_offset; both give -1 in the inter-row gaps of the
-// hi-res address space.
-
-// Apply one recorded byte to the slow page; defined after the CM-panel state it
-// consults (forward-declared here for the policy).
+// Apply one recorded byte to the slow page; defined after the CM panel state it consults.
 static bool apple_apply_slow(const SlowWriteOp &op);
 
 // Apple II hi-res page: one flat buffer, but rows are address-interleaved, so
@@ -209,13 +151,11 @@ static void gm_write_adapter(uint16_t offset, uint8_t value, void *user) {
 	write_screen(offset, value);
 }
 
-// ---- Drawing context ----------------------------------------------------------
-// (Opcode enum is shared via graphics_magician.h.)
 
 typedef struct {
 	gm_vector_ctx gv;      // shared cursor/colour + line-drawing state
 	uint8_t BRUSH;         // current shape/brush type
-	// current fill colour as even/odd-row pattern sub-indices ($08/$09),
+	// current fill colour as even/odd-row pattern sub-indices,
 	// set by op6 SET_FILL_COLOR; default (3,3) = white.
 	uint8_t pat_even, pat_odd;
 	// op15 fill rectangle bounds (column 0..39, row 0..191)
@@ -225,14 +165,9 @@ typedef struct {
 	uint8_t text_y;
 } a2_ctx;
 
-// set_color / set_draw_position / draw_brush live in
-// common_sagadraw/gm_vector.c.
-
-// ---- Flood fill ---------------------------------------------------------------
-//
-// op14 PAINT. The span-fill engine is shared with the double hi-res and CGA
-// renderers (gm_span_fill.h); this is the standard hi-res page it runs on: one
-// byte per column, patterned from a 4-byte-wide dither selected by row parity.
+// op14 PAINT. The span-fill engine is shared with the double hi-res and CGA renderers
+// (gm_span_fill.h); this is the standard hi-res page it runs on: one byte per column,
+// patterned from a 4-byte-wide dither selected by row parity.
 
 struct AppleFillPage {
 	static const bool kDropSinglePixelSpans = false;
@@ -263,23 +198,12 @@ static void apple2_flood_fill(uint16_t x, uint8_t y, uint8_t pat_even, uint8_t p
 	s_spanFill.fill(x, y, clip.left, clip.right, clip.top, clip.bottom);   // x == column*7 + bit
 }
 
-// ---- Text glyph drawing (op3 TEXT_CHAR / op5 TEXT_OUTLINE) ---------------------
-//
-// The picture interpreter draws characters through the same per-row blitter as
-// brushes (FUN_102e), reading an 8-byte hi-res glyph from the font table that
-// shares the brush table's base: glyph(ch) = $1282 + ch*8. The byte is spread
-// across two adjacent columns by the pixel offset within the column (bit 6
-// collected into the next column), exactly like a brush quadrant.
-//
-// op3 (TEXT_CHAR) sets the "normal" flag ($0839=1), so FUN_102e takes the $1099
-// path: the glyph is XOR-ed straight onto the screen, leaving bit 7 untouched,
-// which renders solid white text. op5 (TEXT_OUTLINE) leaves the flag clear and
-// takes the $1057 path: the glyph is colour-blended with the current fill
-// pattern, just like a brush.
-// Blit one 7-bit glyph half (`mask`) into screen byte `addr` / column `col`.
-// normal (op3, FUN_102e $1099) XORs it on, preserving bit 7 (the hi-res palette
-// bit) so the text stays white; op5 ($1057) blends it through the fill pattern,
-// just like a brush quadrant.
+// Text glyphs (op3 TEXT_CHAR, op5 TEXT_OUTLINE) go through the same per-row blitter as brushes.
+// Each glyph byte is spread across two adjacent columns by the pixel offset within the column.
+
+// Blit one 7-bit glyph half (`mask`) into screen byte `addr` / column `col`. op3 (normal) XORs
+// it on, preserving bit 7 (the palette bit) so the text stays white; op5 blends it through the
+// fill pattern, like a brush quadrant.
 static void glyph_blit_half(uint16_t addr, int col, uint8_t mask, bool normal, uint8_t pat_base) {
 	if (!mask || !valid_offset(addr))
 		return;
@@ -309,10 +233,8 @@ static void draw_text_glyph(uint16_t x, uint8_t y, uint8_t ch, bool normal,
 	}
 }
 
-// ---- Circle (op11) ----
-// The shared 6502 midpoint stepper (gmvAppleCircleSteps), plotting its eight
-// symmetric points per step via HPLOT (HPOSN + plot). Only x in 0..279,
-// y in 0..159.
+// op11: the shared 6502 midpoint stepper (gmvAppleCircleSteps) plots eight symmetric points per
+// step. Only x in 0..279, y in 0..159 are drawn.
 
 static void plot_circle_point(int x, int y, a2_ctx *ctx) {
 	if (x < 0 || x >= 280 || y < 0 || y >= APPLE2_SCREEN_HEIGHT - 32)
@@ -328,7 +250,7 @@ static void draw_circle(uint16_t cx, uint8_t cy, uint8_t radius, a2_ctx *ctx) {
 	});
 }
 
-// ---- op15 background rectangle fill (Talisman variant) ------------------------
+// op15 sub-op 3: the background rectangle fill.
 
 static void fill_rect_pattern(a2_ctx *ctx, uint8_t pat_even, uint8_t pat_odd) {
 	for (int row = ctx->fill.top; row <= ctx->fill.bottom && row < APPLE2_SCREEN_HEIGHT; row++) {
@@ -339,15 +261,7 @@ static void fill_rect_pattern(a2_ctx *ctx, uint8_t pat_even, uint8_t pat_odd) {
 	}
 }
 
-// ---- Opcode interpreter -------------------------------------------------------
-
-// The Graphics Magician vector format has two dialects sharing the same drawing
-// tables. Talisman (the default) repurposes op7 as a 2-operand no-op and op15 as
-// a fill-bounds sub-op, and sets its fill clip rectangle explicitly. The older
-// dialect used by the earlier Comprehend titles (Transylvania, OO-Topos, Crimson
-// Crown) ends an image on op7 as well as op0, never emits op15, and fills against
-// the full screen (its background PAINT seeds in the bottom text rows). Selected
-// per game via gmSetLegacyFormat().
+// The dialect (see the top of this file), selected per game via gmSetLegacyFormat().
 static bool s_legacyFormat = false;
 
 // The loop and operand decode are the shared gmRunStream (gm_stream.h); this is
@@ -360,12 +274,9 @@ struct AppleRenderer {
 	int penY() const { return c.gv.HGR_Y; }
 
 	void begin() {
-		// The op list is dropped by gmResetScreen() when a new page starts (room /
-		// dark / bright / title), NOT here: a scene is a room picture plus any item
-		// overlays, and the overlays must APPEND their bytes to the room's still-
-		// pending reveal so the whole composite is revealed in paint order. Clearing
-		// here would discard the room's not-yet-revealed bytes the moment the first
-		// item draws, leaving only the last picture animated on a blank page.
+		// The op list is dropped by gmResetScreen() when a new page starts, not here: a scene
+		// is a room plus any item overlays, and the overlays append to the room's pending
+		// reveal so the whole composite is revealed in paint order.
 		c = a2_ctx();
 		c.gv.screenmem = s_screenmem;
 		c.gv.write = gm_write_adapter;
@@ -374,14 +285,13 @@ struct AppleRenderer {
 		c.gv.brush_bitmaps = s_brushBitmaps;
 		gm_set_color(4, &c.gv);
 		gm_set_draw_position(140, 96, &c.gv);
-		// Default fill colour = idx $4d (the picture interpreter's init at $08a6),
-		// which FUN_0c92 maps to the $1132 even/odd sub-index pair.
+		// Default fill colour is index $4d, as in the interpreter's per-image init.
 		c.pat_even = s_colorPatternSubindices[0x4d * 2];
 		c.pat_odd = s_colorPatternSubindices[0x4d * 2 + 1];
 		c.BRUSH = 5;
-		// Talisman clips fills to the picture rows (0..0x9f) and widens the rectangle
-		// via op15; the older dialect has no op15 and paints the whole screen, seeding
-		// its background fill in the bottom text rows (e.g. PAINT at y=191).
+		// The later dialect clips fills to the picture rows and changes the rectangle via
+		// op15; the older one fills against the whole screen, seeding its background fill in
+		// the bottom text rows (e.g. PAINT at y=191).
 		c.fill.reset(s_legacyFormat ? 0xbf : 0x9f);
 	}
 	// When not animating, keep the visible page in step with the final page so a
@@ -416,12 +326,11 @@ struct AppleRenderer {
 		c.pat_even = s_colorPatternSubindices[(uint8_t)(idx * 2)];
 		c.pat_odd = s_colorPatternSubindices[(uint8_t)(idx * 2 + 1)];
 	}
-	// Talisman: op7 is a 2-operand no-op; the older dialect ends the image on it.
+	// Later dialect: op7 is a 2-operand no-op; the older dialect ends the image on it.
 	bool op7(const uint8_t *&p, const uint8_t *e) { return s_legacyFormat || gmSkipOp7(p, e); }
 	void moveTo(uint16_t x, uint8_t y) { gm_set_draw_position(x, y, &c.gv); }
 	void lineTo(uint16_t x, uint8_t y) { gm_draw_line(x, y, &c.gv); }
-	// op11: circle centred on the current pen position; op11 restores the centre
-	// afterwards ($0944->$0990).
+	// op11: circle centred on the current pen position, which is restored afterwards.
 	void circle(uint8_t radius) {
 		uint16_t ccx = c.gv.HGR_X;
 		uint8_t ccy = c.gv.HGR_Y;
@@ -437,15 +346,13 @@ struct AppleRenderer {
 		apple2_flood_fill(x, y, c.pat_even, c.pat_odd, c.fill);
 	}
 
-	// op15: Talisman sub-op in the low nibble; the older dialect ends the image.
+	// op15: later dialect sub-op in the low nibble; the older dialect ends the image.
 	bool opReset(uint8_t param, const uint8_t *&ptr, const uint8_t *end) {
 		if (s_legacyFormat)
 			return true;
 		switch (param) {
-		case 0: // RLE-compressed bitmap rectangle (The Coveted Mirror; $0a3f)
-			// Reads 4 bounds bytes exactly like sub-op 2, then streams raw hi-res page
-			// bytes (see gmDecodeRleBitmap); the handler returns the moment the
-			// bottom-right cell is written, even mid-run ($0a6e).
+		case 0: // RLE-compressed bitmap rectangle (The Coveted Mirror)
+			// Reads 4 bounds bytes like sub-op 2, then streams raw hi-res page bytes.
 			if (!c.fill.read(ptr, end))
 				return true;
 			gmDecodeRleBitmap(c.fill, ptr, end, [](int row, int col, uint8_t v) {
@@ -468,15 +375,9 @@ struct AppleRenderer {
 	}
 };
 
-// ---- Apple hi-res -> RGB --------------------------------------------------
-// The NTSC artifact-colour kernel (rotl4b / artifact_color_lut / apple2_palette
-// / Double7Bits / per-row word + colour expansion) lives in
-// common_sagadraw/gm_artifact.c, shared with apple2draw.c.
-
-// Convert a hi-res page -> RGBA into out[w*h] (0xRRGGBBAA). Renders Apple rows
-// 0..h-1, sampling the 560-wide artifact colours down to w columns. The game
-// uses w = 560, which keeps every colour edge where MAME puts it; a narrower
-// w drops the odd half-pixels, moving some edges by half an Apple pixel.
+// Convert a hi-res page to RGBA (0xRRGGBBAA) into out[w*h]: Apple rows 0..h-1, with the 560-wide
+// artifact colours sampled down to w columns. The game uses w = 560, which keeps every colour
+// edge in place; a narrower w drops the odd half-pixels, moving some edges by half an Apple pixel.
 static void screenmem_to_rgba(const uint8_t *src, uint32_t *out, int w, int h) {
 	for (int row = 0; row < h; row++) {
 		unsigned const address = gm_row_address(row);
@@ -489,8 +390,6 @@ static void screenmem_to_rgba(const uint8_t *src, uint32_t *out, int w, int h) {
 	}
 }
 
-// ---- Public entry -------------------------------------------------------------
-
 void gmResetScreen(bool white) {
 	memset(s_screenmem, white ? 0xff : 0x00, A2_SCREEN_MEM_SIZE);
 	// A reset starts a fresh page: the background appears instantly on the
@@ -498,9 +397,6 @@ void gmResetScreen(bool white) {
 	memset(s_slowScreen, white ? 0xff : 0x00, A2_SCREEN_MEM_SIZE);
 	s_slow.clear();
 }
-
-// ---- Slow-draw control (host-driven) ----------------------------------------
-// The machinery lives in the shared SlowDrawEngine (slow_draw_page.h).
 
 void gmSetSlowDraw(bool on) { s_slow.setRecording(on); }
 bool gmSlowDrawActive() { return s_slow.active(); }
@@ -512,27 +408,22 @@ void gmBlitSlowToSurface(uint32_t *out, int w, int h) {
 	screenmem_to_rgba(s_slowScreen, out, w, h);
 }
 
-// Diagnostic accessor (offline pixel-diff harness): the raw 0x2000-byte page.
+// Diagnostic accessors: the raw 0x2000-byte page.
 const uint8_t *gmPagePtr() { return s_screenmem; }
 void gmSetPage(const uint8_t *p) { memcpy(s_screenmem, p, A2_SCREEN_MEM_SIZE); }
 // Diagnostic accessor: the progressively-revealed (slow-draw) page.
 const uint8_t *gmSlowPagePtr() { return s_slowScreen; }
 
-// --- The Coveted Mirror persistent right-hand panel ----------------------
-// CM draws a fixed right-hand panel -- the "The Coveted Mirror" logo above an
-// hourglass timer -- into screen columns 24..39 once at boot, then every room
-// picture is drawn into the left columns only, leaving the panel untouched.
-// Our room images are decoded straight from the disk and span the full width,
-// so after each in-game picture we re-composite the saved panel columns on top,
-// reproducing the original's always-present panel.
+// The Coveted Mirror's right-hand panel: the logo above an hourglass timer, in screen columns
+// 24..39. The original draws it once at boot and draws rooms in the left columns only. Room
+// images here span the full width, so the saved panel columns are composited back on top after
+// each in-game picture.
 static CMPanelStore<1> s_cmPanel;
 
-// Per-turn grain-fall animation state. The original interpreter
-// (cm_per_turn_graphics_step $42f8) tracks the displayed grain count separately
-// from the live sand variable and, on a normal turn, erases just the one top
-// grain. We mirror that "displayed" counter so we can tell a single-grain
-// per-turn drop (animate the freed grain through the neck) from a big jump
-// (bribe refill to 74, catch, save/restore -> snap to the new level).
+// Per-turn grain fall. The original tracks the displayed grain count separately from the live
+// sand variable and normally erases just the top grain. This counter tells a single-grain drop
+// (animate the freed grain through the neck) from a big jump (bribe refill to 74, catch,
+// save/restore: snap to the new level).
 static int s_cmDisplayedSand = -1;   // grains currently shown; -1 = not yet drawn
 static bool s_cmFallArmed = false;   // a single-grain drop is waiting to animate
 static CMGrainFall s_cmFall;         // the freed grain's trip down the neck (cm_panel.h)
@@ -574,15 +465,10 @@ void gmOverlayCMPanel() {
 	cm_panel_to_pages(0, APPLE2_SCREEN_HEIGHT - 1);
 }
 
-// Apply one recorded byte to the slow page, skipping the CM panel columns.
-// Returns false (suppressing dirty marking) when the byte is skipped.
-//
-// The Coveted Mirror's panel occupies columns [col0,col1] and is composited on
-// top of every finished picture (gmOverlayCMPanel writes it to both pages). A
-// room drawn with a full-width op15/0 RLE bitmap, however, records writes across
-// those columns too; replaying them during the reveal would wipe the panel off
-// s_slowScreen. Skip panel-column ops so the overlaid panel survives the reveal
-// (it is already correct on the final page). Mirrors DHGR's dhgr_apply_slow.
+// Apply one recorded byte to the slow page. Returns false (no dirty marking) for CM panel
+// columns: a room drawn with a full-width op15/0 RLE bitmap records writes across them, and
+// replaying those would wipe the overlaid panel off s_slowScreen. The final page is already
+// correct, as gmOverlayCMPanel writes to both.
 static bool apple_apply_slow(const SlowWriteOp &op) {
 	if (s_cmPanel.skipsReveal(op.offset))
 		return false;
@@ -590,43 +476,39 @@ static bool apple_apply_slow(const SlowWriteOp &op) {
 	return true;
 }
 
-// Per-grain position, ported byte-faithfully from cm_draw_hourglass_grain
-// ($4347). `idx` is the grain index (0-based); the original treats idx 0 as a
-// no-op. Returns false for grains that stamp nothing. Apple hi-res x (0..279),
-// y (0..191). The pile is centred at x=245 (column ~35): even grains step right
-// (245+half), odd grains step left (245-half); the grain falls one "band" of 25
-// lower (y -= 1 per band, then y -= half within the band). Exposed (non-static)
-// so the double-hi-res renderer can place the same grains on its own pages.
+// Position of grain `idx` in Apple hi-res coordinates; idx 0 stamps nothing (returns false).
+// The pile is centred at x=245: even grains step right (245+half), odd grains left (245-half).
+// Each band of 25 grains moves y up by one, then y -= half within the band. Non-static so the
+// double hi-res renderer can place the same grains on its own pages.
 bool gmCMHourglassGrainPos(uint8_t idx, uint16_t *outX, uint8_t *outY) {
 	if (idx == 0)
 		return false;
-	uint8_t scan = 0x5c;              // DAT_43a2, the descending y cursor
-	uint8_t b = idx;                  // bVar1
-	while (b >= 0x1a) {               // do { if (b<0x1a) break; b-=0x19; scan--; } while (scan)
+	uint8_t scan = 0x5c;              // the descending y cursor
+	uint8_t b = idx;
+	while (b >= 0x1a) {
 		b -= 0x19;
 		scan--;
 		if (scan == 0)
 			break;
 	}
-	uint8_t half = (uint8_t)(b >> 1); // DAT_00fa
-	uint8_t col;                      // DAT_42f6
+	uint8_t half = (uint8_t)(b >> 1);
+	uint8_t col;
 	if (b & 1)
 		col = (uint8_t)(0x0c - half); // odd grain: left of centre
 	else
 		col = (uint8_t)(half + 0x0c); // even grain: right of centre
-	scan = (uint8_t)(scan - half);    // DAT_43a2 -= half
+	scan = (uint8_t)(scan - half);
 	uint16_t x = (uint8_t)(col - 0x17);
-	if (col > 0x16)                   // DAT_43a0 = 0xc1: x >= 256
+	if (col > 0x16)                   // x >= 256
 		x += 256;
 	*outX = x;
 	*outY = scan;
 	return true;
 }
 
-// White grains use SET_FILL_COLOR 0x34, which maps to pattern sub-index (7,7) =
-// the 0xff (all-pixels-white) pattern. (The original's drain path instead uses
-// 0x35 -> pattern 4 = 0x80 = black, to erase the top grain; we redraw the whole
-// pile each turn, so we only ever paint white.)
+// White grains use SET_FILL_COLOR 0x34, the all-pixels-white pattern. The original's drain path
+// erases the top grain in black (0x35); here the whole pile is redrawn each turn, so only white
+// is ever painted.
 static void cm_grain_brush_ctx(gm_vector_ctx *gv, uint8_t *patEven, uint8_t *patOdd) {
 	*gv = gm_vector_ctx{};
 	gv->screenmem = s_screenmem;
@@ -648,9 +530,9 @@ static void cm_stamp_hourglass_pile(int sand) {
 	});
 }
 
-// Restore columns [col0,col1] of the saved static panel (logo + hourglass frame
-// + bottom mound, with NO grains) for rows [y0,y1] onto both pages. Used to wipe
-// the previous animation frame's falling grain before drawing the next.
+// Restore columns [col0,col1] of the saved static panel (logo + hourglass frame + bottom mound,
+// with no grains) for rows [y0,y1] onto both pages. This wipes the previous animation frame's
+// falling grain before the next is drawn.
 static void cmOverlayPanelBand(int y0, int y1) {
 	if (!s_cmPanel.valid())
 		return;

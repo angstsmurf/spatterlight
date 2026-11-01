@@ -28,8 +28,7 @@ namespace Comprehend {
 TransylvaniaGame1::TransylvaniaGame1() : TransylvaniaCommon<ComprehendGameV1>(false) {
 	if (Common::DiskImageFS::active()) {
 		// Apple II release: data file g0, undecorated file names, and the
-		// strings split into separate files. The title is a raw hi-res
-		// screen rather than a Comprehend vector image.
+		// strings split into separate files.
 		_gameDataFile = "g0";
 
 		addLetteredFiles(_stringFiles, "M", 'A', 'E');

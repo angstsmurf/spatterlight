@@ -41,6 +41,28 @@ setting were the check for the renderer dedup of October 2026; the walkthrough
 transcripts cover the game layer. `test_dhgr_pics` and `test_dhgr_determinism`
 are in `make test` since that pass.
 
+## Developer tools
+
+Built on demand with `make test/<tool>`, and not part of `make test`. Usage is
+in the comment above each target in the `Makefile`.
+
+| Tool | What it does |
+|---|---|
+| `pixtest` | extract one Apple II Talisman picture from a disk image and log its hi-res writes, to capture fixtures |
+| `gmcgatest` | render one DOS v2 CGA picture to a PPM |
+| `gmcgav1test` | render one DOS v1 CGA picture to a PPM, optionally comparing with a DOSBox VRAM golden |
+| `gmpcjr/pcjrtest` | render one PCjr picture to a PPM |
+| `dhgrtrace` | render Coveted Mirror pictures through both Apple II renderers; disassemble a picture or dump its RLE bitmap |
+| `diff_gmcga` | per-scene colour-transition histograms and diff bands against the DOS Talisman fixtures |
+| `op5scan` | report which pictures on an Apple II disk use a given drawing opcode |
+| `cmextract` | list or extract the files of an Apple II disk |
+
+`gm_stream_dump.cpp` is built by `gm_stream_diff.sh` and `gm_stream_exact.sh`.
+
+`make clean` removes the objects, the binaries and every `test/*.dSYM`,
+including those left behind by tools that no longer have a source
+(`cm_opdump`, `diag_crypt`, `diff_hdos`, ...).
+
 ## Not covered
 
 - The Coveted Mirror for DOS was not at hand when the CGA fallback was tested
@@ -78,8 +100,7 @@ are in `make test` since that pass.
   leak); the clip-row test in `acceptSpan` (Apple drops a span on the clip
   row in its direction, CGA only stops down pushes at the bottom row and
   queues a dead up span on row 0); and `kAbortOnOverflow` (CGA abandons the
-  fill when the queue fills, the 6502 wraps). The CGA native addresses for
-  each traversal step are listed above `CgaFillGeom`.
+  fill when the queue fills, the 6502 wraps).
 - **The PCjr fill tile**: row parity as the game has it, and the flood fill
   tests and paints with bytes 0 and 2 of the tile only. 228 of the 331 PCjr
   hashes were re-blessed for those two fixes against DOSBox-X captures.
@@ -92,9 +113,8 @@ are in `make test` since that pass.
   `restartGame()`; `game_restart(true)` skips the prompt. Two changes fell out
   of it: OO-Topos clears undo on restart like every other game, and Crimson
   Crown's `#restart` no longer loads disk 1 twice.
-- **No pre-parser daemon pass.** The base `beforeTurn()` is empty and carries
-  the one canonical comment with the RE addresses; each game's override is its
-  native per-turn routine only.
+- **No pre-parser daemon pass.** The base `beforeTurn()` is empty; each game's
+  override is its native per-turn routine only.
 - **Transylvania 1 and 2 share `game_tr_common.h`**; whether the restart verb
   asks first is a constructor argument.
 - **The V1 and V2 "object in room" opcodes are not merged**: they test

@@ -31,12 +31,9 @@ TalismanGame::TalismanGame() : ComprehendGameV2() {
 	_gameDataFile = "G0";
 
 	addLetteredFiles(_locationGraphicFiles, "R", 'A', 'G');
-	// Item art is numbered against the full OA..OF sequence ((graphic-1) / 16
-	// picks the file), but only OA, OB, OE and OF ship -- OC and OD are absent.
-	// They must still occupy slots 2 and 3 so OE/OF stay at slots 4/5, otherwise
-	// part 2's item pictures (e.g. the crow's-nest parrot, graphic 70 -> OE) run
-	// off the end of the array. Pics::load() substitutes an empty placeholder for
-	// the missing OC/OD.
+	// Item art is numbered against OA..OF ((graphic-1) / 16 picks the file),
+	// but OC and OD are absent. They must still occupy slots 2 and 3 so OE/OF
+	// stay at slots 4/5; Pics::load() substitutes an empty placeholder.
 	addLetteredFiles(_itemGraphicFiles, "O", 'A', 'F');
 
 	_titleGraphicFile = "t0";
@@ -54,10 +51,10 @@ TalismanGame::TalismanGame() : ComprehendGameV2() {
 bool TalismanGame::prepareRestore(const std::vector<byte> &payload) {
 	// Talisman is two games in one: part 2 (the desert) is a separate database
 	// with its own room/item/function tables, dictionary, '@'-replacement words
-	// AND string banks. A saved game stores only the dynamic state (rooms,
-	// items, flags, variables); the static tables are reloaded from disk. So
-	// swap in the database of the save's part before the state is read into it.
-	// The part is the last byte of the payload (see synchronizeSave).
+	// and string banks. A saved game stores only the dynamic state (rooms,
+	// items, flags, variables), so swap in the database of the save's part
+	// before the state is read into it. The part is the last byte of the
+	// payload (see synchronizeSave).
 	if (payload.empty() || payload.back() > 1)
 		return false;
 
@@ -103,7 +100,6 @@ void TalismanGame::playGame() {
 }
 
 void TalismanGame::beforeGame() {
-	// Draw the title
 	g_comprehend->drawPicture(TITLE_IMAGE);
 
 	// Print game information, centred as on the original title screen.
@@ -162,15 +158,10 @@ void TalismanGame::afterPrompt() {
 }
 
 void TalismanGame::handleAction(Sentence *sentence) {
-	// The pending-question redirect (used by e.g. the curio dealer's yes/no
-	// haggling) must only apply to the matched verb action, never to the
-	// per-turn hook functions (beforeTurn/beforePrompt/afterPrompt, which pass
-	// a null sentence). In NOVEL.EXE the redirect lives in game_turn_loop
-	// solely between match_action_tables (1000:0665) and the verb execute
-	// (1000:0681 CALL 0x0693), gated by flag 62; the hooks are invoked
-	// separately via routine at 1000:0690 without it. Applying it to the hooks
-	// made the next turn's beforeTurn (func 17) jump straight to the answer
-	// handler (var126), firing the "no" outcome before the player could answer.
+	// The pending-question redirect (e.g. the curio dealer's yes/no haggling)
+	// applies only to a matched verb action, gated by flag 62. The per-turn
+	// hooks pass a null sentence and must not redirect: func 17 in beforeTurn
+	// would jump to the answer handler (var126) before the player could answer.
 	if (sentence && _flags[62] && _functionNum != _variables[125]) {
 		_variables[124] = _functionNum;
 		_functionNum = _variables[126];
@@ -194,9 +185,8 @@ void TalismanGame::handleSpecialOpcode() {
 		break;
 
 	case 5:
-		// NOVEL.EXE's dispatcher has no case 5; the bytecode emits it but the
-		// original interpreter does nothing, so this is a faithful no-op (it is
-		// listed explicitly only to suppress the unhandled-opcode warning).
+		// The original's dispatcher has no case 5, though the bytecode emits
+		// it. Listed only to suppress the unhandled-opcode warning.
 		break;
 
 	case 6:
@@ -208,11 +198,9 @@ void TalismanGame::handleSpecialOpcode() {
 		break;
 
 	case 9:
-		// NOVEL.EXE case 9 toggles bit 0 of an interpreter-internal byte
-		// (0x9d5b) that is read only by the DOS picture interpreter
-		// (1000:2e25) to pick a drawing parameter. It has no analogue in our
-		// renderer, so this is a deliberate no-op (handled to avoid the
-		// unhandled-opcode warning).
+		// The original toggles a bit read only by its DOS picture interpreter
+		// to pick a drawing parameter. This renderer has no analogue; handled
+		// to avoid the unhandled-opcode warning.
 		break;
 
 	case 15:
@@ -239,74 +227,52 @@ void TalismanGame::handleSpecialOpcode() {
 }
 
 void TalismanGame::specialSaveRoom() {
-	// Save the current room (NOVEL.EXE FUN_1000_06f0 case 3:
-	// [0x9591] = [0x9592], where 0x9592 mirrors the room the player started
-	// this turn in, before any move this turn). Paired with special 4, this
-	// lets the game whisk the player away for a scripted scene and then
-	// return them to where they were. It must be the *pre-move* room: the
-	// magic lamp moves the player into its interior and only then fires
-	// special 3, so saving the live room (or _currentRoomCopy, which move_to
-	// overwrites mid-turn) would trap the player inside the lamp forever.
+	// Save the room the player started this turn in, before any move. Paired
+	// with special 4, this lets the game move the player to a scripted scene
+	// and back. The magic lamp moves the player inside and only then fires
+	// special 3, so saving the live room or _currentRoomCopy (which move_to
+	// overwrites) would trap the player in the lamp.
 	_savedRoom = _roomBeforeTurn;
 }
 
 void TalismanGame::specialRestoreRoom() {
-	// Return to the room saved by special 3 (NOVEL.EXE case 4:
-	// currentRoom = [0x9591]).
+	// Return to the room saved by special 3.
 	_currentRoom = _savedRoom;
 	_updateFlags |= UPDATE_GRAPHICS | UPDATE_ROOM_DESC;
 }
 
 void TalismanGame::specialTextMode() {
-	// "Switch to text screen mode." We deliberately keep graphics on and
-	// leave the picture window visible: the game flips text/graphics mode
-	// several times during its intro, and since our text always renders in
-	// the scrolling buffer below the picture, blanking the picture just
-	// caused distracting churn. Only the function call below matters here.
+	// The game flips text/graphics mode several times during its intro.
+	// Graphics stay on here: text always renders in the buffer below the
+	// picture, so blanking the picture would only cause churn.
 	_functionNum = 19;
 	handleAction(nullptr);
 	_redoLine = REDO_TURN;
 }
 
 void TalismanGame::specialBoatDeparture() {
-	// Boat departure: the player sails out of the Persian Empire and the game
-	// crosses into part 2 (the desert). NOVEL.EXE case 16 (FUN_1000_06f0)
-	// switches to graphics, sets the room to 0x33 (51), runs a function, then
-	// falls through into a fresh copy of the main command loop -- the part-2
-	// game loop. On the Apple II that loop runs against a wholly separate game
-	// database loaded from the Lands Beyond disk, so we swap it in here.
-	//
-	// The departure daemon (func 20, offsets 23-25) emits this every turn via
-	//   TEST flag45 -> PRINT(103,130) "splash on board" -> SPECIAL 16
-	// and never clears flag 45 (unlike the intro-reprieve block in the same
-	// function, offsets 5-17, which clears its own gate flag 116). Left as-is
-	// the departure would re-narrate forever; flag 45 is tested *only* by this
-	// block, so clearing it makes the scene self-limiting like the reprieve.
-	// (The Apple II original carries every part-1 flag into part 2 unchanged,
-	// flag 45 included; part 2's bytecode never tests it, so the clear changes
-	// nothing there -- checked against MAME.)
-	//
+	// The player sails out of the Persian Empire into part 2 (the desert).
 	// enterPart2() swaps in the desert database: the Lands Beyond disk's g0 on
-	// the Apple II, or the H0 data file plus novel.exe's second string segment
-	// on DOS (see enterPart2()/loadStrings()).
+	// the Apple II, or H0 plus novel.exe's second string segment on DOS. The
+	// departure daemon (func 20) emits this special every turn while flag 45 is
+	// set and never clears it. Only that block tests flag 45, in either part,
+	// so clearing it here stops the scene repeating.
 	if (!_inPart2) {
 		if (!g_comprehend->isGraphicsEnabled())
 			g_comprehend->setGraphicsMode(true);
 		enterPart2();
 	}
 	_flags[45] = false;
-	// enterPart2() sets _currentRoom directly (not via move_to), so nothing
-	// has armed the update flags for the new location. Without this the first
-	// part-2 turn keeps the old room's status-window description and picture
-	// until the player next moves. Repaint the ship's deck now, the way
-	// NOVEL.EXE's case 16 falls into a fresh main loop that redraws on entry.
+	// enterPart2() sets _currentRoom directly, not via move_to, so arm the
+	// update flags here; otherwise the first part-2 turn keeps the old room's
+	// description and picture. The original likewise redraws on entering its
+	// fresh main loop.
 	_updateFlags |= UPDATE_ALL;
 	update();
 	_redoLine = REDO_TURN;
 }
 
 void TalismanGame::specialGraphicsMode() {
-	// Switch to graphics mode
 	if (!g_comprehend->isGraphicsEnabled())
 		g_comprehend->setGraphicsMode(true);
 
@@ -316,36 +282,23 @@ void TalismanGame::specialGraphicsMode() {
 }
 
 void TalismanGame::specialNpcConversation() {
-	// NPC-conversation trigger (emitted by the abu/executioner/clerk verb
-	// handlers, funcs 37/114/261). NOVEL.EXE case 0x14 (FUN_1000_06f0) does
-	// two things: it always saves the current verb as a forced verb for the
-	// next parse (0x9593 = 0x35db), and -- only when that parse was the last
-	// token of the line ([0x35e7] == 2) -- it clears that forced verb and
-	// runs function 16 (the dialogue printer; via [0x34b4] = 16 +
-	// FUN_1000_1b20). A bare NPC command ends the line, so [0x35e7] == 2 and
-	// the function-16 path is what is observed in play; we take it directly.
-	// The forced-verb half only matters when more input follows the NPC verb
-	// on the same line (chained commands), which this fork's NOUNSTATE_QUERY
-	// verb re-use already covers, so it is intentionally not duplicated here.
+	// NPC-conversation trigger (the abu/executioner/clerk verb handlers, funcs
+	// 37/114/261). The original runs function 16 (the dialogue printer) when
+	// the NPC verb ends the line, and otherwise keeps the verb as a forced verb
+	// for the next parse. NOUNSTATE_QUERY verb re-use already covers chained
+	// commands, so only the function-16 path is needed.
 	_functionNum = 16;
 	handleAction(nullptr);
 }
 
 void TalismanGame::deathMenu() {
-	// Death / game-over menu (NOVEL.EXE special opcode 2, FUN_1000_06f0 case 2).
-	// By the time this fires the bytecode has already narrated the death and
-	// printed "THE END." The interpreter then switches to a text screen, waits
-	// for a keypress, and loops showing the menu string (main string table
-	// entry 8, right after the save/restore prompts) until the player chooses:
-	//   '1' Quit, '2' "embark upon a new adventure" (restart), '3' Restore.
-	// Without this the per-turn death just keeps re-firing, replaying the last
-	// dying turn forever.
+	// Death / game-over menu. The bytecode has already narrated the death and
+	// printed "THE END." Wait for a key, then show the menu (main string table
+	// entry 8) until the player chooses: '1' quit, '2' restart, '3' restore.
+	// Without this the death re-fires every turn.
 	g_comprehend->readChar();
 
-	// The original loops on the menu string until the player makes a valid
-	// choice. We re-show it the same way after a failed RESTORE, so a cancelled
-	// or unreadable save drops back to the menu rather than silently resuming
-	// the just-dead game.
+	// A failed RESTORE returns to the menu rather than resuming the dead game.
 	for (;;) {
 		console_println(_strings[8].c_str());
 		// The original menu only offers 1/2/3; 'U' is this interpreter's own
@@ -365,9 +318,8 @@ void TalismanGame::deathMenu() {
 			game_restart(true);
 			return;
 		} else if (c == '3') {
-			// FUN_1000_0785: same prompt and slot handling as RESTORE, then
-			// resume play with the loaded state. If the restore fails, fall
-			// through to re-show the menu instead of resuming the dead game.
+			// Resume play with the loaded state. If the restore fails, fall
+			// through to re-show the menu.
 			if (game_restore())
 				return;
 		} else if (c == 'u' || c == 'U') {
@@ -392,10 +344,9 @@ void TalismanGame::deathMenu() {
 
 void TalismanGame::restartGame() {
 	ComprehendGame::restartGame();
-	// loadGame() repopulates _strings from the G0 game-data file, but
-	// Talisman's strings actually live in novel.exe / the MA-MO bank files, so
-	// reload them the same way playGame() does -- otherwise every message after
-	// a restart decodes to BAD_STRING.
+	// loadGame() repopulates _strings from the G0 data file, but Talisman's
+	// strings live in novel.exe / the MA-MO banks, so reload them as playGame()
+	// does or every message decodes to BAD_STRING.
 	loadStrings();
 }
 

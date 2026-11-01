@@ -38,7 +38,6 @@ TransylvaniaGame2::TransylvaniaGame2() : TransylvaniaCommon<ComprehendGameV2>(tr
 	// structured segments (4-byte header + 64-entry index + data), giving the
 	// 5 x 64 = 320 strings the bytecode addresses through table 0x82 (e.g. the
 	// WAIT response 0x825d, OPEN COFFIN 0x824c and the restart prompt 0x828a).
-	// Without this the engine printed BAD_STRING(82xx) for all of them.
 	if (!Common::DiskImageFS::active()) {
 		Common::File f;
 		if (f.open("novel.exe")) {

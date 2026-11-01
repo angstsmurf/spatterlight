@@ -1,31 +1,14 @@
-/* graphics_magician_pcjr.cpp -- DOS (IBM PCjr / Tandy 16-colour) Graphics
- * Magician picture renderer.
- *
- * The PCjr counterpart of graphics_magician_cga.cpp.  Decodes the same Penguin
- * Graphics Magician vector stream as the Apple II and CGA renderers, into the
- * 320x200 16-colour BIOS mode 9 framebuffer the PCjr release of NOVEL.EXE
- * drives through JR_GRAPH.OVR.  Every primitive here was derived from the
- * Ghidra disassembly of JR_GRAPH.OVR and the Transylvania/Crimson-Crown
- * NOVEL.EXE (see graphics_magician_pcjr.h for the model summary).  The vector
- * geometry (lines, boxes, circles, fill regions, brush placement) is identical
- * to the CGA renderer -- the picture data files are shared -- so this file
- * differs from graphics_magician_cga.cpp only in the pixel model and tables:
- *
- *   - 4 bits/pixel, 2 pixels/byte; the leftmost pixel of a byte is its HIGH
- *     nibble (jr_plot_pixel: even (x+20) -> high nibble, odd -> low nibble).
- *   - Pen colours go through 8-entry colLow[]/colHigh[] nibble tables indexed
- *     by (pen & 7); white (entries 3 and 7) carries 0xff in colHigh, which the
- *     original write-modify-write leaves in the adjacent low nibble too -- a
- *     faithful one-pixel "bleed" we reproduce.
- *   - Fills use a 30-entry x 4-byte 16-colour dither table selected through a
- *     108-entry subindex (one pattern index per row parity, as in the v1 CGA
- *     path, but with the pair the other way round: first index = odd rows).
- *   - Brush bitmaps and the font are mode-independent masks loaded from
- *     NOVEL.EXE / CHARSET.GDA, byte-identical to the CGA renderer.
- *
- * Like graphics_magician_cga.cpp this file is self-contained (no Common::/
- * Graphics:: dependencies) so it can be exercised by an offline harness.
- */
+// DOS (IBM PCjr / Tandy 16-colour) Graphics Magician picture renderer, in the 320x200 BIOS mode 9
+// framebuffer that NOVEL.EXE drives through JR_GRAPH.OVR. The model was derived from disassembly
+// of JR_GRAPH.OVR and NOVEL.EXE. The picture data is shared with the CGA renderer, so the vector
+// geometry is identical and only the pixel model and tables differ:
+//   - 4 bits/pixel, 2 pixels/byte; the leftmost pixel of a byte is its high nibble.
+//   - Pen colours go through 8-entry colLow[]/colHigh[] nibble tables indexed by (pen & 7). White
+//     (entries 3 and 7) carries 0xff in colHigh, so the original write-modify-write also whitens
+//     the adjacent low nibble, a one-pixel bleed reproduced here.
+//   - Fills use a 30-entry x 4-byte dither table selected through a 108-entry subindex with one
+//     pattern index per row parity, as in the v1 CGA path, but the first index is for odd rows.
+//   - Brush bitmaps and the font are mode-independent masks, byte-identical to the CGA renderer.
 
 #include "graphics_magician_pcjr.h"
 #include "graphics_magician.h"         // Opcode enum
@@ -40,14 +23,14 @@
 namespace Glk {
 namespace Comprehend {
 
-// ---- Drawing tables ----------------------------------------------------------
+// Drawing tables
 
 static uint8_t s_colLow[8];        // pen (0-7) -> colour in low nibble
 static uint8_t s_colHigh[8];       // pen (0-7) -> colour in high nibble (white=0xff)
 static uint8_t s_maskHigh = 0x0f;  // AND mask when writing the high nibble (even x)
 static uint8_t s_maskLow  = 0xf0;  // AND mask when writing the low nibble  (odd x)
 static uint8_t s_fillPat[30][4];   // 16-colour 4bpp dither tiles (4 column phases)
-static uint8_t s_fillSubindex[512];// op6 byte -> (even,odd) pattern index pair; sel*2+parity reaches 511
+static uint8_t s_fillSubindex[512];// op6 byte -> (odd,even) pattern index pair; sel*2+parity max 511
 static uint8_t s_brushBitmaps[256];// 8 brushes x 32 bytes (shared with CGA)
 static uint8_t s_fontGlyphs[96 * 8];// chars 32-127, 8 bytes each, MSB-first
 
@@ -60,13 +43,9 @@ bool gmpcjrInstallDrawingTables(const uint8_t *ovr, size_t ovrSize,
 	if (!ovr || !exe)
 		return false;
 
-	// Locate the overlay's data block by the bankStride+nibble-mask signature
-	// that immediately precedes the pen colour tables (DGROUP layout: word
-	// [0x90fa]=bankStride=0x2000, byte [0x90fc]=maskHigh=0x0f,
-	// [0x90fd]=maskLow=0xf0, then colLow[8] at [0x90fe], colHigh[8] at [0x9106],
-	// the fill pattern table at [0x9129] and the subindex at [0x91a1]).  This
-	// signature is game-independent (identical in Transylvania and Crimson
-	// Crown); the tables it anchors are read out per game.
+	// Locate the overlay's data block by the bankStride word (0x2000) and the two nibble masks,
+	// which immediately precede the pen colour tables. The signature is the same in Transylvania
+	// and Crimson Crown; the tables after it are read per game.
 	static const uint8_t kSig[] = { 0x00, 0x20, 0x0f, 0xf0 };
 	size_t sig = SIZE_MAX;
 	for (size_t i = 0; i + sizeof(kSig) <= ovrSize; i++) {
@@ -78,9 +57,9 @@ bool gmpcjrInstallDrawingTables(const uint8_t *ovr, size_t ovrSize,
 	if (sig == SIZE_MAX)
 		return false;
 
-	const size_t base = sig + 4;          // colLow (DGROUP 0x90fe)
-	const size_t fillOff = base + 0x2b;   // DGROUP 0x9129
-	const size_t subOff  = base + 0xa3;   // DGROUP 0x91a1
+	const size_t base = sig + 4;          // colLow; colHigh follows at +8
+	const size_t fillOff = base + 0x2b;
+	const size_t subOff  = base + 0xa3;
 	if (subOff + 108 * 2 > ovrSize)
 		return false;
 
@@ -110,14 +89,10 @@ bool gmpcjrSetFont(const uint8_t *charsetGda, size_t size) {
 	return gmvLoadCharsetGda(s_fontGlyphs, charsetGda, size);
 }
 
-// ---- 16-colour framebuffer ---------------------------------------------------
-//
-// Stored as the mode-9 logical page, 2 pixels/byte (high nibble = left pixel),
-// 160 bytes per row.  The 4-bank VRAM interleave is purely an addressing detail
-// of the real hardware; the drawn pixel content is identical with a flat layout,
-// so we keep a flat buffer (and record flat byte offsets for the slow reveal).
-// The picture window is at x+20 px (global byte column (x+20)>>1), spanning the
-// same 280x160 logical area as the CGA/Apple renderers.
+// 16-colour framebuffer: the mode 9 logical page, 2 pixels/byte (high nibble = left pixel), 160
+// bytes per row. The real 4-bank VRAM interleave only affects addressing, so a flat buffer holds
+// the same pixels. The picture window is at x+20 px and spans the same 280x160 logical area as
+// the CGA/Apple renderers.
 
 #define PCJR_BYTES_PER_ROW 160
 #define PCJR_ROWS          200
@@ -127,8 +102,8 @@ bool gmpcjrSetFont(const uint8_t *charsetGda, size_t size) {
 
 static uint8_t s_screen[PCJR_ROWS * PCJR_BYTES_PER_ROW];
 
-// ---- Slow ("animated") draw -- shared SlowDrawPage helper --------------------
-// s_screen is the fully-drawn page; s_slowScreen is the page the host reveals.
+// Slow ("animated") draw: s_screen is the fully drawn page; s_slowScreen is the page the host
+// reveals.
 
 static uint8_t s_slowScreen[PCJR_ROWS * PCJR_BYTES_PER_ROW];
 static SlowDrawPage s_slow(s_screen, s_slowScreen, sizeof(s_screen),
@@ -147,8 +122,7 @@ static inline uint8_t read_pixel(int x, int y) {
 	return (gx & 1) ? (uint8_t)(b & 0x0f) : (uint8_t)(b >> 4);
 }
 
-// Write the nibble for logical picture (x,y) to colour `col` (0-15), one nibble
-// (read-modify-write of the shared byte).
+// Set the nibble for logical picture (x,y) to colour `col` (0-15).
 static inline void write_pixel(int x, int y, uint8_t col) {
 	if ((unsigned)x >= PCJR_PIC_W || (unsigned)y >= PCJR_PIC_H) return;
 	const int gx = x + PCJR_X_OFFSET;
@@ -159,9 +133,8 @@ static inline void write_pixel(int x, int y, uint8_t col) {
 	store_byte(off, b);
 }
 
-// Pen plot (jr_plot_pixel @ OVR 0x0e): the pen colour byte (colLow/colHigh) is
-// OR'd into the target nibble after masking.  For pen white (colHigh==0xff) the
-// OR also whitens the adjacent low nibble -- the original's behaviour, kept.
+// Pen plot: the pen colour byte (colLow/colHigh) is OR'd into the target nibble after masking.
+// For pen white (colHigh==0xff) the OR also whitens the adjacent low nibble, as in the original.
 static inline void plot_pen(int x, int y, uint8_t pen) {
 	if ((unsigned)x >= PCJR_PIC_W || (unsigned)y >= PCJR_PIC_H) return;
 	const int gx = x + PCJR_X_OFFSET;
@@ -179,23 +152,14 @@ void gmpcjrResetScreen(bool white) {
 	s_slow.clear();
 }
 
-// ---- Fill pattern ------------------------------------------------------------
+// Fill pattern: op6 selector -> subindex pair -> 4bpp dither tile. The first tile of the pair is
+// for odd rows and the second for even rows. The tile's byte for a global byte column is
+// s_fillPat[idx][byteCol & 3]; the pixel nibble is the high or low half by (x+20) parity.
 //
-// op6 selector -> subindex pair -> 4bpp dither tile.  The first tile of the
-// pair is for ODD rows and the second for even rows: op6 (JR_GRAPH 0x9c9)
-// stores the pair's low byte in [0x938c] and its high byte in [0x938b], and the
-// row-address routine (0x4d), shared by the flood fill, brush and glyph
-// writers, picks [0x938c] when the row's low bit is set.  Confirmed against the
-// DOSBox-X capture of the Crimson Crown title (see test/gmpcjr/README.md).
-// The tile's byte for a given global byte column is s_fillPat[idx][byteCol & 3];
-// the pixel nibble is the high or low half by (x+20) parity.
-//
-// The flood fill paints a word at a time and doubles one tile byte into both
-// halves of it (JR_GRAPH 0x47f: `mov al,[tile + (si & 3)]; mov ah,al`, with si
-// the even byte offset of the word), so it only ever uses tile bytes 0 and 2:
-// `wordFill` selects that.  Brushes and glyphs go a byte at a time and use all
-// four.  The difference shows in the eight tiles whose bytes alternate, e.g.
-// the castle of the Transylvania title.
+// The flood fill paints a word at a time and doubles one tile byte into both halves, so it only
+// uses tile bytes 0 and 2 (`wordFill`). Brushes and glyphs go a byte at a time and use all four.
+// The difference shows in the eight tiles whose bytes alternate, e.g. the castle of the
+// Transylvania title.
 static inline uint8_t fill_pixel(uint8_t sel, int x, int y, bool wordFill = false) {
 	const uint8_t idx = s_fillSubindex[(unsigned)sel * 2 + ((y & 1) ^ 1)];
 	if (idx >= 30) return 0;
@@ -204,20 +168,10 @@ static inline uint8_t fill_pixel(uint8_t sel, int x, int y, bool wordFill = fals
 	return (gx & 1) ? (uint8_t)(pb & 0x0f) : (uint8_t)(pb >> 4);
 }
 
-// ---- Flood fill (op14 PAINT) -------------------------------------------------
-//
-// The fillable region is the 4-connected run of white (15) pixels reachable
-// from the seed, bounded by any non-white pixel -- identical to the CGA fill's
-// "white == fillable" predicate.  Because the boundary geometry is drawn pixel-
-// for-pixel like the CGA renderer (shared vector data + identical line/box/
-// circle code), this region matches the original; we then stamp the per-row-
-// parity dither pattern over it.  A standard scanline flood with a visited mask
-// (the dither can re-introduce white, so we must not rely on the colour alone)
-// reproduces the filled set.  The original's exact span-queue traversal order
-// could in principle only affect dither self-limiting at boundaries, and the
-// DOSBox-X captures of the real JR_GRAPH.OVR path checked pixel for pixel by
-// test_gmpcjr_pics (73 pictures, see test/gmpcjr/README.md) show no such
-// difference.
+// Flood fill (op14 PAINT): the 4-connected run of white (15) pixels reachable from the seed,
+// bounded by any non-white pixel. This is a scanline flood with a visited mask, because the dither
+// can re-introduce white, and not the original's span queue. Traversal order could only affect
+// dither self-limiting at boundaries, and the pictures checked show no such difference.
 static uint8_t s_visited[PCJR_PIC_W * PCJR_PIC_H];
 
 static void gmpcjr_flood_fill(int seedx, int seedy, uint8_t sel) {
@@ -261,28 +215,21 @@ static void gmpcjr_flood_fill(int seedx, int seedy, uint8_t sel) {
 	}
 }
 
-// ---- Line (op10) / box (op9) -------------------------------------------------
-// Geometry lives in gmvDrawLine (shared with the CGA renderer); here we bind it
-// to the 4-bpp pen writer (white-bleed and all).
+// Line (op10) and box (op9); the geometry is shared with the CGA renderer.
 static void draw_line(int x0, int y0, int x1, int y1, uint8_t pen) {
 	gmvDrawLine(x0, y0, x1, y1,
 				[pen](int x, int y) { plot_pen(x, y, pen); });
 }
 
-// ---- Circle (op11) -----------------------------------------------------------
-// Geometry lives in gmvDrawCircle (shared with the CGA renderer; draw_circle @
-// JR_GRAPH 0x1c6 is identical), bound to the 4-bpp pen writer.
+// Circle (op11); the geometry is shared with the CGA renderer.
 static void draw_circle(int cx, int cy, int radius, uint8_t pen) {
 	gmvDrawCircle(cx, cy, radius,
 				  [pen](int x, int y) { plot_pen(x, y, pen); });
 }
 
-// ---- Brush stamp (op12) ------------------------------------------------------
-//
-// Each brush is 32 bytes = four 8x8 quadrants (Q0 upper-left, Q1 lower-left,
-// Q2 upper-right, Q3 lower-right), bytes MSB-first (bit 7 = leftmost pixel).
-// A set bit takes the current fill-pattern colour at that pixel; clear bits
-// leave the background.  (Same quadrant order as the CGA renderer.)
+// Brush stamp (op12). Each brush is 32 bytes = four 8x8 quadrants (Q0 upper-left, Q1 lower-left,
+// Q2 upper-right, Q3 lower-right), bytes MSB-first. A set bit takes the current fill-pattern
+// colour at that pixel; clear bits leave the background.
 static void blit_quadrant(const uint8_t *bytes8, int px, int py, uint8_t fill_sel) {
 	for (int row = 0; row < 8; row++, py++) {
 		const uint8_t b = bytes8[row];
@@ -300,12 +247,9 @@ static void draw_brush(int x, int y, uint8_t brush, uint8_t fill_sel) {
 				  [fill_sel](const uint8_t *q, int px, int py) { blit_quadrant(q, px, py, fill_sel); });
 }
 
-// ---- Text glyph (op3 / op5) --------------------------------------------------
-//
-// op3 (TEXT_CHAR): each set glyph pixel inverts the background nibble
-// (val ^ 0xf), as in the CGA renderer's XOR branch -- white background -> black
-// letters.  op5 (TEXT_OUTLINE): each set pixel takes the fill-pattern colour.
-// Glyph bytes are MSB-first; the text cursor advances 8 px/char.
+// Text glyph. op3 (TEXT_CHAR): each set glyph pixel inverts the background nibble, so white
+// background gives black letters. op5 (TEXT_OUTLINE): each set pixel takes the fill-pattern
+// colour. Glyph bytes are MSB-first; the text cursor advances 8 px/char.
 static void draw_glyph(int x, int y, uint8_t ch, bool invert, uint8_t fill_sel) {
 	gmvDrawGlyph(s_fontGlyphs, x, y, ch, [invert, fill_sel](int px, int py) {
 		if (invert) write_pixel(px, py, (uint8_t)(read_pixel(px, py) ^ 0x0f));
@@ -313,14 +257,7 @@ static void draw_glyph(int x, int y, uint8_t ch, bool invert, uint8_t fill_sel) 
 	});
 }
 
-// ---- op15 fill-rectangle / clip ----------------------------------------------
-// As in v1 CGA, op15 in these games is flood-fill clip-rect setup, not a paint:
-// param 1 resets the clip to the window, param >=2 reads 4 bytes.  Inert for the
-// shipped corpus; we consume the bytes to keep the stream aligned.
-
-// ---- Opcode interpreter ------------------------------------------------------
-// The loop and operand decode are the shared gmRunStream (gm_stream.h); this is
-// the PCjr side of it.
+// Opcode interpreter: the PCjr side of the shared gmRunStream (gm_stream.h).
 struct PcjrRenderer {
 	int16_t  pen_x, pen_y;
 	uint8_t  pen;       // pen colour index (0-15; & 7 selects colLow/colHigh)
@@ -337,11 +274,10 @@ struct PcjrRenderer {
 	void afterOp(uint8_t, uint8_t) {}
 
 	void begin() {
-		// The op list is dropped by gmpcjrResetScreen() when a new page starts, NOT
-		// here: item overlays must APPEND to the room's still-pending reveal so the
-		// whole scene reveals in paint order (see gmDrawImage for the full rationale).
+		// The op list is dropped by gmpcjrResetScreen() when a new page starts, not here: item
+		// overlays append to the room's pending reveal, so the whole scene reveals in paint order.
 		pen      = 0;
-		pen_x    = 140;   // per-image init (JR_GRAPH 0xa33): pen (140,6), brush 5
+		pen_x    = 140;   // per-image init: pen (140,6), brush 5
 		pen_y    = 6;
 		brush    = 5;
 		fill_sel = 0;
@@ -367,7 +303,9 @@ struct PcjrRenderer {
 	void drawBrush(uint16_t x, uint8_t y) { draw_brush((int)x - 1, (int)y, brush, fill_sel); }
 	void delay(uint8_t units) { s_slow.recordDelay(units); }
 	void paint(uint16_t x, uint8_t y) { gmpcjr_flood_fill((int)x, (int)y, fill_sel); }
-	// op15 -- flood-fill clip setup (inert; consume operands)
+	// As in v1 CGA, op15 is flood-fill clip setup, not a paint: param 1 resets the clip to the
+	// window and >=2 reads 4 bytes. It is inert for the shipped corpus, so just consume the bytes
+	// to keep the stream aligned.
 	bool opReset(uint8_t param, const uint8_t *&p, const uint8_t *e) {
 		if (param >= 2) {
 			GmFillBounds clip;
@@ -383,11 +321,8 @@ void gmpcjrDrawImage(const uint8_t *data, size_t size) {
 	gmRunStream(r, data, size);
 }
 
-// ---- 16-colour -> RGBA conversion --------------------------------------------
-//
-// Standard PCjr / CGA RGBI 16-colour palette (the game programs no custom
-// palette).  Output the 280x160 picture window (logical x 0..279 -> global
-// byte column (x+20)>>1), scaled to the requested surface size.
+// 16-colour to RGBA: the standard PCjr/CGA RGBI palette (the game programs no custom palette).
+// Output is the 280x160 picture window, scaled to the requested surface size.
 static const uint32_t kPcjrPalette[16] = {
 	0x000000ffu, // 0  black
 	0x0000aaffu, // 1  blue
@@ -425,7 +360,7 @@ void gmpcjrBlitToSurface(uint32_t *out, int w, int h) {
 	blit_page(s_screen, out, w, h);
 }
 
-// ---- Slow-draw control (host-driven) -- delegate to the shared helper -------
+// Slow-draw control, delegated to the shared helper.
 
 void gmpcjrSetSlowDraw(bool on) { s_slow.setRecording(on); }
 bool gmpcjrSlowDrawActive() { return s_slow.active(); }

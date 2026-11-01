@@ -19,7 +19,7 @@ extern "C" int gli_determinism;
 extern "C" int gli_comprehend_graphics;
 
 // Total content area in pixels, exported by glkimp (0 in the headless build).
-// Used to keep a rescaled picture from eating the whole window vertically.
+// Keeps a rescaled picture from eating the whole window vertically.
 extern "C" int gscreenh;
 
 #endif

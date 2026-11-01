@@ -397,8 +397,8 @@ protected:
 	Common::StringArray _itemGraphicFiles;
 	Common::String _titleGraphicFile;
 
-	// The data files come in lettered runs -- string banks MA, MB, ..., room
-	// pictures RA, RB, ..., item pictures OA, OB, ... -- whose length is the
+	// The data files come in lettered runs (string banks MA, MB, ..., room
+	// pictures RA, RB, ..., item pictures OA, OB, ...) whose length is the
 	// only thing that varies per game, and whose suffix is the only thing that
 	// varies per platform ("" on Apple II, ".MS1" on DOS). Append
 	// prefix + first..last + suffix to one of the three file lists.

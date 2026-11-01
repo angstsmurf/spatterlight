@@ -31,8 +31,8 @@ class TalismanGame : public ComprehendGameV2 {
 private:
 	Common::String _savedAction;
 
-	// Saved room for the special-opcode 3/4 save/restore pair (NOVEL.EXE
-	// 0x9591). Special 3 stores the current room here; special 4 returns to it.
+	// Saved room for the special-opcode 3/4 pair. Special 3 stores the current
+	// room here; special 4 returns to it.
 	uint8 _savedRoom = 0;
 
 	// True once the player has crossed into part 2 (the desert). Talisman is a

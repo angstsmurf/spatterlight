@@ -1,4 +1,4 @@
-/* game_traits.cpp -- the per-game table. See game_traits.h. */
+// The per-game table. See game_traits.h.
 
 #include "game_traits.h"
 #include "game_cc.h"

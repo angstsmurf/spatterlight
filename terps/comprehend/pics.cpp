@@ -30,7 +30,7 @@
 #include "draw_surface.h"
 #include "file_buf.h"
 #include "game.h"
-#include "game_cm.h"   // CM_PIECE_PICS: mirror-piece item pictures folded into the panel
+#include "game_cm.h"   // CM_PIECE_PICS
 #include "game_data.h"
 
 namespace Glk {
@@ -52,21 +52,17 @@ Pics::ImageFile::ImageFile(const Common::String &filename, bool isSingleImage) :
 		_imageOffsets.resize(1);
 		if (Common::DiskImageFS::active()) {
 			// Apple II title (T0). Talisman's T0 is a pure Graphics Magician
-			// vector image (offset 0). For the other three the T0 file opens
-			// with a disk copy-protection + loader stub, and the title vector
-			// image starts just past it, at a fixed (game-specific) offset.
+			// vector image (offset 0). For the others the T0 file opens with a
+			// disk copy-protection and loader stub, and the title vector image
+			// starts just past it, at a fixed game-specific offset.
 			_imageOffsets[0] = g_comprehend->traits().appleTitleOffset;
 		} else {
-			// DOS title files. The v1 releases (TRTITLE.MS1 / CCTITLE.MS1)
-			// carry a 4-byte header (00 63 xx xx) before the vector stream.
-			// The v2 T0 files are a raw stream from byte 0: they open with
-			// op15/3 (fill the whole picture with the startup pattern, i.e.
-			// the white background) followed by a MOVE_TO -- skipping those
-			// 4 bytes loses the background fill and the initial pen position
-			// (it broke the OO-Topos and Transylvania titles; Talisman only
-			// survived because its first 4 bytes happen to be op15/3 plus a
-			// no-op op7). Sniff the first byte: a leading 0x00 would be op0
-			// (END), which no real stream starts with, so it must be a header.
+			// DOS title files. The v1 releases (TRTITLE.MS1 / CCTITLE.MS1) have
+			// a 4-byte header (00 63 xx xx) before the vector stream. The v2 T0
+			// files are a raw stream from byte 0, opening with op15/3 (fill
+			// with the startup pattern, white) and a MOVE_TO that must not be
+			// skipped. A leading 0x00 would be op0 (END), which no real stream
+			// starts with, so it means a header.
 			_imageOffsets[0] = (f.readByte() == 0) ? 4 : 0;
 		}
 		return;
@@ -78,7 +74,6 @@ Pics::ImageFile::ImageFile(const Common::String &filename, bool isSingleImage) :
 	else
 		f.seek(0);
 
-	// Get the image offsets in the file
 	_imageOffsets.resize(IMAGES_PER_FILE);
 	for (i = 0; i < IMAGES_PER_FILE; i++) {
 		_imageOffsets[i] = f.readUint16LE();
@@ -97,8 +92,8 @@ void Pics::ImageFile::renderGm(uint index, const GmBackend &gm) const {
 	if (start < 0 || start >= fsize)
 		return;
 
-	// The renderer stops at op0 (END); we hand it everything from the image's
-	// offset to end-of-file and let it terminate itself.
+	// The renderer stops at op0 (END), so it gets everything from the image's
+	// offset to end of file.
 	size_t len = (size_t)(fsize - start);
 	std::vector<byte> buf(len);
 	f.seek(start);
@@ -106,8 +101,6 @@ void Pics::ImageFile::renderGm(uint index, const GmBackend &gm) const {
 
 	gm.drawImage(buf.data(), len);
 }
-
-/*-------------------------------------------------------*/
 
 // Read a whole file, trying each of the given names; empty if none opens.
 static std::vector<byte> readWholeFile(std::initializer_list<const char *> names) {
@@ -129,21 +122,11 @@ static std::vector<byte> readWholeFile(std::initializer_list<const char *> names
 
 Pics::Pics() {
 	// DOS releases: load the CGA drawing tables (fill patterns, brushes, font)
-	// out of the Penguin Graphics Magician interpreter image (NOVEL.EXE). The
-	// loader locates the tables by signature, so it succeeds for every Comprehend
-	// v2 game that shares the CGA interpreter (Talisman, OO-Topos, Transylvania
-	// v2, The Coveted Mirror).
-	// The older v1 releases (Crimson Crown, Transylvania v1) split the Graphics
-	// Magician across NOVEL.EXE and PC_GRAPH.OVR: their fill pattern + subindex
-	// tables live in the overlay (not in NOVEL.EXE, where they are BSS built at
-	// overlay load), so the v2 signature scan misses them -- fall back to the v1
-	// loader, which reads the fill tables from PC_GRAPH.OVR and the brushes from
-	// NOVEL.EXE.
-	// A folder that has lost those files (the pictures and game data are all
-	// this interpreter otherwise needs) gets the built-in copy of the tables,
-	// which every release seen so far shares; CHARSET.GDA, which only the v1
-	// games ship, tells which of the two sets it wants. Either way every DOS
-	// picture is drawn by graphics_magician_cga.
+	// from NOVEL.EXE. The loader finds them by signature, which works for every
+	// v2 game. The v1 games (Crimson Crown, Transylvania v1) keep the fill and
+	// subindex tables in PC_GRAPH.OVR and the brushes in NOVEL.EXE, so they
+	// need the v1 loader. A folder lacking those files gets the built-in
+	// tables; CHARSET.GDA, which only the v1 games ship, selects which set.
 	if (!Common::DiskImageFS::active()) {
 		const std::vector<byte> exeBuf = readWholeFile({ "novel.exe", "NOVEL.EXE", "novel1.exe", "NOVEL1.EXE" });
 		// v1 NOVEL.EXE has no embedded picture font; the op3/op5 glyphs (map
@@ -162,10 +145,9 @@ Pics::Pics() {
 		}
 
 		// IBM PCjr / Tandy 16-colour mode (DOS v1 games, opt-in via #pcjr).
-		// The PCjr release ships JR_GRAPH.OVR alongside PC_GRAPH.OVR; its 4bpp
-		// drawing tables (pen colours, fill dithers, subindex) are installed
-		// here from the overlay + NOVEL.EXE brushes, in parallel with the CGA
-		// tables above. The renderer is selected per-picture by Comprehend::gfxBackend().
+		// JR_GRAPH.OVR ships alongside PC_GRAPH.OVR; its 4bpp tables are
+		// installed in parallel with the CGA tables. Comprehend::gfxBackend()
+		// selects the renderer per picture.
 		const std::vector<byte> jrBuf = readWholeFile({ "jr_graph.ovr", "JR_GRAPH.OVR" });
 		if (!exeBuf.empty() && !jrBuf.empty() &&
 			gmpcjrInstallDrawingTables(jrBuf.data(), jrBuf.size(), exeBuf.data(), exeBuf.size()) &&
@@ -184,13 +166,10 @@ void Pics::load(const Common::StringArray &roomFiles,
 				const Common::String &titleFile) {
 	clear();
 
-	// Picture numbers select a file by its position in the list ((graphic-1) /
-	// IMAGES_PER_FILE), so a file that doesn't exist on the current disk must
-	// still occupy its slot or every later file shifts down and the index runs
-	// off the end of the array. Talisman is the case in point: its item art is
-	// numbered against the full OA..OF sequence, but only OA, OB, OE and OF ship
-	// (OC/OD are absent), so OE/OF must stay at slots 4/5. Push an empty
-	// placeholder ImageFile for any missing entry instead of erroring out.
+	// Picture numbers select a file by list position ((graphic-1) /
+	// IMAGES_PER_FILE), so a missing file must keep its slot or later files
+	// shift down. Talisman numbers its item art against OA..OF but ships no
+	// OC/OD. Missing entries get an empty placeholder.
 	for (uint idx = 0; idx < roomFiles.size(); ++idx)
 		_rooms.push_back(Common::File::exists(roomFiles[idx])
 						 ? ImageFile(roomFiles[idx]) : ImageFile());
@@ -198,58 +177,31 @@ void Pics::load(const Common::StringArray &roomFiles,
 		_items.push_back(Common::File::exists(itemFiles[idx])
 						 ? ImageFile(itemFiles[idx]) : ImageFile());
 
-	// Guard the title exactly like the room/item files above: a game may ship
-	// its room art but no separate title image (or no graphics at all), and the
-	// ImageFile ctor error()s on a failed open. Leave _title empty if absent.
+	// A game may ship no title image, and the ImageFile constructor error()s on
+	// a failed open. Leave _title empty then.
 	if (!titleFile.empty() && Common::File::exists(titleFile))
 		_title = ImageFile(titleFile, true);
 }
 
 // Draw one picture through a Graphics Magician renderer. Pictures are decoded
-// onto the renderer's persistent page (so item overlays compose onto the room
-// already drawn there, exactly as the real interpreter does), then the whole
-// page is converted to RGBA and blitted to the draw surface.
-//
-// The four renderers take the same vector streams and image offsets; only the
-// rasteriser differs:
-//  - Apple II standard hi-res: all four disk titles (Talisman, Transylvania,
-//    OO-Topos, Crimson Crown) are validated pixel-exact vs MAME; the dialect
-//    differences are handled by gmSetLegacyFormat().
-//  - Apple II double hi-res ("<D>" mode): the 560-wide aux/main pages,
-//    NTSC-converted onto the same 560-wide surface as standard hi-res.
-//  - DOS CGA: the v2 releases, tables from NOVEL.EXE; and the v1 releases,
-//    tables from the graphics overlay.
-//  - DOS PCjr: the v1 releases (Transylvania v1 / Crimson Crown) in 16 colours,
-//    tables from JR_GRAPH.OVR.
+// onto the renderer's persistent page, so item overlays compose onto the room
+// already drawn there, then the whole page is converted to RGBA and blitted to
+// the draw surface. The renderers (Apple II hi-res and double hi-res, DOS CGA
+// and PCjr) take the same vector streams and image offsets; only the rasteriser
+// differs.
 void Pics::drawPictureGm(int pictureNum, const GmBackend &gm, uint drawFlags,
 						 DrawSurface *ds) const {
 	const bool apple = gm.cm != nullptr;
 	const bool dhgr = gm.id == GFX_APPLE_DHGR;
 
-	// The Coveted Mirror keeps a persistent right-hand panel (the game's
-	// logo above an hourglass) in screen columns 24..39, drawn once at boot
-	// while room pictures fill only the left columns. Our room images span
-	// the full width, so we save the panel columns the first time we need
-	// them and re-composite them on top of every in-game picture below.
-	// Apple II only: the DOS release draws no panel.
-	//
-	// The original boot draws the panel as two Graphics Magician images, in
-	// order (confirmed by tracing the real Apple II in MAME): RG image 0 is
-	// the "The Coveted Mirror" logo, then OG image 0 is the hourglass frame
-	// (posts, bars, bowtie glass + the static bottom-bulb mound). The
-	// draining top-bulb sand is NOT part of OG0 -- it is grain-drawn each turn
-	// by drawHourglass() on top. Compositing RG0 + OG0 here reproduces the
-	// static panel pixel-exactly (verified byte-for-byte vs the MAME capture
-	// in test/cm/fixtures/throne_sand60.page).
-	// The panel lives on whichever pages are active, so it is built once per
-	// hi-res mode (the standard single page and the double-hi-res aux+main
-	// pages are independent buffers).
-	// The snapshot also folds in the mirror pieces the player has collected
-	// (see CovetedMirrorGame): each is a fixed item picture drawn once into the
-	// black band left of the hourglass, which the original never repaints. We
-	// rebuild the snapshot whenever a piece has just been found (the mask
-	// changed) so overlayPanel() keeps painting the assembled pieces on
-	// every picture; the hourglass grains are still stamped fresh on top.
+	// The Coveted Mirror (Apple II only) has a persistent right-hand panel in
+	// screen columns 24..39, drawn once at boot. Room images here span the full
+	// width, so the panel is snapshotted and composited over every in-game
+	// picture. The snapshot is RG image 0 (logo), OG image 0 (hourglass frame
+	// and static bottom mound) and the mirror pieces found so far, in the black
+	// band left of the hourglass. It is built once per hi-res mode, since the
+	// pages are independent, and rebuilt when the piece mask changes.
+	// drawHourglass() stamps the draining sand on top.
 	static bool s_cmPanelBuilt[2] = { false, false };   // [standard, double hi-res]
 	static uint8 s_cmPanelMask[2] = { 0, 0 };
 	const bool isCM = apple && g_comprehend->traits().hasHourglassPanel;
@@ -279,13 +231,10 @@ void Pics::drawPictureGm(int pictureNum, const GmBackend &gm, uint drawFlags,
 	} else if (pictureNum == BRIGHT_ROOM) {
 		gm.resetScreen(true);
 	} else if (pictureNum == TITLE_IMAGE) {
-		// The title is a Graphics Magician vector image drawn on a white
-		// background like a bright room. The exception is the Apple II OO-Topos
-		// title, which starts from black (it fills its own background with op15,
-		// and its lettering blends with the page, so a white start corrupts it).
-		// The DOS v2 title streams open with op15/3, which paints the whole
-		// picture with the startup fill (white), so there the reset value is
-		// cosmetic; white matches the native interpreter's text page.
+		// The title is a vector image on a white background, like a bright
+		// room. The Apple II OO-Topos title starts from black instead: its
+		// lettering blends with the page, so a white start corrupts it. The DOS
+		// v2 titles fill the whole picture themselves with op15/3.
 		gm.resetScreen(!(apple && g_comprehend->traits().appleTitleOnBlack));
 		if (_title.isLoaded())
 			_title.renderGm(0, gm);
@@ -322,9 +271,8 @@ void Pics::drawPictureGm(int pictureNum, const GmBackend &gm, uint drawFlags,
 }
 
 void Pics::drawPicture(int pictureNum) const {
-	// Every picture goes through a Graphics Magician renderer; the ScummVM
-	// vector path that used to stand in for missing DOS drawing tables went
-	// when the tables got a built-in copy (see Pics::Pics).
+	// Every picture goes through a Graphics Magician renderer; see Pics::Pics
+	// for the DOS tables.
 	drawPictureGm(pictureNum, *gmBackend(g_comprehend->gfxBackend()),
 				  g_comprehend->_drawFlags, g_comprehend->_drawSurface);
 }

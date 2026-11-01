@@ -1,10 +1,5 @@
-/* gm_backend.h -- one table of entry points per Graphics Magician renderer.
- *
- * The four renderers (Apple II hi-res, Apple II double hi-res, DOS CGA, DOS
- * PCjr) expose the same verbs under different prefixes. The host code
- * (pics.cpp, comprehend_gfx.cpp) picks a GmBackend once and calls through it
- * instead of repeating a four-way ladder at every call site.
- */
+// One table of entry points per Graphics Magician renderer (Apple II hi-res and double hi-res,
+// DOS CGA and PCjr). The host code picks a GmBackend once and calls through it.
 
 #ifndef GLK_COMPREHEND_GM_BACKEND_H
 #define GLK_COMPREHEND_GM_BACKEND_H

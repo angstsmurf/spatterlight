@@ -1,4 +1,4 @@
-/* apple2.cpp -- Apple II disk-image import for the Comprehend port. */
+// Apple II disk-image import for the Comprehend port.
 
 #include "apple2.h"
 #include "graphics_magician.h"
@@ -95,7 +95,7 @@ static uint8_t *toDskImage(uint8_t *data, size_t size, size_t *outSize) {
 	return nullptr;
 }
 
-// Extract every ProDOS file from one image and register the ones we don't
+// Extract every ProDOS file from one image and register the ones not
 // already have. Returns the number of newly registered files.
 static int loadOneImage(const Common::String &path) {
 	size_t size = 0;
@@ -174,7 +174,7 @@ int loadAppleDiskImage(const Common::String &path) {
 }
 
 // Map a main-data-file magic word to a Comprehend game id. Returns an empty
-// string for magics we don't recognise (callers then fall back to other cues).
+// string for unrecognised magics (callers then fall back to other cues).
 static Common::String gameIdForMagic(uint16 magic) {
 	switch (magic) {
 	case 0xa429:            // Talisman "Empire" disk (matches the DOS magic)
@@ -219,11 +219,11 @@ Common::String guessAppleGameId() {
 }
 
 Common::String guessDosGameId() {
-	// DOS/PC releases keep their files on the real filesystem (we have already
-	// chdir'd into the game directory), so the engine never builds a DiskImageFS.
+	// DOS/PC releases keep their files on the real filesystem (the working
+	// directory is already the game's), so the engine never builds a DiskImageFS.
 	// Read the magic word straight out of the "g0" main-data file -- this is what
 	// distinguishes, e.g., the v2 Transylvania (g0, 0x8bc3) from the v1 release
-	// (which ships tr.gda and has no g0, so the read fails and we return empty).
+	// (which ships tr.gda and has no g0, so the read fails and this returns empty).
 	uint16 magic = 0;
 	if (FILE *f = Common::openFileNoCase("g0", "rb")) {
 		uint8_t hdr[2];

@@ -26,7 +26,6 @@ namespace Glk {
 namespace Comprehend {
 
 FileBuffer::FileBuffer(const Common::String &filename) : _pos(0) {
-	// Open the file
 	Common::File f;
 	if (!f.open(Common::Path(filename))) {
 		// error() is expected to abort, but in the headless harness it returns,

@@ -81,7 +81,8 @@ gm_artifact.o: $(SAGADRAW_DIR)/gm_artifact.c $(SAGADRAW_DIR)/gm_artifact.h
 SAGADRAW_SRCS := $(SAGADRAW_DIR)/gm_vector.c $(SAGADRAW_DIR)/gm_artifact.c
 
 clean:
-	rm -f $(OBJS) gm_vector.o gm_artifact.o comprehend test/test_talisman_pics test/test_gmcga_pics test/test_gmcgav1_pics test/gmcgav1test test/pixtest test/op5scan test/gmcgatest test/diff_gmcga test/rgbacrc test/cmdhgrtest test/titledhgrtest test/cmhourglasstest test/test_dhgr_pics test/test_dhgr_determinism test/test_gmpcjr_pics test/dhgrtrace test/cmextract test/gmpcjr/pcjrtest
+	rm -f $(OBJS) gm_vector.o gm_artifact.o comprehend test/test_talisman_pics test/test_gmcga_pics test/test_gmcgav1_pics test/gmcgav1test test/pixtest test/op5scan test/gmcgatest test/diff_gmcga test/rgbacrc test/cmdhgrtest test/titledhgrtest test/cmhourglasstest test/test_dhgr_pics test/test_dhgr_determinism test/test_gmpcjr_pics test/dhgrtrace test/cmextract test/gmpcjr/pcjrtest test/test_gm_stream
+	rm -rf test/*.dSYM test/gmpcjr/*.dSYM
 
 # Headers the stand-alone renderer tests depend on beyond the renderer's own
 # .h: the header-only pieces the renderers share, and the test helpers.

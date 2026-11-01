@@ -1,4 +1,4 @@
-/* Comprehend engine glue: saved games, #savestate/#loadstate and undo. */
+// Comprehend engine glue: saved games and undo.
 
 #include "comprehend.h"
 #include "graphics_magician.h"
@@ -340,7 +340,7 @@ void Comprehend::pushUndo() {
 }
 
 bool Comprehend::undo() {
-	// back() mirrors the current state; we need at least one earlier state to
+	// back() mirrors the current state; at least one earlier state is needed to
 	// revert to.
 	if (_undoStack.size() < 2)
 		return false;

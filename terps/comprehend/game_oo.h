@@ -68,7 +68,7 @@ private:
 
 	/**
 	 * A wrapped version of console_println that only prints the passed string
-	 * if the _addStringFlag is set
+	 * if _printComputerMsg is set
 	 */
 	void printComputerMsg(const char *str);
 public:

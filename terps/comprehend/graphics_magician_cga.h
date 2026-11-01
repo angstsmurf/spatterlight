@@ -1,35 +1,17 @@
-/* graphics_magician_cga.h -- DOS (CGA) Graphics Magician picture renderer.
- *
- * DOS/CGA counterpart of graphics_magician.cpp (Apple II); shared by every
- * Comprehend v2 DOS release (Talisman, OO-Topos, Transylvania v2, Coveted
- * Mirror), whose NOVEL.EXE images carry byte-identical CGA drawing tables, and
- * by the v1 releases (Crimson Crown, Transylvania v1) via the separate
- * gmcgaInstallV1DrawingTables() loader -- v1 splits the tables across NOVEL.EXE
- * (brushes) and PC_GRAPH.OVR (fill pattern + subindex) and uses a 4-phase-byte
- * fill pattern format, but the opcode interpreter and pixel model are identical.
- *
- * Renders the shared Graphics Magician vector stream into a 280×160, 2-bpp
- * (4-colour) logical framebuffer matching the native picture interpreter in the
- * DOS release NOVEL.EXE / NOVEL1.EXE, then converts that to RGBA for output.
- *
- * The drawing tables (fill patterns, brush bitmaps, font glyphs) are loaded at
- * runtime from the NOVEL.EXE image: read the file into a buffer and pass it to
- * gmcgaInstallDrawingTables(). A game folder without that file gets the
- * built-in copy instead, gmcgaInstallBuiltinDrawingTables().
- *
- * Opcode semantics, coordinate space (280×160), and the opcode stream format
- * are identical to the Apple II renderer in graphics_magician.cpp.  The key
- * differences are all in the pixel model:
- *   - 2 bits per pixel; values 0-3 are CGA palette-1 colour indices
- *     (black / cyan / magenta / grey), rendered at low intensity
- *   - 4 pixels per byte, LSB-first (pixel 0 in bits 1:0)
- *   - Fill patterns: 76-entry LUT indexed directly by op6 fill-colour byte;
- *     each entry is one 2-bpp byte (4-pixel tile, uniform across all columns)
- *   - Brush bytes: MSB-first (bit 7 = leftmost pixel of each 8-pixel column)
- *   - Brush quadrant order in NOVEL.EXE: Q0=upper-right, Q1=lower-right,
- *     Q2=upper-left, Q3=lower-left (column-major, right column first)
- *   - Text advances 8 px/char (not 7 like the Apple renderer)
- */
+// DOS (CGA) Graphics Magician picture renderer: the counterpart of graphics_magician.cpp (Apple
+// II), with the same opcodes, stream format and 280x160 coordinate space. The v2 releases
+// (Talisman, OO-Topos, Transylvania v2, Coveted Mirror) carry byte-identical tables in NOVEL.EXE.
+// The v1 releases (Crimson Crown, Transylvania v1) split them across NOVEL.EXE (brushes) and
+// PC_GRAPH.OVR (fill patterns and subindex) and use a 4-phase-byte fill pattern format.
+//
+// Differences from the Apple renderer are in the pixel model:
+//   - 2 bits per pixel; values 0-3 are low-intensity CGA palette-1 indices (black / cyan /
+//     magenta / grey).
+//   - 4 pixels per byte, LSB-first (pixel 0 in bits 1:0).
+//   - Fill patterns: the op6 byte selects, through a subindex table, a pattern per row parity.
+//   - Brush bytes: MSB-first (bit 7 = leftmost pixel); quadrants Q0..Q3 = upper-left,
+//     lower-left, upper-right, lower-right.
+//   - Text advances 8 px/char (not 7).
 
 #ifndef GLK_COMPREHEND_GRAPHICS_MAGICIAN_CGA_H
 #define GLK_COMPREHEND_GRAPHICS_MAGICIAN_CGA_H
@@ -84,10 +66,9 @@ void gmcgaDrawImage(const uint8_t *data, size_t size);
 // Scales the 280×160 logical page to the requested dimensions.
 void gmcgaBlitToSurface(uint32_t *out, int w, int h);
 
-// ---- Slow ("animated") draw -------------------------------------------------
-// One-for-one with the gm* slow-draw API in graphics_magician.h: when enabled,
-// gmcgaDrawImage records the order its bytes are plotted so the picture can be
-// revealed progressively, and the host drives the reveal on a timer.
+// Slow ("animated") draw, one-for-one with the gm* API in graphics_magician.h: when enabled,
+// gmcgaDrawImage records the order its bytes are plotted, and the host drives a progressive
+// reveal on a timer.
 void gmcgaSetSlowDraw(bool on);
 bool gmcgaSlowDrawActive();
 bool gmcgaAdvanceSlowDraw(int budget);

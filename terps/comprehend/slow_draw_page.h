@@ -1,34 +1,10 @@
-/* slow_draw_page.h -- shared "slow draw" (progressive reveal) machinery for the
- * Graphics Magician picture renderers.
- *
- * Every graphics_magician* renderer (Apple II, CGA, DHGR, PCjr) exposes the same
- * slow-draw contract: while recording is on, each framebuffer byte the renderer
- * plots is appended to an ordered op list as well as applied to the final page;
- * the host then replays those ops onto a separate *visible* page a chunk at a
- * time on a Glk timer, re-blitting after each chunk, so a picture is revealed in
- * the order it was painted -- the few seconds the real interpreter took to fill
- * its video page.  op13 emits a DELAY marker that pauses the reveal.
- *
- * The reveal STATE MACHINE -- the chunked advance, DELAY/pause handling, the
- * draw cursor and the dirty-row band -- was duplicated, near byte-for-byte, in
- * all four renderers; it lives here exactly once, in SlowDrawEngine.  What
- * genuinely differs between renderers is only the per-op *leaf* behaviour:
- *
- *   - how a recorded op is applied to the visible page(s)  (flat single page vs.
- *     the DHGR main/aux page pair, with the Coveted-Mirror panel columns skipped
- *     during a reveal),
- *   - how a byte offset maps back to a screen row for the dirty band  (flat
- *     offset/stride vs. the Apple II hi-res de-interleave table), and
- *   - the run-adjacency test  (DHGR additionally requires the same page).
- *
- * A renderer supplies those three things as a small Policy struct and drives the
- * engine; renderers whose page is a single flat buffer with offset/stride rows
- * (CGA, PCjr) can use the ready-made SlowDrawPage wrapper and need no policy.
- *
- * Header-only with inline / template methods so each renderer keeps compiling as
- * a single self-contained translation unit (the offline test harnesses link one
- * renderer .cpp and nothing else).
- */
+// Progressive reveal for the Graphics Magician renderers. While recording is on, each byte a
+// renderer plots goes onto an ordered op list as well as the final page; the host replays the ops
+// onto a separate visible page a chunk at a time on a Glk timer, so a picture appears in the order
+// it was painted. op13 emits a DELAY marker that pauses the reveal.
+//
+// SlowDrawEngine is the state machine; a renderer supplies the per-op behaviour as a Policy.
+// Renderers with a single flat page (CGA, PCjr) can use SlowDrawPage and need no policy.
 
 #ifndef GLK_COMPREHEND_SLOW_DRAW_PAGE_H
 #define GLK_COMPREHEND_SLOW_DRAW_PAGE_H
@@ -89,7 +65,7 @@ public:
 	}
 
 	// Drop the current image's op list: a fresh page (reset, or a new image)
-	// starts a new reveal.  Does NOT touch the page buffers.
+	// starts a new reveal.  Does not touch the page buffers.
 	void clear() {
 		_ops.clear();
 		_opsDrawn = 0;
@@ -111,8 +87,8 @@ public:
 
 	// Apply up to `budget` recorded ops onto the visible page(s), extending the
 	// chunk across adjacent runs.  A DELAY marker halts this tick's reveal and
-	// owes a run of pause ticks.  Returns true while any reveal work -- ops or an
-	// outstanding pause -- remains.
+	// owes a run of pause ticks.  Returns true while any reveal work (ops or an
+	// outstanding pause) remains.
 	bool advance(int budget) {
 		if (_pauseTicks > 0) {
 			_pauseTicks--;
@@ -178,14 +154,9 @@ private:
 	int _dirtyMax = -1;              // ... and high
 };
 
-// ---- Flat single-page convenience -------------------------------------------
-//
-// For renderers whose framebuffer is one flat byte buffer with constant row
-// stride (CGA, PCjr): wraps a SlowDrawEngine with a built-in flat policy, so the
-// renderer only passes its two page buffers, size and stride.  The two pages are
-// owned by the renderer (their pixel layout is model-specific); this only
-// records, reveals, and tracks the dirty band.  record() takes a 2-arg form
-// since there is only one page.
+// For renderers whose framebuffer is one flat byte buffer with constant row stride (CGA, PCjr):
+// wraps a SlowDrawEngine with a built-in flat policy. The renderer owns the two pages, as their
+// pixel layout is model-specific; this only records, reveals and tracks the dirty band.
 class SlowDrawPage {
 	struct FlatPolicy {
 		uint8_t *finalPage;

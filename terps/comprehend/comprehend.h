@@ -44,15 +44,14 @@ private:
 	Common::String _gameId;
 	const GameTraits *_traits = nullptr;   // set with the id; null for an unknown id
 	Common::String _gameFile;
-	// Last room description shown in the status grid, kept so we can re-wrap it
+	// Last room description shown in the status grid, kept so it can be re-wrapped
 	// to the new width when the window is resized.
 	Common::String _lastRoomDesc;
 
-	// Count of consecutive newlines just written to the bottom buffer window.
-	// Used to collapse runs of newlines so the engine (which is liberal with
-	// '\n') never emits more than two in a row -- i.e. at most one blank line.
-	// Starts at 2 so any leading newlines before the first real output are
-	// suppressed entirely.
+	// Count of consecutive newlines just written to the bottom buffer window. Runs are
+	// collapsed so the engine (which is liberal with '\n') never emits more than two in a
+	// row, i.e. at most one blank line. Starts at 2 so any leading newlines before the
+	// first real output are suppressed entirely.
 	int _trailingNewlines = 2;
 
 	// Open transcript file stream (echo of the bottom window), or null. Driven
@@ -73,7 +72,7 @@ private:
 	static const size_t kMaxUndo = 100;
 	std::vector<std::vector<byte> > _undoStack;
 	// Rolling estimate of a serialized snapshot's size (bytes). pushUndo() runs
-	// every turn and the state size is stable, so we reserve this up front to
+	// every turn and the state size is stable, so reserving this up front will
 	// stop the snapshot stream reallocating byte-by-byte as it fills.
 	size_t _snapshotSizeHint = 2048;
 	bool serializeGameState(std::vector<byte> &out);
@@ -92,7 +91,7 @@ public:
 	// window: one 280-wide column, and one picture row, is _pixelSize window
 	// pixels. The Apple II renders 560 columns over the same physical width, so
 	// there _pixelSize is the vertical height and the horizontal column step is
-	// half of it -- see pixelStepX().
+	// half of it; see pixelStepX().
 	int _pixelSize;
 
 	// The higher-colour renderer is selected: Apple II double hi-res ("<D>" mode,
@@ -101,12 +100,11 @@ public:
 	// gfxBackend() for the renderer it resolves to.
 	bool _moreColours = false;
 
-	// Last value of gli_comprehend_graphics that applyPreferredGraphicsMode()
-	// acted on. Lets onArrange() re-read the preference on every arrange (the
-	// way Bocfel and Scott do) and react only when it actually changes -- so a
-	// plain window resize doesn't clobber a manual #dhgr/#pcjr override, while a
-	// genuine preference change (or the corrected theme that arrives in a
-	// post-handshake arrange) does switch the renderer. -1 = not yet applied.
+	// Last value of gli_comprehend_graphics that applyPreferredGraphicsMode() acted on.
+	// onArrange() re-reads the preference on every arrange and reacts only to a change,
+	// so a plain window resize doesn't clobber a manual #dhgr/#pcjr override, while a
+	// genuine change (or the corrected theme that arrives in a post-handshake arrange)
+	// does switch the renderer. -1 = not yet applied.
 	int _appliedComprehendGraphics = -1;
 
 #ifdef COMPREHEND_HEADLESS
@@ -127,11 +125,10 @@ public:
 		return _topWindow != nullptr;
 	}
 
-	// Last single picture handed to drawPicture(). repaintCurrentScene() uses it
-	// to re-render after a graphics-mode switch when there is no room scene to
-	// replay -- notably the title screen, which beforeGame() draws via
-	// drawPicture() directly rather than through paintBackground(). (uint)-1
-	// means nothing has been drawn yet.
+	// Last single picture handed to drawPicture(). repaintCurrentScene() uses it to
+	// re-render after a graphics-mode switch when there is no room scene to replay,
+	// notably the title screen, which beforeGame() draws via drawPicture() directly.
+	// (uint)-1 means nothing has been drawn yet.
 	uint _lastDrawnPicture = (uint)-1;
 
 public:
@@ -209,9 +206,9 @@ public:
 	void readLine(char *buffer, size_t maxLen);
 	int readChar();
 
-	// Graphics — render to _drawSurface then blit to _topWindow.
+	// Graphics: render to _drawSurface then blit to _topWindow.
 	void drawPicture(uint pictureNum);
-	// Render a whole scene (a room picture plus any item overlays) as ONE
+	// Render a whole scene (a room picture plus any item overlays) as one
 	// slow-draw reveal: the pictures are recorded into a single op list and
 	// revealed in paint order. drawPicture() is the single-picture wrapper.
 	// Drawing the pictures with separate drawPicture() calls would make each
@@ -220,19 +217,16 @@ public:
 	void drawLocationPicture(int pictureNum, bool clearBg = true);
 	void drawItemPicture(int pictureNum);
 	void clearScreen(bool isBright);
-	// Redraw just The Coveted Mirror's right-hand hourglass panel at the current
-	// sand level (VM variable 0x11), without touching the room picture, and arm
-	// the freed-grain fall. The room only repaints when it changes, so this gives
-	// the hourglass its own per-turn update -- the draining sand (and the grain
-	// fall) is then visible on turns where the player stays put, matching the
-	// original's per-turn hourglass step. A no-op outside CM / before the panel
-	// is built. Call only on turns with no full room repaint queued (that path
-	// draws the hourglass itself, snapping on the room change).
+	// Redraw just The Coveted Mirror's right-hand hourglass panel at the current sand level
+	// (VM variable 0x11), without touching the room picture, and arm the freed-grain fall.
+	// The room only repaints when it changes, so this gives the hourglass a per-turn update.
+	// A no-op outside CM or before the panel is built. Call only on turns with no full room
+	// repaint queued (that path draws the hourglass itself, snapping on the room change).
 	void refreshCMHourglass();
 	// Paint a whole scene that replaces the screen (a background-clearing
 	// location plus any item pictures layered on top). If the requested set of
 	// pictures is identical to what is already composited, the reveal is skipped
-	// and the scene is painted instantly — see _screenComposition.
+	// and the scene is painted instantly; see _screenComposition.
 	void paintBackground(const Common::Array<uint> &pics);
 	// Layer pictures on top of the current screen without clearing it. Pictures
 	// already present are repainted instantly rather than re-animated.
@@ -274,9 +268,9 @@ public:
 	// hourglass lives on.
 	const GmBackend *cmBackend() const;
 	const GmCMPanelOps *cmPanelOps() const { return cmBackend()->cm; }
-	// The Apple II renderers (standard and double hi-res) fill a 560-wide
-	// surface, one column per NTSC dot, so colour edges land where MAME puts
-	// them. The DOS renderers fill 280 columns.
+	// The Apple II renderers (standard and double hi-res) fill a 560-wide surface,
+	// one column per NTSC dot, so colour edges land on the right dots. The DOS
+	// renderers fill 280 columns.
 	bool appleRender() const {
 		GfxBackend b = gfxBackend();
 		return b == GFX_APPLE_HIRES || b == GFX_APPLE_DHGR;
@@ -319,11 +313,9 @@ private:
 	bool _slowDrawActive;
 
 	// When set, drawPicture() paints instantly even if slow-draw is on. The
-	// paintBackground()/paintOverlay() scene helpers set this while repainting a
-	// scene identical to the one already on screen (common: an action redraws
-	// the room without changing it, or Talisman's OPCODE_DRAW_ROOM repaints the
-	// current room after a speech) so we don't re-animate the same image, which
-	// just looks like a stutter.
+	// paintBackground()/paintOverlay() scene helpers set this while repainting a scene
+	// identical to the one already on screen (e.g. Talisman's OPCODE_DRAW_ROOM repainting
+	// the current room after a speech), since re-animating the same image looks like a stutter.
 	bool _suppressSlowDraw;
 
 	// The pictures currently composited on screen, in paint order: a background
@@ -339,10 +331,9 @@ private:
 	// grain steps at a visible pace.
 	bool _hourglassFalling = false;
 	int _hgTickAccum = 0;
-	// Set when a grain fall is armed during a room reveal (a move): the reveal
-	// owns the timer and the panel band, so the fall is held until the reveal
-	// finishes (tickSlowDraw) and then started -- this is what makes the grain
-	// drop visible on move turns too, not only when the player stays put.
+	// Set when a grain fall is armed during a room reveal (a move): the reveal owns the
+	// timer and the panel band, so the fall is held until the reveal finishes (tickSlowDraw)
+	// and then started, making the grain drop visible on move turns too.
 	bool _hourglassFallPending = false;
 
 	// Advance one timer tick of the background slow-draw reveal and blit the
@@ -352,7 +343,7 @@ private:
 	// its dirty band. Clears _hourglassFalling when the fall completes.
 	void tickHourglass();
 	// Start the grain-fall animation if gmDrawCMHourglass() flagged a single-grain
-	// drop this turn -- with the picture window open and slow-draw enabled. If a
+	// drop this turn, with the picture window open and slow-draw enabled. If a
 	// room reveal is running (a move), defer it via _hourglassFallPending until
 	// the reveal finishes rather than dropping it, so the grain falls every turn.
 	void maybeStartHourglassFall();
@@ -393,13 +384,11 @@ public:
 	// undo.
 	void pushUndo();
 	bool undo();
-	// Step back `turns` turn boundaries, restoring that snapshot. Used to undo a
-	// death: by then the current state has advanced past the top snapshot (which
-	// is the start of the fatal turn, taken before the fatal command), so undoing
-	// one turn restores back() itself rather than popping to the previous turn.
-	// Talisman's deaths are delayed countdowns, so the death menu undoes two
-	// turns to give the player a turn of slack. Stops short if the history is
-	// shorter than requested, and returns false (with no change) if it is empty.
+	// Step back `turns` turn boundaries, restoring that snapshot, for undoing a death:
+	// by then the current state has advanced past the top snapshot (the start of the fatal
+	// turn), so undoing one turn restores back() itself rather than popping to the previous
+	// turn. Talisman's deaths are delayed countdowns, so its death menu undoes two turns.
+	// Stops short if the history is shorter than requested; returns false (no change) if empty.
 	bool undoTurn(uint turns = 1);
 	void clearUndo() { _undoStack.clear(); }
 };
@@ -413,10 +402,8 @@ extern Comprehend *g_comprehend;
 // Aliased to g_comprehend so the engine's `g_vm` references (in pics.cpp etc.) keep working.
 #define g_vm g_comprehend
 
-// Stub for the original Debugger console. The engine references
-// g_debugger->_invLimit (toggles inventory weight checks) and
-// g_debugger->dumpInstruction (debug print of executing opcodes); we ship
-// the defaults (limit on, no dump) and that's the whole production behaviour.
+// Stub for the original Debugger console: inventory weight checks on
+// (_invLimit), no instruction dump.
 struct DebuggerStub {
 	bool _invLimit = true;
 	Common::String dumpInstruction(class ComprehendGame *, struct FunctionState *,

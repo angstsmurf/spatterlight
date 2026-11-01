@@ -121,11 +121,10 @@ void Comprehend::createGame() {
 		error("Unknown game id '%s'", _gameId.c_str());
 	_game = _traits->create();
 
-	// The Apple II hi-res renderer (graphics_magician.cpp) handles two Graphics
-	// Magician dialects, both validated pixel-exact vs MAME. Talisman and OO-Topos
-	// use op15 fill-bounds sub-ops (newer); Transylvania and Crimson Crown never
-	// emit op15, end images on op7, and seed background fills in the bottom text
-	// rows, so they need the full-screen fill clip (the legacy flag).
+	// The Apple II hi-res renderer handles two Graphics Magician dialects.
+	// Talisman and OO-Topos use op15 fill-bounds sub-ops. Transylvania and Crimson
+	// Crown never emit op15, end images on op7 and seed background fills in the
+	// bottom text rows, so this flag gives them the full-screen fill clip.
 	gmSetLegacyFormat(_traits->gmLegacyFormat);
 }
 

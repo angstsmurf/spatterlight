@@ -74,7 +74,7 @@ void String::toLowercase() {
 
 
 // Greedy word wrap that breaks on spaces. ScummVM's wordWrap inserts hard
-// newlines without trailing whitespace; we do the same.
+// newlines without trailing whitespace.
 void String::wordWrap(size_t maxLineWidth) {
 	if (maxLineWidth == 0 || size() <= maxLineWidth) return;
 	std::string out;
@@ -449,7 +449,7 @@ void comprehend_error_impl(const char *fmt, ...) {
 }
 
 void comprehend_debug_impl(const char *fmt, ...) {
-	(void)fmt;  // Stub: only emit when SPATTERLIGHT_DEBUG is defined.
+	(void)fmt;  // Prints to stderr only when built with SPATTERLIGHT_DEBUG.
 #ifdef SPATTERLIGHT_DEBUG
 	va_list ap; va_start(ap, fmt);
 	char buf[1024];
@@ -461,7 +461,7 @@ void comprehend_debug_impl(const char *fmt, ...) {
 
 
 void comprehend_debugC_impl(int chan, const char *fmt, ...) {
-	(void)chan; (void)fmt;
+	(void)chan; (void)fmt;  // Prints to stderr only when built with SPATTERLIGHT_DEBUG.
 #ifdef SPATTERLIGHT_DEBUG
 	va_list ap; va_start(ap, fmt);
 	char buf[1024];

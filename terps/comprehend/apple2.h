@@ -1,15 +1,7 @@
-/* apple2.h -- Apple II disk-image import for the Comprehend port.
- *
- * The Apple II releases of the Penguin/Polarware "Comprehend" games store
- * their data files (g0, RA, OA, MA, T0...) inside a ProDOS volume on a
- * DOS-sector-ordered .dsk / .woz / .nib disk image, with the game-file
- * directory deliberately unlinked from the volume root. This module detects
- * such an image, extracts every file (plus any companion disk sides found
- * alongside it) and registers them in the in-memory DiskImageFS so the engine
- * can open them by name exactly as it would the DOS/PC files.
- *
- * Mirrors how terps/scott/saga/apple2detect.c feeds the ScottFree engine.
- */
+// Apple II disk-image import. The Apple II releases store their data files (g0, RA, OA,
+// MA, T0...) inside a ProDOS volume on a disk image, with the game-file directory unlinked
+// from the volume root. This module extracts every file (plus companion disk sides found
+// alongside it) into the in-memory DiskImageFS, so the engine opens them by name as on DOS.
 
 #ifndef COMPREHEND_APPLE2_H
 #define COMPREHEND_APPLE2_H

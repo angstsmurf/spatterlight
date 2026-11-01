@@ -37,9 +37,9 @@ void CrimsonCrownGame::setupDisk(uint diskNum) {
 	assert(diskNum == 1 || diskNum == 2);
 
 	if (Common::DiskImageFS::active()) {
-		// Apple II: both disks name their files identically (g0, MA, RA...),
-		// so switch the active disk image by its g0 magic word. Disk one is
-		// 0x84fe, disk two is 0x7dec. The title is a raw hi-res screen.
+		// Apple II: both disks name their files identically (g0, MA, RA...), so
+		// switch the active disk image by its g0 magic word. Disk one is
+		// 0x84fe, disk two is 0x7dec.
 		Common::DiskImageFS::selectDiskByGameMagic(diskNum == 1 ? 0x84fe : 0x7dec);
 
 		_gameDataFile = "g0";
@@ -54,10 +54,9 @@ void CrimsonCrownGame::setupDisk(uint diskNum) {
 		_itemGraphicFiles.clear();
 		addLetteredFiles(_itemGraphicFiles, "O", 'A', 'B');
 
-		// Both disks share the same restart-prompt string index (0x9), so keep
-		// _gameStrings valid on disk two as well -- leaving it null crashed
-		// handle_restart() on any disk-two death (e.g. losing the endgame
-		// battle of wills with the vampire).
+		// Both disks share the restart-prompt string index (0x9). _gameStrings
+		// must stay valid on disk two or handle_restart() dereferences null on
+		// death.
 		_gameStrings = &CC1_STRINGS;
 		// The Apple II title ("Crimson Crown" + sun) is a Graphics Magician
 		// vector image inside T0, after the disk-protection / loader stub;
@@ -82,8 +81,7 @@ void CrimsonCrownGame::setupDisk(uint diskNum) {
 	_itemGraphicFiles.push_back(Common::String::format("oa.ms%u", diskNum));
 	_itemGraphicFiles.push_back(Common::String::format("ob.ms%u", diskNum));
 
-	// Valid on both disks (see the Apple II branch above): the restart prompt
-	// must resolve on disk two or handle_restart() dereferences null on death.
+	// Valid on both disks; see the Apple II branch above.
 	_gameStrings = &CC1_STRINGS;
 
 	_titleGraphicFile = "cctitle.ms1";
@@ -97,7 +95,6 @@ void CrimsonCrownGame::beforeGame() {
 	if (!g_comprehend->hasPictureTarget())
 		return;
 
-	// Draw the title
 	g_comprehend->drawPicture(TITLE_IMAGE);
 	g_comprehend->readChar();
 }
@@ -131,7 +128,6 @@ void CrimsonCrownGame::synchronizeSave(Common::Serializer &s) {
 void CrimsonCrownGame::handleSpecialOpcode() {
 	switch (_specialOpcode) {
 	case 1:
-		// Crystyal ball cutscene
 		if (_diskNum == 1) {
 			crystalBallCutscene();
 		} else {
@@ -158,22 +154,11 @@ void CrimsonCrownGame::handleSpecialOpcode() {
 
 		} else {
 			// Won the game: the merchant ship plucks the party off the beach,
-			// then the rescue/collapse epilogue that ends "...THE END." (a
-			// multi-paragraph string). These are 0x21a/0x21b on the Apple II
-			// disks and 0x21c/0x21d in the DOS data. Each index is wrong on the
-			// other platform: on Apple II 0x21c/0x21d are the troll/mud daemon
-			// lines, and in the DOS data 0x21a/0x21b are just "x".
-			//
-			// The original Apple II game stops right here, on "THE END." It does
-			// NOT print the adjacent string 0x219 ("...Your completion code is
-			// @."): verified on the real woz in MAME -- the win hangs on the THE
-			// END screen and the "Congratulations" screen never appears. (The '@'
-			// there is a string-replacement marker that would render blank anyway:
-			// RE of the DOS interpreter NOVEL.EXE -- dispatch FUN_1000_0e73 ->
-			// evaluator 1000:0eb4 -> SPECIAL handler 1000:1244 -> win branch in
-			// 1000:0528 -- shows the win path never sets the replacement selector,
-			// and no SET_STRING_REPLACEMENT opcode 0xb5/0xb9/0xc5 fires, so the
-			// "completion code" was a dead contest stub.)
+			// then the epilogue ending "...THE END." These strings are
+			// 0x21a/0x21b on the Apple II disks and 0x21c/0x21d in the DOS
+			// data; each index is wrong on the other platform. The adjacent
+			// string 0x219 ("...Your completion code is @.") is a dead contest
+			// stub the original never prints.
 			g_comprehend->drawLocationPicture(29, false);
 			g_comprehend->drawItemPicture(20);
 			const bool apple2 = Common::DiskImageFS::active();
@@ -214,7 +199,6 @@ void CrimsonCrownGame::crystalBallCutscene() {
 }
 
 void CrimsonCrownGame::throneCutscene() {
-	// Show the screen
 	update();
 	console_println(stringLookup(0x20A).c_str());
 

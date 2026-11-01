@@ -19,18 +19,16 @@
  *
  */
 
-/* The game logic Transylvania v1 (a V1-engine game) and v2 (the same story on
- * the V2 engine) share: everything but which files they load. Each of
- * game_tr1.cpp and game_tr2.cpp includes this and instantiates
- * TransylvaniaCommon over its own engine class.
- */
-
 #ifndef GLK_COMPREHEND_GAME_TR_COMMON_H
 #define GLK_COMPREHEND_GAME_TR_COMMON_H
 
 #include "comprehend.h"
 #include "game_opcodes.h"
 #include "pics.h"
+
+// The game logic Transylvania v1 (a V1-engine game) and v2 (the same story on
+// the V2 engine) share: everything but which files they load. game_tr1.cpp and
+// game_tr2.cpp each instantiate TransylvaniaCommon over its own engine class.
 
 namespace Glk {
 namespace Comprehend {
@@ -211,23 +209,21 @@ void TransylvaniaCommon<Base>::beforeTurn() {
 
 		// Until the mice are released, an eagle moves player to a random room
 		if (!_miceReleased) {
-			// Get new room to get moved to
 			int roomNum = getRandomNumber(3) + 1;
 			if (roomNum == _currentRoom)
 				roomNum += 15;
 
 			move_to(roomNum);
 
-			// Make sure Werwolf and Vampire aren't present
+			// Make sure Werewolf and Vampire aren't present
 			get_item(ITEM_WEREWOLF)->_room = 0xff;
 			get_item(ITEM_VAMPIRE)->_room = 0xff;
 		}
 	}
 
 done:
-	// The monster movement above is our native port of the original's
-	// special-default routine (FUN_1000_0710 in the DOS v2 Novel.exe). The
-	// each-turn daemon is not run here; see ComprehendGame::beforeTurn().
+	// The monster movement above ports the original's special-default routine.
+	// The each-turn daemon is not run here; see ComprehendGame::beforeTurn().
 	;
 }
 
@@ -237,11 +233,9 @@ void TransylvaniaCommon<Base>::synchronizeSave(Common::Serializer &s) {
 	s.syncAsByte(_miceReleased);
 
 	// On restore, make sure the player doesn't come back to a stuck werewolf or
-	// vampire in the room (they are placed afresh each turn by beforeTurn). This
-	// must only run when *loading*: synchronizeSave also drives the per-turn #undo
-	// snapshot (Comprehend::pushUndo -> serializeGameState), and mutating the live
-	// item rooms there would wipe the monster the moment it appears -- before the
-	// player could ever LOOK at, shoot or be threatened by it.
+	// vampire; beforeTurn places them afresh each turn. Loading only:
+	// synchronizeSave also drives the per-turn #undo snapshot, where this would
+	// wipe a monster the moment it appears.
 	if (s.isLoading()) {
 		get_item(ITEM_WEREWOLF)->_room = 0xff;
 		get_item(ITEM_VAMPIRE)->_room = 0xff;
@@ -252,7 +246,6 @@ template <typename Base>
 void TransylvaniaCommon<Base>::handleSpecialOpcode() {
 	switch (_specialOpcode) {
 	case 1:
-		// Mice have been released
 		_miceReleased = true;
 		break;
 
@@ -286,8 +279,8 @@ void TransylvaniaCommon<Base>::handleSpecialOpcode() {
 		break;
 
 	case 8:
-		// The RESTART verb. In v2 the original reloads at once, with no
-		// prompt and no keypress (verified against novel.exe in DOSBox).
+		// The RESTART verb. In v2 the original reloads at once, with no prompt
+		// and no keypress.
 		game_restart(_silentRestartVerb);
 		break;
 
@@ -319,7 +312,6 @@ void TransylvaniaCommon<Base>::beforeGame() {
 	char buffer[128];
 	g_comprehend->setDisableSaves(true);
 
-	// Draw the title
 	g_comprehend->drawPicture(TITLE_IMAGE);
 
 	// Print game information, centred to match the other Comprehend titles.

@@ -1,7 +1,6 @@
-/* game_traits.h -- what the shared loaders and renderers need to know about
- * each game, in one table (game_traits.cpp), instead of comparing the game id
- * string at every place a release differs.
- */
+// What the shared loaders and renderers need to know about each game, in one
+// table (game_traits.cpp), instead of comparing the game id string at every
+// place a release differs.
 
 #ifndef GLK_COMPREHEND_GAME_TRAITS_H
 #define GLK_COMPREHEND_GAME_TRAITS_H
@@ -17,7 +16,7 @@ struct GameTraits {
 	const char *id;
 	ComprehendGame *(*create)();
 
-	// --- Game data layout (game_data.cpp) ---
+	// Game data layout (game_data.cpp)
 
 	// All strings live in the separate string files: the game file has no
 	// string table of its own, and its addr_strings_end header field points
@@ -34,7 +33,7 @@ struct GameTraits {
 	// index starts at byte 0 (The Coveted Mirror).
 	bool appleStringBanksHeaderless;
 
-	// --- Pictures ---
+	// Pictures
 
 	// Apple II: the older Graphics Magician dialect, which never emits op15,
 	// ends images on op7 and needs the full-screen fill clip.

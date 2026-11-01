@@ -1,6 +1,5 @@
-/* Comprehend engine glue: rendering pictures and blitting them to the
- * graphics window, slow-draw and the Coveted Mirror hourglass ticks, and
- * graphics-mode switching. */
+// Comprehend engine glue: rendering pictures and blitting them to the graphics window,
+// slow-draw and the Coveted Mirror hourglass ticks, and graphics-mode switching.
 
 #include "comprehend.h"
 #include "graphics_magician.h"
@@ -14,8 +13,7 @@ namespace Glk {
 namespace Comprehend {
 
 // Apple II Talisman slow-draw pacing. The byte count per tick pairs with the
-// tick interval — change them together. Matches the Apple II Scott Adams
-// renderer's feel (10 ms ticks, tens of bytes a tick).
+// tick interval; change them together.
 #define GM_SLOW_TICK_MS       10
 #define GM_SLOW_BYTES_PER_TICK 50
 
@@ -65,7 +63,7 @@ void Comprehend::repaintCurrentScene() {
 		paintBackground(pics);
 		return;
 	}
-	// No room scene -- e.g. the title screen, which beforeGame() draws via
+	// No room scene, e.g. the title screen, which beforeGame() draws via
 	// drawPicture() directly. Re-render that last single picture through the new
 	// renderer (instantly), so a mode switch on the title screen redraws it
 	// rather than leaving it cleared (DHGR) or stale (PCjr).
@@ -102,7 +100,7 @@ void Comprehend::drawPictureList(const Common::Array<uint> &pics) {
 	// s_recordOps and break the active-renderer check inside finishSlowDraw().
 	finishSlowDraw();
 
-	// Likewise snap any in-flight grain fall before repainting -- the new picture
+	// Likewise snap any in-flight grain fall before repainting: the new picture
 	// restamps the pile at the current level, so a lingering falling grain from
 	// the previous turn would be drawn over stale geometry.
 	if (_hourglassFalling) {
@@ -114,24 +112,17 @@ void Comprehend::drawPictureList(const Common::Array<uint> &pics) {
 	// drawn (this picture re-arms its own); drop it so it can't fire late.
 	_hourglassFallPending = false;
 
-	// All three Talisman renderers (Apple II hi-res, Apple II double hi-res and
-	// DOS CGA) can reveal a picture progressively, the way the original painted
-	// the page. Record the draw order when the user has slow-draw on. Only the
-	// renderer that actually runs records anything.
-	//
-	// _suppressSlowDraw is set by update_graphics() when it repaints a scene
-	// identical to the one already on screen: there is nothing new to reveal, so
-	// paint instantly rather than re-animate the same image (looks like a stutter).
+	// All three Talisman renderers (Apple II hi-res, Apple II double hi-res and DOS CGA)
+	// can reveal a picture progressively, so record the draw order when slow-draw is on.
+	// _suppressSlowDraw is set by update_graphics() when it repaints a scene identical to
+	// the one on screen, which paints instantly rather than re-animating the same image.
 	bool slow = gli_slowdraw && !_suppressSlowDraw;
 	gmSetSlowDrawAll(slow);
 
-	// Render every picture of the scene through the Pics opcode interpreter into
-	// the pixel buffer. The first (room) picture clears the page and records its
-	// draw ops; each following item overlay appends its ops to the SAME reveal,
-	// so the whole composite is revealed in paint order. Rendering them as
-	// separate drawPicture() calls would make each one finishSlowDraw() (snap) the
-	// previous picture's reveal, leaving only the last picture animated -- the
-	// room would paint instantly and only the item overlay would slow-draw.
+	// Render every picture of the scene through the Pics opcode interpreter into the pixel
+	// buffer. The first (room) picture clears the page and records its draw ops; each item
+	// overlay appends to the same reveal, so the composite is revealed in paint order.
+	// Separate drawPicture() calls would snap each previous reveal, animating only the last.
 	for (uint i = 0; i < pics.size(); i++) {
 		// Remember the last picture so repaintCurrentScene() can re-render it
 		// after a graphics-mode switch when there's no room scene to replay
@@ -195,12 +186,11 @@ void Comprehend::updateTimerRequest() {
 							 ? GM_SLOW_TICK_MS : 0);
 }
 
-// Start The Coveted Mirror's per-turn grain fall once the turn's graphics have
-// settled (called as input is about to be read). gmDrawCMHourglass() flags a
-// single-grain drop; we animate it only with the picture window open and
-// slow-draw enabled, and only when no room reveal is already running (the room
-// paint-in owns the timer then and the hourglass just snaps, matching the
-// original's behaviour on a room change). The armed flag is consumed either way.
+// Start The Coveted Mirror's per-turn grain fall once the turn's graphics have settled
+// (called as input is about to be read). gmDrawCMHourglass() flags a single-grain drop;
+// it animates only with the picture window open and slow-draw enabled, and only when no
+// room reveal is running (the room paint-in owns the timer and the hourglass just snaps,
+// as in the original on a room change). The armed flag is consumed either way.
 void Comprehend::maybeStartHourglassFall() {
 	if (!gmCMHourglassConsumeFallArmed())
 		return;
@@ -251,15 +241,11 @@ void Comprehend::tickHourglass() {
 }
 
 // Redraw The Coveted Mirror's hourglass panel for the current sand level without
-// repainting the room. update_graphics() only repaints when the room or its
-// items change, so on a turn where the player stays put nothing redrew the
-// draining sand -- the pile never visibly fell and the freed-grain animation was
-// never armed. The original interpreter's per-turn step (cm_per_turn_graphics_step
-// $42f8) updates the hourglass every turn regardless; this is the host-side
-// equivalent. Re-stamping the pile via gmDrawCMHourglass() arms the fall when the
-// level dropped by one (the normal per-turn drain), which the next readLine()
-// animates through maybeStartHourglassFall(). The caller skips this on full-
-// repaint turns, where drawPicture() already draws the hourglass (snapped).
+// repainting the room. update_graphics() only repaints when the room or its items
+// change, but the original updates the hourglass every turn. Re-stamping the pile via
+// gmDrawCMHourglass() arms the fall when the level dropped by one, which the next
+// readLine() animates through maybeStartHourglassFall(). The caller skips this on
+// full-repaint turns, where drawPicture() already draws the hourglass (snapped).
 void Comprehend::refreshCMHourglass() {
 	if (!hasPictureTarget() || !_pics || !_drawSurface || !_graphicsEnabled)
 		return;
@@ -288,7 +274,7 @@ void Comprehend::refreshCMHourglass() {
 					  _drawSurface->w, _drawSurface->h);
 	// Only the panel columns changed on the surface (the room columns still hold
 	// the last-drawn room), so a full-height blit just repaints the room as-is
-	// plus the updated hourglass -- simplest and cheap enough for one turn.
+	// plus the updated hourglass, simplest and cheap enough for one turn.
 	blitSurfaceRowsToWindow(0, G_RENDER_HEIGHT - 1);
 }
 
@@ -389,9 +375,8 @@ void Comprehend::setGraphicsMode(bool graphicsMode) {
 	// its intro). Turning graphics off just blanks the window; turning it back
 	// on lets the next update() redraw into the still-open window.
 	if (graphicsMode) {
-		// Only enter graphics mode if a picture window actually exists. When it
-		// doesn't (headless build, or the player hid it), stay in text mode so
-		// behaviour matches the old toggleGraphics()/showGraphics() path.
+		// Only enter graphics mode if a picture window actually exists; otherwise
+		// stay in text mode.
 		if (hasPictureTarget())
 			_graphicsEnabled = true;
 	} else {
@@ -421,7 +406,7 @@ void Comprehend::showGraphics() {
 		(glui32)(G_RENDER_HEIGHT * _pixelSize),
 		wintype_Graphics, GLK_GRAPHICS_ROCK);
 	_graphicsEnabled = hasPictureTarget();
-	// Graphics windows default to a white background (glkimp window.c), and
+	// Graphics windows default to a white background, and
 	// matching the theme's text background is no better: it shows in the
 	// centring margins and wherever a picture leaves the screen untouched (The
 	// Coveted Mirror's rooms get stray light lines around them). The original
@@ -528,7 +513,7 @@ void Comprehend::blitSurfaceRowsToWindow(int y0, int y1) {
 	if (y1 > G_RENDER_HEIGHT - 1) y1 = G_RENDER_HEIGHT - 1;
 	if (y0 > y1) return;
 
-	// Centre the render horizontally (matches ScummVM's 20*SCALE_FACTOR x offset).
+	// Centre the render horizontally.
 	// The physical width is the same on every machine: DOS is
 	// G_RENDER_WIDTH*_pixelSize; the Apple II is its 560 columns at half-width
 	// (560 * _pixelSize/2 == 280 * _pixelSize), so the 280-unit centring holds.
@@ -537,15 +522,10 @@ void Comprehend::blitSurfaceRowsToWindow(int y0, int y1) {
 	const int surfaceW = _drawSurface->w;   // 280 (DOS) or 560 (Apple II)
 	const int stepX = pixelStepX();          // _pixelSize (DOS) or _pixelSize/2 (Apple II)
 
-	// Run-length encode along each row so we issue one glk_window_fill_rect
-	// per same-coloured horizontal run instead of one per pixel — about 30x
-	// fewer Glk calls for typical Comprehend rooms.
-	//
-	// Pixels are 0xRRGGBBAA; an alpha of 0 marks the transparent background
-	// left by DrawSurface::clear(0) for item / no-background images. We skip
-	// those runs so overlay images compose onto the room already shown in the
-	// window instead of wiping it to black. Room images clear to an opaque
-	// colour first, so every pixel is drawn.
+	// Run-length encode along each row: one glk_window_fill_rect per same-coloured
+	// horizontal run instead of one per pixel. Pixels are 0xRRGGBBAA; alpha 0 marks the
+	// transparent background left by DrawSurface::clear(0) for item / no-background images.
+	// Those runs are skipped so overlays compose onto the room already in the window.
 	for (int y = y0; y <= y1; ++y) {
 		int x = 0;
 		while (x < surfaceW) {
@@ -553,7 +533,7 @@ void Comprehend::blitSurfaceRowsToWindow(int y0, int y1) {
 			int x0 = x;
 			do { ++x; } while (x < surfaceW && surfaceColorAt(_drawSurface, x, y) == c);
 			if ((c & 0xff) == 0)
-				continue;   // transparent — leave the background untouched
+				continue;   // transparent: leave the background untouched
 			// Strip alpha and map to Glk's 0xRRGGBB.
 			glui32 rgb = (glui32)((c >> 8) & 0xffffff);
 			glk_window_fill_rect(_topWindow, rgb,
@@ -564,16 +544,12 @@ void Comprehend::blitSurfaceRowsToWindow(int y0, int y1) {
 		}
 	}
 
-	// The Coveted Mirror's room (a bright wall) butts directly against the black
-	// hourglass panel at byte column 24. On an NTSC screen a white run carries on
-	// for one dot past its last lit pixel, so where the wall's last column is
-	// white, the panel's first dot (dot 336 of 560) is white too. MAME shows the
-	// same thin line down the panel's left edge. We paint it out, a deliberate
-	// difference from the original: the edge looks like a drawing fault, not
-	// part of the panel. Columns 24-25 are always black in the panel itself (the
-	// logo starts at column 26), so only that dot changes. Standard hi-res only.
-	// gmCMPanelValid() gates this to when the panel is actually present (false
-	// on the title screen, whose columns 24-25 are real picture content).
+	// In standard hi-res, The Coveted Mirror's bright wall butts against the black hourglass
+	// panel at byte column 24, and on NTSC a white run carries on one dot past its last lit
+	// pixel (dot 336 of 560). This is a deliberate difference from the original: that thin line
+	// is painted out because it looks like a drawing fault. Columns 24-25 are always black in
+	// the panel (the logo starts at column 26). gmCMPanelValid() is false on the title screen,
+	// whose columns 24-25 are real picture content.
 	if (gfxBackend() != GFX_APPLE_DHGR && traits().hasHourglassPanel && gmCMPanelValid()) {
 		const int kCMPanelCol = 24;            // pics.cpp gmCaptureCMPanel(24, 39)
 		const int dotsPerCol = surfaceW / 40;  // 14 on the 560-wide Apple surface
@@ -617,16 +593,15 @@ bool Comprehend::recomputeGraphicsScale() {
 }
 
 // Repaint after a window resize / redraw request: rescale and re-blit the
-// current picture (the persistent surface still holds it — Talisman's full
+// current picture (the persistent surface still holds it; Talisman's full
 // hi-res page is opaque, so this restores it exactly), and re-wrap the status
 // description to the new width.
 void Comprehend::onArrange() {
 	// Complete any background reveal so the final image is what gets rescaled.
 	finishSlowDraw();
-	// Re-read the host's graphics-quality preference. This is what makes the
-	// setting take effect (the real theme can arrive in an arrange after
-	// loadGame()) and what makes a mid-game change switch the renderer live --
-	// mirroring Bocfel's window_change() and Scott's UpdateSettings().
+	// Re-read the host's graphics-quality preference. This makes the setting take effect
+	// (the real theme can arrive in an arrange after loadGame()) and makes a mid-game
+	// change switch the renderer live.
 	bool modeChanged = applyPreferredGraphicsMode();
 	// Follow the host's graphics on/off setting when it changes mid-game.
 	if (!glk_gestalt(gestalt_Graphics, 0)) {

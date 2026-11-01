@@ -23,6 +23,9 @@
 #include "comprehend.h"
 #include "pics.h"
 
+// Engine-side behaviour here is reverse-engineered from the Apple II
+// interpreter.
+
 namespace Glk {
 namespace Comprehend {
 
@@ -50,12 +53,9 @@ CovetedMirrorGame::CovetedMirrorGame() : ComprehendGameV2() {
 	_titleGraphicFile = "t0";
 }
 
-// Show the title screen before the first room. CM ships its title as a T0
-// vector image (rendered at offset 0x100, past the disk-protection stub) exactly
-// like OO-Topos; without this override the base no-op beforeGame() left the game
-// booting straight into the throne room with no title. The author/copyright
-// credits printed below the picture on the original Apple title screen are drawn
-// here as centred text, matching the other Comprehend titles (OO-Topos, etc.).
+// Show the title screen before the first room. The credits printed below the
+// picture on the original Apple title screen are drawn as centred text, as in
+// the other Comprehend titles.
 void CovetedMirrorGame::beforeGame() {
 	g_comprehend->drawPicture(TITLE_IMAGE);
 
@@ -68,26 +68,11 @@ void CovetedMirrorGame::beforeGame() {
 	glk_window_clear(g_comprehend->_bottomWindow);
 }
 
-// The Coveted Mirror's interpreter hard-codes a throne-room guard that no G0
-// bytecode can express: while the player is in the throne room (room 0x12) with
-// flag 5 clear, any command is discarded and King Voar imprisons the player.
-// This is why nothing in G0 calls FUNC 000a -- it is reachable only from the
-// engine. Reverse-engineered from the Apple II interpreter (cm_ram_raw $4092):
-//
-//     LDA $5a3d        ; current room
-//     CMP #$12         ; throne?
-//     BNE normal
-//     LDA #$05         ; flag 5
-//     JSR test_flag
-//     BNE normal       ; flag 5 set -> ordinary play
-//     LDA #$0a         ; else force FUNC 000a (imprisonment)...
-//     STA func_lo
-//     JMP run          ; ...bypassing the normal action dispatch entirely
-//
-// FUNC 000a prints the insolence line and moves the player to the prison
-// (room 1); flag 5 is later set by FUNC 0028 once the player has progressed,
-// after which the throne can be revisited freely. The flag is read live, so we
-// mirror it here against the same _flags[5] the bytecode maintains.
+// The interpreter hard-codes a throne-room guard that no G0 bytecode expresses:
+// in room 0x12 with flag 5 clear, any command is discarded and FUNC 000a runs,
+// which prints the insolence line and moves the player to the prison (room 1).
+// Nothing in G0 calls FUNC 000a. FUNC 0028 sets flag 5 once the player has
+// progressed, after which the throne can be revisited.
 void CovetedMirrorGame::handleAction(Sentence *sentence) {
 	if (_currentRoom == 0x12 && !_flags[5]) {
 		// The typed command is discarded entirely (the engine bypasses its
@@ -103,38 +88,29 @@ void CovetedMirrorGame::handleAction(Sentence *sentence) {
 	ComprehendGameV2::handleAction(sentence);
 }
 
-// The each-turn daemon is not run here; see ComprehendGame::beforeTurn().
-//
-// The daemon (run later, in the dispatch) drains one grain of sand per turn, but
-// the room picture -- which is what redraws the hourglass -- only repaints when
-// the room or its items change. So on a turn where the player stays put nothing
-// redrew the draining sand, and the freed-grain fall was never armed. Give the
-// hourglass its own per-turn refresh here, mirroring the original's per-turn
-// step. Skip it when a full room repaint is already queued for this turn (set by
-// last turn's move/item change): that path draws the hourglass itself and snaps,
-// as the original does on a room change. _updateFlags still holds last turn's
-// flags here -- update() consumes them moments later.
+// The each-turn daemon is not run here; see ComprehendGame::beforeTurn(). It
+// drains one grain per turn, but the room picture, which redraws the hourglass,
+// only repaints when the room or items change. So refresh the hourglass here,
+// unless last turn's _updateFlags (consumed by update() shortly after) already
+// queue a full repaint, which snaps the sand as the original does on a room
+// change.
 void CovetedMirrorGame::beforeTurn() {
 	if (!(_updateFlags & (UPDATE_GRAPHICS | UPDATE_GRAPHICS_ITEMS)))
 		g_comprehend->refreshCMHourglass();
 }
 
 // The string banks have no restart-prompt text: on THE END (win, or the 15th
-// imprisonment) the original interpreter just freezes the machine. Keep the
-// terp's restart/quit choice, but supply the prompt as a literal instead of
-// printing a bogus bank string.
+// imprisonment) the original just freezes the machine. Keep the restart/quit
+// choice, with a literal prompt.
 Common::String CovetedMirrorGame::restartPrompt() {
 	return "Press 'R' to play again, any other key to quit.";
 }
 
-// Remember a found mirror piece. The bytecode draws each piece's picture once,
-// with OPCODE_DRAW_OBJECT, when it is collected (EXAMINE/GET/USE at its room);
-// after that nothing redraws it, because the original never repaints the panel
-// band the pieces live in. Our renderer re-composites the panel over every
-// in-game picture (to keep the logo/hourglass and because our room images span
-// the full width), so without remembering the pieces they would be wiped. The
-// graphics layer reads cmMirrorPieceMask() and folds the set pieces into the
-// persistent panel snapshot (see pics.cpp).
+// Remember a found mirror piece. The bytecode draws each piece once, with
+// OPCODE_DRAW_OBJECT, when it is collected, and the original never repaints
+// that band. This renderer composites the panel over every in-game picture,
+// which would wipe them, so cmMirrorPieceMask() folds them into the panel
+// snapshot (see pics.cpp).
 void CovetedMirrorGame::recordItemPictureDrawn(int itemPic) {
 	for (int i = 0; i < 4; i++)
 		if (CM_PIECE_PICS[i] == itemPic) {
@@ -145,34 +121,20 @@ void CovetedMirrorGame::recordItemPictureDrawn(int itemPic) {
 
 void CovetedMirrorGame::synchronizeSave(Common::Serializer &s) {
 	ComprehendGameV2::synchronizeSave(s);
-	// One trailing byte: the collected-mirror-piece set (graphics-only state the
-	// VM data above doesn't carry). The original Apple II save snapshots the hi-res
-	// page, so its restored panel shows the pieces too; we reconstruct them from
-	// this mask instead. The per-turn #undo runs synchronizeSave both ways, so the
-	// field is symmetric there; note it does grow CM's on-disk save format by a byte.
+	// One trailing byte: the collected-mirror-piece set, graphics-only state
+	// the VM data doesn't carry. The original's save snapshots the hi-res page
+	// instead. This grows CM's on-disk save format by a byte.
 	s.syncAsByte(_mirrorPieceMask);
 }
 
-// The Coveted Mirror's wandering NPCs and objects -- Starina, Pete Starnum, the
-// witch outside the castle, the deaf mute, the catchable shadow on the lane by
-// Sue Sew-&-Tuck's, and friends -- are spawned by ENGINE code, not bytecode.
-// RE'd from the live Apple II RAM dump (inside cm_handle_special_opcode, the
-// block at $4150-$4283): each turn, if the player has entered a new room (last
-// spawn room is kept at $4037), the engine removes that room's wanderers and
-// re-rolls one random byte ($5b69) to decide which (if any) reappears:
-//
-//   room 0x2b: items 0x16/0x4f/0x18, each with chance 0x40/0x100; else none
-//   room 0x34: items 0x1f/0x20/0x22 likewise (0x22 = the catchable shadow)
-//   room 0x35: items 0x23/0x24
-//   room 0x38: items 0x27/0x46
-//   room 0x3b: items 0x2b/0x2c
-//   else, a 9-entry room table ($4254: rooms, $425d: 1-based items, $4266:
-//   thresholds): the item appears when random > threshold.
-//
-// This is why walkthroughs say "if Starina is not there, just go N,S,N,S until
-// she shows up": leaving and re-entering re-rolls the spawn. GET SHADOW is
-// gated on item 0x22 being present (FUNC 0ce), so without this engine system
-// the shadow never appears and the witch's brew cannot be completed.
+// The wandering NPCs and objects (Starina, Pete Starnum, the witch outside the
+// castle, the deaf mute, the catchable shadow and others) are spawned by engine
+// code, not bytecode. On entering a new room the engine removes that room's
+// wanderers and rolls one random byte to decide which, if any, reappears: rooms
+// 0x2b, 0x34, 0x35, 0x38 and 0x3b choose among items with chance 0x40/0x100
+// each; the rooms in this table show their item when random > threshold. GET
+// SHADOW (FUNC 0ce) needs item 0x22 present, so without this the witch's brew
+// cannot be completed.
 static const uint8 kWanderRooms[9]  = {0x11, 0x28, 0x22, 0x31, 0x39, 0x49, 0x4d, 0x42, 0x0d};
 static const uint8 kWanderItems[9]  = {0x0a, 0x13, 0x0e, 0x1d, 0x29, 0x36, 0x37, 0x31, 0x4d};
 static const uint8 kWanderThresh[9] = {0x80, 0x4d, 0x4d, 0x4d, 0x4d, 0x4d, 0x80, 0x80, 0x80};
@@ -228,26 +190,19 @@ void CovetedMirrorGame::spawnWanderingNPCs() {
 	}
 }
 
-// The original's FUN_426f: walk the whole item table and relocate everything
-// the player carries. Used by special opcode 8 (the tavern pickpockets stash
-// your inventory in room 0x1d) and 0x0c (Voar confiscates your booty to the
-// treasure room 0x5e when you are caught -- see the magician's diary).
+// Relocate everything the player carries. Special opcodes 8 (the tavern
+// pickpockets stash the inventory in room 0x1d) and 0x0c (Voar confiscates it
+// to the treasure room 0x5e) need this.
 void CovetedMirrorGame::moveCarriedItemsTo(uint8 room) {
 	for (uint i = 0; i < _items.size(); i++)
 		if (_items[i]._room == ROOM_INVENTORY)
 			move_object(&_items[i], room);
 }
 
-// Special opcodes, RE'd from cm_handle_special_opcode ($4140):
-//   1: THE END (win; bytecode has just printed "Congratulations!!")
-//   2: game over (15 strikes: "...THE GAME IS OVER.")
-//   6: SAVE verb (the bytecode's save function ends in OPCODE_SPECIAL 6)
-//   7: RESTORE verb
-//   8: tavern pickpockets steal the inventory into room 0x1d
-//   9: the colour-spell screen flash (graphics only)
-//   c: confiscate carried items to the treasure room 0x5e
-// The wandering-NPC re-roll runs every turn, special or not, because the
-// original's handler falls through to it unconditionally.
+// Special opcodes: 1 THE END (win), 2 game over (15 strikes), 6 save, 7
+// restore, 8 tavern pickpockets, 9 colour-spell screen flash (graphics only,
+// ignored here), 0x0c confiscation. The wandering-NPC re-roll runs after every
+// one, because the original's handler falls through to it unconditionally.
 void CovetedMirrorGame::handleSpecialOpcode() {
 	switch (_specialOpcode) {
 	case 0x01:
@@ -262,7 +217,6 @@ void CovetedMirrorGame::handleSpecialOpcode() {
 		break;
 
 	case 0x07:
-		// Restore game.
 		game_restore();
 		break;
 

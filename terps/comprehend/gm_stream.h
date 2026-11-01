@@ -1,24 +1,18 @@
-/* gm_stream.h -- shared Graphics Magician opcode-stream dispatcher.
+/* gm_stream.h -- the Graphics Magician opcode-stream dispatcher, shared by every renderer. The
+ * high nibble of each command byte is the opcode (graphics_magician.h `Opcode`), the low nibble is
+ * `param`, and bit 0 of `param` is the high bit (+256) of the x operand for coordinate opcodes.
+ * gmRunStream() owns the loop, the operand decode and the order of the DRAW_BOX lines; each
+ * renderer supplies the leaf behaviour of each opcode as a small object `R`, held by reference.
  *
- * Every graphics_magician*.cpp renderer decodes the same byte stream: the high
- * nibble of each command byte is the opcode (graphics_magician.h `Opcode`), the
- * low nibble is `param`, and bit 0 of `param` is the high bit (+256) of the x
- * operand for coordinate opcodes.  The loop, the operand decode and the order of
- * the DRAW_BOX lines live here, in gmRunStream().  What genuinely differs between
- * renderers is the leaf behaviour of each opcode, which the renderer supplies as
- * a small object `R`
- * (held by reference, so it can wrap the renderer's file statics or its context
- * struct; no virtuals, the template inlines it).
- *
- * `R` must provide (x operands are *source* coordinates 0..511; the dispatcher
- * passes them through scaleX() first, so everything below the box/line level
- * works in the renderer's native x units; y is never scaled):
+ * `R` must provide (x operands are source coordinates 0..511; the dispatcher passes them through
+ * scaleX() first, so everything below the box/line level works in native x units; y is never
+ * scaled):
  *
  *   uint16_t scaleX(uint16_t x);   source x -> native x (identity, or x << 1 on DHGR)
  *   int  penX(); int penY();       current pen in native units (DRAW_BOX start)
  *
  *   void begin();                  per-image init (pen, brush, fill, text, clip)
- *   void end();                    runs on EVERY exit, incl. OPCODE_END
+ *   void end();                    runs on every exit, incl. OPCODE_END
  *
  *   void setTextPos(x, y);         op1  (x already scaled)
  *   void drawText(ch, normal);     op3 (normal = true) / op5 (false)
@@ -38,21 +32,15 @@
  *   void paint(x, y);              op14 (x scaled)
  *   bool opReset(param, p, end);   op15: consume its own operands from `p`;
  *                                  return true to end the image
- *
- * Truncated streams: an opcode whose operands run past `end` ends the image
- * without being executed, so nothing reads beyond the buffer.  The dispatcher checks the operand count of the opcodes it decodes itself
- * (gmOperandBytes); op7() and opReset() own theirs and must return true when
- * fewer than they need remain (gmHave).
- *
  *   void beforeOp(p, end, op, param);  trace hook, after the command byte is
  *                                  read (`p` points at its first operand)
  *   void afterOp(op, param);       trace hook, after every op that did not end
  *                                  the image
  *
- * The two trace hooks are empty for a renderer that has no debug tracing.
- *
- * Header-only so every renderer .cpp stays a self-contained translation unit
- * for the offline test harnesses.
+ * Truncated streams: an opcode whose operands run past `end` ends the image without being
+ * executed, so nothing reads beyond the buffer. The dispatcher checks the operand count of the
+ * opcodes it decodes itself (gmOperandBytes); op7() and opReset() own theirs and must return true
+ * when fewer than they need remain (gmHave).
  */
 
 #ifndef GLK_COMPREHEND_GM_STREAM_H
@@ -223,8 +211,7 @@ inline void gmRunStream(R &r, const uint8_t *data, size_t size) {
 
 		case OPCODE_DRAW_BOX: {
 			// Four chained edges from the pen's start corner; the pen is left at the
-			// FAR corner (a,b), not the start (Talisman RA #1: 11 wrong bytes along
-			// one diagonal edge when it was left at the start).
+			// far corner (a,b), not the start.
 			gmReadXY(p, param, x, y);
 			const uint16_t a = r.scaleX(x);
 			const int x0 = r.penX(), y0 = r.penY();

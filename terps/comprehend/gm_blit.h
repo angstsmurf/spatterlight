@@ -1,11 +1,5 @@
-/* gm_blit.h -- the last step of the Apple II renderers' RGBA conversion.
- *
- * Both the standard and the double hi-res renderer expand a scanline into 560
- * native artifact colours (gm_render_line_colors / gm_render_dhgr_line_colors)
- * and then sample those down to the surface width with the Apple palette.  The
- * sampling is the same; only the double hi-res renderer maps 1:1 for a surface
- * at least 560 wide, where the standard one keeps scaling.
- */
+// The last step of the Apple II renderers' RGBA conversion: sampling a scanline's 560 artifact
+// colours down to the surface width with the Apple palette.
 
 #ifndef GLK_COMPREHEND_GM_BLIT_H
 #define GLK_COMPREHEND_GM_BLIT_H

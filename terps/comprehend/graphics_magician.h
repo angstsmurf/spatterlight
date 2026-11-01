@@ -1,10 +1,5 @@
-/* graphics_magician.h -- standard hi-res renderer for the Apple II Comprehend
- * games (Transylvania, OO-Topos, Crimson Crown, Talisman).
- *
- * Renders their Penguin "Graphics Magician" vector pictures into a real Apple II
- * hi-res framebuffer and converts that to RGBA via the NTSC artifact-colour
- * algorithm. See graphics_magician.cpp for the full description.
- */
+// Standard hi-res renderer for the Apple II Comprehend games: Graphics Magician vector pictures
+// drawn into an Apple II hi-res framebuffer and converted to RGBA. See graphics_magician.cpp.
 
 #ifndef GLK_COMPREHEND_GRAPHICS_MAGICIAN_H
 #define GLK_COMPREHEND_GRAPHICS_MAGICIAN_H
@@ -42,7 +37,7 @@ enum Opcode {
 
 // Clear the persistent Apple hi-res page (white = room background, black =
 // transparent base for overlays). Call once before a fresh room picture; item
-// pictures compose onto the existing page and must NOT reset it.
+// pictures compose onto the existing page and must not reset it.
 void gmResetScreen(bool white);
 
 // Run one image's vector-opcode stream onto the persistent hi-res page.
@@ -52,12 +47,10 @@ void gmDrawImage(const uint8_t *data, size_t size);
 // rendering Apple rows 0..h-1 sampled down to w columns.
 void gmBlitToSurface(uint32_t *out, int w, int h);
 
-// ---- Slow ("animated") draw -------------------------------------------------
-// When enabled, gmDrawImage records the order its bytes are plotted so the
-// picture can be revealed progressively (like the Apple II Scott Adams / Level 9
-// renderers). The host turns recording on/off per draw, then, while
-// gmSlowDrawActive() is true, repeatedly advances the reveal on a timer
-// and blits the partially-revealed page with gmBlitSlowToSurface().
+// Slow draw. When enabled, gmDrawImage records the order its bytes are plotted so the picture
+// can be revealed progressively. The host turns recording on/off per draw, then, while
+// gmSlowDrawActive() is true, advances the reveal on a timer and blits the partially revealed
+// page with gmBlitSlowToSurface().
 
 // Enable/disable op recording for the next image(s).
 void gmSetSlowDraw(bool on);
@@ -74,8 +67,7 @@ bool gmSlowConsumeDirty(int *y0, int *y1);
 // Blit the partially-revealed page, same format as gmBlitToSurface().
 void gmBlitSlowToSurface(uint32_t *out, int w, int h);
 
-// Diagnostic access to the raw 0x2000-byte Apple hi-res page (used by the
-// regression test and the offline pixel-diff tool).
+// Diagnostic access to the raw 0x2000-byte Apple hi-res page.
 const uint8_t *gmPagePtr();
 void gmSetPage(const uint8_t *page);
 // Diagnostic access to the progressively-revealed (slow-draw) page.
@@ -88,51 +80,37 @@ void gmCaptureCMPanel(int col0, int col1);
 void gmOverlayCMPanel();
 bool gmCMPanelValid();
 
-// Rebuild the panel snapshot off to the side. The caller renders the logo, the
-// hourglass frame and any collected mirror pieces between Begin and End; we save
-// and restore both hi-res pages and the slow-draw recording flag so the rebuild
-// neither disturbs the live picture being drawn nor records the panel draws into
-// an in-flight reveal (the panel is always painted instantly). End captures
-// columns 24..39 (logo + frame + pieces, with no hourglass grains) as the new
-// persistent snapshot. Used by The Coveted Mirror to fold a newly found mirror
-// piece into the panel so gmOverlayCMPanel() keeps showing it every turn.
+// Rebuild the panel snapshot off to the side, so that a newly found mirror piece stays in the
+// panel. The caller renders the logo, frame and collected pieces between Begin and End. Both
+// hi-res pages and the recording flag are saved and restored, so the live picture is undisturbed
+// and the panel draws stay out of any reveal. End captures columns 24..39 (no grains).
 void gmBeginCMPanelRebuild();
 void gmEndCMPanelRebuild();
 
-// Stamp the hourglass sand pile for The Coveted Mirror. `sand` is the live VM
-// hourglass variable (0x11): the engine shows that many grains, draining one per
-// turn. Each grain is a single-dot brush (brush 0) painted white at the position
-// the original computes per grain index; call after gmOverlayCMPanel() so the
-// pile sits on top of the static panel. Ported byte-faithfully from the Apple II
-// interpreter's cm_draw_hourglass_grain ($4347) / cm_per_turn_graphics_step.
+// Stamp The Coveted Mirror's sand pile. `sand` is the live VM hourglass variable (0x11): that
+// many grains, draining one per turn, each a white single-dot brush (brush 0). Call after
+// gmOverlayCMPanel() so the pile sits on top of the static panel.
 void gmDrawCMHourglass(int sand);
 
-// Per-turn grain-fall animation (The Coveted Mirror). gmDrawCMHourglass() always
-// renders the resting pile at the correct level and, on a single-grain drop,
-// flags that a grain just drained; gmCMHourglassConsumeFallArmed() reports that
-// once the turn's graphics have settled. The host then runs the embellishment --
-// a single freed grain falling down the neck over a few timer frames -- via
-// gmCMHourglassFallBegin() + repeated gmCMHourglassFallStep() (which returns the
-// dirty row band and false when the last frame has cleared the grain).
-// gmCMHourglassFallAbort() snaps to the clean resting state; gmCMHourglassReset()
-// forgets the displayed level so the next draw snaps (after restore/undo/restart).
-// The grain positions and the arming calls are declared in cm_panel.h, which
-// the double hi-res renderer shares.
+// Per-turn grain fall (The Coveted Mirror). gmDrawCMHourglass() always renders the resting pile;
+// on a single-grain drop it also flags that one drained, which gmCMHourglassConsumeFallArmed()
+// reports once the turn's graphics have settled. The host then animates the freed grain with
+// FallBegin and repeated FallStep (returns the dirty row band, and false when the last frame has
+// cleared the grain). FallAbort snaps to the resting state. Grain positions and arming are in
+// cm_panel.h, shared with the double hi-res renderer.
 void gmCMHourglassFallBegin();
 bool gmCMHourglassFallActive();
 bool gmCMHourglassFallStep(int *y0, int *y1);
 void gmCMHourglassFallAbort();
 
-// Install the Graphics Magician drawing tables (pattern data, fill-colour
-// subindices, brush bitmaps) from the boot disk's "T2" file. T2 is a headerless
-// ProDOS BIN that loads at $0800; the tables sit at fixed addresses inside it.
-// Returns false if the buffer is too short to contain all three tables.
+// Install the Graphics Magician drawing tables (pattern data, fill-colour subindices, brush
+// bitmaps) from the boot disk's "T2" file, locating them by signature. Returns false if they
+// are not found or the buffer is too short to contain all three.
 bool gmInstallDrawingTables(const uint8_t *t2, size_t size);
 
-// Select the older Graphics Magician dialect used by the earlier Comprehend
-// titles (Transylvania, OO-Topos, Crimson Crown): op7 ends the image, op15 is
-// unused/ends, and fills paint against the full screen. Talisman (the default,
-// false) keeps its op7 no-op / op15 fill-bounds behaviour.
+// Select the older Graphics Magician dialect (Transylvania, Crimson Crown): op7 and op15 end the
+// image and fills paint against the full screen. The default (false) is the later dialect, with
+// op7 a no-op and op15 the fill-bounds sub-ops.
 void gmSetLegacyFormat(bool on);
 
 } // namespace Comprehend

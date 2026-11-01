@@ -66,9 +66,8 @@ OOToposGame::OOToposGame() : ComprehendGameV2(),
 	_gameDataFile = "g0";
 
 	if (Common::DiskImageFS::active()) {
-		// Apple II release: the extra strings live in separate files
-		// (MA-ME) rather than embedded in novel.exe, and the title is a raw
-		// hi-res screen rather than a Comprehend vector image.
+		// Apple II release: the extra strings live in separate files (MA-ME)
+		// rather than in novel.exe.
 		addLetteredFiles(_stringFiles, "M", 'A', 'E');
 	} else {
 		// Extra strings are (annoyingly) stored in the game binary
@@ -113,7 +112,6 @@ OOToposGame::OOToposGame() : ComprehendGameV2(),
 }
 
 void OOToposGame::beforeGame() {
-	// Draw the title
 	g_comprehend->drawPicture(TITLE_IMAGE);
 
 	// Print game information, centred as on the original title screen.
@@ -132,7 +130,6 @@ void OOToposGame::beforeGame() {
 int OOToposGame::roomIsSpecial(uint room_index, uint *roomDescString) {
 	Room *room = &_rooms[room_index];
 
-	// Is the room dark
 	if ((room->_flags & OO_ROOM_FLAG_DARK) &&
 			!(_flags[OO_FLAG_FLASHLIGHT_ON])) {
 		if (roomDescString)
@@ -140,7 +137,6 @@ int OOToposGame::roomIsSpecial(uint room_index, uint *roomDescString) {
 		return ROOM_IS_DARK;
 	}
 
-	// Is the room too bright
 	if (room_index == OO_BRIGHT_ROOM &&
 			!_flags[OO_FLAG_WEARING_GOGGLES]) {
 		if (roomDescString)
@@ -185,7 +181,8 @@ void OOToposGame::beforePrompt() {
 void OOToposGame::afterPrompt() {
 	ComprehendGameV2::afterPrompt();
 
-	// WORKAROUND: Allow for the Apple 2 password in the DOS version
+	// WORKAROUND: Also accept VUG957A, which the game data doesn't know.
+	// The DOS and Apple II dictionaries only have tse957x.
 	if (!scumm_stricmp(_inputLine, "vug957a"))
 		Common::strcpy_s(_inputLine, "tse957x");
 
@@ -197,7 +194,6 @@ void OOToposGame::afterPrompt() {
 void OOToposGame::handleSpecialOpcode() {
 	switch (_specialOpcode) {
 	case 1:
-		// Update guard location
 		randomizeGuardLocation();
 		break;
 
@@ -213,8 +209,8 @@ void OOToposGame::handleSpecialOpcode() {
 		break;
 
 	case 4:
-		// The RESTART verb: the original reloads at once, with no prompt
-		// and no keypress (verified against novel.exe in DOSBox)
+		// The RESTART verb: the original reloads at once, with no prompt and no
+		// keypress
 		game_restart(true);
 		break;
 
@@ -224,29 +220,24 @@ void OOToposGame::handleSpecialOpcode() {
 		break;
 
 	case 6:
-		// Save game
 		game_save();
 		break;
 
 	case 7:
-		// Restore game
 		game_restore();
 		break;
 
 	case 8:
-		// Computer response
 		computerResponse();
 		randomizeGuardLocation();
 		break;
 
 	case 9:
-		// Checks the ship fuel
 		checkShipFuel();
 		randomizeGuardLocation();
 		break;
 
 	case 10:
-		// Checks whether the ship is working
 		checkShipWorking();
 		randomizeGuardLocation();
 		break;

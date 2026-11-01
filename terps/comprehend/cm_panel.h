@@ -1,14 +1,7 @@
-/* cm_panel.h -- The Coveted Mirror's hourglass, the parts that do not depend on
- * which Apple II renderer draws it.
- *
- * The standard hi-res renderer (graphics_magician.cpp) and the double hi-res
- * one (graphics_magician_dhgr.cpp) each keep the panel on their own pages and
- * stamp grains with their own brush. What they share is here: where each grain
- * goes, the "did one grain just drain" bookkeeping, and the frame sequence of
- * the freed grain falling down the neck.
- *
- * Header-only, in the style of graphics_magician_vector.h and slow_draw_page.h.
- */
+// The Coveted Mirror's hourglass and panel, the parts shared by the standard and double hi-res
+// renderers: where each grain goes, the "did one grain just drain" bookkeeping, the frame sequence
+// of the falling grain, and the panel store. Each renderer keeps the panel on its own pages and
+// stamps grains with its own brush.
 
 #ifndef GLK_COMPREHEND_CM_PANEL_H
 #define GLK_COMPREHEND_CM_PANEL_H
@@ -21,8 +14,7 @@ namespace Glk {
 namespace Comprehend {
 
 // Compute the Apple hi-res position (x 0..279, y 0..191) of hourglass grain
-// `idx`, ported byte-faithfully from the original's cm_draw_hourglass_grain
-// ($4347). Returns false for grains that stamp nothing (idx 0). The double
+// `idx`. Returns false for grains that stamp nothing (idx 0). The double
 // hi-res renderer doubles x onto its 560-wide pages.
 bool gmCMHourglassGrainPos(uint8_t idx, uint16_t *outX, uint8_t *outY);
 
@@ -48,17 +40,12 @@ inline void cmForEachPileGrain(int sand, Stamp stamp) {
 	}
 }
 
-// The freed grain falling down the hourglass neck.
-//
-// The brush stamps a single dot with its top-left at (x,y) but the lit pixel
-// lands ~7 px down and right, so a grain queued at (kNeckX, plotY) shows at
-// screen (kNeckX+7, plotY+7). The resting pile's lowest visible grain is screen
-// row ~99; the neck waist is rows ~100-101; the central sand stream (visible
-// black channel with sparse orange/blue dots) runs ~102-123; the static bottom
-// mound begins ~row 124. We drop the freed grain down that stream over a few
-// frames -- an embellishment (the original simply deletes the top grain). The
-// erase band must stay BELOW the pile (top >= 100) so re-overlaying the clean
-// panel each frame never wipes the resting pile above the waist.
+// The freed grain falling down the hourglass neck, an embellishment: the original simply deletes
+// the top grain. The brush's lit pixel lands ~7 px down and right of (x,y), so a grain queued at
+// (kNeckX, plotY) shows at screen (kNeckX+7, plotY+7). Screen rows: the pile ends at ~99, the neck
+// waist is ~100-101, the sand stream ~102-123, the bottom mound starts at ~124. The erase band
+// must stay below the pile (top >= 100), so that re-overlaying the clean panel each frame never
+// wipes the pile.
 class CMGrainFall {
 public:
 	enum {
@@ -115,14 +102,10 @@ private:
 	int _frame = -1;   // active frame (0..kFrames); -1 idle
 };
 
-// The persistent right-hand panel (logo + hourglass frame), kept for one Apple II
-// renderer.  `Planes` is the number of byte planes that renderer's page has: 1 for
-// standard hi-res, 2 for double hi-res (aux and main).  The renderer owns its live
-// pages and its progressively-revealed ("slow") pages and hands them in as arrays
-// of plane pointers, so everything that is the same for one plane and for two --
-// capture by byte column, overlay onto the final and slow pages, the off-screen
-// rebuild and its save/restore, and the "skip the panel columns during a reveal"
-// test -- is written once here.
+// The persistent right-hand panel (logo + hourglass frame), kept for one Apple II renderer.
+// `Planes` is the number of byte planes its page has: 1 for standard hi-res, 2 for double hi-res
+// (aux and main). The renderer owns its live and slow pages and hands them in as arrays of plane
+// pointers.
 template <int Planes>
 class CMPanelStore {
 public:

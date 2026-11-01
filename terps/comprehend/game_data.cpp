@@ -95,7 +95,6 @@ Word &Word::operator=(const WordIndex &src) {
 void Word::load(FileBuffer *fb) {
 	fb->read(_word, 6);
 
-	// Decode
 	for (int j = 0; j < 6; j++)
 		_word[j] = tolower((char)(_word[j] ^ 0xaa));
 
@@ -201,11 +200,9 @@ uint8 GameData::parse_vm_instruction(FileBuffer *fb,
 								  Instruction *instr) {
 	uint i;
 
-	/* Get the opcode */
 	instr->_opcode = fb->readByte();
 	instr->_nr_operands = opcode_nr_operands(instr->_opcode);
 
-	/* Get the operands */
 	for (i = 0; i < instr->_nr_operands; i++)
 		instr->_operand[i] = fb->readByte();
 
@@ -417,11 +414,9 @@ char GameData::decode_string_elem(uint8 c, bool capital, bool special) {
 			c = CHARSET[c];
 			if (capital) {
 				/*
-				* A capital space means that the character
-				* is dynamically replaced by at runtime.
-				* We use the character '@' since it cannot
-				* otherwise appear in strings.
-				*/
+				 * A capital space means the character is replaced at runtime.
+				 * '@' stands for it since it cannot otherwise appear in strings.
+				 */
 				if (c == ' ')
 					return '@';
 				return c - 0x20;
@@ -525,15 +520,10 @@ void GameData::parse_replace_words(FileBuffer *fb) {
 	fb->seek(_header.addr_strings_end);
 
 	if (g_comprehend->traits().stringsOnlyInFiles) {
-		// Talisman keeps its strings in separate files, so this header field
-		// is repurposed to point straight at the replace-word table. The
-		// engine indexes the table from zero (entry 0 is "empty"), but the
-		// bytecode operand is consumed as (operand - 1) here just like every
-		// other game, so drop that leading entry to line the two up. Unlike
-		// the other games the table also contains empty slots that are real
-		// indices (e.g. between the pronoun responses and the rod colours),
-		// so read every entry through to the end of the data rather than
-		// stopping at the first empty string.
+		// Talisman keeps its strings in separate files, so this header field points straight
+		// at the replace-word table. Bytecode operands are consumed as (operand - 1) as in other
+		// games, so the leading "empty" entry 0 is dropped. The table also has empty slots that
+		// are real indices, so every entry is read through to the end of the data.
 		len = fb->strlen(&eof);
 		fb->skip(len + (eof ? 0 : 1));
 
@@ -658,13 +648,10 @@ void GameData::parse_header(FileBuffer *fb) {
 	parse_header_le16(fb, &dummy);
 	parse_header_le16(fb, &header->addr_strings_end);
 
-	// The initial game state follows the header. In the original interpreter
-	// the header (30 LE16 pointers) plus this block are loaded contiguously
-	// into RAM, so the current-room global sits at the second byte of the
-	// block (the byte right after the first header marker), and the LE16
-	// variables[] array starts two bytes later. For Talisman this byte is 5
-	// (the prison cell, string id 55); reading the *third* byte instead lands
-	// the player in the bazaar (room 4), which is wrong.
+	// The initial game state follows the header. The original loads the header (30 LE16
+	// pointers) and this block contiguously into RAM, so the current-room global is the
+	// second byte of the block and the LE16 variables[] array starts two bytes later. For
+	// Talisman this byte is 5 (the prison cell, string id 55).
 	fb->skip(1);
 	_startRoom = fb->readByte();
 	fb->skip(1);
@@ -692,16 +679,11 @@ void GameData::load_extra_string_file(const StringFile &stringFile) {
 
 		parse_string_table(&fb, stringFile._baseOffset, endOffset, &_strings2);
 	} else {
-		// Standard strings file. Has a 4-byte header we can ignore,
-		// followed by 64 2-byte string offsets.
-		//
-		// The Coveted Mirror's MA-ML banks are the exception: they have NO
-		// header, so the index already starts at byte 0 (verified against the
-		// disk image -- e.g. MJ begins 82 00 84 00 ..., an ascending offset
-		// table from byte 0). Seeking past a non-existent header would read two
-		// real index entries as garbage at each bank's tail, corrupting the
-		// first two strings of the *next* bank (the "examine fish" -> "thvg"
-		// bug: the fish is MJ[1], which fell on MI's out-of-range slot 0x00c8).
+		// Standard strings file: a 4-byte header to ignore, then 64 2-byte string offsets.
+		// The Coveted Mirror's MA-ML banks have no header, so the index starts at byte 0
+		// (e.g. MJ begins 82 00 84 00 ...). Seeking past a non-existent header would read two
+		// index entries as garbage at each bank's tail and corrupt the next bank's first two
+		// strings.
 		const bool noHeader = Common::DiskImageFS::active() &&
 							  g_comprehend->traits().appleStringBanksHeaderless;
 		// For an embedded structured segment the whole layout (header, index and
@@ -743,27 +725,17 @@ void GameData::load_extra_string_files() {
 	_strings2.clear();
 	_strings2.reserve(STRING_FILE_COUNT * _stringFiles.size() + 2);
 
-	// The Apple II OO-Topos string files (MA-ME) are one entry "short" at the
-	// front compared to the DOS novel.exe segments the hardcoded _strings2
-	// indices were derived from, so add a leading placeholder to line them up.
-
-	// The Apple II Transylvania (v1) string files MA-ME are two entries "short"
-	// at the front relative to the indices its instructions use: without this
-	// padding "shoot werewolf", "sing" and "show cross" print the strings two
-	// slots later (the broom flight, "the window is shut", "a bottle of clear
-	// liquid") -- and, more than cosmetically, the off-by-two desynchronises the
-	// kill actions' messages from their effect. Two leading placeholders line
-	// _strings2 back up.
-	//
-	// Both counts are GameTraits::appleStringLead.
+	// The Apple II OO-Topos string files (MA-ME) are one entry short at the front compared
+	// to the DOS novel.exe segments the hardcoded _strings2 indices were derived from. The
+	// Apple II Transylvania (v1) files MA-ME are two short of the indices its instructions
+	// use, which would also desynchronise the kill actions' messages from their effect.
+	// Leading placeholders line _strings2 up; both counts are GameTraits::appleStringLead.
 	if (Common::DiskImageFS::active())
 		for (uint i = 0; i < g_comprehend->traits().appleStringLead; i++)
 			_strings2.push_back("");
 
-	// The Coveted Mirror needs no placeholders. Its MA-ML banks have no 4-byte
-	// header, so load_extra_string_file reads the CM index from byte 0. A
-	// seek(4) would drop the first two index entries of every bank, losing the
-	// leading strings (e.g. the fish line MJ[1]) and shifting the rest early.
+	// The Coveted Mirror needs no placeholders: its MA-ML banks have no 4-byte header,
+	// so load_extra_string_file reads the CM index from byte 0.
 
 	for (uint i = 0; i < _stringFiles.size(); i++) {
 		// OO-Topos pads two banks so its string indices line up; other v2
@@ -781,12 +753,11 @@ void GameData::loadGameData() {
 
 	clearGame();
 
-	// A usable main data file needs at least a header (magic + address table).
-	// If it is missing or empty -- e.g. only one disk side was supplied, so the
-	// loader never extracted "g0" -- bail out cleanly. Otherwise parse_header
-	// reads a 0000 magic, every downstream error() (which is non-fatal here)
-	// soft-returns, and parsing empty data eventually trips the assert in
-	// parse_function. FileBuffer's ctor already reports the failed open.
+	// A usable main data file needs at least a header (magic + address table). If it is
+	// missing or empty, e.g. only one disk side was supplied so the loader never extracted
+	// "g0", bail out cleanly. Otherwise parse_header reads a 0000 magic, every downstream
+	// error() (non-fatal here) soft-returns, and parsing empty data eventually trips the
+	// assert in parse_function. FileBuffer's ctor already reports the failed open.
 	if (fb.size() < 4) {
 		error("No usable game data in '%s' -- is a disk side missing?",
 			  _gameDataFile.c_str());
@@ -829,7 +800,6 @@ void GameData::loadGame() {
 		// "Could not open" error for every missing file, detect that none of the
 		// graphics files are present and fall back to a plain text-only layout.
 		if (hasAnyGraphicsFile()) {
-			// Set up the picture archive
 			g_comprehend->_pics->load(_locationGraphicFiles,
 									  _itemGraphicFiles, _titleGraphicFile);
 		} else {

@@ -1,17 +1,12 @@
 /*
- * Compatibility shim for porting the ScummVM Comprehend interpreter to
- * Spatterlight. Same idea as terps/archetype/archetype_compat.h, but with
- * the extra Graphics:: and Common:: types Comprehend needs:
- *  - Graphics::ManagedSurface (pixel buffer with line/fill primitives)
- *  - Graphics::PixelFormat
- *  - Common::Rect / Common::Point
- *  - Common::U32String (Unicode strings)
- *  - Common::Serializer (save/load sync)
- *  - Common::StringArray = Common::Array<Common::String>
- *
- * The drawing pipeline follows scott's apple2_vector_draw approach:
- * render the picture into a 32-bpp pixel buffer, then blit it to a Glk
- * Graphics window with glk_window_fill_rect() per pixel/run.
+ * Stand-ins for the ScummVM headers the Comprehend engine was written against,
+ * with only the members it uses:
+ *  - scummsys.h, textconsole.h, str.h: integer typedefs, error()/debug()/warning(),
+ *    scumm_stricmp(), scumm_strnicmp(), strcpy_s(), _()
+ *  - common/: String, U32String, Array, streams, File, Path, Serializer, Rect, Point,
+ *    computeStreamMD5AsString(), ConfMan, DebugMan
+ *  - graphics/: PixelFormat, ManagedSurface, Surface
+ * DiskImageFS, listDirectory() and openFileNoCase() have no ScummVM counterpart.
  */
 
 #ifndef COMPREHEND_COMPAT_H
@@ -69,8 +64,6 @@ void comprehend_warning_impl(const char *fmt, ...) GCC_PRINTF(1, 2);
 
 #define error(...) comprehend_error_impl(__VA_ARGS__)
 
-// ScummVM's debug() accepts an optional leading int level; both forms exist
-// in the codebase so we route through a single variadic macro.
 #define debug(...) comprehend_debug_impl(__VA_ARGS__)
 #define debugC(...) comprehend_debugC_impl(__VA_ARGS__)
 #define debugCN(...) comprehend_debugC_impl(__VA_ARGS__)
@@ -84,11 +77,9 @@ enum {
 	kDebugLevelScripts = 1 << 2
 };
 
-// ScummVM uses _("text") for i18n. Spatterlight has no translation layer,
-// so just pass through.
+// No translation layer.
 #define _(s) (s)
 
-// ScummVM provides scumm_stricmp; alias to platform's strcasecmp.
 inline int scumm_stricmp(const char *a, const char *b) {
 	while (*a && *b) {
 		int da = std::tolower((unsigned char)*a);
@@ -100,7 +91,6 @@ inline int scumm_stricmp(const char *a, const char *b) {
 		 - (int)(unsigned char)std::tolower((unsigned char)*b);
 }
 
-// ScummVM provides scumm_strnicmp; case-insensitive compare of the first n chars.
 inline int scumm_strnicmp(const char *a, const char *b, size_t n) {
 	for (size_t i = 0; i < n; ++i) {
 		int da = std::tolower((unsigned char)a[i]);
@@ -148,13 +138,12 @@ public:
 
 	void toLowercase();
 
-	// Used by Comprehend::printRoomDesc().
 	void wordWrap(size_t maxLineWidth);
 };
 
 inline bool isSpace(char c) { return std::isspace((unsigned char)c) != 0; }
 
-// ScummVM's strcpy_s deduces destination size from the array; we mirror it.
+// Deduces the destination size from the array.
 template<size_t N>
 inline void strcpy_s(char (&dst)[N], const char *src) {
 	if (!src) { dst[0] = 0; return; }
@@ -162,9 +151,7 @@ inline void strcpy_s(char (&dst)[N], const char *src) {
 	dst[N - 1] = 0;
 }
 
-// A 32-bit Unicode string. Used only for a handful of formatted messages in
-// Comprehend; treat it as a vector of codepoints. We provide just the API
-// surface the engine touches.
+// A 32-bit Unicode string, as a vector of codepoints.
 class U32String : public std::vector<uint32> {
 public:
 	U32String() {}
@@ -209,8 +196,6 @@ constexpr T&& forward(typename std::remove_reference<T>::type&& v) noexcept {
 	return static_cast<T&&>(v);
 }
 
-// --- Stream abstraction (mirrors archetype's; extended slightly) ---
-
 class Stream {
 public:
 	virtual ~Stream() {}
@@ -219,7 +204,7 @@ public:
 class ReadStream : public virtual Stream {
 public:
 	// Default-implemented so derivers that only override read() (e.g.
-	// FileBuffer) get readByte() for free, matching ScummVM's behaviour.
+	// FileBuffer) get readByte() for free.
 	virtual byte readByte() {
 		byte b = 0;
 		if (read(&b, 1) != 1) return 0;
@@ -271,7 +256,6 @@ public:
 	void writeByte(byte b) override;
 	uint32 write(const void *buf, uint32 size) override;
 
-	// ScummVM has static Common::File::exists(path).
 	static bool exists(const String &path);
 
 private:
@@ -322,8 +306,7 @@ namespace DiskImageFS {
 	void clear();
 }
 
-// Used by the game code to fingerprint novel.exe. ScummVM's md5.h hashes a
-// stream; we hash whatever bytes we can read up to `length`.
+// Fingerprints novel.exe: hashes whatever bytes can be read up to `length`.
 String computeStreamMD5AsString(ReadStream *stream, uint32 length);
 String computeStreamMD5AsString(ReadStream &stream, uint32 length);
 
@@ -409,11 +392,8 @@ private:
 	ErrorCode _code;
 };
 
-// Save/load synchroniser. Compatible enough with ScummVM's Common::Serializer
-// for ComprehendGame::synchronizeSave to compile; we hand it the relevant
-// read or write stream depending on direction. Templated so the engine can
-// pass int / uint / size_t / size_type without explicit casts (ScummVM's
-// Serializer accepts any integral type by reference).
+// Save/load synchroniser, given the read or write stream for the direction.
+// Templated so the engine can pass any integral type by reference.
 class Serializer {
 public:
 	Serializer(SeekableReadStream *in, WriteStream *out) : _in(in), _out(out) {}
@@ -451,8 +431,6 @@ extern DebugManager DebugMan;
 using Common::DebugMan;
 using Common::ConfMan;
 
-// --- Graphics:: namespace ---
-
 namespace Common {
 
 template<typename T>
@@ -472,8 +450,8 @@ struct Rect {
 
 namespace Graphics {
 
-// Minimal pixel-format descriptor. Comprehend uses one (32bpp ARGB);
-// we just need to remember the layout for colorToRGB().
+// Pixel-format descriptor, kept for the layout colorToRGB() needs. Comprehend
+// uses one format (32bpp ARGB).
 struct PixelFormat {
 	uint8 bytesPerPixel;
 	uint8 rBits, gBits, bBits, aBits;
@@ -551,9 +529,7 @@ private:
 	uint32 *_pixels = nullptr;
 };
 
-// Graphics::Surface is the lighter base in ScummVM (ManagedSurface owns the
-// pixels, Surface is just a non-owning view). We collapse both into
-// ManagedSurface since Comprehend never relies on the distinction.
+// Comprehend never relies on Surface being a non-owning view.
 typedef ManagedSurface Surface;
 
 } // namespace Graphics
