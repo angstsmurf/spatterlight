@@ -1,12 +1,10 @@
 # Comment hygiene TODO (terps/tads/glk)
 
 The pass from the survey of 2026-11-01 is applied. A tokenising comparison against HEAD shows the
-sources unchanged apart from comments. These items are still open:
+sources unchanged apart from comments. This item is still open:
 
-- **Licence of `osspatter.h` and `osunixt.h`.** Both have no notice. They came in with the
-  Gargoyle import of 2017 and look derived from FrobTADS, so the holder isn't established.
-- **Gargoyle fork.** `osglk.c` and `osmisc.c` lost about 550 lines of comments copied from
-  `tads2/osifc.h`, and 15 files gained a licence block. Replay this as one commit at the next sync.
+- **Licence of `osunixt.h`.** It has no notice. It is an empty placeholder from the Gargoyle import of
+  2017, with nothing in it to license.
 
 Deliberately left as they are:
 
