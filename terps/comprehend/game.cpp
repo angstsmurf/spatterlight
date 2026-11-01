@@ -207,7 +207,13 @@ Common::String ComprehendGame::stringLookup(uint16 index) {
 	case 0x80:
 		if (string < _strings.size())
 			return _strings[string];
-		break;
+		// A reference past the end of the main table prints nothing in the
+		// original: its seek walks null-terminated entries past the table into
+		// the zero-filled RAM behind it, so the "string" it lands on is empty.
+		// The Coveted Mirror has one such reference, EXIT at the Color Fairy's
+		// with the door open (function 22 prints S1 428 of 155); the original
+		// shows a blank line there (test/cm/strings_oracle.sh, 2026-11-01).
+		return "";
 
 	case 0x05:
 	case 0x85:

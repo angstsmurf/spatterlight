@@ -13,10 +13,9 @@
 # script has driven the game to that point -- exactly as the Question runner's
 # --win does. Exit status is 0 only if every present game passes.
 #
-# NOTE on coverage: all five games are now FULL playthroughs to their win lines
-# (Coveted Mirror still stops at the mid-game collection loop -- its maze/spell
-# endgame needs the MAME-pinned NPC waits -- but the other four, Oo-Topos
-# included, run start to finish).
+# NOTE on coverage: all five games are FULL playthroughs to their win lines, the
+# Coveted Mirror included (its wandering-NPC waits are pinned by count under the
+# fixed test seed; see README.md).
 set -u
 
 here=$(cd "$(dirname "$0")" && pwd)

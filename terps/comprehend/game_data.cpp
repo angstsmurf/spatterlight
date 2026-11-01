@@ -843,5 +843,21 @@ void GameData::loadGame() {
 	_currentRoom = _startRoom;
 }
 
+void GameData::dumpStrings(FILE *f) const {
+	const StringTable *tables[2] = { &_strings, &_strings2 };
+	for (int t = 0; t < 2; t++) {
+		for (uint i = 0; i < tables[t]->size(); i++) {
+			fprintf(f, "S%d %u ", t + 1, i);
+			for (const char *p = (*tables[t])[i].c_str(); *p; p++) {
+				if (*p == '\n')
+					fputs("\\n", f);
+				else
+					fputc(*p, f);
+			}
+			fputc('\n', f);
+		}
+	}
+}
+
 } // namespace Comprehend
 } // namespace Glk

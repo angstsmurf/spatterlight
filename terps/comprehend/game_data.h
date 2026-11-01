@@ -504,6 +504,9 @@ public:
 
 	void clearGame();
 	void loadGame();
+	// Write every decoded string of both tables, one per line, as
+	// "S1 <index> <text>" / "S2 <index> <text>" (newlines escaped as \n).
+	void dumpStrings(FILE *f) const;
 };
 
 } // namespace Comprehend

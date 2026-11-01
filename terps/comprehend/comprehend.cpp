@@ -64,6 +64,20 @@ void Comprehend::runGame() {
 	createGame();
 	if (_game) {
 		_game->loadGame();
+#ifdef COMPREHEND_HEADLESS
+		// COMPREHEND_STRDUMP=<file>: write every decoded string of both tables
+		// (S1 = the game file's, S2 = the extra string banks) and exit.
+		// test/cm/strings_oracle.sh diffs this against the original
+		// interpreter's decoder running in MAME.
+		if (const char *dump = getenv("COMPREHEND_STRDUMP")) {
+			if (FILE *f = fopen(dump, "w")) {
+				_game->dumpStrings(f);
+				fclose(f);
+			}
+			deinitialize();
+			return;
+		}
+#endif
 		applyPreferredGraphicsMode();
 		_game->playGame();
 	}

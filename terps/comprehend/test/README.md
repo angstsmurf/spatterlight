@@ -28,7 +28,7 @@ fixtures were captured:
 | `gmcga/`, `gmcgav1/` | Graphics Magician CGA renderer, v2 and v1, pixel-exact against DOSBox-X captures |
 | `gmpcjr/` | the PCjr renderer: 331 pictures of the two DOS v1 folders with `JR_GRAPH.OVR` (Transylvania, Crimson Crown) as hashes, 73 of them pixel for pixel against DOSBox-X captures |
 | `talisman/` | Apple II hi-res Talisman pictures |
-| `cm/`, `cm_dhgr/` | The Coveted Mirror panel and hourglass, hi-res and double hi-res, byte-exact page fixtures |
+| `cm/`, `cm_dhgr/` | The Coveted Mirror panel and hourglass, hi-res and double hi-res, byte-exact page fixtures; `cm/strings_oracle.sh` diffs every reachable game string against the original's decoder run in MAME |
 | `title_dhgr/` | double hi-res title screens |
 | `walkthrough/` | six full-game scripted plays (CM, CC, OO, TM, TR, TR v2) with byte-identical transcripts |
 | `test_gm_stream` | the shared opcode dispatcher against a recording mock renderer: operand decode, `DRAW_BOX` order, `end()` on every exit, truncation |

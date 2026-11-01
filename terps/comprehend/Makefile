@@ -169,6 +169,7 @@ test: $(TESTS)
 check: test
 	$(MAKE) -f Makefile.headless
 	./test/walkthrough/run_walkthroughs.sh
+	./test/cm/strings_oracle.sh
 
 # Developer tool: extract/render a single Apple II Talisman picture from a disk
 # image and log its hi-res writes. Used to capture new regression fixtures.

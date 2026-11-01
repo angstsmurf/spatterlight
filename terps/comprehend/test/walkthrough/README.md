@@ -62,15 +62,18 @@ To add a game, write `scripts/<gameid>.txt` (drive it to a distinctive line),
 add a `play` entry to `run_walkthroughs.sh`, and pick that line as the marker.
 
 All five Polarware/Penguin games ship a deterministic script here (verified
-identical across runs). Four are full winning playthroughs (Oo-Topos, Crimson
-Crown, Talisman, Transylvania); only the Coveted Mirror still stops early, in the
-mid-game collection loop:
+identical across runs), and all five are full winning playthroughs:
 
-  * **Coveted Mirror** -- out of the cell, through town, the astrologer's
-    constellation puzzle and the eastern collection loop (axe, ball, lockpick,
-    telescope, candlestick, bellows, shovel, jug, ladder, grain). Bribes the
-    jailer twice to outlast the hourglass; stops before the maze/spell endgame,
-    which needs the non-deterministic NPC waits and extra bribes pinned to MAME.
+  * **Coveted Mirror** -- a *full* winning playthrough to "Congratulations!!":
+    out of the cell, through town, the astrologer's constellation puzzle and the
+    eastern collection loop (axe, ball, lockpick, telescope, candlestick,
+    bellows, shovel, jug, ladder, grain), then the four mirror pieces (maze, art
+    room colour spell, cell, chapel), Jon's ring and the deaf mute, the Perilous
+    Pass squeeze, the coat for the summit, and the plateau WAIT cycle for the
+    mirror. The jailer is bribed on a fixed cadence to outlast the hourglass
+    (see above). The engine-side wandering-NPC spawns are random, so the GET
+    SHADOW retry loop is pinned by count under the fixed test seed; re-pin it if
+    the route before it changes.
   * **Oo-Topos** -- a *full* winning playthrough to "But your part has been done!
     Congratulations!": out of the prison through the scripted stun-capture, the
     alien/sentinel fights, the gravtube and garbage-disposal suit-up, the radiation
@@ -112,7 +115,3 @@ mid-game collection loop:
     Apple original needed a two-slot `_strings2` alignment fix in
     `GameData::load_extra_string_files` -- without it the kill actions printed the
     wrong lines and never fired, leaving the game unwinnable.)
-
-The one remaining full-completion script still to be authored is the Coveted
-Mirror's: its jailer-bribe cadence is worked out through the mid-game, but the
-maze/spell endgame's random NPC waits still need to be pinned against MAME.
