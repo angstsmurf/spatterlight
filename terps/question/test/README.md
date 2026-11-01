@@ -120,7 +120,8 @@ the SPAN lines from the zcolors `glkdrive.py` records. `styles_colours.asl`
 and `styles_q5colours.aslx` play look / colours off / look / colours on / look
 through a `.script` sidecar; `styles_q5foreground`, `styles_q5center` and
 `styles_q5panel` cover a foreground set in play and the page and block
-backgrounds. The mode compiles out under CheapGlk, so `make check`, `make
+backgrounds. `styles_panecolours.asl` has Quest 4's `background` and `foreground`
+reach the side pane, as they do in Quest 4.1.5. The mode compiles out under CheapGlk, so `make check`, `make
 replays` and the `aslxglk_smoke` diff should not change when colour code does.
 
 Still open:

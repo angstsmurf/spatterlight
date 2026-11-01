@@ -1247,6 +1247,11 @@ static void
 draw_objwin_sections(QuestionRunner *gr, v2string &inventory, v2string &contents,
                      v2string &places, v2string &compass)
 {
+    /* The pane in the palette: the game's foreground as it is now over its
+     * background, which the clear paints the pane in.  Quest 4.1.5 tints its
+     * lists the same way, following a `background' or `foreground' statement
+     * made in play.  Nothing happens while the mode is off. */
+    colour_apply(objwin, COLOUR_NONE, mainglkwin);
     glk_window_clear(objwin);
     strid_t s = glk_window_get_stream(objwin);
 
@@ -1318,6 +1323,7 @@ draw_objwin_sections(QuestionRunner *gr, v2string &inventory, v2string &contents
         for (std::vector<std::string> &exit : compass)
             put_exit(exit);
     }
+    colour_status_end();    /* the main window's colours back */
     fill_divider();
 
     /* Re-arm the pane's hyperlink input: clearing the window above drops any
