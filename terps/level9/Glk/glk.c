@@ -55,7 +55,6 @@
 #include "randomness.h"
 
 #ifdef SPATTERLIGHT
-L9UINT16 random_array[100];
 extern int gli_slowdraw;
 extern glui32 gli_determinism;
 #else
@@ -8016,27 +8015,15 @@ gln_main (void)
   /*
    * The main interpreter never seeds the generator behind erkyrath_random(),
    * so seed it here: from the system when the game should be unpredictable,
-   * and with a fixed value when determinism is on.
+   * and with a fixed value when determinism is on. The game's own generator
+   * (L9Random in level9.c) is seeded at load, where determinism is handled.
    */
 #ifdef SPATTERLIGHT
-  if (!gli_determinism)
-      set_erkyrath_random (0);
-  else {
-      /*
-       * At least The Growing Pains of Adrian Mole breaks if the randomseed
-       * global never changes or is set to certain values, so determinism
-       * steps through this array of values known to work.
-       */
-      set_erkyrath_random (1234);
-      L9UINT16 seed = 2;
-      for (int i = 0; i < 100; i++) {
-          seed=(((seed<<8) + 0x0a - seed) <<2) + seed + 1;
-          random_array[i] = seed;
-      }
-  }
+  set_erkyrath_random (gli_determinism ? 1234 : 0);
 #else
   set_erkyrath_random (0);
 #endif
+
   /* Repeat this game until no more restarts requested. */
   do
     {

@@ -71,8 +71,8 @@ or differs is skipped.
 
 The scripts come from Andreas Scherrer's L9TestSuite, some of them based on
 solutions by Jacob Gunness and Dorothy Millard. They have been repaired to reach
-the ending in `level9_hl`, whose random numbers come from the determinism array
-unless a `#SEED` line asks for a seed, so they are only repeatable in that build.
+the ending in `level9_hl`, whose random generator starts from a fixed seed
+unless a `#SEED` line asks for one, so they are only repeatable in that build.
 
 Price of Magik, Red Moon and Knight Orc depend heavily on random events, so a small
 edit to their scripts can break a later step. Try a few extra `WAIT`s in that case.

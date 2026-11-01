@@ -50,9 +50,6 @@
 #ifdef SPATTERLIGHT
 extern int gli_determinism;
 
-/* The seeds randomnumber() steps through when determinism is on (Glk/glk.c). */
-extern L9UINT16 random_array[];
-int random_counter = 0;
 #endif
 
 /* Debug options, all off. L9DEBUG prints each A-code driver call and scan
@@ -3120,19 +3117,7 @@ void L9Random(void)
 #ifdef CODEFOLLOW
 	fprintf(f," %d",randomseed);
 #endif
-#ifdef SPATTERLIGHT
-	/* A seed asked for with #seed takes precedence: scripts rely on it. */
-	if (gli_determinism && constseed == 0) {
-		randomseed = random_array[random_counter];
-		random_counter++;
-		if (random_counter > 99)
-			random_counter = 0;
-	} else {
-#endif
 	randomseed=(((randomseed<<8) + 0x0a - randomseed) <<2) + randomseed + 1;
-#ifdef SPATTERLIGHT
-	}
-#endif
 
 	*getvar()=randomseed & 0xff;
 #ifdef CODEFOLLOW
@@ -5131,8 +5116,18 @@ L9BOOL LoadGame2(char *filename,char *picname)
 
 	codeptr=acodeptr;
 	keepinputstate();
+	/* A seed asked for with #seed takes precedence: scripts rely on it. When
+	 * determinism is on the game's own generator runs from a fixed seed, so
+	 * a replay is repeatable. Holding randomseed at one value would not do:
+	 * the games compare each draw against thresholds and draw again (the
+	 * Adrian Mole games redraw in loops, The Archers skips every scene), so
+	 * the sequence has to change between draws. */
 	if (constseed > 0)
 		randomseed=constseed;
+#ifdef SPATTERLIGHT
+	else if (gli_determinism)
+		randomseed=2;
+#endif
 	else
 		randomseed=(L9UINT16)time(NULL);
 	strlcpy(LastGame,filename,MAX_PATH);
