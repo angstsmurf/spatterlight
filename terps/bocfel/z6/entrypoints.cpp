@@ -40,9 +40,7 @@
 #include <vector>
 
 #include "zterp.h"
-#include "screen.h"
 #include "memory.h"
-#include "dict.h"
 
 #include "arthur.hpp"
 #include "journey.hpp"
@@ -55,7 +53,7 @@
 #include "entrypoints_internal.hpp"
 
 // Global indices (in the Z-machine global variable table) of the
-// foreground and background color globals. Populated by the per-game
+// foreground and background colour globals. Populated by the per-game
 // globals finders.
 uint8_t fg_global_idx = 0, bg_global_idx = 0;
 
@@ -147,7 +145,7 @@ void patch_ret_local(uint32_t addr, uint8_t local) {
 uint32_t end_of_color_addr = 0;
 
 // Shogun and Zork Zero share the same V-COLOR shape: locate the fg/bg
-// color globals and the routine's final return instruction (stored in
+// colour globals and the routine's final return instruction (stored in
 // end_of_color_addr). Returns the offset of the last global match, or -1.
 int32_t find_v_color_globals(uint32_t v_color_addr) {
     int32_t start = find_globals_in_pattern({ 0x2d, 0x02, WILDCARD, 0x2d, 0x03, WILDCARD }, { &fg_global_idx, &bg_global_idx }, v_color_addr, 300);
@@ -368,7 +366,7 @@ void find_entrypoints(void) {
                 // The 3-locals UPDATE-STATUS-LINE pattern (03 eb 7f 01 .. 04
                 // 7f 04 00 = [3 locals] SET_WINDOW #1; SET_FONT #4) can
                 // false-match the same SCREEN/FONT sequence buried inside
-                // INIT-STATUS-LINE in the pre-release revisions, where the
+                // INIT-STATUS-LINE in r242 and r296, where the
                 // real UPDATE-STATUS-LINE is a *2-locals* routine matched by
                 // the "alt" pattern instead (r296: false hit at 0x1cd06, mid
                 // INIT-STATUS-LINE 0x1cca0; the real routine is 0x1cdc4). A
@@ -376,7 +374,7 @@ void find_entrypoints(void) {
                 // interior copy continues with a CALL_2N to PICINF-PLUS-ONE
                 // (da .. .. 01 7e). Skip such matches so the routine stays
                 // unclaimed and the 2-locals alt can claim the real one. (In
-                // the releases/r343/r366/r66 the real 3-locals routine matches
+                // the releases, r343 and r66 the real 3-locals routine matches
                 // first, so this never rejects a wanted match.)
                 while (offset != -1 && entrypoint.fn == z0_UPDATE_STATUS_LINE &&
                        entrypoint.pattern.size() >= 9 && entrypoint.pattern[0] == 0x03 &&

@@ -5,9 +5,25 @@
 // Zork Zero's rows of the entrypoint table and its globals finder. The table
 // format and the search helpers are in entrypoints_internal.hpp, the scan
 // that fills in the table in entrypoints.cpp.
-
-#include "screen.h"
-#include "dict.h"
+//
+// The Zork Zero revisions, oldest first (r66 really is newer than r296, going
+// by the serial numbers). The two columns are what the finders report for
+// each story; see the EPDUMP notes in ../test/README.md.
+//
+//   revision  serial          BLINK-TBL  compass drawn by
+//   r242      880830, 880901  no         DRAW-COMPASS-ROSE + PICINF-TBL
+//   r296      881019          no         DRAW-COMPASS-ROSE + PICINF-TBL
+//   r66       890111          no         DRAW-COMPASS-ROSE + PICINF-TBL
+//   r343      890217          no         DRAW-NEW-COMP
+//   r366      890323          yes        DRAW-NEW-COMP
+//   r383      890602          yes        DRAW-NEW-COMP
+//   r387      890612          yes        DRAW-NEW-COMP
+//   r392      890714 (IBM)    yes        DRAW-NEW-COMP
+//   r393      890714          yes        DRAW-NEW-COMP
+//
+// The comments in z6 call r242 to r343 "the early revisions" and r366 and
+// later "the releases". A demo is the same story as its revision with
+// DEMO-VERSION? set, so the same rules apply to it.
 #include "v6_shared.hpp"
 #include "zorkzero.hpp"
 
@@ -63,15 +79,14 @@ std::vector<EntryPoint> zorkzero_entrypoints = {
 
     // BLINK-WHILE-AWAITING-INPUT: SET_WINDOW L04; DRAW_PICTURE L01 L02 L03;
     // SET_WINDOW #00. Its handler reads zg.BLINK_TBL from the STOREW that
-    // immediately follows (the release/r366 map drives the blinking marker via
-    // that table; the r242/r296/r66 betas store the icon in a frame local
-    // instead, so the BLINK_TBL search there simply finds nothing and the beta
+    // immediately follows (the releases' map drives the blinking marker via
+    // that table; the early revisions store the icon in a frame local
+    // instead, so the BLINK_TBL search there simply finds nothing and their
     // redraw path is used). global_search because the routine sits at a low
-    // address in some revisions (r366: 0x130f5) and the forward cursor
-    // overshoots it, leaving zg.BLINK_TBL unset so the wrong (beta) resize
-    // path is taken and the you-are-here marker is never repositioned. The
-    // pattern is globally unique in every revision that has it (and absent in
-    // the true betas).
+    // address in some revisions (r366: 0x130f5) and the forward cursor would
+    // overshoot it, leaving zg.BLINK_TBL unset, so the early-revision resize
+    // path would be taken and the you-are-here marker never repositioned. The
+    // pattern is globally unique in every revision that has it.
     {
         Game::ZorkZero,
         "BLINK",
@@ -89,9 +104,9 @@ std::vector<EntryPoint> zorkzero_entrypoints = {
         // Anchor on V-REFRESH's own prologue -- locals-count 01, then the
         // routine's first two instructions, whose shape (41 xx 02 48 8f) is
         // stable across revisions; only the second byte (a global number)
-        // varies. The previous signature keyed off the *preceding* routine's
-        // tail, which is not stable: it false-matched a different routine in
-        // r296 and r343 (and matched nothing for the correct routine there).
+        // varies. Don't key off the *preceding* routine's tail, which is not
+        // stable: that false-matches a different routine in r296 and r343
+        // (and matches nothing for the correct routine there).
         // offset 1 -> found_at_address = routine + 1 (zr.V_REFRESH = found-1).
         { 0x01, 0x41, WILDCARD, 0x02, 0x48, 0x8f },
         1,
@@ -106,7 +121,7 @@ std::vector<EntryPoint> zorkzero_entrypoints = {
 
     {
         Game::ZorkZero,
-        // The r242 beta variant. The release V-$REFRESH opens with
+        // The r242 variant. The release V-$REFRESH opens with
         // `JE P-CAN-UNDO,#02` (the pattern above), but r242 reorders the body
         // so the routine instead opens with its DONT-CLEAR handling:
         // `JZ DONT-CLEAR; JZ BORDER-ON; CALL_1N CLEAR-BORDER`
@@ -115,7 +130,7 @@ std::vector<EntryPoint> zorkzero_entrypoints = {
         // (adjust_encyclopedia_text_window runs -- the encyclopedia pictures
         // 25/26-33 are the same numbers in r242 -- but V_REFRESH is its only
         // cleanup), so it would bleed into the main text window. This alt
-        // pattern matches ONLY r242/beta (head 0x14f9c); every other revision
+        // pattern matches ONLY r242 (head 0x14f9c); every other revision
         // matches the release pattern above, and neither pattern matches both.
         // global_search for the usual cursor reasons.
         "V-REFRESH alt",
@@ -154,24 +169,21 @@ std::vector<EntryPoint> zorkzero_entrypoints = {
         // Match the routine's two leading stores -- FG-COLOR <- DEFAULT-FG and
         // BG-COLOR <- DEFAULT-BG -- which is what find_zork0_globals() reads
         // to recover fg_global_idx/DEFAULT_FG/bg_global_idx/DEFAULT_BG. The
-        // old signature instead keyed off the trailing SET_COLOUR/SET_WINDOW
-        // pair, which only exists in r392/r393; r383 and r387 guard that set
-        // with a JZ, so DEFAULT-COLORS was never located there and
-        // zg.DEFAULT_BG was left at 0 (its only finder lives in this branch).
-        // That made z0_update_colors() write the default background into
-        // global 0 and never initialise the real DEFAULT-BG global, so those
-        // releases opened with the wrong text-window background -- the text
-        // buffer was the default grey while the pillar/border graphics stayed
-        // black -- until a resize/autorestore repainted it.
+        // trailing SET_COLOUR/SET_WINDOW pair is no anchor: it only exists in
+        // r392/r393, as r383 and r387 guard that set with a JZ. If
+        // DEFAULT-COLORS isn't located, zg.DEFAULT_BG stays 0 (its only finder
+        // lives in this branch), so z0_update_colors() writes the default
+        // background into global 0 and never initialises the real DEFAULT-BG
+        // global. The game then opens with the wrong text-window background
+        // -- the text buffer is the default grey while the pillar/border
+        // graphics stay black -- until a resize/autorestore repaints it.
         //
         // Match just the two stores (0x2d), wildcarding the four global-number
         // operands: in r383..r393 they are fixed (FG-COLOR=Gc2/0x2c,
-        // DEFAULT-FG=0x5f) but they differ in the older r296/r343/r366 (where
-        // the old hard-coded prefix matched nothing, so the Amiga demo opened
+        // DEFAULT-FG=0x5f) but they differ in the older r296/r343/r366 (a
+        // hard-coded prefix matches nothing there, and the Amiga demo opens
         // with black border graphics under the grey text). The first such
-        // store pair after V-COLOR is the routine start in every revision,
-        // giving the same address as before on r383..r393 and now locating it
-        // on r366 too.
+        // store pair after V-COLOR is the routine start in every revision.
         { 0x2d, WILDCARD, WILDCARD, 0x2d, WILDCARD, WILDCARD },
         0,
         0,
@@ -207,9 +219,8 @@ std::vector<EntryPoint> zorkzero_entrypoints = {
         // 0xa0 0x02 is its first instruction (jz BOLD). The +1 offset
         // lands found_at_address on that first instruction so the hook
         // fires at the routine entry (with the string arg already in
-        // local 1) and can do_return cleanly. The previous pattern was
-        // anchored on a print_addr that doesn't exist in CENTER-1, so it
-        // matched nothing in this release and the hook never fired.
+        // local 1) and can do_return cleanly. CENTER-1 has no print_addr to
+        // anchor on.
         { 0x05, 0xa0, 0x02, 0xc8, 0xe8, 0x7f },
         1,
         0,
@@ -258,8 +269,8 @@ std::vector<EntryPoint> zorkzero_entrypoints = {
         // The real V-MODE routine can precede the (global_search) V-REFRESH
         // match (it does in r343, r296, ...), so a forward-only search from
         // the V-REFRESH cursor would skip it. This pattern is globally unique
-        // in every revision that has it (absent only in the r242 betas, which
-        // rely on "V-MODE alt"), so scanning the whole story always lands on
+        // in every revision that has it (absent only in r242, which relies on
+        // "V-MODE alt"), so scanning the whole story always lands on
         // the correct routine. It comes before "V-MODE alt", whose anchor lies
         // three bytes into this routine's first instruction in every revision
         // but r242: a hook there would never fire.
@@ -319,7 +330,7 @@ std::vector<EntryPoint> zorkzero_entrypoints = {
         kVMapLoopAlt,
     },
 
-    // The r296/r66 betas (and the r366 demo) also inline the map loop into
+    // r296, r66 and r366 also inline the map loop into
     // V-MAP, but their BLINK-WHILE-AWAITING-INPUT call is a CALL_VS2 (it
     // stores the input result into a local) rather than the r242 "alt"
     // CALL_VN2, with the you-are-here CX/CY in vars 4/5 (the release layout)
@@ -330,8 +341,8 @@ std::vector<EntryPoint> zorkzero_entrypoints = {
     // standalone V-MAP-LOOP routine claimed first by the "V-MAP-LOOP" row
     // above; find_entrypoints() skips the rows of a routine already claimed,
     // which keeps this global match from shadowing it. So this row only ever
-    // wins on the inline-map betas, which match neither of the rows above.
-    // global_search because, like the betas' other map routines, its position
+    // wins on those revisions, which match neither of the rows above.
+    // global_search because, like their other map routines, its position
     // relative to its neighbours varies.
     {
         Game::ZorkZero,
@@ -346,16 +357,15 @@ std::vector<EntryPoint> zorkzero_entrypoints = {
     },
 
     // MAP-X (and the near-identical MAP-Y right after it, derived in the
-    // handler) sit at ~0x16xxx-0x17xxx, but in the pre-release revisions the
+    // handler) sit at ~0x16xxx-0x17xxx, but in some early revisions the
     // CENTER-n credit routines -- which precede this row in the table -- live
-    // *after* the status block (r296: ~0x1d779), so the forward cursor
-    // overshoots MAP-X and it was never found (no resize map-coordinate
-    // recompute -> the marker stayed at its stale entry scale). Both patterns
-    // are globally unique (only the two adjacent MAP-X/MAP-Y routines match,
-    // no false hits), so scan the whole story. Same overshoot fix as
-    // INIT-STATUS-LINE/SET-BORDER below; a release uses the non-alt JE branch
-    // (4c), the r242/r296/r66 betas the alt one (4e da). Only one pattern
-    // matches per revision.
+    // *after* the status block (r296: ~0x1d779), so the forward cursor would
+    // overshoot MAP-X (no resize map-coordinate recompute -> the marker stays
+    // at its stale entry scale). Both patterns are globally unique (only the
+    // two adjacent MAP-X/MAP-Y routines match, no false hits), so scan the
+    // whole story, as INIT-STATUS-LINE/SET-BORDER below do. A release uses the
+    // non-alt JE branch (4c), r242/r296/r66 the alt one (4e da). Only one
+    // pattern matches per revision.
     {
         Game::ZorkZero,
         "MAP-X",
@@ -396,7 +406,7 @@ std::vector<EntryPoint> zorkzero_entrypoints = {
         0,
         true,
         INIT_STATUS_LINE,
-        // global_search: the pre-release revisions move the CENTER-n credit
+        // global_search: some early revisions move the CENTER-n credit
         // routines *after* the status-line block in memory (r296 has them at
         // ~0x1d71d, past INIT-STATUS-LINE at 0x1cca0), but they come earlier
         // in this table and so advance the forward cursor past
@@ -435,15 +445,14 @@ std::vector<EntryPoint> zorkzero_entrypoints = {
         Game::ZorkZero,
         "DRAW-NEW-COMP",
         // Anchor on the first compass-element CALL_VN (...,#3f,#09,#11), which
-        // is stable across revisions, instead of the routine head. The old
-        // head pattern { 0d 69 00 f9 15 .. .. 3f 09 11 } hardcoded
-        // COMPASS-CHANGED's global (G59) and assumed the STORE was immediately
-        // followed by the CALL_VN loop; r343/r366 number COMPASS-CHANGED
-        // differently and insert an extra CALL_2N before the loop, so it
-        // matched only r383..r393. The handler back-scans from here to the
-        // routine head (needed for pack_routine, and to avoid the broken
-        // PICINF_TBL/DRAW-COMPASS-ROSE fallback in z0_update_status_line on
-        // those releases).
+        // is stable across revisions, instead of the routine head
+        // { 0d 69 00 f9 15 .. .. 3f 09 11 }, which only fits r383..r393: it
+        // has COMPASS-CHANGED's global (G59) and the STORE right before the
+        // CALL_VN loop, while r343/r366 number COMPASS-CHANGED differently and
+        // insert an extra CALL_2N before the loop. The handler back-scans from
+        // here to the routine head (needed for pack_routine, and to avoid the
+        // broken PICINF_TBL/DRAW-COMPASS-ROSE fallback in
+        // z0_update_status_line on those releases).
         { 0xf9, 0x15, WILDCARD, WILDCARD, 0x3f, 0x09, 0x11 },
         0,
         0,
@@ -463,8 +472,8 @@ std::vector<EntryPoint> zorkzero_entrypoints = {
 
     {
         Game::ZorkZero,
-        // The 2-locals variant of UPDATE-STATUS-LINE, used by the pre-release
-        // revisions r242 and r296 (the releases/r343/r66 use the 3-locals
+        // The 2-locals variant of UPDATE-STATUS-LINE, used by r242 and r296
+        // (the releases/r343/r66 use the 3-locals
         // pattern above, where the real routine is a low-address 3-locals
         // one). In r242 the routine sits at 0x1c3b4 and in r296 at 0x1cdc4 --
         // *before* SET-BORDER/DRAW-NEW-COMP, which are earlier in this table
@@ -489,15 +498,14 @@ std::vector<EntryPoint> zorkzero_entrypoints = {
         Game::ZorkZero,
         "DRAW-COMPASS-ROSE",
         // Head shape: [N locals] CALL_VS SHOW-DIRECTION?(HERE, .DIR) -> ...;
-        // JZ ... The old pattern hardcoded SHOW-DIRECTION?'s packed address
-        // (35 6f) and the HERE-global slot, so it only matched the r242 beta.
-        // Wildcard the packed callee (bytes 2-3) and the HERE global (byte 4):
-        // { e0 29 .. .. .. 01 00 00 a0 } is globally unique in EVERY revision
-        // and resolves the real DRAW-COMPASS-ROSE (r242 0x1c5f0, r296 0x1d088,
-        // and the releases too -- harmless there since z0_UPDATE_STATUS_LINE
-        // prefers DRAW-NEW-COMP and never reads the DRAW-COMPASS-ROSE
-        // fallback). global_search because the forward cursor overshoots it in
-        // r296.
+        // JZ ... SHOW-DIRECTION?'s packed address (35 6f in r242) and the
+        // HERE-global slot vary, so wildcard the packed callee (bytes 2-3) and
+        // the HERE global (byte 4): { e0 29 .. .. .. 01 00 00 a0 } is globally
+        // unique in EVERY revision and resolves the real DRAW-COMPASS-ROSE
+        // (r242 0x1c5f0, r296 0x1d088, and the releases too -- harmless there
+        // since z0_UPDATE_STATUS_LINE prefers DRAW-NEW-COMP and never reads
+        // the DRAW-COMPASS-ROSE fallback). global_search because the forward
+        // cursor overshoots it in r296.
         { 0xe0, 0x29, WILDCARD, WILDCARD, WILDCARD, 0x01, 0x00, 0x00, 0xa0 },
         -1,
         0,
@@ -562,8 +570,8 @@ std::vector<EntryPoint> zorkzero_entrypoints = {
     {
         Game::ZorkZero,
         "SETUP-PBOZ",
-        // Bytes 6-7 were 0x01, 0x59, the object number of NOT-HERE-OBJECT in
-        // r343 and later; it is 0x1fa in r66.
+        // Wildcard: bytes 6-7 are the object number of NOT-HERE-OBJECT, 0x159
+        // in r343 and later and 0x1fa in r66.
         { 0x0d, 0x01, 0x02, 0xcb, 0x1f, WILDCARD, WILDCARD, 0x07 },
         0,
         0,
@@ -599,7 +607,7 @@ std::vector<EntryPoint> zorkzero_entrypoints = {
     {
         Game::ZorkZero,
         "DRAW-PEGS",
-        // Bytes 6-7 were 0x01, 0x59 (NOT-HERE-OBJECT); see SETUP-PBOZ.
+        // Wildcard: bytes 6-7 are NOT-HERE-OBJECT; see SETUP-PBOZ.
         { 0x0d, 0x01, 0x01, 0xca, 0x2f, WILDCARD, WILDCARD, 0x01, 0xe3 },
         -1,
         0,
@@ -621,8 +629,8 @@ std::vector<EntryPoint> zorkzero_entrypoints = {
     {
         Game::ZorkZero,
         "PBOZ-WIN-CHECK",
-        // Last byte was 0xcf, the branch offset of JE CNT,#16, which is 0xd3
-        // in the revisions that count the pegs in PEG-TABLE (r242, r296).
+        // Wildcard: the last byte is the branch offset of JE CNT,#16, 0xcf or
+        // 0xd3 in the revisions that count the pegs in PEG-TABLE (r242, r296).
         { 0x0d, 0x01, 0x01, 0xa0, WILDCARD, 0x40, 0x41, 0x01, 0x16, WILDCARD },
         0,
         0,
@@ -666,14 +674,13 @@ std::vector<EntryPoint> zorkzero_entrypoints = {
         Game::ZorkZero,
         "FANUCCI",
         // The short signature (CALL_2N <PICINF-PLUS-ONE> ,F-MENU-LOC ; LOADW)
-        // is not unique: in r343 and the r366 demo the same bytes occur
-        // several times before the real routine, so a first-match search
-        // landed mid-code (corrupting it via stub_original and putting the
-        // global search >300 bytes off target). Extend through the routine's
-        // distinctive prologue -- two LOADWs from the F-MENU table (column
-        // #01 then #00) followed by STORE PTR,#00 -- which is unique in every
-        // revision that has this routine, and resolves to the very same
-        // address as before in r383..r393.
+        // is not unique: in r343 and r366 the same bytes occur several times
+        // before the real routine, so a first-match search would land mid-code
+        // (corrupting it via stub_original and putting the global search >300
+        // bytes off target). Extend through the routine's distinctive prologue
+        // -- two LOADWs from the F-MENU table (column #01 then #00) followed
+        // by STORE PTR,#00 -- which is unique in every revision that has this
+        // routine.
         { 0xda, 0x4f, WILDCARD, 0x01, 0x80,
           0xcf, 0x1f, WILDCARD, WILDCARD, 0x01, 0x01,
           0xcf, 0x1f, WILDCARD, WILDCARD, 0x00, 0x02,
@@ -753,13 +760,11 @@ std::vector<EntryPoint> zorkzero_entrypoints = {
     {
         Game::ZorkZero,
         "TOWER-MODE",
-        // Was { 0xa0, 0xe1, 0x80, 0x70 }, which hardcoded TOWER-CHANGED's
-        // global number (Gd1) and a branch offset, so it only matched
-        // r392/r393. The routine always opens JZ <TOWER-CHANGED> [TRUE] ; JZ
-        // L04 [FALSE] ; CALL_1S TOWER-WIN-CHECK -- anchor on that shape so it
-        // resolves to the routine's first instruction across revisions (same
-        // address in r392/r393; also fixes r343/r366/r383/r387, where
-        // TOWER-CHANGED is Gca..Gd0). The TOWER_CHANGED extraction below reads
+        // The routine always opens JZ <TOWER-CHANGED> [TRUE] ; JZ L04 [FALSE] ;
+        // CALL_1S TOWER-WIN-CHECK -- anchor on that shape so it resolves to the
+        // routine's first instruction across revisions. TOWER-CHANGED's global
+        // number and the branch offset vary: Gd1 in r392/r393, Gca..Gd0 in
+        // r343/r366/r383/r387. The TOWER_CHANGED extraction below reads
         // it from there.
         { 0xa0, WILDCARD, WILDCARD, WILDCARD, 0xa0, 0x05, 0x00, WILDCARD, 0x88 },
         0,
@@ -847,13 +852,12 @@ std::vector<EntryPoint> zorkzero_entrypoints = {
         Game::ZorkZero,
         "SETUP-SN",
         { 0xeb, 0x7f, 0x07, WILDCARD, 0x05, 0x57, 0x49, 0x01, 0x01},
-        // Was offset 43 (the routine's final RTRUE in r383..r393), but r343's
-        // SETUP-SN is 41 bytes and ends in RET_POPPED, so +43 overshot onto
-        // the next routine's header and the dispatch never fired. Stub at
-        // offset 0 instead: SETUP_SN() already does the full setup via
-        // draw_snarfem() (which is reused on every redraw), so the original
-        // routine is redundant. Revision-independent; resolves to the
-        // routine's first instruction in every revision.
+        // Stub at offset 0: SETUP_SN() does the full setup via draw_snarfem()
+        // (which is reused on every redraw), so the original routine is
+        // redundant. The routine's end is no use as an anchor: offset 43 is the
+        // final RTRUE in r383..r393, but r343's SETUP-SN is 41 bytes and ends
+        // in RET_POPPED, so +43 would land on the next routine's header.
+        // Offset 0 is the routine's first instruction in every revision.
         0,
         0,
         true,
@@ -884,8 +888,8 @@ std::vector<EntryPoint> zorkzero_entrypoints = {
     {
         Game::ZorkZero,
         "DRAW-PILE",
-        // 6th byte was 0x73, the high byte of PILE_TABLE's address (#73f9 in
-        // r383..r393); r343 has it at #726d, so wildcard the table address.
+        // Wildcard: the address of PILE_TABLE, which differs per revision
+        // (#73f9 in r383..r393, #726d in r343).
         { 0xeb, 0x7f, 0x01, 0xcf, 0x2f, WILDCARD, WILDCARD, 0x01, 0x02 },
         0,
         0,
@@ -896,9 +900,8 @@ std::vector<EntryPoint> zorkzero_entrypoints = {
     {
         Game::ZorkZero,
         "DRAW-FLOWERS",
-        // 11th byte was 0x73, again the high byte of PILE_TABLE (#726d in
-        // r343); wildcard it so the CALL_2S ... ,PILE_TABLE matches across
-        // revisions.
+        // Wildcard the high byte of PILE_TABLE (0x73 in r383..r393, 0x72 in
+        // r343) so the CALL_2S ... ,PILE_TABLE matches across revisions.
         { 0x0d, 0x01, 0x01, 0x0d, 0x02, 0x01, 0xd9, 0x0f, WILDCARD, WILDCARD, WILDCARD, WILDCARD, 0x00, 0xa0 },
         0,
         0,
@@ -909,8 +912,8 @@ std::vector<EntryPoint> zorkzero_entrypoints = {
     {
         Game::ZorkZero,
         "SNARFEM",
-        // Last byte was 0x75, the low byte of the JZ L02 branch offset, which
-        // differs per revision (0x35 in r343); wildcard it.
+        // Wildcard: the last byte is the low byte of the JZ L02 branch offset,
+        // which differs per revision (for example 0x75, or 0x35 in r343).
         { 0xa0, 0x04, 0x41, 0xa0, 0x03, 0x81, WILDCARD },
         0,
         0,
@@ -921,10 +924,9 @@ std::vector<EntryPoint> zorkzero_entrypoints = {
     {
         Game::ZorkZero,
         "SN-CLICK",
-        // 9th byte was 0x6e, the high byte of the picinf table in PICTURE_DATA
-        // #01bd,<table> (#6e3b in r383..r393); r343 uses #6cdb, so wildcard
-        // the table address. The picture number (#01bd) is stable across
-        // revisions.
+        // Wildcard the address of the picinf table in PICTURE_DATA
+        // #01bd,<table> (#6e3b in r383..r393, #6cdb in r343). The picture
+        // number (#01bd) is stable across revisions.
         { 0x0d, 0x08, 0x01, 0xbe, 0x06, 0x0f, 0x01, 0xbd, WILDCARD, WILDCARD, 0xc2 },
         0,
         0,
@@ -1000,7 +1002,7 @@ static uint32_t find_zork0_v_map_head(uint32_t blink_call, uint32_t max_distance
 // The Double Fanucci replacement (SETUP_FANUCCI / FANUCCI) plays the game
 // through the story's own PLAY-SELECTED, J-PLAY and SCORE-CHECK routines and
 // reads its card and play-name tables. If any of those could not be located
-// (as in the r242 beta), restore the stubbed-out originals and leave the
+// (as in r242), restore the stubbed-out originals and leave the
 // game to the Z-code.
 void unhook_incomplete_fanucci(void) {
     if (zr.PLAY_SELECTED != 0 && zr.J_PLAY != 0 && zr.SCORE_CHECK != 0 &&
@@ -1038,8 +1040,8 @@ static void z0_find_draw_new_comp(EntryPoint &entrypoint, int &start) {
         }
     }
     // Validate that the candidate is a real routine header: a V6
-    // routine begins with a locals-count byte (0..15). In the early
-    // betas (r242) the compass loop lives *inside* UPDATE-STATUS-LINE
+    // routine begins with a locals-count byte (0..15). In r242 the
+    // compass loop lives *inside* UPDATE-STATUS-LINE
     // (routine 0x1c3b4) rather than in a dedicated DRAW-NEW-COMP, so
     // the back-scan can't reach the routine head (it's ~500 bytes
     // back) and instead latches onto a mid-routine STORE; the byte it
@@ -1146,7 +1148,7 @@ static void z0_find_status_line_globals(EntryPoint &entrypoint, int &start) {
 
         int32_t score_start = find_globals_in_pattern({ 0xef, 0xaf, 0x02, WILDCARD, 0xe6, 0xbf, WILDCARD, 0x61, WILDCARD }, { &zg.MOVES, &zg.MOVES, &zg.SCORE }, start, 300);
         if (score_start == -1) {
-            // r66 (pre-release) builds the score/moves line with the Y
+            // r66 builds the score/moves line with the Y
             // coordinate in a different local, so SET_CURSOR encodes as
             // ef af 03 .. instead of ef af 02 .., and the P_REGION
             // anchor that seeds `start` above doesn't match either. The
@@ -1162,13 +1164,12 @@ static void z0_find_status_line_globals(EntryPoint &entrypoint, int &start) {
 
         // BORDER-ON gates the entire border + compass draw (border_on
         // in zorkzero.cpp), so it must be located independently of
-        // SCORE. The pre-release r66 layout doesn't match the
-        // MOVES/SCORE idiom above; nesting the BORDER-ON search under
-        // SCORE's success therefore left zg.BORDER_ON == 0, so border_on
-        // read global 0, came out false, and r66 drew no pillars or
-        // compass at all. r66's BORDER-ON read (a0 af 45 f1 7f 00) does
-        // match the pattern -- it was just never searched for. When
-        // SCORE was found keep the original forward scan from there;
+        // SCORE. The r66 layout doesn't match the MOVES/SCORE idiom
+        // above; if the BORDER-ON search depended on SCORE's success,
+        // zg.BORDER_ON would stay 0, so border_on would read global 0,
+        // come out false, and r66 would draw no pillars or compass at
+        // all. r66's BORDER-ON read (a0 af 45 f1 7f 00) does match the
+        // pattern. When SCORE was found scan forward from there;
         // otherwise scan the whole UPDATE-STATUS-LINE routine.
         if (score_start != -1) {
             start = find_globals_in_pattern({ 0xa0, WILDCARD, 0x45, 0xf1, 0x7f, 0x00 }, { &zg.BORDER_ON }, score_start, 200);
@@ -1181,7 +1182,7 @@ static void z0_find_status_line_globals(EntryPoint &entrypoint, int &start) {
             fprintf(stderr, "zg.BORDER_ON = 0x%x\n", zg.BORDER_ON);
         }
 
-        // The pre-release revisions special-case the status-line room
+        // Some early revisions special-case the status-line room
         // names *inline* in UPDATE-STATUS-LINE (the releases use a
         // separate DRAW-NEW-HERE routine, wired up in its own handler;
         // its pattern doesn't match here). After the room-name
@@ -1274,7 +1275,7 @@ static void z0_find_peggleboz_globals(EntryPoint &entrypoint, int &start) {
 static void z0_find_map_globals(EntryPoint &entrypoint, int &start) {
     // Record which local slots hold the you-are-here CX/CY in the frame
     // our V_MAP_LOOP hook runs in. On the releases V-MAP-LOOP is its own
-    // routine with CX in var 4 and CY in var 5. On the r242/r296 betas the
+    // routine with CX in var 4 and CY in var 5. On r242 the
     // loop is inlined into V-MAP (locals TBL MAP-NUM RM RM-ICON CX CY), so
     // CX is var 5 and CY is var 6 -- the "alt" BLINK-WHILE-AWAITING-INPUT
     // call we anchor on reads X from var 5, Y from var 6 (operand bytes
@@ -1285,7 +1286,7 @@ static void z0_find_map_globals(EntryPoint &entrypoint, int &start) {
         zr.MAP_CY_VAR = 6;
 
         // The "alt" anchor is the BLINK-WHILE-AWAITING-INPUT call inside
-        // the betas' monolithic V-MAP. Record it (to patch to rtrue) and
+        // r242's monolithic V-MAP. Record it (to patch to rtrue) and
         // scan back for V-MAP's start so z0_redraw_map() can re-invoke the
         // game's own map drawing on resize/autorestore. V-MAP opens with
         // "<n locals> JZ DEBUG[..] GET_CHILD ROOMS -> L2 [..]", i.e.
@@ -1317,10 +1318,10 @@ static void z0_find_map_globals(EntryPoint &entrypoint, int &start) {
         zr.MAP_CX_VAR = 4;
         zr.MAP_CY_VAR = 5;
 
-        // The release-style revisions (BLINK-TBL present) redraw the map
-        // on resize via V-$REFRESH and never use zr.V_MAP, but the
-        // beta-style r343 (frame-local marker, BLINK-TBL absent) also
-        // matches this row and DOES need z0_redraw_map(), so resolve
+        // The releases (BLINK-TBL present) redraw the map on resize via
+        // V-$REFRESH and never use zr.V_MAP, but r343 (frame-local marker,
+        // BLINK-TBL absent) also matches this row and DOES need
+        // z0_redraw_map(), so resolve
         // zr.V_MAP/V_MAP_BLINK_CALL here too. Back up from the anchor to
         // the CALL_VS2 blink call (ec 26 9f .. .. 00 cc 05 04 07 06) that
         // precedes it within ~0x20 bytes, then scan back for V-MAP's head.
@@ -1359,12 +1360,12 @@ static void z0_find_map_globals(EntryPoint &entrypoint, int &start) {
 
 // PEG_MOVE_NUMBER fallback. The DISPLAY-MOVES entrypoint anchors on an
 // OUTPUT_STREAM hook used by the scrollable move-list in r383..r393, which
-// does not exist in earlier revisions (r343, r366), so PEG_MOVE_NUMBER was
-// left unresolved (== 0) there -- and SETUP_PBOZ() would then write global 0.
+// does not exist in earlier revisions (r343, r366), so PEG_MOVE_NUMBER stays
+// unresolved (== 0) there -- and SETUP_PBOZ() would then write global 0.
 // The routine's move-coordinate math (SET_FONT #04; MOD/DIV/ADD ...) is
 // identical across revisions and sits a fixed 24 bytes after the
 // ED 7F 00 / A0 <PEG-MOVE-NUMBER> 54 prologue, so anchor on it and read the
-// global out of the prologue. r383..r393 already found it via the hook, so
+// global out of the prologue. r383..r393 find it via the hook, so
 // this only runs on the revisions that need it.
 static void z0_find_peg_move_number_fallback(void) {
     if (zg.PEG_MOVE_NUMBER == 0) {
@@ -1381,16 +1382,16 @@ static void z0_find_peg_move_number_fallback(void) {
 // FG-COLOR/BG-COLOR fallback for revisions with no detectable V-COLOR
 // routine (r66/r296/r343). Without it fg_global_idx/bg_global_idx stay 0,
 // so z0_update_colors() reads/writes global 0 and z0_update_after_autorestore
-// restores garbage colours (the reported r343 "cyan on yellow on reopen").
+// restores garbage colours (on r343, cyan on yellow on reopen).
 // The COLOR command's "<fg> text on a <bg> background" confirmation loads
 // both colour-name strings from one table indexed by FG-COLOR then BG-COLOR:
 //   cf 2f <tbl-hi> <tbl-lo> <FG> 00  ...  cf 2f <tbl-hi> <tbl-lo> <BG> 00
 // The first such pair (same table, two *distinct global* indices) pins both
 // globals directly. Verified against the recurring SET_COLOUR <FG>,<BG> in
 // r66/r296/r343 (and it reproduces the V-COLOR-derived values on r366..r393,
-// though those already detect them so this never runs there). The r242 betas
-// have no such message and only yield fg==bg, which the distinct-index guard
-// rejects, leaving them as before.
+// though those already detect them so this never runs there). r242 has no
+// such message and only yields fg==bg, which the distinct-index guard
+// rejects, so the indices stay 0 there.
 static void z0_find_color_globals_fallback(void) {
     if (fg_global_idx == 0) {
         int32_t p = header.static_start;
@@ -1557,16 +1558,14 @@ void find_zork0_globals(void) {
             // r296/r343 (which lack it) it false-matches an unrelated
             // variable-swap idiom whose store targets are *locals/stack* (e.g.
             // r343 0x14423: STORE L00,Gaa / STORE Gaa,G43). Accepting that
-            // wrote garbage into
+            // would write garbage into
             // fg_global_idx/bg_global_idx/DEFAULT_FG/DEFAULT_BG and -- since
-            // DEFAULT_COLORS() is a live hook, not a stub -- corrupted two
+            // DEFAULT_COLORS() is a live hook, not a stub -- corrupt two
             // globals every time the swap routine ran. Validate that all four
             // captured operands are real globals (a local/stack operand
             // decodes to an index >= 0xf0); if not, treat the routine as
             // absent so the hook never registers and the colour guards in
-            // z0_update_colors() keep DEFAULT_FG/DEFAULT_BG at 0. (Pre-fix
-            // this was masked because the cursor-poisoning bug skipped
-            // DEFAULT-COLORS entirely in r343.)
+            // z0_update_colors() keep DEFAULT_FG/DEFAULT_BG at 0.
             uint8_t t_fg = 0, t_dfg = 0, t_bg = 0, t_dbg = 0;
             start = find_globals_in_pattern({ 0x2d, WILDCARD, WILDCARD, 0x2d, WILDCARD, WILDCARD }, { &t_fg, &t_dfg, &t_bg, &t_dbg }, entrypoint.found_at_address, 30);
             if (start != -1 && t_fg < 0xf0 && t_dfg < 0xf0 && t_bg < 0xf0 && t_dbg < 0xf0) {
@@ -1588,7 +1587,7 @@ void find_zork0_globals(void) {
             }
 
             // CURRENT-SPLIT fallback. The V_REFRESH-anchored patterns above
-            // don't match the middle releases (r296/r343/r366), leaving
+            // don't match r296/r343/r366, leaving
             // zg.CURRENT_SPLIT == 0; z0_init_status_line then reads global 0,
             // fails its TEXT-WINDOW/F-SPLIT checks and returns *before*
             // drawing the border -- so no pillars, and the compass has no
@@ -1719,18 +1718,19 @@ void find_zork0_globals(void) {
         } else if (entrypoint.fn == DRAW_COMPASS_ROSE && entrypoint.found_at_address != 0) {
             // zr.DRAW_COMPASS_ROSE + zt.PICINF_TBL drive the *fallback*
             // compass path in z0_UPDATE_STATUS_LINE, used only by the
-            // pre-release revisions (r242/r296) that lack a standalone
-            // DRAW-NEW-COMP. The releases (incl. r343/r66) drive the compass
-            // through DRAW-NEW-COMP (zr.DRAW_NEW_COMP != 0) and never read
-            // this fallback; their DRAW-COMPASS-ROSE also reads SL-LOC-TBL
-            // rather than PICINF-TBL, so the sub-search wouldn't find a table
-            // anyway. The DRAW-NEW-COMP row precedes this one in the table (so
+            // revisions that lack a standalone DRAW-NEW-COMP (r242, r296, r66).
+            // r343 and later drive the compass through DRAW-NEW-COMP
+            // (zr.DRAW_NEW_COMP != 0) and never read this fallback; their
+            // DRAW-COMPASS-ROSE also reads SL-LOC-TBL rather than PICINF-TBL,
+            // so the sub-search wouldn't find a table anyway. The
+            // DRAW-NEW-COMP row precedes this one in the table (so
             // zr.DRAW_NEW_COMP is already resolved here), so skip the fallback
             // wiring when it's set. From r343 on the game records which
             // directions are drawn as flags on ROOMS, and DRAW-COMPASS-ROSE
             // opens by testing one: TEST_ATTR ROOMS <local>. The object number
             // is taken from there (ROOMS is not the same object in every
-            // release). The betas keep no such flags, and zo.ROOMS stays 0.
+            // release). Earlier revisions keep no such flags, and zo.ROOMS
+            // stays 0.
             int32_t test_attr = find_pattern_in_mem({ 0xca, 0x2f, WILDCARD, WILDCARD }, entrypoint.found_at_address, 64);
             if (test_attr != -1) {
                 zo.ROOMS = word(test_attr + 2);

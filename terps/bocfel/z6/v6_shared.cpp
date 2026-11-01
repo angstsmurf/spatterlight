@@ -1,7 +1,7 @@
 // v6_shared.cpp
 //
 // Shared UI functionality for all Infocom Z-machine version 6 games
-// (Zork Zero, Shogun, Arthur).
+// (Zork Zero, Shogun, Arthur, Journey).
 //
 // This file contains code used by two or more of the V6 games:
 //
@@ -11,7 +11,7 @@
 // - Number printing: Outputs integers to Glk windows character by character.
 // - Z-string to C-string conversion: Decodes Z-machine encoded strings
 //   into plain C strings for use with Glk and VoiceOver accessibility.
-// - Credits display and color management after V-COLOR.
+// - Credits display and colour management after V-COLOR.
 // - Autosave support: stashing and recovering the graphics windows, and
 //   rebuilding the window colours from the game's globals.
 // - MenuString, the bounded string builder behind the VoiceOver menus.
@@ -27,7 +27,6 @@
 
 #include "draw_image.hpp"
 #include "memory.h"
-#include "objects.h"
 #include "process.h"
 #include "screen.h"
 #include "stack.h"
@@ -84,7 +83,7 @@ void clear_margin_image_list(void) {
 
 // Recreates all tracked margin images at the current graphics resolution.
 // Called when the graphics type changes (e.g., switching from Amiga to VGA).
-void refresh_margin_images(void) {
+static void refresh_margin_images(void) {
     for (int i = 0; i < number_of_margin_images; i++) {
         recreate_image(margin_images[i], false);
     }
@@ -282,8 +281,6 @@ void transcribe_and_print_string(const char *str) {
     }
 }
 
-// Puts the game's normal screen back after the definitions or hints screen
-// has taken it over. (Arthur does this by itself.)
 void v6_redraw_game_screen(void) {
     if (is_spatterlight_zork0) {
         z0_update_on_resize();
@@ -298,14 +295,9 @@ void v6_redraw_game_screen(void) {
 // Z-machine entry point: called before credits text is printed.
 // Ensures output goes to the main text buffer window.
 //
-// Shogun prints its credits inline, bracketed by HLIGHT BOLD / HLIGHT
-// NORMAL; those @set_text_style operands are rewritten to bold+fixed /
-// bold+italic+fixed during entrypoint resolution so the text routes
-// through the centered styles style_User1 / style_Note. Zork Zero prints
-// its credits via the CENTER-1/2/3 routines instead, which are
-// reimplemented directly (see CENTER_1/2/3 in zorkzero.cpp) to print
-// each line through style_User1, so nothing release-specific is needed
-// here for it.
+// The credits get their centered styles elsewhere: see V-CREDITS in
+// entrypoints_shogun.cpp for Shogun, and CENTER_1/2/3 in zorkzero.cpp for Zork
+// Zero, so nothing release-specific is needed here.
 void V_CREDITS(void) {
     glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
 }
@@ -326,9 +318,9 @@ void after_V_CREDITS(void) {
 }
 
 // Z-machine entry point: called after the game's V-COLOR routine changes
-// colors. Updates all windows to use the new foreground and background
-// colors, including Glk style hints, window backgrounds, and z-colors.
-// Handles the special case where colors are set to "default" (1) after
+// colours. Updates all windows to use the new foreground and background
+// colours, including Glk style hints, window backgrounds, and z-colors.
+// Handles the special case where colours are set to "default" (1) after
 // a restore. Also updates monochrome palette and triggers a game-specific
 // screen refresh.
 void after_V_COLOR(void) {

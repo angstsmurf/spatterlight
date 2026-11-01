@@ -5,10 +5,11 @@
 //  Created by Administrator on 2026-04-02.
 //
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstdio>
+#include <cstring>
 
+#include "memory_allocation.hpp"
 #include "v6_image.h"
 
 size_t image_buffer_size(int width, int height, int bytes_per_pixel)

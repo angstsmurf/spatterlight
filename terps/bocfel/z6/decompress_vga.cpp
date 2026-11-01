@@ -15,8 +15,8 @@
 //  interpreter sources (graphics.asm) does. The names of the three special
 //  codes below are Infocom's (Clr_Token, Eof_Token, FF_Token).
 
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 
 #include "decompress_vga.hpp"
 

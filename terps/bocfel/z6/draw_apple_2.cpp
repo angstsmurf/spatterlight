@@ -1,6 +1,6 @@
 //
 //  draw_apple_2.cpp
-//  Apple 2 Infocom Woz extractor
+//  Apple II Infocom Woz extractor
 //
 //  Created by Administrator on 2023-07-14.
 //
@@ -8,10 +8,10 @@
 //  format uses a simple RLE scheme with vertical XOR delta encoding
 //  (each scanline is XOR'd against the one above). After decompression,
 //  the 4-bit palette indices are expanded to 32-bit RGBA pixels using
-//  an Apple II color palette approximating the AppleWin emulator output.
+//  an Apple II colour palette approximating the AppleWin emulator output.
 
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 
 #include "draw_apple_2.h"
 
@@ -40,7 +40,7 @@ static const uint8_t apple2_palette[16][3] =
 // Decompresses Apple II image data from an ImageStruct.
 // This is the same decoding as ZDISPL in Infocom's Apple II interpreter
 // sources (pic.asm) does.
-// The format is: a 3-byte length of the data that follows, then color
+// The format is: a 3-byte length of the data that follows, then colour
 // bytes (0x0-0xF), each optionally followed by a repeat count. If the next
 // byte is <= 0x0F or we're at the end of data, the repeat count defaults to 1
 // (0x0F - 0x0E). Otherwise, the repeat count is (byte - 0x0E).
@@ -50,7 +50,7 @@ static const uint8_t apple2_palette[16][3] =
 // (XORing each line with the one above before run-length encoding turns
 // whatever repeats from line to line into runs of zeros. The Mac and Amiga
 // pictures are compressed the same way, see decompress_amiga.cpp.)
-// Only the low four bits of a color value are a palette index.
+// Only the low four bits of a colour value are a palette index.
 static uint8_t *decompress_apple2(ImageStruct *image) {
     if (image == nullptr || image->data == nullptr)
         return nullptr;
@@ -58,7 +58,7 @@ static uint8_t *decompress_apple2(ImageStruct *image) {
     // The length of the rest of the data, which load_image() in
     // extract_image_data.cpp has already used to set datasize.
     static const size_t kHeaderSize = 3;
-    // A byte above kColorMask after a color is a run length, stored with
+    // A byte above kColorMask after a colour is a run length, stored with
     // kRunLengthBias added.
     static const uint8_t kColorMask = 0x0f;
     static const uint8_t kRunLengthBias = 0x0e;

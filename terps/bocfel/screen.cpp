@@ -56,6 +56,7 @@ extern "C" {
 #include "random.h"
 #include "v6_specific.h"
 #include "v6_shared.hpp"
+#include "v6_windows.hpp"
 #include "mysterious_canvas.hpp"
 #include "v6_panels.hpp"
 

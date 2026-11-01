@@ -7,29 +7,22 @@
 
 #include "draw_image.hpp"
 #include "memory.h"
-#include "objects.h"
 #include "process.h"
 #include "screen.h"
 #include "stack.h"
 #include "unicode.h"
 #include "zterp.h"
-#include "options.h"
 #include "v6_specific.h"
 
-#include "arthur.hpp"
-#include "journey.hpp"
-#include "shogun.hpp"
-#include "zorkzero.hpp"
-
 #include "v6_shared.hpp"
+#include "v6_windows.hpp"
 
 // Window 2 (SOFT-WINDOW) is used as the definitions text grid
 #define DEFINITIONS_WINDOW windows[2]
 
 #pragma mark - Definitions Screen (DEFINE Command)
 
-// The Definitions screen lets players assign text macros to function keys.
-// Shared between Zork Zero and Shogun. The screen displays a centered
+// The screen displays a centered
 // "Function Keys" title, a list of editable key definitions, and built-in
 // commands (Save Definitions, Restore Definitions, Exit).
 
@@ -325,8 +318,6 @@ void V_DEFINE(void) {
 
     adjust_definitions_window();
 
-//    z0_erase_screen();
-
     winid_t gwin = DEFINITIONS_WINDOW.id;
 
     bool finished = false;
@@ -336,7 +327,6 @@ void V_DEFINE(void) {
         uint16_t chr = internal_read_char();
         switch (chr) {
             case ZSCII_CLICK_SINGLE:
-                // fallthrough
             case ZSCII_CLICK_DOUBLE:
                 glk_request_mouse_event(gwin);
                 clicked_line = word(header.extension_table + 4);
@@ -370,7 +360,7 @@ void V_DEFINE(void) {
                 if (!(chr == ZSCII_CLICK_DOUBLE && is_command_entry(fkey))) {
                     break;
                 }
-                // fallthrough
+                [[fallthrough]];
             case ZSCII_NEWLINE:
                 // if we are on a static command, run the associated routine
                 if (is_command_entry(fkey)) {
@@ -391,7 +381,7 @@ void V_DEFINE(void) {
                 // If we are not on a static command, we fall through
                 // and treat ZSCII_NEWLINE as ZSCII_DOWN.
 
-                // fallthrough
+                [[fallthrough]];
             case ZSCII_DOWN:
             case ZSCII_KEY2:
                 new_line++;
@@ -409,8 +399,7 @@ void V_DEFINE(void) {
             case ZSCII_KEY8:
                 new_line--;
                 if (new_line >= 0) {
-                    // Skip the blank line between definitions
-                    // and commands
+                    // Skip the blank line, as above
                     if (user_word(fkeys_table_addr + 4 + 4 * new_line) == 0)
                         new_line--;
                 } else {

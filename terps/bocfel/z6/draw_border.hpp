@@ -24,7 +24,7 @@ void extend_jungle_pillars(int top_cut, int total_height,
 void extend_mac_bw_castle_pillars(void);
 // Which flavor of border draw_border_common() is being asked to render.
 // The three variants differ in whether the top covering rectangle is
-// drawn and which color it uses.
+// drawn and which colour it uses.
 enum class BorderKind {
     Hint,             // hint screen border (Zork Zero, Shogun)
     ShogunGame,       // Shogun gameplay border (always covers the top bar)

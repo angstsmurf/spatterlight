@@ -1,4 +1,4 @@
-// Copyright 2010-2026 Chris Spiegel.
+// Copyright 2026 Petter Sjölund.
 //
 // This file is part of Bocfel.
 //
@@ -42,7 +42,7 @@ extern "C" {
 #include "v6_shared.hpp"
 #include "options.h"
 
-// All bitmaps here are stored as interleaved RGBA — four bytes per pixel
+// All bitmaps here are stored as interleaved RGBA: four bytes per pixel
 // (kBytesPerPixel, from v6_image.h).
 
 // A piece of the pixmap that has been copied out of it. Empty if the copy
@@ -267,7 +267,7 @@ void draw_arthur_side_images(winid_t winid) {
     flush_bitmap(winid);
 }
 
-// Constants for the Shogun and Zork 0 Mac B/W hint border pillar tiling.
+// Constants for the Shogun and Zork Zero Mac B/W hint border pillar tiling.
 // The hint border image is 298 lines tall. The top 55 lines are the
 // decorative header; below that is the repeatable pillar section,
 // ending with a 4-line foot shadow at the bottom.
@@ -313,7 +313,7 @@ void extend_pillars(int top_cut, int foot_height, int total_height,
     // Copy the foot
     Strip foot = copy_lines_from_bitmap(total_height - foot_height, foot_height);
 
-    // In hint_foot mode, the foot pixels are part of the tiled pillars and
+    // With bw_hint_foot set, the foot pixels are part of the tiled pillars and
     // tiling starts from total_height - overlap. Otherwise, erase the foot
     // first and start from below it.
     erase_lines_in_bitmap(total_height - foot_height, foot_height);
@@ -559,10 +559,10 @@ static int shogun_draw_right_strip(int left_strip, int right_strip, bool must_ex
     return lowest_drawn_line;
 }
 
-// Draws a rectangle of status-window color over the top of the border.
+// Draws a rectangle of status-window colour over the top of the border.
 // The raw border graphics have a decorative top bar that doesn't fit
 // the header text, so the original interpreters cover it with a solid
-// color rectangle. Which platforms need it depends on the BorderKind.
+// colour rectangle. Which platforms need it depends on the BorderKind.
 // `left_margin` is how far in from the screen edges the rectangle starts,
 // where it does not have to span the whole width.
 static void draw_covering_rectangle(BorderKind kind, int left_margin) {
@@ -590,7 +590,7 @@ static void draw_covering_rectangle(BorderKind kind, int left_margin) {
             switch (graphics_type) {
                 case kGraphicsTypeMacBW:
                     left_margin = 0;
-                    // Fallthrough
+                    [[fallthrough]];
                 case kGraphicsTypeCGA:
                     should_draw_covering_rectangle = true;
                     break;
@@ -666,16 +666,16 @@ static void draw_covering_rectangle(BorderKind kind, int left_margin) {
 // for tall screens, draws a covering rectangle at the top, and flushes.
 //
 // Parameters:
-//   border          – main border image number
-//   BL, BR          – left/right pillar image numbers (-1 if none)
-//   border_height   – height of the main border image (from get_image_size)
-//   border_top      – y-offset where pillars begin (non-Amiga/Mac:
+//   border          - main border image number
+//   BL, BR          - left/right pillar image numbers (-1 if none)
+//   border_height   - height of the main border image (from get_image_size)
+//   border_top      - y-offset where pillars begin (non-Amiga/Mac:
 //                     border_height, else 0)
-//   pillar_top      – y-offset to start copying from when extending
-//   left_margin     – left margin for covering rectangle (0 for hint borders)
-//   bottom_offset   – adjustment subtracted from lowest_drawn_line
+//   pillar_top      - y-offset to start copying from when extending
+//   left_margin     - left margin for covering rectangle (0 for hint borders)
+//   bottom_offset   - adjustment subtracted from lowest_drawn_line
 //                     (to make repeated pattern seamless)
-//   kind            – which variant we're drawing (hint / Shogun game /
+//   kind            - which variant we're drawing (hint / Shogun game /
 //                     Shogun start menu)
 void draw_border_common(int border, int BL, int BR,
                         int border_height, int border_top, int pillar_top,
@@ -708,7 +708,7 @@ void draw_border_common(int border, int BL, int BR,
         if (is_hint_border) {
             // Mac B/W hint borders have their own pillar tiling with a
             // transparent foot shadow; this handles full vertical extension,
-            // so we set desired_height = 0 to skip extend_shogun_border below.
+            // so we set desired_height = 0 to skip common_extend_border below.
             if (must_extend && graphics_type == kGraphicsTypeMacBW) {
                 desired_height = (desired_height / kBWHintStepHeight) * kBWHintStepHeight;
                 extend_pillars(kBWHintTopCut, kBWHintFootHeight, kBWHintTotalHeight,

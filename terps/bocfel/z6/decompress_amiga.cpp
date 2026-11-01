@@ -7,20 +7,20 @@
 //  Decompresses Infocom V6 Amiga/Mac image data using a Huffman-based
 //  run-length encoding scheme. Each pixel is encoded as a Huffman code
 //  in the bitstream, where leaf nodes >= 0x90 represent run lengths
-//  (repeat the current color N times) and leaf nodes < 0x10 represent
-//  a new color index (used once). After decoding, a vertical XOR pass
+//  (repeat the current colour N times) and leaf nodes < 0x10 represent
+//  a new colour index (used once). After decoding, a vertical XOR pass
 //  reconstructs the final image from delta-encoded scanlines.
 //
 //  Infocom's Mac interpreter sources (gfx.c) describe the compression as
 //  three steps: each line is XORed with the previous line, which turns
 //  whatever repeats from one line to the next into runs of zeros; the
-//  result is run-length encoded, with bytes 0-15 being colors and 16-127
+//  result is run-length encoded, with bytes 0-15 being colours and 16-127
 //  repeat counts with 15 added; and finally the run-length bytes are
 //  optionally Huffman-coded. Every picture in the released files is
 //  Huffman-coded, and that is the only kind this decoder reads.
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include "decompress_amiga.hpp"
 
 // This is similar to the image compression used by Magnetic Scrolls.
@@ -35,7 +35,7 @@ uint8_t *decompress_amiga(ImageStruct *image) {
     // has already used the first to set datasize.
     static const size_t kHeaderSize = 6;
     // A Huffman tree byte with kLeafFlag set is a leaf; its other bits are
-    // the value. Values up to kMaxColor are a color index, larger ones a run
+    // the value. Values up to kMaxColor are a colour index, larger ones a run
     // length stored with kMaxColor added.
     static const uint8_t kLeafFlag = 0x80;
     static const uint8_t kMaxColor = 0x0f;
@@ -82,8 +82,8 @@ uint8_t *decompress_amiga(ImageStruct *image) {
             }
 
             // The leaf value's low 7 bits encode either a run length or a
-            // color index. Values above kMaxColor mean "repeat the current
-            // color (value - kMaxColor) times". Other values set a new color
+            // colour index. Values above kMaxColor mean "repeat the current
+            // colour (value - kMaxColor) times". Other values set a new colour
             // index with an implicit repeat count of 1.
             uint8_t leaf_value = tree_node & ~kLeafFlag;
             if (leaf_value > kMaxColor) {

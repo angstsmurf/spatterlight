@@ -7,17 +7,16 @@
 //  Extracts image data from Infocom-format graphics files (used by V6
 //  Z-machine games like Zork Zero, Arthur, Shogun, and Journey) and from Blorb
 //  resource archives. The Infocom format stores images as compressed pixel
-//  data with per-image or shared Huffman trees and color palettes.
+//  data with per-image or shared Huffman trees and colour palettes.
 //
 //  Parts are inspired by Mark Howell's pix2gif utility
 
 
-#include <stdlib.h>
-#include <string.h>
+#include <cstdlib>
+#include <cstring>
 
 extern "C" {
 #include "glkimp.h"
-#include "gi_blorb.h"
 #include "byteorder.h"
 }
 
@@ -50,7 +49,7 @@ static const uint8_t kGlobalHuffmanFlag = 0x04;
 // Huffman decoding tree: 256 entries, one per possible byte value
 static const size_t kHuffmanTreeSize = 256;
 
-// Color palette: 256 entries × 2 bytes each
+// Colour palette: 256 entries × 2 bytes each
 static const size_t kColorPaletteSize = 512;
 
 // Per-image Huffman tree offsets in the directory are stored as half their
@@ -59,7 +58,7 @@ static const int kHuffmanOffsetScale = 2;
 
 // Directory entry flags, as Infocom's IBM (pic.h, LDF_*) and Amiga (gfx.c,
 // EF_*) interpreter sources have them:
-//   0x01  has a transparent color
+//   0x01  has a transparent colour
 //   0x02  the run-length data is Huffman-coded
 //   0x04  "picture was XORed on alternate lines"
 //   0x08  two-color picture
@@ -70,7 +69,7 @@ static const int kHuffmanOffsetScale = 2;
 // two-color, and 0x04, 0x10 and 0x20 are never set.
 static const uint16_t kTransparencyFlag = 0x01;
 
-// The transparent color index is stored in the upper bits of the flags,
+// The transparent colour index is stored in the upper bits of the flags,
 // shifted by 4 in compact entries or 12 in standard/extended entries.
 static const int kCompactTransparentColorShift = 4;
 static const int kExtendedTransparentColorShift = 12;
@@ -124,15 +123,15 @@ typedef struct InfocomImageFileHeader {
 
 // Per-image entry in the directory that follows the file header.
 // Each entry describes one image's dimensions, location, and optional
-// color map / Huffman tree within the graphics data.
+// colour map / Huffman tree within the graphics data.
 typedef struct ImageDirectoryEntry {
     uint16_t id;              // Image resource number used by the game
     uint16_t width;
     uint16_t height;
-    uint16_t flags;               // See kTransparencyFlag; upper bits encode transparent color index
+    uint16_t flags;               // See kTransparencyFlag; upper bits encode transparent colour index
     uint32_t pixel_data_offset;         // Byte offset of compressed pixel data within the file
     uint32_t next_entry_data_offset;    // Offset of the next image's data (used to compute this image's data length)
-    uint32_t color_map_offset;          // Byte offset of this image's color palette (0 if shared/absent)
+    uint32_t color_map_offset;          // Byte offset of this image's colour palette (0 if shared/absent)
     uint32_t huffman_tree_offset;       // Byte offset of this image's Huffman decoding tree (0 if using default)
 } ImageDirectoryEntry;
 
@@ -168,12 +167,11 @@ static uint32_t read_24_big_endian_bits(uint8_t **ptr)
 }
 
 // Shared Huffman decoding tree used by images that don't specify their own
-// tree. Populated from the data immediately following the image directory.
+// tree. Populated from the offset given in the file header.
 uint8_t default_huffman_tree[kHuffmanTreeSize];
 
 // Read the header at `ptr`, which the caller has checked holds at least
-// kFileHeaderSize bytes. PC-format files (VGA/EGA/CGA) store multi-byte
-// fields in the opposite byte order from Amiga/Mac files.
+// kFileHeaderSize bytes.
 static InfocomImageFileHeader read_file_header(uint8_t **ptr, bool needs_byte_swap)
 {
     auto read_word = [&]() {
@@ -197,9 +195,9 @@ static InfocomImageFileHeader read_file_header(uint8_t **ptr, bool needs_byte_sw
 // Read one directory entry of `entry_size` bytes. Entry size varies by
 // format version:
 //   8 bytes:  compact format (single-byte width/height/flags)
-//  12 bytes:  no color map; one unused trailing byte
-//  14 bytes:  standard format with color map offset
-//  16 bytes:  extended format with color map and per-image Huffman tree offset
+//  12 bytes:  no colour map; one unused trailing byte
+//  14 bytes:  standard format with colour map offset
+//  16 bytes:  extended format with colour map and per-image Huffman tree offset
 static ImageDirectoryEntry read_directory_entry(uint8_t **ptr, int entry_size, bool needs_byte_swap)
 {
     auto read_word = [&]() {
@@ -280,7 +278,7 @@ static uint32_t stored_data_length(GraphicsType type, const uint8_t *picture, ui
 }
 
 // Fill in `image` from its directory entry: metadata, a copy of the raw
-// pixel data, and the optional per-image Huffman tree and color palette.
+// pixel data, and the optional per-image Huffman tree and colour palette.
 // An image with no usable pixel data gets its metadata only.
 static void load_image(ImageStruct *image, const ImageDirectoryEntry &entry, int entry_size, GraphicsType type, const uint8_t *data, size_t datasize)
 {
@@ -310,10 +308,8 @@ static void load_image(ImageStruct *image, const ImageDirectoryEntry &entry, int
     image->data = (uint8_t *)MemAlloc(pixel_data_length);
     memcpy(image->data, data + entry.pixel_data_offset, pixel_data_length);
 
-    // Bit 0 of the flags indicates the image has a transparent color. The
-    // transparent color index is stored in the upper bits of the flags field,
-    // shifted by 4 bits in compact (8-byte) entries or 12 bits in larger
-    // entries.
+    // Bit 0 of the flags indicates the image has a transparent colour. See
+    // kCompactTransparentColorShift for where the index is.
     if (entry.flags & kTransparencyFlag) {
         image->transparency = 1;
         if (entry_size == kCompactEntrySize) {
@@ -324,7 +320,7 @@ static void load_image(ImageStruct *image, const ImageDirectoryEntry &entry, int
     }
 
     // Use the per-image Huffman tree if one is specified, otherwise fall back
-    // to the shared default tree read from after the directory.
+    // to the shared default tree.
     if (entry.huffman_tree_offset != 0 &&
         (size_t)entry.huffman_tree_offset + kHuffmanTreeSize <= datasize) {
         image->huffman_tree = (uint8_t *)MemAlloc(kHuffmanTreeSize);
@@ -333,7 +329,7 @@ static void load_image(ImageStruct *image, const ImageDirectoryEntry &entry, int
         image->huffman_tree = default_huffman_tree;
     }
 
-    // Copy the per-image color palette if present (512 bytes = 256 color
+    // Copy the per-image colour palette if present (512 bytes = 256 colour
     // entries x 2 bytes each)
     if (entry.color_map_offset != 0 &&
         (size_t)entry.color_map_offset + kColorPaletteSize <= datasize) {

@@ -5,6 +5,7 @@
 //  Created by Administrator on 2023-08-20.
 //
 
+#include <array>
 #include <cstdio>
 #include <string>
 
@@ -25,7 +26,20 @@ extern "C" {
 
 #include "spatterlight-autosave.h"
 
-std::array<std::string, kGraphicsFileCount> found_graphics_files;
+enum GraphicsFile {
+    kGraphicsFileCPic = 0,
+    kGraphicsFilePic = 1,
+    kGraphicsFileMG1 = 2,
+    kGraphicsFileEG1 = 3,
+    kGraphicsFileCG1 = 4,
+    kGraphicsFileBlorb = 5,
+    kGraphicsFileWoz = 6,
+    kGraphicsFileCount
+};
+
+// Path of each kind of graphics file found next to the game file, indexed by
+// GraphicsFile. Empty if there is no such file.
+static std::array<std::string, kGraphicsFileCount> found_graphics_files;
 
 static strid_t load_file(const std::string &file)
 {
@@ -330,10 +344,10 @@ static void load_best_graphics(void) {
 }
 
 // Main entry point for Z6 graphics loading. First searches for graphics files
-// named according the game file (e.g. journey-r83-s890706.blb if the game file
-// is journey-r83-s890706.z6), then looks for a "base" file name (journey.blb
-// for journey-r83-s890706.z6), and finally loads the best available format.
-// See load_best_graphics() above.
+// named according to the game file (e.g. journey-r83-s890706.blb if the game
+// file is journey-r83-s890706.z6), then looks for a "base" file name
+// (journey.blb for journey-r83-s890706.z6), and finally loads the best
+// available format. See load_best_graphics() above.
 void find_and_load_z6_graphics(void) {
     find_graphics_files(game_file);
     std::string file_name = game_file;

@@ -17,7 +17,7 @@
 #include "v6_shared.hpp"
 #include "v6_panels.hpp"
 
-// Windows 2–7 are normally redirected to the main window, but that
+// Windows 2-7 are normally redirected to the main window, but that
 // jumbles the output of games which really lay out their windows:
 // Moments Out of Time keeps a menu bar in a one-line window at the
 // bottom of the screen, and the V6Lib port of Adventure can show the
@@ -25,7 +25,7 @@
 // So a window which the game has both sized and moved, and which is
 // neither the window commands are read in nor covered by a window
 // placed later, becomes a panel: a Glk window of its own above or below
-// the main window. As Glk windows can’t overlap, the panels are laid
+// the main window. As Glk windows can't overlap, the panels are laid
 // out in horizontal bands, with panels that are side by side sharing
 // a band.
 static int v6_story_window = -1;
@@ -285,7 +285,7 @@ static void v6_apply_layout()
         return;
     }
 
-    // Glk can’t move windows around, so close all panels and open them
+    // Glk can't move windows around, so close all panels and open them
     // again in their new places.
     v6_close_panels();
 
@@ -322,7 +322,7 @@ void v6_touch_window(Window *win)
     }
 
     // Drawing in a window which is covered by a later one brings it
-    // back. Moments Out of Time doesn’t move its menu bar into place
+    // back. Moments Out of Time doesn't move its menu bar into place
     // again after undoing the command which turned it off.
     if (!is_v6_panel(win) && v6_window_covered(window)) {
         v6_geometry[window].stamp = ++v6_geometry_stamp;
@@ -357,7 +357,7 @@ void v6_layout_before_input(bool line_input)
 // geometry they were laid out from. Without it the panels would be
 // closed at the first input after an autorestore. Windows which are
 // redirected to the main window share its Glk window, so the tags
-// can’t tell which of them is the current or the main one either.
+// can't tell which of them is the current or the main one either.
 void v6_stash_layout(library_state_data *dat)
 {
     dat->v6_layout_valid = v6_is_generic();

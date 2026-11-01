@@ -20,7 +20,7 @@
 //    - A title screen displayed at game start
 //
 //  The game supports multiple graphics modes: Amiga, Macintosh (B/W and
-//  color), Apple II, CGA, and modern Blorb resources. Border layout and
+//  colour), Apple II, CGA, and modern Blorb resources. Border layout and
 //  image scaling vary significantly across these modes.
 //
 
@@ -34,6 +34,7 @@
 #include "zterp.h"
 #include "v6_specific.h"
 #include "v6_shared.hpp"
+#include "v6_windows.hpp"
 
 #include "shogun.hpp"
 
@@ -56,9 +57,8 @@ static int maze_offset_y = 0;
 static int maze_box_width = 0;
 static int maze_box_height = 0;
 
-// Global lookup tables mapping Z-machine global variable indices, routine
-// addresses, table addresses, menu identifiers, and object numbers to
-// symbolic names. Populated at startup by scanning the game's data.
+// Addresses and numbers from the story file (see the finders in
+// entrypoints_shogun.cpp).
 ShogunGlobals sg;
 ShogunRoutines sr;
 ShogunTables st;
@@ -100,7 +100,6 @@ static int shogun_status_height_for_scene(void) {
 
 // Scene constants used for special-case behaviour.
 constexpr int S_ERASMUS = 1; // Scene 1: aboard the Erasmus (affects border choice)
-constexpr int S_VOYAGE = 6; // Scene 6: the sea voyage
 
 // Z-machine object attribute bit numbers used in status line display.
 constexpr int SUPPORTERBIT = 0x08; // Object is a supporter (player is "on" it)
@@ -137,7 +136,7 @@ static void setup_text_and_status(int P) {
 
     if (graphics_type != kGraphicsTypeApple2) {
         v6_define_window(&V6_STATUS_WINDOW, shogun_banner_width_left, 1, gscreenw - shogun_banner_width_left * 2, status_height);
-    } else { // Apple 2
+    } else { // Apple II
         shogun_banner_width_left = 0;
         if (P == P_HINT_LOC) {
             get_image_size(P_HINT_BORDER, &X, &border_height);
@@ -429,7 +428,7 @@ static int quicksearch(uint16_t chr_to_find, char *typed_letters, int type_pos) 
 // centered horizontally, with the prompt message in the background window
 // to its left.
 static void update_menu(void) {
-    uint16_t cnt = user_word(current_menu); // first word of table is number of elements
+    uint16_t cnt = user_word(current_menu);
     uint16_t width = menu_width(current_menu) * gcellw + 2 * ggridmarginx;
     uint16_t height = cnt * gcellh + 2 * ggridmarginy;
     if (screenmode == MODE_SHOGUN_MENU && current_menu == sm.PART_MENU) {
@@ -479,7 +478,7 @@ static int menu_select(uint16_t menu, uint16_t selection) {
         selection = 1;
     current_menu = menu;
     current_menu_selection = selection;
-    uint16_t cnt = user_word(menu); // first word of table is number of elements
+    uint16_t cnt = user_word(menu);
     update_menu();
     SHOGUN_MENU_WINDOW.style.reset(STYLE_REVERSE);
 
@@ -680,7 +679,7 @@ void after_V_VERSION(void) {
 // Macintosh (Mac II) vs. a black-and-white original Mac. The original game
 // detects this by checking if the screen is exactly 640px wide. Here we
 // temporarily set the graphics background width to 640 so the Z-code's
-// check succeeds, allowing it to enable color. Used by V-COLOR and DO-COLOR.
+// check succeeds, allowing it to enable colour. Used by V-COLOR and DO-COLOR.
 void MAC_II(void) {
     V6_GRAPHICS_BG.x_size = 640;
 }
@@ -702,13 +701,13 @@ static void shogun_display_apple_ii_border(ShogunBorderType border, bool start_m
     int border_top = V6_STATUS_WINDOW.y_size / imagescaley + 1;
     int width, height;
 
-    // On Apple 2: P_BORDER is crests, P_BORDER2 is waves
+    // On Apple II: P_BORDER is crests, P_BORDER2 is waves
 
     get_image_size(border, &width, &height);
 
     a2_graphical_banner_height = (height + 1) * imagescaley;
     // Draw banner at bottom and top if we are at start menu screen
-    // and using Apple 2 graphics
+    // and using Apple II graphics
     if (start_menu_mode) {
         draw_to_pixmap_unscaled(border, 0, 0);
         draw_to_pixmap_unscaled(border, 0, gscreenh / imagescaley - height);
@@ -756,7 +755,7 @@ static void shogun_clear_covering_graphics_window(void) {
     if (current_graphics_buf_win == graphics_fg_glk)
         graphics_fg_glk = nullptr;
     // Suppress the redraw that would otherwise flash the new border in the
-    // wrong color while the old image is still on screen.
+    // wrong colour while the old image is still on screen.
     image_needs_redraw = false;
     glk_window_set_background_color(current_graphics_buf_win, user_selected_background);
     glk_window_clear(current_graphics_buf_win);
@@ -805,7 +804,7 @@ static void shogun_pillar_images_for(ShogunBorderType border, int16_t *BL, int16
 // Also handles the hint-mode border which has different pillar images.
 // Draws a status-bar-colored rectangle at the top. (The raw graphics have
 // a top bar that won't fit all the header text, so the original
-// interpreters also cover it with a solid color rectangle.)
+// interpreters also cover it with a solid colour rectangle.)
 void shogun_display_border(ShogunBorderType border) {
     const bool start_menu_mode = (get_global(sg.SCENE) == 0);
 
@@ -1137,7 +1136,7 @@ static int maze_mouse_f(void) {
     const int16_t abs_dx = (dx < 0) ? -dx : dx;
     const int16_t abs_dy = (dy < 0) ? -dy : dy;
 
-    // Click inside the player's own tile — ignore.
+    // Click inside the player's own tile: ignore.
     if (abs_dx <= BX / 2 && abs_dy <= BY / 2)
         return 0;
 
@@ -1249,7 +1248,7 @@ static void shogun_set_status_window_colors(void) {
 
 // Recalculates and applies the positions and sizes of the status and text
 // buffer windows. On Apple II, also adjusts the horizontal banner window.
-// Sets foreground/background colors from Z-machine globals.
+// Sets foreground/background colours from Z-machine globals.
 static void adjust_shogun_window(void) {
     V6_TEXT_BUFFER_WINDOW.x = 0;
     V6_TEXT_BUFFER_WINDOW.y = 0;
@@ -1319,7 +1318,7 @@ void shogun_draw_title_image(void) {
 
 // Tears down all auxiliary windows (menu, crest, Apple II border) in
 // preparation for a screen rebuild or game restart.
-void shogun_erase_screen(void) {
+static void shogun_erase_screen(void) {
     v6_delete_win(&SHOGUN_MENU_WINDOW);
     v6_delete_win(&SHOGUN_MENU_BG_WIN);
     v6_delete_win(&SHOGUN_CREST_WINDOW);
@@ -1436,7 +1435,7 @@ void shogun_recover_state(library_state_data *dat) {
 
 // Performs a full UI rebuild after a manual RESTORE command. Resets to
 // normal mode, redraws the border and status line, clears auxiliary
-// windows, re-applies colors, and re-describes the current room.
+// windows, re-applies colours, and re-describes the current room.
 void shogun_update_after_restore(void) {
     screenmode = MODE_NORMAL;
     if (sg.CURRENT_BORDER != 0)
@@ -1453,7 +1452,7 @@ void shogun_update_after_restore(void) {
 }
 
 // Performs a lighter UI rebuild after autorestore (app relaunch).
-// Re-applies colors to all windows, clears graphics, deletes the menu
+// Re-applies colours to all windows, clears graphics, deletes the menu
 // window, and triggers a window change event. If the slideshow was
 // active, re-opens the foreground graphics window.
 void shogun_update_after_autorestore(void) {

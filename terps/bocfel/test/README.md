@@ -155,6 +155,20 @@ thing the traces show is on record:
   `z0_right_status_window`) or by rock (`v6_grid_window_with_rock()`, for
   the opaque status window and the Fanucci command grid).
 
+Header rules from the November 2026 hygiene pass:
+
+- `screen.h` no longer includes `v6_image.h`, and `v6_shared.hpp` no longer
+  includes `v6_windows.hpp`, so a file using those names includes them itself.
+- Constants used by one file live in that file. `zorkzero_internal.hpp` holds
+  what `zorkzero.cpp` and `zorkzero_minigames.cpp` share.
+- The per-game headers are sectioned the same way: entrypoint table rows,
+  `V6GameHooks`, calls from other files, state other files read. `v6_shared.hpp`
+  is sectioned by the file that defines each name.
+- `make -f Makefile.headless check-headers` compiles every z6 header on its own
+  with both sets of flags. `v6_panels.hpp` and `v6_windows.hpp` are app-only.
+- `Makefile.headless` now tracks header dependencies, so a stale
+  `headless_v6_stubs.o` no longer needs deleting by hand.
+
 Declined in the October 2026 passes; do not propose again without new
 evidence: rewriting the pattern tables as an `op()` builder or replacing
 the dummy hook functions with ids (a typo in a byte pattern silently
@@ -185,3 +199,33 @@ already share one arm); moving the Woz hack, `pixversion`, `pack_routine` or
 `active_blorb_file_stream`; an `objects_internal.h`; a real `zwindow_style` in
 the headless build (it calls the app-only `v6_mark_layout_dirty()`); a name for
 the Arthur `-4` in `print_handler` (no reason is recorded).
+
+Declined in the November 2026 header pass: forward-declaring
+`library_state_data` in the game headers (`spatterlight-autosave.h` reach only
+falls from 22 to 20 of 51 files, as `v6_shared.hpp` needs the full definition);
+a shared wrapper header for the `extern "C"` Glk includes; forward-declaring
+`ImageStruct` in the decoder headers (every consumer needs the definition) and
+splitting the render state out of `v6_image.h`; moving `rgb_to_bytes` away from
+`bytes_to_rgb`; moving `ROSE_TAUPE` away from `HINT_MAUVE`; separate
+`v6_hints.hpp` and `v6_definitions.hpp` (sections do the job); moving `kOp*` and
+similar out of the already internal `entrypoints_internal.hpp`; renaming the
+two-letter address globals (`-Wshadow` finds no clash); own header first in
+every include list; `()` versus `(void)`; rewriting the Xcode "Created by"
+banners.
+
+November 2026 comment pass, for later ones:
+
+- Zork Zero revisions are named as in the table at the top of
+  `entrypoints_zorkzero.cpp`: "early revisions" are r242 to r343 (no BLINK-TBL),
+  "the releases" are r366 and later. The compass fallback is used on r242, r296
+  and r66; DRAW-NEW-COMP starts at r343.
+- Left as they are: ZIL tags and names from other programs' sources (`gfx.c`,
+  `pic.h`, `zip.equ`, `ms_extract1`, opcode names), which are provenance; "Step
+  1-4" labels and the `Z-machine entry point:` prefix; statements of what wasn't
+  checked (`entrypoints_arthur.cpp`, `arthur.cpp`); the long evidence comments,
+  which get reworded but not shortened; labels repeated across different files
+  ("lighter UI rebuild", "edge cases"), since each is accurate where it is.
+- `journey_update_after_restore()` no longer sets START-LOC's SEEN. Per the r83
+  ZIL, `GO` runs `INIT-SCREEN`, whose `QSET?` sets it, before any save or
+  `ISAVE`, and the title image also needs `MODE_INITIAL_QUESTION`, which a
+  restore leaves. Dev r142 has no such `QSET?`, but `jo.START_LOC` stays 0 there.

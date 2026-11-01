@@ -39,6 +39,7 @@
 #include "draw_image.hpp"
 #include "v6_specific.h"
 #include "v6_shared.hpp"
+#include "v6_windows.hpp"
 
 #include "journey.hpp"
 
@@ -82,9 +83,8 @@ constexpr int MAX_SUBMENU_ITEMS = 6;
 constexpr uint8_t kDeleteKey = 0x7f;
 
 
-// Global lookup tables mapping Z-machine global variable indices, routine
-// addresses, object numbers, and attribute/property numbers to symbolic names.
-// These are populated at startup by scanning the game's data tables.
+// Addresses and numbers from the story file (see the finders in
+// entrypoints_journey.cpp).
 JourneyGlobals jg;
 JourneyRoutines jr;
 JourneyObjects jo;
@@ -121,9 +121,11 @@ static float journey_image_scale = 1.0;
 static glui32 screen_width_in_chars, screen_height_in_chars;
 
 // Platform-dependent display flags derived from the interpreter number
-// setting. border_flag: Whether to draw a decorative border around the entire
-// screen (Amiga only). font_3_flag: Whether Font 3 (box-drawing) characters
-// are available (Amiga and Mac).
+// setting.
+//   global_border_flag: Whether to draw a decorative border around the entire
+//   screen (Amiga only).
+//   global_font_3_flag: Whether Font 3 (box-drawing) characters are available
+//   (Amiga and Mac).
 static bool global_border_flag, global_font_3_flag;
 
 // State for in-progress keyboard input (name entry or Elvish typing).
@@ -235,7 +237,7 @@ static void journey_draw_title_image(void) {
 
     // Resize and recolour all three windows, as they might be
     // visible behind each other when resizing.
-    // Window size also determines which window background color
+    // Window size also determines which window background colour
     // is copied to the border.
     win_setbgnd(JOURNEY_BG_GRID.id->peer, monochrome_black);
     JOURNEY_BG_GRID.x_size = gscreenw;
@@ -435,7 +437,7 @@ static void update_internal_globals(void) {
         // FWC-FLAG (fixed-width commands) tells whether to switch font when
         // printing in command window, i.e. whether there is a separate
         // proportional font used elsewhere. Always the same as FONT3-FLAG, and
-        // used interchangably in the original ZIL code.
+        // used interchangeably in the original ZIL code.
         set_global(jg.FWC_FLAG, global_font_3_flag ? 1 : 0);
 
         // Whether to have a border around the image. BLACK_PICTURE_BORDER is
@@ -445,8 +447,8 @@ static void update_internal_globals(void) {
 
     update_screen_size();
 
-    //  COMMAND_START_LINE is first line below divider: SCREEN_HEIGHT_in_chars
-    //  - 4 on non-Amiga, SCREEN_HEIGHT_in_chars - 5 on Amiga
+    // COMMAND_START_LINE is first line below divider: SCREEN_HEIGHT_in_chars
+    // - 4 on non-Amiga, SCREEN_HEIGHT_in_chars - 5 on Amiga
 
     int top_screen_line, command_start_line;
 
@@ -723,8 +725,8 @@ static void journey_create_vo_menu(JourneyMenuType type, bool is_second_noun) {
                 m->line = (i - 1) % 5;
                 if (type == kJMenuTypeMembers) {
                     m->column = 2;
-                    // Hack to add "shadow" menus to the previous submenu
-                    // instead of creating a new one.
+                    // Add "shadow" menus to the previous submenu instead of
+                    // creating a new one.
                     // This assumes that the shadow menu is always the last
                     // one.
                     if (internal_test_attr(object, ja.SHADOW) && menu_counter > 0) {
@@ -1034,8 +1036,6 @@ static void journey_print_character_commands(bool clear) {
 
         journey_erase_command_chars(line, position, namewidth - 1);
 
-        // global 0x80 is SUBGROUP-MODE
-        // attribute 0x2a is SUBGROUP flag
         if (character != 0 && !(get_global(jg.SUBGROUP_MODE) && !internal_test_attr(character, ja.SUBGROUP))) {
             int namelength = PRINT_DESC(character, false);
 
@@ -1064,12 +1064,12 @@ static void journey_print_character_commands(bool clear) {
             uint16_t verbs_table = word(get_global(jg.CHARACTER_INPUT_TBL) + i * 2);
 
             bool subgroup_mode = (get_global(jg.SUBGROUP_MODE) == 1);
-            bool subgroup_attribute = internal_test_attr(character, ja.SUBGROUP); // attribute 0x2a is SUBGROUP flag
+            bool subgroup_attribute = internal_test_attr(character, ja.SUBGROUP);
             // if the SHADOW_BIT attribute of a character is set, the character
             // name is hidden and its commands "belong" to the visible
             // character above. This is used to give Praxix more than three
             // commands in the mines.
-            bool shadow_attribute = internal_test_attr(character, ja.SHADOW); // attribute 0x17 is SHADOW flag
+            bool shadow_attribute = internal_test_attr(character, ja.SHADOW);
 
             bool should_print_command = true;
 
@@ -1096,9 +1096,9 @@ static void journey_print_character_commands(bool clear) {
         line++;
     }
 
-    if (get_global(jg.SMART_DEFAULT_FLAG) == 1) { // SMART-DEFAULT-FLAG
+    if (get_global(jg.SMART_DEFAULT_FLAG) == 1) {
         set_global(jg.SMART_DEFAULT_FLAG, 0);
-        call_routine(jr.SMART_DEFAULT); //    SMART_DEFAULT();
+        call_routine(jr.SMART_DEFAULT);
     }
 
     // Delete the Individual Commands menu when the columns to the right are
@@ -1321,7 +1321,6 @@ void PRINT_CHARACTER_COMMANDS(void) {
 // to Tag). Stores 1 in variable 1 on success, 0 on empty input.
 void READ_ELVISH(void) {
     journey_current_input = INPUT_ELVISH;
-    // actor (journey_read_elvish argument) is set to Tag by default
     store_variable(1, (journey_read_text_input(variable(1)) ? 1 : 0));
 }
 
@@ -1580,18 +1579,19 @@ static void journey_resize_graphics_and_buffer_windows(void) {
 static void journey_adjust_windows(bool restoring) {
     // Window 0: Text buffer (in later versions) Receives most keypresses.
     // Window 1: Fullscreen grid window
-    //(Window 2: Used in place of window 0 in earlier versions)
+    // (Window 2: Used in place of window 0 in earlier versions)
     // Window 3: Graphics window
 
-    // First (leftmost) column (x:1 or x:2) PARTY-COMMAND-COLUMN: party
-    // commands such as Proceed Second column: NAME-COLUMN: names of present
-    // party members and arrows Third column: CHR-COMMAND-COLUMN: first column
-    // of individual commands Fourth column: COMMAND-OBJECT-COLUMN: second
-    // column of individual commands, or first list of objects
-    // Fifth (rightmost) column has no corresponding global,
-    // but is just referred to as COMMAND-OBJECT-COLUMN + COMMAND-WIDTH. It
-    // will contain a second list of objects (such as targets in CAST GLOW ON)
-    // or a third column of individual commands
+    // First (leftmost) column (x:1 or x:2): PARTY-COMMAND-COLUMN: party
+    //   commands such as Proceed
+    // Second column: NAME-COLUMN: names of present party members and arrows
+    // Third column: CHR-COMMAND-COLUMN: first column of individual commands
+    // Fourth column: COMMAND-OBJECT-COLUMN: second column of individual
+    //   commands, or first list of objects
+    // Fifth (rightmost) column: has no corresponding global, but is just
+    //   referred to as COMMAND-OBJECT-COLUMN + COMMAND-WIDTH. It will contain
+    //   a second list of objects (such as targets in CAST GLOW ON) or a third
+    //   column of individual commands
 
     v6_define_window(&JOURNEY_BG_GRID, 1, 1, gscreenw, gscreenh);
 
@@ -1604,10 +1604,10 @@ static void journey_adjust_windows(bool restoring) {
     journey_refresh_character_command_area(screen_height_in_chars - 5 - global_border_flag);
 
     if (screenmode == MODE_NORMAL) {
-        set_global(jg.SMART_DEFAULT_FLAG, 0); // SMART-DEFAULT-FLAG
+        set_global(jg.SMART_DEFAULT_FLAG, 0);
 
         // Print party (the leftmost) column (call print columns with PARTY
-        // flag set
+        // flag set)
         journey_print_columns(true, false);
 
         if (journey_current_input != INPUT_PARTY) {
@@ -1755,8 +1755,10 @@ void REFRESH_SCREEN(void) {
 
 // Z-machine entry point for initial screen setup. On the first call (game
 // start or restart), displays the title image and waits for a keypress
-// before transitioning to the credits screen. On subsequent calls (e.g.
-// after UNDO), just redraws the screen borders.
+// before transitioning to the credits screen. On subsequent calls (from
+// REFRESH-SCREEN, after a restore or a redraw request), just redraws the
+// screen borders. Undo doesn't come here: it calls REFRESH-SCREEN with INIT?
+// false.
 void INIT_SCREEN(void) {
     // We check if START-LOC has the SEEN flag set
     // This will be false at the start of the game
@@ -1827,10 +1829,7 @@ void WCENTER(void) {
 // (just resize the text buffer), slideshow (redraw title image), or
 // normal gameplay (full layout rebuild via journey_adjust_windows).
 void journey_update_on_resize(void) {
-    // Window 0: Text buffer (in later versions)
-    // Window 1: Fullscreen grid window
-    //(Window 2: Used in place of window 0 in earlier versions)
-    // Window 3: Graphics window
+    // See journey_adjust_windows() for the windows.
 
     if (jg.INTERPRETER != 0)
         set_global(jg.INTERPRETER, options.int_number); // GLOBAL INTERPRETER
@@ -1900,11 +1899,6 @@ void journey_recover_state(library_state_data *dat) {
 // front-end menus, resets to normal mode, and redraws everything from scratch.
 void journey_update_after_restore(void) {
     win_menuitem(kJMenuTypeDeleteAll, 0, 0, false, nullptr, STRING_BUFFER_SIZE);
-    // Why is this needed? If set, we won't show title image in INIT_SCREEN(),
-    // but when does this cause problems?
-    if (jo.START_LOC != 0 && ja.SEEN != 0) {
-        internal_set_attr(jo.START_LOC, ja.SEEN);
-    }
     screenmode = MODE_NORMAL;
     journey_current_input = INPUT_PARTY;
     JOURNEY_BG_GRID.x = 0;

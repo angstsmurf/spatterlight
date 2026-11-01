@@ -68,7 +68,8 @@ BIN      := $(OBJDIR)/bocfel_hl
 CXXFLAGS := -std=c++17 -O2 -g -DHEADLESS_V6 \
             -I. -Iz6 -I../../glkimp -Ibocfel-spatterlight \
             -include headless_compat.h \
-            -Wall -Wno-unknown-pragmas -Wno-macro-redefined
+            -Wall -Wno-unknown-pragmas -Wno-macro-redefined \
+            -MMD -MP
 
 # Resolve z6/ sources by basename.
 vpath %.cpp z6
@@ -97,7 +98,25 @@ $(OBJDIR)/%.o: %.cpp headless_compat.h | $(OBJDIR)
 $(OBJDIR):
 	mkdir -p $(OBJDIR)
 
+-include $(OBJS:.o=.d)
+
+# Compile each z6 header on its own, with the flags of the app and of this
+# build. v6_panels.hpp and v6_windows.hpp only exist in the app.
+APP_CHECK := -std=c++17 -fsyntax-only -x c++ -Wno-everything \
+             -DZTERP_GLK -DGARGLK -DSPATTERLIGHT -DZTERP_GLK_BLORB \
+             -DZTERP_GLK_UNIX -DZTERP_ZOOM_OPCODES -DDEBUG=1 \
+             -I. -Iz6 -I../../glkimp -Ibocfel-spatterlight -I../common_utils
+Z6_HEADERS := $(wildcard z6/*.h z6/*.hpp)
+APP_ONLY_HEADERS := z6/v6_panels.hpp z6/v6_windows.hpp
+
+check-headers:
+	@set -e; for h in $(Z6_HEADERS); do $(CXX) $(APP_CHECK) $$h; done
+	@set -e; for h in $(filter-out $(APP_ONLY_HEADERS),$(Z6_HEADERS)); do \
+	    $(CXX) -std=c++17 -fsyntax-only -x c++ -Wno-everything -DHEADLESS_V6 \
+	    -I. -Iz6 -I../../glkimp -Ibocfel-spatterlight -include headless_compat.h $$h; done
+	@echo "z6 headers compile standalone"
+
 clean:
 	rm -rf $(OBJDIR)
 
-.PHONY: all clean
+.PHONY: all clean check-headers

@@ -7,9 +7,9 @@
 //  Bitmap compositing core for Infocom V6 graphics. Owns a single 32-bit
 //  RGBA "pixmap" sized to the original hardware screen, into which all
 //  image decoders write. Higher-level code calls draw_to_buffer /
-//  draw_to_pixmap_* / extend_*_pillars to build up a frame, then
-//  flush_bitmap() encodes the pixmap as a TIFF and hands it to the Glk
-//  graphics window.
+//  draw_to_pixmap_* (and extend_*_pillars in draw_border.cpp) to build up a
+//  frame, then flush_bitmap() encodes the pixmap as a TIFF and hands it to the
+//  Glk graphics window.
 //
 
 extern "C" {
@@ -27,16 +27,9 @@ extern "C" {
 #include "decompress_amiga.hpp"
 #include "decompress_vga.hpp"
 #include "writetiff.hpp"
-#include "memory.h"
 #include "screen.h"
-#include "util.h"
 #include "zterp.h"
 #include "draw_image.hpp"
-#include "arthur.hpp"
-#include "shogun.hpp"
-#include "v6_specific.h"
-#include "v6_shared.hpp"
-#include "options.h"
 
 // Loaded image table: parsed once at startup from the game's Blorb/image
 // resources. find_image() looks images up here by picture number.
@@ -48,14 +41,14 @@ int image_count;
 // stale pixels don't bleed through.
 bool image_needs_redraw = true;
 
-// Channel indices into an [R,G,B] color triplet.
+// Channel indices into an [R,G,B] colour triplet.
 enum PaletteColours {
     RED   = 0,
     GREEN = 1,
     BLUE  = 2
 };
 
-// The colormap data for the default EGA color palette was taken from
+// The colormap data for the default EGA colour palette was taken from
 // http://en.wikipedia.org/wiki/Enhanced_Graphics_Adapter. It is the same
 // as Mcga_palette in Infocom's IBM interpreter sources (data.c), scaled
 // from 6 to 8 bits per channel.
@@ -127,7 +120,7 @@ ImageStruct *find_image(int picnum) {
     return nullptr;
 }
 
-// All bitmaps in this file are stored as interleaved RGBA — four bytes
+// All bitmaps in this file are stored as interleaved RGBA: four bytes
 // per pixel (kBytesPerPixel, from v6_image.h).
 
 // Shared RGBA backing buffer all drawing routines composite into.
@@ -169,7 +162,7 @@ void Pixmap::erase_rows(int y, int count) {
 }
 
 // Effective foreground/background for monochrome (Mac B/W, CGA) artwork.
-// Default to pure black/white but may be overwritten with theme colors.
+// Default to pure black/white but may be overwritten with theme colours.
 int32_t monochrome_black = 0;
 int32_t monochrome_white = 0xffffff;
 
@@ -190,7 +183,7 @@ void ensure_pixmap(winid_t winid) {
 // Color-table layout shared by the legacy-platform decoders.
 //
 // Slots 0 and 1 are reserved as sentinels: index 0 means "transparent" and
-// index 1 is the border color (handled by the caller). Actual palette
+// index 1 is the border colour (handled by the caller). Actual palette
 // entries therefore begin at slot 2, which is why several code paths below
 // write to &color_table[kReservedPaletteSlots][...].
 //
@@ -204,7 +197,7 @@ static constexpr unsigned kMaxPaletteColors = kPaletteSize - kReservedPaletteSlo
 static constexpr int kBytesPerColor = 3;
 
 // Copy `image`'s 16-entry RGB palette into the module-shared global_palette
-// (defined in draw_png.cpp) so subsequent decoders can resolve color
+// (defined in draw_png.cpp) so subsequent decoders can resolve colour
 // indices. No-op if the image has no palette.
 //
 // Copying a fixed kPaletteSize*kBytesPerColor (48) bytes is safe because every
@@ -214,7 +207,7 @@ static constexpr int kBytesPerColor = 3;
 // entries the file has, and the legacy per-image path allocates
 // kColorPaletteSize (512). Keep that invariant if a new palette source is
 // added.
-void extract_palette(ImageStruct *image) {
+static void extract_palette(ImageStruct *image) {
     if (image && image->palette) {
         memcpy(global_palette, image->palette, kPaletteSize * kBytesPerColor);
     }
@@ -508,7 +501,7 @@ void draw_rectangle_on_bitmap(glui32 color, int dest_x, int dest_y, int rect_wid
 
 // Read back an opaque pixel from the global pixmap as 0xRRGGBB.
 // Returns false if (x, y) is out of bounds or the pixel is transparent,
-// in which case *color is left untouched.
+// in which case *colour is left untouched.
 bool sample_pixmap_pixel(int x, int y, glui32 *color) {
     if (color == nullptr)
         return false;
@@ -607,7 +600,7 @@ static void populate_color_table(ImageStruct *image, bool use_previous_palette,
 
     if (image->palette != nullptr && !use_previous_palette) {
         unsigned palette_color_count = image->palette[0];
-        // The Arthur palettes claim 16 colors, two more than there is room
+        // The Arthur palettes claim 16 colours, two more than there is room
         // for after the reserved slots. Infocom's Amiga interpreter clamps
         // the count in the same way (ReadGFXPalette in gfx.c).
         if (palette_color_count > kMaxPaletteColors)
@@ -660,7 +653,7 @@ uint8_t *expand_indexed(const uint8_t *indices, const ImageStruct *image, const 
 
 // Decode an indexed image for any of the legacy platforms (Amiga, Mac B/W,
 // CGA, EGA, VGA). Dispatches to decompress_vga or decompress_amiga, then
-// expands color indices to RGBA using populate_color_table(). Honors
+// expands colour indices to RGBA using populate_color_table(). Honors
 // image->transparency. Caller frees the returned buffer.
 static uint8_t *draw_amiga_mac_cga_ega_vga(ImageStruct *image, bool use_previous_palette) {
     if (image == nullptr || image->data == nullptr)

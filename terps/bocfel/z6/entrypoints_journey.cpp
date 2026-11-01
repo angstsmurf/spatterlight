@@ -5,10 +5,6 @@
 // Journey's rows of the entrypoint table and its globals finder. The table
 // format and the search helpers are in entrypoints_internal.hpp, the scan
 // that fills in the table in entrypoints.cpp.
-
-#include "screen.h"
-#include "dict.h"
-#include "v6_shared.hpp"
 #include "journey.hpp"
 
 #include "entrypoints.hpp"
@@ -351,20 +347,24 @@ void find_journey_globals(void) {
 
             jr.BOLD_PARTY_CURSOR = entrypoint.found_at_address - 1;
 
-            // Ugly hack to move entrypoint to end of routine
+            // Run the hook after the game has drawn the highlighted text: move
+            // it to the routine's final return, because that drawing is what
+            // can erase the column separators the hook puts back
+            // (redraw_vertical_lines_if_needed). jr.BOLD_PARTY_CURSOR above
+            // keeps the routine's head, for calling it.
             offset = find_pattern_in_mem({ kOpRet, 0x05 }, entrypoint.found_at_address, 200);
             if (offset != -1)
                 entrypoint.found_at_address = offset;
         } else if (entrypoint.fn == BOLD_CURSOR && entrypoint.found_at_address != 0) {
             jr.BOLD_CURSOR = entrypoint.found_at_address - 1;
-            // Ugly hack to move entrypoint to end of routine
+            // As for BOLD-PARTY-CURSOR above.
             uint32_t offset = find_pattern_in_mem({ kOpRet, 0x06 }, entrypoint.found_at_address, 200);
             if (offset != -1)
                 entrypoint.found_at_address = offset;
         } else if (entrypoint.fn == BOLD_OBJECT_CURSOR && entrypoint.found_at_address != 0) {
             jr.BOLD_OBJECT_CURSOR = entrypoint.found_at_address - 1;
 
-            // Ugly hack to move entrypoint to end of routine
+            // As for BOLD-PARTY-CURSOR above.
             uint32_t offset = find_pattern_in_mem({ kOpRetPopped }, entrypoint.found_at_address, 200);
             if (offset != -1)
                 entrypoint.found_at_address = offset;

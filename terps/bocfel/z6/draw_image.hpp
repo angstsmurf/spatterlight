@@ -10,7 +10,6 @@
 
 extern "C" {
 #include "glk.h"
-#include "glkimp.h"
 }
 
 #include <cstdint>
@@ -65,7 +64,6 @@ ImageStruct *find_image(int picnum);
 bool get_image_size(int picnum, int *width, int *height);
 void clear_image_buffer(void);
 void flush_bitmap(winid_t winid);
-void extract_palette(ImageStruct *image);
 void extract_palette_from_picnum(int picnum);
 ImageStruct *recreate_image(glui32 picnum, int flipped);
 void forget_sent_images(void);

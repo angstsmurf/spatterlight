@@ -7,6 +7,7 @@
 
 #include "screen.h"
 #include "spatterlight-autosave.h"
+#include "v6_specific.h"
 #include "zterp.h"
 
 // A V6 game which isn't one of Infocom's: it gets panels, held newlines and

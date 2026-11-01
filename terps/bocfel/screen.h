@@ -21,10 +21,6 @@ extern "C" {
 #include "types.h"
 #include "util.h"
 
-#ifdef SPATTERLIGHT
-#include "v6_image.h"
-#endif
-
 // Represents a Z-machine color.
 //
 // If mode is ANSI, value is a color in the range [1, 12], representing
@@ -196,7 +192,6 @@ enum : uint16_t {
 };
 
 void zwindow_style();
-extern GraphicsType graphics_type;
 
 extern winid_t current_graphics_buf_win;
 extern winid_t graphics_bg_glk;

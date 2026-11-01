@@ -5,13 +5,8 @@
 // Arthur's rows of the entrypoint table and its globals finder. The table
 // format and the search helpers are in entrypoints_internal.hpp, the scan
 // that fills in the table in entrypoints.cpp.
-
-#include "screen.h"
-#include "dict.h"
 #include "v6_shared.hpp"
 #include "arthur.hpp"
-
-#include "entrypoints.hpp"
 #include "entrypoints_internal.hpp"
 
 // Hook functions that only name a row (see entrypoints_internal.hpp)
@@ -229,7 +224,7 @@ static void patch_arthur_pauses(void) {
 }
 
 // Second-pass scanner for Arthur. Uses each already-located entrypoint
-// as an anchor to find nearby globals (color indices, window-type flags,
+// as an anchor to find nearby globals (colour indices, window-type flags,
 // timing values...), routine addresses, tables, and to apply small byte
 // patches that fix original-game bugs or hardcoded assumptions.
 void find_arthur_globals(void) {

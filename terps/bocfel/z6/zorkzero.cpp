@@ -18,13 +18,12 @@
 // - Encyclopedia Frobozzica: Fullscreen encyclopedia entries with images
 //   and a text overlay window.
 // - Rebus: A number of fullscreen images depicting a rebus decreasingly
-//   covered
-//   by animal-shaped jigsaw pieces.
+//   covered by animal-shaped jigsaw pieces.
 // - Map: A fullscreen map with a blinking player-location indicator.
 //
-// The game supports multiple graphics platforms (Amiga, Mac B/W, Mac color,
+// The game supports multiple graphics platforms (Amiga, Mac B/W, Mac colour,
 // Apple II, CGA, EGA, VGA, Blorb) with platform-specific border styles,
-// color schemes, and layout adjustments.
+// colour schemes, and layout adjustments.
 //
 // Border types vary by location: castle, outside, underground, and hints,
 // each with optional side pillars for non-Amiga/Mac platforms.
@@ -45,15 +44,78 @@
 #include "unicode.h"
 #include "v6_specific.h"
 #include "v6_shared.hpp"
+#include "v6_windows.hpp"
 #include "zterp.h"
 
 #include "entrypoints.hpp"
 #include "draw_image.hpp"
 #include "draw_border.hpp"
-#include "shogun.hpp"
 
 #include "zorkzero.hpp"
 #include "zorkzero_internal.hpp"
+
+constexpr int zorkzero_title_image = 1;
+// Illuminated initials drawn in the margin at the start of the prologue, the
+// main game and the epilogue.
+constexpr int zorkzero_prologue_letter = 2;
+constexpr int zorkzero_main_letter = 3;
+constexpr int zorkzero_epilogue_letter = 4;
+
+constexpr int zorkzero_encyclopedia_border = 25;
+
+constexpr int zorkzero_map_border = 163;
+
+constexpr int zorkzero_encyclopedia_picture_location = 378;
+constexpr int zorkzero_encyclopedia_text_location = 379;
+constexpr int zorkzero_encyclopedia_text_size = 380;
+
+constexpr int HERE_LOC = 382;
+constexpr int COMPASS_PIC_LOC = 381;
+
+// The remaining "location" marker pictures whose (scaled) dimensions seed the
+// status/compass position table (SL-LOC-TBL). See z0_refresh_sl_loc_tbl().
+constexpr int REGION_LOC = 383; // 0x17f
+constexpr int U_BOX_LOC = 482; // 0x1e2 (compass up arrow)
+constexpr int D_BOX_LOC = 483; // 0x1e3 (compass down arrow)
+
+constexpr int CASTLE_BORDER_L = 0x1f1;
+constexpr int CASTLE_BORDER_R = 0x1f2;
+
+constexpr int UNDERGROUND_BORDER_L = 0x1f3;
+constexpr int UNDERGROUND_BORDER_R = 0x1f4;
+
+constexpr int OUTSIDE_BORDER_L = 0x1f5;
+constexpr int OUTSIDE_BORDER_R = 0x1f6;
+
+constexpr int N_HIGHLIGHTED = 0x09;
+constexpr int NE_HIGHLIGHTED = 0x0a;
+constexpr int E_HIGHLIGHTED = 0x0b;
+constexpr int SE_HIGHLIGHTED = 0x0c;
+constexpr int S_HIGHLIGHTED = 0x0d;
+constexpr int SW_HIGHLIGHTED = 0x0e;
+constexpr int W_HIGHLIGHTED = 0x0f;
+constexpr int NW_HIGHLIGHTED = 0x10;
+
+constexpr int N_UNHIGHLIGHTED = 0x11;
+constexpr int NE_UNHIGHLIGHTED = 0x12;
+constexpr int E_UNHIGHLIGHTED = 0x13;
+constexpr int SE_UNHIGHLIGHTED = 0x14;
+constexpr int S_UNHIGHLIGHTED = 0x15;
+constexpr int SW_UNHIGHLIGHTED = 0x16;
+constexpr int W_UNHIGHLIGHTED = 0x17;
+constexpr int NW_UNHIGHLIGHTED = 0x18;
+
+// The twelve direction properties, <DIRECTIONS NORTH NE EAST SE SOUTH SW
+// WEST NW UP DOWN IN OUT>, are numbered downwards from 63.
+constexpr int LOW_DIRECTION = 0x34; // P?OUT
+constexpr int P_NW = 0x38;
+constexpr int P_WEST = 0x39;
+constexpr int P_SW = 0x3a;
+constexpr int P_SOUTH = 0x3b;
+constexpr int P_SE = 0x3c;
+constexpr int P_EAST = 0x3d;
+constexpr int P_NE = 0x3e;
+constexpr int P_NORTH = 0x3f;
 
 // Window 1 (S-WINDOW) is used as the left status text grid
 #define z0_left_status_window V6_STATUS_WINDOW.id
@@ -70,21 +132,21 @@ static bool shown_rebus_hint_message = false;
 static bool should_show_rebus_hint_message = false;
 static bool should_show_map_note = false;
 
-// Image scale (x and y) in effect when the map was last composited. The
-// pre-release revisions (r242/r296/r66, r366 demo) don't recomposite the map
-// on resize, so the live-redrawn
-// you-are-here marker is drawn at this scale to stay aligned with the rest of
-// the (GUI-rescaled) map. 0 means "no map drawn yet".
+// Image scale (x and y) in effect when the map was last composited. On the
+// early revisions (no BLINK-TBL) z0_redraw_map() recomposites the map on
+// resize and updates these. If it could not (V-MAP not located, which no known
+// revision does), the GUI rescales the old image, and the live-redrawn
+// you-are-here marker is drawn at this scale to stay aligned with it. 0 means
+// "no map drawn yet".
 static float map_entry_imagescalex = 0;
 static float map_entry_imagescaley = 0;
 
 // Tracks how many times z0_update_colors has been called (used to detect
-// first call for initial color setup)
+// first call for initial colour setup)
 static int number_of_update_color_calls = 0;
 
-// Lookup tables for Z-machine globals, routines, tables, objects, and
-// properties specific to Zork Zero. Populated during game initialization
-// by scanning the game file for known identifiers.
+// Addresses and numbers from the story file (see the finders in
+// entrypoints_zorkzero.cpp).
 ZorkGlobals zg;
 ZorkRoutines zr;
 ZorkTables zt;
@@ -116,7 +178,7 @@ static bool is_zorkzero_peggleboz_image(int pic) {
 // Pictures that take over the entire foreground graphics window: the title
 // screen, the encyclopedia border frame, the map border, and rebus puzzles.
 // Rebus images only qualify when we're transitioning into the slideshow
-// from normal gameplay — once already in slideshow, they're a no-op
+// from normal gameplay; once already in slideshow, they're a no-op
 // redraw, not a mode change.
 static bool is_zorkzero_fullscreen_picture(int pic) {
     return pic == zorkzero_title_image
@@ -588,7 +650,7 @@ static bool z0_init_status_line(bool DONT_CLEAR) {
         }
         // If neither the CURRENT-BORDER global nor a detected SET-BORDER
         // routine is available (the release-tuned patterns don't match the
-        // pre-release r296/r66 layouts), skip the border draw rather than
+        // r296/r66 layouts), skip the border draw rather than
         // calling pack_routine(0) into a garbage routine.
         // The game records which compass directions are currently drawn as
         // flags on ROOMS, flag 64 - <direction property>. Forget them all,
@@ -754,7 +816,7 @@ constexpr int Z0_HINT_TOP_HEIGHT = 33;
 // 4 in-game border types), this also handles vertical border extension for
 // tall screens, platform-specific pillar placement, and a covering rectangle
 // at the top (The raw graphics have a top bar that won't fit all the header
-// text, so the original interpreters cover it with a solid color rectangle.)
+// text, so the original interpreters cover it with a solid colour rectangle.)
 void z0_display_hint_border(void) {
     clear_image_buffer();
     ensure_pixmap(current_graphics_buf_win);
@@ -767,7 +829,7 @@ void z0_display_hint_border(void) {
     // (it does not load the image's own palette), so load it here. Shogun
     // does the equivalent in shogun_display_border. Without this the hint
     // border is drawn with a stale palette in the per-image-palette
-    // formats (Amiga and Mac color), giving the wrong colors.
+    // formats (Amiga and Mac colour), giving the wrong colours.
     extract_palette_from_picnum(HINT_BORDER);
 
     int border_top = 0;
@@ -800,7 +862,7 @@ void z0_UPDATE_STATUS_LINE(void) {
     uint16_t HERE = get_global(zg.HERE);
     uint16_t REGION = internal_get_prop(HERE, zp.P_REGION);
 
-    // if interpreter is IBM and color flag is unset
+    // if interpreter is IBM and colour flag is unset
     // or border is off
     // set reverse video
 
@@ -831,21 +893,19 @@ void z0_UPDATE_STATUS_LINE(void) {
         // never re-derive them on a normal turn, so after the intro->game
         // transition -- or any scale change that didn't go through an arrange
         // event -- the table is left at a stale scale and the compass rose is
-        // both drawn and hit-tested in the wrong place (the reported r383
-        // west->south / dead-arrow bug). Refreshing here makes draw and
+        // both drawn and hit-tested in the wrong place (on r383, west reads
+        // as south and some arrows are dead). Refreshing here makes draw and
         // hit-test always agree at the live scale. Harmless on the later
         // releases, whose SETUP-SCREEN already refills the table.
         z0_refresh_sl_loc_tbl();
         if (zr.DRAW_NEW_COMP != 0) {
             call_routine(zr.DRAW_NEW_COMP);
         } else if (zr.DRAW_COMPASS_ROSE != 0 && zt.PICINF_TBL != 0) {
-            // Legacy fallback for the early releases (r242/beta) that have
-            // DRAW-COMPASS-ROSE + PICINF-TBL but no DRAW-NEW-COMP. Guard on
-            // both being detected: on the middle releases (r296/r343/r366)
-            // none of the three is found, and running this unguarded wrote
-            // to PICINF_TBL==0 (corrupting the header at address 0) and
-            // called pack_routine(0) eight times -- which blanked the whole
-            // bordered status line (no pillars, no compass).
+            // Fallback for r242, r296 and r66, which have DRAW-COMPASS-ROSE +
+            // PICINF-TBL but no DRAW-NEW-COMP. Guard on both being detected:
+            // without them this would write to PICINF_TBL==0 (corrupting the
+            // header at address 0) and call pack_routine(0) eight times, which
+            // blanks the whole bordered status line (no pillars, no compass).
             int width, height;
             get_image_size(COMPASS_PIC_LOC, &width, &height);
 
@@ -883,20 +943,17 @@ void z0_UPDATE_STATUS_LINE(void) {
 
 #pragma mark - Update Colors
 
-// Configures foreground and background colors based on the current interpreter
-// type and graphics mode. Each platform has different default colors:
-//   Amiga: black on grey    IBM EGA/VGA: black on white
-//   IBM CGA: white on black   Mac: black on white   Apple II: white on black
-// Also handles color availability constraints when switching platforms,
+// Configures foreground and background colours based on the current interpreter
+// type and graphics mode. Each platform has different default colours (on a
+// real CGA monitor, "white" may be green or orange):
+//   Amiga: black on grey
+//   IBM EGA/VGA: black on white
+//   IBM CGA: white on black
+//   Macintosh: black on white
+//   Apple II: white on black
+// Also handles colour availability constraints when switching platforms,
 // and updates Glk style hints for all text window types.
 void z0_update_colors(void) {
-    // Every system has its own default colors:
-    // Amiga: black text on grey
-    // IBM: EGA & VGA: black text on white. CGA: white text on black (on a real
-    // CGA monitor, "white" may be green or orange) Macintosh: Black text on
-    // white
-    // Apple 2: White text on black
-
     // Count calls so the first-call default-colour reset below fires once.
     number_of_update_color_calls++;
 
@@ -951,8 +1008,8 @@ void z0_update_colors(void) {
     // UPDATE-STATUS-LINE), and the manual-restore path
     // (z0_update_after_restore) is a caller with no game DEFAULT-COLORS call
     // afterwards -- pushing the platform values (Amiga: BLACK on LIGHTGREY)
-    // into the globals there turned the left status window black-on-grey at
-    // the first border change after a restore. The computed
+    // into the globals there would turn the left status window black-on-grey
+    // at the first border change after a restore. The computed
     // default_fg/default_bg are still applied to the current colours below,
     // so the screen still gets the right defaults.
     //
@@ -964,10 +1021,10 @@ void z0_update_colors(void) {
     if (zg.DEFAULT_BG != 0)
         set_global(zg.DEFAULT_BG, DEFAULT_COLOUR);
 
-    if (graphics_type == kGraphicsTypeApple2) { // Only default colors are allowed with Apple 2 graphics
+    if (graphics_type == kGraphicsTypeApple2) { // Only default colours are allowed with Apple II graphics
         current_fg = WHITE_COLOUR;
         current_bg = BLACK_COLOUR;
-    } else {     // If machine is changed, the currently selected colors may not be available on the new machine. If so, reset them to default.
+    } else {     // If machine is changed, the currently selected colours may not be available on the new machine. If so, reset them to default.
         if (options.int_number != INTERP_AMIGA) {
             if (current_fg == LIGHTGREY_COLOUR || current_fg == DARKGREY_COLOUR || current_bg == LIGHTGREY_COLOUR || current_bg == DARKGREY_COLOUR) {
                 current_fg = default_fg;
@@ -987,7 +1044,7 @@ void z0_update_colors(void) {
     bool colorized_bw = (gli_z6_colorize &&
                          (gli_z6_graphics == kGraphicsTypeCGA || gli_z6_graphics == kGraphicsTypeMacBW));
 
-    // When gli_enable_styles is true, all Spatterlight color settings (gfgcol,
+    // When gli_enable_styles is true, all Spatterlight colour settings (gfgcol,
     // gbgcol) are ignored
 
     if (gli_enable_styles && !colorized_bw) {
@@ -1015,9 +1072,9 @@ void z0_update_colors(void) {
 
 #pragma mark - Encyclopedia Frobozzica
 
-// Returns the background color for the encyclopedia text overlay window.
-// Amiga and VGA use a parchment-tan color; Blorb uses a slightly lighter
-// variant; Apple 2 uses black ; monochrome platforms use white.
+// Returns the background colour for the encyclopedia text overlay window.
+// Amiga and VGA use a parchment-tan colour; Blorb uses a slightly lighter
+// variant; Apple II uses black ; monochrome platforms use white.
 static glsi32 encyclopedia_background_color(void) {
     switch (graphics_type) {
         case kGraphicsTypeAmiga:
@@ -1032,8 +1089,8 @@ static glsi32 encyclopedia_background_color(void) {
     }
 }
 
-// Returns the foreground (text) color for the encyclopedia text window,
-// contrasting with encyclopedia_background_color(). Apple 2 has a fixed black
+// Returns the foreground (text) colour for the encyclopedia text window,
+// contrasting with encyclopedia_background_color(). Apple II has a fixed black
 // background so its text is white; the parchment modes use fixed black text.
 // Only the monochrome (CGA/MacBW) fallback pairs with the monochrome_white
 // background, so it uses monochrome_black -- the matching dark colour, which
@@ -1055,7 +1112,7 @@ static glsi32 encyclopedia_foreground_color(void) {
 
 // Positions and sizes window 3 (text buffer) to overlay the encyclopedia
 // border's text area, using image metadata for placement. Sets the
-// background to the parchment color.
+// background to the parchment colour.
 static void adjust_encyclopedia_text_window(void) {
     int width, height, x, y;
 
@@ -1073,14 +1130,14 @@ static void adjust_encyclopedia_text_window(void) {
     // pushes the window's fg_color/bg_color as the active zcolor, and
     // Spatterlight's coloredAttributes then overrides each glyph cell's
     // colours with those concrete values -- which would repaint the background
-    // instead of the parchment and, in Apple 2 mode, leave black text on the
+    // instead of the parchment and, in Apple II mode, leave black text on the
     // black background. The game keeps re-setting windows[3]'s colours up to
     // the moment it prints, so resetting them here doesn't stick; instead
     // set_window_style() is taught to push zcolor_Default for this window (see
     // screen.cpp), which leaves the hints below in charge. Because the colours
     // come from the hints, not a baked-in per-run zcolor, win_refresh
     // re-applies them to the already-printed text too -- so a graphics-type
-    // change on the fly (e.g. Apple 2 -> EGA) recolours the existing text.
+    // change on the fly (e.g. Apple II -> EGA) recolours the existing text.
     // V_REFRESH restores the normal hints when the screen is dismissed.
     glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_TextColor, encycl_fgnd);
     glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_BackColor, encycl_bgnd);
@@ -1119,17 +1176,17 @@ void SLIDE_SHOW_END(void) {
 // image buffer and restarts the timer to trigger the next blink cycle.
 void update_blink_coordinates(uint16_t x, uint16_t y) {
     // The release blink mechanism -- a timer-driven BLINK routine that reads
-    // the marker coordinates from BLINK-TBL -- is absent in the pre-release
-    // revisions (r242/r296/r66, r366 demo).
-    // They blink the marker via an INPUT timeout + TYPED? flag and have no
-    // BLINK-TBL, so zg.BLINK_TBL is 0. Writing to get_global(0) + offset there
-    // scribbles over arbitrary memory, which knocks the map loop out of its
-    // read and drops back to normal play -- both on a live resize and on
-    // autorestore (screenmode == MODE_MAP is restored, so both reach here via
-    // the MODE_MAP path). The betas also drive their own input timer, so we
-    // must not commandeer it. Only touch BLINK-TBL and the timer when the
-    // release mechanism is actually present; the store_variable() updates
-    // below target the BLINK frame's Y/X locals and are correct either way.
+    // the marker coordinates from BLINK-TBL -- is absent in the early
+    // revisions. They blink the marker via an INPUT timeout + TYPED? flag and
+    // have no BLINK-TBL, so zg.BLINK_TBL is 0. Writing to get_global(0) +
+    // offset there scribbles over arbitrary memory, which knocks the map loop
+    // out of its read and drops back to normal play -- both on a live resize
+    // and on autorestore (screenmode == MODE_MAP is restored, so both reach
+    // here via the MODE_MAP path). These revisions also drive their own input
+    // timer, so we must not commandeer it. Only touch BLINK-TBL and the timer
+    // when the release mechanism is actually present; the store_variable()
+    // updates below target the BLINK frame's Y/X locals and are correct either
+    // way.
     if (zg.BLINK_TBL != 0) {
         store_word(get_global(zg.BLINK_TBL) + 3 * 2, y);
         store_word(get_global(zg.BLINK_TBL) + 4 * 2, x);
@@ -1178,8 +1235,8 @@ void V_MAP_LOOP(void) {
     // BLINK-WHILE-AWAITING-INPUT. The slot numbers are revision-dependent
     // (recorded when the V-MAP-LOOP entrypoint was located); fall back to the
     // release layout if they weren't set. Using the wrong slots leaves the
-    // marker's X holding the Y coordinate, so it draws too far left (the r242
-    // beta inlines the loop into V-MAP and uses 5/6; r296/r66/r366 also inline
+    // marker's X holding the Y coordinate, so it draws too far left (r242
+    // inlines the loop into V-MAP and uses 5/6; r296/r66/r366 also inline
     // it but use the release 4/5 layout).
     uint8_t cx_var = zr.MAP_CX_VAR != 0 ? zr.MAP_CX_VAR : 4;
     uint8_t cy_var = zr.MAP_CY_VAR != 0 ? zr.MAP_CY_VAR : 5;
@@ -1188,19 +1245,6 @@ void V_MAP_LOOP(void) {
 }
 
 #pragma mark - Resize Handling
-
-// Called when the display is resized. Redraws the appropriate screen mode:
-// definitions, hints, map (with blinking indicator update), mini-games
-// (Tower, Peggleboz, Snarfem, Fanucci), normal gameplay, slideshows,
-// or encyclopedia. Also handles graphics type changes by refreshing
-// margin images and window backgrounds.
-//
-// Window assignments:
-//   0 (S-TEXT): Main text buffer
-//   1 (S-WINDOW): Status text grid (left status)
-//   2 (SOFT-WINDOW): Text grid for DEFINE command
-//   3: Encyclopedia image captions (overlay on background)
-//   7 (S-FULL): Full background graphics
 
 // Rebuild SL-LOC-TBL, the table of (scaled) status/compass element metrics
 // that DRAW-NEW-COMP reads to position the compass arrow overlays (and that
@@ -1225,8 +1269,8 @@ static void z0_refresh_sl_loc_tbl(void) {
     // 0x1bfec (when non-zero). 0x1c17c adapts to the picture size and scale
     // and is the one that matches our scaled graphics; 0x1bfec's hard-coded
     // native pixel rects do not, so they misfire at scale > 1 (north read as
-    // east, etc.). ICON's image size is (0,0), so the old generic dim*scale+1
-    // rewrite turned the flag into 1 and forced the broken path. Leave it
+    // east, etc.). ICON's image size is (0,0), so rewriting it as dim*scale+1
+    // would turn the flag into 1 and force the broken path. Leave it
     // untouched.
     static const struct { int picnum; int byte_offset; } entries[] = {
         { HERE_LOC,        0  },
@@ -1245,16 +1289,15 @@ static void z0_refresh_sl_loc_tbl(void) {
     }
 }
 
-// Recomposite the Zork Zero map for the pre-release revisions (r242/r296/r66,
-// r366 demo), which lack a map-aware
-// V-$REFRESH. We re-invoke the game's own V-MAP routine with its trailing
-// BLINK-WHILE-AWAITING-INPUT call temporarily patched to rtrue, so it redraws
-// the whole map (border, room icons, connections, compass) at the *current*
-// image scale and then returns -- instead of entering the blink/input loop
-// (and its exit-to-normal V-$REFRESH). The still-suspended blink loop keeps
-// drawing the marker, now onto a freshly composited map, so resize rescales
-// correctly and autorestore repopulates the empty pixmap rather than erasing
-// the map.
+// Recomposite the Zork Zero map for the early revisions (no BLINK-TBL), which
+// lack a map-aware V-$REFRESH. We re-invoke the game's own V-MAP routine with
+// its trailing BLINK-WHILE-AWAITING-INPUT call temporarily patched to rtrue,
+// so it redraws the whole map (border, room icons, connections, compass) at
+// the *current* image scale and then returns -- instead of entering the
+// blink/input loop (and its exit-to-normal V-$REFRESH). The still-suspended
+// blink loop keeps drawing the marker, now onto a freshly composited map, so
+// resize rescales correctly and autorestore repopulates the empty pixmap
+// rather than erasing the map.
 //
 // No-op (caller falls back to leaving the GUI-rescaled image in place) when
 // the routine wasn't located. On a redraw the map's "ready? (y/n)" / jester
@@ -1285,10 +1328,9 @@ static void redraw_map_on_resize(void) {
 
     // The releases redraw the map through V-$REFRESH, which is
     // map-aware (it drives the map via the BLINK-TBL mechanism). The
-    // pre-release revisions (r242/r296/r66, r366 demo) have no BLINK
-    // routine/BLINK-TBL (zg.BLINK_TBL ==
-    // 0) and a V-$REFRESH that only knows how to redraw the *normal*
-    // screen -- calling it here drops out of the map (see z0_redraw_map).
+    // early revisions have no BLINK-TBL (zg.BLINK_TBL == 0) and a
+    // V-$REFRESH that only knows how to redraw the *normal* screen --
+    // calling it here drops out of the map (see z0_redraw_map).
     // Instead re-invoke the game's own V-MAP to recomposite the map at
     // the new scale, then re-arm the input timer that the
     // glk_request_timer_events(0) at the top of this function cancelled
@@ -1310,13 +1352,11 @@ static void redraw_map_on_resize(void) {
         return;
     }
 
-    // Redraw the map. Skip when the routines weren't located (e.g.
-    // r366, where the V-REFRESH/MAP-X/MAP-Y patterns don't match):
+    // Redraw the map. Skip when the routines weren't located:
     // pack_routine(0) underflows to a bogus packed address that
     // unpacks into string space, so calling it crashes. Likewise skip
-    // when P-MAP-LOC wasn't found (e.g. r66, which locates MAP-X/MAP-Y
-    // but not V-MAP-LOOP): internal_get_prop(HERE, 0) below would abort
-    // with "invalid property: 0". Refreshing is optional here; not
+    // when P-MAP-LOC wasn't found: internal_get_prop(HERE, 0) below
+    // would abort with "invalid property: 0". Refreshing is optional here; not
     // crashing is not.
     if (zr.V_REFRESH != 0 && zr.MAP_X != 0 && zr.MAP_Y != 0 && zp.P_MAP_LOC != 0) {
         call_routine(zr.V_REFRESH, {1}); // V-$REFRESH(DONT-CLEAR:true)
@@ -1355,11 +1395,23 @@ static bool redraw_slideshow_on_resize(void) {
     return false;
 }
 
+// Called when the display is resized. Redraws the appropriate screen mode:
+// definitions, hints, map (with blinking indicator update), mini-games
+// (Tower, Peggleboz, Snarfem, Fanucci), normal gameplay, slideshows,
+// or encyclopedia. Also handles graphics type changes by refreshing
+// margin images and window backgrounds.
+//
+// Window assignments:
+//   0 (S-TEXT): Main text buffer
+//   1 (S-WINDOW): Status text grid (left status)
+//   2 (SOFT-WINDOW): Text grid for DEFINE command
+//   3: Encyclopedia image captions (overlay on background)
+//   7 (S-FULL): Full background graphics
 void z0_update_on_resize(void) {
     int MACHINE = byte(0x1e);
 
     // SETUP_SCREEN and the various V-REFRESH paths below clobber both of
-    // these — stash them now so we can put them back at the end.
+    // these; stash them now so we can put them back at the end.
     int stored_margin_image_number = number_of_margin_images;
 
     bool NARROW = (MACHINE == INTERP_MSDOS || MACHINE == INTERP_APPLE_IIE);
@@ -1394,7 +1446,7 @@ void z0_update_on_resize(void) {
             if (redraw_minigame_on_resize(get_global(zg.CURRENT_SPLIT)))
                 return;
 
-            // Skip when V-REFRESH wasn't located (e.g. r366): pack_routine(0)
+            // Skip when V-REFRESH wasn't located: pack_routine(0)
             // underflows to a bogus packed address that unpacks into string
             // space, and calling it crashes (most visibly on autorestore,
             // which reaches here via after_V_COLOR()).
@@ -1419,7 +1471,7 @@ void z0_update_on_resize(void) {
     // flush_image_buffer() ends up running V-COLOR / refresh paths that
     // overwrite user_selected_background and reset number_of_margin_images
     // to zero. Snapshot, flush, then restore so margin-image tracking and
-    // the chosen background color survive the resize.
+    // the chosen background colour survive the resize.
     glui32 stored_bg = user_selected_background;
     flush_image_buffer();
     user_selected_background = stored_bg;
@@ -1428,7 +1480,7 @@ void z0_update_on_resize(void) {
 
 #pragma mark - Save/Restore
 
-// Called after a manual restore. Applies the color configuration
+// Called after a manual restore. Applies the colour configuration
 // in the save file.
 void z0_update_after_restore(void) {
     // screenmode is C++ state that is NOT part of the saved game. A manual
@@ -1460,8 +1512,8 @@ void z0_update_after_restore(void) {
 //    and below the foreground encyclopedia window. The live entry path blanks
 //    it in z0_display_picture, but autorestore doesn't go through there, so
 //    blank it here. A restored caption window (Z0_ENCYCLOPEDIA_WINDOW) in
-//      slideshow mode
-//    uniquely identifies the encyclopedia (title/rebus never create it).
+//    slideshow mode uniquely identifies the encyclopedia (title/rebus never
+//    create it).
 //
 // 2. Peggleboz: if we were in Peggleboz with a peg selected, the C++ static
 //    selected_peg has been reset to 0 by the process restart, so the resize
@@ -1583,20 +1635,13 @@ static void display_fullscreen_picture(int x, int y) {
 
     if (current_picture == zorkzero_map_border) {
         screenmode = MODE_MAP;
-        // The map takes over the floating foreground graphics window, but
-        // the full-screen background window still holds the normal-mode
-        // room graphic (e.g. the underground pillars). With a non-zero
-        // window border the foreground window is inset, so a frame of those
-        // pillars peeks through -- most visibly while resizing. Blank the
-        // background once here; the map is not drawn into it, so it stays
-        // clear, and the room is redrawn normally when map mode is torn
-        // down. Mirrors the encyclopedia path below.
+        // The map takes over the floating foreground graphics window. Blank
+        // the background window for the same reason as the encyclopedia path
+        // below. The map is not drawn into it, so it stays clear, and the room
+        // is redrawn normally when map mode is torn down.
         glk_window_clear(graphics_bg_glk);
-        // Remember the scale the map is composited at. The pre-release
-        // revisions (r242/r296/r66, r366 demo) don't recomposite the map on
-        // resize (the GUI rescales the rendered
-        // image), so the live-redrawn you-are-here marker must use this same
-        // scale to stay on its room icon -- see the default path below.
+        // Remember the scale the map is composited at, for the marker
+        // override in the default path below (see map_entry_imagescalex).
         map_entry_imagescalex = imagescalex;
         map_entry_imagescaley = imagescaley;
         draw_to_buffer(current_graphics_buf_win, current_picture, x, y);
@@ -1710,14 +1755,13 @@ bool z0_display_picture(int x, int y, Window *win) {
     if (current_graphics_buf_win == nullptr)
         current_graphics_buf_win = graphics_bg_glk;
 
-    // On the pre-release revisions (r242/r296/r66, r366 demo) the map isn't
-    // recomposited on resize -- the GUI
-    // rescales the already-rendered map image -- but the game redraws the
-    // blinking you-are-here marker live, and draw_to_buffer would place it at
-    // the current (resized) scale, off its room icon. Composite it at the
-    // scale the map was drawn with so it stays put. At map entry the two
-    // scales are equal, so this only differs once the window has actually been
-    // resized.
+    // On the early revisions, if z0_redraw_map() could not recomposite the map
+    // on resize, the GUI rescales the already-rendered map image, but the game
+    // redraws the blinking you-are-here marker live, and draw_to_buffer would
+    // place it at the current (resized) scale, off its room icon. Composite it
+    // at the scale the map was drawn with so it stays put. z0_redraw_map()
+    // otherwise keeps the two scales equal, so this only differs when V-MAP
+    // wasn't located, which no known revision does.
     if (screenmode == MODE_MAP && zg.BLINK_TBL == 0 && map_entry_imagescalex != 0 &&
         (imagescalex != map_entry_imagescalex || imagescaley != map_entry_imagescaley)) {
         float saved_x = imagescalex, saved_y = imagescaley;
@@ -1733,7 +1777,7 @@ bool z0_display_picture(int x, int y, Window *win) {
     return true;
 }
 
-// Z-machine entry point: resets color globals to 1 (meaning "use default").
+// Z-machine entry point: resets colour globals to 1 (meaning "use default").
 void DEFAULT_COLORS(void) {
     set_global(zg.DEFAULT_FG, 1);
     set_global(zg.DEFAULT_BG, 1);

@@ -21,11 +21,8 @@ void v6_delete_glk_win(winid_t win);
 // Give win a new Glk window of the given type. A window it already has goes
 // to *stored_win, shrunk to nothing, to be put back later.
 void v6_remap_win(Window *win, int type, winid_t *stored_win);
-// As above, but a window of another type is deleted, and one of the right type
-// is kept.
-void v6_remap_win_to_type(Window *win, int type);
+// As above, but a window of another type is deleted, and a grid is kept.
 void v6_remap_win_to_grid(Window *win);
-void v6_remap_win_to_buffer(Window *win);
 
 // Set the interpreter number from the user's setting, in V6 games keeping to
 // the machines that have graphics.

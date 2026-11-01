@@ -18,14 +18,47 @@
 #include "unicode.h"
 #include "v6_specific.h"
 #include "v6_shared.hpp"
+#include "v6_windows.hpp"
 #include "zterp.h"
-
-#include "entrypoints.hpp"
 #include "draw_image.hpp"
-#include "draw_border.hpp"
 
 #include "zorkzero.hpp"
 #include "zorkzero_internal.hpp"
+
+constexpr int zorkzero_tower_of_bozbar_border = 41;
+constexpr int zorkzero_peggleboz_border = 49;
+constexpr int zorkzero_snarfem_border = 73;
+constexpr int zorkzero_double_fanucci_border = 99;
+
+constexpr int SN_SPLIT = 427;
+constexpr int SN_BOTTOM = 425;
+
+constexpr int zorkzero_tower_of_bozbar_bottom = 426;
+constexpr int zorkzero_tower_of_bozbar_split = 428;
+
+constexpr int UNDO_BOX = 465;
+constexpr int DIM_UNDO_BOX = 468;
+
+constexpr int PBOZ_RESTART_BOX_LOC = 472;
+constexpr int PBOZ_SHOW_MOVES_BOX_LOC = 473;
+constexpr int PBOZ_EXIT_BOX_LOC = 474;
+
+constexpr int EXPAND_HOT_SPOT = 477;
+
+constexpr int UNHL_PEG = 50;
+constexpr int HL_PEG = 51;
+
+constexpr int B_1_WEIGHT = 43;
+
+constexpr int B_1_L_PIC_LOC = 363;
+constexpr int B_2_C_PIC_LOC = 364;
+constexpr int B_3_R_PIC_LOC = 365;
+constexpr int B_4_PIC_LOC = 366;
+constexpr int B_5_PIC_LOC = 367;
+constexpr int B_6_PIC_LOC = 368;
+
+constexpr int TOWER_UNDO_BOX_LOC = 475;
+constexpr int TOWER_EXIT_BOX_LOC = 476;
 
 // Positions the text buffer window below a mini-game border identified by
 // split picture `id`. The border's dimensions determine the text area origin,
@@ -53,7 +86,6 @@ static bool autosolve_visual_puzzle(void) {
 constexpr int F_MENU_LOC = 384;
 constexpr int J_SCORE_LOC = 385;
 constexpr int F_DISCARD_LOC = 419;
-constexpr int F_CARD_1_LOC = 420;
 constexpr int F_CARD_SPACE = 421;
 
 constexpr int F_DISCARD_PIC_LOC = 369;
@@ -78,9 +110,6 @@ constexpr int F_RV_0 = 143;
 
 // Special card: Granola (rank 12+)
 constexpr int F_GRANOLA = 154;
-
-// Location of card slot 1 (cards 2-4 follow at consecutive pic locs)
-constexpr int F_1_PIC_LOC = 370;
 
 // Fanucci window layout (used during initial setup):
 //   Window 1: Jester's Score
@@ -300,7 +329,7 @@ static bool pick_play() {
             case ZSCII_CLICK_DOUBLE:
                 if (!clicked_in_grid)
                     break;
-                // Fallthrough
+                [[fallthrough]];
             case ZSCII_NEWLINE:
                 finished = true;
                 resigned = (call_routine(zr.PLAY_SELECTED, {ptr}) == 1); // <PLAY-SELECTED PTR>
@@ -521,12 +550,8 @@ static bool within(int left, int top, int width, int height) {
 // card slot labels (windows 2-6), and the command selection grid.
 // Adjusts layout for narrow screens by using abbreviated command labels.
 //
-// Window layout during Fanucci:
-//   Window 1: Jester's Score     right_status: Your Score
-//   Windows 2-6: Card labels (DISCARD, 1, 2, 3, 4)
-//   fanucci_command_grid: 5x3 play selection menu
-//   Window 7 (S-FULL): Background border
-//   Window 0 (S-TEXT): Text buffer for messages
+// The window layout is listed near the top of this file; fanucci_command_grid
+// is 5x3 here.
 static void redraw_fanucci(void) {
     int x, y;
 
@@ -612,7 +637,7 @@ static void redraw_fanucci(void) {
     int fanucci_command_window_width = 64 * gcellw + 2 * ggridmarginx;
     int xpos = (gscreenw - fanucci_command_window_width) / 2;
 
-    // Use abbreviated Apple 2 commands and
+    // Use abbreviated Apple II commands and
     // narrow spacing if we are out of
     // horizontal space
     int min_left = x - ggridmarginx - 2 * gcellw;

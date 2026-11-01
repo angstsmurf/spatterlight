@@ -5,12 +5,8 @@
 // Shogun's rows of the entrypoint table and its globals finder. The table
 // format and the search helpers are in entrypoints_internal.hpp, the scan
 // that fills in the table in entrypoints.cpp.
-
-#include "screen.h"
-#include "dict.h"
 #include "v6_shared.hpp"
 #include "shogun.hpp"
-#include "zorkzero.hpp" // V_REFRESH, which Shogun hooks too
 
 #include "entrypoints.hpp"
 #include "entrypoints_internal.hpp"
@@ -646,9 +642,8 @@ void find_shogun_globals(void) {
                     }
                 }
 
-                // We rip out most of the original code
-                // and replace it with our own C(++) function
-                // (SCENE_SELECT(), called by find_entrypoints())
+                // As with GET-FROM-MENU above, with SCENE_SELECT() as the
+                // replacement.
                 // But we want the actual call to GET-FROM-MENU
                 // be done in Z-code, so that we can autosave
                 // properly.
@@ -718,7 +713,7 @@ void find_shogun_globals(void) {
             // Versions 283 through 295 (a total of 9 versions) assign values
             // to the variable that is referenced by variable 1, rather than to
             // variable directly, as later versions do. This causes a crash
-            // when variable 1 is 0, which is usually (always?) the case. We
+            // when variable 1 is 0, which it usually is. We
             // fix this by replacing the dereference with a direct assignment,
             // as per the later versions. This seems to have no ill
             // side-effects.

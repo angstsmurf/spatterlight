@@ -1,7 +1,5 @@
-// vim: set ft=cpp:
-
-#ifndef ZTERP_DRAWPNG_H
-#define ZTERP_DRAWPNG_H
+#ifndef draw_png_h
+#define draw_png_h
 
 #include <cstddef>
 #include <cstdint>

@@ -30,25 +30,24 @@
 //  Some room images are drawn with "stamp" overlays (small images positioned
 //  relative to a reference offset image) for details like the sword in the
 //  stone. Full-screen images are shown during the title sequence, endgame, and
-//  special story events. I have provided VoiceOver descriptions of them for
-//  accessibility.
+//  special story events. They have VoiceOver descriptions for accessibility.
 //
 
 #include "draw_image.hpp"
 #include "draw_border.hpp"
 #include "memory.h"
-#include "objects.h"
 #include "options.h"
 #include "screen.h"
 #include "unicode.h"
 #include "zterp.h"
 #include "v6_specific.h"
 #include "v6_shared.hpp"
+#include "v6_windows.hpp"
 
 #include "arthur.hpp"
 
-// Global lookup tables mapping Z-machine global variable indices, routine
-// addresses, and table addresses to symbolic names. Populated at startup.
+// Addresses and numbers from the story file (see the finders in
+// entrypoints_arthur.cpp).
 ArthurGlobals ag;
 ArthurRoutines ar;
 ArthurTables at;
@@ -106,7 +105,7 @@ static int arthur_x_margin = 0;         // Horizontal margin for banner pillars 
 // for the banner height so images appear below the decorative frame.
 int arthur_pic_top_margin = 0;
 
-// Returns true if the picture is a "stamp" — a small overlay image that
+// Returns true if the picture is a "stamp": a small overlay image that
 // is positioned relative to a reference offset image (typically picnum-1).
 // Stamps include things like the sword in the stone, the island door, etc.
 static bool is_arthur_stamp_image(int picnum) {
@@ -447,7 +446,7 @@ static void arthur_resize_slideshow(void) {
 // Window layout:
 //   Window 0 (S-TEXT): Main text buffer (V6_TEXT_BUFFER_WINDOW)
 //   Window 1 (S-WINDOW): One-line status bar (V6_STATUS_WINDOW)
-//   Window 2: Mode-dependent upper area — room image, inventory grid,
+//   Window 2: Mode-dependent upper area: room image, inventory grid,
 //             status grid, or room description buffer
 //               (ARTHUR_ROOM_GRAPHIC_WIN)
 //   Window 3: Inverted error/author message bar at bottom
@@ -795,7 +794,7 @@ bool arthur_display_picture(glui32 picnum, glsi32 x, glsi32 y) {
 }
 
 // Handles window erase requests with Arthur-specific logic.
-//   index -1: full screen erase — transitions between slideshow, initial
+//   index -1: full screen erase: transitions between slideshow, initial
 //     question, and normal modes. Clears graphics windows and adjusts
 //     layout for the endgame and demon images.
 //   index 2: clears the room image buffer.
@@ -874,14 +873,14 @@ void arthur_recover_state(library_state_data *dat) {
 
 // Performs UI rebuild after a manual RESTORE command: syncs the screen
 // mode from the Z-machine global and recolors the screen according to the
-// colors set in the save file.
+// colours set in the save file.
 void arthur_update_after_restore(void) {
     arthur_sync_screenmode();
     after_V_COLOR();
 }
 
 // Performs a lighter UI rebuild after autorestore (app relaunch).
-// Re-applies foreground/background colors to all windows, reopens the
+// Re-applies foreground/background colours to all windows, reopens the
 // foreground graphics window, and triggers a window change event.
 // On restart, a blank status window may remain visible, so we hide it here.
 void arthur_update_after_restart(void) {
@@ -921,10 +920,9 @@ void RT_HOT_KEY(void) {
     }
 }
 
-// Z-machine entry point: forces a full status bar redraw. Fills the entire
-// status bar with reverse-video spaces to prevent stray characters from
-// previous content, then resets all status line tracking globals so the
-// Z-code's incremental update logic will repaint everything.
+// Z-machine entry point: forces a full status bar redraw. Fills the status bar
+// (see arthur_fill_status_bar()), then resets all status line tracking globals
+// so the Z-code's incremental update logic will repaint everything.
 void ARTHUR_UPDATE_STATUS_LINE(void) {
     arthur_fill_status_bar();
     arthur_invalidate_status_line(99);

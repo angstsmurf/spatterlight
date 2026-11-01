@@ -1,12 +1,12 @@
 //
-//  z6_specific.h
+//  v6_specific.h
 //  Spatterlight
 //
 //  Created by Administrator on 2024-08-15.
 //
 
-#ifndef z6_specific_h
-#define z6_specific_h
+#ifndef v6_specific_h
+#define v6_specific_h
 
 enum interpreterNumber {
     INTERP_DEFAULT = 0,
@@ -71,4 +71,4 @@ extern bool is_spatterlight_shogun;
 extern bool is_spatterlight_zork0;
 extern bool is_spatterlight_v6;
 
-#endif /* z6_specific_h */
+#endif /* v6_specific_h */

@@ -8,7 +8,6 @@
 
 #include "draw_image.hpp"
 #include "memory.h"
-#include "objects.h"
 #include "process.h"
 #include "screen.h"
 #include "stack.h"
@@ -18,23 +17,27 @@
 #include "v6_specific.h"
 
 #include "arthur.hpp"
-#include "journey.hpp"
 #include "shogun.hpp"
 #include "zorkzero.hpp"
 
 #include "v6_shared.hpp"
+#include "v6_windows.hpp"
 
 #pragma mark - Hints Screen (InvisiClues)
 
-// The hints system provides a three-level progressive hint menu:
+// The three levels of the menu:
 //   Level 1 (Topics): Categories of hints (e.g., "In the Dungeon")
 //   Level 2 (Questions): Specific puzzles within a topic
 //   Level 3 (Hints): Progressive hints revealed one at a time with Enter
-// Shared between Zork Zero, Shogun, and Arthur.
 
 // Saves the main text buffer window while the hints system temporarily
 // replaces it with a text grid for menu display.
 winid_t stored_bufferwin = nullptr;
+
+// Room for a hint topic or question title and its terminator
+static constexpr int kHintTitleMax = 64;
+
+static constexpr int kRGBWhite = 0xffffff;
 
 // Z-machine global indices for the current hint chapter and question,
 // so the game can persist hint state across save/restore.
@@ -45,8 +48,8 @@ uint8_t hint_quest_global_idx = 0;
 // First word is the number of topics; subsequent words point to topic tables.
 uint16_t hints_table_addr = 0;
 
-// Colors for the hints status bar (upper window). Set per-platform
-// in draw_hints_windows.
+// Colours for the hints status bar (upper window). Set per-platform
+// in set_hint_window_colours().
 static glui32 upperwin_foreground = zcolor_Default;
 static glui32 upperwin_background = zcolor_Default;
 
@@ -244,16 +247,15 @@ static void measure_hint_windows(bool is_macintosh, int &width, int &height, int
         }
     } else if (is_spatterlight_zork0 && graphics_type == kGraphicsTypeApple2) {
         // Just for the lulz we try to use the Apple II hint screen header in
-        // Zork 0 that the actual game did not use (presumably because it was
+        // Zork Zero that the actual game did not use (presumably because it was
         // impossible to fit the text in its low resolution.) We cut off 23
-        // "pixels" on each side of
-        //  the status text view to make it fit between the question marks in
-        //  the image.
+        // "pixels" on each side of the status text view to make it fit between
+        // the question marks in the image.
         status_x = 23 * imagescalex;
     }
 }
 
-// Sets up the window layout for the hints screen. Configures colors
+// Sets up the window layout for the hints screen. Configures colours
 // based on graphics type and platform, positions the status bar (with
 // navigation instructions) and the menu/hint text area. For topic and
 // question levels, the text buffer is remapped to a text grid for

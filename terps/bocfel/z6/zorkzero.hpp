@@ -10,46 +10,13 @@
 
 extern "C" {
 #include "glk.h"
-#include "glkimp.h"
 }
 
 #include "spatterlight-autosave.h"
 
 #include <cstdint>
-#include "screen.h"
 
-void after_SPLIT_BY_PICTURE(void);
-void CENTER_1(void);
-void CENTER_2(void);
-void CENTER_3(void);
-void V_REFRESH(void);
-void z0_erase_window(int16_t index);
-void V_MODE(void);
-void DEFAULT_COLORS(void);
-void INIT_STATUS_LINE(void);
-void SMALL_DOOR_F(void);
-void J_PLAY(void);
-void TOWER_MODE(void);
-void z0_UPDATE_STATUS_LINE(void);
-bool z0_border_on(void);
-void DRAW_TOWER(void);
-void B_MOUSE_PEG_PICK(void);
-void B_MOUSE_WEIGHT_PICK(void);
-void SETUP_PBOZ(void);
-void PBOZ_CLICK(void);
-void PEG_GAME(void);
-void PBOZ_WIN_CHECK(void);
-void DISPLAY_MOVES(void);
-void SNARFEM(void);
-void SETUP_SN(void);
-void DRAW_SN_BOXES(void);
-void DRAW_PILE(void);
-void DRAW_FLOWERS(void);
-void SN_CLICK(void);
-void FANUCCI(void);
-void SETUP_FANUCCI(void);
-void SLIDE_SHOW_END(void);
-void V_MAP_LOOP(void);
+struct Window;
 
 enum BorderType {
     CASTLE_BORDER = 5,
@@ -58,130 +25,7 @@ enum BorderType {
     HINT_BORDER = 8
 };
 
-constexpr int zorkzero_title_image = 1;
-// Illuminated initials drawn in the margin at the start of the prologue, the
-// main game and the epilogue.
-constexpr int zorkzero_prologue_letter = 2;
-constexpr int zorkzero_main_letter = 3;
-constexpr int zorkzero_epilogue_letter = 4;
-
-constexpr int zorkzero_encyclopedia_border = 25;
-
-constexpr int zorkzero_tower_of_bozbar_border = 41;
-constexpr int zorkzero_peggleboz_border = 49;
-constexpr int zorkzero_snarfem_border = 73;
-constexpr int zorkzero_double_fanucci_border = 99;
-
-constexpr int zorkzero_map_border = 163;
-
-constexpr int zorkzero_encyclopedia_picture_location = 378;
-constexpr int zorkzero_encyclopedia_text_location = 379;
-constexpr int zorkzero_encyclopedia_text_size = 380;
-
-constexpr int HERE_LOC = 382;
 constexpr int TEXT_WINDOW_PIC_LOC = 387;
-constexpr int COMPASS_PIC_LOC = 381;
-
-// The remaining "location" marker pictures whose (scaled) dimensions seed the
-// status/compass position table (SL-LOC-TBL). See z0_refresh_sl_loc_tbl().
-constexpr int REGION_LOC = 383; // 0x17f
-constexpr int U_BOX_LOC = 482; // 0x1e2 (compass up arrow)
-constexpr int D_BOX_LOC = 483; // 0x1e3 (compass down arrow)
-constexpr int ICON_OFFSET = 478; // 0x1de
-
-constexpr int CASTLE_BORDER_L = 0x1f1;
-constexpr int CASTLE_BORDER_R = 0x1f2;
-
-constexpr int UNDERGROUND_BORDER_L = 0x1f3;
-constexpr int UNDERGROUND_BORDER_R = 0x1f4;
-
-constexpr int OUTSIDE_BORDER_L = 0x1f5;
-constexpr int OUTSIDE_BORDER_R = 0x1f6;
-
-constexpr int F_SPLIT = 422;
-constexpr int F_BOTTOM = 423;
-
-constexpr int PBOZ_SPLIT = 402;
-constexpr int PBOZ_BOTTOM = 424;
-
-constexpr int SN_SPLIT = 427;
-constexpr int SN_BOTTOM = 425;
-
-constexpr int N_HIGHLIGHTED = 0x09;
-constexpr int NE_HIGHLIGHTED = 0x0a;
-constexpr int E_HIGHLIGHTED = 0x0b;
-constexpr int SE_HIGHLIGHTED = 0x0c;
-constexpr int S_HIGHLIGHTED = 0x0d;
-constexpr int SW_HIGHLIGHTED = 0x0e;
-constexpr int W_HIGHLIGHTED = 0x0f;
-constexpr int NW_HIGHLIGHTED = 0x10;
-
-constexpr int N_UNHIGHLIGHTED = 0x11;
-constexpr int NE_UNHIGHLIGHTED = 0x12;
-constexpr int E_UNHIGHLIGHTED = 0x13;
-constexpr int SE_UNHIGHLIGHTED = 0x14;
-constexpr int S_UNHIGHLIGHTED = 0x15;
-constexpr int SW_UNHIGHLIGHTED = 0x16;
-constexpr int W_UNHIGHLIGHTED = 0x17;
-constexpr int NW_UNHIGHLIGHTED = 0x18;
-
-// The twelve direction properties, <DIRECTIONS NORTH NE EAST SE SOUTH SW
-// WEST NW UP DOWN IN OUT>, are numbered downwards from 63.
-constexpr int LOW_DIRECTION = 0x34; // P?OUT
-constexpr int P_NW = 0x38;
-constexpr int P_WEST = 0x39;
-constexpr int P_SW = 0x3a;
-constexpr int P_SOUTH = 0x3b;
-constexpr int P_SE = 0x3c;
-constexpr int P_EAST = 0x3d;
-constexpr int P_NE = 0x3e;
-constexpr int P_NORTH = 0x3f;
-
-constexpr int zorkzero_tower_of_bozbar_bottom = 426;
-constexpr int zorkzero_tower_of_bozbar_split = 428;
-
-constexpr int EXIT_BOX = 463;
-constexpr int SHOW_MOVES_BOX = 464;
-constexpr int UNDO_BOX = 465;
-constexpr int RESTART_BOX = 466;
-constexpr int DIM_SHOW_MOVES_BOX = 467;
-constexpr int DIM_UNDO_BOX = 468;
-constexpr int DIM_RESTART_BOX = 469;
-
-constexpr int PBOZ_RESTART_BOX_LOC = 472;
-constexpr int PBOZ_SHOW_MOVES_BOX_LOC = 473;
-constexpr int PBOZ_EXIT_BOX_LOC = 474;
-
-constexpr int EXPAND_HOT_SPOT = 477;
-
-constexpr int UNHL_PEG = 50;
-constexpr int HL_PEG = 51;
-
-constexpr int B_1_WEIGHT = 43;
-
-constexpr int B_1_L_PIC_LOC = 363;
-constexpr int B_2_C_PIC_LOC = 364;
-constexpr int B_3_R_PIC_LOC = 365;
-constexpr int B_4_PIC_LOC = 366;
-constexpr int B_5_PIC_LOC = 367;
-constexpr int B_6_PIC_LOC = 368;
-
-constexpr int TOWER_UNDO_BOX_LOC = 475;
-constexpr int TOWER_EXIT_BOX_LOC = 476;
-
-extern winid_t z0_right_status_window;
-
-void z0_update_on_resize(void);
-void z0_update_after_restore(void);
-void z0_update_after_autorestore(void);
-void z0_update_colors(void);
-void DISPLAY_BORDER(BorderType border);
-bool z0_display_picture(int x, int y, Window *win);
-void z0_leave_stale_map_for_line_input(void);
-void z0_erase_screen(void);
-void z0_stash_state(library_state_data *dat);
-void z0_recover_state(library_state_data *dat);
-void z0_display_hint_border(void);
 
 struct ZorkGlobals {
     uint8_t HERE;
@@ -203,8 +47,6 @@ struct ZorkGlobals {
     uint8_t PEG_MOVE_NUMBER;
 };
 
-extern ZorkGlobals zg;
-
 struct ZorkRoutines {
     uint32_t V_REFRESH; 
     uint32_t SETUP_SCREEN;
@@ -215,12 +57,12 @@ struct ZorkRoutines {
     uint32_t MAP_Y;
     // Local-variable numbers that hold the "you are here" CX/CY coordinates
     // in the V-MAP-LOOP frame our hook fires in. These differ by revision
-    // (the releases use 4/5; the r242/r296 betas inline the loop into V-MAP
-    // and use 5/6), so they're recorded when the entrypoint is located.
+    // (the releases use 4/5; r242 inlines the loop into V-MAP and uses
+    // 5/6), so they're recorded when the entrypoint is located.
     // 0 means "not set" -> V_MAP_LOOP falls back to the release layout.
     uint8_t MAP_CX_VAR;
     uint8_t MAP_CY_VAR;
-    // The r242/r296 betas have no map-aware refresh, so to redraw the map on
+    // The early revisions have no map-aware refresh, so to redraw the map on
     // resize/autorestore we re-invoke the game's own V-MAP routine with its
     // BLINK-WHILE-AWAITING-INPUT call patched to rtrue (so it draws the map
     // and returns instead of looping/exiting). V_MAP is the routine's byte
@@ -248,8 +90,6 @@ struct ZorkRoutines {
     uint32_t PLAY_SELECTED;
 };
 
-extern ZorkRoutines zr;
-
 struct ZorkTables {
     uint16_t K_HINT_ITEMS;
     uint16_t F_PLAY_TABLE;
@@ -275,8 +115,6 @@ struct ZorkTables {
     uint16_t SL_LOC_TBL;
 };
 
-extern ZorkTables zt;
-
 struct ZorkObjects {
     uint16_t PHIL_HALL;
     uint16_t G_U_MOUNTAIN;
@@ -300,8 +138,6 @@ struct ZorkObjects {
     uint16_t ROOMS; // 0 if the game keeps no compass flags on it
 };
 
-extern ZorkObjects zo;
-
 struct ZorkProperties {
     uint8_t P_REGION;
     uint8_t P_APPLE_DESC;
@@ -310,6 +146,61 @@ struct ZorkProperties {
     uint8_t P_MAP_LOC;
 };
 
+// The rows of the entrypoint table: entered when the game reaches the routine
+void after_SPLIT_BY_PICTURE(void);
+void CENTER_2(void);
+void CENTER_3(void);
+void V_MODE(void);
+void DEFAULT_COLORS(void);
+void INIT_STATUS_LINE(void);
+void SMALL_DOOR_F(void);
+void J_PLAY(void);
+void TOWER_MODE(void);
+void z0_UPDATE_STATUS_LINE(void);
+void DRAW_TOWER(void);
+void B_MOUSE_PEG_PICK(void);
+void B_MOUSE_WEIGHT_PICK(void);
+void SETUP_PBOZ(void);
+void PBOZ_CLICK(void);
+void PEG_GAME(void);
+void PBOZ_WIN_CHECK(void);
+void DISPLAY_MOVES(void);
+void SNARFEM(void);
+void SETUP_SN(void);
+void DRAW_SN_BOXES(void);
+void DRAW_PILE(void);
+void DRAW_FLOWERS(void);
+void SN_CLICK(void);
+void FANUCCI(void);
+void SETUP_FANUCCI(void);
+void SLIDE_SHOW_END(void);
+void V_MAP_LOOP(void);
+
+// The V6GameHooks of this game (v6_shared.cpp)
+void z0_update_on_resize(void);
+void z0_update_after_restore(void);
+bool z0_display_picture(int x, int y, Window *win);
+void z0_stash_state(library_state_data *dat);
+void z0_recover_state(library_state_data *dat);
+
+// Called from other files
+void CENTER_1(void);
+void z0_erase_window(int16_t index);
+bool z0_border_on(void);
+void z0_update_after_autorestore(void);
+void z0_update_colors(void);
+void DISPLAY_BORDER(BorderType border);
+void z0_leave_stale_map_for_line_input(void);
+void z0_erase_screen(void);
+void z0_display_hint_border(void);
+
+// State other files read
+extern winid_t z0_right_status_window;
+extern ZorkGlobals zg;
+extern ZorkRoutines zr;
+extern ZorkTables zt;
+extern ZorkObjects zo;
 extern ZorkProperties zp;
 
 #endif /* zorkzero_hpp */
+

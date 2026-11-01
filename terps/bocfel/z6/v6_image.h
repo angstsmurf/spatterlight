@@ -47,17 +47,17 @@ struct ImageStruct {
 
 // Bytes per pixel in every RGBA buffer the decoders and compositors pass
 // around.
-static constexpr int kBytesPerPixel = 4;
+constexpr int kBytesPerPixel = 4;
 
 // Store 0xRRGGBB as the R, G and B bytes of the pixel at `pixel`.
-static inline void rgb_to_bytes(uint32_t rgb, uint8_t *pixel) {
+inline void rgb_to_bytes(uint32_t rgb, uint8_t *pixel) {
     pixel[0] = (rgb >> 16) & 0xff;
     pixel[1] = (rgb >> 8) & 0xff;
     pixel[2] = rgb & 0xff;
 }
 
 // The R, G and B bytes of the pixel at `pixel` as 0xRRGGBB.
-static inline uint32_t bytes_to_rgb(const uint8_t *pixel) {
+inline uint32_t bytes_to_rgb(const uint8_t *pixel) {
     return ((uint32_t)pixel[0] << 16) | ((uint32_t)pixel[1] << 8) | pixel[2];
 }
 
@@ -74,7 +74,7 @@ using ImageBuf = std::unique_ptr<uint8_t[], ImageBufFree>;
 // side, and this cap also keeps width * height * kBytesPerPixel two orders of
 // magnitude below INT_MAX -- which matters because Glk is handed buffer sizes
 // as `int`.
-static constexpr int kMaxImageDimension = 8192;
+constexpr int kMaxImageDimension = 8192;
 
 // Size in bytes of a width x height buffer with `bytes_per_pixel` bytes per
 // pixel (1 for palette indices, kBytesPerPixel for RGBA). Returns 0 -- meaning

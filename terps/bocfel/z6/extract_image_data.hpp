@@ -9,6 +9,8 @@
 #ifndef extract_image_data_hpp
 #define extract_image_data_hpp
 
+#include <sys/types.h>
+
 #include "v6_image.h"
 
 int extract_images(uint8_t *data, size_t filesize, int disk, off_t offset, ImageStruct **image_list, int *version, GraphicsType *type);

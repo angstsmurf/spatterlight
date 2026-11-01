@@ -10,6 +10,7 @@
 #include "zterp.h"
 
 #include "v6_shared.hpp"
+#include "v6_specific.h"
 #include "v6_windows.hpp"
 
 void v6_sizewin(Window *win) {
@@ -101,7 +102,7 @@ void v6_remap_win(Window *win, int type, winid_t *stored_win) {
     v6_sizewin(win);
 }
 
-void v6_remap_win_to_type(Window *win, int type) {
+static void v6_remap_win_to_type(Window *win, int type) {
     if (win->id) {
         if (win->id->type == type) {
             return;
@@ -114,10 +115,6 @@ void v6_remap_win_to_type(Window *win, int type) {
 
 void v6_remap_win_to_grid(Window *win) {
     v6_remap_win_to_type(win, wintype_TextGrid);
-}
-
-void v6_remap_win_to_buffer(Window *win) {
-    v6_remap_win_to_type(win, wintype_TextBuffer);
 }
 
 void v6_apply_interpreter_number(void) {

@@ -1,4 +1,4 @@
-// Copyright 2010-2026 Chris Spiegel.
+// Copyright 2024-2026 Petter Sjölund.
 //
 // This file is part of Bocfel.
 //
@@ -17,13 +17,14 @@
 // Minimal PNG decoder for the indexed-color images shipped in the Blorb
 // resources used by Infocom V6 games. Only the chunks we care about (IHDR,
 // PLTE, IDAT, IEND) are inspected, and only bit depths 2 and 4 with paletted
-// color are rendered. The decoded pixels are composited onto a 32-bit RGBA
+// colour are rendered. The decoded pixels are composited onto a 32-bit RGBA
 // canvas using a gamma-corrected palette.
 
-extern "C" {
+#include <cmath>
 #include <cstdio>
 #include <zlib.h>
-#include <math.h>
+
+extern "C" {
 #include "glkimp.h"
 }
 
@@ -32,7 +33,6 @@ extern "C" {
 
 #include "iff.h"
 #include "draw_png.h"
-#include "draw_image.hpp"
 #include "zterp.h"
 
 // Set to 1 to enable verbose chunk/header/palette logging on stderr.
@@ -65,7 +65,7 @@ struct png_header {
     uint8_t interlace_method;
 };
 
-// Number of entries in `global_palette`. Color indices >= this are treated
+// Number of entries in `global_palette`. Colour indices >= this are treated
 // as out of range by set_pixel().
 static constexpr int kMaxPaletteEntries = 16;
 
@@ -81,7 +81,7 @@ static const uint32_t kIDAT = IFF::TypeID("IDAT").val();
 static const uint32_t kIEND = IFF::TypeID("IEND").val();
 
 // Active 16-entry RGB palette used by set_pixel. Populated by
-// extract_palette() (defined elsewhere) or extract_palette_from_png_data().
+// extract_palette() (in draw_image.cpp) or extract_palette_from_png_data().
 uint8_t global_palette[kMaxPaletteEntries * kBytesPerColor];
 
 // zlib-inflate the image data into a freshly allocated buffer of exactly
@@ -250,8 +250,8 @@ static bool read_png(uint8_t *png_data, size_t png_size, struct png_chunk *chunk
     return true;
 }
 
-// Convert a single 0..255 color sample from the gamma-1.8 space used by the
-// Infocom V6 artwork to approximate sRGB (gamma ~2.2), so the palette colors
+// Convert a single 0..255 colour sample from the gamma-1.8 space used by the
+// Infocom V6 artwork to approximate sRGB (gamma ~2.2), so the palette colours
 // look correct on modern displays.
 static int adjust_gamma(int intValue) {
     float theLinearValue = (float)intValue / 256.0f;
@@ -311,7 +311,7 @@ static void set_pixel(int color_index, uint8_t *write_ptr) {
 
 // Decode the indexed PNG at png_data into `canvas`, an RGBA buffer of
 // canvas_size bytes and image_width pixels to the row, using global_palette
-// for color lookup. Only bit depths 2 and 4 are supported. Returns false on
+// for colour lookup. Only bit depths 2 and 4 are supported. Returns false on
 // malformed PNG data or an unsupported bit depth.
 static bool draw_indexed_png(uint8_t *canvas, size_t canvas_size, int image_width, uint8_t *png_data, size_t png_size) {
 
@@ -379,7 +379,7 @@ static bool draw_indexed_png(uint8_t *canvas, size_t canvas_size, int image_widt
 }
 
 // Top-level entry: allocate a fresh RGBA pixmap sized to the image and
-// render the PNG into it with the colors of global_palette (the caller loads
+// render the PNG into it with the colours of global_palette (the caller loads
 // the image's own palette there first if it wants that). Returns nullptr on
 // failure; the caller frees the result.
 uint8_t *draw_png(ImageStruct *image) {
