@@ -77,10 +77,14 @@ prints a blank line; ours printed `BAD_STRING(81ac)`.
 The Comprehend release of The Coveted Mirror has **no animations at all**: the
 king's face does not flash, and the hourglass does not animate either. Its
 per-turn step (`$42f8`) just erases the top grain of the resting pile; `$4347`
-only computes where each grain of that pile sits. A different, non-Comprehend
-Apple II version of The Coveted Mirror has a lot of animated effects, and that
-is what confused us for a while (the colour-flash XOR at $4284/$428e is that
-other version's code). Nothing of it is ours to port; do not add it.
+only computes where each grain of that pile sits. The animated game is the
+1983 Penguin Software original (a two-word-parser Apple II game with Graphics
+Magician animations and arcade sequences such as jousting and fishing); the
+Comprehend game is Polarware's 1986 remake in the Comprehend 2.0 engine, which
+traded those for a full-sentence parser, cross-platform data and double hi-res.
+Mixing the two up is what confused us for a while (the colour-flash XOR at
+$4284/$428e is the 1983 game's code). Nothing of it is ours to port; do not add
+it.
 
 The hourglass grain fall is **our own embellishment and stays** (user's call): the
 resting level is pixel-exact against `fixtures/throne_sand60.page` and the
