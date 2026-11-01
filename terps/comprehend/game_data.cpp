@@ -241,7 +241,9 @@ void GameData::parse_function(FileBuffer *fb, Function *func) {
 void GameData::parse_vm(FileBuffer *fb) {
 	fb->seek(_header.addr_vm);
 
-	while (1) {
+	// The action tables follow the functions. Talisman's table has no empty
+	// function to end it, so stop there as well.
+	while (fb->pos() < _header.addr_actions[0]) {
 		Function func;
 
 		parse_function(fb, &func);
@@ -249,11 +251,6 @@ void GameData::parse_vm(FileBuffer *fb) {
 			break;
 
 		_functions.push_back(func);
-
-		// WORKAROUND: Talisman's function table has no usable terminator
-		uint limit = g_vm->traits().functionTableLimit;
-		if (limit && _functions.size() == limit)
-			break;
 	}
 }
 

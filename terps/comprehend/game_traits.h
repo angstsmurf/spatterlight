@@ -23,9 +23,6 @@ struct GameTraits {
 	// string table of its own, and its addr_strings_end header field points
 	// straight at the replace-word table (Talisman).
 	bool stringsOnlyInFiles;
-	// Stop reading the function table after this many entries; 0 = read to the
-	// table's own terminator (Talisman's runs on into other data).
-	uint16_t functionTableLimit;
 	// OO-Topos pads the first and fifth string bank with a leading empty
 	// string so its string indices line up.
 	bool padsStringBanks;

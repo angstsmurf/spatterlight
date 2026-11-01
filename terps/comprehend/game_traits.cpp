@@ -18,7 +18,7 @@ static ComprehendGame *make() { return new T(); }
 static const GameTraits kGames[] = {
 	{
 		"transylvania", make<TransylvaniaGame1>,
-		/* stringsOnlyInFiles */ false, /* functionTableLimit */ 0,
+		/* stringsOnlyInFiles */ false,
 		/* padsStringBanks */ false, /* appleStringLead */ 2,
 		/* appleStringBanksHeaderless */ false,
 		/* gmLegacyFormat */ true, /* appleTitleOffset */ 0xFE,
@@ -26,28 +26,28 @@ static const GameTraits kGames[] = {
 	},
 	{
 		"transylvaniav2", make<TransylvaniaGame2>,
-		false, 0, false, 0, false,
+		false, false, 0, false,
 		false, 0, false, false
 	},
 	{
 		"crimsoncrown", make<CrimsonCrownGame>,
-		false, 0, false, 0, false,
+		false, false, 0, false,
 		true, 0x100, false, false
 	},
 	{
 		"ootopos", make<OOToposGame>,
-		false, 0, true, 1, false,
+		false, true, 1, false,
 		false, 0x100, true, false
 	},
 	{
 		// Talisman's T0 is a plain Graphics Magician image from offset 0.
 		"talisman", make<TalismanGame>,
-		true, 0x1d8, false, 0, false,
+		true, false, 0, false,
 		false, 0, false, false
 	},
 	{
 		"covetedmirror", make<CovetedMirrorGame>,
-		false, 0, false, 0, true,
+		false, false, 0, true,
 		false, 0x100, false, true
 	}
 };
