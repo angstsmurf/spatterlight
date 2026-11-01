@@ -158,9 +158,11 @@ bool gmDhgrHaveDrawingTables() { return s_tablesInstalled; }
 // ---- op6 SET_FILL_COLOR (the $0D1A builder) -----------------------------------
 // The current fill pattern: one byte per column (mod 8), on even and odd scanlines.
 static uint8_t s_fillPatternEven[8], s_fillPatternOdd[8];
+static uint8_t s_fillColor = 0x4d;             // the colour the pattern was built from ($0837)
 static uint8_t g_brush = 5;
 
 static void set_fill_color(uint8_t color) {
+	s_fillColor = color;
 	uint8_t idx = s_subidx[color];
 	uint8_t b0 = s_subtbl[(2 * idx) & 0x1ff];
 	uint8_t b1 = s_subtbl[(2 * idx + 1) & 0x1ff];
@@ -672,13 +674,20 @@ struct DhgrRenderer {
 	void setPen(uint8_t param) { s_penColor = param; }
 	void setShape(uint8_t param) { g_brush = param; }
 	void setFill(uint8_t b) { set_fill_color(b); }
-	// SET_PALETTE_SUBINDEX
+	// SET_PALETTE_SUBINDEX. The interpreter ($0951) ends with `cpx $0837 / bne /
+	// jmp $0d1a`: patching the colour that the current fill pattern was built from
+	// rebuilds that pattern at once, so a picture can select a colour once and
+	// repaint it between PAINTs (Talisman's Lands Beyond rooms do: FILLCOL 70,
+	// PALSUB[70], PAINT, PALSUB[70], PAINT ...). Patching any other colour only
+	// takes effect at its next SET_FILL_COLOR.
 	bool op7(const uint8_t *&p, const uint8_t *e) {
 		if (!gmHave(p, e, 2))
 			return true;
 		const uint8_t i = *p++;
 		const uint8_t v = *p++;
 		s_subidx[i] = v;
+		if (i == s_fillColor)
+			set_fill_color(i);
 		return false;
 	}
 	void moveTo(uint16_t x, uint8_t y) { move_pen(x, y); }

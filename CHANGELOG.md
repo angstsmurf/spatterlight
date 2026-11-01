@@ -67,6 +67,7 @@
 
 ### Comprehend
 - A picture whose drawing instructions end in the middle of an operation stops drawing there instead of reading past the end of the picture data. A double hi-res line that spans all 256 rows is drawn, where it used to scribble across the whole page.
+- In the Lands Beyond half of *Talisman*, a double hi-res picture that changes the colour its current fill pattern is built from now repaints with the new pattern at once, as the Apple II interpreter does. The pattern used to keep its old colours until the next fill-colour change, so five desert pictures came out with wrong fills. Every Lands Beyond room picture now matches the original byte for byte.
 
 ### General
 - Commodore 64 pictures in the Scott Adams, Plus and TaylorMade games use the Colodore palette from the VICE emulator, so their colours are darker and closer to the real machine. The small pictures of *Pirate Adventure* and *Voodoo Castle* also had dark and light grey swapped, and those are now correct.

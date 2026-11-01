@@ -170,6 +170,11 @@ int main(int argc, char **argv) {
 
 	std::vector<uint32_t> dh(560*192), st(280*192);
 
+#ifdef DHGR_WATCH
+	if (getenv("WATCHOFF"))
+		gmDhgrSetWatch((int)strtol(getenv("WATCHOFF"),0,16),
+					   getenv("WATCHPAGE")?atoi(getenv("WATCHPAGE")):1);
+#endif
 	if (!strcmp(cmd,"render") && argc>=7) {
 		A2FileRec *f = find(&A, argv[4]); int idx = atoi(argv[5]);
 		if (!f) { fprintf(stderr,"no file %s\n",argv[4]); return 1; }
@@ -180,11 +185,6 @@ int main(int argc, char **argv) {
 		snprintf(p,sizeof p,"%s_std.ppm",argv[6]);  writePPM(p,st.data(),280,192);
 		return 0;
 	}
-#ifdef DHGR_WATCH
-	if (getenv("WATCHOFF"))
-		gmDhgrSetWatch((int)strtol(getenv("WATCHOFF"),0,16),
-					   getenv("WATCHPAGE")?atoi(getenv("WATCHPAGE")):1);
-#endif
 	if (!strcmp(cmd,"overlay") && argc>=9) {
 		A2FileRec *room = find(&A, argv[4]); int ridx = atoi(argv[5]);
 		A2FileRec *item = find(&A, argv[6]); int iidx = atoi(argv[7]);

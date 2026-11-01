@@ -48,6 +48,8 @@ void gmDhgrResetScreen(bool white);
 void gmDhgrDrawImage(const uint8_t *data, size_t size);
 void gmDhgrBlitToSurface(uint32_t *out, int w, int h);
 void gmDhgrCaptureCMPanel(int col0, int col1);
+const uint8_t *gmDhgrMainPtr();
+const uint8_t *gmDhgrAuxPtr();
 void gmDhgrOverlayCMPanel();
 void gmDhgrDrawCMHourglass(int sand);
 void gmDhgrSetSlowDraw(bool on);
@@ -351,6 +353,34 @@ int main(int argc, char **argv) {
 	if (imgPath) {
 		FILE *imf = fopen(imgPath, "wb");
 		if (imf) { fwrite(fb + start, 1, flen - start, imf); fclose(imf); }
+	}
+
+	// PIXTEST_DHGR_MAIN=<main.bin> [PIXTEST_DHGR_AUX=<aux.bin>]: render through the
+	// DOUBLE hi-res renderer instead (tables from the disk's T5, or the
+	// test/dhgr/fixtures/T5 copy) and dump its main/aux pages, for matching a
+	// page pair captured from MAME running in "D" mode.
+	const char *dhgrMain = getenv("PIXTEST_DHGR_MAIN");
+	if (dhgrMain) {
+		A2FileRec *t5 = nullptr;
+		for (size_t i = 0; i < numFiles; i++)
+			if (strcasecmp(files[i].filename, "T5") == 0) t5 = &files[i];
+		bool haveT5 = t5 && gmDhgrInstallDrawingTables(t5->data, t5->datasize);
+		if (!haveT5) {
+			size_t fxSz = 0;
+			uint8_t *fx = readFile("test/dhgr/fixtures/T5", &fxSz);
+			if (!fx) fx = readFile("terps/comprehend/test/dhgr/fixtures/T5", &fxSz);
+			haveT5 = fx && gmDhgrInstallDrawingTables(fx, fxSz);
+			free(fx);
+		}
+		if (!haveT5) { fprintf(stderr, "PIXTEST_DHGR_MAIN: no T5 tables\n"); return 1; }
+		gmDhgrResetScreen(getenv("PIXTEST_BLACK") == nullptr);
+		gmDhgrDrawImage(fb + start, flen - start);
+		FILE *pf = fopen(dhgrMain, "wb");
+		if (pf) { fwrite(gmDhgrMainPtr(), 1, 0x2000, pf); fclose(pf); }
+		const char *dhgrAux = getenv("PIXTEST_DHGR_AUX");
+		if (dhgrAux && (pf = fopen(dhgrAux, "wb"))) { fwrite(gmDhgrAuxPtr(), 1, 0x2000, pf); fclose(pf); }
+		if (g_out != stdout) fclose(g_out);
+		return 0;
 	}
 
 	// Reset to a white page (room background) like drawPicture() for a fresh room.

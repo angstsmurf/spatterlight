@@ -269,6 +269,9 @@ void TalismanGame::specialBoatDeparture() {
 	// function, offsets 5-17, which clears its own gate flag 116). Left as-is
 	// the departure would re-narrate forever; flag 45 is tested *only* by this
 	// block, so clearing it makes the scene self-limiting like the reprieve.
+	// (The Apple II original carries every part-1 flag into part 2 unchanged,
+	// flag 45 included; part 2's bytecode never tests it, so the clear changes
+	// nothing there -- checked against MAME.)
 	//
 	// enterPart2() swaps in the desert database: the Lands Beyond disk's g0 on
 	// the Apple II, or the H0 data file plus novel.exe's second string segment
