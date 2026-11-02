@@ -1,11 +1,18 @@
-// Force-included (-include scene_glk.h) into every interpreter source built for
-// build/scenetest. It renames the Glk window, event and gestalt entry points so
-// the unmodified interpreter talks to the fake window layer in
-// common_imagetest/fake_glk_window.c (framebuffer-backed graphics window) and
-// the scripted events of scenetest.c, while cheapglk keeps providing streams,
-// files, styles and unicode.
-//
-// The rename happens before glk.h is read, so the prototypes move with it.
+/*
+ *	  This program is free software; you can redistribute it and/or
+ *	  modify it under the terms of the GNU General Public License
+ *	  as published by the Free Software Foundation; either version
+ *	  2 of the License, or (at your option) any later version.
+ */
+
+/* Force-included (-include scene_glk.h) into every interpreter source built
+   for build/scenetest. It renames the Glk window, event and gestalt entry
+   points so the unmodified interpreter talks to the fake window layer in
+   common_imagetest/fake_glk_window.c (framebuffer-backed graphics window) and
+   the scripted events of scenetest.c, while cheapglk keeps providing streams,
+   files, styles and unicode.
+
+   The rename happens before glk.h is read, so the prototypes move with it. */
 
 #ifndef SCENE_GLK_H
 #define SCENE_GLK_H

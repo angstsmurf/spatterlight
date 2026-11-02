@@ -1,20 +1,27 @@
-// Headless ZX Spectrum graphics-state dumper. Runs the real interpreter's
-// game-detection / loading pipeline (DetectGame -> SagaGraphicsSetup) on a ZX
-// Spectrum Scott Adams game (a .z80 snapshot or .tzx tape) and dumps the state
-// the Irmak tile renderer (aiukgraphics/irmak.c:DrawPictureNumber) consumes:
-//
-//   tiles.bin            the 256-entry tile font (256 * 8 bytes)
-//   meta.txt             game id, picture_format_version, palette, and a per-
-//                        picture table (width,height,xoff,yoff in tiles)
-//   pic<NNN>.dat         one picture's raw tile/attribute data stream
-//                        (img.imagedata .. end-of-graphics; the decoder stops
-//                        itself, exactly as in-game)
-//
-// Unlike the C64/Atari/Apple titles the ZX graphics never populate USImages —
-// they live in the separate aiukgraphics/ai_uk subsystem (irmak globals
-// `images[]` / `tiles[]`), so the USImage-based extract_images yields nothing.
-//
-//   usage: zxextract <game-file> <outdir> [picnum]   (picnum default 1)
+/*
+ *	  This program is free software; you can redistribute it and/or
+ *	  modify it under the terms of the GNU General Public License
+ *	  as published by the Free Software Foundation; either version
+ *	  2 of the License, or (at your option) any later version.
+ */
+
+/* Headless ZX Spectrum graphics-state dumper. Runs the real interpreter's
+   game-detection / loading pipeline (DetectGame -> SagaGraphicsSetup) on a ZX
+   Spectrum Scott Adams game (a .z80 snapshot or .tzx tape) and dumps the state
+   the Irmak tile renderer (aiukgraphics/irmak.c:DrawPictureNumber) consumes:
+
+     tiles.bin            the 256-entry tile font (256 * 8 bytes)
+     meta.txt             game id, picture_format_version, palette, and a per-
+                          picture table (width,height,xoff,yoff in tiles)
+     pic<NNN>.dat         one picture's raw tile/attribute data stream
+                          (img.imagedata .. end-of-graphics; the decoder stops
+                          itself, exactly as in-game)
+
+   Unlike the C64/Atari/Apple titles the ZX graphics never populate USImages —
+   they live in the separate aiukgraphics/ai_uk subsystem (irmak globals
+   `images[]` / `tiles[]`), so the USImage-based extract_images yields nothing.
+
+     usage: zxextract <game-file> <outdir> [picnum]   (picnum default 1) */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -45,7 +52,8 @@ int main(int argc, char **argv) {
 
     char path[1200];
 
-    // ---- Howarth / Mysterious Adventures vector format (picture_format_version 99) ----
+    /* ---- Howarth / Mysterious Adventures vector format
+       (picture_format_version 99) ---- */
     if (pfv == 99 && LineImages != NULL) {
         int nrooms = GameHeader.NumRooms + 1;
         snprintf(path, sizeof path, "%s/meta.txt", outdir);
@@ -78,12 +86,12 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    // tile font
+    /* tile font */
     snprintf(path, sizeof path, "%s/tiles.bin", outdir);
     FILE *f = fopen(path, "wb");
     if (f) { fwrite(tiles, 1, 256 * 8, f); fclose(f); }
 
-    // meta + per-picture geometry table
+    /* meta + per-picture geometry table */
     snprintf(path, sizeof path, "%s/meta.txt", outdir);
     f = fopen(path, "w");
     if (f) {

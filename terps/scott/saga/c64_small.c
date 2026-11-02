@@ -1,15 +1,22 @@
-//
-//  c64_small_graphics.c
-//  scott
-//
-//  Created by Administrator on 2026-01-23.
-//
+/*
+ *	  This program is free software; you can redistribute it and/or
+ *	  modify it under the terms of the GNU General Public License
+ *	  as published by the Free Software Foundation; either version
+ *	  2 of the License, or (at your option) any later version.
+ */
 
-// Handles the compact C64 graphics format used by early Scott Adams
-// SAGA adventures (Pirate Adventure, Voodoo Castle) where game database
-// and image data are bundled in a single file. Room backgrounds use
-// RLE-compressed multicolor bitmaps; small item images are stored
-// as C64 hardware sprites (24x21 monochrome).
+/*
+ *  c64_small.c
+ *  Part of ScottFree, an interpreter for adventures in Scott Adams format
+ *
+ *  Created by Petter Sjölund on 2026-01-23.
+ */
+
+/* Handles the compact C64 graphics format used by early Scott Adams
+   SAGA adventures (Pirate Adventure, Voodoo Castle) where game database
+   and image data are bundled in a single file. Room backgrounds use
+   RLE-compressed multicolor bitmaps; small item images are stored
+   as C64 hardware sprites (24x21 monochrome). */
 
 #include <stdlib.h>
 #include <string.h>
@@ -24,9 +31,9 @@
 
 /* Screen position for drawing a C64 sprite overlay */
 typedef struct {
-    int index; // object index this sprite represents
-    int x;     // pixel x position on screen
-    int y;     // pixel y position on screen
+    int index; /* object index this sprite represents */
+    int x;     /* pixel x position on screen */
+    int y;     /* pixel y position on screen */
 } spritelist;
 
 #define MAX_SPRITES 32
@@ -91,10 +98,10 @@ static const struct {
     int item;
     int like;
 } pirate_extras[] = {
-    {  7, 25 }, // empty bottle: bottle of rum
-    { 42, 25 }, // bottle of salt water
-    { 63,  8 }, // burnt-out torch: unlit torch
-    {  9,  8 }, // lit torch
+    {  7, 25 }, /* empty bottle: bottle of rum */
+    { 42, 25 }, /* bottle of salt water */
+    { 63,  8 }, /* burnt-out torch: unlit torch */
+    {  9,  8 }, /* lit torch */
 };
 
 /* Room gates of our own. The original draws the open treasure chest
@@ -336,7 +343,7 @@ static void PrependDarknessImage(void)
     /* 7 repeat-128 commands, each emitting 128 pairs of color-0 pixels.
        Comfortably covers 19 columns x up to 41 pairs = 779 pairs. */
     for (int i = 0; i < 7; i++) {
-        // This leaves two zero bytes after every 0xff.
+        /* This leaves two zero bytes after every 0xff. */
         background->imagedata[8 + i * 3] = 0xff;
     }
     background->next = USImages;
@@ -444,9 +451,10 @@ static uint8_t *DrawMiniC64ImageFromData(uint8_t *ptr, size_t datasize, int cent
     int xpos = left;
     int ypos = top;
 
-    /* Read and apply the 4-entry palette (multicolor mode: 2 bits per pixel.) */
-    /* Overlay images have all colors set to 0. For these, don't apply the palette –
-       these use the palette of the background image */
+    /* Read and apply the 4-entry palette (multicolor mode: 2 bits per
+       pixel.) */
+    /* Overlay images have all colors set to 0. For these, don't apply the
+       palette – these use the palette of the background image */
     if (ptr + 4 > endptr)
         return NULL;
     for (int i = 0; i < 4; i++) {

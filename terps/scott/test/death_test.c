@@ -1,23 +1,31 @@
+/*
+ *	  This program is free software; you can redistribute it and/or
+ *	  modify it under the terms of the GNU General Public License
+ *	  as published by the Free Software Foundation; either version
+ *	  2 of the License, or (at your option) any later version.
+ */
+
 /* Focused reproducer for the compressed-room-descriptions off-by-one
-   (detect_game.c, "for (ct = 0; ct < GameHeader.NumRooms; ...)").
+   (the compressed room loop in detect_game.c).
 
    Seas of Blood is a FOUR_LETTER_COMPRESSED game with 83 rooms, so the Rooms
    array holds 84 entries (indices 0..83) but the compressed loader only fills
    Text for 0..82. Room 83 (== GameHeader.NumRooms) is exactly where
    PlayerIsDead() and the dark-move death path put the player. This driver
-   reproduces that: load the real game, jump the player into room 83, and Look().
+   reproduces that: load the real game, jump the player into room 83, and
+   Look().
 
    It provides its own glk_main so it can reuse every engine object except
    scott.o (which owns the real glk_main). Run under ASan with a non-zero
-   malloc fill so the uninitialised Rooms[83].Text is a wild pointer rather than
-   a lucky NULL:
+   malloc fill so the uninitialised Rooms[83].Text is a wild pointer rather
+   than a lucky NULL:
 
      ASAN_OPTIONS=malloc_fill_byte=0xaa:max_malloc_fill_size=1073741824 \
        ./scott_death_test "/path/to/Seas of Blood.z80"
 
-   Expected on the UNFIXED engine: ASan/UBSan fault dereferencing Rooms[83].Text
-   inside Look(). Expected on the FIXED engine (loader uses <=, allocation via
-   MemCalloc): clean "You are ..." with an empty/placeholder room 83. */
+   Expected: clean "You are ..." with an empty/placeholder room 83, because the
+   loader uses <= and allocates via MemCalloc. Without those, ASan/UBSan faults
+   dereferencing Rooms[83].Text inside Look(). */
 
 #include <stdio.h>
 #include <string.h>
@@ -31,9 +39,10 @@
 #include "scott_display.h"
 
 /* scott.o is linked too (it owns all the engine globals), but compiled with
-   -Dglk_main=scott_real_glk_main so its game loop is renamed out of the way and
-   the glk_main below is the one CheapGlk's main() calls. scott.c's
-   glkunix_startup_code / glkunix_arguments are reused as-is to stash game_file. */
+   -Dglk_main=scott_real_glk_main so its game loop is renamed out of the way
+   and the glk_main below is the one CheapGlk's main() calls. scott.c's
+   glkunix_startup_code / glkunix_arguments are reused as-is to stash
+   game_file. */
 
 void glk_main(void)
 {

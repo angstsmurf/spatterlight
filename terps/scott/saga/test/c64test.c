@@ -1,33 +1,41 @@
-// C-renderer side of the C64 "tiny" (mini-C64) SAGA bitmap test. Feeds raw image
-// blobs (exactly the bytes the interpreter's C64 decrunch pipeline hands to
-// DrawMiniC64 — see extract_images_c64 / groundtruth_c64/README.md) to
-// saga/c64_small.c and captures every plotted pixel's *displayed colour* into a
-// 320x200 RGB grid. That grid is byte-compared against a golden decoded from a
-// real VICE screenshot of the same room (see c64_decode_png.py).
-//
-// We capture displayed RGB (slot_rgb[slot] at plot time), not the raw 2-bit
-// slot, because a room is composited from several images — a background bitmap
-// plus object overlays (which re-issue SetColor with their own palette) plus
-// monochrome white sprites — so the same slot index means different colours in
-// different regions. Comparing displayed colour is palette-change-safe and is
-// what the player actually sees. The golden stores those colours in the C
-// renderer's own colour space (c64_decode_png.py classifies each VICE pixel to
-// the nearest renderer colour), so cmp is a pure RGB-equality check and stays
-// self-contained / reproducible.
-//
-// c64_small.c is unity-included to reach the file-static DrawMiniC64ImageFromData
-// / DrawSprite and the sprites[] table; the renderer's own DrawMiniC64 dispatch
-// (sprite vs bitmap overlay, per object index) is mirrored in render_spec().
-//
-// A render spec is a small text file (paths relative to the spec's dir):
-//     <background.dat>
-//     <objindex> <object.dat>      ... zero or more overlay/sprite objects
-//
-//   usage:
-//     c64test dump <spec>                 ASCII-art the composited render
-//     c64test pal  <spec>                 print the distinct displayed colours
-//     c64test grid <spec> <out.grid>      write the raw RGB grid
-//     c64test cmp  <spec> <golden.c64>    render + byte-compare to golden
+/*
+ *	  This program is free software; you can redistribute it and/or
+ *	  modify it under the terms of the GNU General Public License
+ *	  as published by the Free Software Foundation; either version
+ *	  2 of the License, or (at your option) any later version.
+ */
+
+/* C-renderer side of the C64 "tiny" (mini-C64) SAGA bitmap test. Feeds raw
+   image blobs (exactly the bytes the interpreter's C64 decrunch pipeline hands
+   to DrawMiniC64 — see extract_images_c64 / groundtruth_c64/README.md) to
+   saga/c64_small.c and captures every plotted pixel's *displayed colour* into
+   a 320x200 RGB grid. That grid is byte-compared against a golden decoded from
+   a real VICE screenshot of the same room (see c64_decode_png.py).
+
+   We capture displayed RGB (slot_rgb[slot] at plot time), not the raw 2-bit
+   slot, because a room is composited from several images — a background bitmap
+   plus object overlays (which re-issue SetColor with their own palette) plus
+   monochrome white sprites — so the same slot index means different colours in
+   different regions. Comparing displayed colour is palette-change-safe and is
+   what the player actually sees. The golden stores those colours in the C
+   renderer's own colour space (c64_decode_png.py classifies each VICE pixel to
+   the nearest renderer colour), so cmp is a pure RGB-equality check and stays
+   self-contained / reproducible.
+
+   c64_small.c is unity-included to reach the file-static
+   DrawMiniC64ImageFromData / DrawSprite and the sprites[] table; the
+   renderer's own DrawMiniC64 dispatch (sprite vs bitmap overlay, per object
+   index) is mirrored in render_spec().
+
+   A render spec is a small text file (paths relative to the spec's dir):
+       <background.dat>
+       <objindex> <object.dat>      ... zero or more overlay/sprite objects
+
+     usage:
+       c64test dump <spec>                 ASCII-art the composited render
+       c64test pal  <spec>                 print the distinct displayed colours
+       c64test grid <spec> <out.grid>      write the raw RGB grid
+       c64test cmp  <spec> <golden.c64>    render + byte-compare to golden */
 
 #include <stdio.h>
 #include <stdint.h>
@@ -36,17 +44,17 @@
 
 #include "glk.h"
 
-// ---- displayed-colour capture (rgbgrid.h) ------------------------------------
+/* ---- displayed-colour capture (rgbgrid.h) ----------------------------------- */
 #define C64_W 320
 #define C64_H 200
 
-static uint32_t slot_rgb[8];             // SetColor sinks: 0..3 bitmap, 5 sprite
+static uint32_t slot_rgb[8];             /* SetColor sinks: 0..3 bitmap, 5 sprite */
 
 #define RG_W C64_W
 #define RG_H C64_H
 #define RG_LABEL "c64"
 #define RG_SLOT_RGB(slot) slot_rgb[(slot) & 7]
-#define RG_DUMP_XSTEP 4                  // double-width pixels
+#define RG_DUMP_XSTEP 4                  /* double-width pixels */
 #define RG_C64_STYLE 1
 #include "rgbgrid.h"
 
@@ -59,8 +67,8 @@ void SetColor(int32_t index, glui32 color) {
     if (index >= 0 && index < 8) slot_rgb[index] = color & 0xffffff;
 }
 
-// c64_small.c calls this (the original lives in c64a8draw.c); copied verbatim so
-// we don't drag in the whole c64a8draw translation unit.
+/* c64_small.c calls this (the original lives in c64a8draw.c); copied verbatim
+   so we don't drag in the whole c64a8draw translation unit. */
 void DrawPatternAndAdvancePos(int x, int *y, uint8_t pattern) {
     for (int shift = 6; shift >= 0; shift -= 2) {
         PutDoublePixel(x, *y, (pattern >> shift) & 3);
@@ -69,20 +77,21 @@ void DrawPatternAndAdvancePos(int x, int *y, uint8_t pattern) {
     (*y)++;
 }
 
-// Unity-include the renderer to reach the file-static DrawMiniC64ImageFromData,
-// DrawSprite, AddSprite and sprites[].
+/* Unity-include the renderer to reach the file-static
+   DrawMiniC64ImageFromData, DrawSprite, AddSprite and sprites[]. */
 #include "c64_small.c"
 
-// c64a8draw.c defines this, and can't be linked here: it shares a routine
-// with what c64_small.c is built from. Its values are VICE's colodore.vpl.
+/* c64a8draw.c defines this, and can't be linked here: it shares a routine
+   with what c64_small.c is built from. Its values are VICE's colodore.vpl. */
 const uint32_t c64colors[16] = {
     0x000000, 0xffffff, 0x96282e, 0x5bd6ce, 0x9f2dad, 0x41b936, 0x2724c4, 0xeff347,
     0x9f4815, 0x5e3500, 0xda5f66, 0x474747, 0x787878, 0x91ff84, 0x6864ff, 0xaeaeae,
 };
 
-// ---- loader stubs the unity-included c64_small.c references ------------------
-// Only DrawMiniC64ImageFromData / DrawSprite are called; the file's loader path
-// (handle_all_in_one) and higher-level DrawMiniC64 are compiled but never run.
+/* ---- loader stubs the unity-included c64_small.c references -----------------
+   Only DrawMiniC64ImageFromData / DrawSprite are called; the file's loader
+   path (handle_all_in_one) and higher-level DrawMiniC64 are compiled but never
+   run. */
 GameInfo *Game = NULL;
 Header GameHeader;
 MachineType CurrentSys = SYS_UNKNOWN;
@@ -98,21 +107,21 @@ GameIDType LoadBinaryDatabase(uint8_t *d, size_t l, GameInfo info, int ds) {
     (void)d; (void)l; (void)info; (void)ds; return UNKNOWN_GAME;
 }
 
-// ---- helpers -----------------------------------------------------------------
-// The interpreter reads the sprite positions from the game file, which this
-// test does not have, only the picture blobs. These are the positions the
-// loader finds in Pirate Adventure for the sprites the specs use.
+/* ---- helpers ----------------------------------------------------------------
+   The interpreter reads the sprite positions from the game file, which this
+   test does not have, only the picture blobs. These are the positions the
+   loader finds in Pirate Adventure for the sprites the specs use. */
 static void add_test_sprites(void) {
     if (sprites[0].index != 0)
         return;
-    AddSprite(25, 104, 62); // bottle of rum
-    AddSprite(44, 86, 62);  // safety sneakers
-    AddSprite(60, 184, 62); // sack of crackers
+    AddSprite(25, 104, 62); /* bottle of rum */
+    AddSprite(44, 86, 62);  /* safety sneakers */
+    AddSprite(60, 184, 62); /* sack of crackers */
 }
 
-// Render one object: a hardware sprite (if its index is in sprites[]) drawn at
-// its fixed screen position, else a self-positioning bitmap overlay — exactly
-// the dispatch DrawMiniC64 does for Pirate Adventure room objects.
+/* Render one object: a hardware sprite (if its index is in sprites[]) drawn at
+   its fixed screen position, else a self-positioning bitmap overlay — exactly
+   the dispatch DrawMiniC64 does for Pirate Adventure room objects. */
 static void render_object(int objindex, uint8_t *blob, size_t sz) {
     add_test_sprites();
     for (int i = 0; sprites[i].index != 0; i++) {
@@ -129,10 +138,10 @@ static void render_object(int objindex, uint8_t *blob, size_t sz) {
 
 static void draw_spec_image(int isobj, int objindex, uint8_t *blob, size_t sz) {
     if (isobj) render_object(objindex, blob, sz);
-    else       DrawMiniC64ImageFromData(blob, sz, 1); // a room picture: centred
+    else       DrawMiniC64ImageFromData(blob, sz, 1); /* a room picture: centred */
 }
 
-// Parse a render spec and composite it into `grid`. Returns 0 on success.
+/* Parse a render spec and composite it into `grid`. Returns 0 on success. */
 static int render_spec(const char *specpath) {
     rg_clear();
     memset(slot_rgb, 0, sizeof slot_rgb);

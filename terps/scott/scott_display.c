@@ -1,4 +1,11 @@
 /*
+ *	  This program is free software; you can redistribute it and/or
+ *	  modify it under the terms of the GNU General Public License
+ *	  as published by the Free Software Foundation; either version
+ *	  2 of the License, or (at your option) any later version.
+ */
+
+/*
  *  scott_display.c
  *  Part of ScottFree, an interpreter for adventures in Scott Adams format
  *
@@ -519,14 +526,13 @@ void Look(void)
     r = &Rooms[MyLoc];
 
     if (!r->Text) {
-        /* Flush rather than bare-return: buf and room_description_stream are
-           already allocated/open, and only FlushRoomDescription frees and
-           closes them. A bare return leaks both every time it is hit. */
+        /* buf and room_description_stream are already allocated/open, and only
+           FlushRoomDescription frees and closes them. */
         FlushRoomDescription(buf);
         return;
     }
-    /* An initial asterisk means the room description should not */
-    /* start with "You are" or equivalent */
+    /* An initial asterisk means the room description should not
+       start with "You are" or equivalent */
     if (*r->Text == '*') {
         WriteToRoomDescriptionStream("%s", r->Text + 1);
     } else {

@@ -1,22 +1,30 @@
-// C-renderer side of the DOS SAGA bitmap test. Feeds a raw <name>.PAK image
-// (exactly the bytes the interpreter's FindImageFile() hands to DrawDOSImage)
-// to common_sagadraw/pcdraw.c:DrawDOSImageFromData, capturing every
-// PutPixelWithWidth() into a CGA-resolution slot grid (one 2-bit colour index,
-// 0..3, per native pixel). That grid is byte-compared against a golden grid
-// decoded from a real DOSBox CGA screenshot of the same room (see
-// dos_decode_png.py). Comparison is at the palette-independent slot level, so a
-// wrong decode fails regardless of how slots map to RGB.
-//
-// pcdraw subtracts a constant 24px (the Spatterlight graphics-window left margin)
-// from every image's left origin, whereas the real DOS game draws straight into
-// the CGA framebuffer; verified empirically that a correct render matches the
-// DOSBox golden exactly at dx=+24, dy=0 (Spider-Man R002 = 100%). So the compare
-// shifts the C grid right by CGA_DX to line up with the screen-space golden.
-//
-//   usage:
-//     dostest dump  <image.PAK>                 ASCII-art the rendered grid
-//     dostest grid  <image.PAK> <out.grid>      write the raw slot grid
-//     dostest cmp   <image.PAK> <golden.cga>    render + byte-compare to golden
+/*
+ *	  This program is free software; you can redistribute it and/or
+ *	  modify it under the terms of the GNU General Public License
+ *	  as published by the Free Software Foundation; either version
+ *	  2 of the License, or (at your option) any later version.
+ */
+
+/* C-renderer side of the DOS SAGA bitmap test. Feeds a raw <name>.PAK image
+   (exactly the bytes the interpreter's FindImageFile() hands to DrawDOSImage)
+   to common_sagadraw/pcdraw.c:DrawDOSImageFromData, capturing every
+   PutPixelWithWidth() into a CGA-resolution slot grid (one 2-bit colour index,
+   0..3, per native pixel). That grid is byte-compared against a golden grid
+   decoded from a real DOSBox CGA screenshot of the same room (see
+   dos_decode_png.py). Comparison is at the palette-independent slot level, so
+   a wrong decode fails regardless of how slots map to RGB.
+
+   pcdraw subtracts a constant 24px (the Spatterlight graphics-window left
+   margin) from every image's left origin, whereas the real DOS game draws
+   straight into the CGA framebuffer; verified empirically that a correct
+   render matches the DOSBox golden exactly at dx=+24, dy=0 (Spider-Man R002 =
+   100%). So the compare shifts the C grid right by CGA_DX to line up with the
+   screen-space golden.
+
+     usage:
+       dostest dump  <image.PAK>                 ASCII-art the rendered grid
+       dostest grid  <image.PAK> <out.grid>      write the raw slot grid
+       dostest cmp   <image.PAK> <golden.cga>    render + byte-compare to golden */
 
 #include <stdio.h>
 #include <stdint.h>
@@ -29,11 +37,11 @@
 
 int DrawDOSImageFromData(uint8_t *ptr, size_t datasize);
 
-// ---- CGA logical-pixel capture ------------------------------------------------
+/* ---- CGA logical-pixel capture ---------------------------------------------- */
 #define CGA_W 320
 #define CGA_H 200
 
-static int8_t grid[CGA_H][CGA_W];   // -1 = untouched, else slot 0..3
+static int8_t grid[CGA_H][CGA_W];   /* -1 = untouched, else slot 0..3 */
 static int grid_minx = CGA_W, grid_miny = CGA_H, grid_maxx = -1, grid_maxy = -1;
 
 static void plot(int x, int y, int color) {
@@ -46,8 +54,8 @@ static void plot(int x, int y, int color) {
     if (y > grid_maxy) grid_maxy = y;
 }
 
-// pcdraw draws via PutPixelWithWidth; width 2 means each logical pixel covers two
-// native columns (the non-striped, half-horizontal-resolution images).
+/* pcdraw draws via PutPixelWithWidth; width 2 means each logical pixel covers
+   two native columns (the non-striped, half-horizontal-resolution images). */
 void PutPixelWithWidth(glsi32 x, glsi32 y, int32_t color, int pixelwidth) {
     for (int i = 0; i < pixelwidth; i++)
         plot((int)x + i, (int)y, (int)color);
@@ -56,7 +64,7 @@ void PutPixel(glsi32 x, glsi32 y, int32_t color) { plot((int)x, (int)y, (int)col
 void PutDoublePixel(glsi32 x, glsi32 y, int32_t color) { PutPixelWithWidth(x, y, color, 2); }
 void SetColor(int32_t index, glui32 color) { (void)index; (void)color; }
 
-// ---- helpers ------------------------------------------------------------------
+/* ---- helpers ---------------------------------------------------------------- */
 static void render(const char *pakpath) {
     memset(grid, -1, sizeof grid);
     size_t sz = 0;
@@ -70,7 +78,7 @@ static void dump_ascii(void) {
     const char *shades = " .:#";
     if (grid_maxx < 0) { printf("(empty render)\n"); return; }
     printf("rendered bbox x[%d..%d] y[%d..%d]\n", grid_minx, grid_maxx, grid_miny, grid_maxy);
-    for (int y = grid_miny; y <= grid_maxy; y += 2) {        // y+=2: CGA field interlace
+    for (int y = grid_miny; y <= grid_maxy; y += 2) {        /* y+=2: CGA field interlace */
         for (int x = grid_minx; x <= grid_maxx; x += 2) {
             int v = grid[y][x];
             putchar(v < 0 ? '?' : shades[v]);
@@ -79,7 +87,8 @@ static void dump_ascii(void) {
     }
 }
 
-// Raw grid file: "DGRID" magic, w, h (int32 LE), then h*w bytes (0..3, 0xff=unset).
+/* Raw grid file: "DGRID" magic, w, h (int32 LE), then h*w bytes (0..3,
+   0xff=unset). */
 static void write_grid(const char *out) {
     FILE *f = fopen(out, "wb");
     if (!f) { fprintf(stderr, "cannot write %s\n", out); exit(1); }
@@ -96,13 +105,15 @@ static void write_grid(const char *out) {
     printf("wrote %s (%dx%d)\n", out, w, h);
 }
 
-// Constant screen-space offset between pcdraw's window coords and the CGA golden.
+/* Constant screen-space offset between pcdraw's window coords and the CGA
+   golden. */
 #define CGA_DX 24
 
-// Golden grid produced by dos_decode_png.py: "CGA00", w,h (int32 LE), w*h bytes.
-// Returns 0 (PASS) when every pixel the C renderer drew matches the golden.
+/* Golden grid produced by dos_decode_png.py: "CGA00", w,h (int32 LE), w*h
+   bytes.
+   Returns 0 (PASS) when every pixel the C renderer drew matches the golden. */
 static int compare_golden(const char *pakpath, const char *goldenpath) {
-    (void)pakpath;  // already rendered into `grid` by render()
+    (void)pakpath;  /* already rendered into `grid` by render() */
     size_t sz = 0;
     uint8_t *gold = read_file(goldenpath, &sz);
     if (!gold || sz < 13 || memcmp(gold, "CGA00", 5) != 0) {

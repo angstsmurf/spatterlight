@@ -1,17 +1,24 @@
-// C-renderer side of the Apple II SAGA *bitmap* test (distinct from the already
-// tested Apple II vector path). Feeds a raw image blob (extracted by
-// extract_images from the real game disk) to common_sagadraw/apple2draw.c:
-// DrawApple2ImageFromData, which decodes it into `screenmem` — the native Apple
-// II hi-res page-1 layout ($2000..$3FFF). That page is byte-compared against a
-// golden $2000 dump captured from the real game under MAME (approach A, exactly
-// like the vector apple2 test compares its hi-res page).
-//
-//   usage:
-//     apple2test cmp <image.dat> <golden.page> [descrambletable.bin]
-//
-// If a descramble table is given it is installed first (the Apple II bitmap
-// games store a $2000 row-address LUT on disk; DrawApple2ImageFromData takes the
-// scrambled path when it is present).
+/*
+ *	  This program is free software; you can redistribute it and/or
+ *	  modify it under the terms of the GNU General Public License
+ *	  as published by the Free Software Foundation; either version
+ *	  2 of the License, or (at your option) any later version.
+ */
+
+/* C-renderer side of the Apple II SAGA *bitmap* test (distinct from the
+   already tested Apple II vector path). Feeds a raw image blob (extracted by
+   extract_images from the real game disk) to common_sagadraw/apple2draw.c:
+   DrawApple2ImageFromData, which decodes it into `screenmem` — the native
+   Apple II hi-res page-1 layout ($2000..$3FFF). That page is byte-compared
+   against a golden $2000 dump captured from the real game under MAME (approach
+   A, exactly like the vector apple2 test compares its hi-res page).
+
+     usage:
+       apple2test cmp <image.dat> <golden.page> [descrambletable.bin]
+
+   If a descramble table is given it is installed first (the Apple II bitmap
+   games store a $2000 row-address LUT on disk; DrawApple2ImageFromData takes
+   the scrambled path when it is present). */
 
 #include <stdio.h>
 #include <stdint.h>
@@ -21,11 +28,11 @@
 #include "test_util.h"
 
 #include "glk.h"
-#include "apple2draw.h"   // A2_SCREEN_MEM_SIZE, DrawApple2ImageFromData, screenmem
+#include "apple2draw.h"   /* A2_SCREEN_MEM_SIZE, DrawApple2ImageFromData, screenmem */
 
 
-// --- stubs for the Glk plotting / artifact-colour path (never reached here;
-//     DrawApple2ImageFromData only writes screenmem) -----------------------------
+/* ---- stubs for the Glk plotting / artifact-colour path ------------------------
+   Never reached here: DrawApple2ImageFromData only writes screenmem. */
 winid_t Graphics = NULL;
 int pixel_size = 1, x_offset = 0, y_offset = 0, ImageHeight = 320;
 void Fatal(const char *x) { fprintf(stderr, "Fatal: %s\n", x ? x : ""); exit(1); }
@@ -45,8 +52,8 @@ int main(int argc, char **argv) {
     uint8_t *img = read_file(argv[2], &isz);
     if (!img) { fprintf(stderr, "cannot read %s\n", argv[2]); return 2; }
 
-    // The Count's own layout (APPLE2_COUNT) is never reached: its disks are
-    // all scrambled, so the descrambletable path handles them.
+    /* The Count's own layout (APPLE2_COUNT) is never reached: its disks are
+       all scrambled, so the descrambletable path handles them. */
     DrawApple2ImageFromData(img, isz, APPLE2_STANDARD, NULL);
     free(img);
 
@@ -58,9 +65,9 @@ int main(int argc, char **argv) {
     }
     if (!screenmem) { fprintf(stderr, "renderer produced no screenmem\n"); return 1; }
 
-    // Compare only the picture rows (hi-res rows 0..159). Rows 160..191 of page 1
-    // hold the 4-line text window, which the game draws but the image renderer
-    // leaves blank (see groundtruth/README.md), so they are excluded.
+    /* Compare only the picture rows (hi-res rows 0..159). Rows 160..191 of
+       page 1 hold the 4-line text window, which the game draws but the image
+       renderer leaves blank (see groundtruth/README.md), so they are excluded. */
     int diff = 0, total = 0, first = -1;
     for (int y = 0; y < 160; y++) {
         unsigned base = gm_row_address(y);

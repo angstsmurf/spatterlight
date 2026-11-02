@@ -1,95 +1,40 @@
-// Scene harness: runs the real ScottFree interpreter (glk_main) against a
-// command script with a framebuffer-backed graphics window, and compares what
-// the game has painted with a memory dump taken from real hardware (emulator)
-// at the same point of the same game.
-//
-// Unlike the per-renderer tests (zxtest, c64test, ...), nothing is unity-
-// included here: the whole picture path runs as shipped — DetectGame, the
-// game-specific Look routines (Hulk item overlays, Robin of Sherwood forest
-// composites, Gremlins animations, Seas of Blood's Taylor-style pictures), the
-// Howarth vector renderer, palette selection/remapping, the image patch tables
-// and the ZX loading screen — down to PutPixel/RectFill, whose
-// glk_window_fill_rect calls land in the canvas below.
-//
-// The interpreter sources are built with -include scene_glk.h, which renames
-// the Glk window entry points to the fake window layer shared with the image
-// probes (common_imagetest/fake_glk_window.c) and the event loop to the
-// scene_* functions defined here. Streams, files and unicode still come from
-// cheapglk.
-//
-//   scenetest [-v|-vv] [-c] [-t] [-d dumpdir] <file.scene>
-//     -v  print the game's text output (a transcript) to stdout
-//     -vv the room descriptions too (as a transcript has them), for writing a
-//         scene
-//     -c  print at every check how many rectangles were filled since the one
-//         before: the cost of drawing the picture
-//     -d  write every checked frame to <dumpdir>/<golden>.png
-//     -t  print the game's rooms and items, with their pictures, at the first
-//         input request, and stop: what a scene generator needs to know
-//
-// A .scene file is a command script. Each plain line answers one input request
-// (a command for line input; its first character for a keypress, Return if the
-// line is empty). Lines starting with '#' are comments, lines starting with '!'
-// are directives:
-//
-//   !game <file>       the game image, relative to the scene file (required)
-//   !slowdraw          run with the slow-draw setting on (before the game starts)
-//   !tick [n]          deliver n timer events (default: until the game stops
-//                      the timer) — animation frames, slow drawing
-//   !terp <line>       input like a plain line, but skipped when the same script
-//                      is replayed on the original (see below)
-//   !picture <n>       make picture n the picture of every room (the next LOOK
-//                      shows it): for pictures no script can walk to. The
-//                      original gets a `!hwpoke` of its picture table instead.
-//                      Also blanks the picture, as the original does before
-//                      it draws a room: some pictures are only overlays.
-//                      A US game (saga.c) draws its pictures by number: there
-//                      the picture is shown at once, with no LOOK, as the
-//                      original shows it when the poked table entry is looked
-//                      at (`!hw look`)
-//   !room <n>          put the player in room n, and
-//   !item <i> <n>      item i in room n,
-//   !counter <c> <n>   n in the stored counter c, and
-//   !flag <f>          set bit flag f (the next LOOK shows it all): for rooms
-//                      behind a battle, for things that only turn up later
-//                      in the game, and to keep an event that happens by
-//                      chance from happening. The original gets a `!hwpoke`
-//                      of the same byte of its own state instead
-//   !check <golden> [min=N] [dx=N] [dy=N]
-//                      compare the graphics window as it is when the game next
-//                      waits for input. Every painted pixel must match unless
-//                      min= gives the number of pixels that have to; dx/dy
-//                      shift the golden (golden pixel x+dx,y+dy <-> canvas x,y).
-//
-// Timer events are also delivered whenever the game waits with no input request
-// pending (timed pauses, lightning flashes).
-//
-// Seas of Blood is built with AUTOWIN (see the Makefile): its battles are won
-// without a dice roll, and take no input but the <HIT ENTER> before and after.
-//
-// The same script drives the original game when the goldens are captured
-// (zx_capture.lua, a MAME autoboot script, for the Spectrum; c64_capture.py,
-// which drives VICE, for the C64): plain lines are typed there too and every
-// `!check` dumps the screen. Lines for the original only — `!hw <keys>`,
-// `!hwkey <keys>`, `!hwwait <n>`, `!hwnext`, `!hwpoke <addr>=<bytes>`,
-// `!hwsnap <file>`, `!dump <file>` — are ignored here.
-// An animated picture is dumped frame by frame there (`!hwnext`, `!dump`) and
-// stepped through here with `!tick` and a `!check` of each dump.
-//
-// Goldens, by extension:
-//   .scr   ZX Spectrum SCREEN$: 6912 bytes of display file from $4000
-//   .c64   Commodore 64 hires bitmap: 8000 bytes of bitmap + 1000 bytes of
-//          screen RAM (colour nibbles)
-//   .cga   CGA00 grid of dostest (groundtruth_dos/): MS-DOS screen, CGA indices
-//   .c64   of another size: C64C2 grid of c64a8test (groundtruth_c64a8/): a
-//          screen in RGB, its own palette at the start of the file
-//   .vic   Commodore 64 rendered frame: 320x200 bytes of VIC-II colour
-//          numbers, for the multicolour pictures with sprites of the
-//          all-in-one games (Pirate Adventure, Voodoo Castle) and for the
-//          US bitmap games (Hulk, Claymorgue)
-// All are decoded to colour indices and looked up in the interpreter's own
-// palette (pal[]; for a .vic, c64colors[] of c64a8draw.c), so a wrong
-// palette or remap fails the test just like a wrong pixel.
+/*
+ *	  This program is free software; you can redistribute it and/or
+ *	  modify it under the terms of the GNU General Public License
+ *	  as published by the Free Software Foundation; either version
+ *	  2 of the License, or (at your option) any later version.
+ */
+
+/* Scene harness: runs the real ScottFree interpreter (glk_main) against a
+   command script with a framebuffer-backed graphics window, and compares what
+   the game has painted with a memory dump taken from real hardware (emulator)
+   at the same point of the same game.
+
+   Unlike the per-renderer tests (zxtest, c64test, ...), nothing is unity-
+   included here: the whole picture path runs as shipped — DetectGame, the
+   game-specific Look routines (Hulk item overlays, Robin of Sherwood forest
+   composites, Gremlins animations, Seas of Blood's Taylor-style pictures), the
+   Howarth vector renderer, palette selection/remapping, the image patch tables
+   and the ZX loading screen — down to PutPixel/RectFill, whose
+   glk_window_fill_rect calls land in the canvas below.
+
+   The interpreter sources are built with -include scene_glk.h, which renames
+   the Glk window entry points to the fake window layer shared with the image
+   probes (common_imagetest/fake_glk_window.c) and the event loop to the
+   scene_* functions defined here. Streams, files and unicode still come from
+   cheapglk.
+
+     scenetest [-v|-vv] [-c] [-t] [-d dumpdir] <file.scene>
+       -v  print the game's text output (a transcript) to stdout
+       -vv the room descriptions too (as a transcript has them), for writing a
+           scene
+       -c  print at every check how many rectangles were filled since the one
+           before: the cost of drawing the picture
+       -d  write every checked frame to <dumpdir>/<golden>.png
+       -t  print the game's rooms and items, with their pictures, at the first
+           input request, and stop: what a scene generator needs to know
+
+   The .scene format and the goldens are described in README.md. */
 
 #include <ctype.h>
 #include <stdint.h>
@@ -115,7 +60,7 @@ extern void glk_main(void);
 #include "fake_glk_window.h"
 #include "test_util.h"
 
-// ---- Script ------------------------------------------------------------------
+/* ---- Script ------------------------------------------------------------------ */
 
 static char **script;
 static int script_len, script_pos;
@@ -175,7 +120,7 @@ static void load_script(const char *path)
     scene_dir[dirlen] = 0;
 }
 
-// ---- Fake windows (common_imagetest/fake_glk_window.c) ------------------------
+/* ---- Fake windows (common_imagetest/fake_glk_window.c) ------------------------ */
 
 #define canvas fakeglk_canvas
 #define CANVAS_W FAKEGLK_CANVAS_W
@@ -208,7 +153,7 @@ void scene_exit(void)
     finish();
 }
 
-// ---- Goldens -------------------------------------------------------------------
+/* ---- Goldens ------------------------------------------------------------------- */
 
 #define TRUTH_W 320
 #define TRUTH_H 200
@@ -377,7 +322,7 @@ static void check(char *args)
     }
 }
 
-// ---- Events --------------------------------------------------------------------
+/* ---- Events -------------------------------------------------------------------- */
 
 static void print_game_tables(void)
 {
@@ -498,7 +443,7 @@ void scene_select(event_t *ev)
     }
 }
 
-// ---- Main ----------------------------------------------------------------------
+/* ---- Main ---------------------------------------------------------------------- */
 
 int main(int argc, char **argv)
 {

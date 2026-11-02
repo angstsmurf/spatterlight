@@ -1,11 +1,19 @@
-// Extract the SAGA bitmap image blobs from a Scott Adams C64 .d64 disk image,
-// exactly as the interpreter's LoadC64USImages() does (ai_uk/c64decrunch.c):
-// every directory entry whose name is a SAGA image (R/B/S + three digits) is
-// read straight off the disk and written out verbatim as <name>.dat. These are
-// the byte-for-byte inputs the C renderer (DrawC64A8ImageFromData) consumes, so
-// the bitmap test can feed the real game data without linking the whole loader.
-//
-//   usage: c64extract <game.d64> <outdir>
+/*
+ *	  This program is free software; you can redistribute it and/or
+ *	  modify it under the terms of the GNU General Public License
+ *	  as published by the Free Software Foundation; either version
+ *	  2 of the License, or (at your option) any later version.
+ */
+
+/* Extract the SAGA bitmap image blobs from a Scott Adams C64 .d64 disk image,
+   exactly as the interpreter's LoadC64USImages() does (ai_uk/c64decrunch.c):
+   every directory entry whose name is a SAGA image (R/B/S + three digits) is
+   read straight off the disk and written out verbatim as <name>.dat. These are
+   the byte-for-byte inputs the C renderer (DrawC64A8ImageFromData) consumes,
+   so the bitmap test can feed the real game data without linking the whole
+   loader.
+
+     usage: c64extract <game.d64> <outdir> */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,7 +25,7 @@
 
 #include "c64diskimage.h"
 
-// Mirrors sagagraphics.c:IsSagaImage — R/B/S followed by three digits.
+/* Mirrors sagagraphics.c:IsSagaImage — R/B/S followed by three digits. */
 static int is_saga_image(const char *name) {
     if (name == NULL || strlen(name) < 4)
         return 0;

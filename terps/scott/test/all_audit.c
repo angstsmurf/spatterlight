@@ -1,11 +1,18 @@
+/*
+ *	  This program is free software; you can redistribute it and/or
+ *	  modify it under the terms of the GNU General Public License
+ *	  as published by the Free Software Foundation; either version
+ *	  2 of the License, or (at your option) any later version.
+ */
+
 /* Audit tool: can a real game's action table move an item out from under an
    in-progress TAKE ALL / DROP ALL chain?
 
    The ALL chain is expanded once, when the line is parsed (CreateAllCommands),
    into one node per eligible item. Each node then runs as its own turn, which
-   means implicit (vocab 0) actions run between nodes and an explicit action can
-   fire for a node's own verb/noun. If any of those relocates an item that is
-   still queued in the chain, the chain's skip path is taken.
+   means implicit (vocab 0) actions run between nodes and an explicit action
+   can fire for a node's own verb/noun. If any of those relocates an item that
+   is still queued in the chain, the chain's skip path is taken.
 
    This walks Actions[] and reports every action that relocates an ALL-eligible
    item (one with a non-treasure AutoGet word), split by how it can fire:
@@ -51,7 +58,8 @@ static int ParamCount(int op)
     return (op == OP_MOVE_ITEM || op == OP_SWAP_ITEMS || op == OP_MOVE_TO_LOC_OF) ? 2 : 1;
 }
 
-/* An item is eligible for ALL if it has an AutoGet word that isn't a treasure. */
+/* An item is eligible for ALL if it has an AutoGet word that isn't a
+   treasure. */
 static int AllEligible(int item)
 {
     if (item < 0 || item > GameHeader.NumItems)
@@ -116,7 +124,8 @@ void glk_main(void)
             if (!AllEligible(target))
                 continue;
             /* An explicit TAKE/DROP action moving its OWN item is the normal
-               case (the action does the take); only a different item matters. */
+               case (the action does the take); only a different item
+               matters. */
             if (verb != 0 && Items[target].AutoGet != NULL && noun != 0) {
                 extern int WhichWord(const char *, const char **, int, int);
                 int tnoun = WhichWord(Items[target].AutoGet, (const char **)Nouns,

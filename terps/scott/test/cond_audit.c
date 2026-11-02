@@ -1,3 +1,10 @@
+/*
+ *	  This program is free software; you can redistribute it and/or
+ *	  modify it under the terms of the GNU General Public License
+ *	  as published by the Free Software Foundation; either version
+ *	  2 of the License, or (at your option) any later version.
+ */
+
 /* Audit tool: does any action line of a game name an item that is not in the
    Items[] array?
 
@@ -120,7 +127,7 @@ static void Check(ArgKind kind, int arg, const char *where, const char *what)
     printf("  %s: %s %s %d: %s\n", where, what, kind_names[kind], arg, verdict);
 }
 
-// MARK: Standard action table
+/* MARK: Standard action table */
 
 /* The kinds of the parameters an opcode takes off the parameter list, in
    order. Returns how many. */
@@ -240,7 +247,7 @@ static void AuditStandard(void)
     }
 }
 
-// MARK: TI-99/4A bytecode
+/* MARK: TI-99/4A bytecode */
 
 static const int ti99_conditions[] = {
     COND_CARRIED, COND_IN_ROOM, COND_PRESENT, COND_NOT_IN_ROOM,

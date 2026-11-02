@@ -1,12 +1,20 @@
-// Headless image-blob dumper. Runs the real interpreter's game detection /
-// loading pipeline (DetectGame -> the per-platform loaders, including the C64
-// decrunch and Apple II / Atari / TI-99 extractors) and writes every resulting
-// USImage->imagedata to <outdir>/<sys>_<usage>_<index>.dat. These are the exact
-// bytes the renderers (DrawApple2ImageFromData, DrawC64A8ImageFromData, ...)
-// consume, so the per-format byte-exact tests can use real game data without
-// re-implementing the (heavily entangled) extraction pipeline.
-//
-//   usage: extract_images <game-file> <outdir>
+/*
+ *	  This program is free software; you can redistribute it and/or
+ *	  modify it under the terms of the GNU General Public License
+ *	  as published by the Free Software Foundation; either version
+ *	  2 of the License, or (at your option) any later version.
+ */
+
+/* Headless image-blob dumper. Runs the real interpreter's game detection /
+   loading pipeline (DetectGame -> the per-platform loaders, including the C64
+   decrunch and Apple II / Atari / TI-99 extractors) and writes every resulting
+   USImage->imagedata to <outdir>/<sys>_<usage>_<index>.dat. These are the
+   exact bytes the renderers (DrawApple2ImageFromData, DrawC64A8ImageFromData,
+   ...)
+   consume, so the per-format byte-exact tests can use real game data without
+   re-implementing the (heavily entangled) extraction pipeline.
+
+     usage: extract_images <game-file> <outdir> */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -57,9 +65,10 @@ int main(int argc, char **argv) {
     }
 #endif
 
-    // The Apple II bitmap renderer (DrawApple2ImageFromData) needs the per-game
-    // descramble table (the disk's $2000 row-address LUT) when present; dump it
-    // alongside the blobs so the render test can reproduce the scrambled path.
+    /* The Apple II bitmap renderer (DrawApple2ImageFromData) needs the
+       per-game descramble table (the disk's $2000 row-address LUT) when
+       present; dump it alongside the blobs so the render test can reproduce
+       the scrambled path. */
     extern uint8_t *descrambletable;
     if (descrambletable) {
         char path[1100];

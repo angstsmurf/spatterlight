@@ -81,3 +81,28 @@ Combat must be tested in the real Glk app.
 When diffing two builds, verify the two binaries really differ before trusting
 the result — a stale build once made a "no change" result out of an unchanged
 binary.
+
+## Comments and licences
+
+Sources carry the GPL 2 or later block from `scott.c`, with these exceptions:
+
+- `saga/apple2_vector_draw.{c,h}` are GPL 3 or later, because `doImageOp` follows
+  ScummVM's Comprehend `Pics::ImageFile::doImageOp`.
+
+`ai_uk/line_drawing.{c,h}` no longer claim to be based on Simon Baldwin's Level9
+code. The Bresenham line that came from there was replaced by the ROM routine in
+24ac10fa9, so what was left was the wording of a comment, since rewritten. This
+matters beyond credit: `level9/Glk/glk.c` is GPL 2 only, which could not share a
+binary with the GPL 3 or later `apple2_vector_draw.c`.
+
+`ai_uk/sagadraw.c` began as David Lodge's Sagadraw but no longer carries its MIT
+notice. Its drawing code moved to `aiukgraphics/irmak.c` and `aiukpalette.c` and was
+rewritten. What is left is setup code, and no line of it matches upstream's
+`AdventureInternational/sagadraw.c`. The Hulk tables, patches and Claymorgue salvage
+were added here. The banner still credits Lodge and Doherty for the format.
+
+All sources use `/* */` comments only.
+
+The original author's informal comments in `scott_actions.c` and `scott.h` stay,
+as do the ROM labels that look like dead names (`FLOOD_FILL`, `DRAW_OPCODE`,
+`MAIN_DRAW`, `FoundTop`).

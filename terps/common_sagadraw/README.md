@@ -18,6 +18,13 @@ No build file and no tests of its own. Xcode finds these headers through the
 `common_sagadraw` group in the project file, not through a search path, so a
 new header must be added to that group.
 
+## Licences
+
+`gm_vector.c/.h` is GPL 2 or later. It was split out of the GPL 3 or later
+`scott/saga/apple2_vector_draw.c`, but it comes from the 6502 routines rather
+than from ScummVM's Comprehend, whose `drawLine` and `drawShape` work differently.
+The part of that file that does derive from Comprehend, `doImageOp`, stayed behind.
+
 ## The suites
 
 ```

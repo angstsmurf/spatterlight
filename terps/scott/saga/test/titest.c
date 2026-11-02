@@ -1,33 +1,41 @@
-// C-renderer side of the TI-99/4A RTPI (Return to Pirate's Isle) bitmap test.
-//
-// RTPI images are a GROM bytecode stream that ti994a/rtpi_graphics.c decodes
-// into two native VDP buffers: vdp_pixels[] (the 1-bpp pattern data, screen
-// order, 32x12 tiles = 0xC00 bytes) and vdp_colors[] (the per-row colour
-// attribute, fg<<4|bg, same size); DrawRTPIFromMem then plots those to screen.
-//
-// The golden is captured as the final DISPLAYED picture (approach B): a raw VDP
-// pattern/colour-table compare does NOT work because on real hardware RTPI
-// splits the picture across both VDP banks with a mid-screen raster trick, and
-// — crucially — the in-game pictures are deliberately DISTORTED (the myopia /
-// "no glasses" effect, DrawFuzzyRTPIImage) until the player gets up and wears
-// the glasses. That distortion also depends on the *previous* screen buffer, so
-// it is not reproducible from a blob alone. With the glasses on, the clean
-// DrawRTPIImage output matches the hardware framebuffer pixel-for-pixel.
-//
-// rtpi_graphics.c keeps vdp_pixels/vdp_colors and the 52-tile font (loaded from
-// the cartridge CPU ROM) file-static, so we #include the .c here as a unity
-// build to reach them; the Makefile drops rtpi_graphics.c from the link list to
-// avoid a duplicate definition. dump mode links the full loader (same object set
-// as extract_images) to pull blobs + font from a real cartridge; cmp mode is
-// self-contained (font + blob only — the draw path touches no other globals).
-//
-//   usage:
-//     titest dump <game.rpk> <outdir>
-//         export font.bin + every image's raw .dat blob (+ .vdp/.ppm previews)
-//         for setting up goldens.
-//     titest cmp <font.bin> <blob.dat> <usage> <index> <golden.pgrid>
-//         render the blob and pixel-compare the displayed picture (256x96
-//         palette-index grid) to a hardware golden captured under MAME.
+/*
+ *	  This program is free software; you can redistribute it and/or
+ *	  modify it under the terms of the GNU General Public License
+ *	  as published by the Free Software Foundation; either version
+ *	  2 of the License, or (at your option) any later version.
+ */
+
+/* C-renderer side of the TI-99/4A RTPI (Return to Pirate's Isle) bitmap test.
+
+   RTPI images are a GROM bytecode stream that ti994a/rtpi_graphics.c decodes
+   into two native VDP buffers: vdp_pixels[] (the 1-bpp pattern data, screen
+   order, 32x12 tiles = 0xC00 bytes) and vdp_colors[] (the per-row colour
+   attribute, fg<<4|bg, same size); DrawRTPIFromMem then plots those to screen.
+
+   The golden is captured as the final DISPLAYED picture (approach B): a raw
+   VDP pattern/colour-table compare does NOT work because on real hardware RTPI
+   splits the picture across both VDP banks with a mid-screen raster trick, and
+   — crucially — the in-game pictures are deliberately DISTORTED (the myopia /
+   "no glasses" effect, DrawFuzzyRTPIImage) until the player gets up and wears
+   the glasses. That distortion also depends on the *previous* screen buffer,
+   so it is not reproducible from a blob alone. With the glasses on, the clean
+   DrawRTPIImage output matches the hardware framebuffer pixel-for-pixel.
+
+   rtpi_graphics.c keeps vdp_pixels/vdp_colors and the 52-tile font (loaded
+   from the cartridge CPU ROM) file-static, so we #include the .c here as a
+   unity build to reach them; the Makefile drops rtpi_graphics.c from the link
+   list to avoid a duplicate definition. dump mode links the full loader (same
+   object set as extract_images) to pull blobs + font from a real cartridge;
+   cmp mode is self-contained (font + blob only — the draw path touches no
+   other globals).
+
+     usage:
+       titest dump <game.rpk> <outdir>
+           export font.bin + every image's raw .dat blob (+ .vdp/.ppm previews)
+           for setting up goldens.
+       titest cmp <font.bin> <blob.dat> <usage> <index> <golden.pgrid>
+           render the blob and pixel-compare the displayed picture (256x96
+           palette-index grid) to a hardware golden captured under MAME. */
 
 #include <stdio.h>
 #include <stdint.h>
@@ -36,7 +44,7 @@
 
 #include "test_util.h"
 
-// Unity-include the renderer to reach its file-static VDP buffers / tile font.
+/* Unity-include the renderer to reach its file-static VDP buffers / tile font. */
 #include "rtpi_graphics.c"
 
 #include "scott.h"
@@ -44,7 +52,7 @@
 
 extern const char *game_file;
 
-// TMS9918A palette (mirrors SetupRTPIColors), index 0..15 -> 0xRRGGBB.
+/* TMS9918A palette (mirrors SetupRTPIColors), index 0..15 -> 0xRRGGBB. */
 static const uint32_t ti_palette[16] = {
     0x000000, 0x000000, 0x21c842, 0x5edc78, 0x5051E0, 0x7F77F8, 0xE15D53, 0x42ebf5,
     0xff655C, 0xff847e, 0xD4C154, 0xEAD087, 0x00ae3f, 0xc95bba, 0xCDCDCD, 0xffffff,
@@ -54,9 +62,9 @@ static const uint32_t ti_palette[16] = {
 #define PIC_H 96
 #define PGRID_SIZE (PIC_W * PIC_H)
 
-// The decoded vdp_pixels/vdp_colors as a 256x96 grid of TMS9918 palette
-// indices, one byte per pixel, by DrawRTPIFromMem's tile walk: 32 cols x 12
-// rows of 8x8 tiles, fg = hi nibble, bg = lo nibble of each line's attribute.
+/* The decoded vdp_pixels/vdp_colors as a 256x96 grid of TMS9918 palette
+   indices, one byte per pixel, by DrawRTPIFromMem's tile walk: 32 cols x 12
+   rows of 8x8 tiles, fg = hi nibble, bg = lo nibble of each line's attribute. */
 static void vdp_index_grid(uint8_t *out) {
     const uint8_t *ptr = vdp_pixels, *colorptr = vdp_colors;
     int x = 0, y = 0;
@@ -72,7 +80,7 @@ static void vdp_index_grid(uint8_t *out) {
     }
 }
 
-// Render the current vdp_pixels/vdp_colors to a 256x96 RGB PPM.
+/* Render the current vdp_pixels/vdp_colors to a 256x96 RGB PPM. */
 static void write_ppm(const char *path) {
     static uint8_t idx[PGRID_SIZE];
     static uint8_t rgb[PGRID_SIZE * 3];
@@ -85,7 +93,7 @@ static void write_ppm(const char *path) {
     if (f) { fprintf(f, "P6\n%d %d\n255\n", PIC_W, PIC_H); fwrite(rgb, 1, sizeof rgb, f); fclose(f); }
 }
 
-// Dump the raw VDP pattern + colour tables (RTPI_IMAGE_SIZE bytes each).
+/* Dump the raw VDP pattern + colour tables (RTPI_IMAGE_SIZE bytes each). */
 static void write_vdp(const char *path) {
     FILE *f = fopen(path, "wb");
     if (f) {
@@ -95,20 +103,21 @@ static void write_vdp(const char *path) {
     }
 }
 
-// The displayed picture as palette indices. Palette entries 0 and 1 are both
-// black on the TMS9918, so 1 is folded to 0 — exactly the normalisation
-// ti_decode_fb.py applies to the MAME framebuffer, so the two grids are
-// directly comparable (approach B).
+/* The displayed picture as palette indices. Palette entries 0 and 1 are both
+   black on the TMS9918, so 1 is folded to 0 — exactly the normalisation
+   ti_decode_fb.py applies to the MAME framebuffer, so the two grids are
+   directly comparable (approach B). */
 static void grid_from_vdp(uint8_t *out) {
     vdp_index_grid(out);
     for (int i = 0; i < PGRID_SIZE; i++)
         if (out[i] == 1) out[i] = 0;
 }
 
-// Render a single RTPI image self-contained: install the 52-tile font (the
-// 416 bytes rtpi_graphics.c loads from the cartridge CPU ROM) and decode the raw
-// GROM blob via the real DrawRTPIImage. The draw/decode path touches no globals
-// beyond rtpi_tile_font and the image, so no DetectGame / .rpk is needed.
+/* Render a single RTPI image self-contained: install the 52-tile font (the
+   416 bytes rtpi_graphics.c loads from the cartridge CPU ROM) and decode the
+   raw GROM blob via the real DrawRTPIImage. The draw/decode path touches no
+   globals beyond rtpi_tile_font and the image, so no DetectGame / .rpk is
+   needed. */
 static int render_blob(const char *fontpath, const char *blobpath, int usage, int index) {
     size_t fsz = 0, bsz = 0;
     uint8_t *font = read_file(fontpath, &fsz);
@@ -119,7 +128,7 @@ static int render_blob(const char *fontpath, const char *blobpath, int usage, in
     free(font);
 
     USImage img = (USImage){0};
-    img.imagedata = blob;          // DrawRTPIImage may realloc this (DecodeRTPIColors)
+    img.imagedata = blob;          /* DrawRTPIImage may realloc this (DecodeRTPIColors) */
     img.datasize = bsz;
     img.usage = usage;
     img.index = index;
@@ -131,9 +140,9 @@ static int render_blob(const char *fontpath, const char *blobpath, int usage, in
     return 0;
 }
 
-// Self-contained byte-exact test: render <blob> with <font>, then compare the
-// resulting displayed picture (palette-index grid) to a golden grid captured
-// from real TI-99 hardware under MAME (see groundtruth_ti99/README.md).
+/* Self-contained byte-exact test: render <blob> with <font>, then compare the
+   resulting displayed picture (palette-index grid) to a golden grid captured
+   from real TI-99 hardware under MAME (see groundtruth_ti99/README.md). */
 static int do_cmp(const char *fontpath, const char *blobpath, int usage, int index,
                   const char *goldpath) {
     if (render_blob(fontpath, blobpath, usage, index) != 0) return 2;
@@ -162,8 +171,8 @@ static int do_dump(const char *game, const char *outdir) {
     GameIDType gt = DetectGame(game);
     fprintf(stderr, "DetectGame -> %d, CurrentSys=%d\n", (int)gt, CurrentSys);
 
-    // The 52-tile font (loaded from the cartridge CPU ROM) is the second input
-    // a self-contained cmp needs alongside each raw blob; dump it once.
+    /* The 52-tile font (loaded from the cartridge CPU ROM) is the second input
+       a self-contained cmp needs alongside each raw blob; dump it once. */
     char path[1100];
     snprintf(path, sizeof path, "%s/font.bin", outdir);
     FILE *ff = fopen(path, "wb");
@@ -174,8 +183,8 @@ static int do_dump(const char *game, const char *outdir) {
         if (img->imagedata == NULL || img->datasize == 0) continue;
         if (img->systype != SYS_TI994A) continue;
 
-        // Raw GROM blob, BEFORE DrawRTPIImage mutates imagedata — this is the
-        // input a self-contained cmp replays.
+        /* Raw GROM blob, BEFORE DrawRTPIImage mutates imagedata — this is the
+           input a self-contained cmp replays. */
         snprintf(path, sizeof path, "%s/ti994a_u%d_i%03d.dat", outdir, img->usage, img->index);
         FILE *f = fopen(path, "wb");
         if (f) { fwrite(img->imagedata, 1, img->datasize, f); fclose(f); }
@@ -195,11 +204,12 @@ static int do_dump(const char *game, const char *outdir) {
     return n ? 0 : 1;
 }
 
-// Diagnostic: render a sequence of image indices in order WITHOUT clearing the
-// VDP buffers between them, to probe whether RTPI images depend on residual VDP
-// state (copy-from-vdp opcodes reading tiles drawn by earlier images). Dumps the
-// final image's vdp/ppm to outdir. Indices are matched against img->index for
-// usage 0 (room images). Pass them as a comma list, e.g. "99,0,2".
+/* Diagnostic: render a sequence of image indices in order WITHOUT clearing the
+   VDP buffers between them, to probe whether RTPI images depend on residual
+   VDP state (copy-from-vdp opcodes reading tiles drawn by earlier images).
+   Dumps the final image's vdp/ppm to outdir. Indices are matched against
+   img->index for usage 0 (room images). Pass them as a comma list, e.g.
+   "99,0,2". */
 static int do_seq(const char *game, const char *outdir, const char *list) {
     game_file = game;
     DetectGame(game);

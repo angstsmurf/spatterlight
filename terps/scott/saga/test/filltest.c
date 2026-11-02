@@ -1,17 +1,24 @@
-// Standalone byte-exact harness for the Saga/Scott Apple II and Atari 8-bit
-// vector renderers (which include apple2_flood_fill / flood_fill). It mirrors
-// -[SpatterlightTests testScottDraw]: load the per-game drawing tables from
-// MI.dsk, then render each regression image straight from its pre-extracted
-// .dat opcode stream and compare the full screen buffer(s) against the saved
-// .result dumps. so_painting / so_console lean hard on the flood fills.
-//
-//   usage: filltest <supportpath>   (renderer fixtures are read from
-//                                    <supportpath>/Image data/, the game disk
-//                                    from <supportpath>/Games/MI.dsk)
-//
-// It links only the vector-draw + disk-decode modules; symbols belonging to the
-// interpreter core / bitmap drawing are stubbed below and are never reached on
-// the room-image render path.
+/*
+ *	  This program is free software; you can redistribute it and/or
+ *	  modify it under the terms of the GNU General Public License
+ *	  as published by the Free Software Foundation; either version
+ *	  2 of the License, or (at your option) any later version.
+ */
+
+/* Standalone byte-exact harness for the Saga/Scott Apple II and Atari 8-bit
+   vector renderers (which include apple2_flood_fill / flood_fill). It mirrors
+   -[SpatterlightTests testScottDraw]: load the per-game drawing tables from
+   MI.dsk, then render each regression image straight from its pre-extracted
+   .dat opcode stream and compare the full screen buffer(s) against the saved
+   .result dumps. so_painting / so_console lean hard on the flood fills.
+
+     usage: filltest <supportpath>   (renderer fixtures are read from
+                                      <supportpath>/Image data/, the game disk
+                                      from <supportpath>/Games/MI.dsk)
+
+   It links only the vector-draw + disk-decode modules; symbols belonging to
+   the interpreter core / bitmap drawing are stubbed below and are never
+   reached on the room-image render path. */
 
 #include <stdio.h>
 #include <stdint.h>
@@ -29,17 +36,17 @@
 #include "atari_8bit_vector_draw.h"
 #include "vector_common.h"
 
-// Defined in the linked modules.
+/* Defined in the linked modules. */
 void InitDskImage(uint8_t *data, size_t datasize);
 void FreeDiskImage(void);
 
-// ---- stubs --------------------------------------------------------------------
-// Globals owned by modules we don't link (bitmap drawing / interpreter core).
-uint8_t *screenmem = NULL;       // common_sagadraw/apple2draw.c
-uint8_t *descrambletable = NULL; // common_sagadraw/apple2draw.c
-int vector_image_shown = -1;     // ai_uk/line_drawing.c
-const char *game_file = NULL;    // scott.c
-USImage *USImages = NULL;        // sagagraphics.c (image list head)
+/* ---- stubs ------------------------------------------------------------------
+   Globals owned by modules we don't link (bitmap drawing / interpreter core). */
+uint8_t *screenmem = NULL;       /* common_sagadraw/apple2draw.c */
+uint8_t *descrambletable = NULL; /* common_sagadraw/apple2draw.c */
+int vector_image_shown = -1;     /* ai_uk/line_drawing.c */
+const char *game_file = NULL;    /* scott.c */
+USImage *USImages = NULL;        /* sagagraphics.c (image list head) */
 int CurrentSys, ImageWidth, ImageHeight;
 void *Game;
 
@@ -54,13 +61,13 @@ USImage *NewImage(void) {
 	return img;
 }
 
-// Filesystem walk calls this per file; returning 0 ("not a packed Saga image")
-// lets the load-address header in ExtractAtAddress gate the real extraction.
+/* Filesystem walk calls this per file; returning 0 ("not a packed Saga image")
+   lets the load-address header in ExtractAtAddress gate the real extraction. */
 int IsSagaImage(const char *name) { (void)name; return 0; }
 
-// Functions referenced by the linked objects but never reached on this path
-// (full game detection / close-up tables / .woz conversion / non-room bitmap
-// draw). C linkage resolves by name, so simplified signatures are fine.
+/* Functions referenced by the linked objects but never reached on this path
+   (full game detection / close-up tables / .woz conversion / non-room bitmap
+   draw). C linkage resolves by name, so simplified signatures are fine. */
 static void unreached(const char *who) { Fatal(who); }
 void *LoadBinaryDatabase(void) { unreached("LoadBinaryDatabase"); return 0; }
 void *LookInDatabase(void) { unreached("LookInDatabase"); return 0; }
@@ -79,13 +86,14 @@ void PutDoublePixel(glsi32 x, glsi32 y, int32_t color) { (void)x;(void)y;(void)c
 void RectFill(int32_t x, int32_t y, int32_t w, int32_t h, int32_t color) { (void)x;(void)y;(void)w;(void)h;(void)color; unreached("RectFill"); }
 void SetColor(int32_t index, glui32 color) { (void)index;(void)color; unreached("SetColor"); }
 
-// ---- ground-truth corpus driver ---------------------------------------------
-// Walk groundtruth/<game>/*.dat (315 MAME-captured Apple II vector pictures),
-// render each straight from its raw opcode stream, and byte-compare the resulting
-// $2000 hi-res page against the matching golden <name>.page. Every .dat — room
-// (R*) and object overlay (B*) alike — is rendered with usage IMG_ROOM, because
-// the goldens were captured by the real interpreter's DRAW_OPCODE, which always
-// clears the page to white first (see groundtruth/README.md).
+/* ---- ground-truth corpus driver ---------------------------------------------
+   Walk groundtruth/<game>/<n>.dat (315 MAME-captured Apple II vector pictures),
+   render each straight from its raw opcode stream, and byte-compare the
+   resulting $2000 hi-res page against the matching golden <name>.page. Every
+   .dat — room (R*) and object overlay (B*) alike — is rendered with usage
+   IMG_ROOM, because the goldens were captured by the real interpreter's
+   DRAW_OPCODE, which always clears the page to white first (see
+   groundtruth/README.md). */
 
 #define A2_PAGE_SIZE 0x2000
 
@@ -93,19 +101,20 @@ static int cmp_str(const void *a, const void *b) {
 	return strcmp(*(const char *const *)a, *(const char *const *)b);
 }
 
-// Render one .dat and compare against its .page. Returns 1 on a byte-exact match.
-// The games of both ground-truth corpora: one sub-folder each.
+/* Render one .dat and compare against its .page. Returns 1 on a byte-exact
+   match.
+   The games of both ground-truth corpora: one sub-folder each. */
 static const char *const corpus_games[] = { "adventureland", "mission", "pirate", "strange" };
 #define NUM_CORPUS_GAMES ((int)(sizeof corpus_games / sizeof corpus_games[0]))
 
-// The Atari corpus adds SHIP.PIC, the sample picture on the S.A.G.E. (Scott Adams
-// Graphics Editor) disk, rendered by the game's own drawing routine.
+/* The Atari corpus adds SHIP.PIC, the sample picture on the S.A.G.E. (Scott
+   Adams Graphics Editor) disk, rendered by the game's own drawing routine. */
 static const char *const atari_corpus_games[] = { "adventureland", "mission", "pirate", "strange", "sage" };
 #define NUM_ATARI_CORPUS_GAMES ((int)(sizeof atari_corpus_games / sizeof atari_corpus_games[0]))
 
-// The *.dat files in dir, sorted so the run order is stable and readable.
-// Returns the count (the caller frees each name and the array), or -1 after a
-// warning if dir cannot be opened.
+/* The *.dat files in dir, sorted so the run order is stable and readable.
+   Returns the count (the caller frees each name and the array), or -1 after a
+   warning if dir cannot be opened. */
 static int list_dat_files(const char *dir, char ***out) {
 	DIR *d = opendir(dir);
 	if (!d) {
@@ -130,7 +139,7 @@ static int list_dat_files(const char *dir, char ***out) {
 
 static int compare_one_image(const char *dir, const char *datname) {
 	char base[64];
-	snprintf(base, sizeof base, "%.*s", (int)(strlen(datname) - 4), datname); // strip ".dat"
+	snprintf(base, sizeof base, "%.*s", (int)(strlen(datname) - 4), datname); /* strip ".dat" */
 
 	char datpath[1024], pagepath[1024];
 	snprintf(datpath, sizeof datpath, "%s/%s", dir, datname);
@@ -211,19 +220,19 @@ static int run_groundtruth_corpus(const char *root) {
 	return passed == total;
 }
 
-// ---- Atari 8-bit ground-truth corpus driver ---------------------------------
-// Walk groundtruth_atari/<game>/*.dat (MAME-captured Atari vector pictures from
-// the real interpreter's MAIN_DRAW at $8582), render each from its raw opcode
-// stream with usage IMG_ROOM, and byte-compare the two resulting screen planes
-// ($9000 / $A000, 0xf00 bytes each) against the captured <name>.90 / <name>.a0
-// goldens. The goldens were captured by clearing both planes to 0 then running
-// MAIN_DRAW, which matches the IMG_ROOM render path here.
+/* ---- Atari 8-bit ground-truth corpus driver ---------------------------------
+   Walk groundtruth_atari/<game>/<n>.dat (MAME-captured Atari vector pictures
+   from the real interpreter's MAIN_DRAW at $8582), render each from its raw
+   opcode stream with usage IMG_ROOM, and byte-compare the two resulting screen
+   planes ($9000 / $A000, 0xf00 bytes each) against the captured <name>.90 /
+   <name>.a0 goldens. The goldens were captured by clearing both planes to 0
+   then running MAIN_DRAW, which matches the IMG_ROOM render path here. */
 
 #define ATARI8_PLANE 0xf00
 
 static int compare_one_atari(const char *dir, const char *datname) {
 	char base[64];
-	snprintf(base, sizeof base, "%.*s", (int)(strlen(datname) - 4), datname); // strip ".dat"
+	snprintf(base, sizeof base, "%.*s", (int)(strlen(datname) - 4), datname); /* strip ".dat" */
 
 	char datpath[1024], p90[1024], pa0[1024];
 	snprintf(datpath, sizeof datpath, "%s/%s", dir, datname);
@@ -300,18 +309,20 @@ int main(int argc, char **argv) {
 	}
 	const char *support = argv[1];
 
-	// The image-data fixtures (apple2*/atari8* .dat picture streams and
-	// .result/.90/.A0 golden dumps) and the game disk are kept local-only in
-	// subfolders of the support root: "Games/" for the copyrighted MI.dsk and
-	// "Image data/" for the renderer fixtures (see "Supporting Files/.gitignore").
-	// In the Xcode test bundle the synchronized folder group flattens everything
-	// back to one directory, so the shared renderer reads plain filenames from
-	// supportpath there; here we point each reader at the right subfolder.
+	/* The image-data fixtures (apple2 and atari8 .dat picture streams and
+	   .result/.90/.A0 golden dumps) and the game disk are kept local-only in
+	   subfolders of the support root: "Games/" for the copyrighted MI.dsk and
+	   "Image data/" for the renderer fixtures (see "Supporting
+	   Files/.gitignore").
+	   In the Xcode test bundle the synchronized folder group flattens
+	   everything back to one directory, so the shared renderer reads plain
+	   filenames from supportpath there; here we point each reader at the right
+	   subfolder. */
 	char imgsupport[strlen(support) + sizeof("Image data/")];
 	snprintf(imgsupport, sizeof imgsupport, "%sImage data/", support);
 
-	// Apple II rendering needs the per-game pattern/brush tables, which the real
-	// pipeline extracts from the game disk before drawing any picture.
+	/* Apple II rendering needs the per-game pattern/brush tables, which the
+	   real pipeline extracts from the game disk before drawing any picture. */
 	size_t disksize;
 	uint8_t *disk = ReadTestDataFromFile("Games/MI.dsk", support, &disksize);
 	if (disk) {
@@ -342,17 +353,17 @@ int main(int argc, char **argv) {
 	printf("\n%d/%d cases passed\n", passed, n);
 	int fixtures_ok = (passed == n);
 
-	// Optional second argument: run the full Apple II ground-truth corpus
-	// (groundtruth/<game>/*.dat vs *.page). The drawing tables loaded above
-	// from MI.dsk cover all four games.
+	/* Optional second argument: run the full Apple II ground-truth corpus
+	   (groundtruth/<game>/<n>.dat vs <n>.page). The drawing tables loaded above
+	   from MI.dsk cover all four games. */
 	int corpus_ok = 1;
 	if (argc >= 3) {
 		printf("\n--- Apple II ground-truth corpus ---\n");
 		corpus_ok = run_groundtruth_corpus(argv[2]);
 	}
 
-	// Optional third argument: the Atari 8-bit ground-truth corpus
-	// (groundtruth_atari/<game>/*.dat vs *.90/*.a0).
+	/* Optional third argument: the Atari 8-bit ground-truth corpus
+	   (groundtruth_atari/<game>/<n>.dat vs <n>.90/<n>.a0). */
 	int atari_corpus_ok = 1;
 	if (argc >= 4) {
 		printf("\n--- Atari 8-bit ground-truth corpus ---\n");

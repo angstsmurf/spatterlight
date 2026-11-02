@@ -119,6 +119,76 @@ README with its capture recipe.
       `!hwsnap` (start from a VICE snapshot instead of loading the disk: 93 s
       down to 9 s a scene) and `VICE_PORT` (several captures at once).
 
+### The .scene format
+
+A .scene file is a command script. Each plain line answers one input request
+(a command for line input; its first character for a keypress, Return if the
+line is empty). Lines starting with '#' are comments, lines starting with '!'
+are directives:
+
+```
+  !game <file>       the game image, relative to the scene file (required)
+  !slowdraw          run with the slow-draw setting on (before the game starts)
+  !tick [n]          deliver n timer events (default: until the game stops
+                     the timer) — animation frames, slow drawing
+  !terp <line>       input like a plain line, but skipped when the same script
+                     is replayed on the original (see below)
+  !picture <n>       make picture n the picture of every room (the next LOOK
+                     shows it): for pictures no script can walk to. The
+                     original gets a `!hwpoke` of its picture table instead.
+                     Also blanks the picture, as the original does before
+                     it draws a room: some pictures are only overlays.
+                     A US game (saga.c) draws its pictures by number: there
+                     the picture is shown at once, with no LOOK, as the
+                     original shows it when the poked table entry is looked
+                     at (`!hw look`)
+  !room <n>          put the player in room n, and
+  !item <i> <n>      item i in room n,
+  !counter <c> <n>   n in the stored counter c, and
+  !flag <f>          set bit flag f (the next LOOK shows it all): for rooms
+                     behind a battle, for things that only turn up later
+                     in the game, and to keep an event that happens by
+                     chance from happening. The original gets a `!hwpoke`
+                     of the same byte of its own state instead
+  !check <golden> [min=N] [dx=N] [dy=N]
+                     compare the graphics window as it is when the game next
+                     waits for input. Every painted pixel must match unless
+                     min= gives the number of pixels that have to; dx/dy
+                     shift the golden (golden pixel x+dx,y+dy <-> canvas x,y).
+
+```
+Timer events are also delivered whenever the game waits with no input request
+pending (timed pauses, lightning flashes).
+
+Seas of Blood is built with AUTOWIN (see the Makefile): its battles are won
+without a dice roll, and take no input but the <HIT ENTER> before and after.
+
+The same script drives the original game when the goldens are captured
+(zx_capture.lua, a MAME autoboot script, for the Spectrum; c64_capture.py,
+which drives VICE, for the C64): plain lines are typed there too and every
+`!check` dumps the screen. Lines for the original only — `!hw <keys>`,
+`!hwkey <keys>`, `!hwwait <n>`, `!hwnext`, `!hwpoke <addr>=<bytes>`,
+`!hwsnap <file>`, `!dump <file>` — are ignored here.
+An animated picture is dumped frame by frame there (`!hwnext`, `!dump`) and
+stepped through here with `!tick` and a `!check` of each dump.
+
+Goldens, by extension:
+```
+  .scr   ZX Spectrum SCREEN$: 6912 bytes of display file from $4000
+  .c64   Commodore 64 hires bitmap: 8000 bytes of bitmap + 1000 bytes of
+         screen RAM (colour nibbles)
+  .cga   CGA00 grid of dostest (groundtruth_dos/): MS-DOS screen, CGA indices
+  .c64   of another size: C64C2 grid of c64a8test (groundtruth_c64a8/): a
+         screen in RGB, its own palette at the start of the file
+  .vic   Commodore 64 rendered frame: 320x200 bytes of VIC-II colour
+         numbers, for the multicolour pictures with sprites of the
+         all-in-one games (Pirate Adventure, Voodoo Castle) and for the
+         US bitmap games (Hulk, Claymorgue)
+```
+All are decoded to colour indices and looked up in the interpreter's own
+palette (pal[]; for a .vic, c64colors[] of c64a8draw.c), so a wrong
+palette or remap fails the test just like a wrong pixel.
+
 ## Settled differences from the originals
 
 Unless an entry says otherwise, the interpreter stays as it is, because the

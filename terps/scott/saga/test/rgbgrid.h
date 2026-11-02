@@ -1,27 +1,34 @@
-// The displayed-colour grid shared by the C64 / Atari 8-bit / ZX renderer
-// harnesses (c64test, c64a8test, zxtest, zxvectortest). Header only, because
-// each harness is one translation unit that unity-includes its renderer.
-//
-// Every plotted pixel is captured as the colour it is displayed in (0x00RRGGBB)
-// in a RG_W x RG_H grid, UNSET where nothing was plotted. The grid can be
-// dumped as ASCII art, written raw (C64R1) for the screenshot decoders
-// (c64_decode_png.py) and compared with a golden in the renderer's own colour
-// space (C64C2), so a compare is a pure RGB-equality check over the plotted
-// pixels.
-//
-// Define before including:
-//   RG_W, RG_H          grid size
-//   RG_LABEL            first word of the compare line ("c64", "zx", ...)
-//   RG_SLOT_RGB(slot)   the displayed colour of a plotted slot / palette index
-// Optional:
-//   RG_CLIP(x, y)       nonzero to drop a pixel that is inside the grid
-//   RG_DUMP_XSTEP       column step of the ASCII dump (default 2; 4 for the
-//                       double-width C64 pixels)
-//   RG_C64_STYLE        1 for the C64 harnesses' wording: a `pal` mode, named
-//                       errors for missing arguments and bad goldens, the
-//                       golden colour in the first-difference line, and a
-//                       "rendered bbox" / "(empty render)" dump header
-//   RG_READ_ALLOW_EMPTY 1 to read a 0-byte golden as empty rather than missing
+/*
+ *	  This program is free software; you can redistribute it and/or
+ *	  modify it under the terms of the GNU General Public License
+ *	  as published by the Free Software Foundation; either version
+ *	  2 of the License, or (at your option) any later version.
+ */
+
+/* The displayed-colour grid shared by the C64 / Atari 8-bit / ZX renderer
+   harnesses (c64test, c64a8test, zxtest, zxvectortest). Header only, because
+   each harness is one translation unit that unity-includes its renderer.
+
+   Every plotted pixel is captured as the colour it is displayed in
+   (0x00RRGGBB) in a RG_W x RG_H grid, UNSET where nothing was plotted. The
+   grid can be dumped as ASCII art, written raw (C64R1) for the screenshot
+   decoders (c64_decode_png.py) and compared with a golden in the renderer's
+   own colour space (C64C2), so a compare is a pure RGB-equality check over the
+   plotted pixels.
+
+   Define before including:
+     RG_W, RG_H          grid size
+     RG_LABEL            first word of the compare line ("c64", "zx", ...)
+     RG_SLOT_RGB(slot)   the displayed colour of a plotted slot / palette index
+   Optional:
+     RG_CLIP(x, y)       nonzero to drop a pixel that is inside the grid
+     RG_DUMP_XSTEP       column step of the ASCII dump (default 2; 4 for the
+                         double-width C64 pixels)
+     RG_C64_STYLE        1 for the C64 harnesses' wording: a `pal` mode, named
+                         errors for missing arguments and bad goldens, the
+                         golden colour in the first-difference line, and a
+                         "rendered bbox" / "(empty render)" dump header
+     RG_READ_ALLOW_EMPTY 1 to read a 0-byte golden as empty rather than missing */
 
 #ifndef SAGA_TEST_RGBGRID_H
 #define SAGA_TEST_RGBGRID_H
@@ -48,10 +55,10 @@
 
 #define UNSET 0xffffffffu
 
-static uint32_t grid[RG_H][RG_W];        // UNSET, or 0x00RRGGBB displayed colour
+static uint32_t grid[RG_H][RG_W];        /* UNSET, or 0x00RRGGBB displayed colour */
 static int grid_minx = RG_W, grid_miny = RG_H, grid_maxx = -1, grid_maxy = -1;
 
-// Forget everything plotted.
+/* Forget everything plotted. */
 static void rg_clear(void) {
     memset(grid, 0xff, sizeof grid);
     grid_minx = RG_W; grid_miny = RG_H; grid_maxx = -1; grid_maxy = -1;
@@ -85,7 +92,7 @@ static void dump_ascii(void) {
     }
 }
 
-// The distinct displayed colours, in order of first appearance (at most 64).
+/* The distinct displayed colours, in order of first appearance (at most 64). */
 static void print_palette(void) {
     uint32_t seen[64]; int ns = 0;
     for (int y = 0; y < RG_H; y++)
@@ -99,7 +106,8 @@ static void print_palette(void) {
     for (int i = 0; i < ns; i++) printf("  #%06x\n", seen[i]);
 }
 
-// Grid file: "C64R1" magic, w, h (int32 LE), then h*w uint32 LE (UNSET or RGB).
+/* Grid file: "C64R1" magic, w, h (int32 LE), then h*w uint32 LE (UNSET or
+   RGB). */
 static void write_grid(const char *out) {
     FILE *f = fopen(out, "wb");
     if (!f) { fprintf(stderr, "cannot write %s\n", out); exit(1); }
@@ -111,8 +119,8 @@ static void write_grid(const char *out) {
     printf("wrote %s (%dx%d)\n", out, w, h);
 }
 
-// Print the result line of a compare (and, on failure, where the first
-// difference is); returns the exit code: 0 pass, 1 fail.
+/* Print the result line of a compare (and, on failure, where the first
+   difference is); returns the exit code: 0 pass, 1 fail. */
 static int rg_report(int match, int total, int firstx, int firsty, uint32_t firstwant) {
     int ok = (total > 0 && match == total);
     printf("%-6s %-12s %6d/%6d px match (%.2f%%)%s\n", RG_LABEL, "render",
@@ -127,11 +135,11 @@ static int rg_report(int match, int total, int firstx, int firsty, uint32_t firs
     return ok ? 0 : 1;
 }
 
-// Compare with a golden produced by the decoders: "C64C2", w, h, npal (int32
-// LE), npal*3 RGB bytes, then w*h index bytes (0xff = UNSET). Each screenshot
-// pixel was classified to the nearest renderer colour and stored as an index
-// into the renderer's own palette, so the compare is an exact RGB-equality
-// check over the drawn pixels. Takes ownership of gold.
+/* Compare with a golden produced by the decoders: "C64C2", w, h, npal (int32
+   LE), npal*3 RGB bytes, then w*h index bytes (0xff = UNSET). Each screenshot
+   pixel was classified to the nearest renderer colour and stored as an index
+   into the renderer's own palette, so the compare is an exact RGB-equality
+   check over the drawn pixels. Takes ownership of gold. */
 static int rg_compare_c64c2(uint8_t *gold, size_t sz, const char *goldenpath) {
     if (!gold || sz < 17 || memcmp(gold, "C64C2", 5) != 0) {
         if (RG_C64_STYLE) fprintf(stderr, "bad golden %s\n", goldenpath);
@@ -172,8 +180,8 @@ static int compare_golden(const char *goldenpath) {
     return rg_compare_c64c2(gold, sz, goldenpath);
 }
 
-// `<harness> dump|[pal|]grid|cmp <input> [out|golden]`: render the input with
-// render() (nonzero = could not), then act on the grid; compare() does `cmp`.
+/* `<harness> dump|[pal|]grid|cmp <input> [out|golden]`: render the input with
+   render() (nonzero = could not), then act on the grid; compare() does `cmp`. */
 static int rg_main(int argc, char **argv, int (*render)(const char *),
                    int (*compare)(const char *)) {
     if (argc < 3) {
@@ -200,14 +208,14 @@ static int rg_main(int argc, char **argv, int (*render)(const char *),
     return 2;
 }
 
-// ---- C64 / Atari render specs ------------------------------------------------
-// A small text file, paths relative to the spec's dir, '#' comments:
-//     <background.dat>
-//     <objindex> <object.dat>      ... zero or more objects
-// on_directive (may be NULL: then there are no directives) gets each line
-// starting with '!' and its 0-based line number, and returns nonzero to fail.
-// on_image gets each image with its object index (-1 for a background).
-// Returns the number of images drawn, or -1 after printing an error.
+/* ---- C64 / Atari render specs -----------------------------------------------
+   A small text file, paths relative to the spec's dir, '#' comments:
+       <background.dat>
+       <objindex> <object.dat>      ... zero or more objects
+   on_directive (may be NULL: then there are no directives) gets each line
+   starting with '!' and its 0-based line number, and returns nonzero to fail.
+   on_image gets each image with its object index (-1 for a background).
+   Returns the number of images drawn, or -1 after printing an error. */
 static int rg_parse_spec(const char *specpath, int (*on_directive)(const char *p, int lineno),
                          void (*on_image)(int isobj, int objindex, uint8_t *blob, size_t sz)) {
     char dir[1024];
@@ -221,7 +229,7 @@ static int rg_parse_spec(const char *specpath, int (*on_directive)(const char *p
     char line[1024];
     int lineno = 0, drew = 0;
     while (fgets(line, sizeof line, f)) {
-        // strip comments / trailing whitespace
+        /* strip comments / trailing whitespace */
         char *h = strchr(line, '#'); if (h) *h = 0;
         size_t n = strlen(line);
         while (n && (line[n-1] == '\n' || line[n-1] == '\r' || line[n-1] == ' ' || line[n-1] == '\t'))
@@ -237,10 +245,10 @@ static int rg_parse_spec(const char *specpath, int (*on_directive)(const char *p
 
         char path[2048];
         int objindex = -1, isobj = 0;
-        // "<index> <file>" => object; bare "<file>" => background
+        /* "<index> <file>" => object; bare "<file>" => background */
         char *sp = p;
         while (*sp && *sp != ' ' && *sp != '\t') sp++;
-        if (*sp) {  // two tokens -> object line
+        if (*sp) {  /* two tokens -> object line */
             *sp = 0; objindex = atoi(p); isobj = 1;
             char *file = sp + 1; while (*file == ' ' || *file == '\t') file++;
             snprintf(path, sizeof path, "%s%s", dir, file);
@@ -260,10 +268,11 @@ static int rg_parse_spec(const char *specpath, int (*on_directive)(const char *p
     return drew;
 }
 
-// ---- ZX golden dirs ----------------------------------------------------------
-// <dir>/render.txt holds one "key value" per line. picfile (a file name) goes
-// to picfile; the integer keys listed in kv (ended by a NULL key) to their
-// variables; other keys are ignored. Returns nonzero if there is no render.txt.
+/* ---- ZX golden dirs ---------------------------------------------------------
+   <dir>/render.txt holds one "key value" per line. picfile (a file name) goes
+   to picfile; the integer keys listed in kv (ended by a NULL key) to their
+   variables; other keys are ignored. Returns nonzero if there is no
+   render.txt. */
 typedef struct { const char *key; int *val; } rg_kv;
 
 static int rg_read_render_txt(const char *dir, const rg_kv *kv, char *picfile, size_t picfile_size) {
