@@ -7,10 +7,8 @@ left out, except where it costs the ADRIFT 4 side something.
 
 "SCARE" here means Simon Baldwin's SCARE 1.3.10, upstream's last release
 (2008), in the copy Spatterlight took from Gargoyle in `ed31bf462` (2017) and
-shipped until the fork. The route figures were re-measured on 2026-10-19;
-the sizes and timings are from 2026-10-11. The text was brought up to date on
-2026-10-19, after the Runner behaviours dropped as deliberate deviations on
-2026-10-15 and 2026-10-17.
+shipped until the fork. The route figures, sizes and test counts were
+re-measured on 2026-11-02; the timing of the 120 routes is from 2026-10-11.
 
 ## In short
 
@@ -22,7 +20,7 @@ the sizes and timings are from 2026-10-11. The text was brought up to date on
 | Routes that reach their ending (of 663) | 438 | 663 |
 | Games those routes cover (of 609) | 431 | 609 |
 | Language | ANSI C (C89) | C-like C++11 |
-| Size, engine and front ends | about 44,000 lines, 27 files | about 104,000 lines in 100-odd files, plus 13,000 of Glk seam |
+| Size, engine and front ends | about 44,000 lines, 27 files | about 104,000 lines in 100-odd files, plus 14,500 of Glk seam |
 | Time for the same 120 routes | 6.1 s | 2.7 s |
 | Tests | `sx` script harness, a few dozen scripts | 677 walkthrough rows, 678 Runner transcripts, 617 probe files, unit and autosave suites |
 | Maintained | No (last release 2008) | Yes |
@@ -64,7 +62,7 @@ Read the caveats there before quoting them.
   patches off` gives the original behaviour.
 - **Games broken by version conversion.** Five opt-in assists (`glk assist
   combat`, `move`, `repeat`, `room`, and capacity) cover games that stopped
-  working when their authors converted them to 4.0. Thirteen known games get
+  working when their authors converted them to 4.0. Eleven known games get
   the right assist switched on at startup, with a notice.
 
 ### It behaves like the Runner the game was written for
@@ -96,8 +94,14 @@ all four Runners under Wine, and each version follows its own rules.
 - A clickable, zoomable map pane, in ADRIFT 4 games too.
 - Pictures and sounds, including media a game names but did not pack.
 - Text colours, and Webdings, Wingdings and Symbol text translated to Unicode.
+- Glk styles chosen per game. A census of every string a game can print ranks
+  its combinations of bold, italic, monospace, alignment and font size, and
+  gives the styles the game leaves free to the most used ones, with sizes
+  hinted. SCARE has one fixed style per attribute.
+- A portrait cover is shown as a title screen at any window size.
 - Spatterlight autosave at every kind of pause: the prompt, a keypress, the
-  name and gender questions, a pending "Which one?".
+  name and gender questions, a pending "Which one?". The game's background and
+  text colours are restored with it.
 - `glk undo`, `glk restore`, `glk restart` and `glk quit` for moments when the
   game's own commands are out of reach.
 - UNDO, Z, LOOK X, GO TO and comma-separated commands are kept even in 3.7 and
@@ -113,8 +117,8 @@ all four Runners under Wine, and each version follows its own rules.
   suite run, 43 s for the full suite and about 4 s for the quick one. Behind
   them sit 678 files of original-Runner transcripts and 617 probe files from
   synthetic games built to isolate one rule each.
-- ASan and UBSan builds of the unit harnesses, and an autosave regression
-  suite.
+- ASan and UBSan builds of the unit harnesses, an autosave regression suite,
+  and a test of the style census and assignment.
 
 ## Where SCARE is better
 
@@ -127,7 +131,7 @@ all four Runners under Wine, and each version follows its own rules.
   zlib and the shared `common_utils` random number code.
 - SCARE is about 44,000 lines in 27 files, and one person can hold it in their
   head. The same job in Scarier is about 104,000 lines, with the command
-  library alone going from 11,000 lines to 38,000.
+  library alone going from 11,000 lines to nearly 39,000.
 - Most of the extras (map, autosave, media lookup) live in the Glk seam or in
   Spatterlight-specific code. The plain ANSI build gets the engine fixes and
   none of the comforts.
@@ -141,13 +145,14 @@ all four Runners under Wine, and each version follows its own rules.
   host written against `scare.h` has to be ported to the new names.
 - SCARE has been frozen since 2008. Its bugs are known and fifteen years of
   bug reports and walkthroughs describe its behaviour. Scarier changes weekly,
-  1,353 commits so far, and a save or transcript from last month's build may
+  1,377 commits so far, and a save or transcript from last month's build may
   not match this month's.
 - SCARE ships BUILDING, PORTING, RUNNING, DEBUGGER and TESTING documents.
   Scarier has a README, a ChangeLog, `test/README.md` (the test tree, the
-  headless targets and where the code lives) and the comparison notes in
-  `notes/`. Much of what a porter needs is still only in source comments and
-  commit messages.
+  headless targets and where the code lives) and, in `notes/`, the comparison
+  notes, a glossary of terms used in the code and a key to the Runner addresses
+  in its comments. Much of what a porter needs is still only in source comments
+  and commit messages.
 
 ### Simplicity of behaviour
 
@@ -168,14 +173,16 @@ all four Runners under Wine, and each version follows its own rules.
   of objects a character holds, a textless take task that runs twice, and the
   game's "don't understand" text after a silent task (Scarier now says
   "Done."). `get off X` no longer takes X, and `look around` looks at every
-  version.
+  version. Some 4.0 games carry ALRs written against the pre-4.0 take wording,
+  which the 4.0 Runner never prints, so they never fire there; Scarier prints
+  the older wording in a game whose ALR quotes it, so those ALRs do fire.
 - Patching a game at load is an editorial act. It is keyed to exact releases,
   announced, and can be switched off, but SCARE never alters a game.
 
 ### Provenance and verification
 
 - SCARE was written by hand by one author over five years. The Scarier README
-  describes it as "a lazy AI C++ clone"; most of its 1,353 commits were written
+  describes it as "a lazy AI C++ clone"; most of its 1,377 commits were written
   with AI assistance and reviewed through tests more than through reading.
 - The evidence behind Scarier's behaviour is hard to reproduce elsewhere. It
   needs the original Runners under Wine with a custom driver, and a corpus of
@@ -236,6 +243,10 @@ under all five seeds, so it moves into list C. Every other figure and list
 came out as on 2026-10-11, and the re-derived routes still win in Scarier and
 still fail in SCARE. The further experiments in the next section were made
 with the first build and cover the 221 rows that failed then.
+
+The replay was run again on 2026-11-02, with the walkthrough table unchanged
+and Scarier's suite passing all 677 rows. Its results file came out identical
+to the one from 2026-10-19.
 
 | | Rows | Games |
 |---|---|---|
