@@ -27,6 +27,8 @@ later) and Comprehend. Two parts keep the notice of the code they came from:
   upstream any more, but the interlaced stepping in `pcdraw.c` still follows his.
 - `gm_artifact.c` keeps MAME's BSD 3-clause notice, because `artifact_color_lut` and
   the palette are copied from `src/mame/apple/apple2video.cpp`.
+- `atari8_palette.h` holds `atari_colors` from `src/mame/atari/atari400.cpp`, which
+  is GPL 2 or later like the rest.
 
 `gm_vector.c/.h` was split out of the GPL 3 or later
 `scott/saga/apple2_vector_draw.c`, but it comes from the 6502 routines rather than

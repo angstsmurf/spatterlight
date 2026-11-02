@@ -57,28 +57,29 @@ struct atari8override {
 };
 
 static const struct atari8override atari8overrides[] = {
-    { 0x0e, 0xe0e0e0 }, // 0xd1d1d1: most games
-    { 0x0f, 0xe0e0e0 }, // 0xd1d1d1: Count, Hulk, Voodoo Castle. Must match
-                        // 0x0e, e.g. the Count inventory picture vs. the
-                        // object overlays drawn on it
-    { 0x12, 0xad5f64 }, // 0x521d00: Claymorgue
-    { 0x25, 0xad5f64 }, // 0x762e00: Voodoo Castle
-    { 0x32, 0xad5f64 }, // 0x54050b: Claymorgue, Hulk, Voodoo Castle
-    { 0x34, 0xa23f40 }, // 0x712329: Claymorgue, Hulk
-    { 0x36, 0xa23f40 }, // 0x8f4146: most games
-    { 0x3a, 0xad5f64 }, // 0xcb7d82: Claymorgue, Hulk, Spider-Man
-    { 0x56, 0x4b1ead }, // 0x693ccb: Claymorgue
-    { 0x66, 0x7941c3 }, // 0x4f43ee: Count, Hulk
-    { 0x85, 0x3468ee }, // 0x073bc5: Voodoo Castle
-    { 0xc6, 0x088817 }, // 0x497600: Buckaroo Banzai, Claymorgue,
-                        // Fantastic Four, Hulk, Spider-Man
-    { 0xc7, 0x3a6700 }, // 0x497600: Claymorgue, Fantastic Four, Spider-Man
-    { 0xc8, 0x088817 }, // 0x679405: Buckaroo Banzai, Hulk
-    { 0xd8, 0x637000 }, // 0x818d00: Hulk
-    { 0xe4, 0x944c02 }, // 0x5e4700: Claymorgue
-    { 0xf7, 0xad5f64 }, // 0x8d5900: Count, Voodoo Castle
-    { 0xf8, 0x8d5900 }, // 0xab7700: Claymorgue, Fantastic Four, Voodoo Castle
-    { 0xff, 0xba8600 }, // 0xeed146: Claymorgue, Voodoo Castle
+    { 0x06, 0x888888 }, // 0x666666: Fantastic Four, Voodoo Castle
+    { 0x0c, 0xaaaaaa }, // 0xcccccc: Buckaroo Banzai
+    { 0x12, 0xa44c31 }, // 0x3c2900: Claymorgue
+    { 0x25, 0xa44c31 }, // 0x753900: Voodoo Castle
+    { 0x32, 0xa44c31 }, // 0x600800: Claymorgue, Hulk, Voodoo Castle
+    { 0x34, 0xa44c31 }, // 0x822a0f: Claymorgue, Hulk
+    { 0x36, 0xa44c31 }, // 0xa44c31: most games
+    { 0x38, 0xa44c31 }, // 0xc66e53: Hulk, Spider-Man
+    { 0x3a, 0xa44c31 }, // 0xe89075: Claymorgue, Hulk, Spider-Man
+    { 0x45, 0xa44161 }, // 0x821f3f: Spider-Man
+    { 0x56, 0x761d70 }, // 0x983f92: Claymorgue
+    { 0x66, 0x7941c3 }, // 0x8144bb: Count, Hulk
+    { 0x85, 0x4961d2 }, // 0x273fb0: Voodoo Castle
+    { 0x97, 0x4961d2 }, // 0x3373bd: Claymorgue
+    { 0xc6, 0x156b1a }, // 0x378d33: Buckaroo Banzai, Claymorgue, Fantastic Four, Hulk, Spider-Man
+    { 0xc7, 0x156b1a }, // 0x378d33: Claymorgue, Fantastic Four, Spider-Man
+    { 0xc8, 0x156b1a }, // 0x59af55: Buckaroo Banzai, Hulk
+    { 0xd6, 0x156b1a }, // 0x4e8711: Claymorgue, Hulk, Spider-Man
+    { 0xd8, 0x156b1a }, // 0x70a92f: Hulk
+    { 0xe4, 0x975b0b }, // 0x495704: Claymorgue
+    { 0xf7, 0xc66e53 }, // 0x876800: Count, Voodoo Castle
+    { 0xf8, 0x876800 }, // 0xa98a1d: Claymorgue, Fantastic Four, Voodoo Castle
+    { 0xff, 0xa98a1d }, // 0xfff087: Claymorgue, Voodoo Castle
 };
 
 static void TranslateColorAtari8(uint8_t index, uint8_t value)
