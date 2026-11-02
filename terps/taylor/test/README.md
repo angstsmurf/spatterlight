@@ -96,8 +96,7 @@ flags 0x5B70. These are decisions; a change to any of them wants a test row.
 
 Per-game flags, objects, rooms and words are named in `gamedefs.h` (QP3,
 Temple of Terror, Blizzard Pass, He-Man) and `animations.c` (Rebel Planet,
-Kayleth). `FORMAT.md` is the file format against the code; `ChangeLog` is
-still the 0.3-era text.
+Kayleth). `FORMAT.md` is the file format against the code.
 
 ## Declined, with the reason
 
@@ -108,7 +107,7 @@ still the 0.3-era text.
 - `ExecuteLineCode`/`PerformAction` returning an int and a `*done`
   out-parameter: the two signals mean different things (stop this line,
   stop the table).
-- A `strcasecmp`: POSIX-only, so `EqualsIgnoringCase()` in utility.c.
+- A `strcasecmp`: POSIX-only, so `EqualsIgnoringCase()` in parseinput.c.
 - One helper for the three ways restorestate.c writes Flag and ObjectLoc:
   the save file layout reads off the code as it is.
 - One `ExtractFromContainer` for the D64 and T64 branches of `DetectC64`:

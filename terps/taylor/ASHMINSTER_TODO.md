@@ -258,4 +258,4 @@ Follow [test/README.md](test/README.md).
 
 - [ ] Move the confirmed format details to FORMAT.md, expanding Appendix C or adding
       to [§1.1](FORMAT.md#11-engine-variants), then delete this file.
-- [ ] Add the games to the ChangeLog.
+- [ ] Add the games to the root `CHANGELOG.md`.

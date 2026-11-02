@@ -4,6 +4,9 @@
 //
 //  Created by Administrator on 2025-12-13.
 //
+//  Palette code based on code by David Lodge
+//  with help from Paul David Doherty (including the colour code)
+//
 //  Colour palette definitions and remapping for
 //  Adventure International UK / Adventure Soft tile graphics.
 //

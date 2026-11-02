@@ -1,12 +1,12 @@
-//
-//  image_probe.c
-//  Part of TaylorMade, an interpreter for Adventure Soft UK games
-//
-//  The TaylorMade half of the picture regression tests. The window layer in
-//  ../../common_imagetest runs the real glk_main() up to the first command
-//  prompt and then calls ImageProbeDump(), which draws every picture of the
-//  game and every room, through the same calls the interpreter uses.
-//
+/*
+ *  image_probe.c
+ *  Part of TaylorMade, an interpreter for Adventure Soft UK games
+ *
+ *  The TaylorMade half of the picture regression tests. The window layer in
+ *  ../../common_imagetest runs the real glk_main() up to the first command
+ *  prompt and then calls ImageProbeDump(), which draws every picture of the
+ *  game and every room, through the same calls the interpreter uses.
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
