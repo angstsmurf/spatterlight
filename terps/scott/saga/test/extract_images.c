@@ -93,6 +93,29 @@ int main(int argc, char **argv) {
             n++;
         }
     }
+    /* What atari8_overlay_check.py needs to work out which overlay can be
+       drawn over which room */
+    char gamepath[1100];
+    snprintf(gamepath, sizeof gamepath, "%s/game.txt", outdir);
+    FILE *game = fopen(gamepath, "w");
+    if (game) {
+        fprintf(game, "game %s\n", CurrentGame == HULK_US ? "hulk" : CurrentGame == COUNT_US ? "count" : CurrentGame == VOODOO_CASTLE_US ? "voodoo" : "other");
+        fprintf(game, "variant %s\n",
+                (CurrentGame == COUNT_US || CurrentGame == VOODOO_CASTLE_US) ? "voodoo" : "plain");
+        fprintf(game, "rooms %d\n", GameHeader.NumRooms);
+        for (int i = 0; i <= GameHeader.NumRooms; i++)
+            fprintf(game, "roomtext %d %s\n", i, Rooms[i].Text ? Rooms[i].Text : "");
+        for (int i = 0; i <= GameHeader.NumItems; i++)
+            fprintf(game, "item %d %d %d %s\n", i, Items[i].InitialLoc, Items[i].AutoGet != NULL, Items[i].Text ? Items[i].Text : "");
+        for (int i = 0; i <= GameHeader.NumActions; i++) {
+            fprintf(game, "action");
+            for (int j = 0; j < NUM_CONDITIONS; j++)
+                fprintf(game, " %d", Actions[i].Condition[j]);
+            fprintf(game, " %d %d\n", Actions[i].Opcode[0], Actions[i].Opcode[1]);
+        }
+        fclose(game);
+    }
+
     printf("dumped %d image blob(s)\n", n);
     return n ? 0 : 1;
 }

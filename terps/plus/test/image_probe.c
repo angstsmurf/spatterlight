@@ -179,6 +179,34 @@ void ImageProbeDump(void)
         return;
     }
 
+    /* For scott/saga/test/atari8_overlay_check.py: the raw pictures, and which
+       object picture the game can draw over which room. */
+    const char *blobs = getenv("PLUS_PROBE_BLOBS");
+    if (blobs) {
+        char path[1024];
+        for (int i = 0; Images[i].Filename != NULL; i++) {
+            snprintf(path, sizeof path, "%s/%s.dat", blobs, Images[i].Filename);
+            FILE *f = fopen(path, "wb");
+            if (f) {
+                fwrite(Images[i].Data, 1, Images[i].Size, f);
+                fclose(f);
+            }
+        }
+        snprintf(path, sizeof path, "%s/game.txt", blobs);
+        FILE *f = fopen(path, "w");
+        if (f) {
+            for (int i = 0; i <= GameHeader.NumRooms; i++)
+                if (Rooms[i].Exits[EXIT_IMAGE] != NO_ROOM_IMAGE)
+                    fprintf(f, "room %d %d %s\n", i, Rooms[i].Exits[EXIT_IMAGE], Rooms[i].Text);
+            for (int i = 0; i <= GameHeader.NumItems; i++)
+                fprintf(f, "item %d %s\n", i, Items[i].Text ? Items[i].Text : "");
+            for (int i = 0; i <= GameHeader.NumObjImg; i++)
+                fprintf(f, "objimg %u %u %u\n", ObjectImages[i].Room, ObjectImages[i].Object, ObjectImages[i].Image);
+            fclose(f);
+        }
+        return;
+    }
+
     /* The MS-DOS pictures are files next to the game, looked up by name when
        first drawn. Ask for every name there can be. */
     if (CurrentSys == SYS_MSDOS) {

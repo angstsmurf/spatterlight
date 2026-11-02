@@ -323,3 +323,16 @@ is a `!check ... min=N` in its scene, with a comment there.
         golden.
 - `make all-tests` runs test + dostest + apple2test + titest + c64test + c64a8test + zxtest +
       scenetest.
+
+## Atari 8-bit overlay colours
+
+`atari8_overlay_check.py` lists overlays whose colours would differ from the
+room picture under them, which `atari8overrides[]` in
+`common_sagadraw/c64a8draw.c` exists to prevent. It reads the games' own items
+and actions rather than playing them, and also takes Plus games. Each result
+says how sure it is that the two pictures can appear together.
+
+    python3 atari8_overlay_check.py --scott GAME.atr --plus GAME.atr
+
+It needs `build/extract_images`, `build/c64a8test` and `plus_image_probe`. Use
+`--draw` to read the overrides from another version of `c64a8draw.c`.
