@@ -1,0 +1,41 @@
+Held Args Test
+This game exercises the argument of the Held / Worn OO-property lists
+(clsCharacter.Held(bIncludeSubObjects)).
+
+The player holds a bag with a coin inside it and wears a hat.
+  held counts   — Held with no argument, True, 1, -1 (recursive: 2) and False, 0 (direct: 1)
+  held odd      — Held(maybe), Held(2): the Runner matches the argument exactly and leaves the list EMPTY (0)
+  worn counts   — the same for Worn
+
+Inventory Lab
+A quiet room for counting what you carry. Type help for commands.  Player is here.
+
+> help
+Commands: held counts, held odd, worn counts.
+
+> inventory
+Anonymous is wearing a felt hat, and is carrying a bag.  Inside the bag is a gold coin.
+
+> held counts
+Held: 2
+Held(True): 2
+Held(1): 2
+Held(-1): 2
+Held(False): 1
+Held(0): 1
+Held list: the bag and the gold coin
+Held(False) list: the bag
+
+> held odd
+Held(maybe): 0
+Held(2): 0
+Held(maybe) list: [nothing]
+Worn(yes): 0
+
+> worn counts
+Worn: 1
+Worn(True): 1
+Worn(False): 1
+Worn(0): 1
+Worn list: the felt hat
+

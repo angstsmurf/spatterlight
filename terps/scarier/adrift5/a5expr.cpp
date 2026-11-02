@@ -864,15 +864,21 @@ oo_step_t::character ()
       /* clsCharacter.Held/Worn(Optional bIncludeSubObjects=True): the
          default recurses into the held/worn containers; (False) is the
          direct list only.  The inventory contents segment keys off
-         Held.Count > Held(False).Count to detect sub-objects. */
+         Held.Count > Held(False).Count to detect sub-objects.  The Runner
+         (Global.vb:1282-1291, 1351-1360) matches the argument exactly:
+         "", "true", "1", "-1" recurse; "false", "0" do not; anything else
+         falls through its Select with the list left EMPTY. */
       std::string a = lower (args);
-      int include_sub = !(a == "false" || a == "0");
       Ctx nc; nc.is_list = 1;
-      nc.keys = objs_carried_by (st, key.c_str (),
-                                 fn == "Held" ? A5_OWHERE_HELD_BY
-                                              : A5_OWHERE_WORN_BY);
-      if (include_sub)
-        add_descendants (st, nc.keys);
+      if (a == "" || a == "true" || a == "1" || a == "-1"
+          || a == "false" || a == "0")
+        {
+          nc.keys = objs_carried_by (st, key.c_str (),
+                                     fn == "Held" ? A5_OWHERE_HELD_BY
+                                                  : A5_OWHERE_WORN_BY);
+          if (!(a == "false" || a == "0"))
+            add_descendants (st, nc.keys);
+        }
       return oo_prop (st, nc, rem, depth + 1, ok);
     }
   if (fn == "WornAndHeld")

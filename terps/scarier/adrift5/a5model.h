@@ -221,8 +221,9 @@ typedef struct a5_variable_s {
   const a5_xml_node_t *node;
 } a5_variable_t;
 
-/* One <SubEvent>: at `when` (an offset measured in turns, a random range
-   [ft_from, ft_to]) do `what` to `key` (clsEvent.SubEvent). */
+/* One <SubEvent>: at `when` (an offset in turns or, when `seconds` is set,
+   in seconds -- a random range [ft_from, ft_to]) do `what` to `key`
+   (clsEvent.SubEvent). */
 typedef enum {
   A5_SE_FROM_LAST  = 0,             /* FromLastSubEvent                      */
   A5_SE_FROM_START = 1,             /* FromStartOfEvent                      */
@@ -236,7 +237,12 @@ typedef enum {
 } a5_se_what_t;
 typedef struct a5_subevent_s {
   a5_se_when_t when;
-  long ft_from, ft_to;              /* turn offset (random range)            */
+  long ft_from, ft_to;              /* turn/second offset (random range)     */
+  /* <Measure>Seconds</Measure> (SubEvent.eMeasure; default Turns).  On a
+     TurnBased event such a sub-event runs off its own timer instead of the
+     turn count -- see ev_tick_second_timers in run/a5run_events.cpp.  On a
+     TimeBased event the measure makes no difference. */
+  int seconds;
   a5_se_what_t what;
   const char *key;                  /* task/location key (ExecuteTask/...)   */
   const a5_xml_node_t *description; /* <Action> Description (DisplayMessage) */

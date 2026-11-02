@@ -1,0 +1,40 @@
+# ProbeTimedEvents -- synthetic conformance probe from the adrift-5-rs test suite
+# (test/adrift5/probes/src/timed_events.xml).
+# Exercises TimeBased events and Seconds-measure sub-events on the headless
+# clock: one processed input line == one second (ev_time_tick_all).
+# The turn-based `start seconds` event has a `2 FromStartOfEvent` Seconds
+# sub-event (own timer, fires two ticks after the start) and a
+# `1 FromStartOfEvent` Turns sub-event (turn scan, fires on the next turn).
+wait
+wait
+wait
+wait
+wait
+wait
+start seconds
+wait
+wait
+wait
+wait
+wait
+wait
+start seconds
+south
+wait
+north
+wait
+wait
+start timed
+wait
+wait
+wait
+start mist
+look
+wait
+look
+wait
+wait
+wait
+wait
+look
+timed pause

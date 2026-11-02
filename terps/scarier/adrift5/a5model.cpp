@@ -497,9 +497,13 @@ a5_parse_subevent (a5_subevent_t *se, const a5_xml_node_t *c)
   const char *when = a5xml_child_text (c, "When");
   const char *what_elem = a5xml_child_text (c, "What");
   const char *only = a5xml_child_text (c, "OnlyApplyAt");
+  const char *measure = a5xml_child_text (c, "Measure");
   a5_xml_node_t *act = a5xml_child (c, "Action");
   a5_parse_range (when, &se->ft_from, &se->ft_to);
   se->when = a5_parse_se_when (a5_last_token (when));
+  /* FileIO.vb:1732 EnumParseSubEventMeasure: absent or anything but
+     "Seconds" is Turns. */
+  se->seconds = measure != nullptr && strcmp (measure, "Seconds") == 0;
   if (act != nullptr)
     {
       char wbuf[32];

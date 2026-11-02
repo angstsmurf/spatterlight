@@ -508,6 +508,8 @@ scarier_save_t::events ()
       sb_elem (b, "Trigger", e.triggering_task.c_str ());
       for (s = 0; s < e.se_ft.size (); s++)
         sb_elem_l (b, "SeFt", e.se_ft[s]);
+      for (s = 0; s < e.se_timer.size (); s++)
+        sb_elem_l (b, "SeTimer", e.se_timer[s]);
       sb_puts (b, "</Event>\n");
     }
 }
@@ -1346,7 +1348,7 @@ scarier_restore_t::event (const a5_xml_node_t *n)
       a5_event_rt &e = (*run->events)[ev_i];
       const a5_xml_node_t *c;
       const char *trg = a5xml_child_text (n, "Trigger");
-      int s = 0;
+      int s = 0, t = 0;
       e.status       = (int)  child_long (n, "Status");
       e.length_value =        child_long (n, "Length");
       e.length_set   = 1;                /* the save holds Length.Value */
@@ -1357,9 +1359,15 @@ scarier_restore_t::event (const a5_xml_node_t *n)
       e.next_command = (int)  child_long (n, "NextCommand");
       e.when_start   = (int)  child_long (n, "WhenStart");
       e.triggering_task = trg ? trg : "";
+      /* A save from before the sub-event timers has no SeTimer: unarmed. */
+      std::fill (e.se_timer.begin (), e.se_timer.end (), -1);
       for (c = n->first_child; c != nullptr; c = c->next)
-        if (streq (c->name, "SeFt") && s < (int) e.se_ft.size ())
-          e.se_ft[s++] = node_long (c);
+        {
+          if (streq (c->name, "SeFt") && s < (int) e.se_ft.size ())
+            e.se_ft[s++] = node_long (c);
+          else if (streq (c->name, "SeTimer") && t < (int) e.se_timer.size ())
+            e.se_timer[t++] = node_long (c);
+        }
       ev_i++;
     }
 }

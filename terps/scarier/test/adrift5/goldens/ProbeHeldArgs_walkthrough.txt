@@ -1,0 +1,10 @@
+# ProbeHeldArgs -- our own synthetic conformance probe
+# (test/adrift5/probes/src/held_args.xml).
+# Exercises the argument of the Held / Worn OO-property lists: "", True, 1,
+# -1 recurse into carried containers; False, 0 give the direct list; any other
+# argument leaves the Runner's list EMPTY (Global.vb:1282-1291, 1351-1360).
+help
+inventory
+held counts
+held odd
+worn counts

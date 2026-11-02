@@ -1,0 +1,153 @@
+Timed Events Test
+This game exercises FrankenDrift timed-event support.
+
+Sit still at the prompt. Without typing, you should see each of these on its own line:
+  ~1s  Immediate time event: tick 1.
+  ~2s  Immediate time event: tick 2.
+  ~3s  ExecuteTask ran TaskFromTimer.
+       Delayed time event has started.
+  ~4s  Immediate time event: ending.
+  ~5s  Delayed time event is ending.
+
+Then try:
+  start timed   — queues a TimeBased event; beats ~2s and ~3s after the command
+  start mist    — SetLook via TimeBased; type look while it runs (~5s)
+  start seconds — TurnBased + Seconds sub-event (~2s later, no further command needed for that beat); then wait for the turns beat
+  timed pause   — prints text, pauses 2s, more text, pauses 1.5s, then finishes
+  south         — leave the lab; DisplayMessage sub-events are OnlyApplyAt the lab
+
+Timer Lab
+A quiet laboratory with a wall clock. An exit leads south to the courtyard.  An exit leads south.
+
+> wait
+Time passes...
+
+Immediate time event: tick 1.
+
+> wait
+Time passes...
+
+Immediate time event: tick 2.
+
+> wait
+Time passes...
+
+ExecuteTask ran TaskFromTimer.
+Delayed time event has started.
+
+> wait
+Time passes...
+
+Immediate time event: ending.
+
+> wait
+Time passes...
+
+Delayed time event is ending.
+
+> wait
+Time passes...
+
+> start seconds
+You start the turn-based/seconds hybrid event.
+
+> wait
+Time passes...  Turn-based event: turns sub-event (after a command).
+
+Turn-based event: seconds sub-event fired.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> start seconds
+You start the turn-based/seconds hybrid event.
+
+> south
+You move south.
+
+Courtyard
+An open courtyard. Timed DisplayMessage text should not appear here. An exit leads north back to the lab.  An exit leads north.
+
+> wait
+Time passes...
+
+> north
+You move north.
+
+Timer Lab
+A quiet laboratory with a wall clock. An exit leads south to the courtyard.  An exit leads south.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> start timed
+You start the task-triggered time event.
+
+> wait
+Time passes...
+
+Task-started time event: beat 1.
+
+> wait
+Time passes...
+
+Task-started time event: beat 2.
+
+> wait
+Time passes...
+
+> start mist
+You start the timed mist event.
+
+> look
+
+Timer Lab
+A quiet laboratory with a wall clock. An exit leads south to the courtyard.  A soft ticking fills the air.  An exit leads south.
+
+> wait
+Time passes...
+
+The ticking grows louder.
+
+> look
+
+Timer Lab
+A quiet laboratory with a wall clock. An exit leads south to the courtyard.  A soft ticking fills the air.  An exit leads south.
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> wait
+Time passes...
+
+> look
+
+Timer Lab
+A quiet laboratory with a wall clock. An exit leads south to the courtyard.  An exit leads south.
+
+> timed pause
+Before the pause.
+After two seconds.
+Done with timed pauses.
+

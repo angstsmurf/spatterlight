@@ -46,6 +46,25 @@ static void wk_init     (a5_run_t *run, sb_t *out);
 static long ev_from_start (const a5_event_rt &rt) { return rt.length_value - rt.timer_to_end; }
 static long ev_from_last  (const a5_event_rt &rt) { return ev_from_start (rt) - rt.last_se_time; }
 
+/* clsEvent.EventType = TurnBased (the default; only "TimeBased" is the other
+   kind). */
+static int
+ev_is_turn_based (const a5_event_t *e)
+{
+  return e->type == nullptr || !streq (e->type, "TimeBased");
+}
+
+/* A Seconds-measure sub-event of a TurnBased event runs off its own timer
+   (SubEvent.tmrTrigger), never off the turn scan: clsEvent.DoAnySubEvents
+   only considers `se.eMeasure = Turns OrElse EventType = TimeBased`.  On a
+   TimeBased event the measure is moot, as the event itself ticks per second.
+   */
+static int
+ev_se_timed (const a5_event_t *e, const a5_subevent_t *se)
+{
+  return se->seconds && ev_is_turn_based (e);
+}
+
 /* clsEvent.Length is a FromTo, and FromTo.Value (Global.vb:3770) resolves
    lazily: the first read of an as-yet-unevaluated Length draws Random(from,to)
    and caches it -- even for an event that has never started.  ev_lstop is the
@@ -158,6 +177,50 @@ ev_run_subevent (a5_run_t *run, int ei, int sei, sb_t *out)
     }
   rt.last_se_time  = ev_from_start (rt);
   rt.last_se_index = sei;
+  /* clsEvent.RunSubEvent's tail: when the NEXT sub-event is a timed
+     FromLastSubEvent one, arm its timer now -- or, at a 0-second offset, run
+     it straight away (the Runner cannot start a 0 ms timer).  This chains
+     off ANY sub-event that just ran, turn-counted or timed. */
+  if (sei + 1 < e->n_subevents)
+    {
+      const a5_subevent_t *nx = &e->subevents[sei + 1];
+      if (ev_se_timed (e, nx) && nx->when == A5_SE_FROM_LAST)
+        {
+          if (rt.se_ft[sei + 1] > 0)
+            rt.se_timer[sei + 1] = rt.se_ft[sei + 1];
+          else
+            ev_run_subevent (run, ei, sei + 1, out);
+        }
+    }
+}
+
+/* One second of the Seconds-measure sub-event timers of a TurnBased event
+   (the Runner's per-sub-event tmrTrigger_Tick -> TriggerTimerEvent ->
+   RunSubEvent).  Only a Running event's timers advance: lPause stops them
+   with the remaining time stored and lResume restarts them from it, which on
+   this clock is simply "no decrement while Paused". */
+static void
+ev_tick_second_timers (a5_run_t *run, int ei, sb_t *out)
+{
+  const a5_event_t *e = &run->adv->events[ei];
+  a5_event_rt &rt = (*run->events)[ei];
+  int i;
+  if (rt.status != A5_EV_RUNNING)
+    return;
+  for (i = 0; i < e->n_subevents && !run->st->game_over; i++)
+    {
+      if (rt.se_timer[i] < 0)
+        continue;
+      if (rt.se_timer[i] > 0)
+        rt.se_timer[i]--;
+      if (rt.se_timer[i] == 0)
+        {
+          rt.se_timer[i] = -1;          /* one-shot (tmrTrigger.Enabled=False) */
+          ev_run_subevent (run, ei, i, out);
+          if (rt.status != A5_EV_RUNNING)
+            return;                     /* the sub-event's task stopped it */
+        }
+    }
 }
 
 static void
@@ -173,6 +236,8 @@ ev_do_subevents (a5_run_t *run, int ei, sb_t *out)
       const a5_subevent_t *se = &e->subevents[i];
       long ft = rt.se_ft[i];
       int go = 0;
+      if (ev_se_timed (e, se))
+        continue;           /* on its own timer; and BeforeEnd+Seconds never */
       switch (se->when)
         {
         case A5_SE_FROM_START:
@@ -211,7 +276,21 @@ ev_lstart (a5_run_t *run, int ei, int restart, sb_t *out)
   rt.last_se_index = -1;
   rt.last_se_time = 0;
   for (i = 0; i < e->n_subevents; i++)
-    rt.se_ft[i] = a5rand_between (e->subevents[i].ft_from, e->subevents[i].ft_to);
+    {
+      const a5_subevent_t *se = &e->subevents[i];
+      rt.se_ft[i] = a5rand_between (se->ft_from, se->ft_to);
+      /* Arm the timed sub-events that count from the start: FromStartOfEvent,
+         and a FromLastSubEvent FIRST in the list (nothing precedes it to
+         chain from).  Later FromLast ones are armed by the sub-event before
+         them (ev_run_subevent); BeforeEndOfEvent ones never are.  A 0 here
+         fires on the first tick: the Runner would throw starting a 0 ms
+         timer, so no working game has one. */
+      rt.se_timer[i] = -1;
+      if (ev_se_timed (e, se)
+          && (se->when == A5_SE_FROM_START
+              || (se->when == A5_SE_FROM_LAST && i == 0)))
+        rt.se_timer[i] = rt.se_ft[i];
+    }
 
   ev_set_timer_to_end (run, ei, rt.length_value, out);
   if (ev_from_start (rt) == 0)
@@ -234,6 +313,8 @@ ev_lstop (a5_run_t *run, int ei, int run_subs, sb_t *out)
   if (rt.status == A5_EV_PAUSED)
     return;
   rt.status = A5_EV_FINISHED;
+  /* lStop stops every sub-event timer (a restart below re-arms them). */
+  std::fill (rt.se_timer.begin (), rt.se_timer.end (), -1);
   /* A repeating event whose timer sits at 0 restarts here -- and that includes
      one that has never run at all (TimerToEndOfEvent starts at 0), so a Stop
      control aimed at a not-yet-started repeating event STARTS it.  Tempus
@@ -726,7 +807,11 @@ ev_tick_all (a5_run_t *run, sb_t *out)
    input line (one turn == one second).  Real-time games (The Salvage's
    mission/refuel/end-game events) stay playable AND turn-deterministic.
    Mirrors FD's TimeBasedStuff: events only (no walk tick, no qTasksToRun
-   drain), and only TimeBased events' just_started flags are cleared. */
+   drain), and only TimeBased events' just_started flags are cleared.
+
+   The same second also advances the Seconds-measure sub-event timers of the
+   TurnBased events (the Runner's per-sub-event tmrTrigger, a wall-clock timer
+   too), in event order after the TimeBased events. */
 void
 ev_time_tick_all (a5_run_t *run, sb_t *out)
 {
@@ -737,6 +822,9 @@ ev_time_tick_all (a5_run_t *run, sb_t *out)
   for (ei = 0; ei < run->adv->n_events && !run->st->game_over; ei++)
     if (streq (run->adv->events[ei].type, "TimeBased"))
       ev_increment (run, ei, out);
+  for (ei = 0; ei < run->adv->n_events && !run->st->game_over; ei++)
+    if (ev_is_turn_based (&run->adv->events[ei]))
+      ev_tick_second_timers (run, ei, out);
   for (ei = 0; ei < run->adv->n_events; ei++)
     if (streq (run->adv->events[ei].type, "TimeBased"))
       (*run->events)[ei].just_started = 0;

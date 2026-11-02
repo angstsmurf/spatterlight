@@ -83,6 +83,10 @@ struct a5_event_rt {
   int  when_start;         /* mutable: Immediately -> BetweenXY after start  */
   std::string triggering_task;
   std::vector<long> se_ft; /* resolved per-sub-event turn offset             */
+  /* Per-sub-event countdown, in seconds, for a Seconds-measure sub-event of
+     a TurnBased event (SubEvent.tmrTrigger): -1 = not armed.  Ticked by
+     ev_time_tick_all on the same 1-second clock as the TimeBased events. */
+  std::vector<long> se_timer;
 };
 
 /* Per-walk runtime (clsWalk instance state).  Walks share the event status /

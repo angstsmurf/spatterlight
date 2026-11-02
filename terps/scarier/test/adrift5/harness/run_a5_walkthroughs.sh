@@ -1870,6 +1870,7 @@ ProbeEvents|a5probes/events.taf|0|0
 ProbeExecOrderTask|a5probes/execute_ordering.taf|0|0
 ProbeExecOrderTopic|a5probes/execute_ordering.taf|0|0
 ProbeHiPriPassingTask|a5probes/highest_priority_passing_task.taf|0|0
+ProbeHeldArgs|a5probes/held_args.taf|0|0
 ProbeHiPriTask|a5probes/highest_priority_task.taf|0|0
 ProbeImage|a5probes/image.taf|0|0
 ProbeImageBlorb|a5probes/image.blorb|0|0
@@ -1885,6 +1886,7 @@ ProbeRestrictions|a5probes/restrictions.taf|0|0
 ProbeSound|a5probes/sound.taf|0|0
 ProbeSoundBlorb|a5probes/sound.blorb|0|0
 ProbeTaskActions|a5probes/task_actions.taf|1|0
+ProbeTimedEvents|a5probes/timed_events.taf|0|0
 ProbeUDF|a5probes/user_defined_functions.taf|0|0
 ProbeUndoAfterEnd|a5probes/undo_after_end.taf|0|4
 ProbeVariables|a5probes/variables.taf|1|1

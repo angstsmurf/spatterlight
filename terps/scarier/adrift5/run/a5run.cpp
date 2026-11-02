@@ -384,6 +384,7 @@ a5run_new (const a5_adventure_t *adv)
       rt.next_command = A5_CMD_NONE;
       rt.when_start = adv->events[i].when_start;
       rt.se_ft.assign ((size_t) adv->events[i].n_subevents, 0);
+      rt.se_timer.assign ((size_t) adv->events[i].n_subevents, -1);
     }
   /* Let the location viewer ask "is event #i Running?" for the SetLook gate
      (clsEvent.LookText's Status = Running check). */
@@ -2077,13 +2078,20 @@ a5run_set_real_time (a5_run_t *run, int on)
 int
 a5run_has_time_events (a5_run_t *run)
 {
-  int ei;
+  int ei, si;
   if (run == nullptr)
     return 0;
   for (ei = 0; ei < run->adv->n_events; ei++)
-    if (run->adv->events[ei].type != nullptr
-        && streq (run->adv->events[ei].type, "TimeBased"))
-      return 1;
+    {
+      const a5_event_t *e = &run->adv->events[ei];
+      if (e->type != nullptr && streq (e->type, "TimeBased"))
+        return 1;
+      /* A TurnBased event with a Seconds-measure sub-event needs the clock
+         too (its per-sub-event timer, see ev_time_tick_all). */
+      for (si = 0; si < e->n_subevents; si++)
+        if (e->subevents[si].seconds)
+          return 1;
+    }
   return 0;
 }
 

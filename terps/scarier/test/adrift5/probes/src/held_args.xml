@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Adventure>
+<Version>5.0000350</Version>
+<LastUpdated>2026-11-02 23:00:00</LastUpdated>
+<Title>Held Args Test</Title>
+<Author>Test</Author>
+<Introduction>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>This game exercises the argument of the Held / Worn OO-property lists
+(clsCharacter.Held(bIncludeSubObjects)).
+
+The player holds a bag with a coin inside it and wears a hat.
+  held counts   — Held with no argument, True, 1, -1 (recursive: 2) and False, 0 (direct: 1)
+  held odd      — Held(maybe), Held(2): the Runner matches the argument exactly and leaves the list EMPTY (0)
+  worn counts   — the same for Worn</Text>
+</Description>
+</Introduction>
+<ShowFirstLocation>1</ShowFirstLocation>
+<ShowExits>1</ShowExits>
+<EnableMenu>1</EnableMenu>
+<WaitTurns>1</WaitTurns>
+
+<Location>
+<Key>LocationLab</Key>
+<ShortDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Inventory Lab</Text>
+</Description>
+</ShortDescription>
+<LongDescription>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A quiet room for counting what you carry. Type help for commands.</Text>
+</Description>
+</LongDescription>
+<LastUpdated>2026-11-02 23:00:00</LastUpdated>
+<Created>2026-11-02 23:00:00</Created>
+</Location>
+
+<Object>
+<Key>ObjectBag</Key>
+<Article>a</Article>
+<Prefix></Prefix>
+<Name>bag</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A cloth bag.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Dynamic</Value>
+</Property>
+<Property>
+<Key>DynamicLocation</Key>
+<Value>Held By Character</Value>
+</Property>
+<Property>
+<Key>HeldByWho</Key>
+<Value>CharacterPlayer</Value>
+</Property>
+<Property>
+<Key>Container</Key>
+</Property>
+<Property>
+<Key>Openable</Key>
+</Property>
+<Property>
+<Key>OpenStatus</Key>
+<Value>Open</Value>
+</Property>
+<LastUpdated>2026-11-02 23:00:00</LastUpdated>
+<Created>2026-11-02 23:00:00</Created>
+</Object>
+<Object>
+<Key>ObjectCoin</Key>
+<Article>a</Article>
+<Prefix>gold</Prefix>
+<Name>coin</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A gold coin.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Dynamic</Value>
+</Property>
+<Property>
+<Key>DynamicLocation</Key>
+<Value>Inside Object</Value>
+</Property>
+<Property>
+<Key>InsideWhat</Key>
+<Value>ObjectBag</Value>
+</Property>
+<LastUpdated>2026-11-02 23:00:00</LastUpdated>
+<Created>2026-11-02 23:00:00</Created>
+</Object>
+<Object>
+<Key>ObjectHat</Key>
+<Article>a</Article>
+<Prefix>felt</Prefix>
+<Name>hat</Name>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>A felt hat.</Text>
+</Description>
+</Description>
+<Property>
+<Key>StaticOrDynamic</Key>
+<Value>Dynamic</Value>
+</Property>
+<Property>
+<Key>DynamicLocation</Key>
+<Value>Worn By Character</Value>
+</Property>
+<Property>
+<Key>WornByWho</Key>
+<Value>CharacterPlayer</Value>
+</Property>
+<Property>
+<Key>Wearable</Key>
+</Property>
+<LastUpdated>2026-11-02 23:00:00</LastUpdated>
+<Created>2026-11-02 23:00:00</Created>
+</Object>
+
+<Character>
+<Key>CharacterPlayer</Key>
+<Name></Name>
+<Article></Article>
+<Prefix></Prefix>
+<Descriptor></Descriptor>
+<Type>Player</Type>
+<Description>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text></Text>
+</Description>
+</Description>
+<Property>
+<Key>CharacterPosition</Key>
+<Value>Standing</Value>
+</Property>
+<Property>
+<Key>CharacterLocation</Key>
+<Value>At Location</Value>
+</Property>
+<Property>
+<Key>CharacterAtLocation</Key>
+<Value>LocationLab</Value>
+</Property>
+<Property>
+<Key>Known</Key>
+</Property>
+<Property>
+<Key>Gender</Key>
+<Value>Male</Value>
+</Property>
+<LastUpdated>2026-11-02 23:00:00</LastUpdated>
+<Created>2026-11-02 23:00:00</Created>
+</Character>
+
+<Task>
+<Key>TaskHelp</Key>
+<Priority>50100</Priority>
+<Type>General</Type>
+<Command>help</Command>
+<Description>List the probe commands</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Commands: held counts, held odd, worn counts.</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-11-02 23:00:00</LastUpdated>
+<Created>2026-11-02 23:00:00</Created>
+</Task>
+<Task>
+<Key>TaskHeldCounts</Key>
+<Priority>50101</Priority>
+<Type>General</Type>
+<Command>held counts</Command>
+<Description>Held with the recognised arguments</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Held: %Player%.Held.Count
+Held(True): %Player%.Held(True).Count
+Held(1): %Player%.Held(1).Count
+Held(-1): %Player%.Held(-1).Count
+Held(False): %Player%.Held(False).Count
+Held(0): %Player%.Held(0).Count
+Held list: %Player%.Held.List
+Held(False) list: %Player%.Held(False).List</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-11-02 23:00:00</LastUpdated>
+<Created>2026-11-02 23:00:00</Created>
+</Task>
+<Task>
+<Key>TaskHeldOdd</Key>
+<Priority>50102</Priority>
+<Type>General</Type>
+<Command>held odd</Command>
+<Description>Held with arguments the Runner does not recognise</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Held(maybe): %Player%.Held(maybe).Count
+Held(2): %Player%.Held(2).Count
+Held(maybe) list: [%Player%.Held(maybe).List]
+Worn(yes): %Player%.Worn(yes).Count</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-11-02 23:00:00</LastUpdated>
+<Created>2026-11-02 23:00:00</Created>
+</Task>
+<Task>
+<Key>TaskWornCounts</Key>
+<Priority>50103</Priority>
+<Type>General</Type>
+<Command>worn counts</Command>
+<Description>Worn with the recognised arguments</Description>
+<CompletionMessage>
+<Description>
+<DisplayWhen>StartDescriptionWithThis</DisplayWhen>
+<Text>Worn: %Player%.Worn.Count
+Worn(True): %Player%.Worn(True).Count
+Worn(False): %Player%.Worn(False).Count
+Worn(0): %Player%.Worn(0).Count
+Worn list: %Player%.Worn.List</Text>
+</Description>
+</CompletionMessage>
+<Repeatable>1</Repeatable>
+<LastUpdated>2026-11-02 23:00:00</LastUpdated>
+<Created>2026-11-02 23:00:00</Created>
+</Task>
+
+<Map>
+<Page>
+<Key>0</Key>
+<Label>Page 1</Label>
+<Node>
+<Key>LocationLab</Key>
+<X>0</X>
+<Y>0</Y>
+<Z>0</Z>
+</Node>
+</Page>
+</Map>
+</Adventure>
