@@ -152,6 +152,41 @@ oddity is not taken for a finding twice:
   per-platform bugs itself ("ap/cm/at" broken for 61 and 86, 28 and 31.9
   broken everywhere but IBM). Read it first.
 
+## Headers
+
+Rules from the November 2026 hygiene pass:
+
+- `make -f Makefile.headless check-headers` compiles every header on its own, twice in a row. The headless
+  build no longer forces `stddef.h`; `-include image_glk.h` stays, because it renames the Glk window calls.
+- A name used by one file lives in that file, and `SavedState` is opaque outside `restorestate.c`.
+- `common.h` holds the main file's API and the shared game state. What another module defines is declared
+  in that module's header: the dictionary and word globals in `parseinput.h`, the image list in `graphics.h`.
+- `graphics.h` gets the drawing host's names from `common_sagadraw/sagadraw_host.h` and does not repeat them.
+- A `.c` file including `common.h` doesn't also include `definitions.h`. `graphics.c` and `plusmain.c` keep
+  `glk.h`, because it comes before `glkimp.h`.
+
+Left as they are: header names shared with other interpreters (the same-directory include wins); the counter
+and flag tables in `definitions.h`, which read best together even where one file uses them; `Graphics`,
+`ImageWidth`, `ImageHeight` and `JustStarted`, declared away from `plusmain.c` where they are defined;
+`CleanupAndExit`, which `common_utils.c` declares for itself, so it keeps its `-Wmissing-prototypes` warning.
+
+## Comments
+
+Rules from the November 2026 comment pass:
+
+- Plus is GPL 2 or later, see `COPYING`, because it shares code with Scott. Every source has the same block banner.
+- `plusmain.c`, `loaddatabase.c`, `parseinput.c`, `restorestate.c` and `gameinfo.c` also say that they share code
+  with ScottFree. They don't say "based on Alan Cox's code" as Taylor does: most of what was lifted was written by
+  Chris Spiegel or Petter Sjölund.
+- A file with no date of its own takes its header's, or else the date `git log` gives.
+- Comments are `/* */`, apart from the `// clang-format` pairs.
+
+Left as they are: "Physco-Man", which is how the X-Men database spells it; first-person "we"; honest unknowns such as
+`stdraw.c`'s "2 unknown"; aligned trailing comments over 100 columns on globals and tables.
+
+Proof: every `.c` compiled at `-O0` without `-g`, plain and with `-DDEBUG -DDEBUG_PRINT=1`, gave the same object file
+as before the pass.
+
 ## Declined, with the reason
 
 - A table of handler functions for `PerformLine`: the cases share its loop

@@ -1,3 +1,15 @@
+/*
+ *  image_probe.c
+ *  Part of Plus, an interpreter for Scott Adams Graphic Adventures Plus
+ *
+ *  This program is free software; you can redistribute it and/or modify it
+ *  under the terms of the GNU General Public License as published by the Free
+ *  Software Foundation; either version 2 of the License, or (at your option)
+ *  any later version. See the file COPYING.
+ *
+ *  Created by Petter Sjölund on 2026-10-05.
+ */
+
 /* Picture fingerprint for the image regression tests (test/images/README.md).
 
    Built into plus_image_probe together with the whole interpreter and the fake

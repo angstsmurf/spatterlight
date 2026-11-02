@@ -4,6 +4,8 @@
 #ifndef common_utils_h
 #define common_utils_h
 
+#include <stddef.h>
+
 #include "fatal.h"
 #include "glk.h"
 

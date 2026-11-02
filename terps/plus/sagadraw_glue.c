@@ -1,12 +1,17 @@
-//
-//  sagadraw_glue.c
-//  Part of Plus, an interpreter for Scott Adams Graphic Adventures Plus
-//
-//  Callbacks that the shared SAGA image code (common_sagadraw) uses to
-//  fit the graphics window and the palette to the image being drawn.
-//
-//  Created by Petter Sjölund on 2025-12-15.
-//
+/*
+ *  sagadraw_glue.c
+ *  Part of Plus, an interpreter for Scott Adams Graphic Adventures Plus
+ *
+ *  Callbacks that the shared SAGA image code (common_sagadraw) uses to
+ *  fit the graphics window to the image being drawn.
+ *
+ *  This program is free software; you can redistribute it and/or modify it
+ *  under the terms of the GNU General Public License as published by the Free
+ *  Software Foundation; either version 2 of the License, or (at your option)
+ *  any later version. See the file COPYING.
+ *
+ *  Created by Petter Sjölund on 2025-12-15.
+ */
 
 #include "common.h"
 #include "graphics.h"
@@ -31,10 +36,10 @@ void C64A8AdjustPlus(struct c64a8_bounds *bounds) {
     int width = bounds->right;
     int height = bounds->bottom;
 
-    // We only want to adjust the graphics window height in Atari 8 Spider-Man.
-    // In C64 Spider-Man, all room images have the same height.
-    // In Buckaroo Banzai and Fantastic Four, the smaller images look better with
-    // space above and below.
+    /* We only want to adjust the graphics window height in Atari 8 Spider-Man.
+       In C64 Spider-Man, all room images have the same height.
+       In Buckaroo Banzai and Fantastic Four, the smaller images look better
+       with space above and below. */
     if (CurrentSys == SYS_ATARI8 && CurrentGame == SPIDERMAN &&
         ((height == 126 && width == 39) || (height == 158 && width == 38))) {
         ImageHeight = height + 2;
