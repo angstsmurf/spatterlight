@@ -230,6 +230,24 @@ display_object_children (a5_state_t *st, const char *objkey)
 }
 
 /*
+ * What an OO ".List" appends for one object: DisplayObjectChildren without its
+ * final period, or NULL when the object has no children or is not an object.
+ * A closed container gives "Nothing is on or inside the box", as in the Runner.
+ * Caller frees.
+ */
+char *
+a5text_object_children (a5_state_t *st, const char *objkey)
+{
+  if (a5model_object (st->adv, objkey) == nullptr
+      || (objects_on_in (st, objkey, A5_OWHERE_ON_OBJECT).empty ()
+          && objects_on_in (st, objkey, A5_OWHERE_IN_OBJECT).empty ()))
+    return nullptr;
+  std::string s = display_object_children (st, objkey);
+  s.pop_back ();
+  return strdup (s.c_str ());
+}
+
+/*
  * Port of ObjectHashTable.List(sep, bIncludeSubObjects:=True, Indefinite)
  * (StronglyTypedCollections.vb:183) -- the indefinite main list followed, for
  * each object with on/inside children, by its DisplayObjectChildren-style

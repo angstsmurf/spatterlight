@@ -390,15 +390,18 @@ item_name (a5_state_t *st, const std::string &key, a5_article_t art)
   return key;
 }
 
-/* Join a key list as a "List"/"Name" string per the args (and/or, article). */
+/* Join a key list as a "List"/"Name" string per the args (and/or, article).
+   "List" also follows each object that has children with what is on or in it,
+   unless the args contain "false" or "0" (Global.vb, Case "List", "Name"). */
 static std::string
 render_list (a5_state_t *st, const std::vector<std::string> &keys,
-             const std::string &args)
+             const std::string &fn, const std::string &args)
 {
   std::string a = lower (args);
   std::string sep = " and ";
   if (contains (a, "or")) sep = " or ";
   int rows = contains (a, "rows");
+  int list_in_on = fn != "Name" && !contains (a, "false") && !contains (a, "0");
   a5_article_t art = A5_ART_DEFINITE;
   if (contains (a, "indefinite")) art = A5_ART_INDEFINITE;
   else if (contains (a, "none"))  art = A5_ART_NONE;
@@ -426,6 +429,16 @@ render_list (a5_state_t *st, const std::vector<std::string> &keys,
             ia = A5_ART_DEFINITE;
         }
       out += item_name (st, keys[i], ia);
+      if (list_in_on)
+        {
+          char *children = a5text_object_children (st, keys[i].c_str ());
+          if (children != nullptr)
+            {
+              out += ".  ";
+              out += children;
+              free (children);
+            }
+        }
     }
   return out;
 }
@@ -706,7 +719,7 @@ oo_step_t::list ()
     { std::string r; for (auto &k : ctx.keys)
         { if (!r.empty ()) r += "  "; r += item_description (st, k); } return r; }
   if (fn == "List" || fn == "Name")
-    return render_list (st, ctx.keys, args);
+    return render_list (st, ctx.keys, fn, args);
   if (fn == "Parent")
     {
       Ctx nc; nc.is_list = 1;

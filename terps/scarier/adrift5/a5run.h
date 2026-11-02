@@ -68,6 +68,10 @@ extern char *a5run_input (a5_run_t *run, const char *line);
 extern void  a5run_set_real_time   (a5_run_t *run, int on);
 extern char *a5run_time_tick       (a5_run_t *run);
 extern int   a5run_has_time_events (a5_run_t *run);
+/* True when the text of the last a5run_input ends on a time tick that left no
+   line break, so the Runner's transcript has no blank line before the next
+   command.  Only the transcript harness uses this; the Glk host keeps the gap. */
+extern int   a5run_turn_is_open (a5_run_t *run);
 
 /* Non-zero once an EndGame action has fired. */
 extern int a5run_is_over (a5_run_t *run);

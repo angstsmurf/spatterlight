@@ -247,6 +247,7 @@ extern char *a5text_location_short (a5_state_t *st, const char *lockey);
 /* As a5text_location_short but fully rendered to plain text (the room NAME).
    */
 extern char *a5text_location_short_plain (a5_state_t *st, const char *lockey);
+extern char *a5text_object_children (a5_state_t *st, const char *objkey);
 
 /* Run the %function%/%variable% and ALR passes + auto-capitalisation on src.
    */

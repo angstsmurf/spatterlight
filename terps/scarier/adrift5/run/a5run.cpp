@@ -1953,6 +1953,24 @@ a5run_input_inner (a5_run_t *run, const char *line)
   return turn.fallback ();
 }
 
+/* Whether text has words on its last line, ignoring spaces and marker bytes.
+   A command's commit ends with the Runner's vbCrLf pair, but TimeBasedStuff's
+   Display("", True) adds nothing, so a tick's text ends as the game wrote it. */
+static int
+text_ends_open (const sb_t *text)
+{
+  size_t n = text->len;
+  while (n > 0)
+    {
+      unsigned char c = (unsigned char) text->p[--n];
+      if (c == '\n' || c == '\r')
+        return 0;
+      if (c > ' ')
+        return 1;
+    }
+  return 0;
+}
+
 /* One 1-second TimeBased tick plus its own finish_turn commit (the Runner's
    TimeBasedStuff -> Display("", True) -> CheckEndOfGame).  Returns the tick's
    rendered text (caller frees), or NULL when the tick flushed nothing -- no
@@ -1965,6 +1983,7 @@ time_tick_commit (a5_run_t *run)
   sb_init (&tout);
   run->in_time_tick = 1;
   ev_time_tick_all (run, &tout);
+  run->turn_open = !run->st->game_over && text_ends_open (&tout);
   if (tout.len != 0 || (run->st->game_over && !run->st->end_displayed))
     extra = finish_turn (run, &tout);
   else
@@ -2036,6 +2055,7 @@ a5run_input (a5_run_t *run, const char *line)
   if (run->st->game_over)
     return endgame_guard_input (run, line);
   char *txt = a5run_input_inner (run, line);
+  run->turn_open = 0;
   /* The real Runner's 1-second tmrEvents timer, deterministically: tick every
      TimeBased event once per processed input line (see ev_time_tick_all).  The
      tick's output flushes as its own commit AFTER the command's, so it gets
@@ -2073,6 +2093,12 @@ a5run_set_real_time (a5_run_t *run, int on)
 {
   if (run != nullptr)
     run->real_time = on != 0;
+}
+
+int
+a5run_turn_is_open (a5_run_t *run)
+{
+  return run != nullptr && run->turn_open;
 }
 
 int

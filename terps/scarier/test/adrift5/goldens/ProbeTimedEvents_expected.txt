@@ -23,28 +23,23 @@ A quiet laboratory with a wall clock. An exit leads south to the courtyard.  An 
 Time passes...
 
 Immediate time event: tick 1.
-
 > wait
 Time passes...
 
 Immediate time event: tick 2.
-
 > wait
 Time passes...
 
 ExecuteTask ran TaskFromTimer.
 Delayed time event has started.
-
 > wait
 Time passes...
 
 Immediate time event: ending.
-
 > wait
 Time passes...
 
 Delayed time event is ending.
-
 > wait
 Time passes...
 
@@ -55,7 +50,6 @@ You start the turn-based/seconds hybrid event.
 Time passes...  Turn-based event: turns sub-event (after a command).
 
 Turn-based event: seconds sub-event fired.
-
 > wait
 Time passes...
 
@@ -102,12 +96,10 @@ You start the task-triggered time event.
 Time passes...
 
 Task-started time event: beat 1.
-
 > wait
 Time passes...
 
 Task-started time event: beat 2.
-
 > wait
 Time passes...
 
@@ -123,7 +115,6 @@ A quiet laboratory with a wall clock. An exit leads south to the courtyard.  A s
 Time passes...
 
 The ticking grows louder.
-
 > look
 
 Timer Lab

@@ -488,6 +488,9 @@ struct a5_run_s {
      A post-game-over UNDO replays it -- the Runner's Undo() Displays "Undone."
      followed by the restored session's sTurnOutput. */
   std::string last_turn_text;
+  /* The last a5run_input ended on a time tick's text with no line break after
+     it, see a5run_turn_is_open. */
+  int turn_open;
   std::vector<std::string> undo_turn_text;
 
   /* Size of the last a5run_save_blob result: pre-sizes the next blob's buffer

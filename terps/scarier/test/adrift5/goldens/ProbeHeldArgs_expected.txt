@@ -23,8 +23,8 @@ Held(1): 2
 Held(-1): 2
 Held(False): 1
 Held(0): 1
-Held list: the bag and the gold coin
-Held(False) list: the bag
+Held list: the bag.  Inside the bag is a gold coin and the gold coin
+Held(False) list: the bag.  Inside the bag is a gold coin
 
 > held odd
 Held(maybe): 0

@@ -337,7 +337,16 @@ main (int argc, char **argv)
           fprintf (stderr, "a5run_dump: post-game '%s' is not supported by "
                    "this harness (host-side in the engine); ignored\n", line);
         txt = a5run_input (run, line);
-        printf ("%s\n", txt);
+        /* An open-ended tick has no blank line before the next "\n> ". */
+        if (a5run_turn_is_open (run))
+          {
+            size_t len = strlen (txt);
+            if (len > 0 && txt[len - 1] == '\n')
+              txt[len - 1] = '\0';
+            fputs (txt, stdout);
+          }
+        else
+          printf ("%s\n", txt);
         free (txt);
         dump_media (run);
         if (was_over && strcasecmp (line, "quit") == 0)

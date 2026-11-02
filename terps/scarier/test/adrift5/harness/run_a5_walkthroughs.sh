@@ -1830,7 +1830,7 @@ EdithsCats|edithscats.taf|0|0
 EdithsCatsUpstream|edithscats_upstream.taf|0|0
 BirthOfThePhoenix|PhoenixV3.blorb|0|0
 Jabberwocky|jabberwocky4.21.blorb|0|0
-TempusFugit|Tempus Fugit2.taf|0|1
+TempusFugit|Tempus Fugit2.taf|0|0
 SorryForYourLoss|Sorry For Your Loss.blorb|0|0
 Dreamspun|dreamspun 0.9.taf|0|0
 TheAwakeners|The Awakeners.taf|0|0
@@ -1886,7 +1886,7 @@ ProbeRestrictions|a5probes/restrictions.taf|0|0
 ProbeSound|a5probes/sound.taf|0|0
 ProbeSoundBlorb|a5probes/sound.blorb|0|0
 ProbeTaskActions|a5probes/task_actions.taf|1|0
-ProbeTimedEvents|a5probes/timed_events.taf|0|0
+ProbeTimedEvents|a5probes/timed_events.taf|0|1
 ProbeUDF|a5probes/user_defined_functions.taf|0|0
 ProbeUndoAfterEnd|a5probes/undo_after_end.taf|0|4
 ProbeVariables|a5probes/variables.taf|1|1

@@ -535,7 +535,6 @@ Time passes...
 
 Finally, you wake up.  You find yourself back in your home.  How did you get here?
 You also notice a new map lying next to you on the bed.
-
 > w
 You move west.
 
