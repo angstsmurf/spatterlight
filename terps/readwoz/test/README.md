@@ -25,9 +25,7 @@ Who calls what (grep `ciderpress.h` under `terps/`):
 
 - `woz2nib.c/.h` are GPL 2 or later. They never contained code from LEE Sau Dan's
   woz2dsk (GPL 3 or later), which is written in Perl, so its licence does not apply.
-- `ciderpress.c/.h` are GPL 2 or later and keep CiderPress's BSD notice. They also
-  credit a2tools by Terry Kyriacopoulos and Paul Schlyter. No licence for a2tools
-  was found (2026-11-03), so that credit has no notice with it.
+- `ciderpress.c/.h` are GPL 2 or later and keep CiderPress's BSD notice.
 
 ## The suites
 

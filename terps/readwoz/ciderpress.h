@@ -38,8 +38,6 @@
  *  Created by Petter Sjölund on 2022-09-29.
  *  This is based on parts of the Ciderpress source.
  *  See https://github.com/fadden/ciderpress for the full version.
- *
- *  Includes fragments from a2tools by Terry Kyriacopoulos and Paul Schlyter
  */
 
 #ifndef ciderpress_h

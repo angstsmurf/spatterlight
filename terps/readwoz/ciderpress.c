@@ -41,8 +41,6 @@
  *
  * Based on parts of the CiderPress source by Andy McFadden.
  * See https://github.com/fadden/ciderpress for the full version.
- *
- * Includes fragments from a2tools by Terry Kyriacopoulos and Paul Schlyter.
  */
 
 #include <ctype.h>
