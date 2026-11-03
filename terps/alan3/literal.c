@@ -6,7 +6,6 @@
 #include "literal.h"
 
 /* IMPORTS */
-#include <strings.h>
 #include "types.h"
 #include "memory.h"
 
