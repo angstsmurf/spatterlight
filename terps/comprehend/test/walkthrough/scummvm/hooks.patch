@@ -1,0 +1,65 @@
+diff --git a/engines/glk/comprehend/comprehend_io.cpp b/engines/glk/comprehend/comprehend_io.cpp
+index b139e1a94e2..c68e306c9b8 100644
+--- a/engines/glk/comprehend/comprehend_io.cpp
++++ b/engines/glk/comprehend/comprehend_io.cpp
+@@ -1,3 +1,4 @@
++#define FORBIDDEN_SYMBOL_ALLOW_ALL
+ /* ScummVM - Graphic Adventure Engine
+  *
+  * ScummVM is the legal property of its developers, whose names
+@@ -27,6 +28,23 @@
+ namespace Glk {
+ namespace Comprehend {
+ 
++#include <stdio.h>
++#include <stdlib.h>
++static FILE *testScript() {
++	static FILE *f = nullptr;
++	static bool tried = false;
++	if (!tried) { tried = true; const char *e = getenv("COMPREHEND_SCRIPT"); if (e) f = fopen(e, "r"); }
++	return f;
++}
++static bool testNextLine(char *buf, size_t maxLen) {
++	FILE *f = testScript();
++	if (!fgets(buf, (int)maxLen, f)) { fflush(stdout); buf[0] = 0; g_vm->quitGame(); return false; }
++	size_t n = strlen(buf);
++	while (n && (buf[n-1] == '\n' || buf[n-1] == '\r')) buf[--n] = 0;
++	printf("%s\n", buf);
++	return true;
++}
++
+ void Comprehend::putBottom(const char *s) {
+ 	// In redirect mode, send the text to the transcript only (or nowhere, if no
+ 	// transcript is open); otherwise to the buffer window. Each destination has
+@@ -41,6 +59,7 @@ void Comprehend::putBottom(const char *s) {
+ 		stream = glk_window_get_stream(_bottomWindow);
+ 		trailing = &_trailingNewlines;
+ 	}
++	if (testScript() && !_redirectToTranscript) { for (const char *t = s; *t; ++t) putchar(*t); }
+ 	for (; *s; ++s) {
+ 		if (*s == '\n') {
+ 			if (*trailing >= 2)
+@@ -64,6 +83,7 @@ void Comprehend::putBottomUni(const glui32 *s) {
+ 		stream = glk_window_get_stream(_bottomWindow);
+ 		trailing = &_trailingNewlines;
+ 	}
++	if (testScript() && !_redirectToTranscript) { for (const glui32 *t = s; *t; ++t) putchar(*t < 128 ? (int)*t : '?'); }
+ 	for (; *s; ++s) {
+ 		if (*s == '\n') {
+ 			if (*trailing >= 2)
+@@ -212,6 +232,7 @@ void Comprehend::printRoomDesc(const Common::String &desc) {
+ 
+ void Comprehend::readLine(char *buffer, size_t maxLen, bool stayOnEmptyLine) {
+ 	maybeStartHourglassFall();
++	if (testScript()) { testNextLine(buffer, maxLen); _trailingNewlines = 1; return; }
+ 	event_t ev;
+ 	glk_request_line_event(_bottomWindow, buffer, (glui32)(maxLen - 1), 0);
+ 	// Glk can't echo only some lines, so turn its echo off and write the line
+@@ -253,6 +274,7 @@ void Comprehend::readLine(char *buffer, size_t maxLen, bool stayOnEmptyLine) {
+ 
+ int Comprehend::readChar() {
+ 	maybeStartHourglassFall();
++	if (testScript()) return '\r';
+ 	glk_request_char_event(_bottomWindow);
+ 	const bool savesWereDisabled = _disableSaves;
+ 	setDisableSaves(true);
