@@ -1,25 +1,55 @@
-//
-//  aiukpalette.c
-//  Part of the AI UK graphics library (shared by ScottFree and TaylorMade)
-//
-//  Created by Administrator on 2025-12-13.
-//
-//  Palette code based on code by David Lodge
-//  with help from Paul David Doherty (including the colour code)
-//
-//  Colour palette definitions and remapping for
-//  Adventure International UK / Adventure Soft tile graphics.
-//
-//  The original games ran on two very different platforms — the ZX
-//  Spectrum (8 colours × 2 brightness levels = 16 entries) and the
-//  Commodore 64 (16 fixed colours, completely different ordering).
-//  The image data always uses the Spectrum colour numbering (0–7
-//  normal, 8–15 bright). On C64, a remap table translates those
-//  indices into the closest C64 equivalents.
-//
-//  Several C64 remap variants exist because different game releases
-//  chose slightly different colour substitutions.
-//
+/*
+ *  aiukpalette.c
+ *
+ *  This program is free software; you can redistribute it and/or modify it
+ *  under the terms of the GNU General Public License as published by the Free
+ *  Software Foundation; either version 2 of the License, or (at your option)
+ *  any later version.
+ *
+ *  Parts are based on code by David Lodge, which came with this notice:
+ *
+ *  MIT License
+ *
+ *  Copyright (c) 2018 D L
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a copy
+ *  of this software and associated documentation files (the "Software"), to deal
+ *  in the Software without restriction, including without limitation the rights
+ *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *  copies of the Software, and to permit persons to whom the Software is
+ *  furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included in all
+ *  copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ *  SOFTWARE.
+ *
+ *  Part of the AI UK graphics library (shared by ScottFree and TaylorMade)
+ *
+ *  Created by Petter Sjölund on 2025-12-13.
+ *
+ *  Palette code based on code by David Lodge
+ *  with help from Paul David Doherty (including the colour code)
+ *
+ *  Colour palette definitions and remapping for
+ *  Adventure International UK / Adventure Soft tile graphics.
+ *
+ *  The original games ran on two very different platforms — the ZX
+ *  Spectrum (8 colours × 2 brightness levels = 16 entries) and the
+ *  Commodore 64 (16 fixed colours, completely different ordering).
+ *  The image data always uses the Spectrum colour numbering (0–7
+ *  normal, 8–15 bright). On C64, a remap table translates those
+ *  indices into the closest C64 equivalents.
+ *
+ *  Several C64 remap variants exist because different game releases
+ *  chose slightly different colour substitutions.
+ */
 
 #include <string.h>
 
