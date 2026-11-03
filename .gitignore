@@ -237,6 +237,7 @@ terps/comprehend/test/rgbacrc
 terps/scott/headless_obj/
 terps/scott/scott_hl
 terps/scott/scott_death_test
+terps/scott/scott_resize_test
 terps/scott/scott_all_audit
 terps/scott/scott_format_probe
 terps/scott/scott_cond_audit

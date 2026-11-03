@@ -30,6 +30,13 @@
     After a deliberate change to the parser, look at the diff and regenerate:
     `SCOTT_SCRIPT_KEYS=1 ./scott_hl test/parser/parser.dat < test/parser/all.txt
     2>/dev/null | grep -v 'Glk library error' > test/parser/expected/all.txt`.
+  - `test/resize_test.c` — the crash on resizing the window while a
+    multi-game disk's selection menu is up (PR #212): the menu's key loop
+    forwards every non-key event to `Updates()`, which redrew the room before
+    any database was loaded. The driver recreates that state, answers the
+    graphics gestalt itself so the redraw path is taken under CheapGlk, and
+    sends an `evtype_Arrange` and an `evtype_Timer` into `Updates()`. Needs
+    no game file: `./scott_resize_test`.
 - `make -f Makefile.headless scott_death_test` — loads a real game, jumps the
   player into `MyLoc = GameHeader.NumRooms` (the death/limbo room) and calls
   `Look()`. Run under ASan with a non-zero malloc fill so an uninitialised room
