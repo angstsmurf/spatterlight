@@ -1,4 +1,11 @@
 /*
+ * woz2nib_unit.c
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option)
+ * any later version.
+ *
  * woz2nib_unit -- tests the parts of woz2nib.c one at a time, on bitstreams
  * and WOZ files made up here, so that it needs no disk images. Run it with
  * ./unit.sh. It includes woz2nib.c to get at its static functions.

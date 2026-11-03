@@ -1,4 +1,11 @@
 /*
+ * ciderpress_probe.c
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option)
+ * any later version.
+ *
  * ciderpress_probe -- prints what ciderpress.c extracts from an Apple II disk
  * image, one tab-separated line per result, so that a refactor of the reader
  * can be checked against a snapshot rather than against "the games still run".
