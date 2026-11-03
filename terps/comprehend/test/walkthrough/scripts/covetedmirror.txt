@@ -4,8 +4,9 @@
 # Peak of Shards. The headless terp seeds rand() deterministically, so the
 # engine's random wandering-NPC spawns (rolled once per room ENTRY) are stable:
 # the GET SHADOW retry loop below (leave/re-enter the lane at Sue's) succeeds
-# on the 4th entry under this seed. If the route before it changes, re-pin the
-# retry count.
+# on the 4th entry under this seed. GET SHADOW with no shadow only prints
+# "There isn't one here.", so the loop runs 10 times: that wins in the ScummVM
+# port too (19 of --random-seed 1..20, including 1234), and the sand still lasts.
 #
 # Sand-timer cadence (variable 0x11; -1/turn, caught at 0, warning at 24):
 # bribes hand Boris an item at the prison cell (GO BARREL, E, WAIT, GIVE x;
@@ -239,6 +240,24 @@ GO HOLE
 GO BARREL
 W
 GET HORSESHOE
+W
+GET SHADOW
+E
+W
+GET SHADOW
+E
+W
+GET SHADOW
+E
+W
+GET SHADOW
+E
+W
+GET SHADOW
+E
+W
+GET SHADOW
+E
 W
 GET SHADOW
 E

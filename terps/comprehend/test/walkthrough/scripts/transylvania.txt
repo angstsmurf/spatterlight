@@ -74,9 +74,108 @@ S
 #     The enter/leave-wagon cycles burn rand() draws to steer the werewolf's
 #     beforeTurn roll: it must be absent here (the gun is dropped to free an
 #     inventory slot for the bullet) but present later at the cabin so SHOOT
-#     WEREWOLF connects. The 26-cycle count is tuned to the erkyrath_random
-#     determinism-mode stream (seed 1234); the old four-cycle count rode the
-#     libc srand(1) stream. ---
+#     WEREWOLF connects. The 74-cycle count wins on two streams: Spatterlight's
+#     erkyrath_random determinism-mode stream (seed 1234) and ScummVM's
+#     Common::RandomSource with --random-seed=1234. Other counts that win:
+#     26, 45, 46 on Spatterlight only; 29, 67 on ScummVM only. A werewolf that
+#     turns up is harmless for one command if that command leaves the room or
+#     shoots it; any other command gets you eaten. ---
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
+ENTER WAGON
+LEAVE WAGON
 ENTER WAGON
 LEAVE WAGON
 ENTER WAGON
@@ -163,15 +262,19 @@ GET BROOM
 LEAVE HUT
 
 # --- The castle: destroy the vampire with the cross (then drop the spent cross),
-#     and take the ring from the vault. The lone LOOK at the entranceway burns
-#     one more rand() draw so the vampire's beforeTurn roll lands him here for
-#     SHOW CROSS to hit -- the second half of the same determinism-mode tuning
-#     as the wagon cycles above. ---
+#     and take the ring from the vault. The vampire may arrive on any turn at
+#     the entranceway, and SHOW CROSS with no vampire present only prints "A
+#     stream of blinding light escapes from the cross!", so showing it five
+#     times destroys him whichever turn he comes on, without tuning to the RNG
+#     stream. ---
 N
 W
 N
 N
-LOOK
+SHOW CROSS
+SHOW CROSS
+SHOW CROSS
+SHOW CROSS
 SHOW CROSS
 DROP CROSS
 E

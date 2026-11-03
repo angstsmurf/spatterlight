@@ -81,8 +81,9 @@ identical across runs), and all five are full winning playthroughs:
     Pass squeeze, the coat for the summit, and the plateau WAIT cycle for the
     mirror. The jailer is bribed on a fixed cadence to outlast the hourglass
     (see above). The engine-side wandering-NPC spawns are random, so the GET
-    SHADOW retry loop is pinned by count under the fixed test seed; re-pin it if
-    the route before it changes.
+    SHADOW retry loop runs 10 times, well past the 4th entry the fixed test seed
+    needs, so it also wins in the ScummVM port; a GET SHADOW with no shadow is
+    harmless.
   * **Oo-Topos** -- a *full* winning playthrough to "But your part has been done!
     Congratulations!": out of the prison through the scripted stun-capture, the
     alien/sentinel fights, the gravtube and garbage-disposal suit-up, the radiation
@@ -120,7 +121,10 @@ identical across runs), and all five are full winning playthroughs:
     Apple II original (gameid `transylvania`) and the 1987 Polarware DOS re-release
     (gameid `transylvaniav2`, the TransylvaniaPC files). It kills the werewolf and
     vampire, threads the deterministic werewolf coffin-window, frees the statue
-    djinn for the ring, and waits out the dawn flying saucer to wake Sabrina. (The
+    djinn for the ring, and waits out the dawn flying saucer to wake Sabrina. The
+    wagon cycle count is chosen to win both here and in the ScummVM port run
+    with `--random-seed=1234`; the vampire step repeats SHOW CROSS so it doesn't
+    depend on the RNG at all. (The
     Apple original needed a two-slot `_strings2` alignment fix in
     `GameData::load_extra_string_files` -- without it the kill actions printed the
     wrong lines and never fired, leaving the game unwinnable.)
