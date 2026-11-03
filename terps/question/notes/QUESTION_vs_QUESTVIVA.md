@@ -7,14 +7,15 @@ Quest 6 / QuestJS is out of scope for both.
 
 "QuestViva" means `textadventures/quest` at the revision the oracle is pinned
 to: `290a87df`, v6.0.0 plus 69 commits (2026-10-14), with the local
-oracle patches described below. The Quest 5 replay figures were last checked on
-2026-10-31, the other corpus figures on 2026-10-17, after the move to that
-revision; the timings are from 2026-10-12.
+oracle patches described below. The corpus figures and timings were last checked
+on 2026-11-03.
 
-The `File.cs:NNN` citations in the Question source are approximate. A sample of
-six against the pristine `290a87df` was off by 1 to 13 lines, and the oracle
-patches move a patched checkout by up to about 30 more. Search for the function
-name or the quoted behaviour, not the line.
+The Quest 4 engine source cites QuestViva as `File.cs:Method`. These were mapped
+from line numbers by position, so a few method names may be off. The Quest 4
+fixtures and `FINDINGS.md` still use `File.cs:NNN`, and those lines are
+approximate: a sample of six against the pristine `290a87df` was off by 1 to 13
+lines, and the oracle patches move a patched checkout by up to about 30 more.
+Search for the function name or the quoted behaviour, not the line.
 
 This is not a comparison of equals. QuestViva *is* Quest's own engine going
 forward, and Question is a from-scratch C++ engine for playing Quest games in
@@ -28,14 +29,14 @@ below say how closely Question matches that key, not whether the key is right.
 | What it is | Quest's engine, editor and players | A player only: a C++ engine behind Spatterlight's Glk front end |
 | Quest 2–4 (`.asl`, `.cas`) | `V4Game.cs`, a line-by-line C# translation of the VB6 Quest 4 | Own engine, checked against `V4Game.cs` |
 | Quest 5 (`.quest`, `.aslx`) | The reference | Own engine plus QuestViva's Core libraries (from the pinned revision), checked against it |
-| Quest 4 corpus rows identical to the other (of 150) | – | 139 (11 differ, all catalogued) |
+| Quest 4 corpus rows identical to the other (of 150) | – | 137 (13 differ, all catalogued) |
 | Quest 5 corpus rows identical to the oracle (of 374) | – | 367 (7 differ, all documented) |
 | Editor, game publishing | Yes | No |
-| Where it runs | Windows, macOS, Linux (Electron), browser (WebAssembly and server) | macOS, inside Spatterlight |
+| Where it runs | Windows, macOS, Linux (Electron), browser (WebAssembly and server) | macOS, inside Spatterlight; also on the `add-question-2026-10` branch of the author's Gargoyle fork |
 | Interface languages | 18 language libraries, plus editor translations | Bundles QuestViva's 15 Languages files; no editor |
 | Language | C# on .NET 10 | C++17, no runtime |
-| Size | about 21,500 lines of engine and 18,000 of Quest 4 engine in C#, plus editor and players about 14,000 | about 18,000 lines for Quest 5 (engine and Glk front end), about 19,000 for the Quest 4 engine and its front end |
-| Time for the same corpus | 35.7 s for 150 Quest 4 rows; 99.3 s for 63 Quest 5 rows | 3.0 s and 9.8 s |
+| Size | about 21,500 lines of engine and 18,000 of Quest 4 engine in C#, plus editor and players about 14,000 | about 19,700 lines for Quest 5, about 17,400 for the Quest 4 engine, about 5,100 for the Glk front end they share, plus about 3,000 of libraries |
+| Time for the same corpus | 34.2 s for 150 Quest 4 rows; 86.1 s for 63 Quest 5 rows | 3.0 s and 8.9 s |
 | Licence | MIT | GPL 2+ (Question's own files; QuestViva's Core `.aslx` are bundled under MIT) |
 | Maintained | Yes, about 4,200 commits by its main author | Yes |
 
@@ -55,9 +56,9 @@ below say how closely Question matches that key, not whether the key is right.
   plus Playwright browser tests.
 - **Full JavaScript.** Quest 5 games can call arbitrary JS and embed HTML
   and CSS; the browser runs it. Question implements the `JS.*` calls the
-  corpus and Core use natively (addText, grid map, pane control), not a
-  JavaScript engine, so a game that does something unusual with its page
-  cannot be reproduced.
+  corpus and Core use natively (addText, grid map, pane control, `setCss` for
+  page backgrounds), not a JavaScript engine, so a game that does something
+  unusual with its page cannot be reproduced.
 - **Actively developed by the people who own the format.** Question follows
   upstream: the oracle pin moved from beta.57 to rc.4+9 on 2026-10-03, and the
   bump needed engine work on our side (inline `ask`/`show menu` prompts in
@@ -81,9 +82,17 @@ below say how closely Question matches that key, not whether the key is right.
   banner, media, a transcript, VoiceOver, and the app's save/restore.
   Autosave and autorestore work on both engines (`test/autosave`).
   It also reads and writes native `.quest-save` files.
+- **It carries a game's look into Glk.** Text styles are derived from what the
+  game prints (centred titles, sizes, bold and italic). Game colours can be
+  switched with the frontend command `COLOURS ON` / `COLOURS OFF`, and they
+  include Quest 5 page and block backgrounds. A Quest 5 game's link bar appears
+  in the status bar. Whitespace collapses as in a browser, and `<iframe>` text
+  files are printed. QuestViva gets these from the browser, so this is keeping
+  up rather than an advantage over it, except that the player can turn the
+  colours off.
 - **It is small and quick to start.** Median time for one corpus game:
-  7 ms for a Quest 4 game and 73 ms for a Quest 5 game, against 167 ms and
-  0.85 s for the oracle. Most of the oracle's time is .NET start-up and JIT,
+  8 ms for a Quest 4 game and 42 ms for a Quest 5 game, against 158 ms and
+  0.64 s for the oracle. Most of the oracle's time is .NET start-up and JIT,
   so the comparison is about running a single game, not about engine speed.
   See [Timing](#timing).
 - **It makes solutions for large games practical to derive.** Finding a
@@ -105,7 +114,7 @@ below say how closely Question matches that key, not whether the key is right.
   QuestViva's `V4Game` to be wrong in a few corners: a VB6 `Type`
   (value) translated as a C# `class`, so index 0 read as `null` (patched to
   restore the old behaviour; 57 identical transcripts became 65), and a null
-  dereference (`V4Game.cs:7179`) when a game loads the `TLTclothing` type or
+  dereference (`V4Game.cs:DoInternalFunction`) when a game loads the `TLTclothing` type or
   one of the garment types built on it, which kills `V4Game` at load while
   Question plays the game. The first is patched in the oracle, the second is
   not. The oracle's tick placement was also moved to where Quest ticks.
@@ -129,24 +138,26 @@ below say how closely Question matches that key, not whether the key is right.
   the same scripts natively (`run_replays.sh`) and the result is diffed. A pass
   means the C++ engine printed what QuestViva printed.
 
-### Quest 4: 139 of 150 identical
+### Quest 4: 137 of 150 identical
 
 | First divergence | Lines | Games |
 |---|---:|---:|
 | Desync after a trimmed declared name (finding 37) | 338 | 1 (Metal Sonic's Quest) |
+| Deliberate: QDK `defaulttake` (finding 30) | 44 | 2 (Mitchell Quest, 42 lines; Certain Oscar, 2 lines) |
 | Deliberate: lone command pattern trimmed (finding 80) | 35 | 1 (Gaiaonline Q&A) |
 | Deliberate: pre-2.80 `place` fencepost | 6 | 1 (Magic Sword) |
-| Unclassified | 6 | 2 |
+| Trimmed declared name (finding 37) | 6 | 2 |
 | Pre-2.80 `look` name lookup (finding 62) | 4 | 1 |
 | `<ERROR>` not produced at load time | 4 | 2 |
-| Trimmed declared name | 2 | 1 |
-| Others (SirLoin, BladeSentinel, Mysts and a few smaller classes), about one line each | 5 | 5 |
+| One line each: room display with no pre-2.80 path; findings 40, 43 and 46; a QuestViva defect | 5 | 5 |
 
-About 398 differing lines in total, 338 of them from one desync. The deliberate rows
-are a policy: where Quest is plainly harmful to the game's own text (a mangled
-room name from a fencepost, throwing away an answer the author wrote) Question
-keeps the right behaviour and carries the diff. `FINDINGS.md` has findings numbered to about 82
-behind this table.
+442 differing lines in total, 338 of them from one desync. The Games column adds
+up to more than 13 because one game can fall under several rows. The deliberate
+rows are a policy: where Quest is plainly harmful to the game's own text (a
+mangled room name from a fencepost, throwing away an answer the author wrote,
+reading the `defaulttake` line that Quest's own editor writes as a new
+`badcommand`) Question keeps the right behaviour and carries the diff. `FINDINGS.md` has
+findings numbered to 84 behind this table.
 
 ### Quest 5: 367 of 374 identical
 
@@ -154,7 +165,7 @@ All seven failures are understood and none is a regression:
 
 | Game | Diff lines | Why |
 |---|---:|---|
-| The Acreage (6.29 revision) | 5 | QuestViva issue #2189: an uncharted room makes the CoreGrid code raise errors in the oracle; Question charts the room (`chart_uncharted_room`), deliberately |
+| The Acreage (pub 6.29 revision) | 5 | QuestViva issue #2189: an uncharted room makes the CoreGrid code raise errors in the oracle; Question charts the room (`chart_uncharted_room`), deliberately |
 | Woo Rebooted 3.7 | 7 | Same |
 | Thyme (ASL 600 build) | 5 | Same (the arrest teleport at the end) |
 | GiantKiller Too 2.15 | 45 | Same |
@@ -204,24 +215,23 @@ Process start-up and loading are included.
 
 | | Question | QuestViva |
 |---|---:|---:|
-| Quest 4, all 150 rows, total | 3.0 s | 35.7 s |
-| Quest 4, median row | 0.007 s | 0.167 s |
-| Quest 4, slowest row | 0.82 s (The Maze) | 1.16 s (Shipwrecked) |
-| Quest 5, 63 games, total | 9.8 s | 99.3 s |
-| Quest 5, median game | 0.073 s | 0.85 s |
-| Quest 5, slowest game | 3.37 s (A Stranger, Unregarded) | 21.3 s (same) |
+| Quest 4, all 150 rows, total | 3.04 s | 34.2 s |
+| Quest 4, median row | 0.008 s | 0.158 s |
+| Quest 4, slowest row | 0.80 s (The Maze) | 1.16 s (Shipwrecked) |
+| Quest 5, 63 games, total | 8.9 s | 86.1 s |
+| Quest 5, median game | 0.042 s | 0.64 s |
+| Quest 5, slowest game | 3.49 s (A Stranger, Unregarded) | 20.2 s (same) |
 
 - Question was faster on every one of the 213 games.
 - The Quest 5 figure is the first 63 games of the corpus in alphabetical order,
-  not all 354. The full run would have taken about an hour; I stopped it.
-- Both sides were measured again on 2026-10-12, after the profiling fixes in
-  `663a08009` and `b5ee7d054`, in one session on a quieter machine. The
-  oracle did not change; its figures are lower than the first measurement
-  only because of the machine.
+  not all 374. An earlier full run was stopped at an estimated hour.
+- Measured on 2026-11-03, with the two sides alternating game by game, so a
+  change in machine load affects both. Each run writes its output to
+  `/dev/null`.
 - Most of the oracle's time per game is the runtime starting up (the median is
   a sixth of a second even for a short Quest 4 game). This measures the
   cost of running the corpus through each harness, not engine throughput.
-- The 21 s outlier is the same game on both sides, so it is the game's own
+- The 20 s outlier is the same game on both sides, so it is the game's own
   workload (a long walkthrough with heavy turnscripts), not start-up.
 
 ## Where the work stands

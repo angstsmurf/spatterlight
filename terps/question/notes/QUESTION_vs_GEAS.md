@@ -12,7 +12,7 @@ commit before the 2026 rework began at `307e63c25`. The interpreter was
 renamed from Geas to Question on 2026-09-28; the credits line still says
 "based on Geas 0.5", and a few legacy names are kept on purpose (`GEASUNDO2/3`
 undo magic, "Saved by Geas" accepted when loading). Figures are from
-2026-10-12.
+2026-11-03.
 
 ## In short
 
@@ -22,11 +22,13 @@ undo magic, "Saved by Geas" accepted when loading). Figures are from
 | Reference for behaviour | the Geas author's reading of Quest | real Quest 4.1.5, line by line against QuestViva's `V4Game.cs` |
 | Bundled Quest libraries | none | `standard.lib`, `stdverbs.lib`, `Typelib.qlb`, `q3ext.qlb` |
 | Corpus rows that reach their ending (of 150) | 30 | 150 |
-| Language | C++ in one 4,150-line `geas-runner.cc` | C++, 15 `question-*.cc` units, 51 script handlers in a table |
-| Size, engine and front end | about 8,500 lines, 19 files | about 17,100 engine + 3,100 library sources + 3,600 Glk, shared with Quest 5 |
-| Time for the same 150 routes | 8.7 s (30 reach the end) | 3.3 s (all 150 do) |
+| Language | C++ in one 4,150-line `geas-runner.cc` | C++, 16 `question-*.cc` units, 51 script handlers in a table |
+| Size, engine and front end | about 8,500 lines, 19 files | about 17,400 engine + 3,000 library sources + 5,100 Glk, the Glk part shared with Quest 5 |
+| Time for the same 150 routes | 9.3 s (30 reach the end) | 3.9 s (all 150 do) |
 | Pictures, sound, links, autosave | none | yes |
-| Tests | none in tree | 150 walkthrough rows with goldens, 179 `.asl` fixtures, unit, `-Wshadow`, ASan and autosave suites, oracle replay |
+| Text styles | bold, italic and underline mapped to fixed Glk styles | assigned per game from the text attributes it uses |
+| Game colours | ignored (empty stubs) | drawn, with a `COLOURS ON`/`OFF` toggle |
+| Tests | none in tree | 150 walkthrough rows with goldens, 179 `.asl` fixtures, unit, `-Wshadow`, ASan, styles and autosave suites, oracle replay |
 | Maintained | No (Gargoyle's copy is frozen) | Yes |
 
 The route figures come from the replay described under
@@ -58,10 +60,11 @@ container model, room-entry order, `oops`, `startin`, `moveobject`,
 
 The oracle in `test/quest4/harness/oracle/` replays the same 150 scripts
 through QuestViva's `V4Game.cs`, a line-by-line C# translation of Quest 4's
-VB6. 139 of 150 transcripts are identical and the other 11 differ by 398
-lines, 338 of them from one desync. The differences are catalogued in
-`FINDINGS.md` (about 80 numbered findings) and the intentional ones are
-carried as `deliberate:` rows. Geas has no such reference and had never been
+VB6. 137 of 150 transcripts are identical and the other 13 differ by 442
+lines, 338 of them from one desync and 44 from honouring QDK's `defaulttake`,
+a deliberate deviation added on 2026-10-26. The differences are catalogued in
+`FINDINGS.md` (84 numbered findings) and the intentional ones are carried as
+`deliberate:` rows. Geas has no such reference and had never been
 compared against one.
 
 Specific rules fixed along the way: `and`/`or` in conditions fold left to
@@ -78,11 +81,19 @@ case-insensitive.
   `play` continuation.
 - UTF-8 output and Unicode line input. Geas mangles Latin-1 and UTF-8
   characters in game text ("Chlo\xef\xbf\xbd").
+- Text styles taken from the game. Before the window opens, Question counts
+  the bold, italic, size and alignment combinations the game's text uses and
+  gives the most used ones Glk styles of their own, so a centred 20-point title
+  prints centred and large. Geas can only pick one of a few fixed styles.
+- The game's own colours, including colours it sets in play, which the side
+  pane follows too. `COLOURS ON`/`OFF` switches between them and the theme.
+  Geas's `set_foreground` and `set_background` are empty.
 - A "Continue..." link for `wait`, an end-of-game menu (undo, restart,
   restore, quit), undo after the game has ended, and timers started only
   when the game uses them.
 - Spatterlight autosave and autorestore (unified format
-  `QUESTION-AUTOSAVE 1` / `QUESTIONGLK-AUTOSAVE 1`), including mid-menu and
+  `QUESTION-AUTOSAVE 1` / `QUESTIONGLK-AUTOSAVE 2`, which added the colours;
+  version 1 files still load), including mid-menu and
   mid-timer-cycle states.
 - Randomness from `erkyrath_random` (xoshiro128**), so `QUESTION_SEED` or the
   app's testing mode makes a game replayable. Geas uses libc `rand()`.
@@ -103,15 +114,16 @@ Geas shipped without tests in this tree. Question has 150 walkthrough rows
 with committed command scripts and transcripts, 179 `.asl` fixtures for
 individual statements, `question_unit_tests`, `make syntax` (per-TU
 `-fsyntax-only` with `-Wshadow`), `make check`, `make asan`, a corpus pinned
-by sha256 in `games.manifest.tsv` with `fetch_games.sh`, and an autosave
-suite with cases for every-command, RNG, variables, undo, timers, menus,
-questions, corrupt and old-format files.
+by sha256 in `games.manifest.tsv` with `fetch_games.sh`, an autosave suite with
+cases for every-command, RNG, variables, undo, timers, menus, styles, colours,
+questions, corrupt and old-format files, and `make styles`, which checks the
+styles and colours a game's text reaches Glk with.
 
 ## Where Geas is better
 
-- **Smaller.** About 8,500 lines in 19 files against about 24,000 in the
-  whole of `terps/question` (of which the Quest 4 engine alone is about
-  17,000). If you only need to run a handful of 3.x games it is easier to
+- **Smaller.** About 8,500 lines in 19 files against about 25,500 in
+  `terps/question` outside `quest5/` and the tests (of which the Quest 4 engine
+  alone is about 17,400). If you only need to run a handful of 3.x games it is easier to
   read end to end.
 - **Stable shared base.** Gargoyle embeds the same code; fixes there can be
   compared or pulled directly. Question has diverged and the two no longer
@@ -120,14 +132,15 @@ questions, corrupt and old-format files.
   learn; Question has a documented one (pre-2.80 `place <prefix;room>`
   fencepost, trimmed declared names, `<ERROR>`-at-load compromise, obeyed
   `outputoff <>`, accepted `pause <>`, lone command pattern, object called
-  by pronoun, verb with trailing space) and a lenient internal-name mode for
+  by pronoun, verb with trailing space, QDK's `defaulttake` read as the take
+  message) and a lenient internal-name mode for
   players that real Quest does not have.
 - **Provenance.** Geas is an old, human-written, widely used codebase. The
   2026 work in Question is largely done with AI assistance and verified by
   the oracle and the corpus, but several goldens are self-goldens: they pin
   Question's own current output, and only the oracle replay ties them to
   Quest.
-- **No bundled libraries to maintain.** Question carries 3,079 lines of
+- **No bundled libraries to maintain.** Question carries 3,041 lines of
   built-in library source (`standardlib_builtin.cc`, `stdverbs_builtin.cc`,
   `typelib_builtin.cc`, `q3ext_builtin.cc`) that must stay in step with the
   original `.lib`/`.qlb` files.
@@ -255,31 +268,31 @@ checks.
 ### Timing
 
 Wall-clock time of the two headless runners over the same 150 rows, one run
-each, sequentially, both built `-O2`, on this Mac, including process start-up
-and loading:
+each, sequentially, both built `-O2`, on this Mac, including process start-up,
+loading and writing the transcript to a file:
 
 | | Question | Geas |
 |---|---|---|
-| All 150 rows | 3.3 s | 8.7 s |
-| The 30 rows both complete | 0.22 s | 0.33 s |
-| Slowest row (The Maze) | 0.96 s | 4.1 s |
+| All 150 rows | 3.9 s | 9.3 s |
+| The 30 rows both complete | 0.29 s | 0.45 s |
+| Slowest row (The Maze) | 0.84 s | 3.6 s |
 
-Where both finish, Question is ahead by about a tenth of a second across 30
-games, which is small enough to call level. The gap in the total comes from
+Where both finish, Question is ahead by about 0.16 s across 30 games, which is small enough to call level. The gap in the total comes from
 the 120 rows where Geas does not finish: it keeps working through commands
 it can't answer, and a couple of games spend a long time in its slower
 condition and script paths. This is not a fair speed benchmark of the
-engines; it is the cost of running the corpus. Both runners were measured
-again on 2026-10-12, after the synonym fix in `663a08009`; Geas is unchanged,
-and its figures moved only because the machine was quieter.
+engines; it is the cost of running the corpus.
 
 ## Reproducing
 
-The adapter and the row list are not in the repository. They were built
-for this comparison in a scratch directory: `legacy_runner.cc`, which
-`#include`s legacy `geas-util`, `istring`, `readfile`, `geasfile`,
-`geas-state` and `geas-runner` from `git archive 513b0f4ff terps/geas`
-(with the one `$rand` line in `geas-runner.cc` patched to call
-`erkyrath_random()` and linked against `common_utils/randomness.c`), and
-a loop over the `play` lines of `run_walkthroughs.sh`. Rebuilding it takes
-an afternoon; ask if you want it committed under `test/quest4/harness/`.
+`test/quest4/harness/geas_compare/compare.py` rebuilds and runs the whole
+comparison. It extracts `terps/geas` from `513b0f4ff` into its `out/` directory,
+patches the one `$rand` line in `geas-runner.cc` to call `erkyrath_random()`,
+compiles `legacy_runner.cc` against that copy, and replays the `play` rows of
+`run_walkthroughs.sh` on both engines. It prints the results table, the timings
+and the games Geas completes, and leaves each engine's transcripts in `out/`.
+It needs the corpus in `test/quest4/games`.
+
+It does not produce the per-command `$rand` counts above, which took a temporary
+counter around the generator in both engines. Those counts and the libc `rand()`
+run date from 2026-10-12.

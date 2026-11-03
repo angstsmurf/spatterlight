@@ -264,7 +264,7 @@ gamesfetch:
 
 # The native Quest 5 corpus sweep: every frozen goldens/<Game>.cmd through
 # aslx_replay, diffed against the QuestViva transcript. Not part of check: it
-# needs the (untracked) corpus. 348 passed + the 6 documented rows is green;
+# needs the (untracked) corpus. 367 passed + the 7 documented rows is green;
 # see quest5/README.md.
 replays:
 	$(Q5)/run_replays.sh

@@ -5,7 +5,7 @@ same command script at the same seed (`QUESTION_SEED=1` / `QVH_SEED=1`), diffed
 after the normalisation described in `README.md`:
 
 ```
-139/150 identical, 11 differ, 0 skipped/failed
+137/150 identical, 13 differ, 0 skipped/failed
 ```
 
 Every game is compared.  A Certain Oscar was excluded for most of this
@@ -14,7 +14,8 @@ distributed with the game, QuestViva fatals on a missing library and Question
 read past it — until a comment-only stub next to the game file (synthesized
 by `fetch_games.sh`, self-healed by `compare.py`) let both engines include
 the same nothing.  The comparison that unlocked found Question skipping
-`standard.lib` too; bundling it (finding 79) took the game byte-identical.
+`standard.lib` too; bundling it (finding 79) took the game byte-identical, until the `defaulttake`
+deviation (finding 30) gave it its present two lines of difference.
 World's End used to be a second exclusion: its transcript was a `--save-scum` replay,
 a function of the runner rather than the game.  Its two $rand$ fights are now
 scripted turn for turn against the seed-1 draw stream (the game makes no draw
@@ -22,20 +23,21 @@ before the first fight, so every draw either fight sees is computable in
 advance — see the command script's header), and it entered the sweep
 byte-identical on the first run.
 
-`triage.py` attributes every one of the 398 diff lines to a cause, and
+`triage.py` attributes every one of the 442 diff lines to a cause, and
 `firstdiff.py` prints each game's *first* divergence — the only one with a cause
 of its own, since everything after it is cascade.  Run `python3 triage.py` for
 the current numbers; the "first" column below is the third one it prints, and
-sums to the 11 games that differ.  One of them, Gaiaonline Q&A (35 lines), is
-the deliberate deviation of finding 80; the other ten were already there when
-the corpus was 111 games (Shipwrecked, the eleventh then, is identical now), and none of the 39 games added after that differs
-for any other reason.
+sums to the 13 games that differ.  Three of them are deliberate deviations alone:
+Gaiaonline Q&A (35 lines, finding 80), and Mitchell Quest (42) and A Certain
+Oscar (2), both finding 30.  The other ten were already there when the corpus
+was 111 games (Shipwrecked, the eleventh then, is identical now), and none of
+the 39 games added after that differs for any other reason.
 
 Once a game's two transcripts stop describing the same world — a lookup that
 succeeds on one side only, a timer a turn out — nothing after that point is
 independent evidence, so those runs are credited whole to the divergence that
 parted them.  Those are the `desync:` rows; the one that remains accounts for
-338 of the 398 lines.
+338 of the 442 lines.
 
 The corpus shrank by 5 528 lines in one sitting without a single change to
 Question, which is worth stating plainly because both halves of it are lessons
@@ -1342,13 +1344,13 @@ deviation.
 What finding 4's spelling bullet costs, measured.  Quest's error-key table has
 the typo (`V4Game.Part2.cs:1472`), and QuestViva
 reproduces it, so `error <defaultake; …>` is what a game must write to override
-`You pick #quest.error.article# up.`.  Question registers the key under the
-correct-looking spelling instead (`question-runner.cc:1336`).  Five corpus games —
+`You pick #quest.error.article# up.`.  Question's table registers the key under the
+correct-looking spelling (`question-rooms.cc`), and `asl_error_index` takes both.
+Five corpus games —
 Briny Blue, Certain Oscar, Mansion, Mitchell Quest and Nearco — write
 `defaulttake`; none writes `defaultake`.  Question honours all five; real Quest
-honours none of them.  Only Mitchell Quest's replay actually takes anything —
-21 lines — so the bucket's 22nd line is Wizard's, credited by the heuristic but
-really finding 22 cascade:
+honours none of them.  Only Mitchell Quest's replay shows the take line, 21
+times, which is the 42 diff lines above:
 
 ```
 MitchellQuest  error <defaulttake; Consider it tooken......... er, I mean taken.>
