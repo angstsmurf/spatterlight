@@ -1,4 +1,11 @@
 /*
+ * z80_probe.c
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation; either version 2 of the License, or (at your option)
+ * any later version.
+ *
  * z80_probe -- prints what the decompressz80 library makes of a ZX Spectrum
  * snapshot or tape image, one tab-separated line per result, so that a change
  * to the library can be checked against a snapshot of its output rather than

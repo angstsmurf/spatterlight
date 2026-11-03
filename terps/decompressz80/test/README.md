@@ -20,6 +20,12 @@ Consumers: scott (`detect_game.c`, `title_image.c`), taylor (`extracttape.c`,
 Xcode project and by `scott/Makefile.headless`, `scott/saga/test/Makefile`,
 `taylor/Makefile.headless`.
 
+## Licences
+
+Everything here is GPL 2 or later, which suits the GPL 2 only interpreters that
+link it (taylor, level9) as well as the rest. `z80snap.c` keeps the libspectrum
+notice, and `tapetzx.c` points to it.
+
 ## The suites
 
 ```
