@@ -1,10 +1,10 @@
 # Testing terps/c64diskimage
 
 `c64diskimage.c` reads whole files out of C64 disk images (D64 of 35 or 40
-tracks, D71, D81, each with or without trailing error info). It is cut down
-from Per Olofsson's diskimage (BSD licence, header kept): no writer, no file
-streams, no error-info handling. The header is the whole public API, seven
-functions with `DiskImage` opaque. Nothing in it calls `exit()`; every failure
+tracks, D71, D81, each with or without trailing error info). It began as Per
+Olofsson's diskimage (BSD licence, notice kept), of which little remains after the
+rewrite of October 2026: no writer, no file streams, no error-info handling. The
+header is the whole public API, seven functions with `DiskImage` opaque. Nothing in it calls `exit()`; every failure
 is NULL.
 
 | Consumer | Uses it for |
