@@ -1,17 +1,40 @@
-//  randomness.c
-//  The random number code of Glulxe's osdepend.c, without its Glk types and
-//  memory functions, so that other terps can use it. Glulxe keeps its own copy;
-//  autorestore depends on the get/set_detstate format of both.
-//  terps/scarier/common_utils has a byte-identical copy: after an edit, copy
-//  this file there and run `make -f Makefile.headless vendorcheck` in scarier.
-//
-//  Which native generator a build gets:
-//    __APPLE__                      arc4random (Spatterlight)
-//    OS_UNIX + UNIX_RAND_ARC4       arc4random
-//    OS_UNIX + UNIX_RAND_GETRANDOM  xoshiro128**, seeded from getrandom()
-//    OS_WINDOWS with Visual C++     rand_s
-//    anything else                  xoshiro128**, seeded from the clock
-//  Non-zero seeds always use xoshiro128**.
+/*
+ *  randomness.c
+ *
+ *  Copyright (c) 1999-2023, Andrew Plotkin
+ *
+ *  Permission is hereby granted, free of charge, to any person obtaining a copy
+ *  of this software and associated documentation files (the "Software"), to deal
+ *  in the Software without restriction, including without limitation the rights
+ *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ *  copies of the Software, and to permit persons to whom the Software is
+ *  furnished to do so, subject to the following conditions:
+ *
+ *  The above copyright notice and this permission notice shall be included in
+ *  all copies or substantial portions of the Software.
+ *
+ *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ *  THE SOFTWARE.
+ *
+ *  The random number code of Glulxe's osdepend.c, without its Glk types and
+ *  memory functions, so that other terps can use it. Glulxe keeps its own copy;
+ *  autorestore depends on the get/set_detstate format of both.
+ *  terps/scarier/common_utils has a byte-identical copy: after an edit, copy
+ *  this file there and run `make -f Makefile.headless vendorcheck` in scarier.
+ *
+ *  Which native generator a build gets:
+ *    __APPLE__                      arc4random (Spatterlight)
+ *    OS_UNIX + UNIX_RAND_ARC4       arc4random
+ *    OS_UNIX + UNIX_RAND_GETRANDOM  xoshiro128**, seeded from getrandom()
+ *    OS_WINDOWS with Visual C++     rand_s
+ *    anything else                  xoshiro128**, seeded from the clock
+ *  Non-zero seeds always use xoshiro128**.
+ */
 
 #include "randomness.h"
 

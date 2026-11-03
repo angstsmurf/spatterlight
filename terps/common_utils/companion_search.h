@@ -1,10 +1,18 @@
-//  companion_search.h
-//  Finds the other disk (or disk side) of a multi-disk game by rewriting
-//  the game file name: "side 1" <-> "side 2", "disk a" <-> "disk b",
-//  "side one" <-> "side two" and so on.
-//
-//  Shared by Plus and ScottFree. Each caller supplies the file reader and
-//  any interpreter-specific fallback renames.
+/*
+ *  companion_search.h
+ *
+ *  This program is free software; you can redistribute it and/or modify it
+ *  under the terms of the GNU General Public License as published by the Free
+ *  Software Foundation; either version 2 of the License, or (at your option)
+ *  any later version.
+ *
+ *  Finds the other disk (or disk side) of a multi-disk game by rewriting
+ *  the game file name: "side 1" <-> "side 2", "disk a" <-> "disk b",
+ *  "side one" <-> "side two" and so on.
+ *
+ *  Shared by Plus and ScottFree. Each caller supplies the file reader and
+ *  any interpreter-specific fallback renames.
+ */
 
 #ifndef companion_search_h
 #define companion_search_h

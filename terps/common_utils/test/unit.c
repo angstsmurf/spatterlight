@@ -1,6 +1,14 @@
-/* Unit tests for terps/common_utils: see the Makefile. A small fake Glk stands
-   in for the window calls of layouttext.c, and a fake reader for the file
-   system in the companion file search. */
+/*
+ *  unit.c
+ *  Unit tests for terps/common_utils: see the Makefile. A small fake Glk stands
+ *  in for the window calls of layouttext.c, and a fake reader for the file
+ *  system in the companion file search.
+ *
+ *  This program is free software; you can redistribute it and/or modify it
+ *  under the terms of the GNU General Public License as published by the Free
+ *  Software Foundation; either version 2 of the License, or (at your option)
+ *  any later version.
+ */
 
 #include <limits.h>
 #include <stdio.h>

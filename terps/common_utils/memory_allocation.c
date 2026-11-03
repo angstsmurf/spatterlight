@@ -1,5 +1,14 @@
-//  memory_allocation.c
-//  Allocators that call Fatal() rather than return NULL.
+/*
+ *  memory_allocation.c
+ *  Shares code with ScottFree, by Alan Cox, Chris Spiegel and Petter Sjölund.
+ *
+ *  This program is free software; you can redistribute it and/or modify it
+ *  under the terms of the GNU General Public License as published by the Free
+ *  Software Foundation; either version 2 of the License, or (at your option)
+ *  any later version.
+ *
+ *  Allocators that call Fatal() rather than return NULL.
+ */
 
 #include <stdlib.h>
 #include <string.h>

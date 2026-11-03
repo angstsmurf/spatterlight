@@ -42,6 +42,24 @@ The Gargoyle fork also carries these files, so a sync has to include `byteorder.
 A new header needs a file reference and a group entry in
 `Spatterlight.xcodeproj/project.pbxproj`.
 
+## Licences
+
+Every interpreter that links these files has to be able to take them, so each
+file states its own licence:
+
+- **GPL 2 or later** for most of the directory. That suits TaylorMade (GPL 2 only),
+  ScottFree, Plus, Scarier and Question (GPL 2 or later) and Comprehend (GPL 3 or
+  later).
+- **MIT** for `byteorder.h`, `debugprint.h` and `minmax.h`, because Bocfel (MIT) and
+  others outside the GPL family include them.
+- **MIT, Andrew Plotkin's notice** for `randomness.[ch]`, which come from Glulxe's
+  `osdepend.c`. The xoshiro128** code in it is adapted from Blackman and Vigna's
+  public-domain original.
+
+`common_utils.c` and `memory_allocation.c` credit ScottFree, because `Fatal` and
+`MemAlloc` go back to it. The 8x8 font in `rgbsurface.h` is public domain, and the
+file says so.
+
 ## Tests
 
     cd test && make check      # unit tests under ASan and UBSan, with a fake Glk

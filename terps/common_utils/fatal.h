@@ -1,7 +1,15 @@
-//  fatal.h
-//  The prototype of Fatal(), for code that reports errors but has no other
-//  use for Glk. The function itself is in common_utils.c, or in the stub of a
-//  headless tool.
+/*
+ *  fatal.h
+ *
+ *  This program is free software; you can redistribute it and/or modify it
+ *  under the terms of the GNU General Public License as published by the Free
+ *  Software Foundation; either version 2 of the License, or (at your option)
+ *  any later version.
+ *
+ *  The prototype of Fatal(), for code that reports errors but has no other
+ *  use for Glk. The function itself is in common_utils.c, or in the stub of a
+ *  headless tool.
+ */
 
 #ifndef fatal_h
 #define fatal_h
