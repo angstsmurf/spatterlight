@@ -424,6 +424,7 @@ extern scr_int lib_instr (const scr_char *line, const scr_char *term);
 
 /* sclibrar_battle.cpp */
 extern void lib_battle_who_store (const std::string &pending);
+extern void lib_battle_store_put_where (scr_gameref_t game, scr_int object);
 extern void lib_with_prefix_390_note (scr_gameref_t game);
 extern void lib_question_prefix_from_line (scr_gameref_t game);
 extern scr_bool lib_checkverb_bare_400 (scr_gameref_t game,

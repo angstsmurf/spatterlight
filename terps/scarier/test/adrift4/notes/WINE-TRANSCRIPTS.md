@@ -1751,6 +1751,23 @@ case, and their goldens are re-blessed. The row notes in
   fantasy, Oh_Human, pestilence and others) keep it. No golden changed.
   (library/sclibrar_verbobj.cpp, runner/scrun_input.cpp)
 
+- **"Take what?", "Drop what?" and "Where do you want to put the coin?"
+  take an answer (2026-11-04).** run400 stores no prefix for bare `drop`,
+  `take` and `drink`, or for its put question, and run370/run380 store none
+  for any bare verb, so the line after the question is parsed fresh: `take`
+  / `coin` is "I don't understand what you want me to do with the coin."
+  (ptbad.taf, runner_probes/tbad.run400.whatcont.txt). 3.9 already continues
+  these questions, and 4.0 continues checkverb's. `lib_what` now keeps the
+  bare verb at every version, and `lib_put_where_400_common` keeps "put the
+  <object>" behind a "|>" mark. `lib_put_where_answer` completes it: an answer
+  starting with in/into/inside/on/onto follows as typed, and an answer
+  naming an object takes "on" for a surface that is not a container and
+  "in" otherwise. An answer that names nothing is left alone. As with the
+  measured prefixes, only a line nothing else answers is completed, so
+  `take` / `look` still looks. No text is new, so no ALR is involved. No
+  golden changed. (library/sclibrar_refuse.cpp, library/sclibrar_battle.cpp,
+  library/sclibrar_verbobj.cpp)
+
 ## Rules measured and ported (index)
 
 One entry per rule: the rule, the game or probe that found it, and the

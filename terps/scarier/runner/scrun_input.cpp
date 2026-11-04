@@ -737,7 +737,7 @@ run_element_questions (scr_gameref_t game, const scr_char *command,
                        scr_bool status)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  const std::string rerun (lib_battle_who_continuation (command, status));
+  const std::string rerun (lib_battle_who_continuation (game, command, status));
 
   if (!rerun.empty ())
     {

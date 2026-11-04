@@ -358,6 +358,7 @@ lib_put_where_400_common (scr_gameref_t game, scr_int resolved)
       var_set_ref_object (gs_get_vars (game), resolved);
       lib_print_wrapped_object (game, "Where do you want to put ",
                                 resolved, "?\n");
+      lib_battle_store_put_where (game, resolved);
     }
   else
     pf_buffer_string (filter, "Where do you want to put that?\n");

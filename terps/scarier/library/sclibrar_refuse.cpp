@@ -1200,10 +1200,22 @@ lib_what (scr_gameref_t game, const scr_char *verb)
       else if (typed && scr_strcasecmp (typed, verb) == 0)
         lib_battle_who_pending = input;
     }
-  else if (input && scr_strcasecmp (input, verb) == 0
-           && strcmp (verb, "Drop") != 0 && strcmp (verb, "Take") != 0
-           && strcmp (verb, "Drink") != 0)
-    lib_question_prefix_from_line (game);
+  else if (input && scr_strcasecmp (input, verb) == 0)
+    {
+      /*
+       * Deliberate deviation (WINE-TRANSCRIPTS.md): 4.0's bare drop, take
+       * and drink, and every bare verb below 3.9, store nothing, so `take`
+       * / `coin` is the object catch-all though the game has just asked
+       * "Take what?".  Scarier keeps the bare verb as 3.9 does; the prefix
+       * still only completes a line nothing else answers.
+       */
+      if (lib_is_version_400 (game)
+          && strcmp (verb, "Drop") != 0 && strcmp (verb, "Take") != 0
+          && strcmp (verb, "Drink") != 0)
+        lib_question_prefix_from_line (game);
+      else
+        lib_battle_who_store (input);
+    }
 
   /*
    * 3.7's takes() and drops() answer the line here when no namesake of the

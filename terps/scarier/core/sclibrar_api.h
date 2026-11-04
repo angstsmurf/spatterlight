@@ -492,7 +492,8 @@ extern void lib_battle_who_note_unanswered (void);
 extern void lib_battle_400_claim_line (void);
 extern scr_bool lib_battle_400_line_claimed (void);
 extern scr_bool lib_battle_which_pending (void);
-extern std::string lib_battle_who_continuation (const scr_char *command,
+extern std::string lib_battle_who_continuation (scr_gameref_t game,
+                                                const scr_char *command,
                                                 scr_bool status);
 extern scr_bool lib_question_with_rule (scr_gameref_t game,
                                         const scr_char *line);

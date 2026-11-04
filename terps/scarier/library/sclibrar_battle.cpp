@@ -1240,9 +1240,48 @@ lib_battle_who_store (const std::string &pending)
   lib_battle_who_pending = pending;
 }
 
+/*
+ * lib_put_where_answer()
+ *
+ * Deliberate deviation (WINE-TRANSCRIPTS.md): run400's "Where do you want
+ * to put the coin?" (lib_put_where_400_common()) stores nothing, so `box`
+ * on the next line is the object catch-all.  Scarier keeps "put the coin"
+ * behind a "|>" mark, and a line nothing answered completes it: one that
+ * starts with a put preposition runs after it as typed (`in box`, `on
+ * desk`), and one naming an object -- the catch-all has bound it -- takes
+ * "on" for a surface that is not also a container and "in" otherwise.  A
+ * line that names nothing is left alone.
+ */
+static std::string
+lib_put_where_answer (scr_gameref_t game, const std::string &base,
+                      const scr_char *command)
+{
+  static const scr_char *const PREPOSITIONS[] =
+    { "in", "into", "inside", "on", "onto", NULL };
+  const scr_char *const *word;
+  scr_int object;
+
+  for (word = PREPOSITIONS; *word; word++)
+    {
+      const size_t length = strlen (*word);
+
+      if (scr_strncasecmp (command, *word, length) == 0
+          && (command[length] == NUL || command[length] == ' '))
+        return base + " " + command;
+    }
+
+  object = var_get_ref_object (gs_get_vars (game));
+  if (object < 0)
+    return "";
+  return base + (obj_is_surface (game, object)
+                 && !obj_is_container (game, object) ? " on " : " in ")
+         + command;
+}
+
 /* The line to run instead, or empty when the prefix does not apply. */
 std::string
-lib_battle_who_continuation (const scr_char *command, scr_bool status)
+lib_battle_who_continuation (scr_gameref_t game, const scr_char *command,
+                             scr_bool status)
 {
   std::string rerun;
   size_t bar;
@@ -1251,6 +1290,14 @@ lib_battle_who_continuation (const scr_char *command, scr_bool status)
       || (status && !lib_battle_who_unanswered)
       || lib_battle_who_pending == command)
     return rerun;
+
+  if (lib_battle_who_pending.compare (0, 2, "|>") == 0)
+    {
+      const std::string base (lib_battle_who_pending.substr (2));
+
+      lib_battle_who_pending.clear ();
+      return lib_put_where_answer (game, base, command);
+    }
 
   /*
    * A 3.9 "Which <term>.  <list>?" left Short & "|" & line
@@ -1527,6 +1574,13 @@ lib_battle_definite_name (scr_gameref_t game, scr_int object)
   result += " ";
   result += name ? name : "";
   return result;
+}
+
+/* The put question's prefix; see lib_put_where_answer(). */
+void
+lib_battle_store_put_where (scr_gameref_t game, scr_int object)
+{
+  lib_battle_who_pending = "|>put " + lib_battle_definite_name (game, object);
 }
 
 /*
