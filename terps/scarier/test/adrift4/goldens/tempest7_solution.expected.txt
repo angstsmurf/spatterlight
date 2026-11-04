@@ -1091,7 +1091,6 @@ doesn't look like you could squeeze through.
 The banks to the north and south appear to be climbable at this point.
 
 > ask girl her name
-(No female)
 You don't see the girl here!
 
 > ask girl her name

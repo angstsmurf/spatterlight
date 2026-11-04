@@ -186,13 +186,45 @@ uip_set_pronoun_flags (scr_bool used, scr_bool pending_definite)
 
 
 /*
+ * uip_echo_reference()
+ *
+ * Print a "References in brackets" echo, "(the shovel)".
+ *
+ * Deliberate deviation: when the text is a register's seeded placeholder --
+ * "Absolutely nothing", "No male", "No female", "Nobody", "to Nobody" -- the
+ * Runner still prints it ("(Absolutely nothing)" before "You see no such
+ * thing.", ptgood_again T5), which reads as a bug and names nothing.  It is
+ * left out, unless one of the game's ALRs quotes the bracketed string: the
+ * authors of dusk, iachini, mind of master and others restyle or delete
+ * "(Absolutely nothing)", "(No female)" and "(to Nobody)", so there the echo
+ * stays for their ALR to act on.  The text spliced into the command is
+ * unchanged (showtime T59's `get * hand` task matches "get no female hand").
+ */
+static void
+uip_echo_reference (scr_gameref_t game, const scr_char *text,
+                    scr_bool placeholder)
+{
+  if (placeholder)
+    {
+      const std::string bracketed = std::string ("(") + text + ")";
+
+      if (!pf_alr_mentions (gs_get_bundle (game), bracketed.c_str ()))
+        return;
+    }
+  pf_buffer_reference (gs_get_filter (game), text, gs_get_vars (game),
+                       gs_get_bundle (game));
+}
+
+
+/*
  * uip_pronoun_t
  *
  * One pronoun word of the line, for uip_replace_pronouns(): the word, the
  * register it refers to ('object' or 'npc', or neither), and what goes into
  * the command for it -- 'prefix' and 'name', over 'extent' characters of the
- * line -- with 'echo' set where the bracket echo is not that same text.
- * 'definite' owns the prefix when it had to be composed.
+ * line -- with 'echo' set where the bracket echo is not that same text,
+ * and 'placeholder' set when that is a register's seeded never-assigned
+ * string.  'definite' owns the prefix when it had to be composed.
  */
 namespace {
 
@@ -205,6 +237,7 @@ struct uip_pronoun_t
 
   scr_int object, npc, extent;
   const scr_char *prefix, *name, *echo;
+  scr_bool placeholder;
   std::string definite;
 
   void find_register ();
@@ -366,6 +399,7 @@ uip_pronoun_t::no_object ()
   prefix = "";
   name = "nothing";
   echo = "Absolutely nothing";
+  placeholder = TRUE;
   extent = scr_compare_word (word, "it", 2) ? 2 : 4;
 }
 
@@ -401,6 +435,7 @@ uip_pronoun_t::no_character ()
   else
     name = "Nobody";
   echo = name;
+  placeholder = TRUE;
   extent = scr_compare_word (word, "he", 2) ? 2 : 3;
 }
 
@@ -418,6 +453,7 @@ uip_pronoun_t::resolve ()
   /* Initially, no object or NPC, no names, and a zero extent. */
   object = npc = -1;
   prefix = name = echo = nullptr;
+  placeholder = FALSE;
   extent = 0;
 
   find_register ();
@@ -510,9 +546,7 @@ uip_pronoun_t::substitute (std::string &buffer, scr_int offset) const
    * for an object, which is what 'replacement' holds.  Measured on
    * wrecked (3.8, run380x runner_transcripts/wrecked.rtf).
    */
-  pf_buffer_reference (gs_get_filter (game),
-                       echo ? echo : replacement.c_str (),
-                       gs_get_vars (game), gs_get_bundle (game));
+  uip_echo_reference (game, echo ? echo : replacement.c_str (), placeholder);
 
   /*
    * Splice the replacement in for the matched extent, and lower-case
@@ -1007,9 +1041,8 @@ uip_print_ask_echo (scr_gameref_t game, const scr_char *string)
   if (uip_ask_echo_skip (lowered) == 0)
     return FALSE;
 
-  pf_buffer_reference (gs_get_filter (game),
-                       uip_last_npc_name (game, game->last_npc),
-                       gs_get_vars (game), gs_get_bundle (game));
+  uip_echo_reference (game, uip_last_npc_name (game, game->last_npc),
+                      game->last_npc == -1);
   return TRUE;
 }
 
@@ -1062,8 +1095,7 @@ uip_rewrite_references (scr_gameref_t game, const scr_char *string,
         {
           const std::string echo = std::string ("to ") + name;
 
-          pf_buffer_reference (gs_get_filter (game), echo.c_str (),
-                               gs_get_vars (game), bundle);
+          uip_echo_reference (game, echo.c_str (), prior_npc == -1);
           command += " to ";
           command += lowered_name;
           lowered = uip_lowered (command.c_str ());
@@ -1076,8 +1108,7 @@ uip_rewrite_references (scr_gameref_t game, const scr_char *string,
     {
       /* The echo is printed up front now; see uip_print_ask_echo(). */
       if (!echo_printed)
-        pf_buffer_reference (gs_get_filter (game), name,
-                             gs_get_vars (game), bundle);
+        uip_echo_reference (game, name, prior_npc == -1);
       command = "ask " + lowered_name + " about " + command.substr (skip);
       modified = TRUE;
     }

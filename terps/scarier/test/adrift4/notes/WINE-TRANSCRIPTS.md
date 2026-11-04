@@ -1640,6 +1640,19 @@ case, and their goldens are re-blessed. The row notes in
   their only change is the added "(Your score has increased by N)" lines.
   (core/scgamest.cpp, glk/os_glk.cpp)
 
+- **No echo for a placeholder pronoun (2026-11-04).** Every Runner echoes a
+  never-assigned register's seeded string: "(Absolutely nothing)" before
+  `x it`'s reply (ptgood_again T5), "(No male)" / "(No female)" at 3.9/4.0,
+  "(Nobody)" for `ask about`, "(to Nobody)" for a bare `give`. These name
+  nothing and read as bugs, so `uip_echo_reference` leaves them out. The
+  exception is a game with an ALR quoting the bracketed string: dusk, iachini,
+  mind of master and about seven others restyle or delete it, so there the echo
+  stays for that ALR. The splice into the command is unchanged, so
+  showtime T59's `get * hand` still matches "get no female hand". Real
+  referents still echo ("(the shovel)"). The spam, thelasthour, showtime and
+  tempest7 goldens each lost one such line.
+  (core/scparser_pronoun.cpp)
+
 ## Rules measured and ported (index)
 
 One entry per rule: the rule, the game or probe that found it, and the

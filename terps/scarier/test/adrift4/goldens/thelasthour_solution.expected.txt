@@ -431,7 +431,6 @@ Jim cries on the other side of the wall...
 "Don't know, Carl. Don't know."
 
 > ask sly about him
-(No male)
 I can't talk to that.
 
 > ask sly about hover
