@@ -851,6 +851,36 @@ lib_co_effective_mode (scr_gameref_t game, const scr_char *term,
 }
 
 /*
+ * The line an ask/tell/talk command's object scan looks at: everything
+ * before its first " about " or " for ", where the topic starts.  Any other
+ * line is returned whole.
+ */
+static std::string
+lib_co_scan_without_topic (const scr_char *command)
+{
+  static const scr_char *const VERBS[] = {"ask ", "tell ", "talk ", nullptr};
+  static const scr_char *const MARKS[] = {" about ", " for ", nullptr};
+  const scr_char *const *verb;
+
+  for (verb = VERBS; *verb; verb++)
+    {
+      if (scr_strncasecmp (command, *verb, strlen (*verb)) == 0)
+        break;
+    }
+  if (!*verb)
+    return command;
+
+  std::string lowered (command);
+  for (char &c : lowered)
+    c = scr_tolower (c);
+  size_t cut = std::string::npos;
+  for (const scr_char *const *mark = MARKS; *mark; mark++)
+    cut = std::min (cut, lowered.find (*mark));
+  return cut == std::string::npos ? std::string (command)
+                                  : std::string (command, cut);
+}
+
+/*
  * Reproduce the scan.  Returns TRUE when the Runner would prompt, with
  * *prompt_term the last flagged object's term, *list_term the term the list
  * was built from (the first ambiguous object's), and *present that first
@@ -870,6 +900,16 @@ lib_runner_co_scan (scr_gameref_t game, const scr_char *command,
   if (!command)
     return FALSE;
   room = gs_playerroom (game);
+
+  /*
+   * Deliberate deviation: the Runner scans the whole line, so in Troll.taf
+   * (3.9) `ask sid about cup` with two cups present is "Which cup?" and Sid
+   * is never asked.  A conversation topic is a keyword for the game's
+   * Topics, not an object reference, so on an ask/tell/talk line the scan
+   * stops at " about " (or " for ").
+   */
+  const std::string topicless = lib_co_scan_without_topic (command);
+  command = topicless.c_str ();
 
   /*
    * Deliberate deviation: the Runner counts every present namesake, so with

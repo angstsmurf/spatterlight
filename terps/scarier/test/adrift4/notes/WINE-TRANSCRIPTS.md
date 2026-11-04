@@ -1671,6 +1671,15 @@ case, and their goldens are re-blessed. The row notes in
   "max power!", "3 - dimm50 die!!!"). No golden changed.
   (runner/scrun_dispatch.cpp)
 
+- **Ask/tell/talk topics stay out of the ambiguity scan (2026-11-04).**
+  The Runner's object-name scan reads the whole line, so in Troll.taf (3.9)
+  with two cups present, `ask sid about cup` prompted "Which cup?" and Sid
+  was never asked. A topic is a keyword for the NPC's Topics, not an object
+  reference, so `lib_co_scan_without_topic` cuts an ask/tell/talk line at its
+  first " about " or " for " before the scan. Sid now answers "I have no idea
+  what you're on about."; `x cup` still prompts "Which cup?". No golden
+  changed. (library/sclibrar_disambig_scan.cpp)
+
 ## Rules measured and ported (index)
 
 One entry per rule: the rule, the game or probe that found it, and the
