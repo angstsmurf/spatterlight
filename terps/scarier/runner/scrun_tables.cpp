@@ -295,11 +295,10 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   /*
    * The Runner's give is word-order free: the character handler tests
    * c("give"), a present NPC, and then every object whose name appears
-   * anywhere in the line (run400 48022F-480384, run390 45A0BA, run380 440E8C,
-   * run370 438F79), so `give cathy diary` and `give diary cathy` both offer
-   * the diary.  House (4.0) runner_probes/house.run400.b.txt: `give cathy
-   * diary` gets the same reply as `give diary to cathy`, not "Give the diary
-   * to who?".
+   * anywhere in the line (run400 48022F), so `give cathy diary` and `give
+   * diary cathy` both offer the diary.  House (4.0)
+   * runner_probes/house.run400.b.txt: `give cathy diary` gets the same reply
+   * as `give diary to cathy`, not "Give the diary to who?".
    */
   {"give %character% %object%", lib_cmd_give_object_npc},
   {"give %object% %character%", lib_cmd_give_object_npc},
@@ -309,8 +308,8 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   /*
    * `get up` is a `stand` synonym in every Runner; `get off` and `get down`
    * are `stand`-off-a-thing synonyms that arrived in 3.9.  The sitstand
-   * proc tests `c("get off") Or c("get down")` (run400 loc_46B6E4, run390
-   * loc_4443AE); neither string appears anywhere in run370/run380.
+   * proc tests `c("get off") Or c("get down")`; neither string appears
+   * anywhere in run370/run380.
    * Measured live on the one file microwaveman.taf -- a 3.8 game -- run
    * under three Runners, which is the way to see a *library* change rather
    * than a file-format one:
@@ -361,17 +360,16 @@ static scr_commands_t STANDARD_COMMANDS[] = {
 
   /*
    * `talk to %character% about %text%` is the same conversation branch as
-   * `ask`: every Runner guards it with `c("ask") Or c("talk to")` (run370
-   * loc_4387F4, run380 loc_440683, run390 loc_4597F2, run400 loc_47F8F7).
-   * `speak to` is not in that list at any version, so it only ever reaches
-   * the ask-format hint below, even where a topic would have matched.  A
-   * `talk to` with no matching topic lands on the hint too -- see
+   * `ask`: every Runner guards it with `c("ask") Or c("talk to")` (run400
+   * loc_47F8F7).  `speak to` is not in that list at any version, so it only
+   * ever reaches the ask-format hint below, even where a topic would have
+   * matched.  A `talk to` with no matching topic lands on the hint too -- see
    * lib_ask_npc_about().
    *
    * The hint itself is the per-character pass's `talk`/`speak` branch, and
    * its guard is where the versions part: 3.7 and 3.8 match the bare words
-   * (run370 loc_438748, run380 loc_4405D7), 3.9 and 4.0 require the "to"
-   * (run390 loc_45973D, run400 loc_47F84A).  Hence the second row's gate.
+   * (run380 loc_4405D7), 3.9 and 4.0 require the "to" (run400 loc_47F84A).
+   * Hence the second row's gate.
    * Both rows sit ahead of `talk *` further down, which is the generaltasks
    * rabblings line -- the fall-through 3.9/4.0 leave for a bare `talk bob`.
    * See lib_cmd_talk_to_npc().
@@ -406,9 +404,8 @@ static scr_commands_t STANDARD_COMMANDS[] = {
    * One line naming several NPCs: dobattle strikes every one of them, where
    * Scarier asks which was meant and strikes that one alone (a deliberate
    * deviation, see lib_battle_attack_many()); a battle verb naming no NPC
-   * at all asks "Who do you want to attack?".  `throw` is one of var_90's
-   * verbs too (47E9EF-47EADB): les_feux T115 `throw grappin on rocher`
-   * asks Who.
+   * at all asks "Who do you want to attack?".  `throw` is one of the battle
+   * verbs too (47E9EF): les_feux T115 `throw grappin on rocher` asks Who.
    */
   {"[attack/kick/fight/kill/chop/cut/hit/shoot/stab/throw] %text%"
    " with %object%", lib_cmd_attack_npcs_with},
@@ -421,17 +418,14 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   /* More movement, waiting, and miscellaneous administrative commands. */
   /*
    * `go` and `enter` are the two verbs generaltasks answers with a nudge back
-   * to the compass -- run370 loc_43DD8B / loc_43DDB4, run380 loc_44481C /
-   * loc_444845, run390 loc_45DF66 / loc_45DF83, run400 loc_48936C /
-   * loc_489383.  The movement table above has already taken every bare
-   * direction word, `enter` and `exit` among them, so what is left here is a
-   * bare `go` and an `enter` with something attached.  See
-   * lib_cmd_just_a_direction().
+   * to the compass (run400 loc_48936C / loc_489383).  The movement table
+   * above has already taken every bare direction word, `enter` and `exit`
+   * among them, so what is left here is a bare `go` and an `enter` with
+   * something attached.  See lib_cmd_just_a_direction().
    *
    * `goto`/`go to` keep their own rows below: they are the Runner's
-   * gotoplace(), which exits at once on a bare `go`, `goto` or `go to`
-   * (run390 loc_43C7B0, run400 loc_464998) and so leaves those to the nudge
-   * as well.
+   * gotoplace(), which exits at once on a bare `go`, `goto` or `go to` and so
+   * leaves those to the nudge as well.
    */
   {"go", lib_cmd_just_a_direction},
   {"go to", lib_cmd_just_a_direction},
@@ -442,8 +436,7 @@ static scr_commands_t STANDARD_COMMANDS[] = {
    * line starting "go " (3.9+, and a deviation below; see
    * lib_goto_line_enters()) or "go to" (3.7, 3.8).  See lib_cmd_go_place().
    * What it leaves is a bare `goto`, which the Runner answers with
-   * DontUnderstand (run380x runner_probes/goto.run380.b.rtf, run390x
-   * runner_probes/goto.run390.b.txt, run400x
+   * DontUnderstand (runner_probes/goto.run3[89]0.b.*,
    * runner_probes/goto.run400.txt).  Deliberate deviation: Scarier lists
    * the exits, as SCARE did.
    */
@@ -504,8 +497,8 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   /*
    * `bye` and `end` are exact synonyms of `quit` in every Runner -- one
    * three-way whole-line test that unloads the form and answers "I'm so glad
-   * you said no..." if the confirmation is declined (run400 loc_48AA85-48AAC9,
-   * run370 loc_43C06B).  `q` is ours, not theirs; see the audit note above.
+   * you said no..." if the confirmation is declined (run400 loc_48AA85).
+   * `q` is ours, not theirs; see the audit note above.
    */
 #ifdef SCARIER_NO_ABBREVIATIONS
   {"[quit/bye/end]", lib_cmd_quit},
@@ -539,9 +532,9 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"score", lib_cmd_score},
   {"undo", lib_cmd_undo},
   /* `past` is the Runner's own synonym of `history` -- the two are one
-   * whole-line test in all four (run370 loc_43BA2A, run380 loc_44228D,
-   * run400 loc_48A51A).  The `%number%` form is a SCARE extension on top of
-   * both, and `hist` is ours alone; see the audit note below. */
+   * whole-line test in all four (run400 loc_48A51A).  The `%number%` form
+   * is a SCARE extension on top of both, and `hist` is ours alone; see the
+   * audit note below. */
 #ifdef SCARIER_NO_ABBREVIATIONS
   {"[history/past] %number%", lib_cmd_history_number},
   {"[history/past]", lib_cmd_history},
@@ -666,7 +659,7 @@ static scr_commands_t STANDARD_ABOVE_REFUSAL_COMMANDS[] = {
   {"[get/take/pick up/pick] %object%", lib_cmd_take_absent},
   {"[get/take/pick up/pick] *", lib_cmd_get_what},
   /*
-   * run380's drops() (438FF0) writes "You don't have <Prefix> <Short>!" for a
+   * run380's drops() writes "You don't have <Prefix> <Short>!" for a
    * named object it cannot drop before it calls tasks(), and the room refusal
    * only fills an empty message -- so below 3.9 it outranks "You can't do
    * that here.".  See lib_cmd_drop_absent_pre390().
@@ -679,7 +672,7 @@ static scr_commands_t STANDARD_ABOVE_REFUSAL_COMMANDS[] = {
 /*
  * run390's examines() is called from generaltasks at 45F684, far above the
  * out-of-room refusal's `If msg = ""` at 45FFE8, and its tail writes "Nothing
- * special." for a noun that names nothing (44BF94) -- so an examine line that
+ * special." for a noun that names nothing -- so an examine line that
  * an out-of-room task also matches is "Nothing special.", not "You can't do
  * that here!".  Gamma Gals (3.9) `look under dresser` and `look under bed`
  * typed outside the tasks' rooms (run390x, Delron walkthrough replay).  3.9
@@ -759,9 +752,8 @@ static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"buy %text%", lib_cmd_buy_other},
   {"buy", lib_cmd_buy_what},
   {"clean %object% *", lib_cmd_clean_object},
-  /* clean (488F02), wash (488FFC), cut (489041), shake (48950E), climb
-   * (4898F5) and sell (489A3D) are therest arms below the 4887A0 clause too.
-   * */
+  /* clean, wash, cut, shake, climb and sell are therest arms below the
+   * 4887A0 clause too. */
   {"clean %text%", lib_cmd_verb_absent_400},
   {"clean %text%", lib_cmd_clean_other},
   {"clean", lib_cmd_clean_what},
@@ -873,7 +865,7 @@ static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"smell %object% *", lib_cmd_smell_object},
   {"smell *", lib_cmd_smell_other},
   {"stop %object% *", lib_cmd_stop_object},
-  /* stop (488F56) is a therest arm below the 4887A0 clause too: British
+  /* stop is a therest arm below the 4887A0 clause too: British
    * Fox T376 `stop engine`, the Britmobile's engine seen elsewhere, is
    * "You can't see Britmobile engine." */
   {"stop %text%", lib_cmd_verb_absent_400},
@@ -1034,18 +1026,18 @@ run_priority_refuse (void)
  * (Proc_19_40_459DB4) ahead of the task dispatch; that normalises the line
  * ("drop " -> "put ", "inside"/"into" -> "in", "onto" -> "on"), splits it
  * at " in ", and calls name_object (Proc_19_41_46E5D8) to name the direct
- * object.  name_object sets the global command line MemVar_494174 to the
- * fragment Left(line, split) -- "put ice cream " -- and resolves that
- * (Proc_21_58_463640 mode 2).  Every other outcome leaves by 46E5CD, which
- * puts the line back; the one that does not is 46E142, reached when the
- * fragment names nothing at all.  There the Runner prints "It is not clear
- * which object you are referring to." ("Drop what?" for a "drop" line), but
- * only when no put/drop-class task pre-matches the typed line
- * (Proc_19_35_453C50 mode 2), and then returns at 46E23B with the fragment
- * still installed.  generaltasks dispatches the tasks against THAT, so a
- * task that would have claimed the typed line never matches, and the
- * catch-all -- whose noun was resolved up front from the original line --
- * answers instead: "I don't understand what you want to do with the cone."
+ * object.  name_object sets the global command line to the fragment
+ * Left(line, split) -- "put ice cream " -- and resolves that
+ * (Proc_21_58_463640 mode 2).  Every other outcome puts the line back; the
+ * one that does not is 46E142, reached when the fragment names nothing at
+ * all.  There the Runner prints "It is not clear which object you are
+ * referring to." ("Drop what?" for a "drop" line), but only when no
+ * put/drop-class task pre-matches the typed line (Proc_19_35_453C50 mode 2),
+ * and then returns with the fragment still installed.  generaltasks
+ * dispatches the tasks against THAT, so a task that would have claimed the
+ * typed line never matches, and the catch-all -- whose noun was resolved up
+ * front from the original line -- answers instead: "I don't understand what
+ * you want to do with the cone."
  *
  * Measured on IceCream.taf in run400 (runner_probes/icecream.run400.put.txt),
  * whose three `put/place/set [the] ice cream in/on [the] cone` tasks share one
@@ -1116,9 +1108,8 @@ run_priority_commands (scr_gameref_t game, const scr_char *string)
  * matches.
  *
  * Which side of the line a row falls on was measured on p4REPEAT2.taf and
- * p4REPEAT3.taf (run400 runner_probes/repeat2.run400.txt,
- * runner_probes/repeat3.run400.txt), where every one of the
- * probe's cells is a task whose command is the typed line, none of them
+ * p4REPEAT3.taf (runner_probes/repeat[23].run400.txt), where every one of
+ * the probe's cells is a task whose command is the typed line, none of them
  * done, all with a RepeatText:
  *
  *   `drop coin`, `drop hat`   library, and the task NEVER ran (no "C2"/"C3")
@@ -1127,15 +1118,14 @@ run_priority_commands (scr_gameref_t game, const scr_char *string)
  *                                     second time round its RepeatText
  *
  * The named rows are the whole of run400's drop routine Proc_19_7_46FB8C:
- * its var_88 = 0 arm resolves the noun itself and composes "<player> drop
- * <object>." at loc_46F732-46F76C without ever asking the dispatcher.  The
- * `all` arm does the opposite -- loc_46F1D8 tests the word "all" and, still
- * before anything is printed, hands the line to a task
- * (`Proc_19_35_453C50("drop all")` at 46F1EA) and returns from the routine
- * outright when one claims it (`Result: End Sub`, 46F1F8).  So an "all"
- * line reaches the tasks first and a named one does not, and the empty-hands
- * "You're not carrying anything." (loc_46F457, and 46FB33 for the put half)
- * is only ever reached once the tasks have declined.
+ * its named-object arm resolves the noun itself and composes "<player> drop
+ * <object>." without ever asking the dispatcher.  The `all` arm does the
+ * opposite -- it tests the word "all" and, still before anything is
+ * printed, hands the line to a task (`Proc_19_35_453C50("drop all")`) and
+ * returns from the routine outright when one claims it (`Result: End Sub`).
+ * So an "all" line reaches the tasks first and a named one does not, and the
+ * empty-hands "You're not carrying anything." (for the drop half and the put
+ * half alike) is only ever reached once the tasks have declined.
  */
 scr_bool
 run_is_put_command (scr_gameref_t game, const scr_char *string)
@@ -1212,11 +1202,11 @@ run_is_put_command_400 (scr_gameref_t game, const scr_char *string,
  * 48A481 -- so its listing is in the message buffer before any task runs, and
  * a task that then matches the same line has its CompleteText APPENDED to the
  * listing rather than replacing it.  Measured on p4REPEAT2/3
- * (runner_probes/repeat2.run400.txt, runner_probes/repeat3.run400.txt): the
- * first `i` answers "You are carrying a coin and a hat.  C1 i.", and `inv` /
- * `inventory` the same way.  (The listing is also why a spent task's
- * RepeatText never survives here -- the 44CC7D store is gated on the buffer
- * still being empty; that is the survivor table's first row.)
+ * (runner_probes/repeat[23].run400.txt): the first `i` answers "You are
+ * carrying a coin and a hat.  C1 i.", and `inv` / `inventory` the same way.
+ * (The listing is also why a spent task's RepeatText never survives here --
+ * the 44CC7D store is gated on the buffer still being empty; that is the
+ * survivor table's first row.)
  */
 scr_bool
 run_is_inventory_command (scr_gameref_t game, const scr_char *string)
@@ -1246,8 +1236,7 @@ run_is_inventory_command (scr_gameref_t game, const scr_char *string)
  * p4REPEAT2.taf and p4REPEAT3.taf (make_400_repeatprobe.py and
  * make_400_repeatprobe2.py, 30-odd one-cell tasks all done, non-repeatable
  * and carrying a RepeatText, each typed twice) under run400, transcripts
- * runner_probes/repeat.run400.txt, runner_probes/repeat2.run400.txt and
- * runner_probes/repeat3.run400.txt.
+ * runner_probes/repeat*.run400.txt.
  *
  * run400 prints a done non-repeatable task's RepeatText inside the task
  * dispatcher at 48A481 (Proc_19_24_44CCE0) and then jumps to loc_48B4E3,
@@ -1263,8 +1252,8 @@ run_is_inventory_command (scr_gameref_t game, const scr_char *string)
  *     they are matched here first and excluded.
  *   - the per-character pass at 48B56E (Proc_19_0_480674), which sits BELOW
  *     48B4E3 and so still runs, its answer replacing the message: NPC
- *     examine (47FE4F) and the ask-format hint (47F84A) that `talk to X`,
- *     `speak to X` and `ask X <anything but "about">` land on.
+ *     examine and the ask-format hint that `talk to X`, `speak to X` and
+ *     `ask X <anything but "about">` land on.
  *
  * Everything else loses the line to the RepeatText, movement and take
  * included: `north` and `east` print it and the player does not move,
@@ -1346,17 +1335,17 @@ run_repeat_survivor_400 (scr_gameref_t game, const scr_char *string)
  * Rebuild the command line run400's put_drop_list leaves behind when the
  * direct object of a "put X in Y" names nothing -- see the 46E142 note on
  * run_priority_unnamed_put_object() above.  put_drop_list normalises the
- * line with four plain VB Replace() calls (459B3D-459BAC, substring not
- * word, and "inside" before "into" so that "inside" cannot be reached by
- * the shorter pattern), splits it at the first " in " (459BCD), and
- * name_object installs Left(line, split) -- everything up to and including
- * the space before "in" -- as the command line at 46DE99.
+ * line with four plain VB Replace() calls (substring not word, and "inside"
+ * before "into" so that "inside" cannot be reached by the shorter pattern),
+ * splits it at the first " in ", and name_object installs Left(line, split)
+ * -- everything up to and including the space before "in" -- as the command
+ * line.
  *
  * The list branches leave before the clobber, so none of them is rebuilt
  * here: a whole-word "all" or "and" in the fragment is answered by the
  * loops at 46E04E and 46E0B2 (unported), and an " and " at or beyond the
- * split sends put_drop_list round its own loop at 459C75, whose clauses are
- * carved by lib_put_clauses_400().  "put a in b and put c in d" is not an
+ * split sends put_drop_list round its own loop, whose clauses are carved by
+ * lib_put_clauses_400().  "put a in b and put c in d" is not an
  * example of either: the word after its " and " is "put", not an object, so
  * the top-level splitter cuts it into two commands (run_find_split_400()).
  */
@@ -1623,16 +1612,14 @@ run_try_command_table (scr_commandsref_t command,
 
       /*
        * Once a game task has run for this line, most of the Runner's
-       * character handler answers nothing: the who (47F32C), hit/kill/kick/
-       * punch/attack (47F452), get/take/pick up (47F734), talk to/speak to
-       * (47F863), ask-without-about hint (47FB93), where/find/locate
-       * (47FCB1), examine/look (47FE4F) and take-from (4803DD) branches of
-       * run400's Proc_19_0_480674 all test MemVar_4941F8 = 0, the flag
-       * execute_task sets at 45A176 and the input routine clears at 489FF6.
-       * run390 guards the same branches with MemVar_468198 (45939D,
-       * 459658); run370 has no such flag (4386BC), and run380's rendering
-       * of the test (44054B) is too ambiguous to lean on, so pre-3.9 keeps
-       * every row.  Measured live on House (4.0): the silent
+       * character handler answers nothing: the who, hit/kill/kick/punch/
+       * attack, get/take/pick up, talk to/speak to, ask-without-about hint,
+       * where/find/locate, examine/look and take-from branches of run400's
+       * Proc_19_0_480674 all test a flag that execute_task sets and the
+       * input routine clears.  run390 guards the same branches with a flag
+       * of its own; run370 has no such flag, and run380's rendering of the
+       * test (44054B) is too ambiguous to lean on, so pre-3.9 keeps every
+       * row.  Measured live on House (4.0): the silent
        * task "# attention on cathy grave vision" (`*cathy*`, once only) runs
        * on the first `get cathy` and the library then says "Take what?"
        * (runner_probes/house.run400.t93.txt,
@@ -1644,15 +1631,14 @@ run_try_command_table (scr_commandsref_t command,
        *
        * The rows that survive a task are the ones the Runner reaches by
        * another route: give is handled in the input routine at 48A98A with
-       * no flag test; `ask X about Y` is re-opened at 47F922-47F935 by the
-       * "<player> can't talk to that." buffer that generaltasks_verbs seeds
-       * at 488C65 whenever no object took the ask (run390 tests no flag at
-       * all at 4597FE) -- Humbug's silent scoring task `ask * hacker about
-       * * humbug` still gets the hacker's reply
-       * (runner_probes/humbug.run400.b.txt); kiss (47F7E7) is gated on the
-       * buffer, not the flag; and the end-of-handler "I don't understand
-       * what you want to do with" fallback at 4805DA asks for an empty
-       * buffer rather than the flag.  (It does have one other guard, added
+       * no flag test; `ask X about Y` is re-opened by the "<player> can't
+       * talk to that." buffer that generaltasks_verbs seeds whenever no
+       * object took the ask (run390 tests no flag at all) -- Humbug's
+       * silent scoring task `ask * hacker about * humbug` still gets the
+       * hacker's reply (runner_probes/humbug.run400.b.txt); kiss is gated on
+       * the buffer, not the flag; and the end-of-handler "I don't understand
+       * what you want to do with" fallback asks for an empty buffer rather
+       * than the flag.  (It does have one other guard, added
        * here 2026-09-07: `loc_4805CD: If MemVar_4941AD > 0 Then Exit Sub`
        * above it takes it off a line that a task has just ended the game on
        * -- see lib_cmd_verb_npc().)
@@ -1768,10 +1754,10 @@ scr_bool
 run_standard_verb_commands (scr_gameref_t game, const scr_char *string)
 {
   /*
-   * Pre-4.0 the give to a present character is characters()'s (run390
-   * 45A0BA) or therest()'s (run380 440E8C), both below the room refusal,
-   * and run390's give writes only into an empty message (or one holding
-   * " might need " / "I don't understand", 45A11D-45A167).  the_hangover
+   * Pre-4.0 the give to a present character is characters()'s (run390) or
+   * therest()'s (run380), both below the room refusal, and run390's give
+   * writes only into an empty message (or one holding " might need " / "I
+   * don't understand").  the_hangover
    * (3.9) T42 `give the doctor some french fries`, with Where=0 task 10
    * matching it: "You can't do that here!" (runner_transcripts/
    * the_hangover.txt), not "Doctor doesn't seem interested in the french
@@ -1819,7 +1805,7 @@ run_standard_give_npc_commands (scr_gameref_t game, const scr_char *string)
  * generaltasks' gameover jump at 48AC62 (`If MemVar_4941AD <> 0 Then GoTo
  * loc_48B4E3`), so every therest arm -- give, lock, ask, the "You can't <verb>
  * <X>." refusals, the question words -- is lost with the unhandled-verb tail.
- * iachini (run400x runner_transcripts/iachini.txt T185): `turn on tv` runs
+ * iachini (runner_transcripts/iachini.txt T185): `turn on tv` runs
  * silent TASK 30, whose only action is End Game, and run400 answers the game's
  * DontUnderstand, not "You can't turn the 32-inch television on.".  Rows whose
  * Runner handler sits above 48AC62 (open/close 48A515, wear 48A48C, remove
@@ -1882,10 +1868,10 @@ run_standard_fallback_commands (scr_gameref_t game, const scr_char *string)
 /*
  * run_c_word_pre400()
  *
- * The pre-4.0 Runners' c(word) test (run370 423C80, run380 429048, run390
- * 4334B0): the FIRST case-insensitive InStr hit that starts the line or
- * follows a space decides, and it is true only if the word ends there -- at
- * the end of the line, a space or a comma, and at 3.9 a period too.  A hit
+ * The pre-4.0 Runners' c(word) test: the FIRST case-insensitive InStr hit
+ * that starts the line or follows a space decides, and it is true only if
+ * the word ends there -- at the end of the line, a space or a comma, and at
+ * 3.9 a period too.  A hit
  * inside a word is skipped, so `unblock` never holds `block`; a word-start
  * hit that runs on stops the search, so `lookout look` holds no `look`.
  * Returns the hit's offset, or -1.
@@ -2002,11 +1988,10 @@ run_therest_arm_at (scr_int version, const scr_char *word)
  * Pre-4.0 therest() is not a verb-first table.  It is one long run of
  * keyword arms, each `If c("<verb>") Then msg = ...`, over the whole line,
  * and each arm overwrites the message the one before it wrote, so the LAST
- * arm whose keyword the line holds answers (run380 443CBB-445521; run390
- * 45D465-45EB86, where most arms go through checkverb 42A504 with the same
- * c() test).  Measured on p38ASK/p39ASK with harness/make_38_askprobe.py and
- * make_39_askprobe.py (run380x runner_probes/ask.run380.kw.rtf, run390x
- * runner_probes/ask.run390.kw.txt): `zzz push stone`, `stone jump` and `zzz
+ * arm whose keyword the line holds answers (at 3.9 most arms go through
+ * checkverb with the same c() test).  Measured on p38ASK/p39ASK with
+ * harness/make_38_askprobe.py and make_39_askprobe.py
+ * (runner_probes/ask.run3[89]0.kw.*): `zzz push stone`, `stone jump` and `zzz
  * cut stone` answer the verb wherever it stands; `push and pull stone` and
  * `push stone pull` pull, `push stone and kick` kicks, `buy stone kiss`
  * kisses, `drink push stone` pushes and `climb stone and sit on stone` sits.
@@ -2074,9 +2059,9 @@ run_therest_pre400 (scr_gameref_t game, const scr_char *string)
   /*
    * A winner opening the line has had its own row.  That includes a 3.7/3.8
    * `look X`, which the Runner leaves to therest's look arm ("Nothing
-   * special." for anything at all, run370 434E2A, run380 44439D/43C69D;
-   * p37EXAM/p38EXAM, run370x plookobj37, run380x plookobj38).  Deliberate
-   * deviation: Scarier examines it, as from 3.9.
+   * special." for anything at all; p37EXAM/p38EXAM, run370x plookobj37,
+   * run380x plookobj38).  Deliberate deviation: Scarier examines it, as from
+   * 3.9.
    */
   winner = run_therest_winner_pre400 (version, string, &offset);
   if (!winner || offset == 0)
@@ -2130,11 +2115,10 @@ run_therest_pre400 (scr_gameref_t game, const scr_char *string)
  * 3.7's therest() refuses a line naming an absent object before any verb
  * arm -- see lib_therest_absent_370().  Only a line that reaches therest()
  * gets it: one holding a therest arm keyword that no earlier generaltasks
- * handler takes (run370 43B942-43C644).  Those handlers enter on c() words
- * anywhere in the line -- takes, drops, wears and removes (435E28, 430475,
- * 42C533, 4295FF), openclose (4264E7), examines (434E2A), give (43BED8),
- * wait (43C1B3), whereis (42F9FF), gotoplace, thank and the question words
- * (43C499) -- and keep their own wording, so a line holding any of them is
+ * handler takes.  Those handlers enter on c() words anywhere in the line --
+ * takes, drops, wears and removes, openclose, examines, give, wait,
+ * whereis, gotoplace, thank and the question words -- and keep their own
+ * wording, so a line holding any of them is
  * left to them.  ask, talk and say are left alone too: not measured.
  */
 scr_bool
@@ -2195,8 +2179,7 @@ run_line_for_anywhere (scr_gameref_t game, const scr_char *line)
  * Every Runner's score arm is `If c("score") Then` -- the whole word
  * anywhere in the line -- and it assigns the message, overwriting whatever
  * sitstand, inventory, the help hint or examines had written, and marks the
- * line administrative (run370 43BB98, run380 4423EC, run390 45F6B5 with
- * MemVar_468219 = 1, run400 48A6AE with MemVar_494281).  It sits above the
+ * line administrative.  It sits above the
  * wait gate, so `score wait` is the score and no time passes; below takes,
  * drops, wears and removes, which claim or act first, and above the
  * swearing arm, which overwrites it.  Measured on p37SITN..p4SITN
@@ -2242,8 +2225,8 @@ run_score_anywhere (scr_gameref_t game, const scr_char *string)
  *
  * Every Runner answers a line holding the whole word `wait` ANYWHERE with
  * "Time passes..." and the wait turns, if no handler above has written a
- * message by then: `If c("wait") [Or line = "z"] And msg = ""` (run370 43C1B3,
- * run380 442A07, run390 45FCA2, run400 48ABB8 -- 4.0's c() too).  That gate
+ * message by then: `If c("wait") [Or line = "z"] And msg = ""` (4.0's c()
+ * too).  That gate
  * sits after the tasks and the handlers that enter on words anywhere in the
  * line (takes, drops, wears, removes, sitstand, openclose, examines, score,
  * profanity), and before whereis, gotoplace and therest.  So `wait stone` with
@@ -2255,14 +2238,12 @@ run_score_anywhere (scr_gameref_t game, const scr_char *string)
  * directions are all `If msg = ""` arms below the gate -- so `give coin to bob
  * wait`, `say hello wait`, `i wait`, `inventory wait` and `n wait` are "Time
  * passes..." with nothing given, listed or walked (p37SITN..p4SITN,
- * harness/make_3738_sitnpcprobe.py: run370x runner_probes/sitn.run370.rtf,
- * run380x runner_probes/sitn.run380.rtf, run390x
- * runner_probes/sitn.run390.txt, run400x runner_probes/sitn.run400.txt).
+ * harness/make_3738_sitnpcprobe.py: runner_probes/sitn.run*).
  * ask/talk stay with their rows: characters() overwrites the wait text with
  * the reply (`ask bob about hat wait` is "BOB HAT.").  `score wait` is the
  * score's (run_score_anywhere() runs first).  up/down/in/out with wait: not
  * measured.  run370's openclose writes nothing unless the line names an
- * openable object (4264E7), so there `open stone wait` passes time; 3.8 on
+ * openable object, so there `open stone wait` passes time; 3.8 on
  * refuse the open.  `look wait` is examines' from 3.9 (bare `look`), time
  * passing at 3.7/3.8.
  *
@@ -2276,11 +2257,8 @@ run_score_anywhere (scr_gameref_t game, const scr_char *string)
  *
  * Measured on p37GOTO, p38GOTO, p39GOTO and p4EXAM
  * (harness/make_37_gotoprobe.py, make_38_gotoprobe.py,
- * make_39_gotoprobe.py, make_400_examprobe.py): run370x
- * runner_probes/goto.run370.wait.rtf, run380x
- * runner_probes/goto.run380.wait.rtf, run390x
- * runner_probes/goto.run390.wait.txt, run400x
- * runner_probes/exam.run400.wait.txt.
+ * make_39_gotoprobe.py, make_400_examprobe.py):
+ * runner_probes/goto.run3*.wait.*, runner_probes/exam.run400.wait.txt.
  */
 scr_bool
 run_wait_anywhere (scr_gameref_t game, const scr_char *string)
