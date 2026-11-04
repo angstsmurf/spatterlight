@@ -1725,6 +1725,18 @@ case, and their goldens are re-blessed. The row notes in
   from the cited code. A corpus `x me` sweep changed 26 games, and each one
   lost only the stray stop. No golden changed. (library/sclibrar_examine.cpp)
 
+- **Bare `open`, `close`, `lock` and `unlock` ask "<Verb> what?"
+  (2026-11-04).** The Runner refuses a bare `open` with "You can't open
+  that." (run390 p39EXAM, runner_probes/exam.run390.txt; run400 p4EXAM,
+  runner_probes/exam.run400.txt), and the other three the same way, though
+  the line names nothing. SCARE asked. `lib_bare_verb_asks` routes the bare
+  verb to `lib_what`, which also leaves the line pending as for the other
+  "what?" verbs. The games whose ALRs restyle "can't <verb> that" keep the
+  refusal (dusk, iachini, panic, wax_worx, xycanthus and others; mind of
+  master's "Anonymous can't open that." included). The Plague - Redux
+  already restyles "Open what?" and "Close what?". No golden changed.
+  (library/sclibrar_refuse.cpp)
+
 ## Rules measured and ported (index)
 
 One entry per rule: the rule, the game or probe that found it, and the

@@ -671,11 +671,35 @@ lib_open_close_resolved_400 (scr_gameref_t game,
   return TRUE;
 }
 
+/*
+ * lib_bare_verb_asks()
+ *
+ * A bare `open`, `close`, `lock` or `unlock` names nothing, yet every Runner
+ * refuses it with "You can't open that." (see lib_cmd_open_other()).
+ * Deliberate deviation (WINE-TRANSCRIPTS.md): Scarier asks "<Verb> what?",
+ * as SCARE did, unless an ALR restyles the refusal.
+ */
+static scr_bool
+lib_bare_verb_asks (scr_gameref_t game, const scr_char *verb,
+                    const scr_char *question_verb)
+{
+  const scr_char *input = run_get_dispatch_input ();
+
+  if (!input || scr_strcasecmp (input, verb) != 0)
+    return FALSE;
+  const std::string refusal = std::string ("can't ") + verb + " that";
+  if (pf_alr_mentions (gs_get_bundle (game), refusal.c_str ()))
+    return FALSE;
+  return lib_what (game, question_verb);
+}
+
 scr_bool
 lib_cmd_close_other (scr_gameref_t game)
 {
   scr_bool status;
 
+  if (lib_bare_verb_asks (game, "close", "Close"))
+    return TRUE;
   if (lib_open_close_resolved_400 (game, lib_cmd_close_object, &status))
     return status;
   return lib_cant_do_other (game, "close");
@@ -754,6 +778,8 @@ lib_cmd_open_other (scr_gameref_t game)
 {
   scr_bool status;
 
+  if (lib_bare_verb_asks (game, "open", "Open"))
+    return TRUE;
   if (lib_open_close_resolved_400 (game, lib_cmd_open_object, &status))
     return status;
   return lib_cant_do_other (game, "open");
@@ -802,6 +828,8 @@ lib_cmd_lock_other (scr_gameref_t game)
   scr_bool handled;
   scr_bool status;
 
+  if (lib_bare_verb_asks (game, "lock", "Lock"))
+    return TRUE;
   if (lib_lock_absent_object_400 (game) >= 0)
     return lib_lock_backend (game, &LIB_LOCK_VERB, FALSE);
   status = lib_cant_do_with_400 (game, "lock", "", &handled);
@@ -818,6 +846,8 @@ lib_cmd_unlock_other (scr_gameref_t game)
   scr_bool handled;
   scr_bool status;
 
+  if (lib_bare_verb_asks (game, "unlock", "Unlock"))
+    return TRUE;
   if (lib_lock_absent_object_400 (game) >= 0)
     return lib_lock_backend (game, &LIB_UNLOCK_VERB, FALSE);
   status = lib_cant_do_with_400 (game, "unlock", "", &handled);
