@@ -50,6 +50,7 @@ extern void lib_set_movement_probe (scr_bool probe);
 /* The word the parser expects for a direction, for the map's click-to-walk. */
 extern const scr_char *lib_direction_name (scr_int direction);
 extern void lib_print_room_name (scr_gameref_t game, scr_int room);
+extern scr_bool lib_room_name_headings (scr_gameref_t game);
 extern void lib_print_room_description (scr_gameref_t game, scr_int room);
 extern scr_bool lib_room_alt_darkens (scr_gameref_t game, scr_int room);
 extern std::string lib_definite_object_name (scr_prop_setref_t bundle,

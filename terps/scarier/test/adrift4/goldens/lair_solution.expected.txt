@@ -2,14 +2,11 @@ Loading game...
 
 Lair of the Vampire
 
-Intro
-
 1)  Start the game
 2)  Read the background and instructions
 3)  Hidden features in the game
 
 > 1
-Who are you?
 
 Before we begin...
 Just a simple question: are you male or female?
@@ -17,8 +14,6 @@ Just a simple question: are you male or female?
 > male
    Male you are.
 -----Press a key-----
-
-Cell
 
 The cell
 A dismal and dank room, the 'cell' you find yourself in is not large but
@@ -109,8 +104,6 @@ I'll come with you then."
 
 Press a key to continue
 
-Laboratory
-
 The Laboratory
    Dusty and abandoned, the laboratory appears to have been wrecked at some
 time in the recent past: cabinets have been overturned, rows of strange
@@ -129,8 +122,6 @@ Exits lie: west (to the cell), north (to a door) and southeast (to a hallway)
 
 > se
 You move southeast.
-
-Shadowy hallway
 
 Shadowy Hallway
 The very atmosphere of this hallway seems wrong: the air a little too hard to
@@ -152,8 +143,6 @@ and southwest (to a further branching of the hallway)
 You move southwest.
 
 Dark passageway
-
-Dark passageway
 Here the hallway turns sharply, one branch heading off southwards into a
 dimly-lit room, the other to the northeast. There is little to see at this
 juncture aside from a single portrait affixed to the wall. It depicts a dark
@@ -173,8 +162,6 @@ spell. Shaking your head in confusion appears to dispel this.
 
    But when you look again you find you are not standing in the dark
 passageway any longer.
-
-Hidden room
 
 Hidden room
 This is just a small room, some eight feet by seven. At some time in the past
@@ -406,8 +393,6 @@ floor at your feet spins around, moving you back to the dark passageway once
 more.
 
 Dark passageway
-
-Dark passageway
 Here the hallway turns sharply, one branch heading off southwards into a
 dimly-lit room, the other to the northeast. There is little to see at this
 juncture aside from a single portrait affixed to the wall. It depicts a dark
@@ -418,8 +403,6 @@ Exits lie: northeast (to the hallway) and south (to the dimly-lit room)
 
 > south
 You move south.
-
-Dimly-lit room
 
 Dimly-lit room
 At some time in the past, this was no doubt a cosy dining room. It has long
@@ -512,8 +495,6 @@ box.
 You move north.
 
 Dark passageway
-
-Dark passageway
 Here the hallway turns sharply, one branch heading off southwards into a
 dimly-lit room, the other to the northeast. There is little to see at this
 juncture aside from a single portrait affixed to the wall. It depicts a dark
@@ -524,8 +505,6 @@ Exits lie: northeast (to the hallway) and south (to the dimly-lit room)
 
 > ne
 You move northeast.
-
-Shadowy hallway
 
 Shadowy Hallway
 The very atmosphere of this hallway seems wrong: the air a little too hard to
@@ -545,8 +524,6 @@ and southwest (to a further branching of the hallway)
 
 > nw
 You move northwest.
-
-Laboratory
 
 The Laboratory
    Dusty and abandoned, the laboratory appears to have been wrecked at some
@@ -640,8 +617,6 @@ weakly to the southeast.
 
 > north
 You move north.
-
-Study
 
 Study
 This room seems untouched by the passage of the years that have so affected
@@ -772,8 +747,6 @@ items have lost none of their potent power.
 > south
 You move south.
 
-Laboratory
-
 The Laboratory
    Dusty and abandoned, the laboratory appears to have been wrecked at some
 time in the recent past: cabinets have been overturned, rows of strange
@@ -790,8 +763,6 @@ Exits lie: west (to the cell), north (to a door) and southeast (to a hallway)
 
 > se
 You move southeast.
-
-Shadowy hallway
 
 Shadowy Hallway
 The very atmosphere of this hallway seems wrong: the air a little too hard to
@@ -813,8 +784,6 @@ and southwest (to a further branching of the hallway)
 You move southwest.
 
 Dark passageway
-
-Dark passageway
 Here the hallway turns sharply, one branch heading off southwards into a
 dimly-lit room, the other to the northeast. There is little to see at this
 juncture aside from a single portrait affixed to the wall. It depicts a dark
@@ -825,8 +794,6 @@ Exits lie: northeast (to the hallway) and south (to the dimly-lit room)
 
 > south
 You move south.
-
-Dimly-lit room
 
 Dimly-lit room
 At some time in the past, this was no doubt a cosy dining room. It has long
@@ -853,8 +820,6 @@ collection of herbs which you decide to take with you.
 You move north.
 
 Dark passageway
-
-Dark passageway
 Here the hallway turns sharply, one branch heading off southwards into a
 dimly-lit room, the other to the northeast. There is little to see at this
 juncture aside from a single portrait affixed to the wall. It depicts a dark
@@ -865,8 +830,6 @@ Exits lie: northeast (to the hallway) and south (to the dimly-lit room)
 
 > ne
 You move northeast.
-
-Shadowy hallway
 
 Shadowy Hallway
 The very atmosphere of this hallway seems wrong: the air a little too hard to
@@ -887,8 +850,6 @@ and southwest (to a further branching of the hallway)
 > nw
 You move northwest.
 
-Laboratory
-
 The Laboratory
    Dusty and abandoned, the laboratory appears to have been wrecked at some
 time in the recent past: cabinets have been overturned, rows of strange
@@ -905,8 +866,6 @@ Exits lie: west (to the cell), north (to a door) and southeast (to a hallway)
 
 > west
 You move west.
-
-Cell
 
 The cell
 A dismal and dank room, the 'cell' you find yourself in is not large but
@@ -969,8 +928,6 @@ You want me to follow you, just say so."
 > east
 You move east.
 
-Laboratory
-
 The Laboratory
    Dusty and abandoned, the laboratory appears to have been wrecked at some
 time in the recent past: cabinets have been overturned, rows of strange
@@ -989,8 +946,6 @@ Garrick walks towards you from the west.
 
 > se
 You move southeast.
-
-Shadowy hallway
 
 Shadowy Hallway
 The very atmosphere of this hallway seems wrong: the air a little too hard to
@@ -1012,8 +967,6 @@ and southwest (to a further branching of the hallway)
 
 > east
 You move east.
-
-Eastern hallway
 
 Eastern hallway
 You stand at the far eastern end of the hallway by a statue of an old, old
@@ -1052,8 +1005,6 @@ coin is crushed to dust.
 You move south.
 
 Ruined Stairs
-
-Ruined Stairs
 Here you find yourself at the base of a flight of ruined stairs which wind
 upwards into the very heart of the castle. Light leaks down from a doorway
 set perhaps fifty feet above you. The steps, which are of incredible age,
@@ -1067,8 +1018,6 @@ Exits lie: north (through the steel door) and up (the stairs)
 
 > up
    You move up.
-
-Top of the stairs
 
 Top of the Stairs
 A winding flight of ruined stairs lead downwards into the very depths of the
@@ -1085,8 +1034,6 @@ Garrick walks towards you from below.
 
 > north
 You move north.
-
-Empty room
 
 Empty room
 You expected to find this room full of people - but instead it appears
@@ -1106,8 +1053,6 @@ south.
 
 > se
 You move southeast.
-
-Library
 
 Deserted Library
 There is a feeling of great age about this location, as if the library has
@@ -1143,8 +1088,6 @@ would summon to life and speak the words of might"
 You move south.
 
 Passageway
-
-Passageway
 This short passageway extends from the library as far south as you can see.
 However, just ten feet from where you stand there is a gaping pit in the
 floor - it looks as if a mighty fist has smashed down and scooped out a
@@ -1169,8 +1112,6 @@ monsters...
 
    You fall further, down and down and down, until it seems that you will
 never stop falling...
-
-The Dream
 
 The Dream
 In a shadowy cellar you stand, the walls forever fading in and out of
@@ -1210,8 +1151,6 @@ this place."
 You move south.
 
 The Dream
-
-The Dream
 In a shadowy cellar you stand, the walls forever fading in and out of
 reality, the floor one moment there, the next gone, the ceiling the night sky
 and then the bright light of day...
@@ -1223,8 +1162,6 @@ Exits lie:  in many directions
 
 > west
 You move west.
-
-The Dream
 
 The Dream
 In a shadowy cellar you stand, the walls forever fading in and out of
@@ -1261,8 +1198,6 @@ will ever get the better of Vaslock."
 
 > east
 You move east.
-
-The Dream
 
 The Dream
 In a shadowy cellar you stand, the walls forever fading in and out of
@@ -1303,8 +1238,6 @@ to discover for yourself."
 You move west.
 
 The Dream
-
-The Dream
 In a shadowy cellar you stand, the walls forever fading in and out of
 reality, the floor one moment there, the next gone, the ceiling the night sky
 and then the bright light of day...
@@ -1316,8 +1249,6 @@ Exits lie:  in many directions
 
 > nw
 You move northwest.
-
-The Dream
 
 The Dream
 In a shadowy cellar you stand, the walls forever fading in and out of
@@ -1356,8 +1287,6 @@ take a bit more than a little cross to get the better of him."
 You move southeast.
 
 The Dream
-
-The Dream
 In a shadowy cellar you stand, the walls forever fading in and out of
 reality, the floor one moment there, the next gone, the ceiling the night sky
 and then the bright light of day...
@@ -1371,8 +1300,6 @@ Exits lie:  in many directions
 You move east.
 
 The Dream
-
-The Dream
 In a shadowy cellar you stand, the walls forever fading in and out of
 reality, the floor one moment there, the next gone, the ceiling the night sky
 and then the bright light of day...
@@ -1384,8 +1311,6 @@ Exits lie:  in many directions
 
 > north
 You move north.
-
-The Dream
 
 The Dream
 In a shadowy cellar you stand, the walls forever fading in and out of
@@ -1414,8 +1339,6 @@ this place and you will never leave alive."
 You move south.
 
 The Dream
-
-The Dream
 In a shadowy cellar you stand, the walls forever fading in and out of
 reality, the floor one moment there, the next gone, the ceiling the night sky
 and then the bright light of day...
@@ -1427,8 +1350,6 @@ Exits lie:  in many directions
 
 > west
 You move west.
-
-The Dream
 
 The Dream
 In a shadowy cellar you stand, the walls forever fading in and out of
@@ -1444,8 +1365,6 @@ Exits lie:  in many directions
 You move northwest.
 
 The Dream
-
-The Dream
 In a shadowy cellar you stand, the walls forever fading in and out of
 reality, the floor one moment there, the next gone, the ceiling the night sky
 and then the bright light of day...
@@ -1457,8 +1376,6 @@ Exits lie:  in many directions
 
 > sw
 You move southwest.
-
-The Dream
 
 The Dream
 In a shadowy cellar you stand, the walls forever fading in and out of
@@ -1495,8 +1412,6 @@ nothing more on the subject.
 You move southeast.
 
 The Dream
-
-The Dream
 In a shadowy cellar you stand, the walls forever fading in and out of
 reality, the floor one moment there, the next gone, the ceiling the night sky
 and then the bright light of day...
@@ -1525,8 +1440,6 @@ Do with it as you want. Only leave me be."
 
 > east
 You move east.
-
-The Dream
 
 The Dream
 In a shadowy cellar you stand, the walls forever fading in and out of
@@ -1564,8 +1477,6 @@ bother me anymore."
 You move northeast.
 
 The Dream
-
-The Dream
 In a shadowy cellar you stand, the walls forever fading in and out of
 reality, the floor one moment there, the next gone, the ceiling the night sky
 and then the bright light of day...
@@ -1577,8 +1488,6 @@ Exits lie:  in many directions
 
 > north
 You move north.
-
-The Dream
 
 The Dream
 In a shadowy cellar you stand, the walls forever fading in and out of
@@ -1622,8 +1531,6 @@ towards you.
 > look
 
 Passageway
-
-Passageway
 This short passageway extends from the library as far south as you can see.
 However, just ten feet from where you stand there is a gaping pit in the
 floor - it looks as if a mighty fist has smashed down and scooped out a
@@ -1648,8 +1555,6 @@ key.
 > north
 You move north.
 
-Library
-
 Deserted Library
 There is a feeling of great age about this location, as if the library has
 stood here since time immemorial. Cobwebs cover all surfaces, lending an
@@ -1669,8 +1574,6 @@ Exits lie: northwest (to the empty room) and south (to a passageway)
 You move northwest.
 
 Empty room
-
-Empty room
 You expected to find this room full of people - but instead it appears
 deserted. What happened to the voices and laughter you heard? Or did you hear
 them at all?
@@ -1686,8 +1589,6 @@ southeast (through an archway) and south (to the top of the stairs)
 
 > nw
 You move northwest.
-
-Passage
 
 Passage
 The passage widens somewhat here and to the west you can make out what
@@ -1873,8 +1774,6 @@ that seems to have changed is the word in the back of your mind - 'lies'.
 You move west.
 
 The Pit
-
-The Pit
 You find yourself standing at the very edge of a pit which has been dug into
 the floor of this chamber. Flames shoot up at regular intervals, searing the
 air with tremendous heat. What is causing this you do not know, but you sense
@@ -1915,8 +1814,6 @@ interrupted them at all.
 
 > north
 You move north.
-
-Cells
 
 Cells
 You stand in a disheartening place: surrounding you in all directions save
@@ -2003,8 +1900,6 @@ have to do next.
 You move south.
 
 The Pit
-
-The Pit
 You find yourself standing at the very edge of a pit which has been dug into
 the floor of this chamber. Flames shoot up at regular intervals, searing the
 air with tremendous heat. What is causing this you do not know, but you sense
@@ -2026,8 +1921,6 @@ Exits lie:  north (to the openings) and east (to the passage)
 You move east.
 
 Passage
-
-Passage
 The passage widens somewhat here and to the west you can make out what
 appears to be a large open area with a pit in the centre. A fire burns in
 this pit. Seated around the pit, their eyes as larger as saucers, are a group
@@ -2047,8 +1940,6 @@ Exits lie: west (to the pit) and southeast (to the empty room)
 You move southeast.
 
 Empty room
-
-Empty room
 You expected to find this room full of people - but instead it appears
 deserted. What happened to the voices and laughter you heard? Or did you hear
 them at all?
@@ -2066,8 +1957,6 @@ Garrick walks towards you from the north-west.
 > south
 You move south.
 
-Top of the stairs
-
 Top of the Stairs
 A winding flight of ruined stairs lead downwards into the very depths of the
 castle. Looking at them gives you a bad attack of vertigo.
@@ -2083,8 +1972,6 @@ Exits lie: down (the stairs) and north (through the door)
    You move down.
 
 Ruined Stairs
-
-Ruined Stairs
 Here you find yourself at the base of a flight of ruined stairs which wind
 upwards into the very heart of the castle. Light leaks down from a doorway
 set perhaps fifty feet above you. The steps, which are of incredible age,
@@ -2098,8 +1985,6 @@ Garrick walks towards you from above.
 
 > north
 You move north.
-
-Eastern hallway
 
 Eastern hallway
 You stand at the far eastern end of the hallway by a statue of an old, old
@@ -2120,8 +2005,6 @@ Exits lie: west (to the shadowy hallway) and south (through the steel door)
 
 > west
 You move west.
-
-Shadowy hallway
 
 Shadowy Hallway
 The very atmosphere of this hallway seems wrong: the air a little too hard to
@@ -2144,8 +2027,6 @@ and southwest (to a further branching of the hallway)
 > nw
 You move northwest.
 
-Laboratory
-
 The Laboratory
    Dusty and abandoned, the laboratory appears to have been wrecked at some
 time in the recent past: cabinets have been overturned, rows of strange
@@ -2163,7 +2044,6 @@ Exits lie: west (to the cell), north (to a door) and southeast (to a hallway)
   Garrick walks towards you from the south-east.
 
 > west
-Cell
 
 The cell
 A dismal and dank room, the 'cell' you find yourself in is not large but
@@ -2208,8 +2088,6 @@ the east.
 > east
 You move east.
 
-Laboratory
-
 The Laboratory
    Dusty and abandoned, the laboratory appears to have been wrecked at some
 time in the recent past: cabinets have been overturned, rows of strange
@@ -2228,8 +2106,6 @@ Garrick walks towards you from the west.
 
 > se
 You move southeast.
-
-Shadowy hallway
 
 Shadowy Hallway
 The very atmosphere of this hallway seems wrong: the air a little too hard to
@@ -2253,8 +2129,6 @@ and southwest (to a further branching of the hallway)
 You move east.
 
 Eastern hallway
-
-Eastern hallway
 You stand at the far eastern end of the hallway by a statue of an old, old
 man dressed in robes that appear to be made (or maybe it is just the way the
 statue is constucted) from bones. It sends a shiver through you just looking
@@ -2275,8 +2149,6 @@ Exits lie: west (to the shadowy hallway) and south (through the steel door)
 You move south.
 
 Ruined Stairs
-
-Ruined Stairs
 Here you find yourself at the base of a flight of ruined stairs which wind
 upwards into the very heart of the castle. Light leaks down from a doorway
 set perhaps fifty feet above you. The steps, which are of incredible age,
@@ -2291,8 +2163,6 @@ Exits lie: north (through the steel door) and up (the stairs)
 
 > up
    You move up.
-
-Top of the stairs
 
 Top of the Stairs
 A winding flight of ruined stairs lead downwards into the very depths of the
@@ -2321,8 +2191,6 @@ down.
 You move north.
 
 Empty room
-
-Empty room
 You expected to find this room full of people - but instead it appears
 deserted. What happened to the voices and laughter you heard? Or did you hear
 them at all?
@@ -2339,8 +2207,6 @@ Garrick walks towards you from the south.
 
 > east
 You move east.
-
-Eastern passage
 
 Eastern passage
 This passage runs in a rough east-west direction and appears to be almost
@@ -2376,8 +2242,6 @@ in horror as the beast finally sinks to the floor, its death throes over.
 You move east.
 
 Sloping Corridor
-
-Sloping Corridor
 Here the corridor slopes abruptly upwards to the third level of the castle.
 The floor here appears of a more modern appearance than what you have seen
 thus far, and cleaner besides indicating that this section of the castle is
@@ -2394,8 +2258,6 @@ Garrick walks towards you from the west.
 
 > north
 You move north.
-
-Ancient Feasthall
 
 Ancient Feasthall
 Perhaps several centuries past, this was the main feasthall of the castle. A
@@ -2418,8 +2280,6 @@ archway) and south (to the sloping corridor)
 You move north.
 
 Goblin Chamber
-
-Goblin Chamber
 Whether the occupant of this chamber is truly a goblin or just an incredibly
 filthy human you have no idea, but the smell in here is quite
 stomach-turning. It is all you can do to prevent yourself throwing up in
@@ -2438,8 +2298,6 @@ bit smaller afterwards.
 
 > south
 You move south.
-
-Ancient Feasthall
 
 Ancient Feasthall
 Perhaps several centuries past, this was the main feasthall of the castle. A
@@ -2462,8 +2320,6 @@ archway) and south (to the sloping corridor)
 You move west.
 
 End of Corridor
-
-End of Corridor
 The corridor ends here with each of the three walls being taken up by a
 single door. Each door has a plaque attached to it, perhaps giving a hint as
 to what lies within.
@@ -2479,7 +2335,6 @@ feasthall
   Garrick walks towards you from the east.
 
 > south
-The Pool
 
 The Pool
 Light from a single glowing globe set into the ceiling of this room is
@@ -2516,8 +2371,6 @@ clarity and a moment later seem nothing more than stone once again.
 You move north.
 
 End of Corridor
-
-End of Corridor
 The corridor ends here with each of the three walls being taken up by a
 single door. Each door has a plaque attached to it, perhaps giving a hint as
 to what lies within.
@@ -2534,8 +2387,6 @@ feasthall
 
 > east
 You move east.
-
-Ancient Feasthall
 
 Ancient Feasthall
 Perhaps several centuries past, this was the main feasthall of the castle. A
@@ -2619,8 +2470,6 @@ their absence and coming to investigate."
 You move west.
 
 End of Corridor
-
-End of Corridor
 The corridor ends here with each of the three walls being taken up by a
 single door. Each door has a plaque attached to it, perhaps giving a hint as
 to what lies within.
@@ -2637,8 +2486,6 @@ feasthall
 
 > south
 You move south.
-
-The Pool
 
 The Pool
 Light from a single glowing globe set into the ceiling of this room is
@@ -2669,8 +2516,6 @@ surprised to find her skin is no longer stone, it is human flesh once more.
 You move north.
 
 End of Corridor
-
-End of Corridor
 The corridor ends here with each of the three walls being taken up by a
 single door. Each door has a plaque attached to it, perhaps giving a hint as
 to what lies within.
@@ -2687,8 +2532,6 @@ feasthall
 
 > west
 You move west.
-
-Strange Room
 
 Strange Room
 You find yourself in a room of strange proportions: the ceiling appears to
@@ -2712,8 +2555,6 @@ idol tucked into a crack in one wall.
 
 > north
 You move north.
-
-Toril's Chambers
 
 Toril's Chambers
 Protected by priestly wards, this is the one chamber in the castle Count
@@ -2776,7 +2617,6 @@ woodlice. There is a single drawer in the desk which at the moment is closed.
 seemingly unmarked by age, a silver dagger which you quickly take.
 
 > south
-Strange Room
 
 Strange Room
 You find yourself in a room of strange proportions: the ceiling appears to
@@ -2797,8 +2637,6 @@ the north.
 You move east.
 
 End of Corridor
-
-End of Corridor
 The corridor ends here with each of the three walls being taken up by a
 single door. Each door has a plaque attached to it, perhaps giving a hint as
 to what lies within.
@@ -2815,8 +2653,6 @@ feasthall
 
 > sw
 You move southwest.
-
-Kitchen
 
 Kitchen
 In the centre of this room is a large pot resting on a pile of logs, some of
@@ -2855,8 +2691,6 @@ You take the jug.
 You move northeast.
 
 End of Corridor
-
-End of Corridor
 The corridor ends here with each of the three walls being taken up by a
 single door. Each door has a plaque attached to it, perhaps giving a hint as
 to what lies within.
@@ -2873,7 +2707,6 @@ feasthall
   Garrick walks towards you from the south-west.
 
 > east
-Ancient Feasthall
 
 Ancient Feasthall
 Perhaps several centuries past, this was the main feasthall of the castle. A
@@ -2906,7 +2739,6 @@ done and will doubtless send someone to investigate very soon."
 the west.
 
 > east
-Room
 
 Room
 The walls of this small room are daubed with blood. The source is easy to
@@ -2957,8 +2789,6 @@ thank you for this.'
 You move west.
 
 Ancient Feasthall
-
-Ancient Feasthall
 Perhaps several centuries past, this was the main feasthall of the castle. A
 row of tables surround a central pit dug into the floor. You suspect that in
 olden times a mighty fire would light and heat the room from this pit, which
@@ -2979,8 +2809,6 @@ archway) and south (to the sloping corridor)
 You move south.
 
 Sloping Corridor
-
-Sloping Corridor
 Here the corridor slopes abruptly upwards to the third level of the castle.
 The floor here appears of a more modern appearance than what you have seen
 thus far, and cleaner besides indicating that this section of the castle is
@@ -2999,8 +2827,6 @@ Exits lie: west (to the passageway) and north (the sloping corridor)
 You move west.
 
 Eastern passage
-
-Eastern passage
 This passage runs in a rough east-west direction and appears to be almost
 completely unremarkable aside from a chalk drawing on the floor. The drawing
 is that of a demonic face, rendered well despite the roughness of the floor.
@@ -3015,8 +2841,6 @@ Exits lie: west (to the empty room) and east (to the shadowy archway)
 
 > west
 You move west.
-
-Empty room
 
 Empty room
 You expected to find this room full of people - but instead it appears
@@ -3035,8 +2859,6 @@ southeast (through an archway) and south (to the top of the stairs)
 
 > south
 You move south.
-
-Top of the stairs
 
 Top of the Stairs
 A winding flight of ruined stairs lead downwards into the very depths of the
@@ -3057,8 +2879,6 @@ crashing to the bottom of the stairs.
    You grimly pick yourself up. You are winded but do not seem badly hurt.
 
 Ruined Stairs
-
-Ruined Stairs
 Here you find yourself at the base of a flight of ruined stairs which wind
 upwards into the very heart of the castle. Light leaks down from a doorway
 set perhaps fifty feet above you. The steps, which are of incredible age,
@@ -3073,8 +2893,6 @@ Garrick walks towards you from above.
 
 > north
 You move north.
-
-Eastern hallway
 
 Eastern hallway
 You stand at the far eastern end of the hallway by a statue of an old, old
@@ -3095,8 +2913,6 @@ Exits lie: west (to the shadowy hallway) and south (through the steel door)
 
 > west
 You move west.
-
-Shadowy hallway
 
 Shadowy Hallway
 The very atmosphere of this hallway seems wrong: the air a little too hard to
@@ -3120,8 +2936,6 @@ and southwest (to a further branching of the hallway)
 You move southwest.
 
 Dark passageway
-
-Dark passageway
 Here the hallway turns sharply, one branch heading off southwards into a
 dimly-lit room, the other to the northeast. There is little to see at this
 juncture aside from a single portrait affixed to the wall. It depicts a dark
@@ -3135,8 +2949,6 @@ Exits lie: northeast (to the hallway) and south (to the dimly-lit room)
 
 > south
 You move south.
-
-Dimly-lit room
 
 Dimly-lit room
 At some time in the past, this was no doubt a cosy dining room. It has long
@@ -3185,8 +2997,6 @@ now."
 You move north.
 
 Dark passageway
-
-Dark passageway
 Here the hallway turns sharply, one branch heading off southwards into a
 dimly-lit room, the other to the northeast. There is little to see at this
 juncture aside from a single portrait affixed to the wall. It depicts a dark
@@ -3200,8 +3010,6 @@ Exits lie: northeast (to the hallway) and south (to the dimly-lit room)
 
 > ne
 You move northeast.
-
-Shadowy hallway
 
 Shadowy Hallway
 The very atmosphere of this hallway seems wrong: the air a little too hard to
@@ -3226,8 +3034,6 @@ and southwest (to a further branching of the hallway)
 You move east.
 
 Eastern hallway
-
-Eastern hallway
 You stand at the far eastern end of the hallway by a statue of an old, old
 man dressed in robes that appear to be made (or maybe it is just the way the
 statue is constucted) from bones. It sends a shiver through you just looking
@@ -3248,8 +3054,6 @@ Exits lie: west (to the shadowy hallway) and south (through the steel door)
 You move south.
 
 Ruined Stairs
-
-Ruined Stairs
 Here you find yourself at the base of a flight of ruined stairs which wind
 upwards into the very heart of the castle. Light leaks down from a doorway
 set perhaps fifty feet above you. The steps, which are of incredible age,
@@ -3264,8 +3068,6 @@ Exits lie: north (through the steel door) and up (the stairs)
 > up
    You move up.
 
-Top of the stairs
-
 Top of the Stairs
 A winding flight of ruined stairs lead downwards into the very depths of the
 castle. Looking at them gives you a bad attack of vertigo.
@@ -3279,8 +3081,6 @@ Garrick walks towards you from below.
 
 > north
 You move north.
-
-Empty room
 
 Empty room
 You expected to find this room full of people - but instead it appears
@@ -3301,8 +3101,6 @@ Garrick walks towards you from the south.
 You move east.
 
 Eastern passage
-
-Eastern passage
 This passage runs in a rough east-west direction and appears to be almost
 completely unremarkable aside from a chalk drawing on the floor. The drawing
 is that of a demonic face, rendered well despite the roughness of the floor.
@@ -3317,8 +3115,6 @@ Exits lie: west (to the empty room) and east (to the shadowy archway)
 
 > east
 You move east.
-
-Sloping Corridor
 
 Sloping Corridor
 Here the corridor slopes abruptly upwards to the third level of the castle.
@@ -3336,8 +3132,6 @@ Garrick walks towards you from the west.
 
 > north
 You move north.
-
-Ancient Feasthall
 
 Ancient Feasthall
 Perhaps several centuries past, this was the main feasthall of the castle. A
@@ -3361,8 +3155,6 @@ archway) and south (to the sloping corridor)
 You move northeast.
 
 Corridor
-
-Corridor
 Just northeast of the feasthall, the corridor widens dramatically until the
 sides are some thirty feet apart. The reason for the widening is apparent a
 little way further on - a large statue has been erected. Further details are
@@ -3379,8 +3171,6 @@ the sound of a door slamming and footsteps heading in this direction.
 
 > ne
 You move northeast.
-
-The Statue
 
 The Statue
 Rising majestically in the centre of this chamber is a statue that stands
@@ -3447,8 +3237,6 @@ YOUR JOURNAL HAS BEEN UPDATED - PAGE 17
 Press a key to continue
 
 Deathly Chamber
-
-Deathly Chamber
 You find yourself wading through blood which has flooded this room to a depth
 of around three feet. Around the stone walls are chained skeletons, one at
 each of the major compass points, their bones rattling as the swirling
@@ -3464,8 +3252,6 @@ Exits lie: north (along the passage) and south (through the dark archway)
 You move north.
 
 Dark Passageway
-
-Dark Passageway
 You crouch at the southern end of a dark passageway which splits further to
 the north, branches leading off in a multitude of directions. Trooping from
 one of the branches is a line of slaves, their hands cuffed together, their
@@ -3477,8 +3263,6 @@ Exits lie: north (to the junction), south (to the deathly chamber) and east
 
 > east
 You move east.
-
-Small Alcove
 
 Small Alcove
 You are crouched in an alcove barely half a dozen feet across. There is the
@@ -3568,8 +3352,6 @@ YOUR JOURNAL HAS BEEN UPDATED - PAGE 18
 You move west.
 
 Dark Passageway
-
-Dark Passageway
 You crouch at the southern end of a dark passageway which splits further to
 the north, branches leading off in a multitude of directions. Trooping from
 one of the branches is a line of slaves, their hands cuffed together, their
@@ -3580,7 +3362,6 @@ Exits lie: north (to the junction), south (to the deathly chamber) and east
 (to a small alcove)
 
 > north
-Junction
 
 Junction
 Several passageways meet here, one from the north, one from the northeast,
@@ -3603,8 +3384,6 @@ make too much noise.
 You move northeast.
 
 Top of Steps
-
-Top of Steps
 Here, a flight of steps lead down into the inky darkness below. Cold fingers
 crawl along your spine as you peer into the depths and hear the cries and
 gasps and howls and screams of the things that live in the dark. Partway down
@@ -3623,8 +3402,6 @@ you have passed some kind of test.
 
 > down
 You move down.
-
-Crypt
 
 Crypt
 At the base of the steps, you find yourself in a large, vaulted chamber. The
@@ -3771,8 +3548,6 @@ more than he anticipated.
 You move up.
 
 Top of Steps
-
-Top of Steps
 Here, a flight of steps lead down into the inky darkness below. Cold fingers
 crawl along your spine as you peer into the depths and hear the cries and
 gasps and howls and screams of the things that live in the dark. Partway down
@@ -3782,8 +3557,6 @@ Exits lie: southwest (to the junction) and down (the steps)
 
 > sw
 You move southwest.
-
-Junction
 
 Junction
 Several passageways meet here, one from the north, one from the northeast,
@@ -3826,8 +3599,6 @@ and will no doubt be a useful ally in this place.
 You move east.
 
 End of Passage
-
-End of Passage
 The short passage you have been following comes to an end here at a stout
 wooden door which unsurprisingly, you find locked. A skull has been mounted
 on a stone shelf above the door, the jaws propped open with a stick. Red
@@ -3844,8 +3615,6 @@ room beyond.
 
 > se
    You move southeast.
-
-Storeroom
 
 Storeroom
 In years long gone, this room would have served as the main storeroom for the
@@ -3884,8 +3653,6 @@ Time passes...
 You move northwest.
 
 End of Passage
-
-End of Passage
 The short passage you have been following comes to an end here at a stout
 wooden door which now stands open. A skull has been mounted on a stone shelf
 above the door, the jaws propped open with a stick. Red gemstones shine in
@@ -3897,8 +3664,6 @@ Exits lie: west (to the junction) and southeast (to the storeroom)
 
 > west
 You move west.
-
-Junction
 
 Junction
 Several passageways meet here, one from the north, one from the northeast,
@@ -3917,7 +3682,6 @@ Exits lie: north, northeast, south and east (along passageways)
   Gragor follows you from the east.
 
 > west
-Dark Tunnel [1]
 
 Dark Tunnel
 Just beyond the broken gateway, you find a tunnel, the walls of which are
@@ -3960,8 +3724,6 @@ dust.
 > west
 You move west.
 
-Dark Tunnel [2]
-
 Dark Tunnel
 The tunnel slopes upwards here and begins to spread out a little. The walls
 are now perhaps fifteen feet apart and decorated with ornate mosaics, some
@@ -3977,8 +3739,6 @@ Exits lie: west and east (along tunnel)
 
 > west
 You move west.
-
-Dark Tunnel [3]
 
 Dark Tunnel
 You appear to have reached the end of the tunnel. Facing you is a solid block
@@ -4000,8 +3760,6 @@ slides effortlessly to one side. A passage is revealed beyond.
 You move west.
 
 Passage
-
-Passage
 You stand in a passage. The floor is worn by the tread of many feet.
 Eastwards the passage ends at an opening, beyond which you can see a dark
 tunnel disappearing into the distance. Westwards the passage slopes upwards.
@@ -4012,8 +3770,6 @@ Exits lie: east (to the dark tunnel) and west (to the sloping passage)
 
 > west
 You move west.
-
-Sloping Passage
 
 Sloping Passage
 The passage slopes upwards, ending finally at a simple wooden door with a
@@ -4055,7 +3811,6 @@ said would ward him against vampires. You take it, knowing he would wish you
 to have it.
 
 > west
-Lair of the Vampire
 
 Lair of the Vampire
 You stand in a massive chamber carved into the heart of the castle. Black

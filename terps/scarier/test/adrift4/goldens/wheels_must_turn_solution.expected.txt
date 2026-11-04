@@ -17,7 +17,6 @@ Second-place winner of the Official ADRIFT Spring MiniComp 2001
 First-time players should type "info".
 
 Walking in the Hamster Wheel
-Walking in the Hamster Wheel
 Calloused and wretchedly metronomic, the feet below you revolve the
 cylindrical frame of the hamster wheel around your besmirched form.  You
 ignore the moans and murky odors of fellow laborers, concentrate on the
@@ -210,7 +209,6 @@ departure.
 > down
 You scramble down the orange, dusty throat of the rent.
 
-Below the Warehouse
 Below the Warehouse
 Orange light envelops this place like a thick cumulus.  The ground is
 composed of an orange, spongy material, from which emerge pseudopods of

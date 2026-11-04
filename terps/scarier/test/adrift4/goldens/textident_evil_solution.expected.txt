@@ -25,8 +25,6 @@ escape! The alternative is too horrible to contemplate...
 
 Wrecked Street
 
-Wrecked Street
-
 This east/west thoroughfare is covered with debris and trash. It looks like a
 riot occured here. In the distance, you hear the distinctive sound of
 screaming. To the north lies the store window of a pawn shop--amazingly, it
@@ -104,8 +102,6 @@ You move west.
 
 Intersection
 
-Intersection
-
 This is (or was) the main throughfare through Raccoon City. A four-lane
 highway that is now littered with flaming wrecks and bodies. Some of them
 seem to be twitching... Looking back the way you came, you can see a dozen
@@ -115,8 +111,6 @@ the wrecks to the north.
 
 > n
 You move north.
-
-Highway
 
 Highway
 
@@ -139,8 +133,6 @@ You pick up the clip of pistol ammo.
 
 > e
 You move east.
-
-Pawn Shop
 
 Pawn Shop
 
@@ -179,8 +171,6 @@ You move east.
 
 Office
 
-Office
-
 This cramped space is just big enough for a desk and a few battered filing
 cabinets. The smell of cigarette smoke seems infused in the walls here. A
 door to the west leads back out.
@@ -212,8 +202,6 @@ You move west.
 
 Pawn Shop
 
-Pawn Shop
-
 This room is cluttered and grimy. The only open space is in the center of the
 floor, and a large pool of blood fills it. The owner of the plasma, however,
 doesn't appear to be in evidence. A metal door to the west leads back
@@ -222,8 +210,6 @@ broken window also provides a way out.
 
 > w
 You move west.
-
-Highway
 
 Highway
 
@@ -239,8 +225,6 @@ You quickly load the pistol and cock it. Ready to go.
 
 > n
 You move north.
-
-End of Highway
 
 End of Highway
 
@@ -273,8 +257,6 @@ You move east.
 
 Quiet Street
 
-Quiet Street
-
 This street seems unnatuarally quiet and empty. The only sound is faint and
 disquieting. It sounds like the repeated whining of a rabid cat. The only way
 off this road is to the west (where a bigger north/south road can be
@@ -296,8 +278,6 @@ You quickly chew the bitter herb--and feel life returning to your body!
 
 > n
 You move north.
-
-Stinking Hallway
 
 Stinking Hallway
 
@@ -331,8 +311,6 @@ You move up.
 
 Second Floor
 
-Second Floor
-
 The second floor of the tenement building is as filthy as the first. Further
 access up the stairs is blocked by a barricade made of mattresses. You can
 see the glow of fires through the window at the south end of the hall.
@@ -347,8 +325,6 @@ SMASH!
 backwards in terror. With a horrible grinding sound, the door wrenches off
 and slams onto the floor. Another of those...things! It shuffles down the
 hall towards you, it's filthy, clawed hands swiping at you...
-
-End of Hall
 
 End of Hall
 
@@ -379,8 +355,6 @@ fire-escape.
 
 > s
 You move south.
-
-Fire-escape
 
 Fire-escape
 

@@ -12,12 +12,9 @@ dead one, boss. Rossetter Street. Be there or be a funny shaped thing."
 
    A murder, eh? Just my line of business.
 
-Intro
-
 Do you want instructions (y/n)?
 
 > n
-My hotel room
 MY HOTEL ROOM
 
    This is my hotel room, which is not a pretty sight at the best of times
@@ -84,7 +81,6 @@ Time passes...
 Time passes...
 
 > s
-A small corridor
 A SMALL CORRIDOR
 
    I am in a small corridor outside my room which lies to the north. A flight
@@ -93,7 +89,6 @@ of stairs lead down to the lobby.
 > d
 I move down.
 
-The lobby of the Dorkchester
 THE LOBBY OF THE DORKCHESTER
 
    I am in the lobby of the Dorkchester, a quaint (read 'cheap') hotel in the
@@ -104,8 +99,6 @@ clerk is here.
 
 > e
 I move east.
-
-The Dorkchester's bar
 
 THE DORKCHESTER'S BAR
 
@@ -161,7 +154,6 @@ when you need info and I'll do what I can. Anyway, be seeing you."
 > w
 I move west.
 
-The lobby of the Dorkchester
 THE LOBBY OF THE DORKCHESTER
 
    I am in the lobby of the Dorkchester, a quaint (read 'cheap') hotel in the
@@ -173,8 +165,6 @@ clerk is here.
 > s
 I move south.
 
-Chalfont Street
-
 CHALFONT STREET
 
    I am on Chalfont Street, just a few steps south of the lobby of the
@@ -184,7 +174,6 @@ either of those directions. Here is my (for want of a better word) 'car'. It
 does not look well.
 
 > enter car
-My car
 
 MY CAR
 
@@ -211,7 +200,6 @@ pedestrians, and even clipping a couple of fire hydrants for good measure.
    Before long I arrive at Rossetter Street.
 
 > out
-Rossetter Street
 
 ROSSETTER STREET
 
@@ -221,7 +209,6 @@ where even the most hard on his luck detective couldn't obtain a free drink
 (believe me, I've tried). My car is parked here.
 
 > n
-Hard Bar
 
 THE HARD BAR
 
@@ -243,7 +230,6 @@ they look a bit dodgy. Evidence, of all things, is required these days.
 northeast.
 
 > ne
-Office
 
 THE HARD BAR'S OFFICE
 
@@ -282,8 +268,6 @@ the rest of the day off. I don't feel so well."
 > sw
 I move southwest.
 
-Hard Bar
-
 THE HARD BAR
 
    I find myself in the Hard Bar, which is commonly known as the most
@@ -296,8 +280,6 @@ after pint of what passes for beer in this place.
 > s
 I move south.
 
-Rossetter Street
-
 ROSSETTER STREET
 
    I am midway up Rossetter Street which lies in the centre of the hard part
@@ -306,7 +288,6 @@ where even the most hard on his luck detective couldn't obtain a free drink
 (believe me, I've tried). My car is parked here.
 
 > enter car
-My car
 
 MY CAR
 
@@ -323,7 +304,6 @@ wing mirrors off on the way and 'accidentally' knock a cyclist into a storm
 drain, before arriving at Slazenger Heights.
 
 > out
-Slazenger Heights
 
 SLAZENGER HEIGHTS
 
@@ -335,8 +315,6 @@ Before me to the south rises a classy condominium. Nearby lurks my 'car'.
 > s
 I move south.
 
-Condominium
-
 A POSH CONDOMINIUM
 
    This place has Class with a capital C. There are actual palm trees in the
@@ -347,8 +325,6 @@ span that I feel more out of place than ever.
 
 > u
 I move up.
-
-1st Floor
 
 THE 1ST FLOOR
 
@@ -371,7 +347,6 @@ Sandra McAvity standing there with her gun out.
    "In you come, boss" she says.
 
 > n
-Tricia Munrowe's apartment
 
 TRICIA MUNROWE'S APARTMENT
 
@@ -412,8 +387,6 @@ recognise him if I saw him again."
 > s
 I move south.
 
-1st Floor
-
 THE 1ST FLOOR
 
    I'm on the 1st Floor of the condominium. More stairs lead up to the upper
@@ -424,8 +397,6 @@ north.  Tricia Munrowe enters from the north.
 
 > d
 I move down.
-
-Condominium
 
 A POSH CONDOMINIUM
 
@@ -439,8 +410,6 @@ above.  Tricia Munrowe enters from above.
 > n
 I move north.
 
-Slazenger Heights
-
 SLAZENGER HEIGHTS
 
    This is the posh part of town. I can tell because I've never felt so out
@@ -450,7 +419,6 @@ Before me to the south rises a classy condominium. Nearby lurks my 'car'.
 Officer McAvity enters from the south.  Tricia Munrowe enters from the south.
 
 > enter car
-My car
 
 MY CAR
 
@@ -468,7 +436,6 @@ and over a field where several boys are kicking a football - and soon arrive
 home.
 
 > out
-Sleze Row
 
 SLEZE ROW
 
@@ -483,8 +450,6 @@ I unlock and open my front door.
 
 > n
 I move north.
-
-Front room
 
 MY FRONT ROOM
 
@@ -505,8 +470,6 @@ with me.
 > ne
 I move northeast.
 
-Kitchen
-
 MY KITCHEN
 
    This is my kitchen. It isn't spic and it isn't span but it has lots of
@@ -524,8 +487,6 @@ I take the bag of sweets.
 > sw
 I move southwest.
 
-Front room
-
 MY FRONT ROOM
 
    My front room. I could describe this location as cosy but that would be a
@@ -538,8 +499,6 @@ north-east.
 
 > n
 I move north.
-
-Bedroom
 
 MY BEDROOM
 
@@ -577,8 +536,6 @@ me feels disappointed at this for reasons I can't define.
 > in
 I move in.
 
-Closet
-
 THE CLOSET
 
    I am in my closet. There isn't a lot to see here so if you were expecting
@@ -600,8 +557,6 @@ I take the riot gear.
 > out
 I move out.
 
-Bedroom
-
 MY BEDROOM
 
    My bedroom. And a depressing sight it is too. Someone tried to waste me
@@ -614,8 +569,6 @@ enters from inside.  Tricia Munrowe enters from inside.
 > s
 I move south.
 
-Front room
-
 MY FRONT ROOM
 
    My front room. I could describe this location as cosy but that would be a
@@ -627,8 +580,6 @@ McAvity enters from the north.  Tricia Munrowe enters from the north.
 
 > e
 I move east.
-
-Sitting room
 
 MY SITTING ROOM
 
@@ -656,8 +607,6 @@ I am already carrying the comic.
 > w
 I move west.
 
-Front room
-
 MY FRONT ROOM
 
    My front room. I could describe this location as cosy but that would be a
@@ -670,8 +619,6 @@ McAvity enters from the east.  Tricia Munrowe enters from the east.
 > s
 I move south.
 
-Sleze Row
-
 SLEZE ROW
 
    I am outside my house on a thoroughfare known as Sleze Row (yes, I've
@@ -682,7 +629,6 @@ front door is north.  Officer McAvity enters from the north.  Tricia Munrowe
 enters from the north.
 
 > enter car
-My car
 
 MY CAR
 
@@ -702,7 +648,6 @@ When I arrive at Congleton Plaza, I seem to have a new collection of dents in
 my fender. Funny, I don't remember running over anyone...
 
 > out
-Congleton Plaza
 
 CONGLETON PLAZA
 
@@ -714,8 +659,6 @@ Munrowe enters.
 
 > n
 I move north.
-
-Police station
 
 POLICE STATION
 
@@ -741,8 +684,6 @@ appear anywhere.
 
 > n
 I move north.
-
-My office
 
 MY OFFICE
 
@@ -815,8 +756,6 @@ sounds more dramatic if I phrase it that way).
 > s
 I move south.
 
-Police station
-
 POLICE STATION
 
    I am in my everyday place of work - the police station. It looks pretty
@@ -830,8 +769,6 @@ asleep here.  Officer McAvity enters from the north.
 > u
 I move up.
 
-Upper floor
-
 UPPER FLOOR
 
    This is the upper floor of the police station, where one day (if I play my
@@ -842,7 +779,6 @@ and east is Captain Slorb's office. Downwards are the stairs I just came up.
 Captain Slorb's receptionist is here.  Officer McAvity enters from below.
 
 > e
-Captain Slorb's office
 
 CAPTAIN SLORB'S OFFICE
 
@@ -868,8 +804,6 @@ chinwag."
 > w
 I move west.
 
-Upper floor
-
 UPPER FLOOR
 
    This is the upper floor of the police station, where one day (if I play my
@@ -881,8 +815,6 @@ Captain Slorb's receptionist is here.  Officer McAvity enters from the east.
 
 > d
 I move down.
-
-Police station
 
 POLICE STATION
 
@@ -897,8 +829,6 @@ asleep here.  Officer McAvity enters from above.
 > s
 I move south.
 
-Congleton Plaza
-
 CONGLETON PLAZA
 
    I am standing by my has-definitely-seen-better-days car outside the police
@@ -908,7 +838,6 @@ has me beat. Steps lead up to the entrance.  Officer McAvity enters from
 above.
 
 > enter car
-My car
 
 MY CAR
 
@@ -926,7 +855,6 @@ some reason has become attached to my front windscreen and take a look
 around.
 
 > out
-Bourbon Street
 
 BOURBON STREET
 
@@ -937,8 +865,6 @@ shops. My car is parked nearby.  Officer McAvity enters.
 
 > ne
 I move northeast.
-
-Cafe
 
 CAFE
 
@@ -964,8 +890,6 @@ might as well have it. It's no use to me."
 > sw
 I move southwest.
 
-Bourbon Street
-
 BOURBON STREET
 
    I'm to the southwest of a small cafe on Bourbon Street. Workmen have dug
@@ -974,7 +898,6 @@ thwarting any hopes I might have had to have a quick stroll around the local
 shops. My car is parked nearby.  Officer McAvity enters from the north-east.
 
 > enter car
-My car
 
 MY CAR
 
@@ -991,7 +914,6 @@ I take a shortcut I know through Walker Boulevard Market and arrive at
 Chalfont Street in good time.
 
 > out
-Chalfont Street
 
 CHALFONT STREET
 
@@ -1004,7 +926,6 @@ does not look well.  Officer McAvity enters.
 > n
 I move north.
 
-The lobby of the Dorkchester
 THE LOBBY OF THE DORKCHESTER
 
    I am in the lobby of the Dorkchester, a quaint (read 'cheap') hotel in the
@@ -1024,8 +945,6 @@ throw you off the beaten track. You can never tell with these things."
 > s
 I move south.
 
-Chalfont Street
-
 CHALFONT STREET
 
    I am on Chalfont Street, just a few steps south of the lobby of the
@@ -1035,7 +954,6 @@ either of those directions. Here is my (for want of a better word) 'car'. It
 does not look well.  Officer McAvity enters from the north.
 
 > enter car
-My car
 
 MY CAR
 
@@ -1052,7 +970,6 @@ The rush hour traffic is a killer but a shortcut I know through the kiddies'
 playground of a local school soon sees me to Malvern Row.
 
 > out
-Malvern Row
 
 MALVERN ROW
 
@@ -1061,7 +978,6 @@ building, some kind of concert hall I guess, looms before me. Malvern Row
 extends southeast.  Officer McAvity enters.
 
 > enter building
-The Halycon
 
 THE HALYCON
 
@@ -1073,8 +989,6 @@ from outside.
 
 > u
 I move up.
-
-Main area
 
 MAIN AREA OF THE HALYCON
 
@@ -1112,8 +1026,6 @@ I take the clue 3.
 > d
 I move down.
 
-The Halycon
-
 THE HALYCON
 
    I am inside the foyer of the Halycon. Once it was a concert hall, home to
@@ -1125,8 +1037,6 @@ from above.
 > out
 I move out.
 
-Malvern Row
-
 MALVERN ROW
 
    I am standing outside my car on the corner of Malvern Row. A large
@@ -1134,7 +1044,6 @@ building, some kind of concert hall I guess, looms before me. Malvern Row
 extends southeast.  Officer McAvity enters from inside.
 
 > enter car
-My car
 
 MY CAR
 
@@ -1151,7 +1060,6 @@ I arrive at 7th Avenue before I know it, having succeeded in putting dents in
 only a couple of other cars.
 
 > out
-7th Avenue
 
 7TH AVENUE
 
@@ -1167,8 +1075,6 @@ I put on the riot gear.
 
 > e
 I move east.
-
-Alley
 
 AN ALLEY
 
@@ -1193,7 +1099,6 @@ hole in my riot gear, but I'm in one piece. Where the masked man has gone I'm
 not sure. Right now I'm just too grateful to be alive.
 
 > ne
-Dead end
 
 DEAD END
 
@@ -1219,8 +1124,6 @@ There is nothing worth taking here.
 > sw
 I move southwest.
 
-Alley
-
 AN ALLEY
 
    I am in a sleazy alley at the side of Macy's. It is knee-deep with filth
@@ -1232,8 +1135,6 @@ north-east.
 
 > w
 I move west.
-
-7th Avenue
 
 7TH AVENUE
 
@@ -1252,8 +1153,6 @@ finished, I have a nifty little crowbar.
 > n
 I move north.
 
-Macy's
-
 MACY'S
 
    This isn't the famous department store, it's a classy little restaurant
@@ -1266,8 +1165,6 @@ north and a bar to the west.  Officer McAvity enters from the south.
 
 > w
 I move west.
-
-Macy's bar
 
 MACY'S BAR
 
@@ -1300,8 +1197,6 @@ one my sister bought down at the mall."
 > e
 I move east.
 
-Macy's
-
 MACY'S
 
    This isn't the famous department store, it's a classy little restaurant
@@ -1314,8 +1209,6 @@ north and a bar to the west.  Officer McAvity enters from the west.
 
 > n
 I move north.
-
-Restroom
 
 MACY'S RESTROOM
 
@@ -1333,7 +1226,6 @@ I'll just be on my way."
 sight is such that I'm just glad I haven't had dinner yet today.
 
 > nw
-Stall
 
 A STALL
 
@@ -1360,8 +1252,6 @@ There is nothing worth taking here.
 > se
 I move southeast.
 
-Restroom
-
 MACY'S RESTROOM
 
    The restroom. As with most restrooms, there's nowhere to actually rest in
@@ -1371,8 +1261,6 @@ northwest.  Officer McAvity enters from the north-west.
 
 > s
 I move south.
-
-Macy's
 
 MACY'S
 
@@ -1387,8 +1275,6 @@ north and a bar to the west.  Officer McAvity enters from the north.
 > s
 I move south.
 
-7th Avenue
-
 7TH AVENUE
 
    I am on the sidewalk by the side of a diner called Macy's which is partway
@@ -1399,7 +1285,6 @@ building to the east. Making the place look untidy is my car.  Officer
 McAvity enters from the north.
 
 > enter car
-My car
 
 MY CAR
 
@@ -1417,7 +1302,6 @@ being, as it is, in the busiest district in the city. Eventually I get there
 and knock over a lamp post as I pull up.
 
 > out
-Slater Drive
 
 SLATER DRIVE
 
@@ -1431,8 +1315,6 @@ Officer McAvity enters.
 
 > n
 I move north.
-
-Office building
 
 AN OFFICE BUILDING
 
@@ -1465,8 +1347,6 @@ through the door.
 > u
 I move up.
 
-Corridor
-
 A NONDESCRIPT CORRIDOR
 
    I am in a nondescript corridor outside of the offices of Talbot, Tung &
@@ -1474,7 +1354,6 @@ Dodger. A door leads north into the firm while stairs lead up and down.
 Officer McAvity enters from below.
 
 > n
-Main office
 
 THE MAIN OFFICE
 
@@ -1484,8 +1363,6 @@ a corridor to the south.  Officer McAvity enters.
 
 > ne
 I move northeast.
-
-Talbot's office
 
 TALBOT'S OFFICE
 
@@ -1505,8 +1382,6 @@ There is nothing worth taking here.
 > sw
 I move southwest.
 
-Main office
-
 THE MAIN OFFICE
 
    I am in the deserted office of a law firm. Empty desks line a room that is
@@ -1515,8 +1390,6 @@ a corridor to the south.  Officer McAvity enters from the north-east.
 
 > s
 I move south.
-
-Corridor
 
 A NONDESCRIPT CORRIDOR
 
@@ -1527,8 +1400,6 @@ Officer McAvity enters from the north.
 > d
 I move down.
 
-Office building
-
 AN OFFICE BUILDING
 
    I find myself in the sleazy entrance of a large office building. Stairs
@@ -1538,8 +1409,6 @@ Officer McAvity enters from above.
 
 > s
 I move south.
-
-Slater Drive
 
 SLATER DRIVE
 
@@ -1552,7 +1421,6 @@ to a shady shop and my car (which appears to be lying dead on the road).
 Officer McAvity enters from the north.
 
 > enter shop
-Wakeem's bazaar
 
 WAKEEM'S BAZAAR
 
@@ -1598,8 +1466,6 @@ monkey. "Ah so indeed."
 > out
 I move out.
 
-Slater Drive
-
 SLATER DRIVE
 
    Slater Drive is in the heart of the city and is where all the lawyers,
@@ -1611,7 +1477,6 @@ to a shady shop and my car (which appears to be lying dead on the road).
 Officer McAvity enters from inside.
 
 > enter car
-My car
 
 MY CAR
 
@@ -1628,7 +1493,6 @@ I take a shortcut I know through Walker Boulevard Market and arrive at
 Chalfont Street in good time.
 
 > out
-Chalfont Street
 
 CHALFONT STREET
 
@@ -1641,7 +1505,6 @@ does not look well.  Officer McAvity enters.
 > n
 I move north.
 
-The lobby of the Dorkchester
 THE LOBBY OF THE DORKCHESTER
 
    I am in the lobby of the Dorkchester, a quaint (read 'cheap') hotel in the
@@ -1652,8 +1515,6 @@ clerk is here.  Officer McAvity enters from the south.
 
 > e
 I move east.
-
-The Dorkchester's bar
 
 THE DORKCHESTER'S BAR
 
@@ -1678,7 +1539,6 @@ thought you might want to have it."
 > w
 I move west.
 
-The lobby of the Dorkchester
 THE LOBBY OF THE DORKCHESTER
 
    I am in the lobby of the Dorkchester, a quaint (read 'cheap') hotel in the
@@ -1690,8 +1550,6 @@ clerk is here.  Officer McAvity enters from the east.
 > s
 I move south.
 
-Chalfont Street
-
 CHALFONT STREET
 
    I am on Chalfont Street, just a few steps south of the lobby of the
@@ -1701,7 +1559,6 @@ either of those directions. Here is my (for want of a better word) 'car'. It
 does not look well.  Officer McAvity enters from the north.
 
 > enter car
-My car
 
 MY CAR
 
@@ -1718,7 +1575,6 @@ I set off across town, weaving around pedestrians who think they're safe just
 because they're on the pavement, and eventually arive at Blackwater Row.
 
 > out
-Blackwater Row
 
 BLACKWATER ROW
 
@@ -1730,8 +1586,6 @@ McAvity enters.
 
 > e
 I move east.
-
-Hogwash Bank
 
 HOGWASH BANK
 
@@ -1755,7 +1609,6 @@ failing to call me 'sir'.
    He steps aside with a defeated sigh.
 
 > se
-Back room
 
 THE BACK ROOM
 
@@ -1793,7 +1646,6 @@ and the vault doors spring open. Well, not spring, but they do open.
    He turns and leaves at a run.
 
 > e
-Vault
 
 THE VAULT
 
@@ -1843,8 +1695,6 @@ There is nothing worth taking here.
 > w
 I move west.
 
-Back room
-
 THE BACK ROOM
 
    I find myself in a seedy little back room that smells of beer, fags and
@@ -1856,8 +1706,6 @@ McAvity enters from the east.
 > nw
 I move northwest.
 
-Hogwash Bank
-
 HOGWASH BANK
 
    I am in the Hogwash Bank. This is a pretty small, one room affair with
@@ -1868,8 +1716,6 @@ I can see some customers.  Officer McAvity enters from the south-east.
 > w
 I move west.
 
-Blackwater Row
-
 BLACKWATER ROW
 
    I am on Blackwater Row, which is pretty much as close to the country as
@@ -1879,7 +1725,6 @@ trees. My car is closeby, parked on someone's daffodil collection.  Officer
 McAvity enters from the east.
 
 > enter car
-My car
 
 MY CAR
 
@@ -1896,7 +1741,6 @@ I arrive at 7th Avenue before I know it, having succeeded in putting dents in
 only a couple of other cars.
 
 > out
-7th Avenue
 
 7TH AVENUE
 
@@ -1910,8 +1754,6 @@ McAvity enters.
 > n
 I move north.
 
-Macy's
-
 MACY'S
 
    This isn't the famous department store, it's a classy little restaurant
@@ -1923,7 +1765,6 @@ fraternity in the city would go up in smoke. The door to the restroom is
 north and a bar to the west.  Officer McAvity enters from the south.
 
 > w
-Macy's bar
 
 MACY'S BAR
 
@@ -2011,8 +1852,6 @@ bouncers come back in. Of Talbot there is no sign.
 > e
 I move east.
 
-Macy's
-
 MACY'S
 
    This isn't the famous department store, it's a classy little restaurant
@@ -2026,8 +1865,6 @@ north and a bar to the west.  Officer McAvity enters from the west.
 > s
 I move south.
 
-7th Avenue
-
 7TH AVENUE
 
    I am on the sidewalk by the side of a diner called Macy's which is partway
@@ -2038,7 +1875,6 @@ building to the east. Making the place look untidy is my car.  Also here is a
 few of Talbot's teeth.  Officer McAvity enters from the north.
 
 > enter car
-My car
 
 MY CAR
 
@@ -2055,7 +1891,6 @@ When I arrive at Congleton Plaza, I seem to have a new collection of dents in
 my fender. Funny, I don't remember running over anyone...
 
 > out
-Congleton Plaza
 
 CONGLETON PLAZA
 
@@ -2066,8 +1901,6 @@ has me beat. Steps lead up to the entrance.  Officer McAvity enters.
 
 > n
 I move north.
-
-Police station
 
 POLICE STATION
 
@@ -2082,8 +1915,6 @@ asleep here.  Officer McAvity enters from below.
 > u
 I move up.
 
-Upper floor
-
 UPPER FLOOR
 
    This is the upper floor of the police station, where one day (if I play my
@@ -2094,7 +1925,6 @@ and east is Captain Slorb's office. Downwards are the stairs I just came up.
 Captain Slorb's receptionist is here.  Officer McAvity enters from below.
 
 > e
-Captain Slorb's office
 
 CAPTAIN SLORB'S OFFICE
 
@@ -2122,8 +1952,6 @@ from the west.
 > w
 I move west.
 
-Upper floor
-
 UPPER FLOOR
 
    This is the upper floor of the police station, where one day (if I play my
@@ -2135,8 +1963,6 @@ Captain Slorb's receptionist is here.  Officer McAvity enters from the east.
 
 > nw
 I move northwest.
-
-Store
 
 POLICE EVIDENCE STORE
 
@@ -2162,8 +1988,6 @@ I put on the riot gear.
 > se
 I move southeast.
 
-Upper floor
-
 UPPER FLOOR
 
    This is the upper floor of the police station, where one day (if I play my
@@ -2176,8 +2000,6 @@ north-west.
 
 > d
 I move down.
-
-Police station
 
 POLICE STATION
 
@@ -2199,8 +2021,6 @@ You! I guess you wanna see the cells, eh?"
 > w
 I move west.
 
-Top of steps
-
 TOP OF SOME STEPS
 
    I'm in a short corridor behind the main desk of the police station. Some
@@ -2209,8 +2029,6 @@ east.
 
 > d
 I move down.
-
-Cells
 
 THE CELLS
 
@@ -2246,8 +2064,6 @@ find him down at the beach. But be warned, fella, he won't be alone."
 > u
 I move up.
 
-Top of steps
-
 TOP OF SOME STEPS
 
    I'm in a short corridor behind the main desk of the police station. Some
@@ -2255,8 +2071,6 @@ dank and depressing steps lead downwards.  Officer McAvity enters from below.
 
 > e
 I move east.
-
-Police station
 
 POLICE STATION
 
@@ -2271,8 +2085,6 @@ asleep here.  Officer McAvity enters from the west.
 > s
 I move south.
 
-Congleton Plaza
-
 CONGLETON PLAZA
 
    I am standing by my has-definitely-seen-better-days car outside the police
@@ -2282,7 +2094,6 @@ has me beat. Steps lead up to the entrance.  Officer McAvity enters from
 above.
 
 > enter car
-My car
 
 MY CAR
 
@@ -2299,7 +2110,6 @@ I take the coast highway down to the beach and narrowly (though not for want
 of trying) run a couple of bikers off the road before arriving.
 
 > out
-Beach
 
 THE BEACH
 
@@ -2313,8 +2123,6 @@ enters.
 > nw
 I move northwest.
 
-Amidst sand dunes
-
 AMIDST SAND DUNES
 
    I wander through the sand dunes which, though pretty, aren't the most
@@ -2324,8 +2132,6 @@ southeast.  Officer McAvity enters from the south-east.
 
 > n
 I move north.
-
-Outside complex
 
 OUTSIDE THE BEACH COMPLEX
 
@@ -2347,7 +2153,6 @@ of the complex and get 'em that way."
 to be on my own again.
 
 > n
-Entrance
 
 ENTRANCE OF THE COMPLEX
 
@@ -2359,14 +2164,11 @@ outside world.
 > ne
 I move northeast.
 
-Corridor
-
 A CORRIDOR
 
    I seem to be in a short corridor leading north and southwest.
 
 > n
-Main area
 
 MAIN AREA OF THE COMPLEX
 
@@ -2380,8 +2182,6 @@ and west. I feel almost spoilt for choice.
 > ne
 I move northeast.
 
-Unfinished corridor
-
 AN UNFINISHED CORRIDOR
 
    There are gaping holes in the walls of the corridor here, probably
@@ -2391,8 +2191,6 @@ dodgy. If I want to risk it, however, I can go northwest, east and southwest.
 
 > e
 I move east.
-
-Bizarrely painted corridor
 
 A BIZARRELY PAINTED CORRIDOR
 
@@ -2405,8 +2203,6 @@ here is a door.
 > e
 I move east.
 
-Small room
-
 A SMALL ROOM
 
    I have reached the end of the corridor and find myself in a small room
@@ -2415,8 +2211,6 @@ I'm sure signifies something really important. West lies a corridor.
 
 > e
 I move east.
-
-Mugsy's room
 
 MUGSY'S ROOM
 
@@ -2439,8 +2233,6 @@ I take the security card and the viciously sharp knife.
 > w
 I move west.
 
-Small room
-
 A SMALL ROOM
 
    I have reached the end of the corridor and find myself in a small room
@@ -2449,8 +2241,6 @@ I'm sure signifies something really important. West lies a corridor.
 
 > w
 I move west.
-
-Bizarrely painted corridor
 
 A BIZARRELY PAINTED CORRIDOR
 
@@ -2465,8 +2255,6 @@ I insert the card and the door slides open with a cool hiss sound.
 
 > n
 I move north.
-
-Ill gotten gains room
 
 ILL GOTTEN GAINS ROOM
 
@@ -2484,8 +2272,6 @@ I take it from the wall.
 > s
 I move south.
 
-Bizarrely painted corridor
-
 A BIZARRELY PAINTED CORRIDOR
 
    The walls of this corridor are painted a strange red colour which looks
@@ -2497,8 +2283,6 @@ here is a door.
 > w
 I move west.
 
-Unfinished corridor
-
 AN UNFINISHED CORRIDOR
 
    There are gaping holes in the walls of the corridor here, probably
@@ -2508,8 +2292,6 @@ dodgy. If I want to risk it, however, I can go northwest, east and southwest.
 
 > sw
 I move southwest.
-
-Main area
 
 MAIN AREA OF THE COMPLEX
 
@@ -2524,7 +2306,6 @@ and west. I feel almost spoilt for choice.
 I give it a few whacks with my trusty axe and it is soon in pieces.
 
 > w
-Store room
 
 A STORE ROOM
 
@@ -2538,8 +2319,6 @@ I take the bell.
 
 > e
 I move east.
-
-Main area
 
 MAIN AREA OF THE COMPLEX
 
@@ -2603,8 +2382,6 @@ around for a while, then collapses dead on the floor.
 > s
 I move south.
 
-Main area
-
 MAIN AREA OF THE COMPLEX
 
    This is the main area of the complex. There are chairs here set around a
@@ -2617,16 +2394,12 @@ and west. I feel almost spoilt for choice.
 > s
 I move south.
 
-Corridor
-
 A CORRIDOR
 
    I seem to be in a short corridor leading north and southwest.
 
 > sw
 I move southwest.
-
-Entrance
 
 ENTRANCE OF THE COMPLEX
 
@@ -2661,8 +2434,6 @@ and beat me into unconsciousness...
 
    When I wake up, I seem to be somewhere else.
 Press a key to continue
-
-My cell
 
 MY "CELL"
 
@@ -2720,8 +2491,6 @@ edges.
 > s
 I move south.
 
-Small room
-
 A SMALL ROOM
 
    I have reached the end of the corridor and find myself in a small room
@@ -2730,8 +2499,6 @@ I'm sure signifies something really important. West lies a corridor.
 
 > w
 I move west.
-
-Bizarrely painted corridor
 
 A BIZARRELY PAINTED CORRIDOR
 
@@ -2744,8 +2511,6 @@ here is a door.
 > w
 I move west.
 
-Unfinished corridor
-
 AN UNFINISHED CORRIDOR
 
    There are gaping holes in the walls of the corridor here, probably
@@ -2755,8 +2520,6 @@ dodgy. If I want to risk it, however, I can go northwest, east and southwest.
 
 > sw
 I move southwest.
-
-Main area
 
 MAIN AREA OF THE COMPLEX
 
@@ -2770,16 +2533,12 @@ and west. I feel almost spoilt for choice.
 > s
 I move south.
 
-Corridor
-
 A CORRIDOR
 
    I seem to be in a short corridor leading north and southwest.
 
 > sw
 I move southwest.
-
-Entrance
 
 ENTRANCE OF THE COMPLEX
 
@@ -2806,8 +2565,6 @@ I put on my police uniform.
 > s
 I move south.
 
-Outside complex
-
 OUTSIDE THE BEACH COMPLEX
 
    I am hidden in a clump of bushes just outside a beach complex. It is a
@@ -2820,8 +2577,6 @@ rifle.
 > s
 I move south.
 
-Amidst sand dunes
-
 AMIDST SAND DUNES
 
    I wander through the sand dunes which, though pretty, aren't the most
@@ -2832,8 +2587,6 @@ southeast.
 > se
 I move southeast.
 
-Beach
-
 THE BEACH
 
    I am on a sunny part of the beach that seems to stretch as far to the
@@ -2843,7 +2596,6 @@ gentle path to the west leading down to the sea the only ways out of here.
    Making a real eyesore of itself, my car is also here.
 
 > enter car
-My car
 
 MY CAR
 
@@ -2859,7 +2611,6 @@ The rush hour traffic is a killer but a shortcut I know through the kiddies'
 playground of a local school soon sees me to Malvern Row.
 
 > out
-Malvern Row
 
 MALVERN ROW
 
@@ -2870,8 +2621,6 @@ extends southeast.
 > se
 I move southeast.
 
-Malvern Plaza
-
 MALVERN PLAZA
 
    The street opens out into a sizeable plaza here and as with every plaza it
@@ -2880,7 +2629,6 @@ surrounded by kids on skateboards. Malvern Row lies northwest and a dark
 alley can be made out to the east.
 
 > e
-A dark alley
 
 A DARK ALLEY
 
@@ -2890,8 +2638,6 @@ I can make out.
 
 > e
 I move east.
-
-End of the alley
 
 END OF THE ALLEY
 
@@ -2911,8 +2657,6 @@ convenient footpath to the east.
 > e
 I move east.
 
-Outside Talbot's house
-
 OUTSIDE TALBOT'S HOUSE
 
    I'm outside the house of Talbot, the city's worst lawyer. The house is
@@ -2924,7 +2668,6 @@ house.
 I open the door with Talbot's own key.
 
 > e
-Talbot's house
 
 TALBOT'S HOUSE
 
@@ -2950,8 +2693,6 @@ toilet, which is giving off a smell so bad I can almost feel it.
    I glance back through the doorway and see that Talbot has staggered into
 his house. He is currently standing in the middle of the floor, swaying
 drunkenly from side to side. More worrying: he has a gun in his hand!
-
-Talbot's toilet
 
 TALBOT'S TOILET
 
@@ -2981,7 +2722,6 @@ his side is the gun he was carrying, a nifty little pistol.
 I take the nifty little pistol.
 
 > w
-Outside Talbot's house
 
 OUTSIDE TALBOT'S HOUSE
 
@@ -3042,8 +2782,6 @@ first. Here, I'll give you directions."
 > w
 I move west.
 
-Outside Talbot's house
-
 OUTSIDE TALBOT'S HOUSE
 
    I'm outside the house of Talbot, the city's worst lawyer. The house is
@@ -3053,8 +2791,6 @@ house.
 
 > w
 I move west.
-
-End of the alley
 
 END OF THE ALLEY
 
@@ -3073,8 +2809,6 @@ far side. Westwards lies the alley.
 > w
 I move west.
 
-A dark alley
-
 A DARK ALLEY
 
    This is a seriously dark alley, lit hardly at all by the sun and certainly
@@ -3083,8 +2817,6 @@ I can make out.
 
 > w
 I move west.
-
-Malvern Plaza
 
 MALVERN PLAZA
 
@@ -3096,8 +2828,6 @@ alley can be made out to the east.
 > nw
 I move northwest.
 
-Malvern Row
-
 MALVERN ROW
 
    I am standing outside my car on the corner of Malvern Row. A large
@@ -3105,7 +2835,6 @@ building, some kind of concert hall I guess, looms before me. Malvern Row
 extends southeast.
 
 > enter car
-My car
 
 MY CAR
 
@@ -3121,7 +2850,6 @@ I set off across town, weaving around pedestrians who think they're safe just
 because they're on the pavement, and eventually arive at Blackwater Row.
 
 > out
-Blackwater Row
 
 BLACKWATER ROW
 
@@ -3133,8 +2861,6 @@ trees. My car is closeby, parked on someone's daffodil collection.
 > ne
 I move northeast.
 
-A winding country path
-
 A WINDING COUNTRY PATH
 
    I seem to be on a winding country path that (wait for it) winds all over
@@ -3144,8 +2870,6 @@ seems like a bad idea.
 > nw
 I move northwest.
 
-A winding path
-
 A WINDING PATH
 
    The path splits here, with branches going off to the northwest, west,
@@ -3153,8 +2877,6 @@ southwest and southeast.
 
 > w
 I move west.
-
-A boring little path
 
 A BORING LITTLE PATH
 
@@ -3164,8 +2886,6 @@ description than that. It heads off north, east and west.
 > w
 I move west.
 
-A curvy path
-
 A CURVY PATH
 
    The path curves around a corner here. For some reason, there is a bench
@@ -3174,8 +2894,6 @@ a mystery. The path leads on southeast and east.
 
 > sw
 I move southwest.
-
-Another path
 
 ANOTHER PATH
 
@@ -3192,8 +2910,6 @@ There is nothing worth taking here.
 > ne
 I move northeast.
 
-A curvy path
-
 A CURVY PATH
 
    The path curves around a corner here. For some reason, there is a bench
@@ -3203,8 +2919,6 @@ a mystery. The path leads on southeast and east.
 > e
 I move east.
 
-A boring little path
-
 A BORING LITTLE PATH
 
    I am on a boring little path which doesn't really warrant any better
@@ -3213,8 +2927,6 @@ description than that. It heads off north, east and west.
 > e
 I move east.
 
-A winding path
-
 A WINDING PATH
 
    The path splits here, with branches going off to the northwest, west,
@@ -3222,8 +2934,6 @@ southwest and southeast.
 
 > se
 I move southeast.
-
-A winding country path
 
 A WINDING COUNTRY PATH
 
@@ -3234,8 +2944,6 @@ seems like a bad idea.
 > sw
 I move southwest.
 
-Blackwater Row
-
 BLACKWATER ROW
 
    I am on Blackwater Row, which is pretty much as close to the country as
@@ -3244,7 +2952,6 @@ to the east. Every other direction seems to be taken up with bushes and
 trees. My car is closeby, parked on someone's daffodil collection.
 
 > enter car
-My car
 
 MY CAR
 
@@ -3260,7 +2967,6 @@ I take the coast highway down to the beach and narrowly (though not for want
 of trying) run a couple of bikers off the road before arriving.
 
 > out
-Beach
 
 THE BEACH
 
@@ -3273,8 +2979,6 @@ gentle path to the west leading down to the sea the only ways out of here.
 > nw
 I move northwest.
 
-Amidst sand dunes
-
 AMIDST SAND DUNES
 
    I wander through the sand dunes which, though pretty, aren't the most
@@ -3284,8 +2988,6 @@ southeast.
 
 > n
 I move north.
-
-Outside complex
 
 OUTSIDE THE BEACH COMPLEX
 
@@ -3297,7 +2999,6 @@ leads away from all this madness to the south.  Also here is the hood's
 rifle.
 
 > n
-Entrance
 
 ENTRANCE OF THE COMPLEX
 
@@ -3309,16 +3010,12 @@ outside world.
 > ne
 I move northeast.
 
-Corridor
-
 A CORRIDOR
 
    I seem to be in a short corridor leading north and southwest.
 
 > n
 I move north.
-
-Main area
 
 MAIN AREA OF THE COMPLEX
 
@@ -3332,8 +3029,6 @@ and west. I feel almost spoilt for choice.
 > ne
 I move northeast.
 
-Unfinished corridor
-
 AN UNFINISHED CORRIDOR
 
    There are gaping holes in the walls of the corridor here, probably
@@ -3344,8 +3039,6 @@ dodgy. If I want to risk it, however, I can go northwest, east and southwest.
 > nw
 I move northwest.
 
-Mundane little corridor
-
 MUNDANE LITTLE CORRIDOR
 
    I'm at a junction where several corridors meet. I can go northwest, north,
@@ -3354,8 +3047,6 @@ west and southeast from here.
 > n
 I move north.
 
-Yet another damn corridor
-
 YET ANOTHER DAMN CORRIDOR
 
    I plod on along another corridor, my patience wearing thin very swiftly
@@ -3363,7 +3054,6 @@ indeed. From this enthralling place I can go both north (where the corridor
 opens out somewhat) and south (where it doesn't).
 
 > n
-Shady's Lair
 
 SHADY'S LAIR
 
@@ -3392,8 +3082,6 @@ Shady enters.
 > s
 I move south.
 
-Yet another damn corridor
-
 YET ANOTHER DAMN CORRIDOR
 
    I plod on along another corridor, my patience wearing thin very swiftly
@@ -3404,8 +3092,6 @@ north.
 > s
 I move south.
 
-Mundane little corridor
-
 MUNDANE LITTLE CORRIDOR
 
    I'm at a junction where several corridors meet. I can go northwest, north,
@@ -3413,8 +3099,6 @@ west and southeast from here.  Mr Shady enters from the north.
 
 > se
 I move southeast.
-
-Unfinished corridor
 
 AN UNFINISHED CORRIDOR
 
@@ -3426,8 +3110,6 @@ dodgy. If I want to risk it, however, I can go northwest, east and southwest.
 
 > sw
 I move southwest.
-
-Main area
 
 MAIN AREA OF THE COMPLEX
 
@@ -3442,8 +3124,6 @@ north-east.
 > s
 I move south.
 
-Corridor
-
 A CORRIDOR
 
    I seem to be in a short corridor leading north and southwest.  Mr Shady
@@ -3451,8 +3131,6 @@ enters from the north.
 
 > sw
 I move southwest.
-
-Entrance
 
 ENTRANCE OF THE COMPLEX
 
@@ -3463,8 +3141,6 @@ outside world.  Mr Shady enters from the north-east.
 
 > s
 I move south.
-
-Outside complex
 
 OUTSIDE THE BEACH COMPLEX
 
@@ -3478,8 +3154,6 @@ rifle.  Mr Shady enters from the north.
 > s
 I move south.
 
-Amidst sand dunes
-
 AMIDST SAND DUNES
 
    I wander through the sand dunes which, though pretty, aren't the most
@@ -3489,8 +3163,6 @@ southeast.  Mr Shady enters from the north.
 
 > se
 I move southeast.
-
-Beach
 
 THE BEACH
 
@@ -3502,7 +3174,6 @@ gentle path to the west leading down to the sea the only ways out of here.
 from the north-west.
 
 > enter car
-My car
 
 MY CAR
 
@@ -3519,7 +3190,6 @@ When I arrive at Congleton Plaza, I seem to have a new collection of dents in
 my fender. Funny, I don't remember running over anyone...
 
 > out
-Congleton Plaza
 
 CONGLETON PLAZA
 
@@ -3530,8 +3200,6 @@ has me beat. Steps lead up to the entrance.  Mr Shady enters.
 
 > n
 I move north.
-
-Police station
 
 POLICE STATION
 
@@ -3546,8 +3214,6 @@ asleep here.  Mr Shady enters from below.
 > u
 I move up.
 
-Upper floor
-
 UPPER FLOOR
 
    This is the upper floor of the police station, where one day (if I play my
@@ -3559,8 +3225,6 @@ Captain Slorb's receptionist is here.  Mr Shady enters from below.
 
 > e
 I move east.
-
-Captain Slorb's office
 
 CAPTAIN SLORB'S OFFICE
 

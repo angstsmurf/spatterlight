@@ -1228,7 +1228,17 @@ lib_describe_player_room (scr_gameref_t game, scr_bool force_verbose)
                || game->verbose || !gs_room_seen (game, gs_playerroom (game));
 
   if (prop_get_taf_version (bundle) >= TAF_VERSION_390)
-    lib_print_room_name (game, gs_playerroom (game));
+    {
+      /*
+       * A game whose descriptions open with the room's own name gets no
+       * heading over them, unless the brief heading is all there is.  See
+       * lib_room_name_headings().
+       */
+      if (!is_verbose || lib_room_name_headings (game))
+        lib_print_room_name (game, gs_playerroom (game));
+      else
+        pf_buffer_paragraph_break (filter);
+    }
   else if (!is_verbose)
     {
       /*

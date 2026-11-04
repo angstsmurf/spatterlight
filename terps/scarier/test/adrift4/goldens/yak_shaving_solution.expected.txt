@@ -39,7 +39,6 @@ mysterious valley hidden deep within the mountains...
 ...the mystical valley of Shangri-La!
 
 Shangri-La
-Shangri-La
 You weren't sure what to expect from the mystical valley of Shangri-La. You'd
 heard tales of a Utopia, an earthly paradise where people lived together in
 peace and harmony. You certainly weren't expecting a large illuminated sign
@@ -67,7 +66,6 @@ light cannot penetrate.
 You move west.
 
 Meadow
-Meadow
 Here, in the foothills of the mountains is a meadow of lush grass, strewn
 with boulders and dotted with tall wild flowers that frug and shimmy in the
 breeze. A pastoral idyll in other words, marred only by the fact that someone
@@ -83,7 +81,6 @@ wondered how a hamster cage would smell to a bloodhound, now you know.
 > e
 You move east.
 
-Shangri-La
 Shangri-La
 You weren't sure what to expect from the mystical valley of Shangri-La. You'd
 heard tales of a Utopia, an earthly paradise where people lived together in
@@ -101,7 +98,6 @@ glacier!
 > e
 You move east.
 
-Mountaintop
 Mountaintop
 Here, at the peak of the mountain, perched beneath a snow-covered overhang,
 is a 1969 model Sprite Alpine caravan in a delapidated state of repair.
@@ -134,7 +130,6 @@ The acolyte attempts to catch a passing fly with his chopsticks. They say
 that a man who can catch a fly with chopsticks can do anything.
 
 > in
-Sanctum Sanctorum
 Sanctum Sanctorum
 After your long and arduous journey it's hard not to be disappointed by the
 famous Sanctum Sanctorum of his Holiness the Dada Lama. Sure, incense burners
@@ -180,7 +175,6 @@ You can't open that.
 You move out.
 
 Mountaintop
-Mountaintop
 Here, at the peak of the mountain, perched beneath a snow-covered overhang,
 is a 1969 model Sprite Alpine caravan in a delapidated state of repair.
 Mystic sigils have been daubed across its rotting sides. Colourful prayer
@@ -212,7 +206,6 @@ buried under twenty tonnes of snow.
 
 > look
 
-Mountaintop
 Mountaintop
 Here, at the peak of the mountain, perched beneath a snow-covered overhang,
 is a 1969 model Sprite Alpine caravan in a delapidated state of repair.
@@ -265,7 +258,6 @@ You take the clothes peg from the clothes line.
 You move west.
 
 Shangri-La
-Shangri-La
 You weren't sure what to expect from the mystical valley of Shangri-La. You'd
 heard tales of a Utopia, an earthly paradise where people lived together in
 peace and harmony. You certainly weren't expecting a large illuminated sign
@@ -283,7 +275,6 @@ glacier!
 You move west.
 
 Meadow
-Meadow
 Here, in the foothills of the mountains is a meadow of lush grass, strewn
 with boulders and dotted with tall wild flowers that frug and shimmy in the
 breeze. A pastoral idyll in other words, marred only by the fact that someone
@@ -297,7 +288,6 @@ You place the clothes peg on your nose.
 > in
 Clothes peg firmly in place, you step bravely into the yak shed.
 
-Yak Shed
 Yak Shed
 The yak shed is a gloomy wooden structure of rickety construction. Enormous
 piles of dung take up most of the available floorspace; shafts of light from
@@ -317,7 +307,6 @@ You'd need something to shave it with.
 You move out.
 
 Meadow
-Meadow
 Here, in the foothills of the mountains is a meadow of lush grass, strewn
 with boulders and dotted with tall wild flowers that frug and shimmy in the
 breeze. A pastoral idyll in other words, marred only by the fact that someone
@@ -328,7 +317,6 @@ barn, of no great architectural merit. A sign above the door bears the legend
 > e
 You move east.
 
-Shangri-La
 Shangri-La
 You weren't sure what to expect from the mystical valley of Shangri-La. You'd
 heard tales of a Utopia, an earthly paradise where people lived together in
@@ -346,7 +334,6 @@ glacier!
 > n
 You move north.
 
-Glacier
 Glacier
 You are standing at the foot of the glacier, a sheer wall of ice that would
 dwarf the tallest skyscraper. For thousands of years it has followed this
@@ -377,7 +364,6 @@ aeons! Within seconds the ice has frosted over again.
 You move south.
 
 Shangri-La
-Shangri-La
 You weren't sure what to expect from the mystical valley of Shangri-La. You'd
 heard tales of a Utopia, an earthly paradise where people lived together in
 peace and harmony. You certainly weren't expecting a large illuminated sign
@@ -395,7 +381,6 @@ glacier!
 You move west.
 
 Meadow
-Meadow
 Here, in the foothills of the mountains is a meadow of lush grass, strewn
 with boulders and dotted with tall wild flowers that frug and shimmy in the
 breeze. A pastoral idyll in other words, marred only by the fact that someone
@@ -406,7 +391,6 @@ barn, of no great architectural merit. A sign above the door bears the legend
 > in
 Clothes peg firmly in place, you step bravely into the yak shed.
 
-Yak Shed
 Yak Shed
 The yak shed is a gloomy wooden structure of rickety construction. Enormous
 piles of dung take up most of the available floorspace; shafts of light from
@@ -438,7 +422,6 @@ could have such abominably big feet.
 You move out.
 
 Meadow
-Meadow
 Here, in the foothills of the mountains is a meadow of lush grass, strewn
 with boulders and dotted with tall wild flowers that frug and shimmy in the
 breeze. A pastoral idyll in other words, marred only by the fact that someone
@@ -452,7 +435,6 @@ You remove the clothes peg.
 > e
 You move east.
 
-Shangri-La
 Shangri-La
 You weren't sure what to expect from the mystical valley of Shangri-La. You'd
 heard tales of a Utopia, an earthly paradise where people lived together in
@@ -471,7 +453,6 @@ glacier!
 You move east.
 
 Mountaintop
-Mountaintop
 Here, at the peak of the mountain, perched beneath a snow-covered overhang,
 is a 1969 model Sprite Alpine caravan in a delapidated state of repair.
 Mystic sigils have been daubed across its rotting sides. Colourful prayer
@@ -488,7 +469,6 @@ snow.
 > in
 You move in.
 
-Sanctum Sanctorum
 Sanctum Sanctorum
 After your long and arduous journey it's hard not to be disappointed by the
 famous Sanctum Sanctorum of his Holiness the Dada Lama. Sure, incense burners
@@ -522,7 +502,6 @@ anywhere to plug it in.  The hairdryer is on.
 You move out.
 
 Mountaintop
-Mountaintop
 Here, at the peak of the mountain, perched beneath a snow-covered overhang,
 is a 1969 model Sprite Alpine caravan in a delapidated state of repair.
 Mystic sigils have been daubed across its rotting sides. Colourful prayer
@@ -539,7 +518,6 @@ snow.
 > w
 You move west.
 
-Shangri-La
 Shangri-La
 You weren't sure what to expect from the mystical valley of Shangri-La. You'd
 heard tales of a Utopia, an earthly paradise where people lived together in
@@ -558,7 +536,6 @@ glacier!
 You move north.
 
 Glacier
-Glacier
 You are standing at the foot of the glacier, a sheer wall of ice that would
 dwarf the tallest skyscraper. For thousands of years it has followed this
 valley like the world's most dogged Slush Puppie. Scattered around are
@@ -572,7 +549,6 @@ big enough to  crawl through.
 > in
 You move in.
 
-Ice Cave
 Ice Cave
 A vast, cathedral-like cavern bathed in an eerie blue glow. Through the walls
 you can make out the shapes of objects entombed in the ice; a woolly mammoth,
@@ -602,7 +578,6 @@ into the open air.
 You move out.
 
 Glacier
-Glacier
 You are standing at the foot of the glacier, a sheer wall of ice that would
 dwarf the tallest skyscraper. For thousands of years it has followed this
 valley like the world's most dogged Slush Puppie. Scattered around are
@@ -629,7 +604,6 @@ Either that isn't here, or it's not important.
 You move south.
 
 Shangri-La
-Shangri-La
 You weren't sure what to expect from the mystical valley of Shangri-La. You'd
 heard tales of a Utopia, an earthly paradise where people lived together in
 peace and harmony. You certainly weren't expecting a large illuminated sign
@@ -647,7 +621,6 @@ glacier!
 You move east.
 
 Mountaintop
-Mountaintop
 Here, at the peak of the mountain, perched beneath a snow-covered overhang,
 is a 1969 model Sprite Alpine caravan in a delapidated state of repair.
 Mystic sigils have been daubed across its rotting sides. Colourful prayer
@@ -664,7 +637,6 @@ snow.
 > in
 You move in.
 
-Sanctum Sanctorum
 Sanctum Sanctorum
 After your long and arduous journey it's hard not to be disappointed by the
 famous Sanctum Sanctorum of his Holiness the Dada Lama. Sure, incense burners

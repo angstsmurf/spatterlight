@@ -18,8 +18,6 @@ Press:
 
 Or click on Adventure/Open Game in the menu above to open a saved game.
 
-Introduction
-
 > 3
 
 All around you is desolation, torture, and...
@@ -56,8 +54,6 @@ And you reflect on what you have done.
 Two months before...
 
 You are sitting at your desk.
-
-Lab office
 
 Lab office
 You are in a large corner office at the Superconducting Diamagnetic Field
@@ -187,8 +183,6 @@ You open lab office door.
 You move north.
 
 Lab hallway
-
-Lab hallway
 The long hallway runs east-west. To the west are the doors into the lab
 proper, and to the east are the MagLab's one classroom and the exit out of
 the building. The door to your office is to the south.
@@ -214,8 +208,6 @@ for awhile, her own way of luxuriating in the afterglow. She rolls up onto
 one elbow and looks at you, something clearly on her mind.
 
 > look
-
-In Claudia's bedroom
 
 In Claudia's bedroom
 Various science journals and textbooks on magnetics lay scattered on the
@@ -357,8 +349,6 @@ You are in the MagLab.
 > look
 
 MagLab
-
-MagLab
 The premier diamagnetic field research lab in the world is surprisingly
 small. The room is maybe 75 feet long and only about 25 feet wide. An
 assortment of shelves, tools, and computer and electrical equipment line the
@@ -433,8 +423,6 @@ to grade these for me by tomorrow morning."
 You move south.
 
 End of hallway
-
-End of hallway
 The doors out of the laboratory building are to the east, and the lab's
 single classroom is to the north. Your office and the main MagLab are to the
 west.
@@ -443,16 +431,12 @@ west.
 You move west.
 
 Lab hallway
-
-Lab hallway
 The long hallway runs east-west. To the west are the doors into the lab
 proper, and to the east are the MagLab's one classroom and the exit out of
 the building. The door to your office is to the south.
 
 > w
 You move west.
-
-MagLab
 
 MagLab
 U of I's underfunded diamagnetic field research lab is unsurprisingly small.
@@ -558,16 +542,12 @@ onto his hair.
 You move east.
 
 Lab hallway
-
-Lab hallway
 The long hallway runs east-west. To the west are the doors into the lab
 proper, and to the east are the MagLab's one classroom and the exit out of
 the building. The door to your office is to the south.
 
 > e
 You move east.
-
-End of hallway
 
 End of hallway
 The doors out of the laboratory building are to the east, and the lab's
@@ -592,16 +572,12 @@ yourselves in the MagLab starting tomorrow morning.
 You move east.
 
 Outside the MagLab
-
-Outside the MagLab
 You've stepped outside of the Superconducting Diamagnetic Field Study
 Laboratory, and can see much of the campus of  the University of Illinois
 from here. The lot where you always park is to the south.
 
 > s
 You move south.
-
-Parking lot
 
 Parking lot
 One of U of I's many parking lots, this one is relatively small and is
@@ -627,8 +603,6 @@ driveway.
 You climb out of the car.
 
 Driveway
-
-Driveway
 You are in the short concrete driveway in front of your house. It's one in a
 row of two-story brick houses. You think it looks exactly the way a
 professor's home should look: a little old, a little run down, a little
@@ -648,8 +622,6 @@ who gives the stars to the human race. Or rather, you and Justin.
 You move north.
 
 Front porch
-
-Front porch
 You are standing on the front porch of your home. On nice nights, you like to
 bring a chair out here and relax with a little scotch and soda. The door into
 your house, which you keep locked religiously, is to the north.
@@ -663,8 +635,6 @@ You open front door.
 
 > n
 You move north.
-
-Hallway
 
 Hallway
 The foyer of your house is really just a hallway. The lighting is dim enough
@@ -758,8 +728,6 @@ and then, unbidden, the thought occurs... it was almost like this was fated
 to happen.
 
 Kitchen
-
-Kitchen
 A glance at this well-organized kitchen should tell anyone that not only do
 you like to cook, but you are probably very good at it. The kitchen has been
 recently remodelled, and you designed ample counter space for so small of a
@@ -790,8 +758,6 @@ Justin's paper one more time.
 You are sitting in your living room.
 
 Living room
-
-Living room
 The cozy living room now seems unreal, with Justin lying just feet away in
 the hallway. A bookshelf covers the north wall, a fireplace sits in the
 middle of the west wall, and the south wall has a picture window looking out
@@ -802,8 +768,6 @@ beside the chair. The hallway is to the east.  The doorbell rings.
 > e
 (Getting off leather chair first)
 You move east.
-
-Hallway
 
 Hallway
 The foyer of your house is really just a hallway. The lighting is dim enough
@@ -870,8 +834,6 @@ You are standing on an endless plain of short, burnt grass.
 > look
 
 A field
-
-A field
 As far as you can see, the plain stretches before you. The light is flat, as
 if at dusk on a cloudy day. The grass beneath your bare feet is brown and
 dried, burnt out from the oppressive heat of this place. You see other
@@ -913,8 +875,6 @@ wide.
 > look
 
 A field
-
-A field
 As far as you can see, the plain stretches before you. The light is flat, as
 if at dusk on a cloudy day. The grass beneath your bare feet is brown and
 dried, burnt out from the oppressive heat of this place. You see other
@@ -930,8 +890,6 @@ Calm for no good reason at all, you walk between the towering gates, and into
 the hall behind them. The gates grind shut behind you.
 
 Entrance Hall
-
-Entrance Hall
 Carved into the interior of the cliff, large stone columns are spaced along
 the granite walls, which stretch up into darkness. The walls must curve into
 a ceiling at some point, but if they do you can't see where. Torches are set
@@ -941,8 +899,6 @@ where a large object you can't quite make out sits on the floor.
 
 > n
 You move north.
-
-The Throne
 
 The Throne
 At the end of the hall sits a large stone throne, runes you do not recognize

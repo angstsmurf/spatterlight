@@ -2,7 +2,6 @@ Loading game...
 
 City In Fear
 
-Intro
 SCENE OF THE CRIME 2
 City In Fear
    1)  Start the game
@@ -12,7 +11,6 @@ City In Fear
    3)  How to play this game
 
 > 1
-Plaza
 PLAZA
 Considered by many to be the true heart of the city and by others (i.e. me
 and me alone) to be the sleaziest dump known to man, the plaza is a sprawling
@@ -119,7 +117,6 @@ hard part of town.
 > s
 I move south.
 
-Plaza
 PLAZA
 Considered by many to be the true heart of the city and by others (i.e. me
 and me alone) to be the sleaziest dump known to man, the plaza is a sprawling
@@ -134,7 +131,6 @@ word) car, and paths lead around the plaza to the east and west.
 > in
 I climb into my car.
 
-My Car
 MY CAR
 There are few things in life as depressing as the inside of my car and today
 it looks even more depressing than usual. Quite why it looks such a mess is a
@@ -171,7 +167,6 @@ result.
 > out
 I leave my car.
 
-Outside Police Station
 OUTSIDE POLICE STATION
 The police station looks pretty much the same as it has done for the past
 fifty years, mainly on account of the fact that it hasn't been painted or
@@ -185,7 +180,6 @@ lurks nearby.
 > n
 I move north.
 
-Lobby
 LOBBY
 The police station lobby is the acceptable face of the police that is shown
 to the public: hence the lack of torture devices, battered suspects and
@@ -199,7 +193,6 @@ is here.
 > u
 I move up.
 
-Main Area
 MAIN AREA
 Around me is spread the main area of the police station and it looks slightly
 less active than Chomslea Park on a wet Sunday afternoon with a curfew in
@@ -214,7 +207,6 @@ empty office awaiting some poor unsuspecting schmuck and down the lobby.
 > n
 I move north.
 
-Evidence Store
 EVIDENCE STORE
 A new idea in the station, the evidence store (where we're supposed to store
 something called 'evidence' though my grasp of the whole thing is a little
@@ -250,7 +242,6 @@ I put on the Japan badge.
 > s
 I move south.
 
-Main Area
 MAIN AREA
 Around me is spread the main area of the police station and it looks slightly
 less active than Chomslea Park on a wet Sunday afternoon with a curfew in
@@ -265,7 +256,6 @@ empty office awaiting some poor unsuspecting schmuck and down the lobby.
 > d
 I move down.
 
-Lobby
 LOBBY
 The police station lobby is the acceptable face of the police that is shown
 to the public: hence the lack of torture devices, battered suspects and
@@ -279,7 +269,6 @@ is here.
 > s
 I move south.
 
-Outside Police Station
 OUTSIDE POLICE STATION
 The police station looks pretty much the same as it has done for the past
 fifty years, mainly on account of the fact that it hasn't been painted or
@@ -293,7 +282,6 @@ lurks nearby.
 > in
 I climb into my car.
 
-My Car
 MY CAR
 There are few things in life as depressing as the inside of my car and today
 it looks even more depressing than usual. Quite why it looks such a mess is a
@@ -318,7 +306,6 @@ speed of 120 mph - and soon leave the trouble-causers behind.
 > out
 I leave my car.
 
-Outside My House
 OUTSIDE MY HOUSE
 I once won an award for my house but as this award began with the words
 "Worst House In..." it wasn't something I was really bothered about. In all
@@ -335,7 +322,6 @@ car (which looks almost as sorry as my house right now).
 > n
 I move north.
 
-Lounge
 LOUNGE
 "Lounge" is perhaps not the most accurate description for this room as it
 functions more as whatever it needs to be depending on what I need it for.
@@ -352,7 +338,6 @@ around in the general area of my bedroom.
 > n
 I move north.
 
-Bedroom
 BEDROOM
 If the rest of the house was a mess, then this would be classed as a bomb
 site. How Carlos can live in such conditions is a mystery (although in his
@@ -407,7 +392,6 @@ I put on the heavy duty boots.
 > s
 I move south.
 
-Lounge
 LOUNGE
 "Lounge" is perhaps not the most accurate description for this room as it
 functions more as whatever it needs to be depending on what I need it for.
@@ -421,7 +405,6 @@ street.
 > s
 I move south.
 
-Outside My House
 OUTSIDE MY HOUSE
 I once won an award for my house but as this award began with the words
 "Worst House In..." it wasn't something I was really bothered about. In all
@@ -438,7 +421,6 @@ car (which looks almost as sorry as my house right now).
 > in
 I climb into my car.
 
-My Car
 MY CAR
 There are few things in life as depressing as the inside of my car and today
 it looks even more depressing than usual. Quite why it looks such a mess is a
@@ -461,7 +443,6 @@ observing the view.
 > out
 I leave my car.
 
-Chase Avenue
 CHASE AVENUE
 Chase Avenue lies in the hardest part of the hard part of town. This is the
 sort of district where the toddlers carry knives as well as dummies and girl
@@ -485,7 +466,6 @@ hours and already some honky's breakin' into his joint!"
 > n
 I move north.
 
-Lounge
 LOUNGE
 The main room of Carlos' house (for want of a better word to describe it) is
 a jumbled mess of broken furniture, smashed up boxes and crates and rolls of
@@ -501,7 +481,6 @@ bathroom. The front door stands open to the south.
 > nw
 I move northwest.
 
-Kitchen
 KITCHEN
 The terrible smell of burnt meat is always present in Carlos' kitchen
 although it's somewhat overpowered by the stench of spilt milk. Piled high on
@@ -529,7 +508,6 @@ the kitchen window.
 > se
 I move southeast.
 
-Lounge
 LOUNGE
 The main room of Carlos' house (for want of a better word to describe it) is
 a jumbled mess of broken furniture, smashed up boxes and crates and rolls of
@@ -545,7 +523,6 @@ bathroom. The front door stands open to the south.
 > ne
 I move northeast.
 
-Bedroom
 BEDROOM
 If the rest of the house was a mess, then this would be classed as a bomb
 site. How Carlos can live in such conditions is a mystery (although in his
@@ -575,7 +552,6 @@ I put on the trendy jacket.
 > sw
 I move southwest.
 
-Lounge
 LOUNGE
 The main room of Carlos' house (for want of a better word to describe it) is
 a jumbled mess of broken furniture, smashed up boxes and crates and rolls of
@@ -591,7 +567,6 @@ bathroom. The front door stands open to the south.
 > s
 I move south.
 
-Chase Avenue
 CHASE AVENUE
 Chase Avenue lies in the hardest part of the hard part of town. This is the
 sort of district where the toddlers carry knives as well as dummies and girl
@@ -610,7 +585,6 @@ around in this neighbourhood is a mystery in itself.
 > nw
 I move northwest.
 
-Alley
 ALLEY
 I'm in an alley at the side of Carlos' house which leans rather alarmingly at
 an angle. One good kick in the wrong place and I could well imagine it
@@ -626,7 +600,6 @@ soon) and the roof of Carlos' house lies up.
 > u
 I climb up the ladder and find myself on the:
 
-Roof
 ROOF
 From the roof of Carlos' house, I get a wonderful and inspiring view of the
 locale in which he lives: I can see muggers plying their trade, school kids
@@ -654,7 +627,6 @@ I take the finger.
 > d
 I move down.
 
-Alley
 ALLEY
 I'm in an alley at the side of Carlos' house which leans rather alarmingly at
 an angle. One good kick in the wrong place and I could well imagine it
@@ -670,7 +642,6 @@ soon) and the roof of Carlos' house lies up.
 > se
 I move southeast.
 
-Chase Avenue
 CHASE AVENUE
 Chase Avenue lies in the hardest part of the hard part of town. This is the
 sort of district where the toddlers carry knives as well as dummies and girl
@@ -689,7 +660,6 @@ around in this neighbourhood is a mystery in itself.
 > in
 I climb into my car.
 
-My Car
 MY CAR
 There are few things in life as depressing as the inside of my car and today
 it looks even more depressing than usual. Quite why it looks such a mess is a
@@ -712,7 +682,6 @@ Great the way things turn out like that sometimes.
 > out
 I leave my car.
 
-Japantown
 JAPANTOWN
 A pall of smog hangs over the whole of Japantown. Whether this is due to the
 large number of Japanese restaurants or the large number of burning police
@@ -727,7 +696,6 @@ of my car.
 > n
 I move north.
 
-Hing Tong Yang Ming Square
 HING TONG YANG MING SQUARE
 Lit by a bonfire on which roast at least two dozen police cars, Hing Tong
 Yang Ming Square is the thriving heart of Japantown. Literally hundreds of
@@ -742,7 +710,6 @@ nightclub in town - The Ritz - and south to where my car is parked.
 > e
 I move east.
 
-Outside The Ritz
 OUTSIDE THE RITZ
 Undoubtedly the swankiest nightclub the city has to offer, The Ritz is the
 place to be. If you're anyone, this is the place you come to be with everyone
@@ -758,7 +725,6 @@ The minders take one look at my trendy jacket and immediately throw several
 other partygoers out of the way to make room for me.
    "Chill!" one of them says as I pass by into the club.
 
-The Ritz
 THE RITZ
 Judging by the look of things, The Ritz occupies roughly the size of a large
 city block and contains nearly twice as many people. No doubt there's a bar
@@ -771,7 +737,6 @@ the rest of the nightclub spreads out to east, southeast and south.
 > e
 I move east.
 
-The Ritz
 THE RITZ
 Here I come across a group of people frantically shaking their bodies,
 throwing themselves around and, in general, looking like a right bunch of
@@ -783,7 +748,6 @@ dancefloor extends east, west, southwest, south and east.
 > e
 I move east.
 
-The Ritz
 THE RITZ
 I find myself in a corner where the music at just 180 decibels is slightly
 quiet than in the rest of the club. A bar runs along the wall here at which
@@ -795,7 +759,6 @@ south lie the dancefloor.
 > s
 I move south.
 
-The Ritz
 THE RITZ
 I seem to have made my way to the eastern edge of the club and there is a
 temporary lull in the manic dancing here as several of the dancers have
@@ -808,7 +771,6 @@ north, northwest, west, southwest and south.
 > s
 I move south.
 
-The Ritz
 THE RITZ
 I have reached the far southeastern corner of the nightclub and find myself
 faced with a large door. A larged locked door that is. And one guarded by two
@@ -825,7 +787,6 @@ let you into the office and you don't arrest us?"
    "I think we have a deal," I say.
    The other bodyguard hurries over and opens the door for me.
 
-Manager's Office
 MANAGER'S OFFICE
 Some places just scream 'class' at you. This is one of them. Most of the
 office is taken up with an old oak desk on top of which are a TV and a stereo
@@ -862,7 +823,6 @@ than a little disappointed by all of this.
 The bodyguards must be psychic because as I approach the door, one of them
 opens it and ushers me out into the club.
 
-The Ritz
 THE RITZ
 I have reached the far southeastern corner of the nightclub and find myself
 faced with a large door. A larged locked door that is. And one guarded by two
@@ -875,7 +835,6 @@ lies east and the rest of the nightclub is to the north, northwest and west.
 > n
 I move north.
 
-The Ritz
 THE RITZ
 I seem to have made my way to the eastern edge of the club and there is a
 temporary lull in the manic dancing here as several of the dancers have
@@ -888,7 +847,6 @@ north, northwest, west, southwest and south.
 > n
 I move north.
 
-The Ritz
 THE RITZ
 I find myself in a corner where the music at just 180 decibels is slightly
 quiet than in the rest of the club. A bar runs along the wall here at which
@@ -900,7 +858,6 @@ south lie the dancefloor.
 > w
 I move west.
 
-The Ritz
 THE RITZ
 Here I come across a group of people frantically shaking their bodies,
 throwing themselves around and, in general, looking like a right bunch of
@@ -912,7 +869,6 @@ dancefloor extends east, west, southwest, south and east.
 > w
 I move west.
 
-The Ritz
 THE RITZ
 Judging by the look of things, The Ritz occupies roughly the size of a large
 city block and contains nearly twice as many people. No doubt there's a bar
@@ -925,7 +881,6 @@ the rest of the nightclub spreads out to east, southeast and south.
 > w
 I move west.
 
-Outside The Ritz
 OUTSIDE THE RITZ
 Undoubtedly the swankiest nightclub the city has to offer, The Ritz is the
 place to be. If you're anyone, this is the place you come to be with everyone
@@ -939,7 +894,6 @@ erupts from time to time. East lies the insides of the club, west the square.
 > w
 I move west.
 
-Hing Tong Yang Ming Square
 HING TONG YANG MING SQUARE
 Lit by a bonfire on which roast at least two dozen police cars, Hing Tong
 Yang Ming Square is the thriving heart of Japantown. Literally hundreds of
@@ -954,7 +908,6 @@ nightclub in town - The Ritz - and south to where my car is parked.
 > s
 I move south.
 
-Japantown
 JAPANTOWN
 A pall of smog hangs over the whole of Japantown. Whether this is due to the
 large number of Japanese restaurants or the large number of burning police
@@ -969,7 +922,6 @@ of my car.
 > in
 I climb into my car.
 
-My Car
 MY CAR
 There are few things in life as depressing as the inside of my car and today
 it looks even more depressing than usual. Quite why it looks such a mess is a
@@ -994,7 +946,6 @@ where I'm going.
 > out
 I leave my car.
 
-Minsc Grove
 MINSC GROVE
 With stormclouds gathering overhead on a seemingly permanent basis, Minsc
 Grove is not one of my favourite spots in the city. The road is lined with
@@ -1011,7 +962,6 @@ tower and in lies my car.
 > w
 I move west.
 
-Supermarket
 SUPERMARKET
 Though most of the shelves are either empty, on fire or missing in action
 (i.e. stolen by the locals), this supermarket is a thriving business. The
@@ -1057,7 +1007,6 @@ pocket and hands me the chocolates.
 > e
 I move east.
 
-Minsc Grove
 MINSC GROVE
 With stormclouds gathering overhead on a seemingly permanent basis, Minsc
 Grove is not one of my favourite spots in the city. The road is lined with
@@ -1074,7 +1023,6 @@ tower and in lies my car.
 > in
 I climb into my car.
 
-My Car
 MY CAR
 There are few things in life as depressing as the inside of my car and today
 it looks even more depressing than usual. Quite why it looks such a mess is a
@@ -1101,7 +1049,6 @@ out of there.
 > out
 I leave my car.
 
-Balabon Avenue
 BALABON AVENUE
 Balabon Avenue is a fairly short street in the rough part of town. Cops -
 myself included - rarely set foot in this area for fear of just what might
@@ -1118,7 +1065,6 @@ Avenue. The way to my car is in.
 > se
 I move southeast.
 
-Subway
 SUBWAY
 In years past this was perhaps a fully functioning subway. Now it's just a
 desolate ruin. The air reeks of a fire long ago and it seems no one has
@@ -1186,7 +1132,6 @@ would ever have guessed that."
 > nw
 I move northwest.
 
-Balabon Avenue
 BALABON AVENUE
 Balabon Avenue is a fairly short street in the rough part of town. Cops -
 myself included - rarely set foot in this area for fear of just what might
@@ -1217,7 +1162,6 @@ After a moment the door swings open. A stunning blonde girl stands there.
 > ne
 I move northeast.
 
-Michael's House
 MICHAEL'S HOUSE
 Either Michael was poor or he liked to live as if he was because his entire
 house comprises of a single room. Crammed in here (and crammed is the right
@@ -1250,7 +1194,6 @@ as the next Einstein, pal. Still, it was pretty impressive."
 > sw
 I move southwest.
 
-Balabon Avenue
 BALABON AVENUE
 Balabon Avenue is a fairly short street in the rough part of town. Cops -
 myself included - rarely set foot in this area for fear of just what might
@@ -1267,7 +1210,6 @@ Avenue. The way to my car is in.
 > in
 I climb into my car.
 
-My Car
 MY CAR
 There are few things in life as depressing as the inside of my car and today
 it looks even more depressing than usual. Quite why it looks such a mess is a
@@ -1291,7 +1233,6 @@ traffic police chasing after me and shouting "stop, you bleedin' maniac!"
 > out
 I leave my car.
 
-Outside Police Station
 OUTSIDE POLICE STATION
 The police station looks pretty much the same as it has done for the past
 fifty years, mainly on account of the fact that it hasn't been painted or
@@ -1305,7 +1246,6 @@ lurks nearby.
 > n
 I move north.
 
-Lobby
 LOBBY
 The police station lobby is the acceptable face of the police that is shown
 to the public: hence the lack of torture devices, battered suspects and
@@ -1340,7 +1280,6 @@ interest you in..."
 > s
 I move south.
 
-Outside Police Station
 OUTSIDE POLICE STATION
 The police station looks pretty much the same as it has done for the past
 fifty years, mainly on account of the fact that it hasn't been painted or
@@ -1354,7 +1293,6 @@ lurks nearby.
 > in
 I climb into my car.
 
-My Car
 MY CAR
 There are few things in life as depressing as the inside of my car and today
 it looks even more depressing than usual. Quite why it looks such a mess is a
@@ -1377,7 +1315,6 @@ wasn't there yesterday.
 > out
 I leave my car.
 
-Outside The Cafe
 OUTSIDE THE CAFE
 I'm on a pleasant stretch of walkway outside of the Sunset Cafe, the world's
 most famous seaside cafe. Apparently anyone who is anyone knows of the place.
@@ -1394,7 +1331,6 @@ beach (and a little further east the ocean).
 > n
 I move north.
 
-Sunset Cafe
 SUNSET CAFE
 The interior of the cafe is quite a contrast to the exterior and I guess the
 owners must have run into severe financial difficulties over the past few
@@ -1486,7 +1422,6 @@ something else will have come up by then."
 > s
 I move south.
 
-Outside The Cafe
 OUTSIDE THE CAFE
 I'm on a pleasant stretch of walkway outside of the Sunset Cafe, the world's
 most famous seaside cafe. Apparently anyone who is anyone knows of the place.
@@ -1503,7 +1438,6 @@ beach (and a little further east the ocean).
 > in
 I climb into my car.
 
-My Car
 MY CAR
 There are few things in life as depressing as the inside of my car and today
 it looks even more depressing than usual. Quite why it looks such a mess is a
@@ -1526,7 +1460,6 @@ wasn't there yesterday.
 > out
 I leave my car.
 
-Outside My House
 OUTSIDE MY HOUSE
 I once won an award for my house but as this award began with the words
 "Worst House In..." it wasn't something I was really bothered about. In all
@@ -1558,7 +1491,6 @@ guess he's waiting for someone to come through the door. But for what?
 > n
 I move north.
 
-Lounge
 LOUNGE
 "Lounge" is perhaps not the most accurate description for this room as it
 functions more as whatever it needs to be depending on what I need it for.
@@ -1597,7 +1529,6 @@ see him again and discover what I can.
 > s
 I move south.
 
-Outside My House
 OUTSIDE MY HOUSE
 I once won an award for my house but as this award began with the words
 "Worst House In..." it wasn't something I was really bothered about. In all
@@ -1614,7 +1545,6 @@ car (which looks almost as sorry as my house right now).
 > in
 I climb into my car.
 
-My Car
 MY CAR
 There are few things in life as depressing as the inside of my car and today
 it looks even more depressing than usual. Quite why it looks such a mess is a
@@ -1637,7 +1567,6 @@ at my destination in record time.
 > out
 I leave my car.
 
-Outside Police Station
 OUTSIDE POLICE STATION
 The police station looks pretty much the same as it has done for the past
 fifty years, mainly on account of the fact that it hasn't been painted or
@@ -1651,7 +1580,6 @@ lurks nearby.
 > n
 I move north.
 
-Lobby
 LOBBY
 The police station lobby is the acceptable face of the police that is shown
 to the public: hence the lack of torture devices, battered suspects and
@@ -1693,7 +1621,6 @@ discussion about what the Divine is doing this Saturday?"
 > s
 I move south.
 
-Outside Police Station
 OUTSIDE POLICE STATION
 The police station looks pretty much the same as it has done for the past
 fifty years, mainly on account of the fact that it hasn't been painted or
@@ -1707,7 +1634,6 @@ lurks nearby.
 > in
 I climb into my car.
 
-My Car
 MY CAR
 There are few things in life as depressing as the inside of my car and today
 it looks even more depressing than usual. Quite why it looks such a mess is a
@@ -1731,7 +1657,6 @@ traffic police chasing after me and shouting "stop, you bleedin' maniac!"
 > out
 I leave my car.
 
-Emming Street
 EMMING STREET
 Even though there's no parking along this stretch of street, my car is parked
 here anyway (one of the advantages of being a cop). There isn't really much
@@ -1745,7 +1670,6 @@ in and Emming Street extends eastwards a way.
 > n
 I move north.
 
-Library
 LIBRARY
 For as far as the eye can see (well, about twenty feet actually) bookshelves
 containing close on a hundred books stretch away. Yes, this is the city
@@ -1767,7 +1691,6 @@ decibels.
 > nw
 I move northwest.
 
-Private Reading Room
 PRIVATE READING ROOM
 A definite pall of silence hangs over this room and from the way the
 stern-looking librarian is glaring at me I get the impression even whispering
@@ -1787,7 +1710,6 @@ eavesdropping on us. Meet me outside."
 > se
 I move southeast.
 
-Library
 LIBRARY
 For as far as the eye can see (well, about twenty feet actually) bookshelves
 containing close on a hundred books stretch away. Yes, this is the city
@@ -1802,7 +1724,6 @@ reading room and south to Emming Street.
 > s
 I move south.
 
-Emming Street
 EMMING STREET
 Even though there's no parking along this stretch of street, my car is parked
 here anyway (one of the advantages of being a cop). There isn't really much
@@ -1885,7 +1806,6 @@ street then driving away.
 > in
 I climb into my car.
 
-My Car
 MY CAR
 There are few things in life as depressing as the inside of my car and today
 it looks even more depressing than usual. Quite why it looks such a mess is a
@@ -1910,7 +1830,6 @@ where I'm going.
 > out
 I leave my car.
 
-Outside Police Station
 OUTSIDE POLICE STATION
 The police station looks pretty much the same as it has done for the past
 fifty years, mainly on account of the fact that it hasn't been painted or
@@ -1924,7 +1843,6 @@ lurks nearby.
 > n
 I move north.
 
-Lobby
 LOBBY
 The police station lobby is the acceptable face of the police that is shown
 to the public: hence the lack of torture devices, battered suspects and
@@ -1938,7 +1856,6 @@ is here.
 > n
 I move north.
 
-My Old Office
 MY OLD OFFICE
 Many a happy time was spent within these four walls. With the door shut, I
 could catch up on some beauty sleep and no one would be any the wiser. Now,
@@ -1957,7 +1874,6 @@ swipe said bullets.
 > s
 I move south.
 
-Lobby
 LOBBY
 The police station lobby is the acceptable face of the police that is shown
 to the public: hence the lack of torture devices, battered suspects and
@@ -1971,7 +1887,6 @@ is here.
 > u
 I move up.
 
-Main Area
 MAIN AREA
 Around me is spread the main area of the police station and it looks slightly
 less active than Chomslea Park on a wet Sunday afternoon with a curfew in
@@ -1986,7 +1901,6 @@ empty office awaiting some poor unsuspecting schmuck and down the lobby.
 > nw
 I move northwest.
 
-My New Office
 MY NEW OFFICE
 What with my promotion, I'd have expected being transferred to a larger
 office but instead I seem to have just moved up a floor. My new office is
@@ -2015,7 +1929,6 @@ there's no point in leaving such things lying around, I take them with me.
 > se
 I move southeast.
 
-Main Area
 MAIN AREA
 Around me is spread the main area of the police station and it looks slightly
 less active than Chomslea Park on a wet Sunday afternoon with a curfew in
@@ -2030,7 +1943,6 @@ empty office awaiting some poor unsuspecting schmuck and down the lobby.
 > d
 I move down.
 
-Lobby
 LOBBY
 The police station lobby is the acceptable face of the police that is shown
 to the public: hence the lack of torture devices, battered suspects and
@@ -2044,7 +1956,6 @@ is here.
 > s
 I move south.
 
-Outside Police Station
 OUTSIDE POLICE STATION
 The police station looks pretty much the same as it has done for the past
 fifty years, mainly on account of the fact that it hasn't been painted or
@@ -2058,7 +1969,6 @@ lurks nearby.
 > in
 I climb into my car.
 
-My Car
 MY CAR
 There are few things in life as depressing as the inside of my car and today
 it looks even more depressing than usual. Quite why it looks such a mess is a
@@ -2081,7 +1991,6 @@ at my destination in record time.
 > out
 I leave my car.
 
-Balabon Avenue
 BALABON AVENUE
 Balabon Avenue is a fairly short street in the rough part of town. Cops -
 myself included - rarely set foot in this area for fear of just what might
@@ -2098,7 +2007,6 @@ Avenue. The way to my car is in.
 > w
 I move west.
 
-Pawn Shop
 PAWN SHOP
 This pawn shop resembles every pawn shop I've ever had the misfortune to
 visit in my life: small, cramped and overburdened with every kind of crap
@@ -2119,7 +2027,6 @@ anyway) cash.
 > e
 I move east.
 
-Balabon Avenue
 BALABON AVENUE
 Balabon Avenue is a fairly short street in the rough part of town. Cops -
 myself included - rarely set foot in this area for fear of just what might
@@ -2136,7 +2043,6 @@ Avenue. The way to my car is in.
 > in
 I climb into my car.
 
-My Car
 MY CAR
 There are few things in life as depressing as the inside of my car and today
 it looks even more depressing than usual. Quite why it looks such a mess is a
@@ -2161,7 +2067,6 @@ speed of 120 mph - and soon leave the trouble-causers behind.
 > out
 I leave my car.
 
-Copper Row
 COPPER ROW
 The First Bank looms menacingly over me as I stand on the corner of Copper
 Row, the heart of the city's financial district. Actually, it's quite a small
@@ -2175,7 +2080,6 @@ east and southwest, whereas inwards lies my car.
 > sw
 I move southwest.
 
-Edmonton Square
 EDMONTON SQUARE
 A large open area populated by muggers and other of society's lowlifes,
 Edmonton Square is where the carnival stays when it's in town. The city comes
@@ -2189,7 +2093,6 @@ west and to the southeast the tent of a local fortune teller.
 > s
 I move south.
 
-College Gates
 COLLEGE GATES
 I'm standing before the massive and imposing gates of the city college with
 several thousand protesting teenagers. What they're protesting about I'm not
@@ -2204,7 +2107,6 @@ Edmonton Square to the north.
 > w
 I move west.
 
-Police Tent
 POLICE TENT
 Set up as an emergency base of operations in order to deal with the protest
 going on outside, the police tent is pretty much a ramshackle place. Officers
@@ -2246,7 +2148,6 @@ shaking my hand and half crushes my fingers.
 > e
 I move east.
 
-College Gates
 COLLEGE GATES
 I'm standing before the massive and imposing gates of the city college with
 several thousand protesting teenagers. What they're protesting about I'm not
@@ -2261,7 +2162,6 @@ Edmonton Square to the north.
 > s
 I move south.
 
-Grounds
 GROUNDS
 The grounds of the college are idyllic and peaceful. Students stroll back and
 forth, some reading great works of literature (I catch sight of the collected
@@ -2337,7 +2237,6 @@ little nervous about approaching the college until I know for sure.
 > e
 I move east.
 
-Entrancehall
 ENTRANCEHALL
 About me spreads the entrancehall of the city college. Despite being
 cavernous in nature, it also gives the appearance of being quite small which
@@ -2357,7 +2256,6 @@ Using the map I purchased from the pawn shop, I have little trouble finding
 my way through the winding corridors of the college and soon arrive at Alice
 Crapone's room.
 
-Alice Crapone's Room
 ALICE CRAPONE'S ROOM
 Mercifully absent of its inhabitant, this room still has a fairly unpleasant
 atmosphere to it. I've been in graveyards like this only graveyards are
@@ -2398,7 +2296,6 @@ match!
 > n
 I move north.
 
-Entrancehall
 ENTRANCEHALL
 About me spreads the entrancehall of the city college. Despite being
 cavernous in nature, it also gives the appearance of being quite small which
@@ -2416,7 +2313,6 @@ corridors lead off to the north, northeast, east, south and southwest.
 > w
 I move west.
 
-Grounds
 GROUNDS
 The grounds of the college are idyllic and peaceful. Students stroll back and
 forth, some reading great works of literature (I catch sight of the collected
@@ -2430,7 +2326,6 @@ southwest and south.
 > n
 I move north.
 
-College Gates
 COLLEGE GATES
 I'm standing before the massive and imposing gates of the city college with
 several thousand protesting teenagers. What they're protesting about I'm not
@@ -2445,7 +2340,6 @@ Edmonton Square to the north.
 > n
 I move north.
 
-Edmonton Square
 EDMONTON SQUARE
 A large open area populated by muggers and other of society's lowlifes,
 Edmonton Square is where the carnival stays when it's in town. The city comes
@@ -2459,7 +2353,6 @@ west and to the southeast the tent of a local fortune teller.
 > ne
 I move northeast.
 
-Copper Row
 COPPER ROW
 The First Bank looms menacingly over me as I stand on the corner of Copper
 Row, the heart of the city's financial district. Actually, it's quite a small
@@ -2473,7 +2366,6 @@ east and southwest, whereas inwards lies my car.
 > in
 I climb into my car.
 
-My Car
 MY CAR
 There are few things in life as depressing as the inside of my car and today
 it looks even more depressing than usual. Quite why it looks such a mess is a
@@ -2497,7 +2389,6 @@ time.
 > out
 I leave my car.
 
-Outside Police Station
 OUTSIDE POLICE STATION
 The police station looks pretty much the same as it has done for the past
 fifty years, mainly on account of the fact that it hasn't been painted or
@@ -2511,7 +2402,6 @@ lurks nearby.
 > n
 I move north.
 
-Lobby
 LOBBY
 The police station lobby is the acceptable face of the police that is shown
 to the public: hence the lack of torture devices, battered suspects and
@@ -2542,7 +2432,6 @@ afterwards..."
 > s
 I move south.
 
-Outside Police Station
 OUTSIDE POLICE STATION
 The police station looks pretty much the same as it has done for the past
 fifty years, mainly on account of the fact that it hasn't been painted or
@@ -2604,7 +2493,6 @@ Strangely enough, no one seems to pay it the slightest bit of attention.
 > n
 I move north.
 
-Lobby
 LOBBY
 The police station lobby is the acceptable face of the police that is shown
 to the public: hence the lack of torture devices, battered suspects and
@@ -2618,7 +2506,6 @@ is here.
 > u
 I move up.
 
-Main Area
 MAIN AREA
 Around me is spread the main area of the police station and it looks slightly
 less active than Chomslea Park on a wet Sunday afternoon with a curfew in
@@ -2633,7 +2520,6 @@ empty office awaiting some poor unsuspecting schmuck and down the lobby.
 > nw
 I move northwest.
 
-My New Office
 MY NEW OFFICE
 What with my promotion, I'd have expected being transferred to a larger
 office but instead I seem to have just moved up a floor. My new office is
@@ -2667,7 +2553,6 @@ day later on, I swipe the fan from my desk.
 > se
 I move southeast.
 
-Main Area
 MAIN AREA
 Around me is spread the main area of the police station and it looks slightly
 less active than Chomslea Park on a wet Sunday afternoon with a curfew in
@@ -2682,7 +2567,6 @@ empty office awaiting some poor unsuspecting schmuck and down the lobby.
 > d
 I move down.
 
-Lobby
 LOBBY
 The police station lobby is the acceptable face of the police that is shown
 to the public: hence the lack of torture devices, battered suspects and
@@ -2696,7 +2580,6 @@ is here.
 > s
 I move south.
 
-Outside Police Station
 OUTSIDE POLICE STATION
 The police station looks pretty much the same as it has done for the past
 fifty years, mainly on account of the fact that it hasn't been painted or
@@ -2710,7 +2593,6 @@ lurks nearby.
 > in
 I climb into my car.
 
-My Car
 MY CAR
 There are few things in life as depressing as the inside of my car and today
 it looks even more depressing than usual. Quite why it looks such a mess is a
@@ -2737,7 +2619,6 @@ out of there.
 > out
 I leave my car.
 
-Outside My House
 OUTSIDE MY HOUSE
 I once won an award for my house but as this award began with the words
 "Worst House In..." it wasn't something I was really bothered about. In all
@@ -2754,7 +2635,6 @@ car (which looks almost as sorry as my house right now).
 > n
 I move north.
 
-Lounge
 LOUNGE
 "Lounge" is perhaps not the most accurate description for this room as it
 functions more as whatever it needs to be depending on what I need it for.
@@ -2778,7 +2658,6 @@ trying to kill me.
 > s
 I move south.
 
-Outside My House
 OUTSIDE MY HOUSE
 I once won an award for my house but as this award began with the words
 "Worst House In..." it wasn't something I was really bothered about. In all
@@ -2795,7 +2674,6 @@ car (which looks almost as sorry as my house right now).
 > in
 I climb into my car.
 
-My Car
 MY CAR
 There are few things in life as depressing as the inside of my car and today
 it looks even more depressing than usual. Quite why it looks such a mess is a
@@ -2819,7 +2697,6 @@ time.
 > out
 I leave my car.
 
-Japantown
 JAPANTOWN
 A pall of smog hangs over the whole of Japantown. Whether this is due to the
 large number of Japanese restaurants or the large number of burning police
@@ -2834,7 +2711,6 @@ of my car.
 > n
 I move north.
 
-Hing Tong Yang Ming Square
 HING TONG YANG MING SQUARE
 Lit by a bonfire on which roast at least two dozen police cars, Hing Tong
 Yang Ming Square is the thriving heart of Japantown. Literally hundreds of
@@ -2856,7 +2732,6 @@ writer."
 > s
 I move south.
 
-Japantown
 JAPANTOWN
 A pall of smog hangs over the whole of Japantown. Whether this is due to the
 large number of Japanese restaurants or the large number of burning police
@@ -2871,7 +2746,6 @@ of my car.
 > in
 I climb into my car.
 
-My Car
 MY CAR
 There are few things in life as depressing as the inside of my car and today
 it looks even more depressing than usual. Quite why it looks such a mess is a
@@ -2894,7 +2768,6 @@ Great the way things turn out like that sometimes.
 > out
 I leave my car.
 
-Minsc Grove
 MINSC GROVE
 With stormclouds gathering overhead on a seemingly permanent basis, Minsc
 Grove is not one of my favourite spots in the city. The road is lined with
@@ -2911,7 +2784,6 @@ tower and in lies my car.
 > n
 I move north.
 
-Block Of Flats
 BLOCK OF FLATS
 I'm in the bomb-blasted reception area of the city's seediest block of flats.
 This is the sort of place that not even beggars would live in and even the
@@ -2930,7 +2802,6 @@ before suddenly flies open and masked men rush out. Before I can do anything,
 they throw a bag over my head and usher me along a dark corridor. I hear a
 door opening and find myself pushed through. The bag is ripped off my head.
 
-Shadowy Apartment
 SHADOWY APARTMENT
 I can see very little in this place as the lights are out and the curtains
 drawn. What I can see is a chair before me, deep in the shadows, in which
@@ -2965,7 +2836,6 @@ All of my best customers are psychopaths."
 The incident with the bag is repeated and before long I find myself back in
 the bomb blasted reception area.
 
-Block Of Flats
 BLOCK OF FLATS
 I'm in the bomb-blasted reception area of the city's seediest block of flats.
 This is the sort of place that not even beggars would live in and even the
@@ -2981,7 +2851,6 @@ Minsc Grove lies back to the south.
 > s
 I move south.
 
-Minsc Grove
 MINSC GROVE
 With stormclouds gathering overhead on a seemingly permanent basis, Minsc
 Grove is not one of my favourite spots in the city. The road is lined with
@@ -3002,7 +2871,6 @@ moving around in the building I just left.
 > in
 I climb into my car.
 
-My Car
 MY CAR
 There are few things in life as depressing as the inside of my car and today
 it looks even more depressing than usual. Quite why it looks such a mess is a
@@ -3026,7 +2894,6 @@ time.
 > out
 I leave my car.
 
-Machorsky Walk
 MACHORSKY WALK
 Leaning on the bonnet of my car, I take a quick look around Machorsky Walk
 without trying to be too obvious about it. This is mob terrority and strange
@@ -3043,7 +2910,6 @@ lies northwest, the bowling alley is east and my car lies inwards.
 > nw
 I move northwest.
 
-Mansion Gates
 MANSION GATES
 It's difficult to tell much about the mansion beyond the gates but I can see
 it covers several acres and has better security than Fort Knox. The gate
@@ -3093,7 +2959,6 @@ just turn my back for a minute and you sneak inside, okay? And if anyone
 asks, I never said any of this."
    "Quite... accept...able," I gasp stagger into the mansion grounds.
 
-Mansion Grounds
 MANSION GROUNDS
 The grounds of the Randolphi mansion appear to stretch for miles and show
 that despite what people might tell you, crime does pay. An elegant carving
@@ -3107,7 +2972,6 @@ way out south and the smaller house east.
 > n
 I move north.
 
-Entrance
 ENTRANCE
 I stand in the entrance to the Randolphi mansion in which there seems to be a
 party of some sort going on. Party goers throw themselves from side to side
@@ -3124,7 +2988,6 @@ of the mansion while off to the south lie the mansion grounds.
 > n
 I move north.
 
-Toilets
 TOILETS
 The toilets of the Randolphi mansion are actually bigger than my entire
 house, and probably quite a bit cleaner too. Maids in skimpy outfits sweep
@@ -3151,7 +3014,6 @@ Bob's pocket when he was scrambling around for a handkerchief.
 > s
 I move south.
 
-Entrance
 ENTRANCE
 I stand in the entrance to the Randolphi mansion in which there seems to be a
 party of some sort going on. Party goers throw themselves from side to side
@@ -3168,7 +3030,6 @@ of the mansion while off to the south lie the mansion grounds.
 > u
 I move up.
 
-Upper Hallway
 UPPER HALLWAY
 Things seem quieter up here than at the party down below. Indeed, there is a
 definite hush hanging over the whole place that I find a little unsettling.
@@ -3183,7 +3044,6 @@ bedroom.
 > w
 I move west.
 
-Mendez's Bedroom
 MENDEZ'S BEDROOM
 The sleeping quarters of the head of the Randolphi family seem to cover an
 area roughly equivalent to a city block (give or take the odd cornershop here
@@ -3224,7 +3084,6 @@ second then returns to show the same picture as the others.
 > e
 I move east.
 
-Upper Hallway
 UPPER HALLWAY
 Things seem quieter up here than at the party down below. Indeed, there is a
 definite hush hanging over the whole place that I find a little unsettling.
@@ -3279,7 +3138,6 @@ to a dark, dark place by several of my 'friends' and shot."
 > d
 I move down.
 
-Entrance
 ENTRANCE
 I stand in the entrance to the Randolphi mansion in which there seems to be a
 party of some sort going on. Party goers throw themselves from side to side
@@ -3296,7 +3154,6 @@ of the mansion while off to the south lie the mansion grounds.
 > s
 I move south.
 
-Mansion Grounds
 MANSION GROUNDS
 The grounds of the Randolphi mansion appear to stretch for miles and show
 that despite what people might tell you, crime does pay. An elegant carving
@@ -3310,7 +3167,6 @@ way out south and the smaller house east.
 > s
 I move south.
 
-Mansion Gates
 MANSION GATES
 It's difficult to tell much about the mansion beyond the gates but I can see
 it covers several acres and has better security than Fort Knox. The gate
@@ -3327,7 +3183,6 @@ the northeast and west.
 > se
 I move southeast.
 
-Machorsky Walk
 MACHORSKY WALK
 Leaning on the bonnet of my car, I take a quick look around Machorsky Walk
 without trying to be too obvious about it. This is mob terrority and strange
@@ -3344,7 +3199,6 @@ lies northwest, the bowling alley is east and my car lies inwards.
 > in
 I move in.
 
-My Car
 MY CAR
 There are few things in life as depressing as the inside of my car and today
 it looks even more depressing than usual. Quite why it looks such a mess is a
@@ -3373,7 +3227,6 @@ result.
 > out
 I leave my car.
 
-Outside Police Station
 OUTSIDE POLICE STATION
 The police station looks pretty much the same as it has done for the past
 fifty years, mainly on account of the fact that it hasn't been painted or
@@ -3387,7 +3240,6 @@ lurks nearby.
 > n
 I move north.
 
-Lobby
 LOBBY
 The police station lobby is the acceptable face of the police that is shown
 to the public: hence the lack of torture devices, battered suspects and
@@ -3418,7 +3270,6 @@ him on Judgement Day. You did right to bring this to me, McClane."
 > s
 I move south.
 
-Outside Police Station
 OUTSIDE POLICE STATION
 The police station looks pretty much the same as it has done for the past
 fifty years, mainly on account of the fact that it hasn't been painted or
@@ -3482,7 +3333,6 @@ Strangely enough, no one seems to pay it the slightest bit of attention.
 > in
 I climb into my car.
 
-My Car
 MY CAR
 There are few things in life as depressing as the inside of my car and today
 it looks even more depressing than usual. Quite why it looks such a mess is a
@@ -3509,7 +3359,6 @@ out of there.
 > out
 I leave my car.
 
-Slaughter Drive
 SLAUGHTER DRIVE
 Few are the times you find cops in this neighbourhood: this is mob territory
 through and through and it's doubtful if there's a citizen in the place who
@@ -3522,7 +3371,6 @@ mansion lies north, the playground west and my car in.
 > n
 I move north.
 
-Path
 PATH
 I find myself before the walls of the massive mansion where the meeting is
 due to take place. The building is ancient and imposing, looking like the
@@ -3533,7 +3381,6 @@ path around the mansion and south leads back to Slaughter Drive
 > e
 I move east.
 
-Outside Shed
 OUTSIDE SHED
 The path I've been following peters out here as it reaches an old, abandoned
 shed that looks like it hasn't been used in decades. Several windows mark the
@@ -3552,7 +3399,6 @@ leading into the wine cellar of the mansion.
 > n
 Ducking through the door, I enter the wine cellar of the mansion.
 
-Wine Cellar
 WINE CELLAR
 I stand at the back of a cellar filled with rack upon rack of expensive
 bottles of wine. A single bottle of anything in here probably costs more than
@@ -3565,7 +3411,6 @@ south
 > n
 I move north.
 
-Small Room
 SMALL ROOM
 This small room at the edge of the edge of the wine cellar contains just a
 single table and chair and nothing else whatsoever. In all honesty, it's the
@@ -3582,7 +3427,6 @@ I put on the uniform.
 > w
 I move west.
 
-Entrancehall
 ENTRANCEHALL
 The entrancehall of the mansion is far less grand than I would have expected.
 Indeed, it bears the neglect of a building not used for countless years and
@@ -3595,7 +3439,6 @@ east while a corridor leads to the north and the front steps are to the south
 > nw
 I move northwest.
 
-Meeting
 MEETING
 A table has been placed in the centre of this vast room, at which two chairs
 have been set (one of which has a cushion on to give the seated person a
@@ -3659,7 +3502,6 @@ Listen up..."
 > se
 I move southeast.
 
-Entrancehall
 ENTRANCEHALL
 The entrancehall of the mansion is far less grand than I would have expected.
 Indeed, it bears the neglect of a building not used for countless years and
@@ -3672,7 +3514,6 @@ east while a corridor leads to the north and the front steps are to the south
 > e
 I move east.
 
-Small Room
 SMALL ROOM
 This small room at the edge of the edge of the wine cellar contains just a
 single table and chair and nothing else whatsoever. In all honesty, it's the
@@ -3682,7 +3523,6 @@ detail adding. Doors lead away to the west and south
 > s
 I move south.
 
-Wine Cellar
 WINE CELLAR
 I stand at the back of a cellar filled with rack upon rack of expensive
 bottles of wine. A single bottle of anything in here probably costs more than
@@ -3695,7 +3535,6 @@ south
 > s
 Ducking through the door, I leave the mansion.
 
-Outside Shed
 OUTSIDE SHED
 The path I've been following peters out here as it reaches an old, abandoned
 shed that looks like it hasn't been used in decades. Several windows mark the
@@ -3707,7 +3546,6 @@ wide open. The path leads back to the west
 > w
 I move west.
 
-Path
 PATH
 I find myself before the walls of the massive mansion where the meeting is
 due to take place. The building is ancient and imposing, looking like the
@@ -3718,7 +3556,6 @@ path around the mansion and south leads back to Slaughter Drive
 > s
 I move south.
 
-Slaughter Drive
 SLAUGHTER DRIVE
 Few are the times you find cops in this neighbourhood: this is mob territory
 through and through and it's doubtful if there's a citizen in the place who
@@ -3731,7 +3568,6 @@ mansion lies north, the playground west and my car in.
 > in
 I climb into my car.
 
-My Car
 MY CAR
 There are few things in life as depressing as the inside of my car and today
 it looks even more depressing than usual. Quite why it looks such a mess is a
@@ -3764,7 +3600,6 @@ north. They don't look up to any good.
 > out
 I leave my car.
 
-Bomb Road
 BOMB ROAD
 I'm standing outside Slorb's house on Bomb Road, one of the streets in the
 roughest part of town. Several alleys lead off in a multitude of directions
@@ -3795,7 +3630,6 @@ neck cracks with a sickening noise that sends shivers down my spine.
 > n
 I move north.
 
-Slorb's House
 SLORB'S HOUSE
 Though small, Slorb's house is quite cosy: the walls are decorated with
 expensive album covers of his favourite artists. An elegant sofa fills most
@@ -3831,7 +3665,6 @@ us. Let's go get 'em, McClane. Let's clear this city up."
 > s
 I move south.
 
-Bomb Road
 BOMB ROAD
 I'm standing outside Slorb's house on Bomb Road, one of the streets in the
 roughest part of town. Several alleys lead off in a multitude of directions
@@ -3845,7 +3678,6 @@ follows me from the north.
 > in
 I climb into my car.
 
-My Car
 MY CAR
 There are few things in life as depressing as the inside of my car and today
 it looks even more depressing than usual. Quite why it looks such a mess is a
@@ -3870,7 +3702,6 @@ mph).
 > out
 I leave my car.
 
-Outside Police Station
 OUTSIDE POLICE STATION
 The police station looks pretty much the same as it has done for the past
 fifty years, mainly on account of the fact that it hasn't been painted or
@@ -3939,7 +3770,6 @@ both to the electric chair, McClane. Let's go get 'em."
 > in
 I climb into my car.
 
-My Car
 MY CAR
 There are few things in life as depressing as the inside of my car and today
 it looks even more depressing than usual. Quite why it looks such a mess is a
@@ -3968,7 +3798,6 @@ of Alice or Mendez's goons."
 > out
 I leave my car.
 
-Slaughter Drive
 SLAUGHTER DRIVE
 Few are the times you find cops in this neighbourhood: this is mob territory
 through and through and it's doubtful if there's a citizen in the place who
@@ -3982,7 +3811,6 @@ me.
 > n
 I move north.
 
-Path
 PATH
 I find myself before the walls of the massive mansion where the meeting is
 due to take place. The building is ancient and imposing, looking like the
@@ -3994,7 +3822,6 @@ Slorb follows me from the south.
 > w
 I move west.
 
-Front Steps
 FRONT STEPS
 A flight of stone steps lead up to the main doors of the mansion which,
 surprisingly enough, are standing wide open. Little is visible in the shadows
@@ -4005,7 +3832,6 @@ mansion is visible to the east  Captain Slorb follows me from the east.
 > n
 I move north.
 
-Entrancehall
 ENTRANCEHALL
 The entrancehall of the mansion is far less grand than I would have expected.
 Indeed, it bears the neglect of a building not used for countless years and
@@ -4019,7 +3845,6 @@ east while a corridor leads to the north and the front steps are to the south
 > n
 I move north.
 
-Showdown
 SHOWDOWN
 This large room takes up the bulk of the ground floor of the mansion and is
 lined on either side by floor-to-ceiling windows showing off the surrounding
@@ -4112,7 +3937,6 @@ to Mendez's head. "You're nicked, Randolphi," I say.
 
 ...press a key to continue...
 
-Captain Slorb's Office
 CAPTAIN SLORB'S OFFICE
 Usually this would be the hive of activity within the police station but as
 Slorb is currently on holiday there isn't a lot going on. An ancient mahogany

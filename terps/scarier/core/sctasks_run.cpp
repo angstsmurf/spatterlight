@@ -174,7 +174,12 @@ task_show_room_desc (scr_gameref_t game, scr_int task)
    * around you. ..."
    */
   if (prop_get_taf_version (bundle) >= TAF_VERSION_390)
-    lib_print_room_name (game, showroomdesc - 1);
+    {
+      if (lib_room_name_headings (game))
+        lib_print_room_name (game, showroomdesc - 1);
+      else
+        pf_buffer_paragraph_break (gs_get_filter (game));
+    }
   lib_print_room_description (game, showroomdesc - 1);
   /*
    * The run400 room builder appends the exits list itself when the

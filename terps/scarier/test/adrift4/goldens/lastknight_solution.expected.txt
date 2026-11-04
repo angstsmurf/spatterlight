@@ -33,7 +33,6 @@ Please enter your name:
 > Player
 
 Your Room
-Your Room
 A wide chamber bedecked with the finest furs and the furniture of your
 ancestors. That is but a hazy memory, a rumoured dream from the distant past.
 
@@ -43,7 +42,6 @@ Your sister's room lies westward.
 
 > look
 
-Your Room
 Your Room
 A wide chamber bedecked with the finest furs and the furniture of your
 ancestors. That is but a hazy memory, a rumoured dream from the distant past.

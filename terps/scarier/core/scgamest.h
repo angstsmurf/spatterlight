@@ -308,6 +308,7 @@ typedef struct scr_game_s
   scr_int turns;
   scr_int score;
   scr_bool bold_room_names;
+  scr_int room_name_headings;  /* 0 unknown, 1 print, 2 the game has its own */
   scr_bool verbose;
   scr_bool notify_score_change;
   /*

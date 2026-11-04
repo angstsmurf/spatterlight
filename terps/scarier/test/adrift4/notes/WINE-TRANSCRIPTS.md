@@ -1790,6 +1790,27 @@ case, and their goldens are re-blessed. The row notes in
   "Use 'notify on' or 'notify off' ...". No ALR mentions notify. No golden
   changed. (runner/scrun_tables.cpp)
 
+- **No room-name heading in a game that writes its own (2026-11-04).** The
+  3.9 and 4.0 Runners head each room description with the room's name when
+  Options -> Display & Media -> Appearance -> "Room names in descriptions"
+  is ticked (`showshortroom`, default on; run370/run380 have no such
+  option and no heading). Some authors wrote with it off, or upconverted
+  3.8 games that never had it, so their descriptions open with the name
+  themselves and the default printed it twice: CityInFear's "Alley" over
+  "ALLEY", SILKNOIL's "In Silk Tunnel" over its own bold "In Silk Tunnel".
+  `lib_room_name_headings` now looks at every room with a description. If
+  more than half open with the room's own name, standing on its own
+  rather than starting a sentence, the game gets no heading on movement,
+  `look` or a task's ShowRoomDesc. A brief revisit, where the heading is
+  all there is, still prints it. A count over all 724 3.9/4.0 game files
+  found 20 over the line (16 games plus patched copies), all at 60% or more.
+  The next was 50% (ssteacher, 1 of 2 rooms), then 29%. Scene of the Crime
+  counts 63%, and every one of its rooms opens with a heading of its own in
+  other words ("Alley" over "AN ALLEY"). 22 tracked goldens changed, and
+  every hunk is the deletion of a heading line (and its blank line), 3,359
+  lines in all. (library/sclibrar_print.cpp, library/sclibrar_room.cpp,
+  core/sctasks_run.cpp)
+
 ## Rules measured and ported (index)
 
 One entry per rule: the rule, the game or probe that found it, and the

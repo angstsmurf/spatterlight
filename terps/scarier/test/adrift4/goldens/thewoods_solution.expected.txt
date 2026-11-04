@@ -22,7 +22,6 @@ http://www.adrfit.org.uk
 [MORE]
 
 The Woods Are Dark
-The Woods Are Dark
 
 A text adventure by Cannibal.
 
@@ -65,8 +64,6 @@ I had found Stephen and Catherine. I could head west.
 I headed north.
 
 Dirt Road
-
-Dirt Road
 The narrow dirt road was cut up with tyre tracks. The ground underfoot was
 soggy and mud splashed up my legs. The trees, dripping water, pressed in
 close and tight, shutting out the rumbling sky. Lightning shot through the
@@ -78,8 +75,6 @@ road.
 > n
 
 I headed north.
-
-Outside Cottage
 
 Outside Cottage
 Black and grey clouds scudded relentlessly above me and the booming thunder
@@ -111,8 +106,6 @@ Catherine and slipped it into my pocket.
 I stepped inside.
 
 Front Room
-
-Front Room
 The damp and uneven walls were hung with faded and colourless paper. An old
 brick fireplace was against one wall, the chimney breast thick with dirt and
 grime. The only furniture remaining was a wooden rocking chair, covered in
@@ -121,8 +114,6 @@ cobwebs. I could move north, west or out.
 > w
 
 I headed west.
-
-Kitchen
 
 Kitchen
 A terrible and musty smell lingered in the kitchen. Insects and spiders
@@ -165,8 +156,6 @@ I picked up the tin of paint.
 I stepped outside.
 
 Back Yard
-
-Back Yard
 I found myself at the back of the cottage, standing on a paved back yard that
 was bordered with a low, dull grey concrete wall. Rain beat noisily off an
 iron corrugated roof and the wind howled through the surrounding trees.
@@ -180,8 +169,6 @@ or in through the back door.
 > e
 
 I headed east.
-
-Outhouse
 
 Outhouse
 A foul, musty smell lingered in the damp air and filled my nostrils. The
@@ -215,8 +202,6 @@ I picked up the strip of duct tape.
 I headed west.
 
 Back Yard
-
-Back Yard
 I found myself at the back of the cottage, standing on a paved back yard that
 was bordered with a low, dull grey concrete wall. Rain beat noisily off an
 iron corrugated roof and the wind howled through the surrounding trees.
@@ -232,8 +217,6 @@ or in through the back door.
 I headed southwest.
 
 Side of Cottage
-
-Side of Cottage
 I found myself on a cracked stone path lined with tangled bushes and groaning
 trees. The path curved round the cottage and lead to the front and back
 gardens. There was only one lower floor window on this side of the cottage.
@@ -243,8 +226,6 @@ I could move northeast or southeast.
 > se
 
 I headed southeast.
-
-Outside Cottage
 
 Outside Cottage
 Black and grey clouds scudded relentlessly above me and the booming thunder
@@ -268,8 +249,6 @@ cottage or in through the front door.
 I stepped inside.
 
 Front Room
-
-Front Room
 The damp and uneven walls were hung with faded and colourless paper. An old
 brick fireplace was against one wall, the chimney breast thick with dirt and
 grime. The only furniture remaining was a wooden rocking chair, covered in
@@ -280,16 +259,12 @@ cobwebs. I could move north, west or out.
 I headed north.
 
 Hallway
-
-Hallway
 The back hallway was cramped and a draught was whipping around my ankles. A
 narrow wooden staircase led upstairs. I could move south, east and up.
 
 > u
 
 I headed up.
-
-Top of Stairs
 
 Top of Stairs
 The carpet had been torn up from the landing and the floorboards creaked with
@@ -301,8 +276,6 @@ bathroom, east along the landing or down to the hallway.
 > n
 
 I headed north.
-
-Drew's Bedroom
 
 Drew's Bedroom
 I felt coldness in the pit of my stomach and a dull numbness in my mind as I
@@ -349,8 +322,6 @@ There was nothing else but dust and dirt inside. I let the lid slam shut.
 I headed south.
 
 Top of Stairs
-
-Top of Stairs
 The carpet had been torn up from the landing and the floorboards creaked with
 every step. Outside, the storm continued to rage and beat its ugly fists
 against the cottage. The roof groaned and the occasional sprinkle of dust
@@ -362,16 +333,12 @@ bathroom, east along the landing or down to the hallway.
 I headed down.
 
 Hallway
-
-Hallway
 The back hallway was cramped and a draught was whipping around my ankles. A
 narrow wooden staircase led upstairs. I could move south, east and up.
 
 > e
 
 I headed east.
-
-Toilet
 
 Toilet
 I swallowed hard as I found myself in the toilet. The bare brick walls were
@@ -397,16 +364,12 @@ the room.
 I headed west.
 
 Hallway
-
-Hallway
 The back hallway was cramped and a draught was whipping around my ankles. A
 narrow wooden staircase led upstairs. I could move south, east and up.
 
 > s
 
 I headed south.
-
-Front Room
 
 Front Room
 The damp and uneven walls were hung with faded and colourless paper. An old
@@ -462,16 +425,12 @@ allowed myself a small smile - what a cool invention.
 I headed north.
 
 Hallway
-
-Hallway
 The back hallway was cramped and a draught was whipping around my ankles. A
 narrow wooden staircase led upstairs. I could move south, east and up.
 
 > u
 
 I headed up.
-
-Top of Stairs
 
 Top of Stairs
 The carpet had been torn up from the landing and the floorboards creaked with
@@ -485,8 +444,6 @@ bathroom, east along the landing or down to the hallway.
 I headed east.
 
 Landing
-
-Landing
 I was in the middle of the upstairs landing with a door either side of me.
 The door to John and Cheryl's bedroom was closed. I could move north, south,
 east or west.
@@ -494,8 +451,6 @@ east or west.
 > e
 
 I headed east.
-
-End of Landing
 
 End of Landing
 I found myself at the end of a narrow landing lined with several doors.
@@ -511,8 +466,6 @@ ladder, fixed to the back of the trap door, slid down, offering easy access.
 > u
 
 Gingerly, I climbed the ladder and pulled myself into the attic.
-
-Attic
 
 Attic
 Rain drummed against a large overhead window. The attic was gloomy and
@@ -543,8 +496,6 @@ I picked up the collection of figures.
 I climbed back down the ladder.
 
 End of Landing
-
-End of Landing
 I found myself at the end of a narrow landing lined with several doors.
 The trap door in the ceiling was open and a narrow aluminium ladder offered
 access to the attic. I could move west or up.
@@ -554,8 +505,6 @@ access to the attic. I could move west or up.
 I headed west.
 
 Landing
-
-Landing
 I was in the middle of the upstairs landing with a door either side of me.
 The door to John and Cheryl's bedroom was closed. I could move north, south,
 east or west.
@@ -563,8 +512,6 @@ east or west.
 > n
 
 I headed north.
-
-Melissa's Bedroom
 
 Melissa's Bedroom
 The rain continued to pelt down from the ragged sky and beat against the
@@ -656,8 +603,6 @@ I cut myself short. She was gone. I was alone.
 I stepped inside.
 
 Kitchen
-
-Kitchen
 A terrible and musty smell lingered in the kitchen. Insects and spiders
 scuttled into dark corners. Beneath a narrow, dirt smeared window, was a
 stainless steel sink and draining board, thick with rust and grime. On the
@@ -672,8 +617,6 @@ I could move out into the back yard or east into the front room.
 I headed east.
 
 Front Room
-
-Front Room
 The damp and uneven walls were hung with faded and colourless paper. An old
 brick fireplace was against one wall, the chimney breast thick with dirt and
 grime. The hearth was filled with ashes. The only furniture remaining was a
@@ -684,16 +627,12 @@ wooden rocking chair, covered in cobwebs. I could move north, west or out.
 I headed north.
 
 Hallway
-
-Hallway
 The back hallway was cramped and a draught was whipping around my ankles. A
 narrow wooden staircase led upstairs. I could move south, east and up.
 
 > u
 
 I headed up.
-
-Top of Stairs
 
 Top of Stairs
 The carpet had been torn up from the landing and the floorboards creaked with
@@ -705,8 +644,6 @@ bathroom, east along the landing or down to the hallway.
 > w
 
 I headed west.
-
-Bathroom
 
 Bathroom
 I found myself in a small, damp smelling bathroom, with bare, creaking wooden
@@ -776,8 +713,6 @@ killer could still be out here !!
 I headed east.
 
 Top of Stairs
-
-Top of Stairs
 The carpet had been torn up from the landing and the floorboards creaked with
 every step. Outside, the storm continued to rage and beat its ugly fists
 against the cottage. The roof groaned and the occasional sprinkle of dust
@@ -787,8 +722,6 @@ bathroom, east along the landing or down to the hallway.
 > n
 
 I headed north.
-
-Drew's Bedroom
 
 Drew's Bedroom
 I felt coldness in the pit of my stomach and a dull numbness in my mind as I
@@ -834,8 +767,6 @@ Nothing.
 I headed south.
 
 Top of Stairs
-
-Top of Stairs
 The carpet had been torn up from the landing and the floorboards creaked with
 every step. Outside, the storm continued to rage and beat its ugly fists
 against the cottage. The roof groaned and the occasional sprinkle of dust
@@ -845,8 +776,6 @@ bathroom, east along the landing or down to the hallway.
 > e
 
 I headed east.
-
-Landing
 
 Landing
 I was in the middle of the upstairs landing with a door either side of me.
@@ -889,8 +818,6 @@ through the front door...walking into the bloodbath...the dark haired man
 turned and grinned and lay the machete down on the floor...and slipped away
 from the cottage, into the dark, into the woods...I...where was I...where...I
 opened my eyes...
-
-Clearing
 
 Clearing
 The black night sky was drenched with glittering stars. The wind had driven

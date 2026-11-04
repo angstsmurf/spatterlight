@@ -2,7 +2,6 @@ Loading game...
 
 ONNAFA
 
-Intro
 O.N.N.A.F.A.
 Oh No Not Another Fantasy Adventure
 
@@ -15,8 +14,6 @@ Oh No Not Another Fantasy Adventure
 4)  Play the game!
 
 > 4
-
-Your Bedchamber
 
 Your Bedchamber
 You're in your bedchamber which is a large, sprawling room filled with a
@@ -66,8 +63,6 @@ You take the lump.
    You move down.
 
 Main Hall
-
-Main Hall
 You're in the main hall of Castle Stroppenheim. This a huge chamber which
 looks to have been hacked out of the side of a cliff by a builder with more
 enthusiam than taste. Walls lean at weird angles and the ceiling, assuming
@@ -89,8 +84,6 @@ nod before deciding to promptly ignore you.
 
 > s
    You move south.
-
-Courtyard
 
 Courtyard
 The main courtyard of Castle Stroppenheim isn't a very impressive site at the
@@ -175,8 +168,6 @@ mutters a bit then goes off to find her broom and get some work done.
    You move north.
 
 Main Hall
-
-Main Hall
 You're in the main hall of Castle Stroppenheim. This a huge chamber which
 looks to have been hacked out of the side of a cliff by a builder with more
 enthusiam than taste. Walls lean at weird angles and the ceiling, assuming
@@ -196,8 +187,6 @@ down
 
 > ne
    You move northeast.
-
-Privy
 
 Privy
 You're in the place where it all began: the privy of Castle Stroppenheim.
@@ -233,8 +222,6 @@ get the cleaning done all the same."
    You move southwest.
 
 Main Hall
-
-Main Hall
 You're in the main hall of Castle Stroppenheim. This a huge chamber which
 looks to have been hacked out of the side of a cliff by a builder with more
 enthusiam than taste. Walls lean at weird angles and the ceiling, assuming
@@ -254,8 +241,6 @@ down
 
 > ne
    You move northeast.
-
-Privy
 
 Privy
 You're in the place where it all began: the privy of Castle Stroppenheim.
@@ -309,8 +294,6 @@ get the cleaning done all the same."
    You move southwest.
 
 Main Hall
-
-Main Hall
 You're in the main hall of Castle Stroppenheim. This a huge chamber which
 looks to have been hacked out of the side of a cliff by a builder with more
 enthusiam than taste. Walls lean at weird angles and the ceiling, assuming
@@ -332,8 +315,6 @@ down
    You move south.
 
 Courtyard
-
-Courtyard
 The main courtyard of Castle Stroppenheim isn't a very impressive site at the
 best of times, which this most certainly isn't. The dead (and still steaming)
 bodies of a couple of your servants the dragon lunched on don't add a lot to
@@ -350,8 +331,6 @@ Exits lie: north, south, west and up
 
 > n
    You move north.
-
-Main Hall
 
 Main Hall
 You're in the main hall of Castle Stroppenheim. This a huge chamber which
@@ -377,8 +356,6 @@ guardroom.
 
 > n
    You move north.
-
-Guardroom
 
 Guardroom
 The guardroom of Castle Stroppenheim once served as the castle's cat room and
@@ -448,8 +425,6 @@ You drop the guard's key.
    You move south.
 
 Main Hall
-
-Main Hall
 You're in the main hall of Castle Stroppenheim. This a huge chamber which
 looks to have been hacked out of the side of a cliff by a builder with more
 enthusiam than taste. Walls lean at weird angles and the ceiling, assuming
@@ -472,8 +447,6 @@ you from the north.
    You move south.
 
 Courtyard
-
-Courtyard
 The main courtyard of Castle Stroppenheim isn't a very impressive site at the
 best of times, which this most certainly isn't. The dead (and still steaming)
 bodies of a couple of your servants the dragon lunched on don't add a lot to
@@ -491,8 +464,6 @@ follows you from the north.  Ben follows you from the north.
 
 > w
    You move west.
-
-Stables
 
 Stables
 You find yourself amidst several large smelly horses in the stables. You've
@@ -525,8 +496,6 @@ asked for.
    You move east.
 
 Courtyard
-
-Courtyard
 The main courtyard of Castle Stroppenheim isn't a very impressive site at the
 best of times, which this most certainly isn't. The dead (and still steaming)
 bodies of a couple of your servants the dragon lunched on don't add a lot to
@@ -544,8 +513,6 @@ follows you from the west.  Ben follows you from the west.
 
 > s
    You move south.
-
-South Road
 
 South Road
 Running in a roughly southwards direction, the imaginately named South Road
@@ -567,8 +534,6 @@ follows you from the north.
    You move south.
 
 Junction
-
-Junction
 The road splits here, one branch heading north to your castle, one going
 southwest to a deep, dark wood and two other branches heading off to the east
 and southeast. A signpost in the centre of the junction informs you of just
@@ -582,8 +547,6 @@ Exits lie: north, east, west, southeast and southwest
 
 > se
    You move southeast.
-
-Winding Road
 
 Winding Road
 You're on a winding road, often used as a means of bridging the gap from one
@@ -605,8 +568,6 @@ from the north-west.
    You move southeast.
 
 Murky Crossroads
-
-Murky Crossroads
 You're at a crossroads which is both murky and thoroughly depressing. The
 ground is knee deep in foul-smelling mud and you are forever having to pick
 woodlice out of your hair.
@@ -620,8 +581,6 @@ Exits lie: (as the arm indicate) northwest, east and south
 
 > s
    You move south.
-
-Gates of Korbintown
 
 Gate of Korbintown
 The gates of a large walled town stand just to the south of you. Little of
@@ -650,8 +609,6 @@ from crowns made of crap! Heh, heh, heh!"
    You move south.
 
 Korbintown
-
-Korbintown
 The bustling town of Korbintown is all around you: townsfolk rush back and
 forth, greeting each other cheerfully, exchanging insults, duelling to the
 death... The usual. Korbintown isn't a very big town but it more than makes
@@ -669,8 +626,6 @@ north.
 
 > sw
    You move southwest.
-
-Constipated Badger
 
 Constipated Badger
 You're in a tavern, that much is clear from the sounds of fighting, vomiting
@@ -781,8 +736,6 @@ carrying a small bell, a rake and an empty beer mug.
    You move northeast.
 
 Korbintown
-
-Korbintown
 The bustling town of Korbintown is all around you: townsfolk rush back and
 forth, greeting each other cheerfully, exchanging insults, duelling to the
 death... The usual. Korbintown isn't a very big town but it more than makes
@@ -801,8 +754,6 @@ from the south-west.  Toto follows you from the south-west.
 > n
    You move north.
 
-Gates of Korbintown
-
 Gate of Korbintown
 The gates of a large walled town stand just to the south of you. The town now
 stands open to you, the gates having mysteriously unlocked themselves after
@@ -820,8 +771,6 @@ follows you from the south.
    You move north.
 
 Murky Crossroads
-
-Murky Crossroads
 You're at a crossroads which is both murky and thoroughly depressing. The
 ground is knee deep in foul-smelling mud and you are forever having to pick
 woodlice out of your hair.
@@ -836,8 +785,6 @@ follows you from the south.
 
 > nw
    You move northwest.
-
-Winding Road
 
 Winding Road
 You're on a winding road, often used as a means of bridging the gap from one
@@ -859,8 +806,6 @@ from the south-east.  Toto follows you from the south-east.
    You move northwest.
 
 Junction
-
-Junction
 The road splits here, one branch heading north to your castle, one going
 southwest to a deep, dark wood and two other branches heading off to the east
 and southeast. A signpost in the centre of the junction informs you of just
@@ -875,8 +820,6 @@ Exits lie: north, east, west, southeast and southwest
 
 > n
    You move north.
-
-South Road
 
 South Road
 Running in a roughly southwards direction, the imaginately named South Road
@@ -932,8 +875,6 @@ You drop the stuffed cat called Sam.
    You move south.
 
 Junction
-
-Junction
 The road splits here, one branch heading north to your castle, one going
 southwest to a deep, dark wood and two other branches heading off to the east
 and southeast. A signpost in the centre of the junction informs you of just
@@ -948,8 +889,6 @@ follows you from the north.
 
 > sw
    You move southwest.
-
-Dark Woods
 
 Dark Woods
 You're wandering in a large wood which is both dark and, well, full of trees.
@@ -1005,8 +944,6 @@ You take the bag of gold.
    You move southeast.
 
 Dark Woods
-
-Dark Woods
 You're wandering in a large wood which is both dark and, well, full of trees.
 
 While not being especially impressed by that description, you admit that it
@@ -1021,8 +958,6 @@ Exits lie: south and northwest
 
 > s
    You move south.
-
-Dark Woods
 
 Dark Woods
 You're wandering in a large wood which is both dark and, well, full of trees.
@@ -1041,8 +976,6 @@ you from the north.  Toto follows you from the north.
    You move south.
 
 Dark Woods
-
-Dark Woods
 You're wandering in a large wood which is both dark and, well, full of trees.
 
 While not being especially impressed by that description, you admit that it
@@ -1057,8 +990,6 @@ follows you from the north.  Toto follows you from the north.
 
 > sw
    You move southwest.
-
-Dark Woods
 
 Dark Woods
 You're wandering in a large wood which is both dark and, well, full of trees.
@@ -1077,8 +1008,6 @@ Exits lie: northeast and northwest
    You move northwest.
 
 Dark Woods
-
-Dark Woods
 You're wandering in a large wood which is both dark and, well, full of trees.
 
 While not being especially impressed by that description, you admit that it
@@ -1093,8 +1022,6 @@ Exits lie: east and southeast
 
 > e
    You move east.
-
-Dark Woods
 
 Dark Woods
 You're wandering in a large wood which is both dark and, well, full of trees.
@@ -1124,8 +1051,6 @@ respect for your authority.
    You move northwest.
 
 Dark Woods
-
-Dark Woods
 You're wandering in a large wood which is both dark and, well, full of trees.
 
 While not being especially impressed by that description, you admit that it
@@ -1140,8 +1065,6 @@ Exits lie: southeast and southwest
 
 > sw
    You move southwest.
-
-Dark Woods
 
 Dark Woods
 You're wandering in a large wood which is both dark and, well, full of trees.
@@ -1165,8 +1088,6 @@ that there is more to this one than meets the eye.
    You move northeast.
 
 Dark Woods
-
-Dark Woods
 You're wandering in a large wood which is both dark and, well, full of trees.
 
 While not being especially impressed by that description, you admit that it
@@ -1181,8 +1102,6 @@ Exits lie: southeast and southwest
 
 > se
    You move southeast.
-
-Dark Woods
 
 Dark Woods
 You're wandering in a large wood which is both dark and, well, full of trees.
@@ -1201,8 +1120,6 @@ from the north-west.  Toto follows you from the north-west.
    You move west.
 
 Dark Woods
-
-Dark Woods
 You're wandering in a large wood which is both dark and, well, full of trees.
 
 While not being especially impressed by that description, you admit that it
@@ -1217,8 +1134,6 @@ follows you from the east.
 
 > se
    You move southeast.
-
-Dark Woods
 
 Dark Woods
 You're wandering in a large wood which is both dark and, well, full of trees.
@@ -1237,8 +1152,6 @@ Exits lie: northeast and northwest
    You move northeast.
 
 Dark Woods
-
-Dark Woods
 You're wandering in a large wood which is both dark and, well, full of trees.
 
 While not being especially impressed by that description, you admit that it
@@ -1253,8 +1166,6 @@ Ben follows you from the south-west.  Toto follows you from the south-west.
 
 > n
    You move north.
-
-Dark Woods
 
 Dark Woods
 You're wandering in a large wood which is both dark and, well, full of trees.
@@ -1273,8 +1184,6 @@ you from the south.  Toto follows you from the south.
    You move north.
 
 Dark Woods
-
-Dark Woods
 You're wandering in a large wood which is both dark and, well, full of trees.
 
 While not being especially impressed by that description, you admit that it
@@ -1289,8 +1198,6 @@ follows you from the south.
 
 > nw
    You move northwest.
-
-Dark Woods
 
 Dark Woods
 You're wandering in a large wood which is both dark and, well, full of trees.
@@ -1312,8 +1219,6 @@ south-east.
    You move southwest.
 
 Dark Woods
-
-Dark Woods
 You're wandering in a large wood which is both dark and, well, full of trees.
 
 While not being especially impressed by that description, you admit that it
@@ -1330,8 +1235,6 @@ Exits lie: east and northeast
    You move east.
 
 Dark Woods
-
-Dark Woods
 You're wandering in a large wood which is both dark and, well, full of trees.
 
 While not being especially impressed by that description, you admit that it
@@ -1346,8 +1249,6 @@ follows you from the west.
 
 > s
    You move south.
-
-Dark Woods
 
 Dark Woods
 You're wandering in a large wood which is both dark and, well, full of trees.
@@ -1399,8 +1300,6 @@ You take the red wig.
    You move north.
 
 Dark Woods
-
-Dark Woods
 You're wandering in a large wood which is both dark and, well, full of trees.
 
 While not being especially impressed by that description, you admit that it
@@ -1417,8 +1316,6 @@ follows you from the south.
    You move west.
 
 Dark Woods
-
-Dark Woods
 You're wandering in a large wood which is both dark and, well, full of trees.
 
 While not being especially impressed by that description, you admit that it
@@ -1433,8 +1330,6 @@ follows you from the east.
 
 > ne
    You move northeast.
-
-Dark Woods
 
 Dark Woods
 You're wandering in a large wood which is both dark and, well, full of trees.
@@ -1456,8 +1351,6 @@ south-west.
    You move northeast.
 
 Junction
-
-Junction
 The road splits here, one branch heading north to your castle, one going
 southwest to a deep, dark wood and two other branches heading off to the east
 and southeast. A signpost in the centre of the junction informs you of just
@@ -1472,8 +1365,6 @@ Exits lie: north, east, west, southeast and southwest
 
 > se
    You move southeast.
-
-Winding Road
 
 Winding Road
 You're on a winding road, often used as a means of bridging the gap from one
@@ -1493,8 +1384,6 @@ from the north-west.  Toto follows you from the north-west.
 
 > s
    You move south.
-
-Smithy
 
 Smithy
 Inside the smithy things are HOT. Very HOT. Though only a small place, this
@@ -1526,8 +1415,6 @@ beer!"
    You move north.
 
 Winding Road
-
-Winding Road
 You're on a winding road, often used as a means of bridging the gap from one
 location to another and, as such, not the most enthralling of locations. This
 one is no exception. A few small bushes and a solitary tree leave a lot to be
@@ -1547,8 +1434,6 @@ the south.  Toto follows you from the south.
    You move southeast.
 
 Murky Crossroads
-
-Murky Crossroads
 You're at a crossroads which is both murky and thoroughly depressing. The
 ground is knee deep in foul-smelling mud and you are forever having to pick
 woodlice out of your hair.
@@ -1563,8 +1448,6 @@ Exits lie: (as the arm indicate) northwest, east and south
 
 > s
    You move south.
-
-Gates of Korbintown
 
 Gate of Korbintown
 The gates of a large walled town stand just to the south of you. The town now
@@ -1581,8 +1464,6 @@ follows you from the north.
 
 > s
    You move south.
-
-Korbintown
 
 Korbintown
 The bustling town of Korbintown is all around you: townsfolk rush back and
@@ -1604,8 +1485,6 @@ north.  Toto follows you from the north.
    You move northwest.
 
 Strange Building
-
-Strange Building
 You're in a small room about the size of your privy back at Castle
 Stroppenheim. Decorating the filthy stone walls are a collection of drawings
 of a possum: in one it is posing for the artist, in another yawning, in
@@ -1625,8 +1504,6 @@ south-east.
    You move down.
 
 Ladder
-
-Ladder
 You're clinging to a very rickety wooden ladder which winds away downwards
 into the darkness and up to strange building.
 
@@ -1637,8 +1514,6 @@ from above.
 
 > d
    You move down.
-
-Ladder
 
 Ladder
 You're about halfway down the ladder which, you begin to notice, is swaying
@@ -1654,8 +1529,6 @@ from above.
 
 > d
    You move down.
-
-Ladder
 
 Ladder
 You're close to the bottom of the swaying ladder (which is also very
@@ -1674,8 +1547,6 @@ from above.
 
 > d
    You move down.
-
-Cult of the Morbid Possum
 
 Cult of the Morbid Possum
 You stand in a stone chamber carved into the rock. In the middle of this
@@ -1734,8 +1605,6 @@ You take the cloak of ashes.
    You move up.
 
 Ladder
-
-Ladder
 You're close to the bottom of the swaying ladder (which is also very
 slippery).
 
@@ -1754,8 +1623,6 @@ from below.
    You move up.
 
 Ladder
-
-Ladder
 You're about halfway down the ladder which, you begin to notice, is swaying
 unpleasantly from side to side. One good gust of wind...
 
@@ -1771,8 +1638,6 @@ from below.
    You move up.
 
 Ladder
-
-Ladder
 You're clinging to a very rickety wooden ladder which winds away downwards
 into the darkness and up to strange building.
 
@@ -1783,8 +1648,6 @@ from below.
 
 > u
    You move up.
-
-Strange Building
 
 Strange Building
 You're in a small room about the size of your privy back at Castle
@@ -1824,8 +1687,6 @@ from below.
    You move southeast.
 
 Korbintown
-
-Korbintown
 The bustling town of Korbintown is all around you: townsfolk rush back and
 forth, greeting each other cheerfully, exchanging insults, duelling to the
 death... The usual. Korbintown isn't a very big town but it more than makes
@@ -1846,8 +1707,6 @@ from the north-west.  Toto follows you from the north-west.
 
 > se
    You move southeast.
-
-Temple of Red Harry
 
 Temple of Red Harry
 This vast building - once a nut factory, now just a place that lots of nuts
@@ -1908,8 +1767,6 @@ on your face how much that means to you." Thomas gives you another smile.
    You move northwest.
 
 Korbintown
-
-Korbintown
 The bustling town of Korbintown is all around you: townsfolk rush back and
 forth, greeting each other cheerfully, exchanging insults, duelling to the
 death... The usual. Korbintown isn't a very big town but it more than makes
@@ -1927,8 +1784,6 @@ from the south-east.  Toto follows you from the south-east.
 
 > sw
    You move southwest.
-
-Constipated Badger
 
 Constipated Badger
 You're in a tavern, that much is clear from the sounds of fighting, vomiting
@@ -1960,8 +1815,6 @@ You take the mug of beer.
    You move northeast.
 
 Korbintown
-
-Korbintown
 The bustling town of Korbintown is all around you: townsfolk rush back and
 forth, greeting each other cheerfully, exchanging insults, duelling to the
 death... The usual. Korbintown isn't a very big town but it more than makes
@@ -1980,8 +1833,6 @@ from the south-west.  Toto follows you from the south-west.
 > n
    You move north.
 
-Gates of Korbintown
-
 Gate of Korbintown
 The gates of a large walled town stand just to the south of you. The town now
 stands open to you, the gates having mysteriously unlocked themselves after
@@ -1999,8 +1850,6 @@ follows you from the south.
    You move north.
 
 Murky Crossroads
-
-Murky Crossroads
 You're at a crossroads which is both murky and thoroughly depressing. The
 ground is knee deep in foul-smelling mud and you are forever having to pick
 woodlice out of your hair.
@@ -2015,8 +1864,6 @@ follows you from the south.
 
 > nw
    You move northwest.
-
-Winding Road
 
 Winding Road
 You're on a winding road, often used as a means of bridging the gap from one
@@ -2036,8 +1883,6 @@ from the south-east.  Toto follows you from the south-east.
 
 > s
    You move south.
-
-Smithy
 
 Smithy
 Inside the smithy things are HOT. Very HOT. Though only a small place, this
@@ -2067,8 +1912,6 @@ You take the axe.
    You move north.
 
 Winding Road
-
-Winding Road
 You're on a winding road, often used as a means of bridging the gap from one
 location to another and, as such, not the most enthralling of locations. This
 one is no exception. A few small bushes and a solitary tree leave a lot to be
@@ -2088,8 +1931,6 @@ the south.  Toto follows you from the south.
    You move southeast.
 
 Murky Crossroads
-
-Murky Crossroads
 You're at a crossroads which is both murky and thoroughly depressing. The
 ground is knee deep in foul-smelling mud and you are forever having to pick
 woodlice out of your hair.
@@ -2104,8 +1945,6 @@ Exits lie: (as the arm indicate) northwest, east and south
 
 > e
    You move east.
-
-Edge of Marsh
 
 Edge of Marsh
 From here you can see the quality of the landscape take a definite nosedive
@@ -2124,8 +1963,6 @@ follows you from the west.
 
 > n
    You move north.
-
-Dismal Hut
 
 Dismal Hut
 The description says it all: "dismal". The floor of this hut is (for want of
@@ -2154,8 +1991,6 @@ you tend to get in text adventures that don't make a damn bit of sense."
    You move south.
 
 Edge of Marsh
-
-Edge of Marsh
 From here you can see the quality of the landscape take a definite nosedive
 to the east where it opens out into a marsh. The smell, even from this
 distance, is enough to make your eyes water.
@@ -2174,8 +2009,6 @@ follows you from the north.
    You move west.
 
 Murky Crossroads
-
-Murky Crossroads
 You're at a crossroads which is both murky and thoroughly depressing. The
 ground is knee deep in foul-smelling mud and you are forever having to pick
 woodlice out of your hair.
@@ -2190,8 +2023,6 @@ follows you from the east.
 
 > s
    You move south.
-
-Gates of Korbintown
 
 Gate of Korbintown
 The gates of a large walled town stand just to the south of you. The town now
@@ -2208,8 +2039,6 @@ follows you from the north.
 
 > s
    You move south.
-
-Korbintown
 
 Korbintown
 The bustling town of Korbintown is all around you: townsfolk rush back and
@@ -2229,8 +2058,6 @@ north.  Toto follows you from the north.
 
 > se
    You move southeast.
-
-Temple of Red Harry
 
 Temple of Red Harry
 This vast building - once a nut factory, now just a place that lots of nuts
@@ -2259,8 +2086,6 @@ parts, Red Harry himself would have words with you."
    You move northwest.
 
 Korbintown
-
-Korbintown
 The bustling town of Korbintown is all around you: townsfolk rush back and
 forth, greeting each other cheerfully, exchanging insults, duelling to the
 death... The usual. Korbintown isn't a very big town but it more than makes
@@ -2278,8 +2103,6 @@ from the south-east.  Toto follows you from the south-east.
 
 > se
    You move southeast.
-
-Temple of Red Harry
 
 Temple of Red Harry
 This vast building - once a nut factory, now just a place that lots of nuts
@@ -2347,8 +2170,6 @@ You take the key of pure Harry.
    You move northwest.
 
 Korbintown
-
-Korbintown
 The bustling town of Korbintown is all around you: townsfolk rush back and
 forth, greeting each other cheerfully, exchanging insults, duelling to the
 death... The usual. Korbintown isn't a very big town but it more than makes
@@ -2367,8 +2188,6 @@ from the south-east.  Toto follows you from the south-east.
 > n
    You move north.
 
-Gates of Korbintown
-
 Gate of Korbintown
 The gates of a large walled town stand just to the south of you. The town now
 stands open to you, the gates having mysteriously unlocked themselves after
@@ -2384,8 +2203,6 @@ follows you from the south.
 
 > n
    You move north.
-
-Murky Crossroads
 
 Murky Crossroads
 You're at a crossroads which is both murky and thoroughly depressing. The
@@ -2404,8 +2221,6 @@ follows you from the south.
    You move east.
 
 Edge of Marsh
-
-Edge of Marsh
 From here you can see the quality of the landscape take a definite nosedive
 to the east where it opens out into a marsh. The smell, even from this
 distance, is enough to make your eyes water.
@@ -2422,8 +2237,6 @@ follows you from the west.
 
 > e
    You move east.
-
-Marsh
 
 Marsh
 You're stumbling through one of the most foul places in Harrenden: a marsh!
@@ -2445,8 +2258,6 @@ follows you from the west.
 are sure wasn't there before. You scurry along it before it disappears again.
 
 Muddy Path
-
-Muddy Path
 You're on the eastern side of the marsh (which lies, as you might have
 gathered, to the west). The ground here is muddy and desolate but someone has
 at least made the effort to make things easier by carving a path.
@@ -2461,8 +2272,6 @@ follows you.  Toto follows you.
 
 > ne
    You move northeast.
-
-Fortress Gates
 
 Fortress Gates
 Before you tower a pair of ruined gates and, beyond them, a footpath leading
@@ -2491,8 +2300,6 @@ sound made by some old gates opening."
    You move north.
 
 Entrancehall
-
-Entrancehall
 You're standing in the entrancehall of the fortress, a place that makes
 Castle Stroppenheim seem small and meek by comparison. Though long since
 fallen to ruin, this fortress retains an air of majesty about it and, quite
@@ -2512,8 +2319,6 @@ follows you from the south.
    You move up.
 
 Ruined Hall
-
-Ruined Hall
 Once this was perhaps the main hall of the fortress, a mighty chamber
 stretching for nigh on two hundred feet with large stone statues lining the
 walls. Now the statues lie in broken fragments and the hall itself is a ruin.
@@ -2530,8 +2335,6 @@ from below.
 
 > n
    You move north.
-
-Ruined Chamber
 
 Ruined Chamber
 Judging by the forty five beds you find in this room which is just about big
@@ -2567,8 +2370,6 @@ You take the prayer book.
    You move south.
 
 Ruined Hall
-
-Ruined Hall
 Once this was perhaps the main hall of the fortress, a mighty chamber
 stretching for nigh on two hundred feet with large stone statues lining the
 walls. Now the statues lie in broken fragments and the hall itself is a ruin.
@@ -2585,8 +2386,6 @@ follows you from the north.
 
 > e
    You move east.
-
-Ruined Chamber
 
 Ruined Chamber
 A row of bodies line the floor of this room, adding an altogether grisly
@@ -2609,8 +2408,6 @@ else in the fortress.
    You move west.
 
 Ruined Hall
-
-Ruined Hall
 Once this was perhaps the main hall of the fortress, a mighty chamber
 stretching for nigh on two hundred feet with large stone statues lining the
 walls. Now the statues lie in broken fragments and the hall itself is a ruin.
@@ -2627,8 +2424,6 @@ follows you from the east.
 
 > w
    You move west.
-
-Ruined Chamber
 
 Ruined Chamber
 This looks to have been a nursery at some distant time in the past: you see
@@ -2656,8 +2451,6 @@ throughout the fortress.
 
 > e
    You move east.
-
-Ruined Hall
 
 Ruined Hall
 Once this was perhaps the main hall of the fortress, a mighty chamber
@@ -2697,8 +2490,6 @@ from the west.
 
 > s
    You move south.
-
-Birthing Chamber
 
 Birthing Chamber
 Of all the places you expected to find yourself in, this was clearly not one
@@ -2793,8 +2584,6 @@ You take the dragon egg.
    You move north.
 
 Ruined Hall
-
-Ruined Hall
 Once this was perhaps the main hall of the fortress, a mighty chamber
 stretching for nigh on two hundred feet with large stone statues lining the
 walls. Now the statues lie in broken fragments and the hall itself is a ruin.
@@ -2811,8 +2600,6 @@ follows you from the south.
 
 > d
    You move down.
-
-Entrancehall
 
 Entrancehall
 You're standing in the entrancehall of the fortress, a place that makes
@@ -2834,8 +2621,6 @@ from above.
    You move south.
 
 Fortress Gates
-
-Fortress Gates
 Before you tower a pair of ruined gates and, beyond them, a footpath leading
 to a fortress of epic proportions. Towering on the northern horizon, it sends
 shivers down your spine and turns your legs to jelly (not in the literal
@@ -2851,8 +2636,6 @@ follows you from the north.
 
 > sw
    You move southwest.
-
-Muddy Path
 
 Muddy Path
 You're on the eastern side of the marsh (which lies, as you might have
@@ -2872,8 +2655,6 @@ north-east.
    You move west, and soon become lost in the marsh again.
 
 Marsh
-
-Marsh
 You're stumbling through one of the most foul places in Harrenden: a marsh!
 The ground is soft and often you sink up to your knees in it. The smell is
 quite atrocious (and from someone who spent his childhood mucking out pigs
@@ -2889,8 +2670,6 @@ Exits lie: in lots and lots of directions
 
 > w
    You move west.
-
-Edge of Marsh
 
 Edge of Marsh
 From here you can see the quality of the landscape take a definite nosedive
@@ -2911,8 +2690,6 @@ follows you from the east.
    You move west.
 
 Murky Crossroads
-
-Murky Crossroads
 You're at a crossroads which is both murky and thoroughly depressing. The
 ground is knee deep in foul-smelling mud and you are forever having to pick
 woodlice out of your hair.
@@ -2927,8 +2704,6 @@ follows you from the east.
 
 > s
    You move south.
-
-Gates of Korbintown
 
 Gate of Korbintown
 The gates of a large walled town stand just to the south of you. The town now
@@ -2945,8 +2720,6 @@ follows you from the north.
 
 > s
    You move south.
-
-Korbintown
 
 Korbintown
 The bustling town of Korbintown is all around you: townsfolk rush back and
@@ -2966,8 +2739,6 @@ north.  Toto follows you from the north.
 
 > se
    You move southeast.
-
-Temple of Red Harry
 
 Temple of Red Harry
 This vast building - once a nut factory, now just a place that lots of nuts
@@ -3004,8 +2775,6 @@ have some score points for being such a decent chap."
    You move northwest.
 
 Korbintown
-
-Korbintown
 The bustling town of Korbintown is all around you: townsfolk rush back and
 forth, greeting each other cheerfully, exchanging insults, duelling to the
 death... The usual. Korbintown isn't a very big town but it more than makes
@@ -3024,8 +2793,6 @@ from the south-east.  Toto follows you from the south-east.
 > n
    You move north.
 
-Gates of Korbintown
-
 Gate of Korbintown
 The gates of a large walled town stand just to the south of you. The town now
 stands open to you, the gates having mysteriously unlocked themselves after
@@ -3043,8 +2810,6 @@ follows you from the south.
    You move north.
 
 Murky Crossroads
-
-Murky Crossroads
 You're at a crossroads which is both murky and thoroughly depressing. The
 ground is knee deep in foul-smelling mud and you are forever having to pick
 woodlice out of your hair.
@@ -3059,8 +2824,6 @@ follows you from the south.
 
 > nw
    You move northwest.
-
-Winding Road
 
 Winding Road
 You're on a winding road, often used as a means of bridging the gap from one
@@ -3082,8 +2845,6 @@ from the south-east.  Toto follows you from the south-east.
    You move northwest.
 
 Junction
-
-Junction
 The road splits here, one branch heading north to your castle, one going
 southwest to a deep, dark wood and two other branches heading off to the east
 and southeast. A signpost in the centre of the junction informs you of just
@@ -3098,8 +2859,6 @@ Exits lie: north, east, west, southeast and southwest
 
 > n
    You move north.
-
-South Road
 
 South Road
 Running in a roughly southwards direction, the imaginately named South Road
@@ -3120,8 +2879,6 @@ Toto follows you from the south.
 
 > n
    You move north.
-
-Courtyard
 
 Courtyard
 The main courtyard of Castle Stroppenheim isn't a very impressive site at the
@@ -3146,8 +2903,6 @@ the dragon said he'd wait for you. If you haven't got the egg, well..."
 
 > u
    You move up.
-
-The Spire
 
 The Spire
 Rising not very majestically from the courtyard of Castle Stroppenheim, the

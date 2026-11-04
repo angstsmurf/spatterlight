@@ -2,14 +2,12 @@ Loading game...
 
 Cowboy Blues
 
-Background
 Cowboy Blues
 
 1)  Start the game
 2)  Read the background and instructions
 
 > 1
-Game Settings [1]
 
 Okay, on with the game...
 
@@ -26,8 +24,6 @@ bloodshed, etc, etc, but done in a nice, wholesome way)?
 
 > 1
 Bloodshed it is. Hope you've got your sick bag ready...
-
-Game Settings [2]
 
 And how about difficulty? Do you like thinking things through for yourself,
 reasoning out how to do puzzles and solve mysteries all on your own? Or do
@@ -49,8 +45,6 @@ easy can be!
 
 > 1
 The hard setting it is. Hope you're ready to lose big time.
-
-Your House
 
 YOUR HOUSE
 As locations go in which to start an adventure, this is not the most
@@ -97,8 +91,6 @@ might come in handy.
 > s
 You move south.
 
-Babbage Street
-
 BABBAGE STREET
 You're on Babbage Street just outside your (for want of a better word)
 'house'. What a depressing state it is. Maybe when the cowboy business takes
@@ -125,8 +117,6 @@ You take the book of poetry.
 
 > w
 You move west.
-
-Corner of Fifth and Mason
 
 CORNER OF FIFTH AND MASON
 You're lurking outside the Stonetomb Saloon on the corner of Fifth and Mason.
@@ -165,8 +155,6 @@ Your score is 12 out of a maximum of 401.  (2%)
 > nw
 You move northwest.
 
-Saloon
-
 SALOON
 The best (and only) saloon in town is a tawdry shadow of its former self. The
 fights that have raged here over the years have taken their toll on the
@@ -182,8 +170,6 @@ and Mason)
   Speckle, Normal, Dyanne and Spam are here.
 
 > look
-
-Saloon
 
 SALOON
 The best (and only) saloon in town is a tawdry shadow of its former self. The
@@ -212,8 +198,6 @@ where you work but it probably still applies.)
 > se
 You move southeast.
 
-Corner of Fifth and Mason
-
 CORNER OF FIFTH AND MASON
 You're lurking outside the Stonetomb Saloon on the corner of Fifth and Mason.
 Several people of the female variety eye you up from the saloon, making you
@@ -226,8 +210,6 @@ road) and northwest (to the saloon)
   Jeb is here looking as cool as ever.
 
 > look
-
-Corner of Fifth and Mason
 
 CORNER OF FIFTH AND MASON
 You're lurking outside the Stonetomb Saloon on the corner of Fifth and Mason.
@@ -243,8 +225,6 @@ road) and northwest (to the saloon)
 > sw
 You move southwest.
 
-Long and dusty road...
-
 LONG AND DUSTY ROAD...
 Every town has a road like this: it winds away depressingly into the distance
 and seems bordered by immensely boring buildings that have no real purpose in
@@ -256,8 +236,6 @@ Mason)
   Mauree is here, smiling an inane smile.
 
 > look
-
-Long and dusty road...
 
 LONG AND DUSTY ROAD...
 Every town has a road like this: it winds away depressingly into the distance
@@ -271,8 +249,6 @@ Mason)
 
 > sw
 You move southwest.
-
-Long and dusty road...
 
 LONG AND DUSTY ROAD...
 Every town has a road like this: it winds away depressingly into the distance
@@ -290,8 +266,6 @@ insensitivity of rats the world over.
 
 > look
 
-Long and dusty road...
-
 LONG AND DUSTY ROAD...
 Every town has a road like this: it winds away depressingly into the distance
 and seems bordered by immensely boring buildings that have no real purpose in
@@ -301,8 +275,6 @@ southwest (to a long and dusty road) or northeast (to a long and dusty road)
 
 > sw
 You move southwest.
-
-Long and dusty road...
 
 LONG AND DUSTY ROAD...
 Every town has a road like this: it winds away depressingly into the distance
@@ -315,8 +287,6 @@ By the side of the road, you catch sight of some kids kicking around what
 looks to be a severed head.
 
 > look
-
-Long and dusty road...
 
 LONG AND DUSTY ROAD...
 Every town has a road like this: it winds away depressingly into the distance
@@ -354,8 +324,6 @@ Your score is 15 out of a maximum of 401.  (3%)
 
 > look
 
-Long and dusty road...
-
 LONG AND DUSTY ROAD...
 Every town has a road like this: it winds away depressingly into the distance
 and seems bordered by immensely boring buildings that have no real purpose in
@@ -376,8 +344,6 @@ head.
 > ne
 You move northeast.
 
-Long and dusty road...
-
 LONG AND DUSTY ROAD...
 Every town has a road like this: it winds away depressingly into the distance
 and seems bordered by immensely boring buildings that have no real purpose in
@@ -387,8 +353,6 @@ southwest (to a long and dusty road) or northeast (to a long and dusty road)
 
 > ne
 You move northeast.
-
-Long and dusty road...
 
 LONG AND DUSTY ROAD...
 Every town has a road like this: it winds away depressingly into the distance
@@ -408,8 +372,6 @@ You can't go in that direction, but you can move northeast and southwest.
 
 > look
 
-Long and dusty road...
-
 LONG AND DUSTY ROAD...
 Every town has a road like this: it winds away depressingly into the distance
 and seems bordered by immensely boring buildings that have no real purpose in
@@ -422,8 +384,6 @@ Mason)
 
 > ne
 You move northeast.
-
-Corner of Fifth and Mason
 
 CORNER OF FIFTH AND MASON
 You're lurking outside the Stonetomb Saloon on the corner of Fifth and Mason.
@@ -439,8 +399,6 @@ road) and northwest (to the saloon)
 > e
 You move east.
 
-Babbage Street
-
 BABBAGE STREET
 You're on Babbage Street just outside your (for want of a better word)
 'house'. What a depressing state it is. Maybe when the cowboy business takes
@@ -452,8 +410,6 @@ arcade), east (to Stonetomb Square) and west (to the corner of 5th and Mason)
 
 > e
 You move east.
-
-Stonetomb Square
 
 STONETOMB SQUARE
 You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
@@ -470,8 +426,6 @@ Babbage Street)
   Toby is here, smiling happily as people rush by him on all sides.
 
 > look
-
-Stonetomb Square
 
 STONETOMB SQUARE
 You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
@@ -523,8 +477,6 @@ either."
 > n
 You move north.
 
-Stonetomb Bank
-
 STONETOMB BANK
 The bank of Stonetomb is pretty much the sort of bank you'd expect to see in
 a cowboy film: a couple of tellers serving a long queue of customers, several
@@ -553,8 +505,6 @@ nods to the northeast. "We'll use the back room, Bydge. Don't dally."
 
 > ne
 You move northeast.
-
-Back Room
 
 BACK ROOM
 The 'safe' room of the bank, minus anything that might reasonably be
@@ -596,8 +546,6 @@ again."
 > sw
 You move southwest.
 
-Stonetomb Bank
-
 STONETOMB BANK
 The bank of Stonetomb is pretty much the sort of bank you'd expect to see in
 a cowboy film: a couple of tellers serving a long queue of customers, several
@@ -609,8 +557,6 @@ closet), northeast (to the back room) and south (to Stonetomb Square)
 
 > s
 You move south.
-
-Stonetomb Square
 
 STONETOMB SQUARE
 You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
@@ -652,8 +598,6 @@ hideous aroma.
 at you. "Gimme one reason why I shouldn't just shoot your ass where you
 stand, you yellow-bellied, stinking, cockroach-loving, dung-faced, ratty,
 little son of a- Ah, crap! He's run off!"
-
-Broom Closet/Your Office
 
 BROOM CLOSET/YOUR OFFICE
 Four feet by five, the broom closet has doubled as your office (and
@@ -760,8 +704,6 @@ Jake and the Thuggs.
 > s
 You move south.
 
-Stonetomb Bank
-
 STONETOMB BANK
 The bank of Stonetomb is pretty much the sort of bank you'd expect to see in
 a cowboy film: a couple of tellers serving a long queue of customers, several
@@ -773,8 +715,6 @@ closet), northeast (to the back room) and south (to Stonetomb Square)
 
 > ne
 You move northeast.
-
-Back Room
 
 BACK ROOM
 The 'safe' room of the bank, minus anything that might reasonably be
@@ -876,8 +816,6 @@ hell with it. Let me ask you something else.
 > sw
 You move southwest.
 
-Stonetomb Bank
-
 STONETOMB BANK
 The bank of Stonetomb is pretty much the sort of bank you'd expect to see in
 a cowboy film: a couple of tellers serving a long queue of customers, several
@@ -889,8 +827,6 @@ closet), northeast (to the back room) and south (to Stonetomb Square)
 
 > s
 You move south.
-
-Stonetomb Square
 
 STONETOMB SQUARE
 You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
@@ -908,8 +844,6 @@ Babbage Street)
 
 > se
 You move southeast.
-
-Sheriff's Office
 
 SHERIFF'S OFFICE
 For such a violent town, Stonetomb has a decidely modest sheriff's office
@@ -961,8 +895,6 @@ brutally sharp knife, a book of poetry and a credit card.
 > nw
 You move northwest.
 
-Stonetomb Square
-
 STONETOMB SQUARE
 You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
 guillotine have been erected here for many a year and a weekly tradition is
@@ -980,8 +912,6 @@ Babbage Street)
 > w
 You move west.
 
-Babbage Street
-
 BABBAGE STREET
 You're on Babbage Street just outside your (for want of a better word)
 'house'. What a depressing state it is. Maybe when the cowboy business takes
@@ -993,8 +923,6 @@ arcade), east (to Stonetomb Square) and west (to the corner of 5th and Mason)
 
 > w
 You move west.
-
-Corner of Fifth and Mason
 
 CORNER OF FIFTH AND MASON
 You're lurking outside the Stonetomb Saloon on the corner of Fifth and Mason.
@@ -1009,8 +937,6 @@ road) and northwest (to the saloon)
 
 > look
 
-Corner of Fifth and Mason
-
 CORNER OF FIFTH AND MASON
 You're lurking outside the Stonetomb Saloon on the corner of Fifth and Mason.
 Several people of the female variety eye you up from the saloon, making you
@@ -1024,8 +950,6 @@ road) and northwest (to the saloon)
 
 > nw
 You move northwest.
-
-Saloon
 
 SALOON
 The best (and only) saloon in town is a tawdry shadow of its former self. The
@@ -1052,8 +976,6 @@ killing my customers! It's not good for business! Get out! You're barred!"
 saloon, his challenge evident. "Well? Anyone?"
 
 > look
-
-Saloon
 
 SALOON
 The best (and only) saloon in town is a tawdry shadow of its former self. The
@@ -1092,8 +1014,6 @@ Your score is 40 out of a maximum of 401.  (9%)
 > se
 You move southeast.
 
-Corner of Fifth and Mason
-
 CORNER OF FIFTH AND MASON
 You're lurking outside the Stonetomb Saloon on the corner of Fifth and Mason.
 Several people of the female variety eye you up from the saloon, making you
@@ -1108,8 +1028,6 @@ road) and northwest (to the saloon)
 > e
 You move east.
 
-Babbage Street
-
 BABBAGE STREET
 You're on Babbage Street just outside your (for want of a better word)
 'house'. What a depressing state it is. Maybe when the cowboy business takes
@@ -1121,8 +1039,6 @@ arcade), east (to Stonetomb Square) and west (to the corner of 5th and Mason)
 
 > e
 You move east.
-
-Stonetomb Square
 
 STONETOMB SQUARE
 You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
@@ -1140,8 +1056,6 @@ Babbage Street)
 
 > se
 You move southeast.
-
-Sheriff's Office
 
 SHERIFF'S OFFICE
 For such a violent town, Stonetomb has a decidely modest sheriff's office
@@ -1173,8 +1087,6 @@ Your score is 40 out of a maximum of 401.  (9%)
 > nw
 You move northwest.
 
-Stonetomb Square
-
 STONETOMB SQUARE
 You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
 guillotine have been erected here for many a year and a weekly tradition is
@@ -1192,8 +1104,6 @@ Babbage Street)
 > w
 You move west.
 
-Babbage Street
-
 BABBAGE STREET
 You're on Babbage Street just outside your (for want of a better word)
 'house'. What a depressing state it is. Maybe when the cowboy business takes
@@ -1205,8 +1115,6 @@ arcade), east (to Stonetomb Square) and west (to the corner of 5th and Mason)
 
 > w
 You move west.
-
-Corner of Fifth and Mason
 
 CORNER OF FIFTH AND MASON
 You're lurking outside the Stonetomb Saloon on the corner of Fifth and Mason.
@@ -1222,8 +1130,6 @@ road) and northwest (to the saloon)
 > sw
 You move southwest.
 
-Long and dusty road...
-
 LONG AND DUSTY ROAD...
 Every town has a road like this: it winds away depressingly into the distance
 and seems bordered by immensely boring buildings that have no real purpose in
@@ -1235,8 +1141,6 @@ Mason)
   Mauree is here, smiling an inane smile.
 
 > look
-
-Long and dusty road...
 
 LONG AND DUSTY ROAD...
 Every town has a road like this: it winds away depressingly into the distance
@@ -1309,8 +1213,6 @@ else.
 > ne
 You move northeast.
 
-Corner of Fifth and Mason
-
 CORNER OF FIFTH AND MASON
 You're lurking outside the Stonetomb Saloon on the corner of Fifth and Mason.
 Several people of the female variety eye you up from the saloon, making you
@@ -1324,8 +1226,6 @@ road) and northwest (to the saloon)
 
 > nw
 You move northwest.
-
-Saloon
 
 SALOON
 The best (and only) saloon in town is a tawdry shadow of its former self. The
@@ -1342,8 +1242,6 @@ and Mason)
   Speckle, Normal, Dyanne and Spam are here.
 
 > look
-
-Saloon
 
 SALOON
 The best (and only) saloon in town is a tawdry shadow of its former self. The
@@ -1368,8 +1266,6 @@ Your score is 40 out of a maximum of 401.  (9%)
 > se
 You move southeast.
 
-Corner of Fifth and Mason
-
 CORNER OF FIFTH AND MASON
 You're lurking outside the Stonetomb Saloon on the corner of Fifth and Mason.
 Several people of the female variety eye you up from the saloon, making you
@@ -1384,8 +1280,6 @@ road) and northwest (to the saloon)
 > e
 You move east.
 
-Babbage Street
-
 BABBAGE STREET
 You're on Babbage Street just outside your (for want of a better word)
 'house'. What a depressing state it is. Maybe when the cowboy business takes
@@ -1397,8 +1291,6 @@ arcade), east (to Stonetomb Square) and west (to the corner of 5th and Mason)
 
 > e
 You move east.
-
-Stonetomb Square
 
 STONETOMB SQUARE
 You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
@@ -1436,8 +1328,6 @@ rifle also helps." He pats you on the back and disappears inside his office.
 > s
 You move south.
 
-Blood Alley
-
 BLOOD ALLEY
 In each town there's at least one place where it's certain death to venture
 without an armed bodyguard and a sizeable bribe, and Blood Alley is
@@ -1449,8 +1339,6 @@ cats and what appears to be a large banana. You can go: north (to Stonetomb
 Square)
 
 > look
-
-Blood Alley
 
 BLOOD ALLEY
 In each town there's at least one place where it's certain death to venture
@@ -1481,8 +1369,6 @@ weirdest encounter of your life to date.
 > n
 You move north.
 
-Stonetomb Square
-
 STONETOMB SQUARE
 You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
 guillotine have been erected here for many a year and a weekly tradition is
@@ -1500,8 +1386,6 @@ Babbage Street)
 > w
 You move west.
 
-Babbage Street
-
 BABBAGE STREET
 You're on Babbage Street just outside your (for want of a better word)
 'house'. What a depressing state it is. Maybe when the cowboy business takes
@@ -1513,8 +1397,6 @@ arcade), east (to Stonetomb Square) and west (to the corner of 5th and Mason)
 
 > w
 You move west.
-
-Corner of Fifth and Mason
 
 CORNER OF FIFTH AND MASON
 You're lurking outside the Stonetomb Saloon on the corner of Fifth and Mason.
@@ -1530,8 +1412,6 @@ road) and northwest (to the saloon)
 > sw
 You move southwest.
 
-Long and dusty road...
-
 LONG AND DUSTY ROAD...
 Every town has a road like this: it winds away depressingly into the distance
 and seems bordered by immensely boring buildings that have no real purpose in
@@ -1543,8 +1423,6 @@ Mason)
   Mauree is here, smiling an inane smile.
 
 > look
-
-Long and dusty road...
 
 LONG AND DUSTY ROAD...
 Every town has a road like this: it winds away depressingly into the distance
@@ -1559,8 +1437,6 @@ Mason)
 > ne
 You move northeast.
 
-Corner of Fifth and Mason
-
 CORNER OF FIFTH AND MASON
 You're lurking outside the Stonetomb Saloon on the corner of Fifth and Mason.
 Several people of the female variety eye you up from the saloon, making you
@@ -1574,8 +1450,6 @@ road) and northwest (to the saloon)
 
 > nw
 You move northwest.
-
-Saloon
 
 SALOON
 The best (and only) saloon in town is a tawdry shadow of its former self. The
@@ -1617,8 +1491,6 @@ around beating the living daylights out of his servants with it?
    2)  Get out of my face, Eccles. I haven't the time for this.
 
 > look
-
-Saloon
 
 SALOON
 The best (and only) saloon in town is a tawdry shadow of its former self. The
@@ -1752,8 +1624,6 @@ to kill you so you've lost nothing really."
 > se
 You move southeast.
 
-Corner of Fifth and Mason
-
 CORNER OF FIFTH AND MASON
 You're lurking outside the Stonetomb Saloon on the corner of Fifth and Mason.
 Several people of the female variety eye you up from the saloon, making you
@@ -1768,8 +1638,6 @@ road) and northwest (to the saloon)
 > e
 You move east.
 
-Babbage Street
-
 BABBAGE STREET
 You're on Babbage Street just outside your (for want of a better word)
 'house'. What a depressing state it is. Maybe when the cowboy business takes
@@ -1781,8 +1649,6 @@ arcade), east (to Stonetomb Square) and west (to the corner of 5th and Mason)
 
 > e
 You move east.
-
-Stonetomb Square
 
 STONETOMB SQUARE
 You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
@@ -1800,8 +1666,6 @@ Babbage Street)
 
 > se
 You move southeast.
-
-Sheriff's Office
 
 SHERIFF'S OFFICE
 For such a violent town, Stonetomb has a decidely modest sheriff's office
@@ -1845,8 +1709,6 @@ You put on the badge.
 
 > s
 You move south.
-
-Cells
 
 CELLS
 You're in the cells of the sheriff's office, surrounded on all sides by
@@ -1942,8 +1804,6 @@ conversation stone dead before it even begins.
 > n
 You move north.
 
-Sheriff's Office
-
 SHERIFF'S OFFICE
 For such a violent town, Stonetomb has a decidely modest sheriff's office
 consisting of just two rooms (one of these being where you're standing right
@@ -1955,8 +1815,6 @@ sheriff. You can go: northwest (to Stonetomb Square) and south (to the cells)
 
 > nw
 You move northwest.
-
-Stonetomb Square
 
 STONETOMB SQUARE
 You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
@@ -1975,8 +1833,6 @@ Babbage Street)
 > w
 You move west.
 
-Babbage Street
-
 BABBAGE STREET
 You're on Babbage Street just outside your (for want of a better word)
 'house'. What a depressing state it is. Maybe when the cowboy business takes
@@ -1988,8 +1844,6 @@ arcade), east (to Stonetomb Square) and west (to the corner of 5th and Mason)
 
 > n
 You move north.
-
-Your House
 
 YOUR HOUSE
 As locations go in which to start an adventure, this is not the most
@@ -2007,8 +1861,6 @@ disappointed at what she finds) looks up and gives a yelp.
    And flee she does, right out of the door before you can stop her.
 
 > look
-
-Your House
 
 YOUR HOUSE
 As locations go in which to start an adventure, this is not the most
@@ -2046,8 +1898,6 @@ Your score is 70 out of a maximum of 401.  (17%)
 > s
 You move south.
 
-Babbage Street
-
 BABBAGE STREET
 You're on Babbage Street just outside your (for want of a better word)
 'house'. What a depressing state it is. Maybe when the cowboy business takes
@@ -2059,8 +1909,6 @@ arcade), east (to Stonetomb Square) and west (to the corner of 5th and Mason)
 
 > e
 You move east.
-
-Stonetomb Square
 
 STONETOMB SQUARE
 You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
@@ -2078,8 +1926,6 @@ Babbage Street)
 
 > se
 You move southeast.
-
-Sheriff's Office
 
 SHERIFF'S OFFICE
 For such a violent town, Stonetomb has a decidely modest sheriff's office
@@ -2103,8 +1949,6 @@ it?
 > 4
 "A dead body, eh?" says the sheriff. "Sounds... interesting. Show me where
 you found it."
-
-Your House
 
 YOUR HOUSE
 As locations go in which to start an adventure, this is not the most
@@ -2151,8 +1995,6 @@ body of Senile Old War Veteran Charlie.
 > s
 You move south.
 
-Babbage Street
-
 BABBAGE STREET
 You're on Babbage Street just outside your (for want of a better word)
 'house'. What a depressing state it is. Maybe when the cowboy business takes
@@ -2164,8 +2006,6 @@ arcade), east (to Stonetomb Square) and west (to the corner of 5th and Mason)
 
 > w
 You move west.
-
-Corner of Fifth and Mason
 
 CORNER OF FIFTH AND MASON
 You're lurking outside the Stonetomb Saloon on the corner of Fifth and Mason.
@@ -2180,8 +2020,6 @@ road) and northwest (to the saloon)
 
 > nw
 You move northwest.
-
-Saloon
 
 SALOON
 The best (and only) saloon in town is a tawdry shadow of its former self. The
@@ -2334,8 +2172,6 @@ else.
 > se
 You move southeast.
 
-Corner of Fifth and Mason
-
 CORNER OF FIFTH AND MASON
 You're lurking outside the Stonetomb Saloon on the corner of Fifth and Mason.
 Several people of the female variety eye you up from the saloon, making you
@@ -2350,8 +2186,6 @@ road) and northwest (to the saloon)
 > e
 You move east.
 
-Babbage Street
-
 BABBAGE STREET
 You're on Babbage Street just outside your (for want of a better word)
 'house'. What a depressing state it is. Maybe when the cowboy business takes
@@ -2363,8 +2197,6 @@ arcade), east (to Stonetomb Square) and west (to the corner of 5th and Mason)
 
 > e
 You move east.
-
-Stonetomb Square
 
 STONETOMB SQUARE
 You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
@@ -2383,8 +2215,6 @@ Babbage Street)
 > se
 You move southeast.
 
-Sheriff's Office
-
 SHERIFF'S OFFICE
 For such a violent town, Stonetomb has a decidely modest sheriff's office
 consisting of just two rooms (one of these being where you're standing right
@@ -2396,8 +2226,6 @@ sheriff. You can go: northwest (to Stonetomb Square) and south (to the cells)
 
 > s
 You move south.
-
-Cells
 
 CELLS
 You're in the cells of the sheriff's office, surrounded on all sides by
@@ -2437,8 +2265,6 @@ word."
 > n
 You move north.
 
-Sheriff's Office
-
 SHERIFF'S OFFICE
 For such a violent town, Stonetomb has a decidely modest sheriff's office
 consisting of just two rooms (one of these being where you're standing right
@@ -2450,8 +2276,6 @@ sheriff. You can go: northwest (to Stonetomb Square) and south (to the cells)
 
 > nw
 You move northwest.
-
-Stonetomb Square
 
 STONETOMB SQUARE
 You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
@@ -2470,8 +2294,6 @@ Babbage Street)
 > ne
 You move northeast.
 
-Murder Avenue
-
 MURDER AVENUE
 You find yourself approaching the rougher side of town, a little place that
 is known around these parts as Murder Avenue. In olden times this was a
@@ -2486,8 +2308,6 @@ Square)
 
 > e
 You move east.
-
-Outside OK's Coral
 
 OUTSIDE OK'S CORAL
 There are few buildings as feared and shunned in Stonetomb as OK's Coral
@@ -2514,8 +2334,6 @@ he's a loser."
 > w
 You move west.
 
-Murder Avenue
-
 MURDER AVENUE
 You find yourself approaching the rougher side of town, a little place that
 is known around these parts as Murder Avenue. In olden times this was a
@@ -2530,8 +2348,6 @@ Square)
 
 > sw
 You move southwest.
-
-Stonetomb Square
 
 STONETOMB SQUARE
 You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
@@ -2550,8 +2366,6 @@ Babbage Street)
 > w
 You move west.
 
-Babbage Street
-
 BABBAGE STREET
 You're on Babbage Street just outside your (for want of a better word)
 'house'. What a depressing state it is. Maybe when the cowboy business takes
@@ -2563,8 +2377,6 @@ arcade), east (to Stonetomb Square) and west (to the corner of 5th and Mason)
 
 > w
 You move west.
-
-Corner of Fifth and Mason
 
 CORNER OF FIFTH AND MASON
 You're lurking outside the Stonetomb Saloon on the corner of Fifth and Mason.
@@ -2579,8 +2391,6 @@ road) and northwest (to the saloon)
 
 > nw
 You move northwest.
-
-Saloon
 
 SALOON
 The best (and only) saloon in town is a tawdry shadow of its former self. The
@@ -2622,8 +2432,6 @@ to know she was dying after all and that it's not me losing my charm."
 > se
 You move southeast.
 
-Corner of Fifth and Mason
-
 CORNER OF FIFTH AND MASON
 You're lurking outside the Stonetomb Saloon on the corner of Fifth and Mason.
 Several people of the female variety eye you up from the saloon, making you
@@ -2638,8 +2446,6 @@ road) and northwest (to the saloon)
 > e
 You move east.
 
-Babbage Street
-
 BABBAGE STREET
 You're on Babbage Street just outside your (for want of a better word)
 'house'. What a depressing state it is. Maybe when the cowboy business takes
@@ -2651,8 +2457,6 @@ arcade), east (to Stonetomb Square) and west (to the corner of 5th and Mason)
 
 > e
 You move east.
-
-Stonetomb Square
 
 STONETOMB SQUARE
 You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
@@ -2671,8 +2475,6 @@ Babbage Street)
 > e
 You move east.
 
-Slaughter Row
-
 SLAUGHTER ROW
 Despite the ominous name, Slaughter Row is just a pleasant little street
 where the weeds are fighting a battle with the tiles for domination over the
@@ -2687,8 +2489,6 @@ Using the key you got from Spam, you open the warehouse door.
 
 > sw
 You move southwest.
-
-Warehouse
 
 WAREHOUSE
 This looks to be a truly gory place: dead bodies are hung on hooks which in
@@ -2735,8 +2535,6 @@ the warehouse key and a circular key.
 > u
 You move up.
 
-Grimy Room
-
 GRIMY ROOM
 The second floor of the warehouse is actually just a small, grimy little room
 that looks like a pig has been sleeping here judging by the state of things.
@@ -2762,8 +2560,6 @@ the warehouse key, a circular key, the deflection helmet and the manual.
 > d
 You move down.
 
-Warehouse
-
 WAREHOUSE
 This looks to be a truly gory place: dead bodies are hung on hooks which in
 turn hang from the ceiling. You count at least two dozen of them and for a
@@ -2777,8 +2573,6 @@ Slaughter Row)
 
 > ne
 You move northeast.
-
-Slaughter Row
 
 SLAUGHTER ROW
 Despite the ominous name, Slaughter Row is just a pleasant little street
@@ -2826,8 +2620,6 @@ You put on the deflection helmet.
 > w
 You move west.
 
-Stonetomb Square
-
 STONETOMB SQUARE
 You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
 guillotine have been erected here for many a year and a weekly tradition is
@@ -2844,8 +2636,6 @@ Babbage Street)
 
 > ne
 You move northeast.
-
-Murder Avenue
 
 MURDER AVENUE
 You find yourself approaching the rougher side of town, a little place that
@@ -2901,8 +2691,6 @@ third.
 > sw
 You move southwest.
 
-Stonetomb Square
-
 STONETOMB SQUARE
 You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
 guillotine have been erected here for many a year and a weekly tradition is
@@ -2920,8 +2708,6 @@ Babbage Street)
 > ne
 You move northeast.
 
-Murder Avenue
-
 MURDER AVENUE
 You find yourself approaching the rougher side of town, a little place that
 is known around these parts as Murder Avenue. In olden times this was a
@@ -2936,8 +2722,6 @@ Square)
 
 > n
 You move north.
-
-Scabbit Lane
 
 SCABBIT LANE
 The most rundown and desolate road in town, Scabbit Lane is home to
@@ -2967,8 +2751,6 @@ barrel even an inch. Looks like you're going to need help with this one.
 > n
 You move north.
 
-Ghost Saloon
-
 GHOST SALOON
 Spooky! You seem to have stumbled across Stonetomb's one and only haunted
 building. Several tables around which sit a multitude of ghosts have been set
@@ -2996,8 +2778,6 @@ help me.
 in a while." Peter flexes his fingers. "Okay, show me this barrel and I'll
 show you what we dead folk can do when we put our minds to it."
    You exit the saloon by the door. Peter just floats through the wall.
-
-Scabbit Lane
 
 SCABBIT LANE
 The most rundown and desolate road in town, Scabbit Lane is home to
@@ -3040,8 +2820,6 @@ repertoire of them - and floats indignantly back into the saloon.
 
 > look
 
-Scabbit Lane
-
 SCABBIT LANE
 The most rundown and desolate road in town, Scabbit Lane is home to
 Stonetomb's beggar and rat population (although telling the difference
@@ -3053,8 +2831,6 @@ saloon), south (to Murder Avenue) and down (the steps to the cellar)
 
 > d
 You move down.
-
-Cellar
 
 CELLAR
 Even though the saloon above hasn't been used as such for decades, this place
@@ -3096,8 +2872,6 @@ not.
 
 > u
 You move up.
-
-Scabbit Lane
 
 SCABBIT LANE
 The most rundown and desolate road in town, Scabbit Lane is home to
@@ -3183,8 +2957,6 @@ You take the voucher.
 > sw
 You move southwest.
 
-Stonetomb Square
-
 STONETOMB SQUARE
 You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
 guillotine have been erected here for many a year and a weekly tradition is
@@ -3202,8 +2974,6 @@ Babbage Street)
 > w
 You move west.
 
-Babbage Street
-
 BABBAGE STREET
 You're on Babbage Street just outside your (for want of a better word)
 'house'. What a depressing state it is. Maybe when the cowboy business takes
@@ -3215,8 +2985,6 @@ arcade), east (to Stonetomb Square) and west (to the corner of 5th and Mason)
 
 > w
 You move west.
-
-Corner of Fifth and Mason
 
 CORNER OF FIFTH AND MASON
 You're lurking outside the Stonetomb Saloon on the corner of Fifth and Mason.
@@ -3231,8 +2999,6 @@ road) and northwest (to the saloon)
 
 > nw
 You move northwest.
-
-Saloon
 
 SALOON
 The best (and only) saloon in town is a tawdry shadow of its former self. The
@@ -3327,8 +3093,6 @@ drop it.
 > se
 You move southeast.
 
-Corner of Fifth and Mason
-
 CORNER OF FIFTH AND MASON
 You're lurking outside the Stonetomb Saloon on the corner of Fifth and Mason.
 Several people of the female variety eye you up from the saloon, making you
@@ -3343,8 +3107,6 @@ road) and northwest (to the saloon)
 > e
 You move east.
 
-Babbage Street
-
 BABBAGE STREET
 You're on Babbage Street just outside your (for want of a better word)
 'house'. What a depressing state it is. Maybe when the cowboy business takes
@@ -3356,8 +3118,6 @@ arcade), east (to Stonetomb Square) and west (to the corner of 5th and Mason)
 
 > e
 You move east.
-
-Stonetomb Square
 
 STONETOMB SQUARE
 You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
@@ -3376,8 +3136,6 @@ Babbage Street)
 > e
 You move east.
 
-Slaughter Row
-
 SLAUGHTER ROW
 Despite the ominous name, Slaughter Row is just a pleasant little street
 where the weeds are fighting a battle with the tiles for domination over the
@@ -3389,8 +3147,6 @@ and east (to the river bed)
 
 > e
 You move east.
-
-Dry River Bed
 
 DRY RIVER BED
 You stand in a very dry river bed, home of... not much really. A pile of
@@ -3414,8 +3170,6 @@ making much progress here.
 > w
 You move west.
 
-Slaughter Row
-
 SLAUGHTER ROW
 Despite the ominous name, Slaughter Row is just a pleasant little street
 where the weeds are fighting a battle with the tiles for domination over the
@@ -3429,8 +3183,6 @@ and east (to the river bed)
 
 > w
 You move west.
-
-Stonetomb Square
 
 STONETOMB SQUARE
 You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
@@ -3449,8 +3201,6 @@ Babbage Street)
 > w
 You move west.
 
-Babbage Street
-
 BABBAGE STREET
 You're on Babbage Street just outside your (for want of a better word)
 'house'. What a depressing state it is. Maybe when the cowboy business takes
@@ -3462,8 +3212,6 @@ arcade), east (to Stonetomb Square) and west (to the corner of 5th and Mason)
 
 > w
 You move west.
-
-Corner of Fifth and Mason
 
 CORNER OF FIFTH AND MASON
 You're lurking outside the Stonetomb Saloon on the corner of Fifth and Mason.
@@ -3522,8 +3270,6 @@ sway back and forth as he leaves.
 > sw
 You move southwest.
 
-Long and dusty road...
-
 LONG AND DUSTY ROAD...
 Every town has a road like this: it winds away depressingly into the distance
 and seems bordered by immensely boring buildings that have no real purpose in
@@ -3540,8 +3286,6 @@ You take the mattress.
 > ne
 You move northeast.
 
-Corner of Fifth and Mason
-
 CORNER OF FIFTH AND MASON
 You're lurking outside the Stonetomb Saloon on the corner of Fifth and Mason.
 Several people of the female variety eye you up from the saloon, making you
@@ -3556,8 +3300,6 @@ road) and northwest (to the saloon)
 > e
 You move east.
 
-Babbage Street
-
 BABBAGE STREET
 You're on Babbage Street just outside your (for want of a better word)
 'house'. What a depressing state it is. Maybe when the cowboy business takes
@@ -3569,8 +3311,6 @@ arcade), east (to Stonetomb Square) and west (to the corner of 5th and Mason)
 
 > s
 You move south.
-
-Arcade
 
 ARCADE
 Stonetomb Arcade, location of your mispent youth (it was closer than school
@@ -3624,8 +3364,6 @@ deal with so the kid'll just have to wait.
 > n
 You move north.
 
-Babbage Street
-
 BABBAGE STREET
 You're on Babbage Street just outside your (for want of a better word)
 'house'. What a depressing state it is. Maybe when the cowboy business takes
@@ -3641,8 +3379,6 @@ damned!") but not quick enough to stop her.
 
 > s
 You move south.
-
-Arcade
 
 ARCADE
 Stonetomb Arcade, location of your mispent youth (it was closer than school
@@ -3661,8 +3397,6 @@ away before I am apprehended!"
 
 > e
 You move east.
-
-Manager's Office
 
 MANAGER'S OFFICE
 A location of much mystery and speculation to you as a kid, the manager of
@@ -3710,8 +3444,6 @@ but please - I beg of you! - let none them say I wept as I was arrested."
    She pats you on the head. "Thank you," she says. "This means... a lot..."
    You lead her through the streets of Stonetomb to...
 
-Sheriff's Office
-
 SHERIFF'S OFFICE
 For such a violent town, Stonetomb has a decidely modest sheriff's office
 consisting of just two rooms (one of these being where you're standing right
@@ -3741,8 +3473,6 @@ be..."
 > nw
 You move northwest.
 
-Stonetomb Square
-
 STONETOMB SQUARE
 You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
 guillotine have been erected here for many a year and a weekly tradition is
@@ -3759,8 +3489,6 @@ Babbage Street)
 
 > w
 You move west.
-
-Babbage Street
 
 BABBAGE STREET
 You're on Babbage Street just outside your (for want of a better word)
@@ -3779,8 +3507,6 @@ You take the battery.
 > e
 You move east.
 
-Stonetomb Square
-
 STONETOMB SQUARE
 You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
 guillotine have been erected here for many a year and a weekly tradition is
@@ -3798,8 +3524,6 @@ Babbage Street)
 > e
 You move east.
 
-Slaughter Row
-
 SLAUGHTER ROW
 Despite the ominous name, Slaughter Row is just a pleasant little street
 where the weeds are fighting a battle with the tiles for domination over the
@@ -3811,8 +3535,6 @@ and east (to the river bed)
 
 > e
 You move east.
-
-Dry River Bed
 
 DRY RIVER BED
 You stand in a very dry river bed, home of... not much really. A pile of
@@ -3890,8 +3612,6 @@ mattress - and then, stifling a yawn, go off to find them.
 > w
 You move west.
 
-Slaughter Row
-
 SLAUGHTER ROW
 Despite the ominous name, Slaughter Row is just a pleasant little street
 where the weeds are fighting a battle with the tiles for domination over the
@@ -3903,8 +3623,6 @@ and east (to the river bed)
 
 > e
 You move east.
-
-Dry River Bed
 
 DRY RIVER BED
 You stand in a very dry river bed, home of... not much really. A pile of
@@ -3947,8 +3665,6 @@ if it were told."
 > w
 You move west.
 
-Slaughter Row
-
 SLAUGHTER ROW
 Despite the ominous name, Slaughter Row is just a pleasant little street
 where the weeds are fighting a battle with the tiles for domination over the
@@ -3960,8 +3676,6 @@ and east (to the river bed)
 
 > w
 You move west.
-
-Stonetomb Square
 
 STONETOMB SQUARE
 You're in Stonetomb Square, the 'thriving' heart of the town. A gallows and
@@ -3980,8 +3694,6 @@ Babbage Street)
 > ne
 You move northeast.
 
-Murder Avenue
-
 MURDER AVENUE
 You find yourself approaching the rougher side of town, a little place that
 is known around these parts as Murder Avenue. In olden times this was a
@@ -3996,8 +3708,6 @@ Square)
 
 > e
 You move east.
-
-Outside OK's Coral
 
 OUTSIDE OK'S CORAL
 There are few buildings as feared and shunned in Stonetomb as OK's Coral
@@ -4017,8 +3727,6 @@ Coral) and west (to Murder Avenue)
 > n
 You move north.
 
-OK's Coral
-
 OK'S CORAL
 Home of more than a few gunfights in the past, the Coral is pretty much a
 landmark in Stonetomb. Only these days it's an old landmark. It's a good half
@@ -4036,8 +3744,6 @@ way you've seen characters in cartoons do, you are sent plummeting downwards
 to your death...
 
 Or not as the case may be because the drop only turns out to be ten feet.
-
-Smugglers Cave
 
 SMUGGLERS CAVE
 From the skull and crossbones emblems that are stamped on all the boxes and
@@ -4069,8 +3775,6 @@ Ah! You find $5 in this box which you quickly swipe!
 > n
 You move north.
 
-Winding Tunnel
-
 WINDING TUNNEL
 You wander along the tunnel which winds away before you. Further ahead it
 looks to open out into a large cavern and from the way your heart is thudding
@@ -4083,8 +3787,6 @@ you have)
 
 > n
 You move north.
-
-Mad Jake's Hideout
 
 MAD JAKE'S HIDEOUT
 After all you have been through to get here, you were kind of expecting the
@@ -4151,8 +3853,6 @@ grhrgrhrgrhrghhahaha!" he wails.
    You raise the knife to deliver the final blow but it seems the fight has
 well and truly gone out of Jake. It's just a simple matter of arresting him
 now and the day is yours...
-
-Mayor's House
 
 MAYOR'S HOUSE
 You've never been to the house of the Mayor of Stonetomb before and in a way

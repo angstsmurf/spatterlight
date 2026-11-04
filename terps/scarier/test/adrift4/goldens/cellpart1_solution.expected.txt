@@ -121,8 +121,6 @@ Time passes...
 
 Cell C
 
-Cell C
-
 A harsh acid-blue glare burns down from a pair of high-intensity fluorescent
 bars sunk into a pill-shaped recess in the poured-concrete ceiling.
 Thankfully, the ceiling has not been painted the same dog-piss-yellow color
@@ -146,7 +144,6 @@ only partly overlays the older, stronger reek of vinegary piss, though.
 The cell door has been bowed in and knocked askew by some sort of impact.
 
 > n
-Cell Block 2
 
 Cell Block 2
 
@@ -244,8 +241,6 @@ Time passes...
 > e
 
 You gingerly step over the booby trap.
-
-Cell Block Common Room
 
 Cell Block Common Room
 
@@ -367,8 +362,6 @@ lights.
 You sleep awhile.
 
 > look
-
-Isolation Chamber
 
 Isolation Chamber 3
 

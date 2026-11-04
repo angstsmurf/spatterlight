@@ -3,8 +3,6 @@ Loading game...
 Blood Relatives
 
 Main room
-
-Main room
 You are in the main room of the Sophire household. It is an impressive sight,
 not least of which because there is a dead body lying in the middle of the
 floor. The walls are decorated with tapestries, paintings, and numerous other
@@ -51,8 +49,6 @@ talking to inanimate objects problem of yours."
 You move up.
 
 Top of stairs
-
-Top of stairs
 Sophie is at the top of the stairs. The entirety of the Sophire household is
 spread out around her: corridors seem to lead off in every imaginable
 direction. Northwards, however, is her room, whereas directly above her is a
@@ -63,16 +59,12 @@ There is also an exit to the west, one which you have never noticed before.
 You move south.
 
 Corridor
-
-Corridor
 You follow the corridor as it winds steadily around the second floor of the
 Sophire household. A huge chandelier hangs overhead, swaying ever-so-gently
 from side to side.Exits lie north, south, east, southeast and southwest.
 
 > s
 You move south.
-
-Aunt Petunia's room
 
 Aunt Petunia's room
 Or it was until her timely (untimely?) demise. Much of her personality is
@@ -98,16 +90,12 @@ You take the big bronze key.
 You move north.
 
 Corridor
-
-Corridor
 You follow the corridor as it winds steadily around the second floor of the
 Sophire household. A huge chandelier hangs overhead, swaying ever-so-gently
 from side to side.Exits lie north, south, east, southeast and southwest.
 
 > n
 You move north.
-
-Top of stairs
 
 Top of stairs
 Sophie is at the top of the stairs. The entirety of the Sophire household is
@@ -118,8 +106,6 @@ There is also an exit to the west, one which you have never noticed before.
 
 > d
 You move down.
-
-Main room
 
 Main room
 You are in the main room of the Sophire household. It is an impressive sight,
@@ -137,8 +123,6 @@ Using the big bronze key, you open the door.
 You move up.
 
 Top of stairs
-
-Top of stairs
 Sophie is at the top of the stairs. The entirety of the Sophire household is
 spread out around her: corridors seem to lead off in every imaginable
 direction. Northwards, however, is her room, whereas directly above her is a
@@ -147,8 +131,6 @@ There is also an exit to the west, one which you have never noticed before.
 
 > n
 You move north.
-
-Your room
 
 Your room
 You are in your room. If there were prizes given out for having the untidiest

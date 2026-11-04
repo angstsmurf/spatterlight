@@ -3,8 +3,6 @@ Loading game...
 Blood Relatives
 
 Main room
-
-Main room
 You are in the main room of the Sophire household. It is an impressive sight,
 not least of which because there is a dead body lying in the middle of the
 floor. The walls are decorated with tapestries, paintings, and numerous other
@@ -51,8 +49,6 @@ talking to inanimate objects problem of yours."
 You move up.
 
 Top of stairs
-
-Top of stairs
 Sophie is at the top of the stairs. The entirety of the Sophire household is
 spread out around her: corridors seem to lead off in every imaginable
 direction. Northwards, however, is her room, whereas directly above her is a
@@ -61,8 +57,6 @@ There is also an exit to the west, one which you have never noticed before.
 
 > n
 You move north.
-
-Your room
 
 Your room
 You are in your room. If there were prizes given out for having the untidiest
