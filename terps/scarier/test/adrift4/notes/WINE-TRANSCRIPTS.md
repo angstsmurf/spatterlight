@@ -1658,6 +1658,16 @@ case, and their goldens are re-blessed. The row notes in
   runner_probes/bob_bobsly.run390.txt). No corpus ALR quotes the sentence,
   so N == 1 is singular. (library/sclibrar_misc.cpp)
 
+- **The library ignores trailing ".", "!" and "?" (2026-11-04).** No Runner
+  below 4.0 cuts at a period with no space after it, and no Runner cuts at "!"
+  or "?". So on 3.x `look.`, `n.` and `i.` met DontUnderstand, and `x me!`
+  answered "Nothing special." (arlo, AkarisStory); at 4.0 `x me!` and `wait?`
+  failed. `run_line_t::library()` now trims that run from its copy of the
+  line (`run_strip_trailing_marks`). Tasks still see the typed line, because
+  the corpus has 334 task commands ending in a mark ("who am i?", "ping!",
+  "max power!", "3 - dimm50 die!!!"). No golden changed.
+  (runner/scrun_dispatch.cpp)
+
 ## Rules measured and ported (index)
 
 One entry per rule: the rule, the game or probe that found it, and the

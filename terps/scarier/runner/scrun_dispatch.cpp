@@ -333,7 +333,34 @@ private:
    */
   std::string comma_list;
   const scr_char *lib_line = string;
+  std::string unpunctuated;
 };
+
+/*
+ * run_strip_trailing_marks()
+ *
+ * Set STRIPPED to LINE without its trailing run of ".", "!", "?" and
+ * spaces, and return TRUE, when there is such a run and something is left
+ * before it.
+ */
+static scr_bool
+run_strip_trailing_marks (const scr_char *line, std::string &stripped)
+{
+  size_t length = strlen (line), end = length;
+  scr_bool marked = FALSE;
+
+  while (end > 0 && strchr (".!? ", line[end - 1]))
+    {
+      if (line[end - 1] != ' ')
+        marked = TRUE;
+      end--;
+    }
+  if (!marked || end == 0)
+    return FALSE;
+  stripped.assign (line, end);
+  return TRUE;
+}
+
 
 /*
  * run_comma_list_respell_400()
@@ -1280,6 +1307,18 @@ run_line_t::library ()
 {
   if (status || silent_task_390)
     return;
+
+  /*
+   * Deliberate deviation: the library reads the line without trailing
+   * ".", "!" or "?".  No Runner below 4.0 cuts at a period with no space
+   * after it, and none at "!" or "?", so `look.`, `n.`, `i.` and `x me!`
+   * reached the handlers with the mark glued to the last word and were
+   * refused or misread ("Nothing special.").  Tasks have had their turn on
+   * the line as typed by now, and some need the mark ("who am i?", "ping!",
+   * "max power!"), so only the library's copy is trimmed.
+   */
+  if (run_strip_trailing_marks (lib_line, unpunctuated))
+    lib_line = unpunctuated.c_str ();
 
   /*
    * Only now, with every task pass declined, does the Runner rewrite a
