@@ -1822,6 +1822,21 @@ lib_cmd_verb_npc (scr_gameref_t game)
     lib_co_400_note_refusal ();
   lib_battle_who_note_unanswered ();
 
+  /*
+   * Deliberate deviation (WINE-TRANSCRIPTS.md): a character's name that
+   * heads a comma line, `creature, take tube`, is the player addressing
+   * them, and the rest of the line gets its own answer.  The Runner says "I
+   * don't understand what you want to do with Creature." first anyway
+   * (p4REPEAT3 `bob, hello`); Scarier leaves that line out unless an ALR
+   * restyles it.
+   */
+  if (run_element_addresses_line ()
+      && !pf_alr_mentions (gs_get_bundle (game), "what you want to do with"))
+    {
+      run_skip_element_separator ();
+      return TRUE;
+    }
+
   /* Print don't understand message; unlike objects, there's no "me" here. */
   lib_print_wrapped_npc (game, "I don't understand what you want to do with ",
                          npc, ".\n");

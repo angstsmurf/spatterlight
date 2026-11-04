@@ -245,6 +245,9 @@ run_repeat_element (scr_gameref_t game)
   return TRUE;
 }
 
+/* Set by run_skip_element_separator(); see there. */
+static scr_bool run_element_was_silent = FALSE;
+
 /*
  * run_read_line()
  *
@@ -297,8 +300,9 @@ run_read_line (scr_gameref_t game)
       run_previous_typed_line = run_typed_line;
       run_typed_line = run_line_buffer;
     }
-  else
+  else if (!run_element_was_silent)
     if_print_character ('\n');
+  run_element_was_silent = FALSE;
   return is_new_line;
 }
 
@@ -410,6 +414,42 @@ run_cut_element (scr_gameref_t game)
    */
   if (length > 0 && run_line_element[length - 1] == ' ')
     run_line_element[length - 1] = NUL;
+}
+
+/*
+ * run_element_addresses_line()
+ *
+ * TRUE when the current element is the head of a typed line that goes on
+ * after a comma -- `creature, take tube` while `creature` runs.  The library
+ * keeps its "I don't understand what you want to do with Creature." for such
+ * a head to itself; see lib_cmd_verb_npc().
+ */
+scr_bool
+run_element_addresses_line (void)
+{
+  const size_t length = strlen (run_line_element);
+  size_t index_;
+
+  if (run_line_buffer[0] == NUL || length == 0
+      || run_typed_line.compare (0, length, run_line_element) != 0)
+    return FALSE;
+  for (index_ = length; index_ < run_typed_line.size ()
+                        && scr_isspace (run_typed_line[index_]); index_++)
+    ;
+  return index_ < run_typed_line.size () && run_typed_line[index_] == ',';
+}
+
+/*
+ * run_skip_element_separator()
+ *
+ * Called by an element that printed nothing at all, so the newline
+ * run_read_line() puts between elements doesn't leave a blank line where
+ * its output would have been.  One-shot: the next element read clears it.
+ */
+void
+run_skip_element_separator (void)
+{
+  run_element_was_silent = TRUE;
 }
 
 /*

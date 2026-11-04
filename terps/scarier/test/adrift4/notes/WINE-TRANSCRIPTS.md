@@ -1737,6 +1737,20 @@ case, and their goldens are re-blessed. The row notes in
   already restyles "Open what?" and "Close what?". No golden changed.
   (library/sclibrar_refuse.cpp)
 
+- **A character's name heading a comma line says nothing of its own
+  (2026-11-04).** The Runner answers `bob, hello` with "I don't understand
+  what you want to do with Bob." and then the rest of the line
+  (run400 p4REPEAT3, runner_probes/repeat3.run400.txt:56-58), so
+  `creature, take tube` (CD.taf) stacks that refusal on the take reply.
+  SCARE printed only the reply. `run_element_addresses_line` recognises the
+  head of a typed line that goes on after a comma, and `lib_cmd_verb_npc`
+  then prints nothing and skips the separator before the next element
+  (`run_skip_element_separator`), so no blank line is left where the
+  refusal would have been. A bare `creature` still gets the refusal. The 14
+  games whose ALRs restyle "what you want to do with" (arlo, enc2-4,
+  fantasy, Oh_Human, pestilence and others) keep it. No golden changed.
+  (library/sclibrar_verbobj.cpp, runner/scrun_input.cpp)
+
 ## Rules measured and ported (index)
 
 One entry per rule: the rule, the game or probe that found it, and the

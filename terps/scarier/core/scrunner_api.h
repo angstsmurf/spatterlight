@@ -51,6 +51,8 @@ extern scr_bool run_in_priority_pass (void);
 extern scr_bool run_in_put_clause_loop (void);
 extern const scr_char *run_get_dispatch_input (void);
 extern const scr_char *run_get_line_input (void);
+extern scr_bool run_element_addresses_line (void);
+extern void run_skip_element_separator (void);
 extern scr_bool run_any_task_ran_this_command (void);
 extern void run_queue_goto_step (const scr_char *step);
 extern void run_set_goto_arrival (const scr_char *text);
