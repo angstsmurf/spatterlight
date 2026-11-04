@@ -1704,6 +1704,17 @@ case, and their goldens are re-blessed. The row notes in
   untouched. No golden changed. (library/sclibrar_room.cpp,
   library/sclibrar_go.cpp)
 
+- **`ask about X` with no character named gets the format hint
+  (2026-11-04).** Every Runner answers "You can't talk to that."; SCARE,
+  and Scarier's own `talk to` and bare `ask`, give 'Use the format "ask
+  [character] about [subject]"'. With no character talked to yet, the
+  reference rewrite turns `ask about X` / `talk about X` into "ask nobody
+  about X", so `lib_cmd_ask_about_nothing` gives the hint for "ask about",
+  "ask about ..." and "ask nobody about ...". The twelve games whose ALRs
+  restyle "can't talk to that" (iachini, liqid, panic, thecrash and others)
+  keep the Runner refusal. No golden changed.
+  (library/sclibrar_talk.cpp)
+
 ## Rules measured and ported (index)
 
 One entry per rule: the rule, the game or probe that found it, and the

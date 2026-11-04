@@ -418,6 +418,22 @@ lib_cmd_ask_about_nothing (scr_gameref_t game)
           pf_buffer_string (filter, " isn't here!\n");
           return TRUE;
         }
+
+      /*
+       * Deliberate deviation: a line with nothing between `ask` and
+       * `about` names no one, so it gets the format hint, as in SCARE and
+       * as `talk to` and a bare `ask` do here.  The Runner says "You can't
+       * talk to that." (WINE-TRANSCRIPTS.md).  With no character talked to
+       * yet, `ask about X` arrives here as "ask nobody about X": the parser's
+       * reference rewrite has spliced in the register's seeded "Nobody"
+       * (uip_rewrite_references()).  A game whose ALRs restyle the refusal
+       * keeps it.
+       */
+      if ((scr_strcasecmp (input, "ask about") == 0
+           || scr_strncasecmp (input, "ask about ", 10) == 0
+           || scr_strncasecmp (input, "ask nobody about ", 17) == 0)
+          && !pf_alr_mentions (bundle, "talk to that"))
+        return lib_print_message (game, lib_ask_format_character (game));
     }
 
   return lib_print_response_message (game,
