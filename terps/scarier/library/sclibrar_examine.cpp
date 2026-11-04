@@ -190,7 +190,26 @@ lib_examine_self_close (scr_gameref_t game, const scr_char *description)
        * for a PlayerDesc with no full stop.  3.7/3.8 (run380 examines
        * @43D5EC) build the reply differently and are not modelled.
        */
-      const scr_char last = description[strlen (description) - 1];
+      /*
+       * Deliberate deviation (WINE-TRANSCRIPTS.md): the Runner's test sees
+       * a closing tag's ">" and adds a second stop to CD.taf's "...in one
+       * piece.</i>".  Scarier looks past trailing tags and spaces.
+       */
+      std::string text (description);
+      for (;;)
+        {
+          while (!text.empty () && scr_isspace (text.back ()))
+            text.pop_back ();
+          if (text.empty () || text.back () != '>')
+            break;
+          const std::string::size_type open = text.rfind ('<');
+          if (open == std::string::npos)
+            break;
+          text.erase (open);
+        }
+      if (text.empty ())
+        return;
+      const scr_char last = text.back ();
       const scr_bool closed = prop_get_taf_version (bundle) >= TAF_VERSION_400
                               ? strchr (".!)%?", last) != nullptr
                               : last == '.';

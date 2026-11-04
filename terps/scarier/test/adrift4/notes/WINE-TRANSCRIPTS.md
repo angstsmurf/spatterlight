@@ -1715,6 +1715,16 @@ case, and their goldens are re-blessed. The row notes in
   keep the Runner refusal. No golden changed.
   (library/sclibrar_talk.cpp)
 
+- **`x me` adds no second full stop after a tag or a trailing space
+  (2026-11-04).** run390 examines() and run400 Proc_19_87_471F94 add "."
+  unless `Right$(PlayerDesc, 1)` is a stop, so a description ending in
+  "piece.</i>" (CD.taf, 4.0) prints "piece..", and one ending "off. " prints
+  "off. ." (FunHouse), or a "." alone on a line where the description ends
+  in a break (ChasingTheRussian). `lib_examine_self_close` now skips trailing
+  tags and spaces before the test. Not replayed on the Runner; this follows
+  from the cited code. A corpus `x me` sweep changed 26 games, and each one
+  lost only the stray stop. No golden changed. (library/sclibrar_examine.cpp)
+
 ## Rules measured and ported (index)
 
 One entry per rule: the rule, the game or probe that found it, and the
