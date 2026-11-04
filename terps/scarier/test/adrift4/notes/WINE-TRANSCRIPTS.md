@@ -1782,6 +1782,14 @@ case, and their goldens are re-blessed. The row notes in
   labels or proper names ("Sloane Street", "Farmer Gary's Pasture"), with a
   few mixed ones ("Second floor Balcony"). No golden changed. (library/sclibrar_print.cpp)
 
+- **`notify score` gives the notify usage line (2026-11-04).** Every
+  Runner's score arm takes any line holding the word "score"
+  (`run_score_anywhere`, p37SITN..p4SITN), and the Runner has no `notify`
+  command, so the line printed the score. `notify` is SCARE's meta
+  command, so a line holding "notify" or "notification" is now left to it:
+  "Use 'notify on' or 'notify off' ...". No ALR mentions notify. No golden
+  changed. (runner/scrun_tables.cpp)
+
 ## Rules measured and ported (index)
 
 One entry per rule: the rule, the game or probe that found it, and the

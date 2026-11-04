@@ -2207,6 +2207,12 @@ run_score_anywhere (scr_gameref_t game, const scr_char *string)
   if (game->pending_endgame != 0 || !has_word ("score")
       || scr_strcasecmp (string, "score") == 0)
     return FALSE;
+  /*
+   * `notify` is SCARE's meta command, not the Runner's, so `notify score`
+   * is left to its usage line rather than taken for the score.
+   */
+  if (has_word ("notify") || has_word ("notification"))
+    return FALSE;
   for (word = OTHERS; *word; word++)
     if (has_word (*word))
       return FALSE;
