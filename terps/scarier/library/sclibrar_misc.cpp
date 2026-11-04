@@ -518,14 +518,16 @@ lib_cmd_turns (scr_gameref_t game)
   const scr_filterref_t filter = gs_get_filter (game);
 
   /*
-   * "1 turns" -- no Runner singularises it (run400 48ACA1 concatenates the
-   * one literal; measured run400 EV16 runner_probes/ev16.run400.txt and
-   * run390 BobBobsly.taf runner_probes/bob_bobsly.run390.txt, both "You
-   * have taken 1 turns so far.").
+   * Deliberate deviation: no Runner singularises "1 turns" (run400 48ACA1
+   * concatenates the one literal; measured run400 EV16
+   * runner_probes/ev16.run400.txt and run390 BobBobsly.taf
+   * runner_probes/bob_bobsly.run390.txt, both "You have taken 1 turns so
+   * far."), but no corpus ALR quotes it, so the agreement is fixed here.
    */
   pf_buffer_string (filter, "You have taken ");
   pf_buffer_integer (filter, game->turns);
-  pf_buffer_string (filter, " turns so far.\n");
+  pf_buffer_string (filter, game->turns == 1 ? " turn so far.\n"
+                                             : " turns so far.\n");
 
   lib_set_admin (game);
   return TRUE;

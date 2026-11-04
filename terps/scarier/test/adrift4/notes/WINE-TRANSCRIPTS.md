@@ -1653,6 +1653,11 @@ case, and their goldens are re-blessed. The row notes in
   tempest7 goldens each lost one such line.
   (core/scparser_pronoun.cpp)
 
+- **"You have taken 1 turn so far." (2026-11-04).** run390 and run400 both
+  print "1 turns" (runner_probes/ev16.run400.txt,
+  runner_probes/bob_bobsly.run390.txt). No corpus ALR quotes the sentence,
+  so N == 1 is singular. (library/sclibrar_misc.cpp)
+
 ## Rules measured and ported (index)
 
 One entry per rule: the rule, the game or probe that found it, and the
