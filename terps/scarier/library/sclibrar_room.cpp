@@ -1105,6 +1105,34 @@ lib_print_exits_list (scr_gameref_t game, scr_int room)
 
 
 /*
+ * lib_print_message_with_exits()
+ *
+ * Print a refusal that sends the player back to the compass -- "Unknown
+ * place." or "Just a direction will do." -- and follow it on the same line
+ * with the exits sentence, when the room has any exits.  No Runner does
+ * this; both strings stand alone at every version.  Deliberate deviation
+ * (WINE-TRANSCRIPTS.md): SCARE named the exits here, and a nudge toward
+ * directions is more useful when it says which ones.  The message is given
+ * without its newline.
+ */
+scr_bool
+lib_print_message_with_exits (scr_gameref_t game, const scr_char *message)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  pf_buffer_string (filter, message);
+  if (lib_room_has_exits (game, gs_playerroom (game)))
+    {
+      pf_buffer_string (filter, "  ");
+      lib_print_exits_list (game, gs_playerroom (game));
+    }
+  else
+    pf_buffer_character (filter, '\n');
+  return TRUE;
+}
+
+
+/*
  * lib_cmd_print_room_exits()
  *
  * Command handler for "exits"; lists exits from the player room.

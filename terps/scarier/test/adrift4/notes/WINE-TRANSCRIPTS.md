@@ -1691,6 +1691,19 @@ case, and their goldens are re-blessed. The row notes in
   fallback with a worn list, and no golden changed.
   (library/sclibrar_examine.cpp)
 
+- **"Unknown place." and "Just a direction will do." name the exits
+  (2026-11-04).** Both are Runner strings (gotoplace, and generaltasks'
+  `go`/`enter` branches) and stand alone at every version. SCARE followed
+  its own refusal with the exits. `lib_print_message_with_exits` keeps
+  each string as is, so the 21 corpus games whose ALRs restyle these strings
+  still match, and appends "  You can move ..." on the same line when the
+  room has exits. A corpus sweep of `go`, `go to zzyzx` and `enter mansion`
+  changed 379 games and added only that sentence. Translated games
+  (Bandera, CS2, the Russian set) translate it with their own exits ALRs.
+  Game tasks that catch `go to *` themselves (dusk, Oh_Human) are
+  untouched. No golden changed. (library/sclibrar_room.cpp,
+  library/sclibrar_go.cpp)
+
 ## Rules measured and ported (index)
 
 One entry per rule: the rule, the game or probe that found it, and the

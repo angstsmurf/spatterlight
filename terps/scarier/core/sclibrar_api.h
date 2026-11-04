@@ -108,6 +108,8 @@ extern scr_bool lib_cmd_look (scr_gameref_t game);
 extern scr_bool lib_cmd_look_typed (scr_gameref_t game);
 extern scr_bool lib_cmd_print_room_exits (scr_gameref_t game);
 extern void lib_print_room_exits (scr_gameref_t game, scr_int room);
+extern scr_bool lib_print_message_with_exits (scr_gameref_t game,
+                                              const scr_char *message);
 extern scr_bool lib_cmd_wait (scr_gameref_t game);
 extern scr_bool lib_cmd_wait_number (scr_gameref_t game);
 extern scr_bool lib_cmd_examine_self (scr_gameref_t game);

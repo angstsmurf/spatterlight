@@ -338,7 +338,7 @@ lib_cmd_go_out (scr_gameref_t game)
 scr_bool
 lib_cmd_just_a_direction (scr_gameref_t game)
 {
-  return lib_print_message (game, "Just a direction will do.\n");
+  return lib_print_message_with_exits (game, "Just a direction will do.");
 }
 
 
@@ -880,7 +880,7 @@ lib_cmd_go_place (scr_gameref_t game)
                               "You can't get there from here.\n",
                               "I can't get there from here.\n",
                               "%player% can't get there from here.\n");
-      return lib_print_message (game, "Unknown place.\n");
+      return lib_print_message_with_exits (game, "Unknown place.");
     }
 
   if (count > 1)
