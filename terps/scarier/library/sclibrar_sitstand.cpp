@@ -652,9 +652,57 @@ lib_sitstand_block (scr_gameref_t game, scr_int movement, size_t mark)
         }
     };
   const size_t before = pf_buffer_length (filter);
-  scr_int mask, object, match;
+  const scr_int mask = movement == MOVE_LIE ? OBJ_LIEABLE_MASK
+                                            : OBJ_STANDABLE_MASK;
+  const auto scoped_match = [&] ()
+    {
+      scr_int found = -1, index_;
 
-  if (!(lib_co_contains (line, "on") || lib_co_contains (line, "in")))
+      GS_FOR_EACH_OBJECT (game, index_)
+        {
+          if (lib_co_pre400 (game, line, index_, 0)
+              && obj_directly_in_room (game, index_, gs_playerroom (game))
+              && (prop_get_indexed_integer (bundle, "Objects", index_,
+                                            "SitLie") & mask))
+            found = index_;
+        }
+      return found;
+    };
+  const auto named_present_object = [&] ()
+    {
+      scr_int found = -1, index_;
+
+      GS_FOR_EACH_OBJECT (game, index_)
+        {
+          if (lib_co_pre400 (game, line, index_, 0)
+              && gs_object_seen (game, index_)
+              && obj_indirectly_in_room (game, index_, gs_playerroom (game)))
+            found = index_;
+        }
+      return found;
+    };
+  const scr_bool bare = !(lib_co_contains (line, "on")
+                          || lib_co_contains (line, "in"));
+  const scr_int named = bare && taf_version >= TAF_VERSION_380
+                        ? named_present_object () : -1;
+  scr_int match;
+
+  /*
+   * Deliberate deviation: a line without "on" or "in" never reaches the
+   * Runner's object loop, so `sit chair` is "You sit down on the ground."
+   * in run400 even with a chair to sit on (TenebraeSemper,
+   * runner_probes/tenebraesemper.run400.probe.txt; the bare arm is the
+   * same one `sit quietly` takes in sit.run400.sit4.txt).  Here a line
+   * that names a seen object in the room is taken as the "on" form: a
+   * sittable (lieable, standable) one is sat on, and any other is refused
+   * in the words lib_stand_sit_lie() uses for `sit on <it>` ("You can't
+   * sit on your desk.").  A line naming nothing present keeps the Runner's
+   * bare arm, so TenebraeSemper's `sit chair` in the dorm, whose chair is
+   * only description text, is still "You sit down on the ground."  3.7's
+   * object loop has no scope (lib_sit_lie_scan_370), so it keeps the bare
+   * arm too.  A game task on the same line still runs first.
+   */
+  if (bare && named == -1)
     {
       const scr_int floor_movement = movement == MOVE_SIT ? MOVE_SIT_FLOOR
                                      : movement == MOVE_LIE ? MOVE_LIE_FLOOR
@@ -675,19 +723,29 @@ lib_sitstand_block (scr_gameref_t game, scr_int movement, size_t mark)
       replace_from (before);
     }
 
-  mask = movement == MOVE_LIE ? OBJ_LIEABLE_MASK : OBJ_STANDABLE_MASK;
-  match = -1;
-  if (taf_version < TAF_VERSION_380)
-    match = lib_sit_lie_scan_370 (game, mask);
-  else
-    GS_FOR_EACH_OBJECT (game, object)
-      {
-        if (lib_co_pre400 (game, line, object, 0)
-            && obj_directly_in_room (game, object, gs_playerroom (game))
-            && (prop_get_indexed_integer (bundle, "Objects", object, "SitLie")
-                & mask))
-          match = object;
-      }
+  match = taf_version < TAF_VERSION_380 ? lib_sit_lie_scan_370 (game, mask)
+                                        : scoped_match ();
+  if (match == -1 && named != -1)
+    {
+      const size_t refusal_before = pf_buffer_length (filter);
+
+      pf_buffer_string (filter,
+                        movement == MOVE_SIT
+                        ? lib_select_response (game, "You can't sit on ",
+                                               "I can't sit on ",
+                                               "%player% can't sit on ")
+                        : movement == MOVE_LIE
+                        ? lib_select_response (game, "You can't lie on ",
+                                               "I can't lie on ",
+                                               "%player% can't lie on ")
+                        : lib_select_response (game, "You can't stand on ",
+                                               "I can't stand on ",
+                                               "%player% can't stand on "));
+      lib_print_object_np (game, named);
+      pf_buffer_string (filter, ".\n");
+      replace_from (refusal_before);
+      return;
+    }
   if (match == -1)
     return;
 

@@ -1811,6 +1811,21 @@ case, and their goldens are re-blessed. The row notes in
   lines in all. (library/sclibrar_print.cpp, library/sclibrar_room.cpp,
   core/sctasks_run.cpp)
 
+- **`sit stool` without "on" sits on the stool (2026-11-04).** The
+  Runners enter the sit/stand/lie object loop only when the line holds
+  "on" or "in"; otherwise they take the bare arm, so `sit stool` is "You
+  sit down on the ground." with a stool to sit on (the same arm as `sit
+  quietly`, sit.run400.sit4.txt). From 3.8 a bare line that names a seen
+  object in the room is now treated as the "on" form. A sittable,
+  lieable or standable object is used ("You sit down on the stool."), and
+  any other object gets `sit on`'s refusal ("You can't sit on your
+  desk."). A line that names nothing present keeps the Runner's answer, so
+  TenebraeSemper's `sit chair` in the dorm, where the chair is only
+  description text, is still "You sit down on the ground." in Scarier and
+  run400 (tenebraesemper.run400.probe.txt). 3.7's object loop has no
+  scope, so it is left alone. No golden changed.
+  (library/sclibrar_sitstand.cpp)
+
 ## Rules measured and ported (index)
 
 One entry per rule: the rule, the game or probe that found it, and the
