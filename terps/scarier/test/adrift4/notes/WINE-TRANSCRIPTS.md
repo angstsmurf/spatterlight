@@ -1610,8 +1610,11 @@ case, and their goldens are re-blessed. The row notes in
   `remove ...` when remove is its only other handler word
   (`lib_two_verb_line_pre400`), and the take rows step aside for
   `take off <...>` / `take <...> off` when it is a list or all, or names a worn
-  object (`lib_take_multi_take_off_line`). The measured single-noun cells
-  stay: `take off hat` with the hat held, not worn, still answers "You've
+  object (`lib_take_multi_take_off_line`). That gate holds at every
+  version, so at 4.0 `take off hat` with the hat worn now removes it,
+  where run400 says "You are already carrying the hat." and removes
+  nothing (runner_probes/two.run400.puton.txt:26; p4TWO). The measured
+  single-noun held-hat cells stay: `take off hat` with the hat held, not worn, still answers "You've
   already got the hat!" (library/sclibrar_drop.cpp,
   library/sclibrar_take_multiple.cpp)
 - **4.0 comma noun lists (2026-11-04).** The library's list parser only
