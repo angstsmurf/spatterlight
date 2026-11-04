@@ -82,6 +82,8 @@ extern scr_bool gs_runner_possessed (scr_gameref_t gs, scr_int object);
 extern void gs_carried_recompute (scr_gameref_t gs);
 extern void gs_set_capacity_assist (scr_bool flag);
 extern scr_bool gs_get_capacity_assist (void);
+extern void gs_set_score_notify_assist (scr_bool flag);
+extern scr_bool gs_get_score_notify_assist (void);
 /*
  * Index loops over a game's entities, one per kind:
  *

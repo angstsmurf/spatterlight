@@ -241,6 +241,8 @@ extern void scr_set_room_assist (scr_bool flag);
 extern scr_bool scr_get_room_assist (void);
 extern void scr_set_capacity_assist (scr_bool flag);
 extern scr_bool scr_get_capacity_assist (void);
+extern void scr_set_score_notify_assist (scr_bool flag);
+extern scr_bool scr_get_score_notify_assist (void);
 extern void scr_set_game_patches (scr_bool flag);
 extern scr_bool scr_get_game_patches (void);
 extern const scr_char *scr_get_applied_game_patch (void);

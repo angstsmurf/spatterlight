@@ -52,6 +52,10 @@ __attribute__((constructor)) static void seed_det(void) {
      the GUI equivalent is `glk capacity on` after the game has loaded. */
   if (getenv("SCR_ASSUME_CAPACITY"))
     scr_set_capacity_assist(1);
+  /* Score notification as each game's NoScoreNotify asks, as the Glk host
+     starts it, instead of the Runner's silence. */
+  if (getenv("SCR_ASSUME_SCORE_NOTIFY"))
+    scr_set_score_notify_assist(1);
   /* Targeted per-game data fixes for the handful of games whose own data
      makes them unwinnable; matched on name, author and on the broken value
      still being there, so it is a no-op for every other game. */

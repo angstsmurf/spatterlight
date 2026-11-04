@@ -1627,6 +1627,19 @@ case, and their goldens are re-blessed. The row notes in
   "You can't see that.", as `x lamp and keys` does at the Runner.
   (runner/scrun_dispatch.cpp, runner/scrun_split.cpp)
 
+- **The Glk host honours `NoScoreNotify` (2026-11-04).** The Runner ignores
+  the TAF's NoScoreNotify global: run370/380/390 never notify, and run400
+  only does when the user turns on the default-off menu preference
+  (RUNNER_TESTS.md). So a game that asked for notification never got it,
+  and the player had no score feedback. SCARE starts notification at
+  `!NoScoreNotify`. With `scr_set_score_notify_assist`, which the Glk host
+  turns on before load, gs_create does the same. The headless harness
+  leaves it off, so goldens keep the Runner's silence; SCR_ASSUME_SCORE_NOTIFY
+  turns it on there. 3.7/3.8 files carry NoScoreNotify as a fixed TRUE, so
+  only 3.9/4.0 games change. Of the corpus walkthroughs, 164 ask, and
+  their only change is the added "(Your score has increased by N)" lines.
+  (core/scgamest.cpp, glk/os_glk.cpp)
+
 ## Rules measured and ported (index)
 
 One entry per rule: the rule, the game or probe that found it, and the

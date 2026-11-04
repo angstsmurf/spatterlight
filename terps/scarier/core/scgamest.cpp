@@ -163,6 +163,35 @@ gs_get_capacity_assist (void)
 
 
 /*
+ * Whether games created from here on start with score notification set from
+ * their own NoScoreNotify global, as SCARE does, rather than off, as a fresh
+ * Runner installation does (see gs_create()).  The Glk host turns it on; the
+ * headless harness leaves it off so its transcripts keep the Runner's
+ * silence.
+ */
+static scr_bool gs_score_notify_assist = FALSE;
+
+
+/*
+ * gs_set_score_notify_assist()
+ * gs_get_score_notify_assist()
+ *
+ * Set and read the score notification default for games created later.
+ */
+void
+gs_set_score_notify_assist (scr_bool flag)
+{
+  gs_score_notify_assist = flag;
+}
+
+scr_bool
+gs_get_score_notify_assist (void)
+{
+  return gs_score_notify_assist;
+}
+
+
+/*
  * gs_carried_recompute()
  *
  * Seed the player's carried weight and size totals from the objects
@@ -2058,8 +2087,18 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
    * Verified live in run400 and run390 (make_arena_probe.py config SC and
    * make_39_endprobe.py both score +3 on an ordinary turn, in silence).  See
    * the standing divergence table in test/adrift4/notes/RUNNER_TESTS.md.
+   *
+   * Deliberate deviation, host opt-in: with the score notify assist on (the
+   * Glk host sets it), the game's own NoScoreNotify decides instead, as in
+   * SCARE, so a game that asks for notification gets it.
    */
   game->notify_score_change = FALSE;
+  if (gs_score_notify_assist)
+    {
+      vt_key[0].string = "Globals";
+      vt_key[1].string = "NoScoreNotify";
+      game->notify_score_change = !prop_get_boolean (bundle, "B<-ss", vt_key);
+    }
 
   /* Miscellaneous state defaults. */
   game->turns = 0;

@@ -1828,6 +1828,29 @@ scr_get_capacity_assist (void)
 
 
 /*
+ * scr_set_score_notify_assist()
+ * scr_get_score_notify_assist()
+ *
+ * Choose the score notification default for games created from here on.
+ * Off, every game starts silent, as in a fresh Runner installation; on, each
+ * game starts as its own NoScoreNotify global asks, as in SCARE.  Either way
+ * the player's `notify` command changes it for the running game.  Restart
+ * creates the game afresh, so it returns to this default.
+ */
+void
+scr_set_score_notify_assist (scr_bool flag)
+{
+  gs_set_score_notify_assist (flag);
+}
+
+scr_bool
+scr_get_score_notify_assist (void)
+{
+  return gs_get_score_notify_assist ();
+}
+
+
+/*
  * scr_set_game_patches()
  *
  * Enable or disable targeted game patches.  A few published games are

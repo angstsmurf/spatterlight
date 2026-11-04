@@ -1186,6 +1186,10 @@ gsc_start_adrift4 (strid_t game_stream, strid_t restore_stream,
      before it is; "glk patches off" then applies from the next load on. */
   scr_set_game_patches (gsc_patches_enabled);
 
+  /* Start score notification as the game's own NoScoreNotify asks, as SCARE
+     does, rather than silent as a fresh Runner installation is. */
+  scr_set_score_notify_assist (TRUE);
+
   gsc_game = scr_game_from_callback (gsc_callback, game_stream);
   if (!gsc_game)
     {
