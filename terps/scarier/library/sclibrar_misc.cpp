@@ -140,8 +140,8 @@ lib_locate_object_on_npc (scr_gameref_t game,
       lib_print_npc_np (game, parent);
       /*
        * "is carrying", not "is holding" -- the two literals sit side by
-       * side in the Runner, run400 @467FC1 and @46802E, run380 @4372E6
-       * and @43736B.  Upstream SCARE invented "holding".
+       * side in the Runner, run400 @467FC1 and @46802E.  Upstream SCARE
+       * invented "holding".
        */
       pf_buffer_string (filter,
                         (position == OBJ_HELD_NPC)
@@ -305,10 +305,9 @@ lib_locate_object_in_rooms (scr_gameref_t game, scr_int object)
                         lib_select_plurality (game, object, " is", " are"));
       /*
        * No "that" here.  The object branch concatenates a bare "somewhere "
-       * (run400 @4681B0, run380 @4375D3) where the character branch of the
-       * same command uses " is somewhere that " (run400 @47FD89,
-       * run380 @440C11) -- an inconsistency of ADRIFT's own that all four
-       * Runners carry.
+       * (run400 @4681B0) where the character branch of the same command
+       * uses " is somewhere that " (run400 @47FD89) -- an inconsistency of
+       * ADRIFT's own that all four Runners carry.
        */
       pf_buffer_string (filter,
                         lib_select_response (game,
@@ -321,8 +320,8 @@ lib_locate_object_in_rooms (scr_gameref_t game, scr_int object)
   /*
    * "<Object> is <lowercased room name>."  The Runner builds this as
    * name & isare(prefix, short) & LCase(room name) & "." -- run400 @468115
-   * through @46814E, run380 @4374E1 -- and the " -- " upstream SCARE printed
-   * here appears in none of the four binaries.
+   * -- and the " -- " upstream SCARE printed here appears in none of the
+   * four binaries.
    */
   pf_new_sentence (filter);
   lib_print_object_np (game, object);
@@ -346,12 +345,11 @@ lib_cmd_locate_object (scr_gameref_t game)
 
   /*
    * "where is X" is a real turn in every Runner: run400's whereis
-   * (Proc_19_33_4684E4, body 467CE0-4684E1, which also prints "I don't
-   * know where that is!" at 4684DA) and the characters() where/find/locate
-   * block 47FC8D-47FE19 never write the not-a-turn flag MemVar_494281, and
-   * run390's whereis 43FF98 / characters() 45ACD8 never write 468219.
-   * Ticket (runner_probes/ticket.run400.txt): "where is young
-   * girl" ticks 59 draws.
+   * (Proc_19_33_4684E4, which also prints "I don't know where that is!")
+   * and the characters() where/find/locate block never write the not-a-turn
+   * flag MemVar_494281, and run390's whereis 43FF98 / characters() 45ACD8
+   * never write 468219.  Ticket (runner_probes/ticket.run400.txt): "where
+   * is young girl" ticks 59 draws.
    */
 
   object = lib_locate_referenced_object (game);
@@ -419,9 +417,8 @@ lib_cmd_locate_npc (scr_gameref_t game)
    * LAST one named answers, here or not: `where is guard` with Ann and Bob
    * here and Cora next door is "You haven't seen Cora yet!", and once she
    * is met "Cora is cave." (run370x/run380x/run390x,
-   * runner_probes/npcamb.run370.b.rtf, runner_probes/npcamb.run380.rtf,
-   * runner_probes/npcamb.run390.txt; run380 440B3E).  npc is already the
-   * last named.
+   * runner_probes/npcamb.{run370.b.rtf,run380.rtf,run390.txt}; run380
+   * 440B3E).  npc is already the last named.
    */
 
   /* Note the reference, as lib_cmd_locate_object() does. */
@@ -435,8 +432,8 @@ lib_cmd_locate_npc (scr_gameref_t game)
    * A corpse gets its own answer, ahead of the room search.  The Runner
    * reaches it only after the seen test and only when the room field is not a
    * real room -- the -5 it stamps there fails the `> 0` gate -- at run400
-   * @47FDB9 and run390 @459D68.  3.7 and 3.8 have no battle system and no such
-   * branch or string at all, so there is nothing to gate on version.
+   * @47FDB9.  3.7 and 3.8 have no battle system and no such branch or
+   * string at all, so there is nothing to gate on version.
    */
   if (gs_npc_dead (game, npc))
     {
@@ -473,16 +470,16 @@ lib_cmd_locate_npc (scr_gameref_t game)
    * NPC is standing next to the player.  The character branch uses a literal
    * " is " rather than isare(), and the room name is lowercased exactly as in
    * the object branch:
-   *      run370 @438D0A   run380 @440BDF   run390 @459D27   run400 @47FD19
+   *      run370 @438D0A ... run400 @47FD19
    *
    * The clause itself was disabled upstream; all four Runners print it, and
    * there is no comma before "silly" -- the literals are "  (Right next to "
    * and " silly!)" with the perspective pronoun spliced between them
-   * (run380 @00040BCE/@00040BE2, run400 @47FD56/@47FD6A).  Scarier
-   * deliberately keeps the vocative comma (deviation policy), except in a game
-   * with an ALR written against the Runner's "silly!)" -- Fugitive, IceCream,
-   * panic, The Dead Man and eight more rewrite or blank the clause -- where
-   * the Runner's form is kept so that the author's replacement still fires.
+   * (run400 @47FD56/@47FD6A).  Scarier deliberately keeps the vocative
+   * comma (deviation policy), except in a game with an ALR written against
+   * the Runner's "silly!)" -- Fugitive, IceCream, panic, The Dead Man and
+   * eight more rewrite or blank the clause -- where the Runner's form is
+   * kept so that the author's replacement still fires.
    */
   pf_new_sentence (filter);
   lib_print_npc_np (game, npc);
@@ -680,8 +677,8 @@ lib_print_battle_status (scr_gameref_t game, scr_int npc)
 /*
  * lib_print_battle_status_390()
  *
- * run390's status is not the 4.0 table but three tab-joined rows (dobattle
- * 44C595..44C80F, player arm from 44C6D2):
+ * run390's status is not the 4.0 table but three tab-joined rows
+ * (dobattle, player arm from 44C6D2):
  *
  *   Stamina:<tab><tab>80 (102)
  *   Hit strength:<tab><tab>6 (1)
@@ -753,10 +750,10 @@ lib_cmd_status_npc (scr_gameref_t game)
   game->is_admin = TRUE;
 
   /*
-   * run390's NPC loop (44C53A-44C6CD) takes the lowest-indexed character the
-   * line names by Name or first Alias, and exits on it: its table if seen,
-   * otherwise the refusal below.  A line naming nobody drops out of the loop
-   * into the player's table.
+   * run390's NPC loop (dobattle 44C53A) takes the lowest-indexed character
+   * the line names by Name or first Alias, and exits on it: its table if
+   * seen, otherwise the refusal below.  A line naming nobody drops out of
+   * the loop into the player's table.
    */
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400)
     {
@@ -861,8 +858,7 @@ lib_cmd_examine_all (scr_gameref_t game)
  * `x <character who is somewhere else>`.  Every Runner rewrites the examine
  * tail below when the line names a character who is not in the room:
  *
- *     run370 438F2F-438F4F   run380 440E42-440E62
- *     run390 45A07C-45A09C   run400 4801AD-48021F
+ *     run370 438F2F-438F4F ... run400 4801AD-48021F
  *
  * All four are the same clause, inside characters()' examine branch, and all
  * four compose the same sentence: person word, " cannot see ", the record's
@@ -874,7 +870,7 @@ lib_cmd_examine_all (scr_gameref_t game)
  *               "Nothing special."
  *     4.0       msg contains "<player> can't see that", or msg is exactly
  *               "<player> see no such thing."  AND the character's seen
- *               byte (var_140(26)) is 1.
+ *               byte is 1.
  *
  * That seen byte is the whole 3.9-vs-4.0 difference, and it is already
  * measured from the other side: run400 on EV16 answers `x dave`, with Dave
@@ -890,12 +886,12 @@ lib_cmd_examine_all (scr_gameref_t game)
  * (`c(LCase(Name)) Or c(LCase(Alias))`); see lib_npc_named_in_line().
  *
  * The one suppression: if the line names the character by its ALIAS and also
- * names any object, the rewrite is skipped (run390 459FFE-45A041 sets
- * var_252 from co(); run400 480172-4801A7 does the same through
- * Proc_21_39_46486C).  A character named only by its Name never runs that
- * scan, so `x goblin` against an object called "goblin" still speaks.  The
- * first named absent character wins: the rewrite destroys the message the
- * guard tests, so no later character in the loop can pass it.
+ * names any object, the rewrite is skipped (run390 459FFE sets the clash
+ * flag from co(); run400 does the same through Proc_21_39_46486C).  A
+ * character named only by its Name never runs that scan, so `x goblin`
+ * against an object called "goblin" still speaks.  The first named absent
+ * character wins: the rewrite destroys the message the guard tests, so no
+ * later character in the loop can pass it.
  *
  * The guard is an EQUALITY against the engine's own default, so where the game
  * ALRs that default the answer depends on WHEN the Runner applies its ALRs --
@@ -1003,12 +999,12 @@ lib_npc_examine_absent (scr_gameref_t game)
  * that is the whole of 4.0's tail.  Pre-4.0 puts a darkness fork in front of
  * it instead: run390 44BFDE tests the message it has built so far against ""
  * and "Nothing special.", and when the room is dark (lib_room_is_dark())
- * answers "<player> can't see that very clearly." (44C477), or, for `x me`,
- * "<player> can just make out that <you> <are> okay." (44C430).  Note that
+ * answers "<player> can't see that very clearly.", or, for `x me`,
+ * "<player> can just make out that <you> <are> okay.".  Note that
  * lib_npc_examine_absent()'s guard already anticipates this: it fires on a
  * message that CONTAINS "<player> can't see that", which is the darkness
- * tail as well as the lit one, so the absent-character rewrite still wins in
- * a dark room -- and that is why it is tested first here.
+ * tail as well as the lit one, so the absent-character rewrite still wins
+ * in a dark room -- and that is why it is tested first here.
  *
  * The object-found-but-silent default one branch up is the SAME 4.0 rewrite
  * and splits the same way, but it is decompile-only so far -- see
@@ -1021,13 +1017,12 @@ lib_cmd_examine_other (scr_gameref_t game)
    * A bare `x`, `ex` or `examine` never reaches this tail from 3.9 on:
    * examines exits on it at once (run400 471340, run390 44B758).  run400's
    * line falls to the game's DontUnderstand -- see lib_cmd_look_typed() --
-   * but run390's therest() still has checkverb arms for all three (45E64E-
-   * 45E67C), so 3.9 answers "Examine what?".  `exam` is not in that test and
-   * still comes here: "Nothing special." at 3.9, "You see no such thing." at
-   * 4.0.  3.7/3.8 have no exit, and every bare form is "Nothing special.".
-   * p39EXAM run390x runner_probes/exam.run390.abbr.txt, p4EXAM run400x
-   * runner_probes/exam.run400.abbr.txt, p38EXAM run380x
-   * runner_probes/exam.run380.abbr.rtf.
+   * but run390's therest() still has checkverb arms for all three, so 3.9
+   * answers "Examine what?".  `exam` is not in that test and still comes
+   * here: "Nothing special." at 3.9, "You see no such thing." at 4.0.
+   * 3.7/3.8 have no exit, and every bare form is "Nothing special.".
+   * p38EXAM/p39EXAM/p4EXAM under run380x/run390x/run400x,
+   * runner_probes/exam.run*.abbr.*.
    */
   if (lib_is_version_390 (game) || lib_is_version_400 (game))
     {
@@ -1063,8 +1058,8 @@ lib_cmd_examine_other (scr_gameref_t game)
    * that is here -- so `x big dave` and `x tall guard`, which SCARE's
    * %character% pattern does not bind, describe Dave and (of Ann and Bob,
    * both guards) Bob, the LAST present (run370x/run380x/run390x,
-   * runner_probes/npcamb.run370.b.rtf, runner_probes/npcamb.run380.rtf,
-   * runner_probes/npcamb.run390.txt; run380 440D0B).
+   * runner_probes/npcamb.{run370.b.rtf,run380.rtf,run390.txt}; run380
+   * 440D0B).
    */
   if (!lib_is_version_400 (game))
     {
@@ -1131,8 +1126,8 @@ lib_cmd_examine_other (scr_gameref_t game)
  * lib_cmd_look_anywhere_pre_400()
  *
  * Pre-4.0 therest() tests c("look") over the WHOLE line, not just its first
- * word, and answers the flat "Nothing special." (run370 43D906, run380
- * 44439D, run390 45DB9F):
+ * word, and answers the flat "Nothing special." (run370 43D906 ... run390
+ * 45DB9F):
  *
  *     If c("look") Or (input = "l" And msg = "") Then msg = "Nothing special."
  *
@@ -1230,8 +1225,8 @@ lib_cmd_eat_other (scr_gameref_t game)
 {
   /*
    * A 4.0 string (run400 4889C7).  run380's eat arm (443D6E) and run390's
-   * (45D4EF) speak only for a present object, so with none the line goes
-   * on to the catch-all: `eat statue` from the wrong room is the same-room
+   * speak only for a present object, so with none the line goes on to the
+   * catch-all: `eat statue` from the wrong room is the same-room
    * answer in 3.8 (runner_probes/exam.run380.verb.rtf) and "I don't
    * understand." in 3.9 (runner_probes/exam.run390.verb.txt).
    */
@@ -1342,11 +1337,11 @@ lib_cmd_say (scr_gameref_t game)
   const scr_char *string = nullptr;
 
   /*
-   * run390 (therest 45DAD2) and run400 (488DE4) both draw Int(Rnd*6) over
-   * six responses; run380/run370 (4442AA/43D813) draw Int(Rnd*5) over the
-   * same table, so their sixth response is unreachable.  Keeping the span
-   * per version keeps the Runner-mode stream in step with the Wine
-   * Runners (inverness, measured 2026-09-12).
+   * run390 and run400 (therest 488DE4) both draw Int(Rnd*6) over six
+   * responses; run370 and run380 (4442AA) draw Int(Rnd*5) over the same
+   * table, so their sixth response is unreachable.  Keeping the span per
+   * version keeps the Runner-mode stream in step with the Wine Runners
+   * (inverness, measured 2026-09-12).
    */
   switch (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390
           ? scr_randomint (1, 6) : scr_randomint (1, 5))
@@ -1443,13 +1438,12 @@ lib_cmd_speak_pre390 (scr_gameref_t game)
 
 /*
  * A `talk` line no character answered.  therest's `c("ask") Or c("talk to")`
- * block (run370 43E9B7, run380 444039, run390 45D831, run400 488B5C) takes
- * `talk to` as it takes `ask`: without "about", an empty buffer and no task
- * run for the line, it prints the generic 'Use the format "ask [character]
- * about [subject]"' (run400 488D40-488D8C).  The rabblings line just below
- * it (488DA2-488DC6) only fills a buffer still empty, so it is what a bare
- * `talk dirty` gets, and a `talk to` line whose task ran silently (sophie_comp
- * `talk to devil`).
+ * block (run370 43E9B7 ... run400 488B5C) takes `talk to` as it takes
+ * `ask`: without "about", an empty buffer and no task run for the line, it
+ * prints the generic 'Use the format "ask [character] about [subject]"'.
+ * The rabblings line just below it only fills a buffer still empty, so it
+ * is what a bare `talk dirty` gets, and a `talk to` line whose task ran
+ * silently (sophie_comp `talk to devil`).
  *
  * Measured on run400x: Aegis `talk to Elder`, Whatever Happened to Uncle
  * Grumble `talk to mayor`, Shards of Memory `talk to reaper` and YADFA `talk

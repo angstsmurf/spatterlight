@@ -672,9 +672,9 @@ battle_change_attribute (scr_gameref_t game, scr_int npc,
     case 0:                            /* Attitude (set, NPCs only). */
       /*
        * The value is written to the NPC's attitude byte as it stands, in both
-       * Runners: run400 execute_action 48D747-48D78A and run390 456BB1-456BF4
-       * store CByte(var3) into record 172 / 108, the same byte the loader
-       * fills from the .taf (0 = neutral, 1 = ally, 2 = enemy, the encoding
+       * Runners: execute_action (run400 48D747, run390 456BB1) stores
+       * CByte(var3) into record 172 / 108, the same byte the loader fills
+       * from the .taf (0 = neutral, 1 = ally, 2 = enemy, the encoding
        * charhitwho's "3 - attitude" test reads).  It is not a Generator combo
        * index (0 = ally, 1 = neutral): deaths' `kill ross` action sets Joshua
        * to 0, and the Runner then has one candidate for Ross's and the demon's
@@ -691,14 +691,14 @@ battle_change_attribute (scr_gameref_t game, scr_int npc,
       /*
        * A change that leaves an NPC at or below zero kills it, in both
        * Runners: run390 execute_action 4573DC stores min(max, cur + delta)
-       * and calls killchar (42D410) when the result is <= 0 (456CD7 for the
-       * referenced character, 456D8D for NPC var2-2); run400 does the same
-       * at 48D89B / 48D929 into Proc_11_3_44B13C, the death sub the damage
-       * path uses.  The player dies of it only in 4.0 (48D803 ->
-       * Proc_21_62_4524FC); run390's player arm (456C20) has no test.
-       * cybercow_win T103: task 167 "#kill sane robot" takes 1000 off the
-       * stamina-0 Robot (NPC 4), which run390 then removes from Bottom of
-       * the Well -- "CyberCow is here.", not "CyberCow and Robot are here.".
+       * and calls killchar (42D410) when the result is <= 0, for the
+       * referenced character and for NPC var2-2 alike; run400 does the same
+       * into Proc_11_3_44B13C, the death sub the damage path uses.  The
+       * player dies of it only in 4.0 (48D803 -> Proc_21_62_4524FC);
+       * run390's player arm (456C20) has no test.  cybercow_win T103: task
+       * 167 "#kill sane robot" takes 1000 off the stamina-0 Robot (NPC 4),
+       * which run390 then removes from Bottom of the Well -- "CyberCow is
+       * here.", not "CyberCow and Robot are here.".
        */
       if (stamina <= 0
           && (npc >= 0 || !battle_is_legacy_version (game)))
@@ -729,8 +729,8 @@ battle_change_attribute (scr_gameref_t game, scr_int npc,
        * an uncapped 25..35 made it "doesn't seem to do any damage".
        *
        * run390 is the same rule: execute_action 4573DC writes strength =
-       * Proc_2_1_427948(max, cur + delta) at 456EFA (player) / 456F64 (NPC),
-       * defence at 45714E / 4571B8, and Proc_2_1_427948 is min() too, with no
+       * Proc_2_1_427948(max, cur + delta), and defence the same way, for the
+       * player and for an NPC, and Proc_2_1_427948 is min() too, with no
        * floor at zero.  solw's green potion (+20 strength, +20 defence, then
        * +20 to both maxes) therefore leaves the player at 30/30: the ghost's
        * 50 lands with damage ("A ghost hits you.",
@@ -750,8 +750,8 @@ battle_change_attribute (scr_gameref_t game, scr_int npc,
     case 4: case 6: case 8: case 0xA:  /* Max Str/Acc/Def/Agi (delta). */
       slot = (attribute - 4) / 2;
       /*
-       * run400 48E2A6 and run390 457048 (max strength) / 4572A1 (max
-       * defence): a plain add, no floor and no re-clamp of lo/hi.
+       * run400 48E2A6 and run390 457048 (max strength; max defence the
+       * same): a plain add, no floor and no re-clamp of lo/hi.
        */
       battle->max[slot] += value;
       break;
@@ -888,10 +888,10 @@ battle_object_worn_by (scr_gameref_t game, scr_int object, scr_int npc)
  *
  * Sum the ProtectionValue of the armour worn by the player (npc < 0) or an
  * NPC.  An object adds its value only when it is > -1: the Generator stores
- * -1 on objects that are not armour, and both Runners skip it -- run390
- * armourstrength 42DB6C, run400 4502D4 (4501EC/4501FA player, 450294/4502AC
- * NPC).  matt wears a -1 object beside its Protection-5 armour, so its Giant
- * Rat (Strength 5) lands no damage (run390x, runner_transcripts/matt.txt,
+ * -1 on objects that are not armour, and both Runners skip it, for the
+ * player and for an NPC -- run390 armourstrength 42DB6C, run400 4502D4.
+ * matt wears a -1 object beside its Protection-5 armour, so its Giant Rat
+ * (Strength 5) lands no damage (run390x, runner_transcripts/matt.txt,
  * `room a`).
  */
 static scr_int
@@ -1062,24 +1062,23 @@ static const scr_char *const BATTLE_METHOD_VERBS[6]
  *
  * The two procedures differ in when they take the alias.  Proc_11_1, the
  * player's blow (Battles.bas @45E1CE), takes it from any NPC with one.
- * Proc_11_2, an NPC's blow (@464F20 for the attacker, @464FF2 for the
- * target), tests the combatant's Battle.Attitude -- the record byte at +172 --
- * and takes the alias only from an enemy (attitude 2); an ally or a neutral
- * keeps its Name.  Both join the prefix in raw, so an authored "the young "
- * prints its own second space.
+ * Proc_11_2, an NPC's blow, tests the Battle.Attitude of the attacker and of
+ * the target -- the record byte at +172 -- and takes the alias only from an
+ * enemy (attitude 2); an ally or a neutral keeps its Name.  Both join the
+ * prefix in raw, so an authored "the young " prints its own second space.
  *
  * Nothing else follows the rule: the corpse line reads the Name field
  * directly (@44B115), and so does every room listing.
  *
  * 3.9 does the same thing, in the same two shapes -- the rule is NOT 4.0-only
  * and carries no version gate.  run390's player blow is Sub dohit(char,
- * weapon) @438B50: entry 43881C reads the NPC record, and 43882A..43886F is
- * literally `if Alias(0) <> "" then (Prefix <> "" ? Prefix & " " & Alias :
- * Alias) else Name`, with no attitude test -- the same as Proc_11_1.  An NPC's
- * blow is Sub chardohit(char1, char2) @442C7C, which builds the attacker's
- * name at 4423B4 and the target's at 442483 through the identical ladder plus
- * `And record(108) = 2` -- the 3.9 record's attitude byte, where 4.0's sits at
- * +172 -- so an ally or a neutral keeps its Name, the same as Proc_11_2.
+ * weapon) @438B50: its entry reads the NPC record and then is literally
+ * `if Alias(0) <> "" then (Prefix <> "" ? Prefix & " " & Alias : Alias)
+ * else Name`, with no attitude test -- the same as Proc_11_1.  An NPC's blow
+ * is Sub chardohit(char1, char2) @442C7C, which builds the attacker's name
+ * and the target's through the identical ladder plus `And record(108) = 2`
+ * -- the 3.9 record's attitude byte, where 4.0's sits at +172 -- so an ally
+ * or a neutral keeps its Name, the same as Proc_11_2.
  * Measured against the whole-corpus run390 capture: ALEXIS.TAF's NPC 4 is Name
  * "Wolf", Prefix "a grey", Alias "wolf", and its transcript reads "You hit a
  * grey wolf with the magic cube.  A grey wolf hits you." where scarier printed
@@ -1171,27 +1170,26 @@ battle_npc_name (scr_gameref_t game, scr_int npc, scr_int naming,
  *
  * The player's forms follow Globals/Perspective, because the Runner splices
  * them from the same seven-element pronoun array the library uses -- filled by
- * perspective at run400 48F60C-48F798 (run390 464800-4648A8, two perspectives
+ * perspective in openadv (run400 48F60C; run390 464800, two perspectives
  * only): Ary(0) is "I" / "You" / the player's name and Ary(2) "me" / "you" /
  * the player's name.  Battle reads exactly two of the seven slots, and it
  * reads them positionally, not grammatically: Ary(0) wherever the player leads
  * the sentence -- the whole of Proc_11_1, the player's blow, and the
- * bare-handed dodge in Proc_11_2 at loc_46515B -- and Ary(2) wherever the
- * player sits inside one, as the target of an NPC's blow (Proc_11_2 loc_464FDA
- * feeding var_8C, plus the armed miss's two direct reads at
- * loc_4653BB/loc_4653FF).
+ * bare-handed dodge in Proc_11_2 -- and Ary(2) wherever the player sits
+ * inside one, as the target of an NPC's blow (Proc_11_2 builds the target's
+ * name from it, and the armed miss reads it twice more directly).
  *
  * POSSESSIVE is the exception, and stays "your" in every perspective: the only
  * possessive the player has in battle is the one in Proc_11_1's own misses,
  * and the Runner writes it as part of the literal -- " manages to avoid your
- * attack." at loc_45E2EB and " manages to avoid your attack with " at
- * loc_45E519.  Neither touches the array, so a first-person game really does
- * read "The witch manages to avoid your attack." between two lines that say
- * "I".  The verb agreement is fixed in the same way, by which Runner branch is
- * printing rather than by perspective: Proc_11_2 picks its "manage"/"manages"
- * by comparing the target's rendered name against Ary(2) (loc_46514E), which a
- * third-person game satisfies with the player's name on both sides, so the
- * `target < 0` tests below are right for all three.
+ * attack." and " manages to avoid your attack with ".  Neither touches the
+ * array, so a first-person game really does read "The witch manages to avoid
+ * your attack." between two lines that say "I".  The verb agreement is fixed
+ * in the same way, by which Runner branch is printing rather than by
+ * perspective: Proc_11_2 picks its "manage"/"manages" by comparing the
+ * target's rendered name against Ary(2) (loc_46514E), which a third-person
+ * game satisfies with the player's name on both sides, so the `target < 0`
+ * tests below are right for all three.
  *
  * SUBJECT_CAPITALISED forces the NPC's name to an initial capital, the way
  * the Runner's one-line capitaliser Proc_21_3_446BB4 does -- run400.bas
@@ -1205,17 +1203,18 @@ battle_npc_name (scr_gameref_t game, scr_int npc, scr_int naming,
  *
  * The Runner capitalises at exactly five sites, all of them in Proc_11_2 (an
  * NPC's blow) and all of them the *attacker* leading the sentence: the two
- * bare-handed hits (Battles.bas loc_4650C6 landed, loc_46510D no damage), the
- * armed hit before the method verb is chosen (loc_4651FA, so a throw is
- * capitalised too), and both armed misses (loc_4653A3 against the player,
- * loc_46543F against another NPC).  Nothing else is: the bare-handed miss
- * leads with the raw target name (loc_465185 pushes var_8C unwrapped) and
- * names the attacker raw in the possessive after it, Proc_11_1 -- the player's
- * blow -- has no call to the capitaliser at all, and neither does the corpse
- * line (Proc_11_3 @44B115 reads the Name field directly).  Proc_11_1 needs no
- * capitaliser because it opens with Ary(0), which is already capitalised in
- * the first and second persons -- and in the third it is the player's name,
- * which the Runner splices exactly as authored.
+ * bare-handed hits (the landed one, Battles.bas loc_4650C6, and the
+ * no-damage one), the armed hit before the method verb is chosen (so a
+ * throw is capitalised too), and both armed misses (against the player and
+ * against another NPC).
+ * Nothing else is: the bare-handed miss leads with the raw target name (it
+ * pushes the target's rendered name unwrapped) and names the attacker raw in
+ * the possessive after it, Proc_11_1 -- the player's blow -- has no call to
+ * the capitaliser at all, and neither does the corpse line (Proc_11_3
+ * @44B115 reads the Name field directly).  Proc_11_1 needs no capitaliser
+ * because it opens with Ary(0), which is already capitalised in the first and
+ * second persons -- and in the third it is the player's name, which the
+ * Runner splices exactly as authored.
  */
 static void
 battle_print_combatant (scr_gameref_t game, scr_int npc, scr_int form,
@@ -1330,9 +1329,9 @@ battle_kill (scr_gameref_t game, scr_int npc, scr_bool visible)
       /*
        * The score summary follows, as it does after an EndGame death: run400
        * Battles.Sub_12_1 calls the shared death sub General.Sub_22_70
-       * (4524FC) from the call site 44AE95; endmessage's EndGame-death
-       * branch calls that same sub from 45E10B, and run390 Form1.chardohit
-       * builds the same lines inline after the death sentence (442B7F).
+       * (4524FC); endmessage's EndGame-death branch calls that same sub,
+       * and run390 Form1.chardohit builds the same lines inline after the
+       * death sentence (442B7F).
        * Measured live: run400 on light_up_4summer_comp.taf
        * (runner_probes/light_up.run400.txt turn 352, "You scored 58 out of
        * the maximum 0!"), and
@@ -1516,11 +1515,11 @@ battle_npc_pronoun (scr_gameref_t game, scr_int npc)
  * Open an NPC's blow onto the turn's string, the way the Runner does.
  * chardohit -- the NPC's blow -- calls pspace() at the head of every one of
  * its four printing branches, so the sentence runs on after whatever the turn
- * has already said rather than starting a line of its own: run390 442C7C at
- * 4424E6 (bare-handed landed / no damage), 442610 (armed, both outcomes),
- * 4427EF and 442911 (the same two against the other class of target), and
- * run400 4654F8 at the matching 465072, 46513D, 4651EF and 46537F.  killchar
- * does it too, ahead of " falls down, dead." (run400 44B105).
+ * has already said rather than starting a line of its own.  The four are the
+ * bare-handed blow (landed / no damage), the armed one (both outcomes), and
+ * the same two against the other class of target, in run390 442C7C and
+ * run400 4654F8 alike.  killchar does it too, ahead of " falls down, dead."
+ * (run400 44B105).
  *
  * The player's own blow does NOT: dohit (run390 438B50, run400 45E578) writes
  * MemVar_4941B0 = MemVar_4941B0 & Ary(0) & " hit " & ... with no separator at
@@ -1785,21 +1784,21 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
  * room.  Returns an NPC index, BATTLE_PLAYER, or BATTLE_NONE.
  *
  * run400 Battles.bas Proc_11_14 (451DF0) tests NOTHING about a candidate's
- * stamina: the count loop (451CA6-451D31) takes every other NPC in the same
- * room whose attitude is 3 - own, the player is added (451D31-451D48) when the
- * attacker is an enemy standing in the player's room, one draw picks (451D48)
- * and the second loop (451D65-451DDC) re-walks the same order.  A character at
- * 0 stamina is therefore a legitimate target.  Killed NPCs are out of every
- * room (room -5 there, location 0 here), so this only reaches characters that
- * ROLLED 0 at load -- an NPC whose Stamina range starts at 0 (Shadowpeak's
- * Holga, 0..50, before recovery brings her back), or the player of a game
- * whose player Stamina is 0..0.  The Runner then plays the blow out: chardohit
- * -> Proc_11_0, damage >= stamina -> death (Proc_21_62 for the player, "falls
- * down, dead." and the KilledTask for an NPC), so a 0-stamina player dies to
- * the first hostile in the room, and an ally rolled at 0 is killed by the
- * first enemy that picks it.  Neither loop skips 0-stamina candidates:
- * skipping them makes those characters unhittable and changes the draw cadence
- * (no pick draw when they are the only candidate).
+ * stamina: the count loop takes every other NPC in the same room whose
+ * attitude is 3 - own, the player is added when the attacker is an enemy
+ * standing in the player's room, one draw picks and the second loop re-walks
+ * the same order.  A character at 0 stamina is therefore a legitimate target.
+ * Killed NPCs are out of every room (room -5 there, location 0 here), so this
+ * only reaches characters that ROLLED 0 at load -- an NPC whose Stamina range
+ * starts at 0 (Shadowpeak's Holga, 0..50, before recovery brings her back),
+ * or the player of a game whose player Stamina is 0..0.  The Runner then
+ * plays the blow out: chardohit -> Proc_11_0, damage >= stamina -> death
+ * (Proc_21_62 for the player, "falls down, dead." and the KilledTask for an
+ * NPC), so a 0-stamina player dies to the first hostile in the room, and an
+ * ally rolled at 0 is killed by the first enemy that picks it.  Neither loop
+ * skips 0-stamina candidates: skipping them makes those characters unhittable
+ * and changes the draw cadence (no pick draw when they are the only
+ * candidate).
  */
 static scr_bool
 battle_is_foe (scr_gameref_t game, scr_int npc, scr_int other)

@@ -230,8 +230,8 @@ lib_room_alt_player_test (scr_gameref_t game, scr_int var2, scr_int object)
     case 0:              /* Isn't holding (or wearing). */
       /*
        * The Runner's holding test is its recursive possession
-       * predicate (run400 4579C1/4579EB call Proc_21_46 @44615C), so
-       * an object inside or on something the player carries or wears
+       * predicate (run400's isdark calls Proc_21_46 @44615C), so an
+       * object inside or on something the player carries or wears
        * counts as held.  SCARE tested the object's own position only.
        * Measured in run400 on The X-Files: A New Beginning, whose
        * Parking Garage B (room 3) carries a Var2 = 1, Var3 = 2 alt on
@@ -241,11 +241,11 @@ lib_room_alt_player_test (scr_gameref_t game, scr_int var2, scr_int object)
        *
        * That is 4.0 only.  The pre-4.0 Runners test the object's own
        * position field, exactly as SCARE did: run390 isdark (433920,
-       * the ladder at 433734-4337C6 transcribed below) reads
-       * objects(ns(Obj)).global_22 raw -- `<> 0` for "isn't holding",
-       * `= 0` for "is holding" -- and never walks a container, and
-       * run380 43C708 / run370 434E95 are the same code.  Measured in
-       * run390 on Govard (runner_transcripts/govard.txt): the Ruins' alt
+       * the ladder transcribed below) reads objects(ns(Obj)).global_22
+       * raw -- `<> 0` for "isn't holding", `= 0` for "is holding" --
+       * and never walks a container, and run380 43C708 / run370 434E95
+       * are the same code.  Measured in run390 on Govard
+       * (runner_transcripts/govard.txt): the Ruins' alt
        * "...на юго-востоке - Хибара." (room 11, Obj 15 the knife,
        * TypeHideObjects 10) fires while the knife is carried directly
        * and stops the moment it is put in the worn belt, and the
@@ -364,27 +364,27 @@ lib_use_room_alt (scr_gameref_t game, scr_int room, scr_int alt)
  * dark room is authored as a room whose object condition holds and whose
  * "Hide objects" box is ticked, and the Runner recomputes that one predicate
  * at the top of examines() into a byte it then consults twice.  run390's copy
- * is the ladder at 44B888-44BA5A, over the room record's own fields -- 102 is
+ * is the ladder at 44B888, over the room record's own fields -- 102 is
  * HideObjects, 100 the object, 104 the condition type -- with the same six
  * cases lib_use_room_alt() already implements for a type-2 alt:
  *
  *     If room(102) = 1 Then
- *       var_BC = 0
+ *       dark = 0
  *       If room(100) <> 0 Then
  *         Select Case room(104)
- *           Case 0: If obj.parent <> 0     Then var_BC = 1   ' isn't holding
- *           Case 1: If obj.parent  = 0     Then var_BC = 1   ' is holding
- *           Case 2: If obj.parent <> &H9C  Then var_BC = 1   ' isn't wearing
- *           Case 3: If obj.parent  = &H9C  Then var_BC = 1   ' is wearing
+ *           Case 0: If obj.parent <> 0     Then dark = 1   ' isn't holding
+ *           Case 1: If obj.parent  = 0     Then dark = 1   ' is holding
+ *           Case 2: If obj.parent <> &H9C  Then dark = 1   ' isn't wearing
+ *           Case 3: If obj.parent  = &H9C  Then dark = 1   ' is wearing
  *           Case 4: If obj.parent > 0 And obj.parent <> playerroom Then ...
  *           Case 5: If obj.parent = 0 Or &H9C Or playerroom      Then ...
  *
- * run380 (43C708, room fields 78/76/80, flag var_F0) and run370 (434E95, the
- * same three fields, the same six arms) are character-for-character the same
+ * run380 (43C708, room fields 78/76/80) and run370 (434E95, the same three
+ * fields, the same six arms) are character-for-character the same
  * computation, so this is not a 3.9 invention.  run400 kept the shape but
- * never assigns its flag: Proc_19_87_471F94's var_AC is dead, which is why
- * 4.0 answers a dark room's `x` with its ordinary tail.  Hence the gate here
- * is < 4.0, not >= 3.90.
+ * never assigns its flag: Proc_19_87_471F94's dark byte is dead, which is
+ * why 4.0 answers a dark room's `x` with its ordinary tail.  Hence the gate
+ * here is < 4.0, not >= 3.90.
  *
  * The conversion in parse_fixup_v390_v380_room_alts() writes that room-level
  * object condition out as the LAST alt, type 2, with Var2 the condition type,
@@ -399,18 +399,17 @@ lib_use_room_alt (scr_gameref_t game, scr_int room, scr_int alt)
  *   lib_room_alt_darkens()  is isdark() itself (run390 433920), the condition
  *     alone, with no HideObjects term.  Only afteroa's start-room seen sweep
  *     reads it that way (run390 44192D).
- *   lib_room_is_dark()      is what examines() computes into var_BC and what
- *     viewroom acts on -- the condition AND HideObjects.  Every message site
- *     below wants this one.
+ *   lib_room_is_dark()      is what examines() computes into that byte and
+ *     what viewroom acts on -- the condition AND HideObjects.  Every message
+ *     site below wants this one.
  *
  * Measured: p39DARK.taf (3.9) under run390,
- * runner_probes/dark.run390.unseen.txt and runner_probes/dark.run390.seen.txt
- * -- a Dark Cave whose alt fires while the torch is not held, "Hide objects"
- * ticked.  Also ALEXIS.TAF (3.9), runner_probes/alexis_worn_cube.run390.txt,
- * the Passage in the Caves of eternal night: "It is too dark to see."
- * and no object list, with `x large stone table` and `x holes in the wall`
- * both "You can't see that very clearly." where a lit room would have said
- * "Nothing special."
+ * runner_probes/dark.run390.{unseen,seen}.txt -- a Dark Cave whose alt fires
+ * while the torch is not held, "Hide objects" ticked.  Also ALEXIS.TAF
+ * (3.9), runner_probes/alexis_worn_cube.run390.txt, the Passage in the Caves
+ * of eternal night: "It is too dark to see." and no object list, with `x
+ * large stone table` and `x holes in the wall` both "You can't see that very
+ * clearly." where a lit room would have said "Nothing special."
  */
 static scr_bool
 lib_room_object_alt_fires (scr_gameref_t game, scr_int room,
@@ -505,15 +504,15 @@ lib_find_starting_alt (scr_gameref_t game, scr_int room)
            * A matching alt is the starting point whether or not its M1 is
            * empty.  run400's room lister (Proc_19_63 @472CA4) accumulates
            * forwards and applies the display method on a match with no
-           * emptiness test at all (472102 method 0 assigns M1 over the
-           * buffer; 472127 method 1 resets it to the room's Long and then
-           * appends M1 only if both are non-empty), so a later matching
-           * method-0/1 alt discards everything appended before it even when
-           * its own text is blank.  The pre-4.0 Runners reach the same place
-           * by a different route: their viewroom picks the task alt on
-           * task-doneness alone (run370 @43318C, run390 @447648 loc_447670)
-           * and then skips the base/LastDesc branch entirely.  Only the
-           * non-matching branch is guarded, on M2, below.
+           * emptiness test at all (method 0 assigns M1 over the buffer;
+           * method 1 resets it to the room's Long and then appends M1 only
+           * if both are non-empty), so a later matching method-0/1 alt
+           * discards everything appended before it even when its own text
+           * is blank.  The pre-4.0 Runners reach the same place by a
+           * different route: their viewroom picks the task alt on
+           * task-doneness alone (run370 @43318C, run390 @447648) and then
+           * skips the base/LastDesc branch entirely.  Only the non-matching
+           * branch is guarded, on M2, below.
            */
           retval = alt;
           break;
@@ -565,13 +564,13 @@ lib_get_room_name (scr_gameref_t game, scr_int room)
   start = lib_find_starting_alt (game, room);
 
   /*
-   * run400's room lister resets the name to the room's Short (472058) and
-   * then, inside its one forwards loop over EVERY alt, lets each matching
-   * alt with a non-empty Changed overwrite it (472244-472254) -- whatever
-   * that alt's display method, and whether or not a later method-0/1 alt
-   * restarts the description.  togetyou (4.0) `infect cut`: The Ear's alt 0
-   * (task 22, method 2, Changed "The Infected Ear") sits below alt 1
-   * (method 1, M2 shown), so the Runner heads the room "The Infected Ear"
+   * run400's room lister resets the name to the room's Short and then,
+   * inside its one forwards loop over EVERY alt, lets each matching alt with
+   * a non-empty Changed overwrite it -- whatever that alt's display method,
+   * and whether or not a later method-0/1 alt restarts the description.
+   * togetyou (4.0) `infect cut`: The Ear's alt 0 (task 22, method 2,
+   * Changed "The Infected Ear") sits below alt 1 (method 1, M2 shown), so
+   * the Runner heads the room "The Infected Ear"
    * (runner_transcripts/togetyou.txt T16) where the start-point walk below
    * never reached alt 0 and kept "The Ear".
    *
@@ -581,9 +580,8 @@ lib_get_room_name (scr_gameref_t game, scr_int room)
    * alts this loader synthesises for a 3.7/3.8/3.9 game are all written with
    * Changed "" (parse_fixup_v390_v380_room_alt), and the Runners agree:
    * run390's viewroom heads the room with `"<b>" & rooms(broom).Short &
-   * "</b>"` and consults no alt (447741-447754), while run380's viewroom
-   * (439C08) reaches the alt array only for description text
-   * (var_A4(60).n(n), 43952F/4395EC/4396A9).  So the walk below decides the
+   * "</b>"` and consults no alt, while run380's viewroom (439C08) reaches
+   * the alt array only for description text.  So the walk below decides the
    * name only for a 4.0 game, where it is bypassed.
    */
   if (prop_get_taf_version (bundle) >= TAF_VERSION_400)
@@ -633,8 +631,7 @@ lib_get_room_name (scr_gameref_t game, scr_int room)
  * handlers are the only place that does this -- they build the answer as
  * `... & LCase(room.name) & "."` -- so it gets its own small helper rather
  * than a flag on lib_print_room_name().
- *      run380 @4374E1 (objects) and @440BDF (characters)
- *      run400 @468143 (objects) and @47FD19 (characters)
+ *      run400 @468143 (objects, whereis) and @47FD19 (characters)
  */
 void
 lib_print_room_name_lower (scr_gameref_t game, scr_int room)
@@ -704,7 +701,7 @@ lib_print_room_name (scr_gameref_t game, scr_int room)
  * prefix.  lib_definite_object_name builds the normalized form as a string,
  * for %theobject% too (scvars.cpp): run400 expands that marker through the
  * same name builder in the same normalizing mode, Proc_21_31_448710 mode 0
- * called from Proc_21_15_4619CC at 461540.
+ * called from Proc_21_15_4619CC.
  *
  * Pre-3.9 normalizes far less, and the branch below spells out exactly what
  * Form1.tense() does instead.  "some" is the case that was measured first:
@@ -822,8 +819,8 @@ lib_definite_prefix (const scr_char *prefix, scr_bool is_pre_390,
    * tense() has no empty-prefix branch either, but pre-3.9 still comes
    * out with "the", because the empty prefix never reaches it: the .taf
    * loader rewrites it on the way in.  run380 @4481B2 reads the Prefix
-   * line and, `If (var_3C8(0) = vbNullString) Then var_3C8(0) = "a"`,
-   * substitutes a literal "a" (run370 @43F5DA does the same).  So pre-3.9
+   * line and, `If (Prefix = vbNullString) Then Prefix = "a"`, substitutes
+   * a literal "a" (run370 @43F5DA does the same).  So pre-3.9
    * an empty prefix simply *is* an "a" prefix, and both of scarier's
    * existing defaults -- "the " here, "a " in lib_print_object below --
    * already fall out of it correctly.  4.0 turns out to do it too, at
@@ -859,8 +856,8 @@ lib_definite_prefix (const scr_char *prefix, scr_bool is_pre_390,
   /*
    * No "the" branch.  The Runner's normalizer only ever rewrites the three
    * indefinite articles, so a prefix the author wrote as "The" comes back
-   * "The", capital and all.  run400's tense (Proc_21_13_44F474 @44F474, called
-   * from the name builder Proc_21_31_448710 in its normalizing mode 0) tests
+   * "The", capital and all.  run400's tense (Proc_21_13_44F474, called from
+   * the name builder Proc_21_31_448710 in its normalizing mode 0) tests
    * exactly six things -- the whole string against "a", "an" and "some", and
    * its head against "a ", "an " and "some " -- and returns its argument
    * untouched otherwise; pre-3.9's tense is the same shape with the two "some"
@@ -919,15 +916,14 @@ lib_short_without_article (const scr_char *name)
    *
    * - The object loader normalizes the two fields as it reads them.  run400
    *   at loc_4900E3 (mdlSpreadTheLoad.bas:7594) LineInputs the Prefix,
-   *   substitutes a literal "a" for an empty one (loc_4900EC), then loops
-   *   stripping trailing spaces (loc_490100..loc_49015C); it then LineInputs
-   *   the Short at loc_49016C and loops stripping *leading* spaces
-   *   (loc_490170..loc_4901CC), and moves straight on to the alias count.
-   *   Nothing looks at an article.  run370 @43F5DA and run380 @4481B2 make
-   *   the same "a" substitution.
+   *   substitutes a literal "a" for an empty one, then loops stripping
+   *   trailing spaces; it then LineInputs the Short and loops stripping
+   *   *leading* spaces, and moves straight on to the alias count.  Nothing
+   *   looks at an article.  run370 @43F5DA and run380 @4481B2 make the same
+   *   "a" substitution.
    * - run400 builds every object name in one place, Proc_21_31_448710
    *   (General.bas:7041, 232 call sites), as the single string
-   *   `Prefix & " " & Short` (loc_4486B7..loc_4486CF).
+   *   `Prefix & " " & Short`.
    * - It hands that to tense, Proc_21_13_44F474 (General.bas:1728), which
    *   tests exactly six things and nothing else: the whole string against
    *   "a", "an" and "some", and its first 2/3/5 characters against "a ",
@@ -1183,14 +1179,13 @@ lib_is_version_400 (scr_gameref_t game)
  * lib_is_version_390()
  *
  * TRUE for a 3.9 .taf only.  run390's not-a-turn flag MemVar_468219 is
- * cleared at the top of generaltasks (45EC74) and set again only by status
- * (44C52B), history/past (45F52F), score (45F6C7), count/num (45F7D6),
- * about/info/author/information (45FB3D), quit/bye/end (45FB6E) and turns
- * (45FD4D).  Everything else it answers is an ordinary turn that ticks
- * characters() and events() -- hint, help, clear/cls, time, version, save,
- * restore and undo among them.  Measured on p39ADMIN.taf, whose length-1
- * event prints TICK. after each of those (runner_probes/admin.run390.txt).
- * 4.0 has its own, longer, list.
+ * cleared at the top of generaltasks and set again only by status (44C52B,
+ * in dobattle), history/past, score, count/num,
+ * about/info/author/information, quit/bye/end and turns.  Everything else it
+ * answers is an ordinary turn that ticks characters() and events() -- hint,
+ * help, clear/cls, time, version, save, restore and undo among them.
+ * Measured on p39ADMIN.taf, whose length-1 event prints TICK. after each of
+ * those (runner_probes/admin.run390.txt).  4.0 has its own, longer, list.
  */
 scr_bool
 lib_is_version_390 (scr_gameref_t game)
@@ -1208,18 +1203,18 @@ lib_is_version_390 (scr_gameref_t game)
  * 3.9/4.0 games.  Administrative turns exist only from 3.9: run390
  * generaltasks (460D6C) sets its flag 468219 for
  * history/score/count/information/end/turns, and its end-of-turn
- * characters()+events() at 460675/46067A is guarded by that flag.  run380
- * generaltasks (44349C) and run370 (43B5xx) have no such flag: their tail
- * (run380 443160-44317E, run370 43C88D-43C8AB) ticks characters()+events()
- * after EVERY command that left output, unless the game has ended; only
- * opensave() (save/restore/restart, GoTo 443326) and quit (unloads the form)
- * bypass it.  Measured in run380 haunt.taf: the `score` at turn 83 is followed
- * by the Weather event's finish text and the grandfather-clock line, which
- * treating it as an administrative turn would suppress.  The 3.8 turn counter
- * (44F138, 441A21) likewise increments on every command, so the pre-3.9
- * non-admin path is right on both counts.  Callers are the meta-commands 3.8
- * recognises and answers (score, turns, count, hint, help, about, clear,
- * history, where); verbs 3.8 does not know at all keep their 4.0 behaviour.
+ * characters()+events() is guarded by that flag.  run380 generaltasks
+ * (44349C) and run370 (43B5xx) have no such flag: their tail ticks
+ * characters()+events() after EVERY command that left output, unless the
+ * game has ended; only opensave() (save/restore/restart) and quit (unloads
+ * the form) bypass it.  Measured in run380 haunt.taf: the `score` at turn 83
+ * is followed by the Weather event's finish text and the grandfather-clock
+ * line, which treating it as an administrative turn would suppress.  The 3.8
+ * turn counter (44F138, 441A21) likewise increments on every command, so the
+ * pre-3.9 non-admin path is right on both counts.  Callers are the
+ * meta-commands 3.8 recognises and answers (score, turns, count, hint, help,
+ * about, clear, history, where); verbs 3.8 does not know at all keep their
+ * 4.0 behaviour.
  */
 void
 lib_set_admin (scr_gameref_t game)
@@ -1244,12 +1239,10 @@ lib_set_admin (scr_gameref_t game)
  * offset in each Runner -- 40 in run370 and run380, 44 in run390, 48 in
  * run400 -- and co() grew from 50 lines (run370 4261B4) and 75 (run380
  * 42DE60) to 408 (run390 43B6BC) and 530 (run400 46486C).  Only the last
- * two read it: run390 at 43B2FB/43B4AE/43B677, run400 at
- * 464372/464693/4647DD/46480F, in each case after obhere() has failed.
- * Before 3.9 exactly two routines consult the flag, and neither is the
- * matcher: whereis() (run370 430320 @42FC06, run380 437954 @43712E), and
- * therest()'s "With what?" check on the second noun of <verb> X with Y
- * (run370 43EAA8 @43CFBE, run380 4455B4 @443AB6).
+ * two read it, in each case after obhere() has failed.  Before 3.9 exactly
+ * two routines consult the flag, and neither is the matcher: whereis()
+ * (run370 430320, run380 437954), and therest()'s "With what?" check on the
+ * second noun of <verb> X with Y (run370 43EAA8, run380 4455B4).
  */
 scr_bool
 lib_matcher_requires_seen (scr_gameref_t game)
@@ -1899,14 +1892,13 @@ lib_get_npc_inroom_text (scr_gameref_t game, scr_int npc)
    * "Active" here is the walk's task state -- StartTask complete, StoppingTask
    * not -- and nothing to do with how much counter the walk has left; the
    * Runner's room lister looks at those two fields and the ChangedDesc, and at
-   * no counter (run400 viewroom Proc_19_63_472CA4, the NPC loop at
-   * 4727E2..472931, re-read from the P-code 2026-08-24; run390 28995; 3.7
-   * and 3.8 have no ChangedDesc at all, and their walk schema leaves it
-   * empty).  So a walk that has run its course goes on describing the NPC
-   * for the rest of the game.  In "The
-   * Fun House" (4.0) that is the difference between "The tall man is
-   * pleasant." and dropping him into the room's "... are here." sentence from
-   * turn 16 on.
+   * no counter (run400 viewroom Proc_19_63_472CA4, the NPC loop, re-read
+   * from the P-code 2026-08-24; run390 28995; 3.7 and 3.8 have no
+   * ChangedDesc at all, and their walk schema leaves it empty).  So a walk
+   * that has run its course goes on describing the NPC for the rest of the
+   * game.  In "The Fun House" (4.0) that is the difference between "The tall
+   * man is pleasant." and dropping him into the room's "... are here."
+   * sentence from turn 16 on.
    *
    * The Runner scans upwards and keeps overwriting, so the highest-numbered
    * walk with a description wins; scanning down and returning is the same

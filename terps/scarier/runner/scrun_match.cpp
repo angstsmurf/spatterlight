@@ -214,33 +214,32 @@ run_clear_cache (void)
  *
  * A task command is already lower-case by the time any Runner's matcher sees
  * it -- the folding happens at load, not in checktask, which holds no LCase
- * above 44B0BA and reads the command straight out of the task record
- * (44AAA5, 44AF12).  p*VARREF said so sideways first: the variable arm builds
- * its marker as `"%" & Name & "%"` and looks for it with a binary-compare
- * InStr (44AF43), yet `wibb %NUM%` reached a variable named `num` while
+ * above its equality test (run390 44B0BA) and reads the command straight out
+ * of the task record.  p*VARREF said so sideways first: the variable arm
+ * builds its marker as `"%" & Name & "%"` and looks for it with a
+ * binary-compare InStr, yet `wibb %NUM%` reached a variable named `num` while
  * `bork %Big%` AND `snib %big%` over a variable named `Big` reached nothing
  * -- one rule explains both, and it is that the command was folded and the
  * stored Name was not (var_get_command_number()).
  *
  * p*CASEREF then asked the four known markers directly
- * (runner_probes/caseref.run370.rtf, runner_probes/caseref.run380.rtf,
- * runner_probes/caseref.run390.txt, runner_probes/caseref.run400.txt): tasks
- * `frob %Object%`, `nurb %CHARACTER%`, `blip %Number%` and `murg %TEXT%`
- * beside their lower-case twins, fed `frob rock`, `nurb fay`, `blip 7`, `murg
- * quux`.  Every capitalised marker runs its task, in every Runner that knows
- * the marker at all (%character% and %number% from 3.9, %text% at 4.0; below
- * that the command is a literal either way and the cells answer DontUnderstand
- * on both sides).  So X-Files task 30, `Molest *%Character%`, is a live
- * %character% command and not the unknown-marker literal this took it for.
+ * (runner_probes/caseref.*): tasks `frob %Object%`, `nurb %CHARACTER%`,
+ * `blip %Number%` and `murg %TEXT%` beside their lower-case twins, fed `frob
+ * rock`, `nurb fay`, `blip 7`, `murg quux`.  Every capitalised marker runs its
+ * task, in every Runner that knows the marker at all (%character% and
+ * %number% from 3.9, %text% at 4.0; below that the command is a literal
+ * either way and the cells answer DontUnderstand on both sides).  So X-Files
+ * task 30, `Molest *%Character%`, is a live %character% command and not the
+ * unknown-marker literal this took it for.
  *
- * Only the markers are folded here, not the whole command.  Everything else
- * a command holds is already compared case-insensitively -- the equality
- * LCase()s both sides (44B0BA/44B0DA), checkwild and 4.0's wildcard matcher
- * fold too (p*CASEREF's `* Zag * GEM *` runs on `xxx zag xxx gem xxx`
- * everywhere, and did here before this) -- so the two models differ only
- * where a literal's case can still show, which is 4.0's NewParse group
- * compare (45D7FA/45D835, binary on both sides; see uip_set_binary_input()),
- * and no measurement separates them there.
+ * Only the markers are folded here, not the whole command.  Everything else a
+ * command holds is already compared case-insensitively -- the equality
+ * LCase()s both sides, checkwild and 4.0's wildcard matcher fold too
+ * (p*CASEREF's `* Zag * GEM *` runs on `xxx zag xxx gem xxx` everywhere, and
+ * did here before this) -- so the two models differ only where a literal's
+ * case can still show, which is 4.0's NewParse group compare (45D7FA, binary
+ * on both sides; see uip_set_binary_input()), and no measurement separates
+ * them there.
  */
 static scr_bool
 run_lower_command_markers (std::string &command)
@@ -341,14 +340,13 @@ run_task_command_patterns (scr_gameref_t game, scr_int task,
  * 3.7's permanent task-command rewrite -- not ported.
  *
  * 3.7 substitutes a task command's %object% INTO THE TASK, and the rewrite
- * outlives the turn.  run370's checktask (4332CA) copies the command aside
- * into var_D0, replaces %object% with the Short of each object its c() finds
- * in the line -- writing the result back over the command record at 433377,
- * so only the first match has a %object% left to replace -- and restores the
- * saved copy at 43342B when the command did not match.  On a MATCH the
- * original never goes back, and the task is left holding a command naming
- * one object for the rest of the session, with no %object% for a later turn
- * to bind.
+ * outlives the turn.  run370's checktask (4332CA) copies the command aside,
+ * replaces %object% with the Short of each object its c() finds in the line
+ * -- writing the result back over the command record, so only the first
+ * match has a %object% left to replace -- and restores the saved copy when
+ * the command did not match.  On a MATCH the original never goes back, and
+ * the task is left holding a command naming one object for the rest of the
+ * session, with no %object% for a later turn to bind.
  *
  * p37OBJREF, whose task 1 is `nurb %object%` printing "NURBED %object%.",
  * with three rocks sharing the Short "rock":
@@ -362,14 +360,13 @@ run_task_command_patterns (scr_gameref_t game, scr_int task,
  *   being spelled "nurb gem" now (runner_probes/objref.run370.b.rtf).
  *   A line that does NOT match leaves the command alone: `frob rock` (the
  *   object catch-all) and `x coin` both keep `nurb coin` working as a task
- *   afterwards (runner_probes/objref.run370.e.rtf,
- *   runner_probes/objref.run370.c.rtf).
+ *   afterwards (runner_probes/objref.run370.{e,c}.rtf).
  *
  * run380 works on a copy throughout -- p38OBJREF answers every cell of both
- * feeds normally (runner_probes/objref.run380.rtf,
- * runner_probes/objref.run380.b.rtf) -- so this is 3.7's alone.  The rewrite
- * belongs to the loaded game rather than to game state: like the Runner's own
- * task record it is not undone by UNDO and not restored from a save.
+ * feeds normally (runner_probes/objref.run380*.rtf) -- so this is 3.7's
+ * alone.  The rewrite belongs to the loaded game rather than to game state:
+ * like the Runner's own task record it is not undone by UNDO and not
+ * restored from a save.
  *
  * Deliberate deviation: not ported.  After one `eat apple`, a
  * task `eat %object%` would answer nothing but the apple for the rest of the
@@ -640,14 +637,13 @@ run_val (const std::string &token)
  * numintext() (run390 4332C8, run400 Proc_19_52_453A48), and it is nobody's
  * idea of a parser.  Take the LOWEST position in the line at which any of
  * the characters "0".."9" occurs -- a 0..9 loop over InStr keeping the
- * minimum, 433112-43317E -- collect the non-space run STARTING AT THAT
- * CHARACTER (433198-433208), prepend "-" when the character before it is one
- * (433227-433265), and take Val() of that (433268), clamped to a signed
- * 32-bit range and rounded by CLng (4332B1).  Return FALSE, leaving the
+ * minimum -- collect the non-space run STARTING AT THAT CHARACTER, prepend
+ * "-" when the character before it is one, and take Val() of that, clamped
+ * to a signed 32-bit range and rounded by CLng.  Return FALSE, leaving the
  * stored number alone, when the line holds no digit at all: the whole body
- * including the write to MemVar_4681AC sits inside `If var_8A < 32000`
- * (433183-4332BB), so `zork five apples` does not clear what the line
- * before it set.
+ * including the write to MemVar_4681AC sits inside an `If` that the lowest
+ * position found is below 32000, so `zork five apples` does not clear what
+ * the line before it set.
  */
 static scr_bool
 run_line_number (const std::string &line, scr_int *number)
@@ -717,9 +713,9 @@ run_line_number_word (const std::string &line, scr_int *number)
  * number the line names, and store that number as the game's referenced one.
  *
  * checktask does this straight after the %object% and %character% walks and
- * before it tests the command at all (run390 44ADDF and 44AE8B; run400's
- * substituter Proc_19_36_45F268 is the same routine in mdlSpreadTheLoad,
- * %number% at 45F03C and %t_number% at 45F0AA).  Two things follow:
+ * before it tests the command at all (run390 44ADDF; run400's substituter
+ * Proc_19_36_45F268 is the same routine in mdlSpreadTheLoad).  Two things
+ * follow:
  *
  *  - %number% is not a positional wildcard: it is a SUBSTITUTION, like
  *    %object%, so a '*' command carrying one is decided pre-4.0 by checkwild,
@@ -728,19 +724,19 @@ run_line_number_word (const std::string &line, scr_int *number)
  *    zog` and answers `blip 9 zog 3 blip` with "NUM2 [9]." -- numintext took
  *    the 9 because it is the leftmost digit, not because the pattern reached
  *    it.  run400 refuses both, its own matcher cutting the line as it goes
- *    (runner_probes/numref.run390.txt, runner_probes/numref.run400.txt).
+ *    (runner_probes/numref.run{390,400}.txt).
  *  - the substituted command has to equal the line that produced it, and
  *    Val() makes that fail: `zork 007 apples` spells "zork 7 apples" and
  *    `zork 3x apples` spells "zork 3 apples", so both are refused at 3.9
  *    and at 4.0 while a positional matcher takes them.
  *
- * Both markers are replaced with digits -- Format(MemVar_4681AC) at 44AE15
- * and CStr(MemVar_4681AC) at 44AEBE -- although the OUTPUT filter spells
- * %t_number% out (45B21B, int2text).  So the words-vs-digits split is real
- * everywhere except here, and a %t_number% command can match nothing: the
- * line says "five" and the command it is compared against says "5"
- * (p*NUMREF task 3 "frob %t_number%" is refused for `frob five` and for
- * `frob 5` in all four Runners).
+ * Both markers are replaced with digits -- Format(MemVar_4681AC) and
+ * CStr(MemVar_4681AC) -- although the OUTPUT filter spells %t_number% out
+ * (run390 45B21B, int2text).  So the words-vs-digits split is real everywhere
+ * except here, and a %t_number% command can match nothing: the line says
+ * "five" and the command it is compared against says "5" (p*NUMREF task 3
+ * "frob %t_number%" is refused for `frob five` and for `frob 5` in all four
+ * Runners).
  *
  * Both write the same Long, and they write it whether or not the task goes
  * on to match: `nurb 5 blip` runs nothing and the next `zap` still prints
@@ -779,9 +775,9 @@ run_substitute_number_references (scr_gameref_t game,
  *
  * The last arm of checktask's substitution, after the numbers: a loop over
  * the whole variable array, each InStr'ing `"%" & Name & "%"` in the command
- * and Replacing it with the value (run390 44AF07-44AFDA, run400
- * 45F105-45F1B3).  What a marker is worth, which markers reach a variable at
- * all and why "%t_<name>%" reaches none are all var_get_command_number().
+ * and Replacing it with the value (run390 44AF07).  What a marker is worth,
+ * which markers reach a variable at all and why "%t_<name>%" reaches none are
+ * all var_get_command_number().
  */
 static void
 run_substitute_variable_references (scr_gameref_t game, std::string &literal)
@@ -890,28 +886,27 @@ run_pattern_references (scr_gameref_t game, const scr_char *pattern)
  * Returns FALSE when the command holds a reference this cannot substitute,
  * in which case there is nothing to test and the tree's answer stands.
  *
- * checktask (run390 44AA5A, run380 43B78B, run370 4332CA) does this before it
- * tests the command at all, and the walk is over the whole object array with
- * no break: every hit stores its index in MemVar_4681A8, so the LAST hit is
- * the reference the task's text expands, while Replace() only ever fires once
- * -- the FIRST hit spells the literal that is then compared.  The two come
- * apart whenever a line names two namesakes, and p39WILDREF answers `blip zog
- * blip rock blip gem blip` against "* zog * %object% *" with "WILD1 a gem.":
- * the rock (index 0) made the string that matched and the gem (index 1) is
- * what %object% expands to (runner_probes/wildref.run390.txt).
+ * checktask (run390 44AA5A, run370 4332CA) does this before it tests the
+ * command at all, and the walk is over the whole object array with no break:
+ * every hit stores its index in MemVar_4681A8, so the LAST hit is the
+ * reference the task's text expands, while Replace() only ever fires once --
+ * the FIRST hit spells the literal that is then compared.  The two come apart
+ * whenever a line names two namesakes, and p39WILDREF answers `blip zog blip
+ * rock blip gem blip` against "* zog * %object% *" with "WILD1 a gem.": the
+ * rock (index 0) made the string that matched and the gem (index 1) is what
+ * %object% expands to (runner_probes/wildref.run390.txt).
  *
- * 3.9 tests the Short (44AAD6) and then the Aliases (44AB65) of the SAME
- * object before it moves on to the next -- one `For var_138 ... Next
- * var_138`, the Next at 44ABE5 -- and the Alias arm substitutes the ALIAS,
- * .global_8, not the Short.  So the order is obj0.Short, obj0.Alias,
- * obj1.Short, obj1.Alias, ..., and a line naming one object's Short and an
- * earlier object's Alias is spelled with the ALIAS and expands to the
- * later object.  p39TEXTSRC (make_textsrcprobe.py,
- * runner_probes/textsrc.run390.txt) answers both `zug rock stone`
- * and `zug stone rock` against "* zug * %object% *" with "WILD [a rock].": the
- * gem is index 0 and binds through its alias "stone", spelling "* zug * stone
- * *", and the rock binds after it.  Both gates are the seen byte .global_44
- * and nothing else -- there is no scope test, so an absent object binds.
+ * 3.9 tests the Short and then the Aliases of the SAME object before it moves
+ * on to the next -- one object loop, the Next at 44ABE5 -- and the Alias arm
+ * substitutes the ALIAS, .global_8, not the Short.  So the order is
+ * obj0.Short, obj0.Alias, obj1.Short, obj1.Alias, ..., and a line naming one
+ * object's Short and an earlier object's Alias is spelled with the ALIAS and
+ * expands to the later object.  p39TEXTSRC (make_textsrcprobe.py,
+ * runner_probes/textsrc.run390.txt) answers both `zug rock stone` and `zug
+ * stone rock` against "* zug * %object% *" with "WILD [a rock].": the gem is
+ * index 0 and binds through its alias "stone", spelling "* zug * stone *",
+ * and the rock binds after it.  Both gates are the seen byte .global_44 and
+ * nothing else -- there is no scope test, so an absent object binds.
  *
  * 4.0 is the one that walks twice, every Short and then every Alias:
  * run400 answers the same two lines with "WILD [a gem]." -- the rock's
@@ -936,22 +931,21 @@ run_pattern_references (scr_gameref_t game, const scr_char *pattern)
  *
  * Not emulated, and measured (p39TEXTSRC, runner_probes/textsrc.run390.txt):
  * the string 3.9 searches is not `line` at all but MemVar_468224, a SNAPSHOT
- * of the line taken at the end of the synonym pass (45F20F), so none of
- * generaltasks' own rewrites below it -- "everything"->"all" (45F225),
- * "slap"->"hit" (45F246), "except"/"apart from"->"but" (45F267, 45F288), the
- * `with ` history prepend (45F2AF) -- reaches the walk, while the string the
- * command is TESTED against is the rewritten one.  Task `zog %object%` with
- * objects named `hit` and `slap` is refused by `zog slap`: the walk binds the
- * slap and spells "zog slap", the test is against "zog hit", and the library
- * answers instead ("You hit the hit, but nothing happens.").  The second pair
- * of loops at 44ABFE/44AC98 does repeat the walk against checktask's own
- * `text` argument, but its guard is `MemVar_4681A8 = &HFF` -- the per-TURN
- * referenced object, cleared once at 45EC68 -- so the first task command whose
- * walk binds anything consumes it for every later task on the same line.
- * `nurb except` with an object named `but` is therefore refused by task `nurb
- * %object%`: task 1's `blip %object%` fell back first, bound the but and
- * spelled "blip but".  Scarier keeps one string and no fallback, so it takes
- * both lines.
+ * of the line taken at the end of the synonym pass (generaltasks 45F20F), so
+ * none of generaltasks' own rewrites below it -- "everything"->"all",
+ * "slap"->"hit", "except"/"apart from"->"but", the `with ` history prepend --
+ * reaches the walk, while the string the command is TESTED against is the
+ * rewritten one.  Task `zog %object%` with objects named `hit` and `slap` is
+ * refused by `zog slap`: the walk binds the slap and spells "zog slap", the
+ * test is against "zog hit", and the library answers instead ("You hit the
+ * hit, but nothing happens.").  The second pair of loops does repeat the walk
+ * against checktask's own `text` argument, but its guard is
+ * `MemVar_4681A8 = &HFF` -- the per-TURN referenced object, cleared once in
+ * generaltasks (45EC68) -- so the first task command whose walk binds
+ * anything consumes it for every later task on the same line.  `nurb except`
+ * with an object named `but` is therefore refused by task `nurb %object%`:
+ * task 1's `blip %object%` fell back first, bound the but and spelled "blip
+ * but".  Scarier keeps one string and no fallback, so it takes both lines.
  *
  * A command holding a marker that is neither a known reference nor a
  * variable of the game's own is still handed back.
@@ -1201,10 +1195,10 @@ run_command_match_t::recheck_400 (void)
    * 4.0's command loop (45D9FC-45DBA4) tests a command three ways, in
    * this order, stopping at the first that takes:
    *
-   *   1. `LCase(line) = LCase(cmd)` (45DA51) -- plain equality;
-   *   2. `If InStr(cmd, "*") > 0` (45DA8C), Proc_19_50_457D68 -- the
+   *   1. `LCase(line) = LCase(cmd)` -- plain equality;
+   *   2. `If InStr(cmd, "*") > 0`, Proc_19_50_457D68 -- the
    *      non-backtracking wildcard matcher, uip_wildcard_match_400();
-   *   3. `If ([ And ]) Or ({ And })` (45DADB-45DB42), Proc_9_4_45D940 --
+   *   3. `If ([ And ]) Or ({ And })`, Proc_9_4_45D940 --
    *      NewParse, the group expander, which is the tree here.
    *
    * So a '*' command is answered by the wildcard matcher, which refuses
@@ -1213,8 +1207,8 @@ run_command_match_t::recheck_400 (void)
    * after the whole command has been tried as a literal, brackets and
    * all, and after a '*' in it has been matched literally too.
    *
-   * Measured on p4GROUP (make_groupprobe.py, runner_probes/group.run400.txt
-   * and runner_probes/group.run400.b.txt).  Task 1 is "zog [rock/gem]": run400
+   * Measured on p4GROUP (make_groupprobe.py,
+   * runner_probes/group.run400*.txt).  Task 1 is "zog [rock/gem]": run400
    * takes `zog rock` and `zog gem` by step 3 AND `zog [rock/gem]` by step 1,
    * while `zog [gem/rock]`, `zog [rock/gem ]` and `zog rock/gem` are refused
    * -- equality on the raw pattern, no normalising beyond the case fold and
@@ -1291,16 +1285,14 @@ void
 run_command_match_t::recheck_pre400 (void)
 {
   /*
-   * 3.7-3.9 send a command with a '*' to checkwild instead, which
-   * compares the pieces literally; see uip_wildcard_match_pre400().
-   * checkwild is the whole test there and not a veto on the tree:
-   * run390's checktask compares a command with no '*' for equality
-   * (44B0E2) and, when InStr(cmd, "*") > 0 (44B10D), takes checkwild's
-   * answer as the match flag, with nothing else consulted.  So a line
-   * the tree refuses runs the task all the same, and the two ways that
-   * happens are both measured on p*WILDORD (make_wildorderprobe.py,
-   * runner_probes/wildord.run370.rtf, runner_probes/wildord.run380.rtf,
-   * runner_probes/wildord.run390.txt):
+   * 3.7-3.9 send a command with a '*' to checkwild instead, which compares
+   * the pieces literally; see uip_wildcard_match_pre400().  checkwild is the
+   * whole test there and not a veto on the tree: run390's checktask compares
+   * a command with no '*' for equality and, when InStr(cmd, "*") > 0
+   * (44B10D), takes checkwild's answer as the match flag, with nothing else
+   * consulted.  So a line the tree refuses runs the task all the same, and
+   * the two ways that happens are both measured on p*WILDORD
+   * (make_wildorderprobe.py, runner_probes/wildord.run3[789]0.*):
    *
    * - Each middle piece is looked for with InStr over the WHOLE line
    *   and the line is never cut, so ORDER IS FREE.  Task "* king *
@@ -1334,37 +1326,33 @@ run_command_match_t::recheck_pre400 (void)
    * blip` against "* zog * %object% *" with "I don't understand."
    */
   /*
-   * The same substitution decides a pre-3.9 command with no '*' at all,
-   * and there the comparison is plain equality: checktask rewrites its
-   * copy of the command and tests it against the whole line.  So the
-   * Short has to be typed bare.  p37CHREF and p38CHREF answer `nurb
-   * rock` with task 2's "NURBED a big rock." and `nurb a big rock` and
-   * `nurb big rock` -- the rock's Prefix is "a big" -- with the object
-   * catch-all, "I don't understand what you want me to do with the big
-   * rock." (runner_probes/chref.run370.b.rtf,
-   * runner_probes/chref.run380.b.rtf).
-   * That is 3.9's and 4.0's answer too, where the strict comparator in
-   * uip_compare_candidate() already refuses the prefixed forms; the
-   * tolerant tree matcher took all three here because nothing below 3.9
-   * had ever turned the substitution on outside checkwild.
+   * The same substitution decides a pre-3.9 command with no '*' at all, and
+   * there the comparison is plain equality: checktask rewrites its copy of
+   * the command and tests it against the whole line.  So the Short has to be
+   * typed bare.  p37CHREF and p38CHREF answer `nurb rock` with task 2's
+   * "NURBED a big rock." and `nurb a big rock` and `nurb big rock` -- the
+   * rock's Prefix is "a big" -- with the object catch-all, "I don't
+   * understand what you want me to do with the big rock."
+   * (runner_probes/chref.run3[78]0.b.rtf).  That is 3.9's and 4.0's answer
+   * too, where the strict comparator in uip_compare_candidate() already
+   * refuses the prefixed forms; the tolerant tree matcher took all three here
+   * because nothing below 3.9 had ever turned the substitution on outside
+   * checkwild.
    */
   /*
    * A GROUP is 4.0 syntax, and below 4.0 it is not syntax at all: it is
    * punctuation the command has to be typed with.  checktask holds no
-   * '[', ']', '{' or '}' literal anywhere -- not in run390 (body
-   * 44AA5A-44B6E6), not in run380 (43B6A3-43C51D), not in run370
-   * (433227-433E4A) -- so after the substitution there is nothing but
-   * the equality at 44B0E2 and, for a '*' command, checkwild at 44B139
-   * to route a group to.  Measured on p*GROUP (make_groupprobe.py,
-   * runner_probes/group.run370.scrollback.txt,
-   * runner_probes/group.run380.scrollback.txt,
-   * runner_probes/group.run390.txt): all three Runners answer
-   * `zog rock` and `zog gem` against task 1's "zog [rock/gem]" with the
-   * object catch-all and run the task on `zog [rock/gem]`; `nurb rock` and
-   * `nurb the rock` miss "nurb {the} rock" and `nurb {the} rock` takes it;
-   * `frob` and `frob up` miss "frob {up}" and `frob {up}` takes it.  So a
-   * group command joins the pre-4.0 arm rather than skipping it, and it
-   * joins even with no '*' in it, where the test is plain equality.
+   * '[', ']', '{' or '}' literal anywhere, in run390, run380 or run370 -- so
+   * after the substitution there is nothing but the equality and, for a '*'
+   * command, checkwild to route a group to.  Measured on p*GROUP
+   * (make_groupprobe.py, runner_probes/group.run3[78]0.scrollback.txt,
+   * runner_probes/group.run390.txt): all three Runners answer `zog rock` and
+   * `zog gem` against task 1's "zog [rock/gem]" with the object catch-all and
+   * run the task on `zog [rock/gem]`; `nurb rock` and `nurb the rock` miss
+   * "nurb {the} rock" and `nurb {the} rock` takes it; `frob` and `frob up`
+   * miss "frob {up}" and `frob {up}` takes it.  So a group command joins the
+   * pre-4.0 arm rather than skipping it, and it joins even with no '*' in it,
+   * where the test is plain equality.
    *
    * Zero corpus exposure, measured over every .taf in games/ and downloaded/
    * (SCR_DUMP_TASKS, 405 games that load; the 14 pre-4.0 stragglers whose dump
@@ -1381,18 +1369,17 @@ run_command_match_t::recheck_pre400 (void)
           || literal_ref
           || (is_matched && facts.has_object)
           /*
-           * A 3.9 %character% command is decided the same way, not by
-           * the tree's position: checktask's NPC walk (44AD48-44ADC2)
-           * stores every NPC whose Name the line contains in
-           * MemVar_4681AA but Replace()s only on the first, so the
-           * LOWEST-indexed Name in the line spells the command.
-           * thenightmoon T50 `attack skeleton guard with longsword`
-           * contains NPC 0's Name "Guard" as well as NPC 11's "Skeleton
-           * guard"; the command becomes "attack Guard with longsword",
-           * equals nothing, and task 5 ("As you strike %character%,
-           * they realise you are not as friendly...") never runs --
-           * run390 hands the line to dobattle, "You hit the skeleton
-           * with your longsword." (runner_transcripts/thenightmoon.txt).
+           * A 3.9 %character% command is decided the same way, not by the
+           * tree's position: checktask's NPC walk stores every NPC whose Name
+           * the line contains in MemVar_4681AA but Replace()s only on the
+           * first, so the LOWEST-indexed Name in the line spells the command.
+           * thenightmoon T50 `attack skeleton guard with longsword` contains
+           * NPC 0's Name "Guard" as well as NPC 11's "Skeleton guard"; the
+           * command becomes "attack Guard with longsword", equals nothing,
+           * and task 5 ("As you strike %character%, they realise you are not
+           * as friendly...") never runs -- run390 hands the line to dobattle,
+           * "You hit the skeleton with your longsword."
+           * (runner_transcripts/thenightmoon.txt).
            */
           || (is_matched && version >= TAF_VERSION_390
               && facts.has_character)))
@@ -1448,15 +1435,14 @@ void
 run_command_match_t::bind_unmatched_object_390 (void)
 {
   /*
-   * run390's %object% walk stores every hit in the per-turn referenced
-   * object MemVar_4681A8 (44AB0D, 44AB90) before checkwild or the
-   * equality test is reached, so a %object% command that then fails to
-   * match still leaves its object referenced for the rest of the turn.
-   * thenightmoon's task 17 is literal `behead dark elf`, but its
-   * restriction "the referenced object must be held" answers "You do not
-   * have dead dark elf." there (run390x
-   * runner_probes/thenightmoon.run390.probe2.txt), the body having been
-   * bound by a %object% command checked earlier.
+   * run390's %object% walk stores every hit in the per-turn referenced object
+   * MemVar_4681A8 (44AB0D) before checkwild or the equality test is reached,
+   * so a %object% command that then fails to match still leaves its object
+   * referenced for the rest of the turn.  thenightmoon's task 17 is literal
+   * `behead dark elf`, but its restriction "the referenced object must be
+   * held" answers "You do not have dead dark elf." there (run390x
+   * runner_probes/thenightmoon.run390.probe2.txt), the body having been bound
+   * by a %object% command checked earlier.
    */
   if (!is_matched && version == TAF_VERSION_390 && !lenient
       && facts.has_object)
@@ -1627,15 +1613,14 @@ run_match_task_commands (scr_gameref_t game,
  * skips every task that Proc_21_57_4494FC rejects for it: mode 1 keeps only
  * tasks whose record byte 104 is set, mode 2 only those with byte 105 set,
  * mode 3 either.  Both bytes are computed once at LOAD (mdlSpreadTheLoad
- * @4931B5 and @493225): byte 104 when any of the task's command patterns
- * contains "get", "take" or "pick" as a substring, byte 105 when one contains
- * "drop", "leave" or "put", and a pattern that is exactly "*" sets both
- * (@493281-49328D).  The mode each caller passes is fixed: the put handler's
- * implicit-take gate and the get handler's refusal exits pre-match with 1,
- * the put and drop handlers' own look-ups (name_object's "Drop what?" and
- * "It is not clear" gates, the insides handler's canonical rebuild, "drop
- * all") with 2, and the insides handler's typed-line fallback with 0, no
- * filter at all.
+ * @4931B5): byte 104 when any of the task's command patterns contains "get",
+ * "take" or "pick" as a substring, byte 105 when one contains "drop", "leave"
+ * or "put", and a pattern that is exactly "*" sets both.  The mode each
+ * caller passes is fixed: the put handler's implicit-take gate and the get
+ * handler's refusal exits pre-match with 1, the put and drop handlers' own
+ * look-ups (name_object's "Drop what?" and "It is not clear" gates, the
+ * insides handler's canonical rebuild, "drop all") with 2, and the insides
+ * handler's typed-line fallback with 0, no filter at all.
  *
  * The consequence is visible in House (House.taf): task 459
  * "[put/place/drop] {some} [wood] {in/into/in to} {the} [fireplace/fire
