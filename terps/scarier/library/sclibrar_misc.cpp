@@ -321,7 +321,8 @@ lib_locate_object_in_rooms (scr_gameref_t game, scr_int object)
    * "<Object> is <lowercased room name>."  The Runner builds this as
    * name & isare(prefix, short) & LCase(room name) & "." -- run400 @468115
    * -- and the " -- " upstream SCARE printed here appears in none of the
-   * four binaries.
+   * four binaries.  Scarier keeps a capitalised name's case; see
+   * lib_print_room_name_lower().
    */
   pf_new_sentence (filter);
   lib_print_object_np (game, object);
@@ -469,7 +470,8 @@ lib_cmd_locate_npc (scr_gameref_t game)
    * "<Name> is <lowercased room name>.", then the smart-alec clause when the
    * NPC is standing next to the player.  The character branch uses a literal
    * " is " rather than isare(), and the room name is lowercased exactly as in
-   * the object branch:
+   * the object branch (Scarier keeps a capitalised name's case; see
+   * lib_print_room_name_lower()):
    *      run370 @438D0A ... run400 @47FD19
    *
    * The clause itself was disabled upstream; all four Runners print it, and

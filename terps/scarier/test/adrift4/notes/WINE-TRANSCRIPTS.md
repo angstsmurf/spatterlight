@@ -1768,6 +1768,20 @@ case, and their goldens are re-blessed. The row notes in
   golden changed. (library/sclibrar_refuse.cpp, library/sclibrar_battle.cpp,
   library/sclibrar_verbobj.cpp)
 
+- **`where is` keeps a capitalised room name (2026-11-04).** Every Runner
+  folds the room name to lower case in its where/find answers (`LCase`,
+  run400 @468143 for objects and @47FD19 for characters), so aegis answers
+  "Janai is drake stables." `lib_print_room_name_lower` now keeps the
+  authored case when the name capitalises two or more words past an
+  opening article or preposition, or opens with a possessive ("Jane's
+  house"), and lowers only that opening word ("the Main Hall", "on a Brick
+  Walkway"). Sentence-case and all-caps names ("Your room", "In the pantry",
+  "EXERCISE YARD") are still folded, as is every name in a game whose ALRs
+  quote the folded form. A dump of all 16,845 corpus room names through
+  the helper changed 5,837 of them in 525 games. Almost all were Title Case
+  labels or proper names ("Sloane Street", "Farmer Gary's Pasture"), with a
+  few mixed ones ("Second floor Balcony"). No golden changed. (library/sclibrar_print.cpp)
+
 ## Rules measured and ported (index)
 
 One entry per rule: the rule, the game or probe that found it, and the

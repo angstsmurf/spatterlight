@@ -627,19 +627,105 @@ lib_get_room_name (scr_gameref_t game, scr_int room)
 /*
  * lib_print_room_name_lower()
  *
- * Print a room's name folded to lower case.  The Runner's where/find/locate
- * handlers are the only place that does this -- they build the answer as
- * `... & LCase(room.name) & "."` -- so it gets its own small helper rather
- * than a flag on lib_print_room_name().
+ * Print a room's name for the where/find/locate answers.  The Runner folds
+ * the whole name to lower case there -- it builds the answer as `... &
+ * LCase(room.name) & "."` -- so "Drake Stables" comes out "Janai is drake
+ * stables." (aegis).
  *      run400 @468143 (objects, whereis) and @47FD19 (characters)
+ *
+ * Deliberate deviation (WINE-TRANSCRIPTS.md): the fold reads well for
+ * "In the pantry", "Your room" or "EXERCISE YARD", but turns a name into
+ * a common noun.  Scarier keeps a name as authored when it capitalises two
+ * or more words past an opening article or preposition -- "Drake Stables",
+ * "Amanda's Living Room" -- or opens with a possessive, "Jane's house", and
+ * lowers only that opening word: "the Main Hall".  Everything else is
+ * folded as the Runner folds it, and so is every name in a game whose ALRs
+ * quote the folded form.
  */
+static const scr_char *const LIB_ROOM_OPENING_WORDS[] =
+  { "a", "an", "the", "in", "inside", "on", "at", "by", "near", "outside",
+    "under", "underneath", "beneath", "below", "above", "behind",
+    "beside", "before", "within", "among", "atop", "along", "across",
+    "into", "onto", "upon", NULL };
+
+static scr_bool
+lib_room_opening_word (const std::string &word)
+{
+  const scr_char *const *entry;
+
+  for (entry = LIB_ROOM_OPENING_WORDS; *entry; entry++)
+    if (scr_strcasecmp (word.c_str (), *entry) == 0)
+      return TRUE;
+  return FALSE;
+}
+
 void
 lib_print_room_name_lower (scr_gameref_t game, scr_int room)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   std::string name (lib_get_room_name (game, room));
+  std::string lower (name);
+  size_t index_ = 0, first_start = std::string::npos, first_end = 0;
+  scr_int words = 0, capitalised = 0;
+  scr_bool possessive = FALSE, opener = FALSE;
 
-  pf_buffer_string (filter, scr_lowercase (name).c_str ());
+  scr_lowercase (lower);
+  if (pf_alr_mentions (gs_get_bundle (game), lower.c_str ()))
+    {
+      pf_buffer_string (filter, lower.c_str ());
+      return;
+    }
+
+  /* Walk the words outside tags. */
+  while (index_ < name.size ())
+    {
+      size_t end;
+      scr_bool has_lower = FALSE;
+
+      if (name[index_] == '<')
+        {
+          const size_t close = name.find ('>', index_);
+          if (close == std::string::npos)
+            break;
+          index_ = close + 1;
+          continue;
+        }
+      if (!scr_isalpha (name[index_]))
+        {
+          index_++;
+          continue;
+        }
+      for (end = index_; end < name.size ()
+                         && (scr_isalpha (name[end]) || name[end] == '\'');
+           end++)
+        has_lower |= (scr_toupper (name[end]) != name[end]);
+
+      if (words == 0)
+        {
+          const std::string word (name, index_, end - index_);
+
+          first_start = index_;
+          first_end = end;
+          opener = lib_room_opening_word (word);
+          possessive = (scr_tolower (name[index_]) != name[index_]) && word.size () > 2
+                       && word.compare (word.size () - 2, 2, "'s") == 0;
+        }
+      if (!(words == 0 && opener)
+          && (scr_tolower (name[index_]) != name[index_]) && has_lower)
+        capitalised++;
+      words++;
+      index_ = end;
+    }
+
+  if (capitalised < 2 && !possessive)
+    {
+      pf_buffer_string (filter, lower.c_str ());
+      return;
+    }
+  if (opener)
+    for (index_ = first_start; index_ < first_end; index_++)
+      name[index_] = scr_tolower (name[index_]);
+  pf_buffer_string (filter, name.c_str ());
 }
 
 
