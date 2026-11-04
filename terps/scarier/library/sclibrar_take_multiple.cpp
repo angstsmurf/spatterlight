@@ -48,18 +48,16 @@ lib_take_filter (scr_gameref_t game, scr_int object, scr_int unused)
    *
    * Not on 3.7, though, unless the line says get.  Reaching inside is
    * run380's takes() rewrite of a plain "take X" into "take X from
-   * <parent>" (loc_43E47B; see lib_take_container_unheld).  run370 has the
-   * same rewrite (4368C4), but its insides() only takes a get or remove
-   * line (see the run370 insides() note above), so for take or pick up a bare
-   * take naming something that sits in or on another object names nothing at
-   * all and falls to the catch-all.  Measured on the same turn of two probes,
-   * `take coin` with the coin inside an open box standing on the cave floor:
-   * run370 answers "Take what?" (p37DARK,
-   * runner_probes/dark.run370.putin2.txt:48 and again
-   * runner_probes/dark.run370.putin3.txt:41) where run380 answers "You are not
-   * holding a box." (p38DARK, runner_probes/dark.run380.putin2.txt:48 /
-   * runner_probes/dark.run380.putin3.txt:41), i.e. run380 rewrote the line and
-   * then refused it on the hold gate.  2026-09-12.  The explicit form is
+   * <parent>" (43E47B; see lib_take_container_unheld).  run370 has the same
+   * rewrite, but its insides() only takes a get or remove line (see the
+   * run370 insides() note above), so for take or pick up a bare take naming
+   * something that sits in or on another object names nothing at all and
+   * falls to the catch-all.  Measured on the same turn of two probes, `take
+   * coin` with the coin inside an open box standing on the cave floor: run370
+   * answers "Take what?" (p37DARK, runner_probes/dark.run370.putin2.txt:48)
+   * where run380 answers "You are not holding a box." (p38DARK,
+   * runner_probes/dark.run380.putin2.txt:48), i.e. run380 rewrote the line
+   * and then refused it on the hold gate.  2026-09-12.  The explicit form is
    * untouched -- run370 plays `get coin from box` perfectly well
    * (runner_probes/dark.run370.putin.txt:27) and applies the same hold gate to
    * it (runner_probes/dark.run370.putin2.txt:18).
@@ -111,20 +109,20 @@ lib_take_all_filter (scr_gameref_t game, scr_int object, scr_int unused)
  * lib_take_all_sweep_390()
  *
  * 3.9's `take all` also empties every open container and every surface in
- * the room, after the floor.  run390 takes() (4558CE-455B28) runs, when the
- * line has "all", over every object that lies on the room's floor or is a
- * static present in the room, and is an open container or a surface; for each
- * it sets the line to "get all" and calls insides() with it, which is the
+ * the room, after the floor.  run390 takes() (4558CE) runs, when the line has
+ * "all", over every object that lies on the room's floor or is a static
+ * present in the room, and is an open container or a surface; for each it
+ * sets the line to "get all" and calls insides() with it, which is the
  * take-from handler (its gate is `c("from") Or (c("all") And container > 0)`).
- * The floor's own text is kept only if the floor pass took something (var_86,
- * set at 454FC5); every piece that took something is joined to the previous
- * one by two spaces.  A container with nothing the player has seen in it
- * says nothing, and a closed one is not visited.  No 3.7/3.8/4.0 Runner has
- * the loop ("get all" is a run390-only literal).
+ * The floor's own text is kept only if the floor pass took something; every
+ * piece that took something is joined to the previous one by two spaces.  A
+ * container with nothing the player has seen in it says nothing, and a closed
+ * one is not visited.  No 3.7/3.8/4.0 Runner has the loop ("get all" is a
+ * run390-only literal).
  *
  * Measured on p39PUT (run390x runner_probes/put.run390.txt T23;
- * make_3738_putprobe.py, runner_probes/put.run390.takeall.txt /
- * runner_probes/put.run390.takeall2.txt): "You take the coin, ...
+ * make_3738_putprobe.py, runner_probes/put.run390.takeall*.txt): "You take
+ * the coin, ...
  * and the table from the cupboard." with nothing on the floor; "You pick up
  * the table.  You take the gem from the cupboard." with the open chest empty
  * after it; "You take the gem from the cupboard.  You take the coin from the
@@ -205,11 +203,11 @@ lib_cmd_take_all (scr_gameref_t game)
  * The Runner's co() score for one object against the typed line: 1 if the
  * line contains the whole Short, 1 more for the first Alias it contains,
  * and 1 more for each word of the Prefix that appears in the line (run400
- * General.Sub_22_66 at 000632BE .. 00063387).  Zero means the line names
- * nothing of this object -- a Prefix word alone never does, since the
- * prefix loop is only reached once a name has matched.  *term is left at
- * the name the object answered to, Short before Alias, which is what
- * mdlSpreadTheLoad.Sub_20_43 at 00046BFC hands the ambiguity message.
+ * General.Sub_22_66).  Zero means the line names nothing of this object -- a
+ * Prefix word alone never does, since the prefix loop is only reached once a
+ * name has matched.  *term is left at the name the object answered to, Short
+ * before Alias, which is what mdlSpreadTheLoad.Sub_20_43 hands the ambiguity
+ * message.
  */
 scr_int
 lib_take_absent_score (scr_gameref_t game, scr_int object,
@@ -282,24 +280,22 @@ lib_take_absent_score (scr_gameref_t game, scr_int object,
  *
  * 4.0's named take once nothing here can answer to the noun.  The Runner's
  * take handler (run400 Proc_19_6) resolves the direct object with the co()
- * style whole-name resolver General.Sub_22_66 at 00073011, whose result is
- * 255 for "the line named nothing", a positive index+256 for one object, and
- * -(index + 2) for an ambiguity; the three answers are printed at the tail
- * of the same procedure -- "Take what?" at 0007332B and again as the very
- * last default at 00073A25, "It is not clear which " & <term> & " you are
- * referring to." at 0007335C, and "There is nothing worth taking here." at
- * 00073A13, which is where a line that resolved an object but took nothing
- * lands (the `If var_92 > 255` at 00073798 is the "take X from Y" test, so a
- * plain named take falls straight through to it).
+ * style whole-name resolver General.Sub_22_66, whose result is 255 for "the
+ * line named nothing", a positive index+256 for one object, and -(index + 2)
+ * for an ambiguity; the three answers are printed at the tail of the same
+ * procedure -- "Take what?" (and again as the very last default), "It is not
+ * clear which " & <term> & " you are referring to.", and "There is nothing
+ * worth taking here.", which is where a line that resolved an object but took
+ * nothing lands (the `> 255` test at 00073798 is the "take X from Y" test, so
+ * a plain named take falls straight through to it).
  *
- * The resolver runs its scan TWICE.  Its first pass (mode 1, at 00063161)
- * only considers what Sub_22_61 calls present -- held, worn, in the room, or
- * inside an open container there -- and if that pass ends with no candidate
- * at all it resets the mode to 0 and jumps back to the top of the procedure
- * (00063465: `If var_9C = 1 And var_A0 = 0 And param_10 > 0`, then Branch
- * 000630BC), where the test at 0006310D is the object's seen byte alone.  So
- * the noun that names nothing here is offered every object the player has
- * ever SEEN, and that second pass is what this function reproduces.
+ * The resolver runs its scan TWICE.  Its first pass (mode 1) only considers
+ * what Sub_22_61 calls present -- held, worn, in the room, or inside an open
+ * container there -- and if that pass ends with no candidate at all it resets
+ * the mode to 0 and jumps back to the top of the procedure (00063465), where
+ * the test is the object's seen byte alone.  So the noun that names nothing
+ * here is offered every object the player has ever SEEN, and that second pass
+ * is what this function reproduces.
  *
  * What it ranges over is measured rather than argued:
  * harness/make_400_takeprobe.py builds p4TAKE (a coin loose in Alpha, a
@@ -363,10 +359,10 @@ lib_cmd_take_absent (scr_gameref_t game)
     return FALSE;
 
   /*
-   * An "and" list (473121-473221) resolves each piece on its own in mode
-   * 1, which scores only what is here, so absent objects never tie: with
-   * nothing present marked, the handler runs to its empty-buffer tail,
-   * "There is nothing worth taking here." (473A13) -- never "Take what?".
+   * An "and" list resolves each piece on its own in mode 1, which scores
+   * only what is here, so absent objects never tie: with nothing present
+   * marked, the handler runs to its empty-buffer tail, "There is nothing
+   * worth taking here." -- never "Take what?".
    * Measured on p4AND from Bravo, `get hat and coin` with both seen in Alpha
    * (run400 runner_probes/and.run400.b.txt).
    */
@@ -434,12 +430,12 @@ lib_cmd_take_absent (scr_gameref_t game)
    * for the container instead: the plain take is rewritten into an
    * implicit "take from" (run400 mdlSpreadTheLoad auto-from rewrite
    * 47302F) and lands in the SAME closed-container arm as an explicit one
-   * ("<The X> is closed." 47395C).  Measured escape_to_new_york turn 152
+   * ("<The X> is closed.").  Measured escape_to_new_york turn 152
    * `get parcel`, the parcel seen but absent, inside a closed parent
    * (Ticket run400 xoshiro trace).
    *
    * An OPEN parent gets past that arm, and the take-from then finds
-   * nothing it can reach and ends at "Take what?" (47332B).  British Fox
+   * nothing it can reach and ends at "Take what?".  British Fox
    * T147 `get silver key`: the key was listed by `open bag` (the lister
    * 46A950 stamps it seen), then an event put the bag back on the dungeon
    * table and the player in the corridor.  run400 answers "Take what?"
@@ -514,25 +510,24 @@ lib_take_tie_400 (scr_gameref_t game, const scr_char *line, scr_int pending,
  * lib_take_whole_line_400()
  *
  * get_piece (Proc_19_23_473A34) names a take's object from the WHOLE
- * fragment before it parses anything: 473011 hands the line to the noun
- * scorer 463640 in mode 1 (lib_name_object_resolve_400()), and what comes
- * back decides the piece whatever else the line said.  A unique winner is the
- * only object marked (473022): p4WTIE (run400,
- * runner_probes/wtie.run400.12.txt, runner_probes/wtie.run400.16.txt and
- * runner_probes/wtie.run400.17.txt) has `take rope with ruby`
- * take the ruby and `take rope with knife` and `take zzz with knife` answer
- * "You are already carrying the knife." -- the static rope is never a
+ * fragment before it parses anything: it hands the line to the noun scorer
+ * 463640 in mode 1 (lib_name_object_resolve_400()), and what comes back
+ * decides the piece whatever else the line said.  A unique winner is the only
+ * object marked: p4WTIE (run400, runner_probes/wtie.run400.{12,16,17}.txt)
+ * has `take rope with ruby` take the ruby and `take rope with knife` and
+ * `take zzz with knife` answer "You are already carrying the knife." -- the
+ * static rope is never a
  * candidate, the held knife only on the second pass.  A tie with a pending
- * object asks (4733BD): "Which " & the LAST tied object's raw Short & ".  " &
- * the pass-0 marks & "?", so `take ruby with stone` is "Which ruby.  The red
+ * object asks: "Which " & the LAST tied object's raw Short & ".  " & the
+ * pass-0 marks & "?", so `take ruby with stone` is "Which ruby.  The red
  * stone, the blue stone or the ruby?" and `take knife with stone`, the knife
  * skipped on pass 0, is "Which stone.  The red stone or the blue stone?"
- * (runner_probes/wtie.run400.16.txt and runner_probes/wtie.run400.17.txt).  A
- * tie with none (Me(424) < 0, 47333C) is the flat "It is not clear which " &
- * <the last tied object's typed name, 446C74> & " you are referring to."
- * (47335F-4733A5): p4AND `get coin, hat`, both held, "It is not clear which
- * hat you are referring to." (runner_probes/and.run400.txt), the coin scoring
- * because c() ends a word at the comma.
+ * (runner_probes/wtie.run400.1[67].txt).  A tie with none (Me(424) < 0) is
+ * the flat "It is not clear which " & <the last tied object's typed name,
+ * 446C74> & " you are referring to.": p4AND `get coin, hat`, both held, "It
+ * is not clear which hat you are referring to."
+ * (runner_probes/and.run400.txt), the coin scoring because c() ends a word at
+ * the comma.
  *
  * Returns TRUE when it has answered the line.  *BOUND is set when a unique
  * winner is now the one referenced object, and the caller skips its own
@@ -553,7 +548,7 @@ lib_take_whole_line_400 (scr_gameref_t game, scr_int *references,
     return FALSE;
 
   /*
-   * A "from" line names its container first (472E03-472F35), so a line
+   * A "from" line names its container first, so a line
    * whose container resolves nothing is "I don't understand where you want
    * to get things from." however its piece ties: `take stone from zzz`
    * (p4WTIE, runner_probes/wtie.run400.from.txt).  lib_take_from_piece_400()
@@ -583,19 +578,18 @@ lib_take_whole_line_400 (scr_gameref_t game, scr_int *references,
  * lib_take_from_task_sweep_380()
  *
  * run380's insides() ends every take-from that found its source object with
- * a sweep over the whole object table (loc_447405): for each object with a
+ * a sweep over the whole object table (447405): for each object with a
  * parent it stores "get " & Short & " from " & parent's Short into the line
  * (ImpAdStStr @00047446, hidden by the decompiler) and, if checktask passes
  * on it, runs tasks(1) there.  The object just taken has its parent cleared
- * (4470EF) and so is skipped.  tra.taf, run380: task 11 `get
- * *knives*` (knives in the silverware drawer) runs after `get meat from
- * refrigerator`, and after the bare `get moxie` / `get pop-tarts` that
- * takes() rewrites into a take-from (43E47B) -- "You take old meat from the
- * big white refrigerator.  You take all of the knives from the silverware
- * drawer." (runner_probes/timmy_reid.run380.kn1.txt,
- * runner_probes/timmy_reid.run380.kn3.txt,
- * runner_probes/timmy_reid.run380.kn5.txt; runner_transcripts/timmy_reid.rtf
- * turn 8).  `get garbage container`, off the floor, runs nothing
+ * and so is skipped.  tra.taf, run380: task 11 `get *knives*` (knives in the
+ * silverware drawer) runs after `get meat from refrigerator`, and after the
+ * bare `get moxie` / `get pop-tarts` that takes() rewrites into a take-from
+ * (43E47B) -- "You take old meat from the big white refrigerator.  You take
+ * all of the knives from the silverware drawer."
+ * (runner_probes/timmy_reid.run380.kn[135].txt;
+ * runner_transcripts/timmy_reid.rtf turn 8).  `get garbage container`, off
+ * the floor, runs nothing
  * (runner_probes/timmy_reid.run380.kn6.txt).  run370 has no sweep, and run390
  * none either.
  */
@@ -636,16 +630,15 @@ lib_take_from_task_sweep_380 (scr_gameref_t game)
  * The pre-4.0 takes() walks EVERY object in index order and lets each one
  * whose Short or Alias sits in the typed line write the answer, whether or
  * not it is the object the line meant.  A held one writes "<You>'ve already
- * got <object>!" (run390 @454EC5, run380 @43E03E, run370 @436561) and a
- * worn one "<You> are already wearing <object>!" (run390 @454F31, run380
- * @43E0A2), both raising the outcome rank to 4.  The branch that takes an
+ * got <object>!" (run390 @454EC5) and a worn one "<You> are already wearing
+ * <object>!", both raising the outcome rank to 4.  The branch that takes an
  * object out of a container, off a surface or from a character -- the one
  * that rewrites the line into "take X from <parent>" -- is gated on the
  * buffer being still empty (or " pick up "/" from here!") AND rank < 3
- * (run390 @4551E4, run380 @43E3F6/@43E41F), so a held namesake indexed
- * BELOW the target has already spoken and the target is never taken.  An
- * object lying loose in the room is different: "<You> pick up X." overwrites
- * the buffer (run390 @455014), so only the not-in-the-room targets lose.
+ * (run390 @4551E4), so a held namesake indexed BELOW the target has already
+ * spoken and the target is never taken.  An object lying loose in the room
+ * is different: "<You> pick up X." overwrites the buffer, so only the
+ * not-in-the-room targets lose.
  *
  * Measured in run390 (runner_transcripts/stardust T38): `take
  * needle box` with the sharp needle (object 3) in hand and the needle box
@@ -670,16 +663,16 @@ lib_take_from_task_sweep_380 (scr_gameref_t game)
 /*
  * The test the takes() loop puts each object through before letting it
  * write: run390 @454E1D co(obj, 1), run380 @43DFC3 co(obj), run370 @4364E6
- * a bare c(Short).  co() (run390 @43B6BC, run380 @42DE60) is false unless
- * the object's Short or Alias sits in the line; the term found is then
- * counted over every present object answering to it (obhere, and seen from
- * 3.9 -- lib_co_candidate).  With more than one, 3.9's mode 1 recounts
- * only the ones lying loose in the player's room (@43B37B, field 22 =
- * room) and uses that count when it is not zero; if the term is still
- * ambiguous the object passes only when the last word of its own Prefix is
- * in the line (@43B572 / @42DD47), otherwise 3.9 asks that the object
- * itself be present and seen (@43B661) where 3.8 passes it outright
- * (@42DDEA).  So `take blue plate` with the red plate in hand and the blue
+ * a bare c(Short).  co() (run390 @43B6BC) is false unless the object's
+ * Short or Alias sits in the line; the term found is then counted over every
+ * present object answering to it (obhere, and seen from 3.9 --
+ * lib_co_candidate).  With more than one, 3.9's mode 1 recounts only the
+ * ones lying loose in the player's room (field 22 = room) and uses that
+ * count when it is not zero; if the term is still ambiguous the object
+ * passes only when the last word of its own Prefix is in the line, otherwise
+ * 3.9 asks that the object itself be present and seen (@43B661) where 3.8
+ * passes it outright (@42DDEA).  So `take blue plate` with the red plate in
+ * hand and the blue
  * one seen in the dishwasher does NOT let the red plate speak: two "plate"s
  * present, none loose, and "red" is not in the line -- deardiary T52
  * (runner_transcripts/deardiary, run390): "I take a blue plate from the
@@ -756,13 +749,12 @@ lib_co_pre400 (scr_gameref_t game, const scr_char *line, scr_int object,
     }
   /*
    * Mode 1 is takes()' (run390): the recount is over the loose namesakes.
-   * Mode 2 is drops()' (run390 4458CF): the recount is over isheld() (42A34C)
-   * -- held, worn, or in or on a parent that isheld, recursively, no openness
-   * test.  So `drop hat` with the red hat in hand and the blue one on the
-   * floor recounts to one and drops the red hat, while red worn and blue held
+   * Mode 2 is drops()' (run390 4458CF): the recount is over isheld() -- held,
+   * worn, or in or on a parent that isheld, recursively, no openness test.
+   * So `drop hat` with the red hat in hand and the blue one on the floor
+   * recounts to one and drops the red hat, while red worn and blue held
    * recounts to two and drops nothing (p39TASK,
-   * runner_probes/task.run390.pname.txt /
-   * runner_probes/task.run390.pname2.txt).
+   * runner_probes/task.run390.pname*.txt).
    *
    * Deliberate deviation: run380 has no modes, and no Runner narrows wear
    * or remove, so `wear hat` with the red hat held and the blue one on the
@@ -802,21 +794,18 @@ lib_take_co_pre400 (scr_gameref_t game, const scr_char *line, scr_int object)
  *
  * Below 4.0 a plain take COUNTS before it acts, and two objects named on
  * one line stop it dead.  takes() pre-passes the whole object table (run390
- * 454B95-454C9D, run380 43DCFB-43DE04, run370 4361ED-436301) and, for every
- * dynamic object lying directly in the player's room that co(obj, 1) -- a
- * bare c(Short) at 3.7 -- finds in the line, raises two counters: one for
- * the match (run390 454BF5, run380 43DD53, run370 436250) and, when the last
- * word of that object's own Prefix is NOT typed, a second (454C25 / 43DD8C /
- * 436289) that also stamps a per-object flag (454C85 / 43DDEC / 4362E9).
- * Only when BOTH counters come out at exactly 1 are the flags wiped again
- * (454CF2 / 43DE66 / 436363), and the loop that takes objects passes over
- * every object whose flag still stands (454E47-454E62 `... And var_118(obj)
- * = 0`, run380 43DFC3).  So a line naming two present, takeable objects
+ * 454B95) and, for every dynamic object lying directly in the player's room
+ * that co(obj, 1) -- a bare c(Short) at 3.7 -- finds in the line, raises two
+ * counters: one for the match and, when the last word of that object's own
+ * Prefix is NOT typed, a second that also stamps a per-object flag.  Only
+ * when BOTH counters come out at exactly 1 are the flags wiped again, and
+ * the loop that takes objects passes over every object whose flag still
+ * stands (run390 454E47).  So a line naming two present, takeable objects
  * takes NEITHER, writes nothing, and comes out of takes() at the buffer-
  * empty catch-all as "Take what?" (run390 45588D).  The "Which <X> would you
- * like to take." prompt two lines above that clear (454CAD / 43DE41 /
- * 43633E) is dead code in all three: its guard is `var_10C > var_11A` and
- * the second counter can never outrun the first.
+ * like to take." prompt two lines above that clear (run390 454CAD) is dead
+ * code in all three: its guard is the second counter exceeding the first,
+ * and the second counter can never outrun the first.
  *
  * A HELD object is not a candidate -- the pre-pass tests field 22 against
  * the room constant -- so it neither blocks nor is blocked, and the main
@@ -903,11 +892,12 @@ lib_take_held_namesake_preempt_pre400 (scr_gameref_t game,
    */
   /*
    * takes() is entered on c("get") Or c("take") Or c("pick"), And Not
-   * c("from"), c("get on"), c("get down") (run390 454476-4544DE), so `take off
-   * bathrobe` reaches its loop too and the worn bathrobe writes " are already
-   * wearing "; but the loop does not set the function's result (var_86 stays
-   * 0 there; 455B28 is the taken exit), so generaltasks goes on to removes()
-   * 45F49E, whose own line REPLACES the buffer: the_hangover T50 `take off
+   * c("from"), c("get on"), c("get down") (run390), so `take off bathrobe`
+   * reaches its loop too and the worn bathrobe writes
+   * " are already wearing "; but the loop does not set the function's
+   * result (it stays 0 there; 455B28 is the taken exit), so generaltasks
+   * goes on to removes() 45F49E, whose own line REPLACES the buffer:
+   * the_hangover T50 `take off
    * bathrobe` -> "You remove your bathrobe.", deardiary T5 `take off dress`
    * -> "I remove the blue dress." (runner_transcripts/deardiary).  Scarier's
    * remove rows sit below the take row, so decline here and let them answer.
@@ -991,16 +981,15 @@ lib_take_held_namesake_preempt_pre400 (scr_gameref_t game,
 /*
  * lib_take_and_none_pre400()
  *
- * takes()'s "and" arm (var_A8/var_B4 = 2, set when the line has c("and")
- * and no c("all"): run390 45455D, run380 43D81A, run370 435EBA) pre-passes
- * every object before taking anything.  A dynamic object the line names is
- * a candidate when it lies loose in the player's room, or -- 3.8 and 3.9 --
- * in or on something loose here or a static present here; it either fits
- * or sets the hands-full flag.  With no candidate at all the summary
- * answers and nothing else in takes() speaks: 3.9 (454B08-454B5B) says
- * "<You> can't get either of them." when exactly two non-static objects
- * were named (var_122), else "... any of them."; run380 43DCC1 and run370
- * 4361B3 have the "any" form only.
+ * takes()'s "and" arm (its mode set to 2 when the line has c("and") and no
+ * c("all"): run390 45455D) pre-passes every object before taking anything.
+ * A dynamic object the line names is a candidate when it lies loose in the
+ * player's room, or -- 3.8 and 3.9 -- in or on something loose here or a
+ * static present here; it either fits or sets the hands-full flag.  With no
+ * candidate at all the summary answers and nothing else in takes() speaks:
+ * 3.9 (454B08) says "<You> can't get either of them." when exactly two
+ * non-static objects were named, else "... any of them."; run380 (43DCC1)
+ * and run370 have the "any" form only.
  *
  * The versions name and filter differently.  run390 names with co(obj, 1)
  * (45483A) and wants the object seen (o(44)); run380 names with co(obj)
@@ -1013,8 +1002,7 @@ lib_take_held_namesake_preempt_pre400 (scr_gameref_t game,
  * runner_probes/absnpc.run390.txt T36), and p3xPUT `take coin and stone`,
  * `take nut and coin` (the nut in the held bag), `take statue and cupboard`,
  * `take zzz and qqq` (run370x/run380x/run390x
- * runner_probes/put.run370.takeand.rtf, runner_probes/put.run380.takeand.rtf,
- * runner_probes/put.run390.takeand.txt).  Each Runner's pre-pass also skips
+ * runner_probes/put.run3[789]0.takeand.*).  Each Runner's pre-pass also skips
  * an object whose "get <Short>" pre-matches a task; not modelled.
  */
 static scr_bool
@@ -1512,7 +1500,7 @@ lib_take_and_t::from_parent ()
  * lib_take_and_pre400()
  *
  * Pre-4.0 takes()'s "and" arm, once lib_take_and_none_pre400() has found a
- * candidate (run390 454B08-455B28, run380 43D788-43E996, run370's twin).
+ * candidate (run380 43D788-43E996, run370's twin).
  * The message is seeded with "<You> pick up " and the loop then runs over
  * every non-static object the line names, in INDEX order, never in line
  * order:
@@ -1540,19 +1528,17 @@ lib_take_and_t::from_parent ()
  * wearing the hat!the stone." (run390x); a held one is silent: `take hat and
  * stone` with the hat in hand is "You pick up the stone.".  A tail that is
  * still the bare seed is "Please take objects from one place at a time."
- * (43E996; 3.9 4558B9; run370 has no such line), and the rewritten line then
+ * (43E996; run370 has no such line), and the rewritten line then
  * reaches insides(), whose answer -- the take-from, or its nothing-inside
  * refusal -- replaces that one: `take nut and cup` with the nut in a held
  * open box is "You take a nut from the box.", while `take nut and key` with
  * the box on the floor stays at "Please take objects from one place at a
  * time." because the box is not held (3.8's slot test).
  *
- * Measured on p37TKA/p38TKA/p39TKA (runner_probes/tka.run370.rtf,
- * runner_probes/tka.run380.rtf, runner_probes/tka.run390.txt, cells 3, 6, 9,
- * 14, 17, 20, 23, 32, 40, 44, 168) and p37TKB/p38TKB/p39TKB
- * (runner_probes/tkb.run370.rtf, runner_probes/tkb.run380.rtf,
- * runner_probes/tkb.run390.txt, cells 3, 8, 31, 38, 44).  3.9's
- * own loop (454B08) prints the same strings with definite names.
+ * Measured on p37TKA/p38TKA/p39TKA (runner_probes/tka.run3[789]0.*, cells
+ * 3, 6, 9, 14, 17, 20, 23, 32, 40, 44, 168) and p37TKB/p38TKB/p39TKB
+ * (runner_probes/tkb.run3[789]0.*, cells 3, 8, 31, 38, 44).  3.9's own loop
+ * (454B08) prints the same strings with definite names.
  *
  * The loop's state is a lib_take_and_t: count() is the pre-pass, seed() the
  * opening message, visit() one named object -- held(), worn(), loose() or
@@ -1612,7 +1598,7 @@ lib_take_and_pre400 (scr_gameref_t game)
  * lib_take_and_400()
  *
  * 4.0's takes() cuts an "and" line into pieces (Proc_19_23_473A34, entered
- * from 4731A2 per piece) and resolves each with the noun scorer on its own,
+ * once per piece) and resolves each with the noun scorer on its own,
  * then treats the pieces as one take:
  *
  *   - a piece that names an object in or on something makes the whole line
@@ -1627,7 +1613,7 @@ lib_take_and_pre400 (scr_gameref_t game)
  *     nothing; a piece that names nothing at all keeps the parser's own
  *     answers, as does a tie.
  *
- * run400x runner_probes/tka.run400.txt / runner_probes/tkb.run400.txt.  0 when
+ * run400x runner_probes/tk[ab].run400.txt.  0 when
  * this does not apply and the ordinary parse should run; 1 when the pieces are
  * in multiple_references and *references counts them.
  */
@@ -1748,13 +1734,12 @@ lib_take_and_400 (scr_gameref_t game, scr_int *references)
  * 4.0 neither takes() nor drops() parses the words after its verb: each one
  * walks the object table in index order and asks co() whether the object's
  * Short or an Alias stands ANYWHERE in the typed line -- takes() with mode 1
- * (run390 454E1D, run380 43DFC3, run370 4364E6) and drops() with mode 2
- * (run390 4458CF, and the same walk in run380 438889 / run370 430689).  So a
- * word the line holds that names nothing costs nothing: `blorp take coin` is
- * "You pick up the coin." and `blorp drop coin` "You drop the coin." in all
- * three older Runners (p37REW/p38REW/p39REW, make_rewriteprobe.py --
- * runner_probes/rew.run370.casc.rtf, runner_probes/rew.run380.casc.rtf,
- * runner_probes/rew.run390.casc.txt), and so are `take zzz hat`
+ * (run390 454E1D) and drops() with mode 2 (run390 4458CF, and the same walk
+ * in run380 and run370).  So a word the line holds that names nothing costs
+ * nothing: `blorp take coin` is "You pick up the coin." and
+ * `blorp drop coin` "You drop the coin." in all three older Runners
+ * (p37REW/p38REW/p39REW, make_rewriteprobe.py --
+ * runner_probes/rew.run3[789]0.casc.*), and so are `take zzz hat`
  * and `drop zzz hat` at 3.9 (p39WHAT, runner_probes/what.run390.what2.txt,
  * same day).  Scarier binds %text% positionally, so with the verb hoisted to
  * the front by run_hoist_verb_line() the rest of the line went to the noun
@@ -1768,7 +1753,7 @@ lib_take_and_400 (scr_gameref_t game, scr_int *references)
  * namesake count asks for; and a second co() match the filter would reject
  * is not passed over, because the Runner walks those objects in the same
  * loop and they write their own refusals from it -- drops()' " don't have
- * <X>!" (run390 445CE3, run380 438E13) for a namesake that is not held --
+ * <X>!" (run390 445CE3) for a namesake that is not held --
  * and which of the two speaks is decided by index order and a message-empty
  * gate that nothing here measures.  wrecked (run380) `drop room key` is that
  * case: the small key is in hand where the room key is not, and the answer
@@ -1821,9 +1806,7 @@ lib_move_named_whole_line_pre400 (scr_gameref_t game,
  * got the hat!" and returns, and the Runner overwrites that line too: `take
  * give hat bob` with the hat in hand is "I don't think Bob would appreciate
  * being handled." at 3.7/3.9/4.0 and "Bob is not carrying the hat!" at 3.8
- * (cell 5 of runner_probes/ord.run370.give.rtf,
- * runner_probes/ord.run380.give.rtf, runner_probes/ord.run390.give.txt,
- * runner_probes/ord.run400.give.txt).
+ * (cell 5 of runner_probes/ord.run*.give.*).
  */
 
 /*
@@ -1831,17 +1814,16 @@ lib_move_named_whole_line_pre400 (scr_gameref_t game,
  *
  * characters()' ask arm, the last text arm of its cascade, answering over the
  * take arm at 4.0.  The block is entered on whole-word `ask` or `talk to`
- * (47F8E5-47F8FF) and, with the character in the player's room, its gate is
+ * and, with the character in the player's room, its gate is
  * `(no task And MemVar_4942E0 = 0) Or buffer = "<player> can't talk to
- * that."` (47F900-47F93C) -- no buffer-empty test, unlike its 3.9 twin at
- * 4597FE, which is why 4.0 alone does this.  Inside, c("about") and the
- * character named (45E99C mode 1) and InStr(line, "about") > 0 (47F93F-
- * 47F96F) take the subject as Mid(line, InStr(line, "about") + 6) (47F9A5),
- * and the topic loop ASSIGNS the reply it finds (47FA7C, 47FAA7, 47FAD2).
- * The no-topic "does not respond" (47FB83) writes only over an empty, "can't
- * talk to that." or " can't see " buffer, so an unanswered ask leaves the
- * take refusal standing; the "Use the format" hint for a line with no
- * `about` (47FBB0) is not measured and not modelled.
+ * that."` (47F900) -- no buffer-empty test, unlike its 3.9 twin at 4597FE,
+ * which is why 4.0 alone does this.  Inside, c("about") and the character
+ * named (45E99C mode 1) and InStr(line, "about") > 0 take the subject as
+ * Mid(line, InStr(line, "about") + 6), and the topic loop ASSIGNS the reply
+ * it finds (47FA7C).  The no-topic "does not respond" writes only over an
+ * empty, "can't talk to that." or " can't see " buffer, so an unanswered ask
+ * leaves the take refusal standing; the "Use the format" hint for a line
+ * with no `about` is not measured and not modelled.
  *
  * Measured on p4ORD (run400x runner_probes/ord.run400.chr.txt):
  * `take ask bob about hat` is "Bob says, 'That is a fine hat.'" and the hat
@@ -1938,8 +1920,7 @@ lib_take_multi_get_off_line (void)
  * catch-alls of the take-from-nowhere rows answer it, not the held namesake
  * or "Take what?" (`get coin from zzz` with the coin in hand:
  * run370x/run380x "You can't do that!", run390x "The coin isn't in or on
- * anything!"; p3xTKB runner_probes/tkb.run370.rtf, tkb.run380.rtf,
- * tkb.run390.txt cell 144).
+ * anything!"; p3xTKB runner_probes/tkb.run3[789]0.* cell 144).
  */
 static lib_take_stage_t
 lib_take_multi_from_line (scr_gameref_t game)
@@ -1997,7 +1978,7 @@ lib_take_multi_unparsed (scr_gameref_t game, scr_bool is_except,
 {
   /*
    * 4.0's get_piece (Proc_19_23_473A34) names the piece's object with the
-   * noun scorer 463640 (473011), which counts whole words and skips the
+   * noun scorer 463640, which counts whole words and skips the
    * rest, so a word it does not know costs nothing.  Professor.taf,
    * run400: `get x rope` in the square refuses "You can't take the
    * Mailbox on-a Rope!" (runner_probes/professor.run400.mail2.txt T22),
@@ -2076,7 +2057,7 @@ lib_take_multi_crowded_pre400 (scr_gameref_t game)
 
 /*
  * Pre-4.0, takes() reaches an object only through co(idx, 1) (run390
- * 454E1D, run380 43DFC3, run370 4364E6), so the one object the parser
+ * 454E1D), so the one object the parser
  * resolved is still not taken when that test fails for it: two seen
  * namesakes present with no loose one and no Prefix word typed is the
  * pending "Which <term>" ambiguity, and NOTHING moves.  secret_of_lost_world

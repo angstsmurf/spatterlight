@@ -35,8 +35,7 @@
  * given line runs is lib_put_target_takes_on()'s to say, and the all form
  * is routed by the target's kind exactly as the named one is -- `put all on
  * box` with the box in hand is "You put an torch, a lamp and a table inside
- * the box." on run370 and run380 (runner_probes/surf5.run370.txt:12 /
- * runner_probes/surf5.run380.txt:12).
+ * the box." on run370 and run380 (runner_probes/surf5.run3[78]0.txt:12).
  */
 static scr_bool
 lib_put_all_common (scr_gameref_t game, scr_int target, scr_bool typed_on)
@@ -59,14 +58,13 @@ lib_put_all_common (scr_gameref_t game, scr_int target, scr_bool typed_on)
   gs_clear_multiple_references (game);
 
   /*
-   * 3.9's insides() tests c("and") AFTER c("all") (4618D4-46190C), so a
-   * line holding both is the and-arm, var_CC = 2, whose count pass
-   * (461B4B-461B87) keeps only the objects co(obj, 0) names.  p39PUT T29
-   * `put all except coin and stone in cupboard`, the coin and stone lying
-   * on the held table, is "Nothing will fit inside the cupboard." (run390x
-   * runner_probes/put.run390.txt): neither named object is held or
-   * loose in the room, and the table, unnamed, is not a candidate.  (The
-   * and-arm also admits worn objects, 461B38; not modelled.)
+   * 3.9's insides() tests c("and") AFTER c("all"), so a line holding both
+   * is the and-arm, whose count pass keeps only the objects co(obj, 0)
+   * names.  p39PUT T29 `put all except coin and stone in cupboard`, the
+   * coin and stone lying on the held table, is "Nothing will fit inside
+   * the cupboard." (run390x runner_probes/put.run390.txt): neither named
+   * object is held or loose in the room, and the table, unnamed, is not a
+   * candidate.  (The and-arm also admits worn objects; not modelled.)
    */
   if (lib_is_version_390 (game) && run_get_dispatch_input ()
       && lib_co_contains (run_get_dispatch_input (), "and"))
@@ -151,11 +149,10 @@ lib_put_all_common (scr_gameref_t game, scr_int target, scr_bool typed_on)
            * in hand `put all in chest` / `put all in box` against SHUT
            * containers on the floor answer "You are carrying nothing!"
            * (runner_probes/closed.run400.feed2.txt:4/5) -- name_object counts
-           * the held objects with 44615C @46E553-46E580 and speaks at 46E5BC
-           * only when the count is nil, ahead of any insides call, and so
-           * ahead of the closed test.  Something else in hand reaches insides
-           * and its closed refusal, "The chest is closed!"
-           * (runner_probes/closed.run400.feed2.txt:7).
+           * the held objects and speaks at 46E5BC only when the count is nil,
+           * ahead of any insides call, and so ahead of the closed test.
+           * Something else in hand reaches insides and its closed refusal,
+           * "The chest is closed!" (runner_probes/closed.run400.feed2.txt:7).
            */
           {
             scr_int index_;
@@ -390,16 +387,15 @@ static scr_bool lib_put_co_refusal_pre390 (scr_gameref_t game);
  * lib_put_refusal_first_390()
  *
  * TRUE if this refusal is run390's to give before any task sees the line.
- * insides() runs above tasks(0) in generaltasks (45F471 / 45F48B), and its
- * first question, before the task look-up at 461A6C, is how many objects
- * co() names in the line (461000-461641).  co() answers only for a present,
- * seen object, so a put whose object is absent or never seen counts one
- * name, the container's, and fewer than two is answered on the spot
- * (461646-461754): "Put <the X> inside what?" when the object was named and
- * the container was not, "You can't do that!" otherwise.  Both go to the
- * post-put sweep (462550), whose claimant runs the tasks QUIET and whose
- * absence leaves them LOUD, as after a put that moved something; see
- * lib_put_task_sweep_390().
+ * insides() runs above tasks(0) in generaltasks, and its first question,
+ * before the task look-up, is how many objects co() names in the line.
+ * co() answers only for a present, seen object, so a put whose object is
+ * absent or never seen counts one name, the container's, and fewer than
+ * two is answered on the spot (461646): "Put <the X> inside what?" when the
+ * object was named and the container was not, "You can't do that!"
+ * otherwise.  Both go to the post-put sweep, whose claimant runs the tasks
+ * QUIET and whose absence leaves them LOUD, as after a put that moved
+ * something; see lib_put_task_sweep_390().
  *
  * Measured on Lair of the CyberCow (runner_transcripts/cybercow.txt T62,
  * run390x): `put bones in robot` with the bones never made --
@@ -527,22 +523,22 @@ lib_put_what_pre400 (scr_gameref_t game, scr_int object, scr_bool typed_on)
  * lib_put_task_sweep_390()
  *
  * run390's insides() moves a single named object and writes "You put X onto
- * Y." (461F8A-46210D) without ever setting its own result; that is left to
- * the sweep that follows (462553-462760), and it decides which task pass the
- * line gets afterwards.  The sweep walks every object whose o(22) is 0 (held),
- * the player's room (a dynamic lying there, or a static authored with
- * InitialPosition 4 + room, which is the only o(22) a static ever has) or
- * &H9C (worn), and the first one co() finds named in the line claims the put:
- * the buffer is emptied, tasks(1) -- checktask(line, 0), QUIET -- runs on the
- * typed line, the result becomes 1, and the put text comes back only if the
- * buffer is still empty (462760).  A task the move enabled then speaks
- * instead of the put text; one whose restrictions fail says nothing.
- * Nothing named and eligible means the result stays 0, and generaltasks goes
- * on to tasks(0) (45F48B) -- checktask(line, 1), LOUD -- with the put text
- * still in the buffer: a matched task's failing restriction overwrites it
- * with the FailMessage (452BBD), a passing one runs and replaces it.  The
- * moved object itself never qualifies (it is now &HF6/&HEC), so the usual
- * claimant is the container, and only when it is held or lying in the room.
+ * Y." without ever setting its own result; that is left to the sweep that
+ * follows, and it decides which task pass the line gets afterwards.  The
+ * sweep walks every object whose o(22) is 0 (held), the player's room (a
+ * dynamic lying there, or a static authored with InitialPosition 4 + room,
+ * which is the only o(22) a static ever has) or &H9C (worn), and the first
+ * one co() finds named in the line claims the put: the buffer is emptied,
+ * tasks(1) -- checktask(line, 0), QUIET -- runs on the typed line, the
+ * result becomes 1, and the put text comes back only if the buffer is
+ * still empty.  A task the move enabled then speaks instead of the put
+ * text; one whose restrictions fail says nothing.  Nothing named and
+ * eligible means the result stays 0, and generaltasks goes on to tasks(0)
+ * -- checktask(line, 1), LOUD -- with the put text still in the buffer: a
+ * matched task's failing restriction overwrites it with the FailMessage
+ * (452BBD), a passing one runs and replaces it.  The moved object itself
+ * never qualifies (it is now &HF6/&HEC), so the usual claimant is the
+ * container, and only when it is held or lying in the room.
  *
  * Measured, run390:
  *   - Lost Tomb (runner_transcripts/losttomb.txt T85): `put dung beetle on
@@ -561,12 +557,11 @@ lib_put_what_pre400 (scr_gameref_t game, scr_int object, scr_bool typed_on)
  *     gem on statue` finds the gem already there and task 6's "You don't have
  *     a green gem." is all that prints.
  *   - Troll (runner_transcripts/troll.txt T116, run400x and the drop/firewater
- *     probes runner_probes/troll.run390.drop.txt,
- *     runner_probes/troll.run390.fire.txt): `put breadcrumbs in basin` with
- *     the basin HELD -- the basin claims the sweep, the QUIET pass matches
- *     task 51 `* breadcrumbs * basin *` whose second restriction fails, and
- *     the put text "You put the lot of breadcrumbs inside the wash basin."
- *     stands.
+ *     probes runner_probes/troll.run390.{drop,fire}.txt): `put breadcrumbs in
+ *     basin` with the basin HELD -- the basin claims the sweep, the QUIET
+ *     pass matches task 51 `* breadcrumbs * basin *` whose second
+ *     restriction fails, and the put text "You put the lot of breadcrumbs
+ *     inside the wash basin." stands.
  * The "all" and "and" forms rebuild a line per object instead, and are not
  * ported.  3.9 only; run380 sweeps take-from lines instead
  * (lib_take_from_task_sweep_380()), and run400 dispatches its insides
@@ -575,7 +570,7 @@ lib_put_what_pre400 (scr_gameref_t game, scr_int object, scr_bool typed_on)
 static scr_bool lib_put_co_named_term (scr_gameref_t game,
                                        const scr_char *line, scr_int object);
 
-/* insides()' co() name count over the whole game (run380 var_A6). */
+/* insides()' co() name count over the whole game, as run380 keeps it. */
 static scr_int
 lib_put_co_count_pre390 (scr_gameref_t game)
 {
@@ -683,7 +678,7 @@ lib_put_task_sweep_390 (scr_gameref_t game, scr_int container,
  * lib_put_co_resolve_390()
  *
  * run390's insides() does not parse the object fragment at all.  Its
- * single-object loop (461EE8-462125) offers every object to co(obj, 0) --
+ * single-object loop offers every object to co(obj, 0) --
  * the Short, or failing that an Alias, typed as a whole word, the prefix
  * consulted only when present, seen namesakes make the term ambiguous -- and
  * moves each one that is also seen (o(44)), present (obhere), not the
@@ -780,15 +775,14 @@ lib_put_named_pre400 (scr_gameref_t game, scr_int target, scr_bool typed_on)
       /*
        * 3.7 and 3.8 invert 3.9's precedence and answer for the CONTAINER
        * first -- but only once insides() has counted two co() names on the
-       * line (var_A6, run380 4457A1; "You can't do that!" below that).  A
-       * fragment that names nothing ANYWHERE leaves the container alone on
-       * the line, and the flat refusal outranks its tests: p37PUT/p38PUT
-       * `put zzz in statue` (static, no container), `put zzz in coin`
-       * (held, no container) and `put zzz in chest` (static container,
-       * open and shut) are all "You can't do that!" (run370x / run380x
-       * runner_probes/put.run370.feed2.rtf,
-       * runner_probes/put.run380.feed2.rtf).  An object named but
-       * out of reach still counts, and goes on to the container tests below.
+       * line (run380 4457A1; "You can't do that!" below that).  A fragment
+       * that names nothing ANYWHERE leaves the container alone on the line,
+       * and the flat refusal outranks its tests: p37PUT/p38PUT `put zzz in
+       * statue` (static, no container), `put zzz in coin` (held, no
+       * container) and `put zzz in chest` (static container, open and shut)
+       * are all "You can't do that!" (run370x / run380x
+       * runner_probes/put.run3[78]0.feed2.rtf).  An object named but out of
+       * reach still counts, and goes on to the container tests below.
        */
       if (!is_pre_390 || lib_put_co_count_pre390 (game) < 2)
         return lib_put_no_object_pre400 (game);
@@ -800,11 +794,11 @@ lib_put_named_pre400 (scr_gameref_t game, scr_int target, scr_bool typed_on)
    * What a 3.7/3.8 put does with a static is unmeasured, so a line that
    * names one there is left exactly where it was, for the task passes and
    * the generic tail below them.  3.9 goes on: insides() counts only the
-   * dynamic objects it could move (461AF8), so a static that is present
-   * leaves the message at "You put " and the target's own refusals first,
-   * then " can't see that." (4624EF) and the sweep, as for any object it
-   * could not reach.  pPUTFULL39 `put statue in cupboard`, both statics in
-   * the room and the cupboard open, is "You can't see that." (run390x
+   * dynamic objects it could move, so a static that is present leaves the
+   * message at "You put " and the target's own refusals first, then " can't
+   * see that." and the sweep, as for any object it could not reach.
+   * pPUTFULL39 `put statue in cupboard`, both statics in the room and the
+   * cupboard open, is "You can't see that." (run390x
    * runner_probes/putfull.run390.txt).
    */
   for (object = 0; has_object && is_pre_390 && object < object_count;
@@ -828,10 +822,9 @@ lib_put_named_pre400 (scr_gameref_t game, scr_int target, scr_bool typed_on)
    * Measured on p38DARK/p37DARK: `put coin in coin` with the
    * coin inside the box, `put box in box` with the box held and open, and
    * `put stone in stone` with the stone loose on the floor all answer "You
-   * can't do that!" (runner_probes/dark.run380.putin.txt:36/39/42,
-   * runner_probes/dark.run370.putin.txt:36/39/42), against the "You can't put
-   * anything inside the coin." that the very same coin draws as somebody
-   * else's container two feeds later
+   * can't do that!" (runner_probes/dark.run3[78]0.putin.txt:36/39/42),
+   * against the "You can't put anything inside the coin." that the very
+   * same coin draws as somebody else's container two feeds later
    * (runner_probes/dark.run380.putin3.txt:47).
    */
   if (has_object && references == 1 && game->multiple_references[container])
@@ -853,17 +846,14 @@ lib_put_named_pre400 (scr_gameref_t game, scr_int target, scr_bool typed_on)
    *
    *   put lamp in box   box on the floor a room away
    *                     You are not holding a box.
-   *                     (runner_probes/dark.run380.putin3.txt:25,
-   *                     runner_probes/dark.run370.putin3.txt:25)
+   *                     (runner_probes/dark.run3[78]0.putin3.txt:25)
    *   put stone in lamp lamp held, not a container
    *                     You can't put anything inside the lamp.
-   *                     (runner_probes/dark.run380.putin3.txt:28,
-   *                     runner_probes/dark.run370.putin3.txt:28)
+   *                     (runner_probes/dark.run3[78]0.putin3.txt:28)
    *   put lamp in box   box held and shut
    *                     You can't put anything inside the box as it is
    *                     closed!
-   *                     (runner_probes/dark.run380.putin2.txt:30,
-   *                     runner_probes/dark.run370.putin2.txt:30)
+   *                     (runner_probes/dark.run3[78]0.putin2.txt:30)
    *
    * -- where run390 answers for the object on every one of those turns
    * (runner_probes/dark.run390.putin3.txt:24/27,
@@ -942,13 +932,13 @@ lib_put_named_pre400 (scr_gameref_t game, scr_int target, scr_bool typed_on)
  *   box on the floor, ditto     You are not holding the coin.
  *
  * -- p4TFROM under run400, `put coin in box` at
- * runner_probes/tfrom.run400.putin.txt:12 and again at
- * runner_probes/tfrom.run400.putin.txt:34 with the box shut (still "already
- * inside", so this outranks the closed-container refusal), against
- * runner_probes/tfrom.run400.putin2.txt:30 with the box dropped.  " is already
- * inside " is in run400 and in no earlier Runner; the floor case is the take
- * phase's own skip, which lib_put_implicit_take() already carries into the
- * "You are not holding ..." report.
+ * runner_probes/tfrom.run400.putin.txt:12 and again at :34 with the box
+ * shut (still "already inside", so this outranks the closed-container
+ * refusal), against runner_probes/tfrom.run400.putin2.txt:30 with the box
+ * dropped.  " is already inside " is in run400 and in no earlier Runner;
+ * the floor case is the take phase's own skip, which
+ * lib_put_implicit_take() already carries into the "You are not holding
+ * ..." report.
  *
  * The surface half (is_on) splits the same way on whether the SUPPORTER is
  * in the player's hands.  Measured on p4SURF under run400, 2026-09-12, all
@@ -1056,9 +1046,9 @@ lib_put_shut_in_container_400 (scr_gameref_t game, scr_int container)
  * lib_put_named_400()
  *
  * The 4.0 put noun goes through name_object's own resolver, not the
- * seen-gated %text% matcher: 46E5D8 hands the object fragment
- * (MemVar_494174, the line up to " in "/" on ") to Proc_21_58_463640 in mode
- * 2 (@46E02D), the same two-pass scorer a plain `drop X` uses -- pass 0 over
+ * seen-gated %text% matcher: 46E5D8 hands the object fragment (the line
+ * up to " in "/" on ") to Proc_21_58_463640 in mode 2, the same two-pass
+ * scorer a plain `drop X` uses -- pass 0 over
  * what the player holds, directly or inside something held, pass 1 over
  * everything present, no seen gate in either; see
  * lib_name_object_resolve_400().
@@ -1074,8 +1064,8 @@ lib_put_shut_in_container_400 (scr_gameref_t game, scr_int container)
  *   put coin in box  both coins held: a pass-0 tie, pending object kept
  *                    Which coin.  The gold coin or the silver coin?
  *
- * The all/and/except forms take name_object's own branches (46E053, 46E0B7)
- * and are left to the ordinary parse.  Returns TRUE when the line is answered
+ * The all/and/except forms take name_object's own branches and are left to
+ * the ordinary parse.  Returns TRUE when the line is answered
  * here (a prompt or the not-clear refusal); otherwise a unique winner is left
  * alone in the multiple references with *REFERENCES 1, or *REFERENCES stays -1
  * for the ordinary parse.
@@ -1299,9 +1289,9 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
        * exit of name_object that leaves the command line rewritten to the
        * fragment "put X " -- see run_priority_unnamed_put_object().  The
        * container has to be a real container for the Runner to have got that
-       * far: 46DE19 turns anything else away with "can't put anything inside
-       * X!", along the exit that puts the line back.  The except form takes
-       * the "all" branch at 46E04E and never reaches the clobber.
+       * far: name_object turns anything else away with "can't put anything
+       * inside X!", along the exit that puts the line back.  The except form
+       * takes the "all" branch and never reaches the clobber.
        */
       if (!is_except
           && lib_is_version_400 (game)
@@ -1318,7 +1308,7 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
            */
           if (!lib_task_prematches_input (game, 2))
             {
-              /* 46E165: the whole word "drop" picks "Drop what?" (p4PUT
+              /* The whole word "drop" picks "Drop what?" (p4PUT
                * `drop zzz in box`, also a turn). */
               if (lib_input_contains_word (run_get_dispatch_input (), "drop"))
                 return lib_what (game, "Drop");
@@ -1373,14 +1363,14 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
  * lib_put_co_reachable()
  * lib_put_co_refusal_pre390()
  *
- * What run380's insides() (444BAC-447553, entry 44755C) answers for a put line
- * its container fragment could not resolve.  It does not parse fragments at
+ * What run380's insides() (entry 44755C) answers for a put line its
+ * container fragment could not resolve.  It does not parse fragments at
  * all.  It walks every object with co() -- Short or alias anywhere in the
- * line, wherever the object is -- counting matches in var_A6 and choosing one
- * in var_A8 (4457A1-4459C8):
+ * line, wherever the object is -- counting the matches and choosing one
+ * (from 4457A1):
  *
- *   - while nothing chosen so far is REACHABLE (var_108: a static in the room,
- *     or a dynamic object in the room, held, or worn), each match simply
+ *   - while nothing chosen so far is REACHABLE (a static in the room, or a
+ *     dynamic object in the room, held, or worn), each match simply
  *     replaces the choice, so the last match in index order wins;
  *   - once one is, a later match replaces it only when its Short or alias
  *     starts further right in the line than the choice's.
@@ -1574,10 +1564,9 @@ lib_put_nowhere_common (scr_gameref_t game, scr_bool typed_on)
    * 3.7 and 3.8 have no composed prompt to reach for, and no interest in what
    * the object fragment named: a container fragment that names nothing
    * anywhere in the game ends the line flat.  `put coin in zzzz` with the coin
-   * lying in the box (runner_probes/dark.run380.putin2.txt:72 /
-   * runner_probes/dark.run370.putin2.txt:72) and `put coin in me` with the
-   * coin held (runner_probes/dark.run380.putin.txt:66 /
-   * runner_probes/dark.run370.putin.txt:66) both answer "You can't do that!".
+   * lying in the box (runner_probes/dark.run3[78]0.putin2.txt:72) and `put
+   * coin in me` with the coin held (runner_probes/dark.run3[78]0.putin.txt:66)
+   * both answer "You can't do that!".
    * Note that a fragment naming a container the player merely cannot see no
    * longer arrives here at all -- those are resolved over the whole game now;
    * see lib_put_target_pre390().
@@ -1613,21 +1602,21 @@ lib_cmd_put_on_nowhere (scr_gameref_t game)
  * lib_cmd_put_on_that_390()
  *
  * run390 insides() counts, over the whole object table, every object co()
- * finds named in the line (var_8A, 461000-461641), and separately notes the
- * one named after the preposition (var_8C).  With two or more named, no "all",
- * and none of them after the preposition, it writes "You can't put anything
- * inside that!" / "onto that!" (461769) before any task look-up, and the
- * post-put sweep follows (4624BF -> 462550): a claimant named in the line runs
- * the tasks QUIET, so a failing task leaves the refusal standing.
+ * finds named in the line, and separately notes the one named after the
+ * preposition.  With two or more named, no "all", and none of them after
+ * the preposition, it writes "You can't put anything inside that!" / "onto
+ * that!" (461769) before any task look-up, and the post-put sweep follows:
+ * a claimant named in the line runs the tasks QUIET, so a failing task
+ * leaves the refusal standing.
  * pPUTREF39.taf (make_39_putrefprobe.py), run390x: `put pebble and stone in
  * junk` / `on junk`, each with a matching task whose restriction fails, answer
  * "You can't put anything inside that!" / "onto that!"
  * (runner_probes/putref.run390.feed2.txt:8/12), not the FailMessage.
  *
- * The target is insides()' own choice (461000-461641), 3.8's loop (see
+ * The target is insides()' own choice, 3.8's loop (see
  * lib_put_co_refusal_pre390()) with one more test: an object's Short or
- * alias must first appear in the line after InStr(line, Left(var_E0, 2)),
- * where var_E0 is "onto" when the line holds the whole word on or onto and
+ * alias must first appear in the line after InStr(line, Left(prep, 2)),
+ * where prep is "onto" when the line holds the whole word on or onto and
  * "inside" otherwise.  That InStr is a raw substring search, so the "in"
  * inside "coin" or the "on" inside "stone" counts as the preposition:
  * `put coin and stone in junk` chooses the stone and answers "You can't put
@@ -1724,13 +1713,13 @@ lib_put_that_390 (scr_gameref_t game, scr_bool typed_on)
 
   /*
    * c("all") skips the two-names test (461646) but not the target choice:
-   * with no object named past the preposition var_8C stays -1 and insides()
-   * refuses at 461769 like any other line.  pPUTFULL39 `put all in junk` /
-   * `put all on junk` are "You can't put anything inside that!" / "... onto
-   * that!" (run390x runner_probes/putfull.run390.txt).  A named
-   * target is left to the "put all" rows.  generaltasks has already made
-   * "everything" "all" (Replace at 45F225), so `put everything in zzz` / `on
-   * zzz` refuse the same way (p39PUT, run390x
+   * with no object named past the preposition there is no target, and
+   * insides() refuses at 461769 like any other line.  pPUTFULL39 `put all
+   * in junk` / `put all on junk` are "You can't put anything inside
+   * that!" / "... onto that!" (run390x runner_probes/putfull.run390.txt).
+   * A named target is left to the "put all" rows.  generaltasks has
+   * already made "everything" "all" (Replace at 45F225), so `put everything
+   * in zzz` / `on zzz` refuse the same way (p39PUT, run390x
    * runner_probes/put.run390.drop.txt).
    */
   if (lib_co_contains (line, "all") || lib_co_contains (line, "everything"))
@@ -1821,9 +1810,9 @@ lib_cmd_put_on_that_390 (scr_gameref_t game)
  * drops 4456AB; run370 has neither word), so `put all except X in Y` is
  * c("all")'s arm and puts everything.  p37PUT / p38PUT / p39PUT `put all
  * except stone in cupboard` put the stone too (run370x / run380x / run390x
- * runner_probes/put.run370.feed2.rtf, runner_probes/put.run380.feed2.rtf,
- * runner_probes/put.run390.txt).  Deliberate deviation: Scarier
- * keeps the exception at every version, in and on alike.
+ * runner_probes/put.run3[78]0.feed2.rtf, runner_probes/put.run390.txt).
+ * Deliberate deviation: Scarier keeps the exception at every version, in
+ * and on alike.
  */
 scr_bool
 lib_cmd_put_in_except_multiple (scr_gameref_t game)

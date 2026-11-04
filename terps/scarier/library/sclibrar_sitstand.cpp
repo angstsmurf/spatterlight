@@ -40,15 +40,13 @@ enum
 /*
  * lib_stand_sit_lie_floor_pre390()
  *
- * The bare sit/stand/lie arms of the pre-3.9 sitstand (run380 4340C5,
- * 4342C7, 434509; run370 42AF3C, 42B0E4, 42B2C9).  Sitting or lying down
- * on the floor keeps the parent object: only standing up clears it, so
- * `stand on stool`, `lie`, `sit`, `stand` is "You lie down on the ground.",
- * "You sit up.", "You stand up from the stool.".  Standing on an object is
- * position 0, so a bare `stand` there is "You are already standing!".
- * p37SIT/p38SIT (make_3738_sitprobe.py), run370x
- * runner_probes/sit.run370.sit2.rtf, run380x
- * runner_probes/sit.run380.sit2.rtf.
+ * The bare sit/stand/lie arms of the pre-3.9 sitstand (run380 4340C5).
+ * Sitting or lying down on the floor keeps the parent object: only standing
+ * up clears it, so `stand on stool`, `lie`, `sit`, `stand` is "You lie down
+ * on the ground.", "You sit up.", "You stand up from the stool.".  Standing
+ * on an object is position 0, so a bare `stand` there is "You are already
+ * standing!".  p37SIT/p38SIT (make_3738_sitprobe.py,
+ * runner_probes/sit.run3[78]0.sit2.rtf).
  */
 static scr_bool
 lib_stand_sit_lie_floor_pre390 (scr_gameref_t game, scr_int movement)
@@ -117,8 +115,8 @@ lib_stand_sit_lie_floor_pre390 (scr_gameref_t game, scr_int movement)
  * lib_stand_sit_lie_floor_390()
  *
  * The bare sit/stand/lie arms of the 3.9/4.0 sitstand, which is one proc in
- * both (run390 444010-444A04, run400 46B370-46BCF8).  Unlike pre-3.9 these
- * name the parent object:
+ * both (run400 46B370-46BCF8).  Unlike pre-3.9 these name the parent
+ * object:
  *   - `sit` standing on O is "sit down on the O" and keeps O, whatever its
  *     SitLie; lying on O is "sit up on the O" when O is sittable, else "sit
  *     up on the ground." -- still keeping O.
@@ -127,9 +125,8 @@ lib_stand_sit_lie_floor_pre390 (scr_gameref_t game, scr_int movement)
  *   - `stand` at position 0 is "already standing!" even on an object.
  * `sit on the ground/floor` is its own arm: "sit down on the ground." from
  * any place but the floor, where it is "are already sitting on the floor!"
- * (or "ground!") with a literal "are".  p39SIT/p4SIT, run390x
- * runner_probes/sit.run390.sit2.txt, run400x
- * runner_probes/sit.run400.sit2.txt.
+ * (or "ground!") with a literal "are".  p39SIT/p4SIT,
+ * runner_probes/sit.run{390,400}.sit2.txt.
  */
 static scr_bool
 lib_stand_sit_lie_floor_390 (scr_gameref_t game, scr_int movement)
@@ -154,17 +151,16 @@ lib_stand_sit_lie_floor_390 (scr_gameref_t game, scr_int movement)
   switch (movement)
     {
     case MOVE_STAND_FLOOR:
-      /* Same as pre-3.9 (run400 46B9D7-46BAB1, run390 4446E3-4447B9). */
+      /* Same as pre-3.9 (run400 46B9D7-46BAB1). */
       return lib_stand_sit_lie_floor_pre390 (game, movement);
 
     case MOVE_SIT_FLOOR:
       if (lib_co_contains (line, "on") || lib_co_contains (line, "in"))
         {
           /*
-           * run400 46B3BC-46B43E, run390 444086-44410F.  The Runners put
-           * the pronoun before a fixed " are", giving "I are" and
-           * "%player% are"; Scarier deliberately agrees the copula
-           * (deviation policy).
+           * run400 46B3BC-46B43E.  The Runners put the pronoun before a
+           * fixed " are", giving "I are" and "%player% are"; Scarier
+           * deliberately agrees the copula (deviation policy).
            */
           if (position == 1 && parent == -1)
             {
@@ -211,7 +207,7 @@ lib_stand_sit_lie_floor_390 (scr_gameref_t game, scr_int movement)
       return TRUE;
 
     case MOVE_LIE_FLOOR:
-      /* run400 46BBFC-46BCCC, run390 44491F-4449F7. */
+      /* run400 46BBFC-46BCCC. */
       if (position == 2)
         return lib_print_response_message (game,
                                        "You are already lying down.\n",
@@ -239,10 +235,10 @@ lib_stand_sit_lie_floor_390 (scr_gameref_t game, scr_int movement)
 /*
  * lib_sit_lie_scan_370()
  *
- * run370's sitstand object loop (42AE7D, stand 42B025, lie 42B20A) has no
- * co() and no location test: it takes every object whose Short or Alias is
- * a whole word of the line and whose SitLie fits, held, contained or in
- * another room alike, and the last match wins.  p37SIT `sit on bed` from the
+ * run370's sitstand object loop (42AE7D) has no co() and no location test:
+ * it takes every object whose Short or Alias is a whole word of the line
+ * and whose SitLie fits, held, contained or in another room alike, and the
+ * last match wins.  p37SIT `sit on bed` from the
  * other room is "You sit down on a bed.", and a held stool is sat on (run370x
  * runner_probes/sit.run370.rtf).  Returns -1 for no match; the
  * line then falls to therest, whose answers Scarier already gives
@@ -372,10 +368,10 @@ lib_stand_sit_lie (scr_gameref_t game, scr_int movement)
          * Verify the referenced object is amenable, and on the floor of the
          * player's room.  The 3.8+ sitstand loops take an object only
          * when it is a dynamic object whose room is the player's, or a static
-         * one listed in that room, and only then read SitLie (run400
-         * 46B8F2-46B93A, run390 4445F8-44463A, run380 434042); run370's loop
-         * has no location test at all (lib_sit_lie_scan_370).  A held stool is
-         * never stood on, and the line falls to the "can't stand on" refusal.
+         * one listed in that room, and only then read SitLie (run380
+         * 434042); run370's loop has no location test at all
+         * (lib_sit_lie_scan_370).  A held stool is never stood on, and the
+         * line falls to the "can't stand on" refusal.
          * House.taf's `stand on stool` with the stool in hand, whose ALR turns
          * that refusal into "While you're still holding it?"
          * (runner_probes/house.run400.turnbisect.txt).
@@ -404,14 +400,10 @@ lib_stand_sit_lie (scr_gameref_t game, scr_int movement)
   /*
    * No sitstand object arm asks whether the player is already there: `sit on
    * stool` twice is "You sit down on the stool." twice, and sitting on an
-   * object is "sit down on" even from lying (run400 46B4D4/46B958/46BB7D,
-   * run390 4441A7/444661/444890, run380 43408C/43428E/4344D0, run370
-   * 42AF05/42B0AD/42B292).  Before 3.9 the object is named by its authored
-   * Prefix, not "the": "You sit down on a stool.".  p37SIT..p4SIT
-   * (make_3738_sitprobe.py), run370x runner_probes/sit.run370.sit2.rtf,
-   * run380x runner_probes/sit.run380.sit2.rtf, run390x
-   * runner_probes/sit.run390.sit2.txt, run400x
-   * runner_probes/sit.run400.sit2.txt.
+   * object is "sit down on" even from lying (run400 46B4D4).  Before 3.9
+   * the object is named by its authored Prefix, not "the": "You sit down on
+   * a stool.".  p37SIT..p4SIT (make_3738_sitprobe.py,
+   * runner_probes/sit.run*.sit2.*).
    */
   switch (movement)
     {
@@ -469,10 +461,10 @@ lib_cmd_stand_on_object (scr_gameref_t game)
  *
  * `get on X` is the stand-on branch of the 3.9/4.0 sitstand proc, entered by
  * `c("stand") Or c("get up") Or c("get on")` and then `c("on") Or c("in")`
- * (run400 loc_46B889, run390 loc_444565).  3.9 is also where takes() gained
- * its matching `Not c("get on")` exclusion (run390 loc_4544C6, run400
- * loc_47B68A), without which the take handler would eat the command first;
- * neither literal exists anywhere in run370/run380, so this is 3.9+ only.
+ * (run400 loc_46B889).  3.9 is also where takes() gained its matching
+ * `Not c("get on")` exclusion (run390 loc_4544C6), without which the take
+ * handler would eat the command first; neither literal exists anywhere in
+ * run370/run380, so this is 3.9+ only.
  *
  * It differs from `stand on X` in what happens when the object is not a
  * standable one.  The refusal "You can't stand on X." is not produced by
@@ -496,14 +488,10 @@ lib_cmd_get_on_object (scr_gameref_t game)
  * lib_floor_named()
  *
  * TRUE when a floor row's line says `on`/`in` the ground or floor.  Only the
- * 3.9+ sit block has an arm for that (run400 46B39E, run390 444077); lie
- * and stand, and every block before 3.9 (whose c("on") takes the object
- * loop), find no object and write nothing, so the line falls to therest's
- * "You can't sit on that." (p37SIT..p4SIT: run370x
- * runner_probes/sit.run370.sit3.rtf, run380x
- * runner_probes/sit.run380.sit3.rtf, run390x
- * runner_probes/sit.run390.sit3.txt, run400x
- * runner_probes/sit.run400.sit3.txt).
+ * 3.9+ sit block has an arm for that (run400 46B39E); lie and stand, and
+ * every block before 3.9 (whose c("on") takes the object loop), find no
+ * object and write nothing, so the line falls to therest's "You can't sit
+ * on that." (p37SIT..p4SIT: runner_probes/sit.run*.sit3.*).
  */
 /*
  * Deliberate deviation: the floor rows answer every line they match, so `lie
@@ -628,10 +616,7 @@ lib_cmd_lie_scan_370 (scr_gameref_t game)
  * (46BACE, beside c("lie") at 46BAC1); run370, run380 and run390 have no
  * such word, so `lay down` is "I don't understand." and `lay on stool` "I
  * don't understand what you want me to do with the stool." (p37SIT..p4SIT,
- * run370x runner_probes/sit.run370.sit4.rtf, run380x
- * runner_probes/sit.run380.sit4.rtf, run390x
- * runner_probes/sit.run390.sit4.txt, run400x
- * runner_probes/sit.run400.sit4.txt).  Deliberate deviation:
+ * runner_probes/sit.run*.sit4.*).  Deliberate deviation:
  * Scarier's [lie/lay] rows take it below 4.0 too.
  */
 
@@ -643,12 +628,11 @@ lib_cmd_lie_scan_370 (scr_gameref_t game)
  * line: with c("on") Or c("in") the object loop, where every object that
  * passes writes and the last in index order wins, else the bare arm.  The
  * 3.8+ loop takes an object when co(obj) passes, it lies on the floor of
- * the player's room and its SitLie fits (run400 46B4D4/46B8F2/46BB1A, run390
- * 4441A7/4445F8/44481C, run380 434042); run370's has no scope at all
- * (lib_sit_lie_scan_370).  From 3.9 the sit block first takes its
- * ground/floor arm when the line names one, and the loop still runs after
- * it (run400 46B39E, run390 444077).  Each write replaces what the line has
- * said so far from mark: the Runner keeps one message and overwrites it.
+ * the player's room and its SitLie fits (run380 434042); run370's has no
+ * scope at all (lib_sit_lie_scan_370).  From 3.9 the sit block first takes
+ * its ground/floor arm when the line names one, and the loop still runs
+ * after it (run400 46B39E).  Each write replaces what the line has said
+ * so far from mark: the Runner keeps one message and overwrites it.
  */
 static void
 lib_sitstand_block (scr_gameref_t game, scr_int movement, size_t mark)
@@ -958,17 +942,13 @@ lib_sitstand_prerun (scr_gameref_t game, lib_line_runner_t run_line,
  * ANYWHERE in the line -- c("sit"), c("stand"), c("lie") (4.0 also
  * c("lay")) -- run in that code order whatever the word order, all sharing
  * the player's position and parent, each overwriting the one message
- * (run400 46B370-46BCF8, run390 444010-444A04, run380 433F8x-4345xx,
- * run370 42AE7D-42B3xx).  generaltasks calls it unconditionally after the
+ * (run400 46B370-46BCF8).  generaltasks calls it unconditionally after the
  * takes, drops, inventory and task handlers have left on a line they
  * claimed, and after wears, removes, battle and hints have written only a
  * message it may overwrite; openclose after it writes nothing once it has
  * (run390 Call sitstand() 45F50D, openclose 45F512).  examines comes later
  * still and replaces the text but not the move.  Measured on p37SIT..p4SIT
- * (run370x runner_probes/sit.run370.sit4.rtf, run380x
- * runner_probes/sit.run380.sit4.rtf, run390x
- * runner_probes/sit.run390.sit4.txt, run400x
- * runner_probes/sit.run400.sit4.txt), every Runner alike:
+ * (runner_probes/sit.run*.sit4.*), every Runner alike:
  *   sit lie, lie stand                  "You lie down on the ground."
  *   stand sit, sit stand                "You stand up."
  *   please sit, sit quietly, push stone sit, open stool sit, wear coin sit
@@ -984,9 +964,7 @@ lib_sitstand_prerun (scr_gameref_t game, lib_line_runner_t run_line,
  *
  * The rest of generaltasks around it, measured on p37SITN..p4SITN (the SIT
  * world plus a worn hat and Bob with a "hat" topic) with
- * make_3738_sitnpcprobe.py's feed (run370x runner_probes/sitn.run370.rtf,
- * run380x runner_probes/sitn.run380.rtf, run390x
- * runner_probes/sitn.run390.txt, run400x runner_probes/sitn.run400.txt):
+ * make_3738_sitnpcprobe.py's feed (runner_probes/sitn.run*):
  *   - takes and drops claim the line (GoTo past sitstand): `take stool
  *     sit` takes, `drop stool sit` drops, no move.  A refused put claims
  *     at 3.8 and 3.9 ("You can't put anything on the stool.") but not at
@@ -997,16 +975,15 @@ lib_sitstand_prerun (scr_gameref_t game, lib_line_runner_t run_line,
  *     `sit n`, `north sit`, `help sit`, `hint sit`, `say hello sit`, `give
  *     coin to bob sit` are "You sit down on the ground.", nothing listed,
  *     nobody moved, the coin kept.  Everything below the wait gate is
- *     `If msg = "" Then` (run390 45FFE8, 460004), so therest never speaks.
+ *     `If msg = "" Then` (run390 45FFE8), so therest never speaks.
  *   - wears and removes DO their move before sitstand overwrites them:
  *     `wear hat sit` wears the hat and says "You sit down on the ground."
  *     (x me: "...sitting down. You are wearing a hat."); `remove hat sit`
  *     removes it the same way, 4.0 included.
- *   - `score` anywhere (run390 45F6B5, run400 48A6AE) and the swearing arm
- *     (run390 45F8E4-45F9CE, run400 48A976) come AFTER sitstand and
- *     overwrite it: `score sit` sits and prints the score, `shit sit` sits
- *     and prints the language line.  `bugger`/`bloody` only where that
- *     Runner's list has them.
+ *   - `score` anywhere (run390 45F6B5) and the swearing arm (run390
+ *     45F8E4-45F9CE) come AFTER sitstand and overwrite it: `score sit` sits
+ *     and prints the score, `shit sit` sits and prints the language line.
+ *     `bugger`/`bloody` only where that Runner's list has them.
  *   - characters() runs last and overwrites too.  `talk to bob sit` sits and
  *     answers 'Use the format "ask Bob about [subject]".' at every version
  *     (c("talk to"), run390 45973D).  `ask bob about hat sit` sits and
@@ -1181,15 +1158,11 @@ lib_line_cut_word (const scr_char *line, const scr_char *at, size_t length)
  *
  * openclose is a plain Call, entered on c("open") / c("close") -- the whole
  * word ANYWHERE in the line -- and generaltasks makes it on EVERY line, one
- * line below sitstand (run400 48A515, run390 45F512, run380 4422xx, run370
- * 43B9xx).  It cannot claim, so the handlers below it overwrite its message
- * while keeping its act, and the ones above it claim the line before it is
- * reached.  Measured on p37ORD..p4ORD (make_orderprobe.py; run370x
- * runner_probes/ord.run370.ord2.rtf, run380x
- * runner_probes/ord.run380.ord2.rtf, run390x
- * runner_probes/ord.run390.ord2.txt, run400x
- * runner_probes/ord.run400.ord2.txt), the box shut before each
- * cell:
+ * line below sitstand (run390 45F512).  It cannot claim, so the handlers
+ * below it overwrite its message while keeping its act, and the ones above
+ * it claim the line before it is reached.  Measured on p37ORD..p4ORD
+ * (make_orderprobe.py; runner_probes/ord.run*.ord2.*), the box shut before
+ * each cell:
  *   x open box, open examine box, open look at box   the description of an
  *   open read box, open x box (3.7-3.9)              OPEN box; it opened
  *   open where is box                 "You are carrying the box!", and open
@@ -1323,11 +1296,8 @@ lib_openclose_anywhere (scr_gameref_t game, const scr_char *typed,
    * And the `go` nudge at the end of the verb sweep, which overwrites
    * whatever was said (lib_cmd_just_a_direction()): `open go to cave` is
    * "Just a direction will do." at every version, since a mid-line "go to" is
-   * no gotoplace line (make_orderprobe.py, run370x
-   * runner_probes/ord.run370.ord.rtf, run380x
-   * runner_probes/ord.run380.ord.rtf, run390x
-   * runner_probes/ord.run390.ord.txt, run400x
-   * runner_probes/ord.run400.ord.txt).  The nudge row answers a bare `go`.
+   * no gotoplace line (make_orderprobe.py, runner_probes/ord.run*.ord.*).
+   * The nudge row answers a bare `go`.
    */
   const scr_bool nudged = lib_co_contains (words, "go")
                           && !lib_goto_line_enters (game, typed);
@@ -1496,8 +1466,7 @@ lib_cmd_get_off_object (scr_gameref_t game)
   /*
    * 3.9+ get-off asks about the parent before it looks at the name: `get off
    * chair` standing on nothing is "You are not standing on anything!"
-   * (run400 46B702, run390 4443E1; run390x runner_probes/sit.run390.sit3.txt,
-   * run400x runner_probes/sit.run400.sit3.txt).
+   * (run400 46B702; runner_probes/sit.run{390,400}.sit3.txt).
    */
   if (lib_player_parent_here (game) == -1)
     return lib_print_response_message (game,
