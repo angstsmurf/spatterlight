@@ -26,6 +26,37 @@
 #include "sclibrar_internal.h"
 
 /*
+ * lib_examine_self_worn()
+ *
+ * List each object worn by the player.  The 3.7/3.8 Runners never do so
+ * after their fallback description; Scarier does (see
+ * lib_examine_self_pre390()).
+ */
+static void
+lib_examine_self_worn (scr_gameref_t game)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  scr_int object;
+  lib_list_t list;
+
+  GS_FOR_EACH_OBJECT (game, object)
+    {
+      if (gs_object_position (game, object) == OBJ_WORN_PLAYER)
+        list.push_back (object);
+    }
+  if (!list.empty ())
+    {
+      lib_print_clause (game, TRUE,
+                        "You are wearing ",
+                        "I am wearing ",
+                        "%player% is wearing ");
+      lib_print_list (game, list, lib_print_object, " and ");
+      pf_buffer_character (filter, '.');
+    }
+}
+
+
+/*
  * lib_examine_self_pre390()
  *
  * The 3.7/3.8 self description fallback, closed with its answer break.
@@ -81,12 +112,15 @@ lib_examine_self_pre390 (scr_gameref_t game)
     }
   pf_buffer_character (filter, '.');
   /*
-   * And that is the whole reply: neither run370's block nor run380's walks
-   * the worn objects, so a 3.7/3.8 `x me` never says "You are wearing ..."
-   * -- only `i` does.  run370x/run380x p37SITN/p38SITN `wear hat sit` then
+   * The Runner stops here: neither run370's block nor run380's walks the
+   * worn objects, so a 3.7/3.8 `x me` never says "You are wearing ..." --
+   * only `i` does.  run370x/run380x p37SITN/p38SITN `wear hat sit` then
    * `x me` (runner_probes/sitn.run3[78]0.rtf): "...the circumstances.  You
-   * are sitting down." while `i` lists the hat worn.
+   * are sitting down." while `i` lists the hat worn.  Deliberate deviation:
+   * list the worn objects as 3.9+ and an authored PlayerDesc already do
+   * (WINE-TRANSCRIPTS.md).
    */
+  lib_examine_self_worn (game);
   pf_buffer_answer_break (filter);
 }
 
@@ -162,36 +196,6 @@ lib_examine_self_close (scr_gameref_t game, const scr_char *description)
                               : last == '.';
       if (!closed)
         pf_buffer_character (filter, '.');
-    }
-}
-
-
-/*
- * lib_examine_self_worn()
- *
- * List each object worn by the player (3.9+; 3.7/3.8 never do, see
- * lib_examine_self_pre390()).
- */
-static void
-lib_examine_self_worn (scr_gameref_t game)
-{
-  const scr_filterref_t filter = gs_get_filter (game);
-  scr_int object;
-  lib_list_t list;
-
-  GS_FOR_EACH_OBJECT (game, object)
-    {
-      if (gs_object_position (game, object) == OBJ_WORN_PLAYER)
-        list.push_back (object);
-    }
-  if (!list.empty ())
-    {
-      lib_print_clause (game, TRUE,
-                        "You are wearing ",
-                        "I am wearing ",
-                        "%player% is wearing ");
-      lib_print_list (game, list, lib_print_object, " and ");
-      pf_buffer_character (filter, '.');
     }
 }
 

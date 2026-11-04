@@ -1680,6 +1680,17 @@ case, and their goldens are re-blessed. The row notes in
   what you're on about."; `x cup` still prompts "Which cup?". No golden
   changed. (library/sclibrar_disambig_scan.cpp)
 
+- **3.7/3.8 `x me` lists worn clothing after the fallback (2026-11-04).**
+  With no PlayerDesc, run370/run380 answer only "You are as well as can be
+  expected, considering the circumstances." and never say what the player
+  wears; only `i` does (p37SITN/p38SITN, runner_probes/sitn.run3[78]0.rtf).
+  SCARE and 3.9/4.0 add "You are wearing ...", so `lib_examine_self_pre390`
+  now ends with `lib_examine_self_worn`. A corpus `x me` / `wear all` /
+  `x me` sweep changed nine games, each by that one sentence (akron, castle,
+  cave, cloak, haunt, haunted, secret, tra, wrecked). No ALR quotes the
+  fallback with a worn list, and no golden changed.
+  (library/sclibrar_examine.cpp)
+
 ## Rules measured and ported (index)
 
 One entry per rule: the rule, the game or probe that found it, and the
