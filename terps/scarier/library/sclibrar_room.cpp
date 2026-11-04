@@ -704,7 +704,6 @@ void
 lib_print_room_description (scr_gameref_t game, scr_int room)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_bool showobjects, is_described;
   scr_int start;
 
@@ -763,11 +762,20 @@ lib_print_room_description (scr_gameref_t game, scr_int room)
    * succeeds and `x stone` answers the named form, "You can't see the stone
    * very clearly."  Being seen is permanent; being lit is not.
    *
-   * 4.0 is left alone: nothing has measured its marking loops against a
-   * HideObjects alt, and lib_room_is_dark() shows run400 never even assigns
-   * its darkness byte.
+   * run400 does the same, although it has no darkness byte.  Measured on
+   * p4DARK.taf, the same world in the 4.0 layout with the cave's darkness
+   * as an ordinary type-2 HideObjects alt (make_400_darkprobe.py):
+   * entering unlit (runner_probes/dark.run400.unseen.txt) leaves `x stone`,
+   * `x pebble`, `x box` and `read stone` at "You see no such thing.", `take
+   * stone` at "Take what?" and `get all from box` at "I don't understand
+   * where you want to get things from."; after one lit visit
+   * (runner_probes/dark.run400.seen.txt) `take stone` succeeds in the dark
+   * and `x stone` gives the plain description, not the 3.9 "can't see"
+   * form, since that needs the darkness byte run400 never assigns.  So in
+   * 4.0 a HideObjects alt hides objects from the noun resolver, but the
+   * examine messages are the lit ones.
    */
-  if (showobjects || prop_get_taf_version (bundle) >= TAF_VERSION_400)
+  if (showobjects)
     obj_mark_room_objects_seen (game, room);
 
   /* Print room contents. */

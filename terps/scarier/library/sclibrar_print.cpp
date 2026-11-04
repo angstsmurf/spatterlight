@@ -384,7 +384,11 @@ lib_use_room_alt (scr_gameref_t game, scr_int room, scr_int alt)
  * computation, so this is not a 3.9 invention.  run400 kept the shape but
  * never assigns its flag: Proc_19_87_471F94's dark byte is dead, which is
  * why 4.0 answers a dark room's `x` with its ordinary tail.  Hence the gate
- * here is < 4.0, not >= 3.90.
+ * here is < 4.0, not >= 3.90.  Measured on p4DARK.taf, the same cave in the
+ * 4.0 layout (runner_probes/dark.run400.{unseen,seen}.txt): no "can't see"
+ * answer anywhere, an unseen object "You see no such thing." and a seen one
+ * its plain description.  The HideObjects alt still keeps the hidden
+ * objects unseen; see lib_print_room_description().
  *
  * The conversion in parse_fixup_v390_v380_room_alts() writes that room-level
  * object condition out as the LAST alt, type 2, with Var2 the condition type,

@@ -83,8 +83,12 @@ lib_take_from_unseen (scr_gameref_t game, scr_int associate)
  * lib_take_from_unseen_refusal()
  *
  * Response for "get all from" a container or supporter whose contents the
- * player hasn't seen yet.  4.0 refuses outright: run400 answers "You can't
- * take anything from the round glass table." (iachini, measured live).
+ * player hasn't seen yet.  4.0 answers as for an empty match, split as
+ * lib_take_from_and_400() splits it: a supporter is refused outright -- run400
+ * answers "You can't take anything from the round glass table." (iachini,
+ * measured live) -- and a container is "Take what?": the open box of
+ * p4DARK.taf, seen in passing but its coin never listed, in
+ * runner_probes/dark.run400.seen.txt.
  * Pre-4.0 runs its normal take loop over an empty match and prints just the
  * bare verb phrase: run390 on ALEXIS answers `get all from table` with "You
  * take " -- trailing space, no object list, no period (measured live).
@@ -94,12 +98,15 @@ lib_take_from_unseen_refusal (scr_gameref_t game, scr_int associate)
 {
   const scr_filterref_t filter = gs_get_filter (game);
 
-  if (lib_is_version_400 (game))
+  if (lib_is_version_400 (game)
+      && obj_is_surface (game, associate) && !obj_is_container (game, associate))
     lib_print_response_object (game,
                                "You can't take anything from ",
                                "I can't take anything from ",
                                "%player% can't take anything from ",
                                associate, ".");
+  else if (lib_is_version_400 (game))
+    pf_buffer_string (filter, "Take what?");
   else
     pf_buffer_string (filter, lib_take_from_verb (game));
 }

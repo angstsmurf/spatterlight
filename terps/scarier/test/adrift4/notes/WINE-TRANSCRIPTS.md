@@ -4024,6 +4024,12 @@ transcript names are in the code comment next to the named function, in
 - **Darkness** is the condition AND HideObjects, and it gates the seen
   flag. A dark examine answers "can't see X very clearly." `[<4.0]` p39DARK
   (9aff3fda9)
+- **A HideObjects alt gates the seen flag in 4.0 too**, though run400 has
+  no darkness byte: in the dark cave unseen objects are "You see no such
+  thing." and `take stone` is "Take what?"; after one lit visit they can be
+  taken in the dark and `x stone` gives the plain description. `[4.0]`
+  p4DARK, dark.run400.{unseen,seen}.txt (lib_print_room_description,
+  2026-11-04)
 - **Absent-object refusals:**
   - co() matches anywhere; the handlers refuse with Prefix + Short, and in
     takes() the last match speaks. `[<3.9]` p37EXAM/p38EXAM (b526c013b)
@@ -4209,6 +4215,10 @@ transcript names are in the code comment next to the named function, in
   p3xTKB/p4TKB (lib_take_from_and_390, lib_take_from_and_400,
   lib_take_from_slot_pre390, lib_take_from_nowhere_named_390,
   lib_take_from_trailing)
+- **Take-from with unseen contents** splits like an empty match in 4.0: a
+  surface that is no container is "You can't take anything from X.", a
+  container "Take what?". `[4.0]` iachini, p4DARK dark.run400.seen.txt
+  (lib_take_from_unseen_refusal, 2026-11-04)
 - **3.7's take-from catch-all** runs two passes over the co-named objects:
   one present (a static in the room; a dynamic held, worn, loose here or
   in/on a held parent) and seen, in index order, is "I don't understand
