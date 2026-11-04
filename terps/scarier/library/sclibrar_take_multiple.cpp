@@ -1913,6 +1913,54 @@ lib_take_multi_get_off_line (void)
 
 
 /*
+ * `take off <...>` and `take <...> off` reach the generic take row before the
+ * remove rows, so `take off all` picked up the whole room, `take off A and B`
+ * said "I am already wearing my sleepshirt! I pick up my sweatshirt.", and
+ * `take sweatshirt off` refused with "already wearing" (AkarisStory.taf, 3.9).
+ * Deliberate deviation (no Runner probe covers these forms): leave the line
+ * to the remove rows when it is a list or `all`, or when it names something
+ * the player is wearing.  The measured single-noun cells keep their answers:
+ * `take off hat` with the hat worn already reaches the remove rows, and with
+ * it held but not worn still says "You've already got the hat!"
+ * (lib_take_held_namesake_preempt_pre400()).
+ */
+static scr_bool
+lib_take_multi_take_off_line (scr_gameref_t game)
+{
+  const scr_char *line = run_get_dispatch_input ();
+  const scr_char *rest;
+  scr_int object;
+  size_t length;
+
+  if (!line || scr_strncasecmp (line, "take ", 5) != 0)
+    return FALSE;
+  rest = line + 5 + strspn (line + 5, " ");
+  length = strlen (line);
+  while (length > 0 && line[length - 1] == ' ')
+    length--;
+  if (!(scr_strncasecmp (rest, "off ", 4) == 0
+        || (length >= 4 && scr_strncasecmp (line + length - 4, " off", 4) == 0
+            && line + length - 4 > rest)))
+    return FALSE;
+
+  if (strchr (rest, ',') || lib_input_contains_word (rest, "and")
+      || lib_input_contains_word (rest, "all")
+      || lib_input_contains_word (rest, "everything"))
+    return TRUE;
+
+  GS_FOR_EACH_OBJECT (game, object)
+    {
+      const scr_char *term;
+
+      if (gs_object_position (game, object) == OBJ_WORN_PLAYER
+          && lib_take_absent_score (game, object, rest, &term) > 0)
+        return TRUE;
+    }
+  return FALSE;
+}
+
+
+/*
  * A take line holding "from" that the take-from rows above declined --
  * the container clause named nothing, or two things, or nothing at all --
  * is still a take-from to every Runner (see lib_take_from_and() and
@@ -2196,6 +2244,10 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
   if (!is_except && lib_take_multi_get_off_line ()
       && (lib_player_parent_here (game) != -1
           || !lib_get_off_may_take (game)))
+    return FALSE;
+
+  /* `take off all` and friends undress; see lib_take_multi_take_off_line(). */
+  if (!is_except && lib_take_multi_take_off_line (game))
     return FALSE;
 
   if (!is_except)

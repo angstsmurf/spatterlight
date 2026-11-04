@@ -1603,6 +1603,30 @@ case, and their goldens are re-blessed. The row notes in
   object and are left alone.
   ```
 
+- **`take off` lists and `all` undress (2026-11-04).** No Runner probe
+  covers a take-off list. In 3.9 the two-verb rewrite read the "take" of
+  `take off all` as the take handler, so AkarisStory.taf (3.9) emptied the
+  floor into the inventory. Now `take off <list|all|everything>` is respelled
+  `remove ...` when remove is its only other handler word
+  (`lib_two_verb_line_pre400`), and the take rows step aside for
+  `take off <...>` / `take <...> off` when it is a list or all, or names a worn
+  object (`lib_take_multi_take_off_line`). The measured single-noun cells
+  stay: `take off hat` with the hat held, not worn, still answers "You've
+  already got the hat!" (library/sclibrar_drop.cpp,
+  library/sclibrar_take_multiple.cpp)
+- **4.0 comma noun lists (2026-11-04).** The library's list parser only
+  knows "and", so `take lamp, keys`, `get all but keys, lamp` and `drop
+  keys, lamp, and food` (advent350b.taf) failed or took only the excluded
+  item. For a 4.0 line that starts with a get/take/pick/drop/put/leave/wear/
+  remove/x/examine verb, the library-side copy of the line has each comma
+  respelled " and " (an Oxford ", and" counts once)
+  (`run_comma_list_respell_400`); task passes still see the typed line.
+  The 4.0 splitter also no longer cuts at a comma or " and " when the next
+  word names an object only once its trailing comma is stripped, or after
+  ", and" (`run_split_list_word_names_object`). `x lamp, keys` still says
+  "You can't see that.", as `x lamp and keys` does at the Runner.
+  (runner/scrun_dispatch.cpp, runner/scrun_split.cpp)
+
 ## Rules measured and ported (index)
 
 One entry per rule: the rule, the game or probe that found it, and the

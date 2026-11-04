@@ -2245,6 +2245,27 @@ lib_two_verb_line_pre400 (scr_gameref_t game, const scr_char *line,
    */
   if (c_word ("all") || c_word ("and"))
     {
+      /*
+       * Deliberate deviation: the "take" of a leading `take off` is that
+       * verb's own word and no second verb, so `take off all` and `take off
+       * sleepshirt and sweatshirt` undress instead of picking the room up
+       * (AkarisStory.taf).  No Runner probe covers a take-off list; the
+       * Runner's c("take") would enter takes().  Any other handler word in
+       * the line keeps the measured order above.
+       */
+      if (scr_strncasecmp (line, "take off ", 9) == 0)
+        {
+          const std::string respelled = std::string ("remove ") + (line + 9);
+          scr_bool alone[LIB_PRE400_HANDLERS];
+
+          if (lib_pre400_handler_words (game, respelled.c_str (), alone) == 1
+              && alone[LIB_PRE400_REMOVE])
+            {
+              handler = LIB_PRE400_REMOVE;
+              found = -1;
+              return rewrite ();
+            }
+        }
       if (present[LIB_PRE400_TAKE] == present[LIB_PRE400_DROP])
         return FALSE;
       handler = present[LIB_PRE400_TAKE] ? LIB_PRE400_TAKE : LIB_PRE400_DROP;

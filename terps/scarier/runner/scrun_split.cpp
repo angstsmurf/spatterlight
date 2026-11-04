@@ -303,6 +303,44 @@ run_split_word_names_object (scr_gameref_t game, const scr_char *word)
 }
 
 /*
+ * The deviation half of the suppression test; see run_find_split_400().
+ * WORD is the tail's first word as the Runner reads it, TAIL where it
+ * starts and END where the current head ends.
+ */
+static scr_bool
+run_split_list_word_names_object (scr_gameref_t game, const scr_char *word,
+                                  const scr_char *tail, const scr_char *end,
+                                  scr_bool after_comma)
+{
+  const size_t length = strlen (word);
+
+  if (length > 1 && word[length - 1] == ',')
+    {
+      const std::string bare (word, length - 1);
+
+      if (run_split_word_names_object (game, bare.c_str ()))
+        return TRUE;
+    }
+  if (after_comma && strcmp (word, "and") == 0)
+    {
+      const scr_char *next = tail + length;
+      size_t extent;
+
+      next += strspn (next, " ");
+      extent = next < end ? strcspn (next, " ,") : 0;
+      if (next + extent > end)
+        extent = end - next;
+      if (extent > 0)
+        {
+          const std::string after (next, extent);
+
+          return run_split_word_names_object (game, after.c_str ());
+        }
+    }
+  return FALSE;
+}
+
+/*
  * Return the offset of the effective cut in LINE, with *SEP_LENGTH the
  * length of the separator there, or -1 when the line holds no cut.  The
  * four kinds are tried in the Runner's PASS order, not by position:
@@ -367,6 +405,19 @@ run_find_split_400 (scr_gameref_t game, const scr_char *line,
           word[extent] = NUL;
 
           if (run_split_word_names_object (game, word))
+            continue;
+          /*
+           * Deliberate deviation: the Runner's word keeps its punctuation,
+           * so "lamp," names nothing and `get keys and lamp, food` was cut
+           * into "get keys" and "lamp, food"; and an Oxford "and" after a
+           * comma (`drop keys, lamp, and food`) is no object either.  Ask
+           * again with the trailing comma off, and of the word after a
+           * comma's "and".  The library reads the comma list as "and"; see
+           * run_comma_list_respell_400().
+           */
+          if (run_split_list_word_names_object (game, word, tail,
+                                                line + limit,
+                                                separator[0] == ','))
             continue;
 
           best = posn;

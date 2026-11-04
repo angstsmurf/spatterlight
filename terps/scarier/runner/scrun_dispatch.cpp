@@ -327,7 +327,73 @@ private:
   scr_int priority_goto = RUN_GOTO_NONE;
   /* Whether the library cascade got the line at all; see battle_pass(). */
   scr_bool reached_library = FALSE;
+  /*
+   * The line the 4.0 library rows read: the typed line, or its comma list
+   * spelled with "and"; see run_comma_list_respell_400().
+   */
+  std::string comma_list;
+  const scr_char *lib_line = string;
 };
+
+/*
+ * run_comma_list_respell_400()
+ *
+ * Deliberate deviation.  run400's splitter keeps a comma whose next word
+ * names an object, but its list handlers test only for "and", so `take
+ * lamp, keys` asked "It is not clear which lamp you are referring to.",
+ * `get all but keys, lamp` took only the lamp and `x lamp, keys` was "You
+ * can't see that." (advent350b.taf; the split itself is measured on p4AND,
+ * runner_probes/and.run400.txt).  A line that opens with a list verb is
+ * respelled for the library rows with each surviving comma as " and ";
+ * the tasks still match the line as typed.  Any comma the splitter left
+ * stands before an object word, so the respelling only ever joins names.
+ * A line addressed to a character (`creature, take tube`) opens with no
+ * list verb and is left alone.
+ *
+ * TRUE, with RESPELLED set, when LINE is respelled.
+ */
+static scr_bool
+run_comma_list_respell_400 (scr_gameref_t game, const scr_char *line,
+                            std::string &respelled)
+{
+  static const scr_char *const LIST_VERBS[] = {
+    "get", "take", "pick", "drop", "put", "leave", "wear", "remove", "x",
+    "ex", "exam", "examine", nullptr
+  };
+  const scr_char *const *verb;
+  const scr_char *scan;
+
+  if (run_get_version (gs_get_bundle (game)) < TAF_VERSION_400
+      || !line || !strchr (line, ','))
+    return FALSE;
+  for (verb = LIST_VERBS; *verb; verb++)
+    {
+      const size_t length = strlen (*verb);
+
+      if (scr_strncasecmp (line, *verb, length) == 0 && line[length] == ' ')
+        break;
+    }
+  if (!*verb)
+    return FALSE;
+
+  respelled.clear ();
+  for (scan = line; *scan != NUL; scan++)
+    {
+      if (*scan != ',')
+        {
+          respelled.push_back (*scan);
+          continue;
+        }
+      while (!respelled.empty () && respelled[respelled.size () - 1] == ' ')
+        respelled.erase (respelled.size () - 1);
+      scan += strspn (scan + 1, " ");
+      /* `a, b, and c`: the comma before "and" is no second "and". */
+      if (scr_strncasecmp (scan + 1, "and ", 4) == 0)
+        scan += 4;
+      respelled += " and ";
+    }
+  return TRUE;
+}
 
 /*
  * silent_read_line()
@@ -357,6 +423,11 @@ void
 run_line_t::reset ()
 {
   run_dispatch_input = string;
+  if (run_comma_list_respell_400 (game, string, comma_list))
+    {
+      lib_line = comma_list.c_str ();
+      put_line = outer_line = priority_line = lib_line;
+    }
 #ifdef SCARIER_DUMP_TOOLS
   run_trace_last_input = string;
   scr_trace_deviation_line ();
@@ -529,7 +600,7 @@ run_line_t::put_prepass ()
       put_line = put_hoisted.c_str ();
     }
   else if (run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
-           && run_hoist_verb_line (game, string, put_hoisted))
+           && run_hoist_verb_line (game, lib_line, put_hoisted))
     put_line = put_hoisted.c_str ();
   /*
    * put_drop_list's own clause loop, carved before anything else looks at
@@ -560,7 +631,7 @@ run_line_t::put_prepass ()
 void
 run_line_t::put_pass ()
 {
-  if (!repeat_pending && run_put_take_400 (game, string))
+  if (!repeat_pending && run_put_take_400 (game, lib_line))
     {
       status = TRUE;
       put_first = FALSE;
@@ -1021,9 +1092,9 @@ run_line_t::priority_pass ()
    * A 4.0 list line with a second verb is put_drop_list's or get_outer's
    * own list; see run_two_verb_line_400().
    */
-  else if ((run_c_word_pre400 (TAF_VERSION_400, string, "all") >= 0
-            || run_c_word_pre400 (TAF_VERSION_400, string, "and") >= 0)
-           && run_two_verb_line_400 (game, string, priority_hoisted))
+  else if ((run_c_word_pre400 (TAF_VERSION_400, lib_line, "all") >= 0
+            || run_c_word_pre400 (TAF_VERSION_400, lib_line, "and") >= 0)
+           && run_two_verb_line_400 (game, lib_line, priority_hoisted))
     priority_line = priority_hoisted.c_str ();
 
   if (!status && !put_first && !inv_listed && !repeat_pending
@@ -1231,10 +1302,10 @@ run_line_t::library ()
    * done up at the top of this routine now, because characters() runs
    * on every line; see uip_note_named_npcs().
    */
-  scr_owned_string rewritten (uip_rewrite_references (game, string,
+  scr_owned_string rewritten (uip_rewrite_references (game, lib_line,
                                                      prior_npc, ask_echo));
   const scr_char *library_string =
-      rewritten ? rewritten.get () : string;
+      rewritten ? rewritten.get () : lib_line;
   std::string sitstand_rest, openclose_rest;
   run_dispatch_input = library_string;
   /*
