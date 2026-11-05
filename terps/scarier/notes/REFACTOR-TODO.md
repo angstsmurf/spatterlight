@@ -207,6 +207,10 @@ Do **not** change statement order inside the dispatch cascade.
   The new ADRIFT 5 code and recent v4 additions mix both. Pick one rule
   (v4 and library keep `scr_bool`, `adrift5/` uses `bool`) and write it in
   `GLOSSARY.md`; do not mass-convert.
+  *Done 2026-11-05:* the split already held (`core/` 1 `bool`, a functor;
+  `library/` 0; `adrift5/` 0 `scr_bool`; `glk/`'s 20 `bool`s are the
+  autosave container and one sort comparator). The rule is in
+  `GLOSSARY.md` under "Comment style"; nothing was converted.
 - **C-style casts.** About 85 `(char *)`/`(scr_char *)` casts and 3
   `const_cast`s. Replace with `reinterpret_cast`/`static_cast`, or fix the
   signature, where the cast papers over `const`. Check `core/scutils.cpp` first.

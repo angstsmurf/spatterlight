@@ -110,6 +110,15 @@ cite.
 - `glk/` predates the ` * ` prefix in many blocks, and many library and runner
   function headers do not start with the name. Bring those into line when
   touching them, not in a sweep.
+- Truth values: `core/`, `library/`, `runner/`, `tools/` and `glk/` use
+  `scr_bool` with `TRUE`/`FALSE`, the SCARE convention that `scarier.h`
+  exports. `adrift5/` uses `bool` with `true`/`false`. Plain `bool` is
+  also right elsewhere when C++ or a neighbouring API requires it: a functor
+  or comparator (`uip_cstring_equal`, `gsc_style_rank_before`), or code
+  that passes `std::string` around, like the autosave container in
+  `glk/os_glk_autosave.cpp`, which matches `platform/scarier-autosave.h`.
+  Measured 2026-11-05, this already holds everywhere outside `test/`. Follow
+  the file you are in, and do not convert one form to the other in a sweep.
 - Files that came from SCARE, and Scarier's own C++ files, start with the
   modeline `/* vi: set ts=2 shiftwidth=2 expandtab:`.
 - `platform/scarier-autosave.{h,mm}` and `common_utils/sc_garglk.{c,h}`
