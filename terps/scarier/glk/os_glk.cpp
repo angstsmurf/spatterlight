@@ -75,15 +75,8 @@ char gsc_gamefile[1024];
 /*  Module variables, miscellaneous other stuff                        */
 /*---------------------------------------------------------------------*/
 
-/* Two windows, one for the main text, and one for a status line. */
-winid_t gsc_main_window = nullptr;
-winid_t gsc_status_window = nullptr;
-
-/* Whether nothing has been printed to the main window since it was last
-   cleared.  A window that is still empty can be cleared again for free, which
-   is the one moment a background colour change can repaint the pane without
-   costing the player any text; see SCR_TAG_BGCOLOUR. */
-int gsc_main_window_empty = TRUE;
+/* The story windows and the log streams; see os_glk_internal.h. */
+gsc_io_t gsc_io;
 
 /* ADRIFT <=4, set while a relaunch runs a turn (or the opening) again to get
    back to the <waitkey> pause the game was closed at: the text, pictures and
@@ -94,16 +87,6 @@ int gsc_main_window_empty = TRUE;
 int gsc_sc_silent = FALSE;
 int gsc_sc_waitkey_count = 0;
 int gsc_sc_waitkey_skip = 0;
-
-/*
- * Transcript stream and input log.  These are NULL if there is no current
- * collection of these strings.
- */
-strid_t gsc_transcript_stream = nullptr;
-strid_t gsc_inputlog_stream = nullptr;
-
-/* Input read log stream, for reading back an input log. */
-strid_t gsc_readlog_stream = nullptr;
 
 /* Options that may be turned off or set by command line flags. */
 int gsc_commands_enabled = TRUE;
@@ -169,9 +152,9 @@ gsc_normal_measure (glui32 *fg, glui32 *bg)
     {
       glui32 mfg, mbg;
 
-      if (glk_style_measure (gsc_main_window, style_Normal,
+      if (glk_style_measure (gsc_io.main_window, style_Normal,
                              stylehint_TextColor, &mfg)
-          && glk_style_measure (gsc_main_window, style_Normal,
+          && glk_style_measure (gsc_io.main_window, style_Normal,
                                 stylehint_BackColor, &mbg))
         {
           gsc_normal_measured_fg = mfg;
@@ -216,7 +199,7 @@ gsc_colour_visible (void)
 
   if (!gsc_colour_enabled)
     return FALSE;
-  if (gsc_main_window == nullptr)
+  if (gsc_io.main_window == nullptr)
     return TRUE;
 
   /* A library that cannot measure leaves no way to tell; believe the
@@ -298,9 +281,10 @@ winid_t gsc_a5_side_window = nullptr;
 void
 gsc_put_literal (const char *string)
 {
-  if (gsc_main_window
-      && glk_stream_get_current () == glk_window_get_stream (gsc_main_window))
-    gsc_main_window_empty = FALSE;
+  if (gsc_io.main_window
+      && glk_stream_get_current ()
+         == glk_window_get_stream (gsc_io.main_window))
+    gsc_io.main_window_empty = FALSE;
   glk_put_string (const_cast<char *> (string));
 }
 
@@ -318,7 +302,7 @@ gsc_fatal (const char *string)
    * If the failure happens too early for us to have a window, print
    * the message to stderr.
    */
-  if (!gsc_main_window)
+  if (!gsc_io.main_window)
     {
       fprintf (stderr, "\n\nINTERNAL ERROR: %s\n", string);
 
@@ -329,11 +313,11 @@ gsc_fatal (const char *string)
     }
 
   /* Cancel all possible pending window input events. */
-  glk_cancel_line_event (gsc_main_window, nullptr);
-  glk_cancel_char_event (gsc_main_window);
+  glk_cancel_line_event (gsc_io.main_window, nullptr);
+  glk_cancel_char_event (gsc_io.main_window);
 
   /* Print a message indicating the error, and exit. */
-  glk_set_window (gsc_main_window);
+  glk_set_window (gsc_io.main_window);
   glk_set_style (style_Normal);
   gsc_put_literal ("\n\nINTERNAL ERROR: ");
   gsc_put_literal (string);
@@ -460,21 +444,21 @@ gsc_hint_window_styles (void)
 void
 gsc_open_main_window (void)
 {
-  gsc_main_window = glk_window_open (0, 0, 0, wintype_TextBuffer, 0);
-  if (!gsc_main_window)
+  gsc_io.main_window = glk_window_open (0, 0, 0, wintype_TextBuffer, 0);
+  if (!gsc_io.main_window)
     {
       gsc_fatal ("GLK: Can't open main window");
       glk_exit ();
     }
-  glk_window_clear (gsc_main_window);
-  glk_set_window (gsc_main_window);
+  glk_window_clear (gsc_io.main_window);
+  glk_set_window (gsc_io.main_window);
   glk_set_style (style_Normal);
 }
 
 void
 gsc_open_status_window (void)
 {
-  gsc_status_window = glk_window_open (gsc_main_window,
+  gsc_io.status_window = glk_window_open (gsc_io.main_window,
                                        winmethod_Above | winmethod_Fixed,
                                        1, wintype_TextGrid, 0);
 }
@@ -1424,7 +1408,7 @@ gsc_main_autorestore (void)
       /* Closed at a pause in the opening: there is no state to have
          loaded, and the game starts over without showing anything until
          it is back there. */
-      glk_set_window (gsc_main_window);
+      glk_set_window (gsc_io.main_window);
       glk_set_style (style_Normal);
       gsc_sc_silent = TRUE;
       return;
@@ -1443,7 +1427,7 @@ gsc_main_autorestore (void)
   gsc_close_title_graphic ();
   gsc_seen_input = TRUE;
 #endif
-  glk_set_window (gsc_main_window);
+  glk_set_window (gsc_io.main_window);
   glk_set_style (style_Normal);
   gsc_autorestored = TRUE;
 }
@@ -1464,10 +1448,10 @@ gsc_main_game_over (void)
    * selection that comes next, and the rest of the log must not then be read
    * as game input.
    */
-  if (gsc_readlog_stream)
+  if (gsc_io.readlog_stream)
     {
-      glk_stream_close (gsc_readlog_stream, nullptr);
-      gsc_readlog_stream = nullptr;
+      glk_stream_close (gsc_io.readlog_stream, nullptr);
+      gsc_io.readlog_stream = nullptr;
     }
 
   /*
@@ -1522,20 +1506,20 @@ gsc_main_shutdown (void)
   gsc_map_screen_drop ();
   scr_free_game (gsc_game);
 
-  if (gsc_transcript_stream)
+  if (gsc_io.transcript_stream)
     {
-      glk_stream_close (gsc_transcript_stream, nullptr);
-      gsc_transcript_stream = nullptr;
+      glk_stream_close (gsc_io.transcript_stream, nullptr);
+      gsc_io.transcript_stream = nullptr;
     }
-  if (gsc_inputlog_stream)
+  if (gsc_io.inputlog_stream)
     {
-      glk_stream_close (gsc_inputlog_stream, nullptr);
-      gsc_inputlog_stream = nullptr;
+      glk_stream_close (gsc_io.inputlog_stream, nullptr);
+      gsc_io.inputlog_stream = nullptr;
     }
-  if (gsc_readlog_stream)
+  if (gsc_io.readlog_stream)
     {
-      glk_stream_close (gsc_readlog_stream, nullptr);
-      gsc_readlog_stream = nullptr;
+      glk_stream_close (gsc_io.readlog_stream, nullptr);
+      gsc_io.readlog_stream = nullptr;
     }
 }
 

@@ -375,11 +375,12 @@ gsc_put_char_locale (scr_char ch,
    * rendering also routes through here, and must not clobber the flag that
    * os_show_graphic() relies on to decide whether to emit a leading break.
    */
-  if (gsc_main_window
-      && glk_stream_get_current () == glk_window_get_stream (gsc_main_window))
+  if (gsc_io.main_window
+      && glk_stream_get_current ()
+         == glk_window_get_stream (gsc_io.main_window))
     {
       gsc_main_at_line_start = (ch == '\n');
-      gsc_main_window_empty = FALSE;
+      gsc_io.main_window_empty = FALSE;
     }
   unsigned char character;
   glui32 unicode;
@@ -576,7 +577,7 @@ gsc_read_line_locale (scr_char *buffer,
 #ifdef GLK_MODULE_LINE_ECHO
   if (glk_gestalt (gestalt_LineInputEcho, 0))
     {
-      glk_set_echo_line_event (gsc_main_window, 0);
+      glk_set_echo_line_event (gsc_io.main_window, 0);
       gsc_line_echo_manual = TRUE;
     }
 #endif
@@ -600,7 +601,7 @@ gsc_read_line_locale (scr_char *buffer,
        */
       unicode = (decltype(unicode)) gsc_malloc (length * sizeof (*unicode));
       memset (unicode, 0, length * sizeof (*unicode));
-      glk_request_line_event_uni (gsc_main_window, unicode, length, 0);
+      glk_request_line_event_uni (gsc_io.main_window, unicode, length, 0);
       gsc_event_wait (evtype_LineInput, &event);
 
       /* A click on the map took the request: there is no line. */
@@ -627,7 +628,7 @@ gsc_read_line_locale (scr_char *buffer,
     }
 
   /* No success with unicode, so fall back to standard line input. */
-  glk_request_line_event (gsc_main_window, buffer, length, 0);
+  glk_request_line_event (gsc_io.main_window, buffer, length, 0);
   gsc_event_wait (evtype_LineInput, &event);
 
   if (gsc_sc_walk_clicked)

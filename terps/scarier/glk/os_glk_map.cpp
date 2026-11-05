@@ -201,7 +201,7 @@ gsc_map_click (event_t *event)
           gsc_sc_walk_clicked = TRUE;
         }
       gsc_map_step_dir = step;
-      glk_cancel_line_event (gsc_main_window, event);
+      glk_cancel_line_event (gsc_io.main_window, event);
       return TRUE;
     }
 
@@ -949,7 +949,7 @@ gsc_map_show (void)
                                          | winmethod_Proportional,
                                          30, wintype_Graphics, 0);
   else
-    gsc_map_pane.window = glk_window_open (gsc_main_window,
+    gsc_map_pane.window = glk_window_open (gsc_io.main_window,
                                          winmethod_Right
                                          | winmethod_Proportional,
                                          40, wintype_Graphics, 0);
@@ -973,7 +973,7 @@ gsc_map_show (void)
   if (!gsc_is_a5 && gsc_map_pane.map == nullptr && scmap_failed () != 0)
     gsc_normal_string ("Sorry, this game's map is too complex to draw.\n");
 
-  glk_set_window (gsc_main_window);
+  glk_set_window (gsc_io.main_window);
 }
 
 /*

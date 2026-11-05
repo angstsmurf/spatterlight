@@ -123,21 +123,21 @@ gsc_expand_abbreviations (char *buffer, int size)
  * Take the next line of an input log being read back ("glk readlog on") into
  * buffer, and return its length, newline included.  At the end of the log,
  * close the stream and return 0, so that the caller falls through to a normal
- * line request.  Only for use while gsc_readlog_stream is open.
+ * line request.  Only for use while gsc_io.readlog_stream is open.
  */
 glui32
 gsc_readlog_line (char *buffer, glui32 length)
 {
   glui32 chars;
-  assert (gsc_readlog_stream);
+  assert (gsc_io.readlog_stream);
 
   memset (buffer, 0, length);
-  chars = glk_get_line_stream (gsc_readlog_stream, buffer, length);
+  chars = glk_get_line_stream (gsc_io.readlog_stream, buffer, length);
   if (chars > 0)
     return chars;
 
-  glk_stream_close (gsc_readlog_stream, nullptr);
-  gsc_readlog_stream = nullptr;
+  glk_stream_close (gsc_io.readlog_stream, nullptr);
+  gsc_io.readlog_stream = nullptr;
   return 0;
 }
 
@@ -262,7 +262,7 @@ gsc_take_supplied_line (scr_char *buffer, scr_int length)
    * If we have an input log to read from, use that until it is exhausted.
    * On end of file, the stream is closed and input resumes from line requests.
    */
-  if (gsc_readlog_stream)
+  if (gsc_io.readlog_stream)
     {
       if (gsc_readlog_line (buffer, (glui32) length) > 0)
         {
@@ -423,10 +423,10 @@ gsc_read_command (scr_char *buffer, scr_int length)
    * by logging here we get any abbreviation expansions but we won't log glk
    * special commands, nor any input read from a current open input log.
    */
-  if (gsc_inputlog_stream)
+  if (gsc_io.inputlog_stream)
     {
-      glk_put_string_stream (gsc_inputlog_stream, buffer);
-      glk_put_char_stream (gsc_inputlog_stream, '\n');
+      glk_put_string_stream (gsc_io.inputlog_stream, buffer);
+      glk_put_char_stream (gsc_io.inputlog_stream, '\n');
     }
 
   return TRUE;
@@ -482,7 +482,7 @@ gsc_get_choice_key (const char *choices)
 #endif
       do
         {
-          glk_request_char_event (gsc_main_window);
+          glk_request_char_event (gsc_io.main_window);
           gsc_event_wait (evtype_CharInput, &event);
         }
       while (event.val1 > UCHAR_MAX);
@@ -509,7 +509,7 @@ os_confirm (scr_int type)
    * input log, allow everything no matter what, on the assumption that the
    * user knows what they are doing.
    */
-  if (gsc_readlog_stream
+  if (gsc_io.readlog_stream
       || type == SCR_CONF_SAVE || type == SCR_CONF_VIEW_HINTS)
     return TRUE;
 

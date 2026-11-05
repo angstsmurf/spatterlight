@@ -493,7 +493,7 @@ gsc_colour_apply (winid_t win, glui32 fg)
     return;
   if (fg == GSC_COLOUR_NONE)
     fg = gsc_colour_output;
-  if (win == gsc_main_window)
+  if (win == gsc_io.main_window)
     gsc_colour_main_fg = fg;
   garglk_set_zcolors_stream (glk_window_get_stream (win),
                              fg, gsc_colour_background);
@@ -514,7 +514,7 @@ gsc_colour_apply (winid_t win, glui32 fg)
 void
 gsc_colour_echo (scr_bool typing)
 {
-  gsc_colour_apply (gsc_main_window,
+  gsc_colour_apply (gsc_io.main_window,
                     typing ? gsc_colour_input : GSC_COLOUR_NONE);
 }
 
@@ -606,7 +606,7 @@ gsc_set_glk_style (void)
    * Glk style is still set below, so bold and centering keep working; only
    * the ink changes.
    */
-  gsc_colour_apply (gsc_main_window,
+  gsc_colour_apply (gsc_io.main_window,
                     font.colour != GSC_COLOUR_NONE ? font.colour
                     : gsc_attribute_secondary_colour > 0 ? gsc_colour_input
                     : GSC_COLOUR_NONE);
@@ -853,7 +853,7 @@ gsc_handle_wait_tag (const scr_char *argument)
           scr_bool is_completed;
 
           /* Request timer events, and let a keypress cancel the wait. */
-          glk_request_char_event (gsc_main_window);
+          glk_request_char_event (gsc_io.main_window);
           glk_request_timer_events (timeout);
 
           /* Loop until delay completed or canceled by a keypress. */
@@ -873,13 +873,13 @@ gsc_handle_wait_tag (const scr_char *argument)
                       break;
                     }
                   else
-                    glk_request_char_event (gsc_main_window);
+                    glk_request_char_event (gsc_io.main_window);
                 }
              }
 
           /* Cancel any pending character input, and stop timers. */
           if (is_completed)
-            glk_cancel_char_event (gsc_main_window);
+            glk_cancel_char_event (gsc_io.main_window);
           glk_request_timer_events (0);
         }
     }
@@ -934,7 +934,7 @@ scr_bool gsc_graphic_drawn_since_input = FALSE;
 void
 gsc_draw_inline_graphic (glui32 id)
 {
-  strid_t stream = glk_window_get_stream (gsc_main_window);
+  strid_t stream = glk_window_get_stream (gsc_io.main_window);
 
   /* On the way back to a pause the picture is on screen already; only note
      it, for the clear that may yet come. */
@@ -942,7 +942,7 @@ gsc_draw_inline_graphic (glui32 id)
     {
       if (!gsc_main_at_line_start)
         glk_put_char_stream (stream, '\n');
-      glk_image_draw (gsc_main_window, id, imagealign_InlineDown, 0);
+      glk_image_draw (gsc_io.main_window, id, imagealign_InlineDown, 0);
       glk_put_char_stream (stream, '\n');
     }
   gsc_main_at_line_start = TRUE;
@@ -968,9 +968,9 @@ gsc_handle_cls_tag (void)
 {
   /* Clear the main text display window. */
   if (!gsc_sc_silent)
-    glk_window_clear (gsc_main_window);
+    glk_window_clear (gsc_io.main_window);
   gsc_main_at_line_start = TRUE;
-  gsc_main_window_empty = TRUE;
+  gsc_io.main_window_empty = TRUE;
 #if defined(GLK_MODULE_GARGLK_FILE_RESOURCES) || defined(SPATTERLIGHT)
   /*
    * If a graphic was drawn earlier this turn (no player input since), the
@@ -1053,8 +1053,8 @@ gsc_handle_bgcolour_tag (const scr_char *argument)
   gsc_set_glk_style ();
 
   if (changed && gsc_colour_enabled && !gsc_sc_silent
-      && gsc_main_window_empty && gsc_main_window)
-    glk_window_clear (gsc_main_window);
+      && gsc_io.main_window_empty && gsc_io.main_window)
+    glk_window_clear (gsc_io.main_window);
 }
 
 static void
@@ -1066,7 +1066,7 @@ gsc_handle_waitkey_tag (void)
    * If reading an input log, ignore; it disrupts replay.  Write a newline
    * to separate off any unterminated game output instead.
    */
-  if (!gsc_readlog_stream)
+  if (!gsc_io.readlog_stream)
     {
       strid_t stream;
 #ifdef SPATTERLIGHT
@@ -1087,7 +1087,7 @@ gsc_handle_waitkey_tag (void)
 #endif
 
       /* Update the status line now only if it has its own window. */
-      if (gsc_status_window)
+      if (gsc_io.status_window)
         gsc_status_notify ();
 
       /* The turn that led here has already moved the player and marked
@@ -1106,7 +1106,7 @@ gsc_handle_waitkey_tag (void)
 #endif
 
       /* Request a character event, and wait for it to be filled. */
-      glk_request_char_event (gsc_main_window);
+      glk_request_char_event (gsc_io.main_window);
       gsc_event_wait (evtype_CharInput, &event);
     }
   else
@@ -1178,7 +1178,7 @@ os_print_tag (scr_int tag, const scr_char *argument)
        */
       if (gsc_sc_silent)
         break;
-      if (gsc_status_window)
+      if (gsc_io.status_window)
         gsc_status_notify ();
       gsc_handle_wait_tag (argument);
       break;
@@ -1211,7 +1211,7 @@ os_print_string (const scr_char *string)
       if (string[0] != '\0')
         {
           gsc_main_at_line_start = (string[strlen (string) - 1] == '\n');
-          gsc_main_window_empty = FALSE;
+          gsc_io.main_window_empty = FALSE;
         }
       return;
     }
@@ -1229,10 +1229,12 @@ os_print_string (const scr_char *string)
    * Nevertheless, check anyway.
    */
   if (gsc_font_top ().symbol_font != GSC_SYMBOL_NONE
-      && glk_stream_get_current () == glk_window_get_stream (gsc_main_window))
+      && glk_stream_get_current ()
+         == glk_window_get_stream (gsc_io.main_window))
     gsc_put_string_symbol (string, gsc_font_top ().symbol_font);
   else if (gsc_font_top ().is_monospaced
-      && glk_stream_get_current () == glk_window_get_stream (gsc_main_window))
+      && glk_stream_get_current ()
+         == glk_window_get_stream (gsc_io.main_window))
     gsc_put_string_alternate (string);
   else
     gsc_put_string (string);
@@ -1354,10 +1356,10 @@ gsc_report_fatal (scr_bool stopping)
       exit (EXIT_FAILURE);
     }
 #else
-  if (!gsc_main_window)
+  if (!gsc_io.main_window)
     return TRUE;
 
-  glk_set_window (gsc_main_window);
+  glk_set_window (gsc_io.main_window);
   gsc_normal_string (gsc_main_at_line_start ? "\n" : "\n\n");
   gsc_header_string ("Scarier internal error");
   gsc_normal_string (": ");

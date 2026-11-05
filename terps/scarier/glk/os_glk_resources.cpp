@@ -316,7 +316,7 @@ gsc_title_screen_wait (void)
 
   /* Take the key on the title itself where the library allows it; otherwise
      the hidden main window still receives keys, so ask there. */
-  key_window = gsc_main_window;
+  key_window = gsc_io.main_window;
 #ifdef gestalt_GraphicsCharInput
   if (glk_gestalt (gestalt_GraphicsCharInput, 0))
     key_window = gsc_graphics_window;
@@ -411,7 +411,7 @@ os_show_graphic (const scr_char *filepath, scr_int offset, scr_int length)
 {
   glui32 id;
 
-  if (gsc_main_window == nullptr)
+  if (gsc_io.main_window == nullptr)
     return;
 
   id = gsc_load_resource (filepath, offset, length, FALSE);

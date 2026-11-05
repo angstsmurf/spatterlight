@@ -444,14 +444,15 @@ gsc_stash_frontend_state (ScarierGlkFrontendState *st)
 {
   int ch;
 
-  st->mainwintag = gsc_main_window ? gsc_main_window->tag : 0;
-  st->statuswintag = gsc_status_window ? gsc_status_window->tag : 0;
+  st->mainwintag = gsc_io.main_window ? gsc_io.main_window->tag : 0;
+  st->statuswintag = gsc_io.status_window ? gsc_io.status_window->tag : 0;
   st->sidewintag = gsc_a5_side_window ? gsc_a5_side_window->tag : 0;
   st->mapwintag = gsc_map_pane.window ? gsc_map_pane.window->tag : 0;
   st->gfxwintag = gsc_graphics_window ? gsc_graphics_window->tag : 0;
-  st->transcripttag = gsc_transcript_stream ? gsc_transcript_stream->tag : 0;
-  st->inputlogtag = gsc_inputlog_stream ? gsc_inputlog_stream->tag : 0;
-  st->readlogtag = gsc_readlog_stream ? gsc_readlog_stream->tag : 0;
+  st->transcripttag = gsc_io.transcript_stream
+                       ? gsc_io.transcript_stream->tag : 0;
+  st->inputlogtag = gsc_io.inputlog_stream ? gsc_io.inputlog_stream->tag : 0;
+  st->readlogtag = gsc_io.readlog_stream ? gsc_io.readlog_stream->tag : 0;
   st->soundchanneltag = sound_channel ? sound_channel->tag : 0;
   for (ch = 0; ch < GSC_A5_MAX_CHANNELS; ch++)
     {
@@ -525,14 +526,14 @@ gsc_recover_frontend_state (const ScarierGlkFrontendState *st)
 {
   int ch;
 
-  gsc_main_window = gli_window_for_tag (st->mainwintag);
-  gsc_status_window = gli_window_for_tag (st->statuswintag);
+  gsc_io.main_window = gli_window_for_tag (st->mainwintag);
+  gsc_io.status_window = gli_window_for_tag (st->statuswintag);
   gsc_a5_side_window = gli_window_for_tag (st->sidewintag);
   gsc_map_pane.window = gli_window_for_tag (st->mapwintag);
   gsc_graphics_window = gli_window_for_tag (st->gfxwintag);
-  gsc_transcript_stream = gli_stream_for_tag (st->transcripttag);
-  gsc_inputlog_stream = gli_stream_for_tag (st->inputlogtag);
-  gsc_readlog_stream = gli_stream_for_tag (st->readlogtag);
+  gsc_io.transcript_stream = gli_stream_for_tag (st->transcripttag);
+  gsc_io.inputlog_stream = gli_stream_for_tag (st->inputlogtag);
+  gsc_io.readlog_stream = gli_stream_for_tag (st->readlogtag);
   sound_channel = gli_schan_for_tag (st->soundchanneltag);
   for (ch = 0; ch < GSC_A5_MAX_CHANNELS; ch++)
     {

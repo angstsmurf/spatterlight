@@ -121,7 +121,7 @@ gsc_command_logging (const char *argument, const char *name,
         return;
 
       if (is_transcript)
-        glk_window_set_echo_stream (gsc_main_window, *stream);
+        glk_window_set_echo_stream (gsc_io.main_window, *stream);
 
       gsc_normal_string (label);
       gsc_normal_string (" is now on.\n");
@@ -140,7 +140,7 @@ gsc_command_logging (const char *argument, const char *name,
       *stream = nullptr;
 
       if (is_transcript)
-        glk_window_set_echo_stream (gsc_main_window, nullptr);
+        glk_window_set_echo_stream (gsc_io.main_window, nullptr);
 
       gsc_normal_string (label);
       gsc_normal_string (" is now off.\n");
@@ -173,7 +173,7 @@ static void
 gsc_command_script (const char *argument)
 {
   gsc_command_logging (argument, "script", "Glk transcript",
-                       &gsc_transcript_stream,
+                       &gsc_io.transcript_stream,
                        fileusage_Transcript | fileusage_TextMode,
                        filemode_WriteAppend, FALSE, TRUE);
 }
@@ -182,7 +182,7 @@ static void
 gsc_command_inputlog (const char *argument)
 {
   gsc_command_logging (argument, "inputlog", "Glk input logging",
-                       &gsc_inputlog_stream,
+                       &gsc_io.inputlog_stream,
                        fileusage_InputRecord | fileusage_BinaryMode,
                        filemode_WriteAppend, FALSE, FALSE);
 }
@@ -191,7 +191,7 @@ static void
 gsc_command_readlog (const char *argument)
 {
   gsc_command_logging (argument, "readlog", "Glk read log",
-                       &gsc_readlog_stream,
+                       &gsc_io.readlog_stream,
                        fileusage_InputRecord | fileusage_BinaryMode,
                        filemode_Read, TRUE, FALSE);
 }
@@ -709,8 +709,8 @@ gsc_colour_rebuild_windows (void)
   if (root)
     glk_window_close (root, nullptr);
 
-  gsc_main_window = nullptr;
-  gsc_status_window = nullptr;
+  gsc_io.main_window = nullptr;
+  gsc_io.status_window = nullptr;
   gsc_map_pane.window = nullptr;
   gsc_a5_side_window = nullptr;
 #ifdef GSC_HAVE_TITLE_WINDOW
@@ -787,14 +787,14 @@ gsc_set_colour (scr_bool state)
   gsc_normal_measure_state = -1;
 
   /* -c pre-applies hints before the first open; do not destroy that tree. */
-  rebuild = gsc_main_window != nullptr
+  rebuild = gsc_io.main_window != nullptr
             && !(gsc_colour_hints_preapplied && state);
   gsc_colour_hints_preapplied = FALSE;
 
   if (rebuild)
     gsc_colour_rebuild_windows ();
 
-  gsc_colour_repaint (gsc_main_window, state);
+  gsc_colour_repaint (gsc_io.main_window, state);
 
   /* An ADRIFT 5 game may keep a second pane of its own (Alien Diver's
      "Status"), and it is as much the game's window as the story one: it has to
@@ -816,10 +816,10 @@ gsc_set_colour (scr_bool state)
      since a grid clear re-seeds the window's attributes.  The redraw below is
      what actually repaints the bar either way, a grid window keeping the
      pixels it was last given. */
-  if (gsc_status_window)
+  if (gsc_io.status_window)
     {
       if (!state)
-        garglk_set_zcolors_stream (glk_window_get_stream (gsc_status_window),
+        garglk_set_zcolors_stream (glk_window_get_stream (gsc_io.status_window),
                                    zcolor_Default, zcolor_Default);
       gsc_status_notify ();
     }
@@ -832,7 +832,7 @@ gsc_set_colour (scr_bool state)
   gsc_map_redraw ();
 
   gsc_main_at_line_start = TRUE;
-  gsc_main_window_empty = TRUE;
+  gsc_io.main_window_empty = TRUE;
 }
 #endif
 

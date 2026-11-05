@@ -77,16 +77,16 @@ gsc_status_begin (glui32 *width)
 {
   glui32 height, index, row;
 
-  if (!gsc_status_window)
+  if (!gsc_io.status_window)
     return FALSE;
 
-  glk_window_get_size (gsc_status_window, width, &height);
+  glk_window_get_size (gsc_io.status_window, width, &height);
   if (height == 0)
     return FALSE;
 
-  glk_window_clear (gsc_status_window);
-  glk_window_move_cursor (gsc_status_window, 0, 0);
-  glk_set_window (gsc_status_window);
+  glk_window_clear (gsc_io.status_window);
+  glk_window_move_cursor (gsc_io.status_window, 0, 0);
+  glk_set_window (gsc_io.status_window);
 
 #ifdef GSC_HAVE_ZCOLORS
   /* The colours have to be named again after every clear, not once when colour
@@ -94,7 +94,7 @@ gsc_status_begin (glui32 *width)
      attributes from the library's global override colours, which would wipe a
      colour set earlier on this stream. */
   if (gsc_colour_enabled)
-    garglk_set_zcolors_stream (glk_window_get_stream (gsc_status_window),
+    garglk_set_zcolors_stream (glk_window_get_stream (gsc_io.status_window),
                                gsc_colour_background, gsc_colour_output);
 #endif
 
@@ -113,11 +113,11 @@ gsc_status_begin (glui32 *width)
   glk_set_style (gsc_colour_visible () ? style_Normal : style_User1);
   for (row = 0; row < height; row++)
     {
-      glk_window_move_cursor (gsc_status_window, 0, row);
+      glk_window_move_cursor (gsc_io.status_window, 0, row);
       for (index = 0; index < *width; index++)
         glk_put_char (' ');
     }
-  glk_window_move_cursor (gsc_status_window, 0, 0);
+  glk_window_move_cursor (gsc_io.status_window, 0, 0);
 
   return TRUE;
 }
@@ -132,12 +132,12 @@ gsc_status_end (void)
      force would tint the story window too.  Safe with respect to the input
      echo: gsc_colour_echo() runs from gsc_read_line_locale(), after the status
      redraw, so it always has the last word on the prompt's colour. */
-  if (gsc_colour_enabled && gsc_main_window)
-    garglk_set_zcolors_stream (glk_window_get_stream (gsc_main_window),
+  if (gsc_colour_enabled && gsc_io.main_window)
+    garglk_set_zcolors_stream (glk_window_get_stream (gsc_io.main_window),
                                gsc_colour_main_fg, gsc_colour_background);
 #endif
 
-  glk_set_window (gsc_main_window);
+  glk_set_window (gsc_io.main_window);
 }
 
 
@@ -266,7 +266,7 @@ gsc_status_put_right (glui32 width, glui32 room_end,
   status_width = writer->width (status);
   if (status_width <= avail)
     {
-      glk_window_move_cursor (gsc_status_window,
+      glk_window_move_cursor (gsc_io.status_window,
                               width - status_width - 1, 0);
       writer->print (status);
       return;
@@ -277,7 +277,7 @@ gsc_status_put_right (glui32 width, glui32 room_end,
   status = gsc_status_tail (status, avail, writer);
   if (status)
     {
-      glk_window_move_cursor (gsc_status_window, room_end, 0);
+      glk_window_move_cursor (gsc_io.status_window, room_end, 0);
       glk_put_char_uni (GSC_STATUS_ELLIPSIS);
       writer->print (status);
     }
@@ -301,7 +301,7 @@ gsc_status_put_below (glui32 width, const scr_char *status,
     return;
   avail = width - 2;
 
-  glk_window_move_cursor (gsc_status_window, 1, 1);
+  glk_window_move_cursor (gsc_io.status_window, 1, 1);
   if (writer->width (status) <= avail)
     {
       writer->print (status);
@@ -365,9 +365,9 @@ gsc_status_set_rows (glui32 rows)
 {
   glui32 height;
 
-  glk_window_get_size (gsc_status_window, nullptr, &height);
+  glk_window_get_size (gsc_io.status_window, nullptr, &height);
   if (height != rows)
-    glk_window_set_arrangement (glk_window_get_parent (gsc_status_window),
+    glk_window_set_arrangement (glk_window_get_parent (gsc_io.status_window),
                                 winmethod_Above | winmethod_Fixed, rows,
                                 nullptr);
 }
@@ -390,9 +390,9 @@ gsc_status_draw (const scr_char *room, const scr_char *status,
   glui32 width, height, room_end;
   scr_bool below;
 
-  if (!gsc_status_window)
+  if (!gsc_io.status_window)
     return;
-  glk_window_get_size (gsc_status_window, &width, &height);
+  glk_window_get_size (gsc_io.status_window, &width, &height);
   if (height == 0)
     return;
 
@@ -405,7 +405,7 @@ gsc_status_draw (const scr_char *room, const scr_char *status,
   if (!gsc_status_begin (&width))
     return;
 
-  glk_window_move_cursor (gsc_status_window, 1, 0);
+  glk_window_move_cursor (gsc_io.status_window, 1, 0);
   if (room)
     writer->print (room);
 
@@ -431,7 +431,7 @@ static void
 gsc_status_update (void)
 {
   const scr_char *room;
-  assert (gsc_status_window);
+  assert (gsc_io.status_window);
 
   /* See if the game is indicating any current player room. */
   room = scr_get_game_room (gsc_game);
@@ -446,7 +446,7 @@ gsc_status_update (void)
       gsc_status_set_rows (1);
       if (gsc_status_begin (&width))
         {
-          glk_window_move_cursor (gsc_status_window, 1, 0);
+          glk_window_move_cursor (gsc_io.status_window, 1, 0);
           gsc_put_string (scr_get_game_name (gsc_game));
           gsc_put_literal (" | ");
           gsc_put_string (scr_get_game_author (gsc_game));
@@ -550,7 +550,7 @@ gsc_status_notify (void)
       return;
     }
 
-  if (gsc_status_window)
+  if (gsc_io.status_window)
     gsc_status_update ();
   else
     gsc_status_print ();
@@ -567,7 +567,7 @@ gsc_status_notify (void)
 void
 gsc_status_redraw (void)
 {
-  if (gsc_status_window)
+  if (gsc_io.status_window)
     {
       winid_t parent;
       glui32 height;
@@ -584,8 +584,8 @@ gsc_status_redraw (void)
        * the redraw below gives or takes away a second one if the new width
        * calls for it.
        */
-      parent = glk_window_get_parent (gsc_status_window);
-      glk_window_get_size (gsc_status_window, nullptr, &height);
+      parent = glk_window_get_parent (gsc_io.status_window);
+      glk_window_get_size (gsc_io.status_window, nullptr, &height);
       glk_window_set_arrangement (parent, winmethod_Above | winmethod_Fixed,
                                   height, nullptr);
       if (gsc_is_a5)

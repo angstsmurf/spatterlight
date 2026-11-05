@@ -50,9 +50,10 @@ gsc_a5_put_string (const char *string)
 
   if (string == nullptr)
     return;
-  if (string[0] != '\0' && gsc_main_window
-      && glk_stream_get_current () == glk_window_get_stream (gsc_main_window))
-    gsc_main_window_empty = FALSE;
+  if (string[0] != '\0' && gsc_io.main_window
+      && glk_stream_get_current ()
+         == glk_window_get_stream (gsc_io.main_window))
+    gsc_io.main_window_empty = FALSE;
   if (!gsc_unicode_enabled)
     {
       glk_put_string ((char *) string);
@@ -154,13 +155,13 @@ gsc_unput_tail (const char *s)
   glui32 got;
 
   if (length == 0 || length >= sizeof ubuf / sizeof *ubuf
-      || gsc_main_window == nullptr)
+      || gsc_io.main_window == nullptr)
     return FALSE;
   for (index_ = 0; index_ < length; index_++)
     ubuf[index_] = (glui32) (unsigned char) s[index_];
   ubuf[length] = 0;
   saved = glk_stream_get_current ();
-  glk_set_window (gsc_main_window);
+  glk_set_window (gsc_io.main_window);
   got = garglk_unput_string_count_uni (ubuf);
   glk_stream_set_current (saved);
   return got == length;
@@ -267,7 +268,7 @@ gsc_a5_await_line (event_t *event, char *buf, int bufsize,
                 event_t cancel;
 
                 cancel.val1 = 0;
-                glk_cancel_line_event (gsc_main_window, &cancel);
+                glk_cancel_line_event (gsc_io.main_window, &cancel);
                 /* Take the now-dangling "> " prompt back off the window --
                    the cancel already removed any typed text (echo is off in
                    real-time mode), so the prompt is the tail and the tick's
@@ -292,17 +293,17 @@ gsc_a5_await_line (event_t *event, char *buf, int bufsize,
                 gsc_autosave ();
 #endif
                 if (ubuf != nullptr)
-                  glk_request_line_event_uni (gsc_main_window, ubuf, ucap,
+                  glk_request_line_event_uni (gsc_io.main_window, ubuf, ucap,
                                               cancel.val1);
                 else
-                  glk_request_line_event (gsc_main_window, buf,
+                  glk_request_line_event (gsc_io.main_window, buf,
                                           (glui32) (bufsize - 1), cancel.val1);
               }
             }
           break;
 
         case evtype_LineInput:
-          if (event->win == gsc_main_window)
+          if (event->win == gsc_io.main_window)
             {
 #if defined(GLK_MODULE_GARGLK_FILE_RESOURCES) || defined(SPATTERLIGHT)
               /* A completed command line ends a turn (see gsc_event_wait_2). */
@@ -338,7 +339,7 @@ gsc_a5_read_line_raw (char *buf, int bufsize)
      lines are the raw UTF-8 bytes "glk inputlog on" wrote, so they round-trip
      through the byte stream unchanged.  On end of file, close the stream and
      fall through to a normal line request. */
-  if (gsc_readlog_stream)
+  if (gsc_io.readlog_stream)
     {
       glui32 chars = gsc_readlog_line (buf, (glui32) bufsize);
 
@@ -372,7 +373,7 @@ gsc_a5_read_line_raw (char *buf, int bufsize)
 #ifdef GLK_MODULE_LINE_ECHO
   if (glk_gestalt (gestalt_LineInputEcho, 0))
     {
-      glk_set_echo_line_event (gsc_main_window, 0);
+      glk_set_echo_line_event (gsc_io.main_window, 0);
       gsc_a5_manual_echo = TRUE;
     }
 #endif
@@ -388,7 +389,7 @@ gsc_a5_read_line_raw (char *buf, int bufsize)
       glui32 i;
 
       memset (unicode, 0, cap * sizeof (*unicode));
-      glk_request_line_event_uni (gsc_main_window, unicode, cap, 0);
+      glk_request_line_event_uni (gsc_io.main_window, unicode, cap, 0);
       done = gsc_a5_await_line (&event, nullptr, 0, unicode, cap);
 
       if (done)
@@ -421,7 +422,7 @@ gsc_a5_read_line_raw (char *buf, int bufsize)
     }
   else
     {
-      glk_request_line_event (gsc_main_window, buf, bufsize - 1, 0);
+      glk_request_line_event (gsc_io.main_window, buf, bufsize - 1, 0);
       done = gsc_a5_await_line (&event, buf, bufsize, nullptr, 0);
       n = done ? (int) event.val1 : 0;
     }
@@ -584,7 +585,7 @@ gsc_a5_popup_input (void * /*ctx*/, const char *prompt, const char *dflt)
   /* No window to ask in, or a silent boot (the autorestore below replays the
      intro only to reach the saved state, whose name the player already
      chose): take the default without troubling anyone. */
-  if (gsc_main_window == nullptr || gsc_a5_popup_silent)
+  if (gsc_io.main_window == nullptr || gsc_a5_popup_silent)
     return nullptr;
 
   /* An answer is recorded as "=" and the text typed, the default as "". */
@@ -692,7 +693,7 @@ gsc_a5_popup_choice (void * /*ctx*/, const char *prompt,
   /* No window to ask in, or a silent boot (the autorestore below replays the
      opening only to reach the saved state, whose answer the player already
      gave): leave the question unasked, as an unattended Runner does. */
-  if (gsc_main_window == nullptr || gsc_a5_popup_silent)
+  if (gsc_io.main_window == nullptr || gsc_a5_popup_silent)
     return -1;
 
   /* Recorded as "1" for the first choice and "0" for the second. */
@@ -802,10 +803,10 @@ gsc_a5_command_escape (char *input)
 
   /* Log this line to any active input log.  Glk commands are never logged,
      matching os_read_line. */
-  if (gsc_inputlog_stream)
+  if (gsc_io.inputlog_stream)
     {
-      glk_put_string_stream (gsc_inputlog_stream, input);
-      glk_put_char_stream (gsc_inputlog_stream, '\n');
+      glk_put_string_stream (gsc_io.inputlog_stream, input);
+      glk_put_char_stream (gsc_io.inputlog_stream, '\n');
     }
 
   return FALSE;
@@ -1217,8 +1218,8 @@ gsc_a5_restart_run (a5_run_t *&run)
   gsc_map_hide ();
   gsc_map_pane.zoom = 0;
 
-  glk_window_clear (gsc_main_window);
-  gsc_main_window_empty = TRUE;
+  glk_window_clear (gsc_io.main_window);
+  gsc_io.main_window_empty = TRUE;
   gsc_a5_present_intro (run);
   gsc_map_auto_reveal ();
 }
@@ -1364,7 +1365,7 @@ gsc_a5_main_opening (a5_run_t *&run, int autorestore)
          for real.  It stops at the question already on screen. */
       gsc_autorestore_replace_state (gsc_a5_apply_all);
       gsc_a5_rebind_resources ();
-      glk_set_window (gsc_main_window);
+      glk_set_window (gsc_io.main_window);
       glk_set_style (style_Normal);
       gsc_a5_start_real_time (run);
       gsc_a5_popup_context = GSC_A5_POPUP_BOOT;
@@ -1386,7 +1387,7 @@ gsc_a5_main_opening (a5_run_t *&run, int autorestore)
          polluted state. */
       gsc_autorestore_replace_state (gsc_a5_apply_all);
       gsc_a5_rebind_resources ();
-      glk_set_window (gsc_main_window);
+      glk_set_window (gsc_io.main_window);
       glk_set_style (style_Normal);
       /* Re-arm or cancel the real-time timer per the current preferences
          (the library's late pass re-armed whatever interval was archived);

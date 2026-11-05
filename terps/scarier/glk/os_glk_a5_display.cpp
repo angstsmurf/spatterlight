@@ -107,7 +107,7 @@ gsc_a5_open_side_window (void)
 {
   if (gsc_a5_side_window == nullptr)
     {
-      gsc_a5_side_window = glk_window_open (gsc_main_window,
+      gsc_a5_side_window = glk_window_open (gsc_io.main_window,
                                             winmethod_Right
                                               | winmethod_Proportional,
                                             40, wintype_TextBuffer, 0);
@@ -254,8 +254,8 @@ gsc_a5_display_t::plain_run (const char *seg)
   chunk[n] = '\0';
   if (!silent)
     gsc_a5_put_string (chunk);
-  else if (cur_window == gsc_main_window)
-    gsc_main_window_empty = FALSE;
+  else if (cur_window == gsc_io.main_window)
+    gsc_io.main_window_empty = FALSE;
   free (chunk);
 }
 
@@ -264,8 +264,8 @@ gsc_a5_display_t::cls ()
 {
   if (!silent)
     glk_window_clear (cur_window);
-  if (cur_window == gsc_main_window)
-    gsc_main_window_empty = TRUE;
+  if (cur_window == gsc_io.main_window)
+    gsc_io.main_window_empty = TRUE;
 }
 
 void
@@ -278,7 +278,7 @@ gsc_a5_display_t::window_open ()
   const char *e = strchr (p + 1, A5_WINDOW_MARK);
   winid_t w = gsc_a5_open_side_window ();
 
-  cur_window = w != nullptr ? w : gsc_main_window;
+  cur_window = w != nullptr ? w : gsc_io.main_window;
   glk_set_window (cur_window);
   gsc_colour_apply (cur_window,
                     gsc_a5_colour_top (colour_stack, colour_depth));
@@ -290,7 +290,7 @@ void
 gsc_a5_display_t::window_close ()
 {
   /* Side-window span closes: text returns to the main story window. */
-  cur_window = gsc_main_window;
+  cur_window = gsc_io.main_window;
   glk_set_window (cur_window);
   gsc_colour_apply (cur_window,
                     gsc_a5_colour_top (colour_stack, colour_depth));
@@ -332,7 +332,7 @@ gsc_a5_display_t::waitkey ()
 #else
   (void) resumed;
 #endif
-  glk_request_char_event (gsc_main_window);
+  glk_request_char_event (gsc_io.main_window);
   gsc_event_wait (evtype_CharInput, &event);
   /* gsc_a5_status (and gsc_map_redraw, if it opens the pane) leave
      the main window selected; restore the span's routing window so
@@ -535,8 +535,8 @@ gsc_a5_display_t::finish ()
     gsc_colour_apply (cur_window, GSC_COLOUR_NONE);
   /* Likewise a dangling <window> span: prompts and input echo belong in the
      main story window. */
-  if (cur_window != gsc_main_window)
-    glk_set_window (gsc_main_window);
+  if (cur_window != gsc_io.main_window)
+    glk_set_window (gsc_io.main_window);
 }
 
 /*
@@ -562,15 +562,15 @@ gsc_a5_display (const char *text)
   gsc_a5_display_t d = {};
 
   d.p = text;
-  d.cur_window = gsc_main_window;
+  d.cur_window = gsc_io.main_window;
   d.saved_pauses = gsc_a5_popup_context != GSC_A5_POPUP_ELSEWHERE;
   d.silent = d.saved_pauses && gsc_a5_waitkey_skip > 0;
 
   if (text == nullptr)
     return;
 
-  glk_set_window (gsc_main_window);
-  gsc_colour_apply (gsc_main_window, GSC_COLOUR_NONE);
+  glk_set_window (gsc_io.main_window);
+  gsc_colour_apply (gsc_io.main_window, GSC_COLOUR_NONE);
 
   while (TRUE)
     {
@@ -865,7 +865,7 @@ gsc_a5_show_cover (void)
   if (chunk.length >= 4 && chunk.data.ptr != nullptr)
     {
       p = (const unsigned char *) chunk.data.ptr;
-      gsc_a5_draw_image (gsc_main_window,
+      gsc_a5_draw_image (gsc_io.main_window,
                          ((glui32) p[0] << 24) | ((glui32) p[1] << 16)
                          | ((glui32) p[2] << 8) | (glui32) p[3]);
     }
@@ -941,7 +941,7 @@ gsc_a5_status (a5_run_t *run)
   char right[96];
   long score, maxscore;
 
-  if (!gsc_status_window)
+  if (!gsc_io.status_window)
     return;
 
   /* Right-hand score / moves. */

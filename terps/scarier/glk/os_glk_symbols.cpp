@@ -324,9 +324,10 @@ gsc_put_string_symbol (const scr_char *string, gsc_symbol_font_t symbol_font)
 
   /* This path writes through glk_put_char directly rather than through
      gsc_put_char_locale, so mark the window here as well. */
-  if (string[0] != '\0' && gsc_main_window
-      && glk_stream_get_current () == glk_window_get_stream (gsc_main_window))
-    gsc_main_window_empty = FALSE;
+  if (string[0] != '\0' && gsc_io.main_window
+      && glk_stream_get_current ()
+         == glk_window_get_stream (gsc_io.main_window))
+    gsc_io.main_window_empty = FALSE;
 
   for (index_ = 0; string[index_] != '\0'; index_++)
     {

@@ -216,15 +216,38 @@ enum { GSC_A5_MAX_CHANNELS = 9 };
 /* os_glk.cpp: module state -- the windows and streams, the options, the
  * running game (whichever engine), the game palette -- and the window,
  * memory and event utilities. */
-extern winid_t gsc_main_window;
-extern winid_t gsc_status_window;
-extern int gsc_main_window_empty;
+
+/* The story windows and the transcript, input log and read log streams. */
+struct gsc_io_s
+{
+  /* Two windows, one for the main text, and one for a status line. */
+  winid_t main_window = nullptr;
+  winid_t status_window = nullptr;
+
+  /*
+   * Whether nothing has been printed to the main window since it was last
+   * cleared.  A window that is still empty can be cleared again for free,
+   * which is the one moment a background colour change can repaint the pane
+   * without costing the player any text; see SCR_TAG_BGCOLOUR.
+   */
+  int main_window_empty = TRUE;
+
+  /*
+   * Transcript stream and input log.  These are NULL if there is no current
+   * collection of these strings.
+   */
+  strid_t transcript_stream = nullptr;
+  strid_t inputlog_stream = nullptr;
+
+  /* Input read log stream, for reading back an input log. */
+  strid_t readlog_stream = nullptr;
+};
+typedef struct gsc_io_s gsc_io_t;
+
+extern gsc_io_t gsc_io;
 extern int gsc_sc_silent;
 extern int gsc_sc_waitkey_count;
 extern int gsc_sc_waitkey_skip;
-extern strid_t gsc_transcript_stream;
-extern strid_t gsc_inputlog_stream;
-extern strid_t gsc_readlog_stream;
 extern int gsc_commands_enabled;
 extern int gsc_abbreviations_enabled;
 extern int gsc_unicode_enabled;
