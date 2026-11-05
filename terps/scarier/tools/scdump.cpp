@@ -890,6 +890,8 @@ struct scdump_task_t
   void texts ();
   void alt_commands ();
   void reverse_commands ();
+  void typed_vars (const char *list, scr_int i,
+                   scr_int *type, scr_int *v1, scr_int *v2, scr_int *v3);
   void restriction (scr_int i);
   void action (scr_int i);
 };
@@ -1134,6 +1136,35 @@ scdump_task_t::reverse_commands ()
 
 
 /*
+ * scdump_task_t::typed_vars()
+ *
+ * Read Type and Var1..Var3 of entry i in the task's Restrictions or
+ * Actions list, leaving k[2..3] pointing at that entry.  A missing Var
+ * reads as -999.
+ */
+void
+scdump_task_t::typed_vars (const char *list, scr_int i,
+                           scr_int *type, scr_int *v1, scr_int *v2,
+                           scr_int *v3)
+{
+  static const char *const vars[3] = { "Var1", "Var2", "Var3" };
+  scr_int *const out[3] = { v1, v2, v3 };
+
+  k[2].string = list;
+  k[3].integer = i;
+  k[4].string = "Type";
+  *type = prop_get_integer (bundle, "I<-sisis", k);
+  for (int n = 0; n < 3; n++)
+    {
+      *out[n] = -999;
+      k[4].string = vars[n];
+      if (prop_get (bundle, "I<-sisis", &vt, k))
+        *out[n] = vt.integer;
+    }
+}
+
+
+/*
  * scdump_task_t::restriction()
  * scdump_task_t::action()
  *
@@ -1146,20 +1177,7 @@ scdump_task_t::restriction (scr_int i)
   char nm[96];
 
   nm[0] = '\0';
-  k[2].string = "Restrictions";
-  k[3].integer = i;
-  k[4].string = "Type";
-  rtype = prop_get_integer (bundle, "I<-sisis", k);
-  v1 = v2 = v3 = -999;
-  k[4].string = "Var1";
-  if (prop_get (bundle, "I<-sisis", &vt, k))
-    v1 = vt.integer;
-  k[4].string = "Var2";
-  if (prop_get (bundle, "I<-sisis", &vt, k))
-    v2 = vt.integer;
-  k[4].string = "Var3";
-  if (prop_get (bundle, "I<-sisis", &vt, k))
-    v3 = vt.integer;
+  typed_vars ("Restrictions", i, &rtype, &v1, &v2, &v3);
 
   obj = -1;
   if (rtype == 0)
@@ -1209,20 +1227,7 @@ scdump_task_t::action (scr_int i)
   char nm[96];
 
   nm[0] = '\0';
-  k[2].string = "Actions";
-  k[3].integer = i;
-  k[4].string = "Type";
-  atype = prop_get_integer (bundle, "I<-sisis", k);
-  v1 = v2 = v3 = -999;
-  k[4].string = "Var1";
-  if (prop_get (bundle, "I<-sisis", &vt, k))
-    v1 = vt.integer;
-  k[4].string = "Var2";
-  if (prop_get (bundle, "I<-sisis", &vt, k))
-    v2 = vt.integer;
-  k[4].string = "Var3";
-  if (prop_get (bundle, "I<-sisis", &vt, k))
-    v3 = vt.integer;
+  typed_vars ("Actions", i, &atype, &v1, &v2, &v3);
 
   obj = -1;
   if (atype == 0)

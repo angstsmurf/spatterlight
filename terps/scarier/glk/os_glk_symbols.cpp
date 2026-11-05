@@ -45,7 +45,7 @@
  * where the Unicode equivalent is unambiguous; entries left 0 have no good
  * equivalent and print as '?'.
  */
-static const glui32 GSC_WEBDINGS_TO_UNICODE[] = {
+static const glui32 GSC_WEBDINGS_TO_UNICODE[256] = {
   /* 0x00 */
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -113,7 +113,7 @@ static const glui32 GSC_WEBDINGS_TO_UNICODE[] = {
  * Entries left 0 have no good Unicode equivalent and print as '?' -- which for
  * 0xB4, a question mark in a diamond, is very nearly the glyph itself.
  */
-static const glui32 GSC_WINGDINGS_TO_UNICODE[] = {
+static const glui32 GSC_WINGDINGS_TO_UNICODE[256] = {
   /* 0x00 */
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -182,7 +182,7 @@ static const glui32 GSC_WINGDINGS_TO_UNICODE[] = {
  * enough to map wholesale.  Beyond 0x88 the font runs into chevron and curved
  * arrow sets with no Unicode counterpart; those stay 0.
  */
-static const glui32 GSC_WINGDINGS3_TO_UNICODE[] = {
+static const glui32 GSC_WINGDINGS3_TO_UNICODE[256] = {
   /* 0x00 */
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -212,22 +212,9 @@ static const glui32 GSC_WINGDINGS3_TO_UNICODE[] = {
   0x25E3, 0x25E2, 0x25E4, 0x25E5, 0x1F780, 0x1F782, 0x1F781, 0,
   /* 0x80 isosceles and small triangles, arrowheads */
   0x1F783, 0x25B4, 0x25BE, 0x25C2, 0x25B8, 0x2B9C, 0x2B9E, 0x2B9D,
-  /* 0x88 arrowhead; the chevron sets beyond have no equivalents */
-  0x2B9F, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0, 0, 0, 0
+  /* 0x88 arrowhead; the chevron sets beyond have no equivalents (the
+     rest of the table, 0x89 to 0xFF, is left to zero-fill) */
+  0x2B9F
 };
 
 /*
@@ -237,7 +224,7 @@ static const glui32 GSC_WINGDINGS3_TO_UNICODE[] = {
  * anything read off a font here (macOS ships no Symbol.ttf to read).  Only one
  * v4 game reaches for it, and only for 0xB7, the bullet.
  */
-static const glui32 GSC_SYMBOL_TO_UNICODE[] = {
+static const glui32 GSC_SYMBOL_TO_UNICODE[256] = {
   /* 0x00 */
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,

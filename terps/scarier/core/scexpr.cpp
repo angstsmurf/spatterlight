@@ -926,6 +926,48 @@ expr_eval_numeric_function (scr_int token)
 
 
 /*
+ * expr_eval_binary_operator()
+ *
+ * Combine val1 and val2 with a binary numeric operator other than
+ * division, mod, and power.
+ */
+static scr_int
+expr_eval_binary_operator (scr_int token, scr_int val1, scr_int val2)
+{
+  switch (token)
+    {
+    case TOK_ADD:
+      return expr_eval_add (val1, val2);
+    case TOK_SUBTRACT:
+      return expr_eval_subtract (val1, val2);
+    case TOK_MULTIPLY:
+      return expr_eval_multiply (val1, val2);
+    case TOK_AND:
+      return val1 && val2;
+    case TOK_OR:
+      return val1 || val2;
+    case TOK_EQUAL:
+      return val1 == val2;
+    case TOK_GREATER:
+      return val1 > val2;
+    case TOK_LESS:
+      return val1 < val2;
+    case TOK_NOT_EQUAL:
+      return val1 != val2;
+    case TOK_GREATER_EQ:
+      return val1 >= val2;
+    case TOK_LESS_EQ:
+      return val1 <= val2;
+    case TOK_RANDOM:
+      return scr_randomint (val1, val2);
+    default:
+      scr_fatal ("expr_eval_action: bad token, %ld\n", token);
+      return 0;
+    }
+}
+
+
+/*
  * expr_eval_numeric_operator()
  *
  * Evaluate a unary numeric operation, or any binary one but division, mod,
@@ -947,75 +989,20 @@ expr_eval_numeric_operator (scr_int token)
       expr_eval_push_integer (expr_eval_abs (expr_eval_pop_integer ()));
       break;
 
-    case TOK_ADD:
-    case TOK_SUBTRACT:
-    case TOK_MULTIPLY:
-    case TOK_AND:
-    case TOK_OR:
-    case TOK_EQUAL:
-    case TOK_GREATER:
-    case TOK_LESS:
-    case TOK_NOT_EQUAL:
-    case TOK_GREATER_EQ:
-    case TOK_LESS_EQ:
-    case TOK_RANDOM:
+    default:
       {
-        scr_int val1, val2, result = 0;
+        scr_int val1, val2;
 
-        /* Extract the two values to work on. */
+        /*
+         * Everything else is binary.  expr_eval_binary_operator() owns
+         * the token list and is fatal on anything outside it (only
+         * expr_eval_action() calls here, with tokens from that list).
+         */
         val2 = expr_eval_pop_integer ();
         val1 = expr_eval_pop_integer ();
-
-        /* Generate the result value. */
-        switch (token)
-          {
-          case TOK_ADD:
-            result = expr_eval_add (val1, val2);
-            break;
-          case TOK_SUBTRACT:
-            result = expr_eval_subtract (val1, val2);
-            break;
-          case TOK_MULTIPLY:
-            result = expr_eval_multiply (val1, val2);
-            break;
-          case TOK_AND:
-            result = val1 && val2;
-            break;
-          case TOK_OR:
-            result = val1 || val2;
-            break;
-          case TOK_EQUAL:
-            result = val1 == val2;
-            break;
-          case TOK_GREATER:
-            result = val1 > val2;
-            break;
-          case TOK_LESS:
-            result = val1 < val2;
-            break;
-          case TOK_NOT_EQUAL:
-            result = val1 != val2;
-            break;
-          case TOK_GREATER_EQ:
-            result = val1 >= val2;
-            break;
-          case TOK_LESS_EQ:
-            result = val1 <= val2;
-            break;
-          case TOK_RANDOM:
-            result = scr_randomint (val1, val2);
-            break;
-          default:
-            scr_fatal ("expr_eval_action: bad token, %ld\n", token);
-          }
-
-        /* Put result back at top of stack. */
-        expr_eval_push_integer (result);
+        expr_eval_push_integer (expr_eval_binary_operator (token, val1, val2));
         break;
       }
-
-    default:
-      scr_fatal ("expr_eval_action: bad token, %ld\n", token);
     }
 }
 

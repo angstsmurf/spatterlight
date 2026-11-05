@@ -71,6 +71,26 @@ static scr_commands_t MOVE_COMMANDS_8[] = {
   {nullptr, nullptr}
 };
 
+/*
+ * The six put-in / put-on rows for one verb spelling ("put", or the
+ * "[drop/put down]" alias).  Each table below uses it once per spelling,
+ * and the two tables list the spellings in opposite order.  Order matters
+ * because "put %text% in %object%" also matches "put down X in Y".
+ * PRIORITY_COMMANDS explains its order where the rows appear.
+ * STANDARD_COMMANDS' order has never been probed on its own, so keep it.
+ */
+#define PUT_IN_ON_ROWS(verb) \
+  {verb " [all/everything] [in/into/inside {of}] %object%", \
+   lib_cmd_put_all_in}, \
+  {verb " [all/everything] [[except/but] {for}/apart from] %text%" \
+   " [in/into/inside {of}] %object%", lib_cmd_put_in_except_multiple}, \
+  {verb " %text% [in/into/inside {of}] %object%", lib_cmd_put_in_multiple}, \
+  {verb " [all/everything] [on/onto/on top of] %object%", \
+   lib_cmd_put_all_on}, \
+  {verb " [all/everything] [[except/but] {for}/apart from] %text%" \
+   " [on/onto/on top of] %object%", lib_cmd_put_on_except_multiple}, \
+  {verb " %text% [on/onto/on top of] %object%", lib_cmd_put_on_multiple},
+
 /* "Priority" library commands, may take precedence over the game. */
 static scr_commands_t PRIORITY_COMMANDS[] = {
 
@@ -141,18 +161,7 @@ static scr_commands_t PRIORITY_COMMANDS[] = {
    */
   {"put *", lib_cmd_put_container_400},
   {"[drop/put down] *", lib_cmd_put_container_400},
-  {"[drop/put down] [all/everything] [in/into/inside {of}] %object%",
-   lib_cmd_put_all_in},
-  {"[drop/put down] [all/everything] [[except/but] {for}/apart from] %text%"
-   " [in/into/inside {of}] %object%", lib_cmd_put_in_except_multiple},
-  {"[drop/put down] %text% [in/into/inside {of}] %object%",
-   lib_cmd_put_in_multiple},
-  {"[drop/put down] [all/everything] [on/onto/on top of] %object%",
-   lib_cmd_put_all_on},
-  {"[drop/put down] [all/everything] [[except/but] {for}/apart from] %text%"
-   " [on/onto/on top of] %object%", lib_cmd_put_on_except_multiple},
-  {"[drop/put down] %text% [on/onto/on top of] %object%",
-   lib_cmd_put_on_multiple},
+  PUT_IN_ON_ROWS ("[drop/put down]")
   /*
    * The plain "put" spellings of the same handlers.  Priority placement is
    * live-verified (run400, 2026-08-02, probe FM7 / TheADRIFTProject): a
@@ -160,14 +169,7 @@ static scr_commands_t PRIORITY_COMMANDS[] = {
    * before the loud-fail task pass; the refusal cases defer from here (see
    * run_priority_commands) and print from the STANDARD_COMMANDS duplicates.
    */
-  {"put [all/everything] [in/into/inside {of}] %object%", lib_cmd_put_all_in},
-  {"put [all/everything] [[except/but] {for}/apart from] %text%"
-   " [in/into/inside {of}] %object%", lib_cmd_put_in_except_multiple},
-  {"put %text% [in/into/inside {of}] %object%", lib_cmd_put_in_multiple},
-  {"put [all/everything] [on/onto/on top of] %object%", lib_cmd_put_all_on},
-  {"put [all/everything] [[except/but] {for}/apart from] %text%"
-   " [on/onto/on top of] %object%", lib_cmd_put_on_except_multiple},
-  {"put %text% [on/onto/on top of] %object%", lib_cmd_put_on_multiple},
+  PUT_IN_ON_ROWS ("put")
   /* 3.9's "can't put anything inside/onto that!"; see lib_put_that_390(). */
   {"put %text% [in/into/inside {of}] *", lib_cmd_put_in_that_390},
   {"put %text% [on/onto/on top of] *", lib_cmd_put_on_that_390},
@@ -245,26 +247,8 @@ static scr_commands_t STANDARD_COMMANDS[] = {
    */
   {"put *", lib_cmd_put_container_400},
   {"[drop/put down] *", lib_cmd_put_container_400},
-  {"put [all/everything] [in/into/inside {of}] %object%", lib_cmd_put_all_in},
-  {"put [all/everything] [[except/but] {for}/apart from] %text%"
-   " [in/into/inside {of}] %object%", lib_cmd_put_in_except_multiple},
-  {"put %text% [in/into/inside {of}] %object%", lib_cmd_put_in_multiple},
-  {"put [all/everything] [on/onto/on top of] %object%", lib_cmd_put_all_on},
-  {"put [all/everything] [[except/but] {for}/apart from] %text%"
-   " [on/onto/on top of] %object%", lib_cmd_put_on_except_multiple},
-  {"put %text% [on/onto/on top of] %object%", lib_cmd_put_on_multiple},
-  {"[drop/put down] [all/everything] [in/into/inside {of}] %object%",
-   lib_cmd_put_all_in},
-  {"[drop/put down] [all/everything] [[except/but] {for}/apart from] %text%"
-   " [in/into/inside {of}] %object%", lib_cmd_put_in_except_multiple},
-  {"[drop/put down] %text% [in/into/inside {of}] %object%",
-   lib_cmd_put_in_multiple},
-  {"[drop/put down] [all/everything] [on/onto/on top of] %object%",
-   lib_cmd_put_all_on},
-  {"[drop/put down] [all/everything] [[except/but] {for}/apart from] %text%"
-   " [on/onto/on top of] %object%", lib_cmd_put_on_except_multiple},
-  {"[drop/put down] %text% [on/onto/on top of] %object%",
-   lib_cmd_put_on_multiple},
+  PUT_IN_ON_ROWS ("put")
+  PUT_IN_ON_ROWS ("[drop/put down]")
   {"open %object%", lib_cmd_open_object},
   /*
    * DO NOT ADD VERB SYNONYMS BY DIFFING RESPONSES AGAINST A LIVE RUNNER.
