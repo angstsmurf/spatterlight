@@ -109,7 +109,7 @@ os_play_sound (const scr_char *filepath,
   glui32 id;
 
   /* The app has put the sounds back as they were at the pause. */
-  if (gsc_sc_silent)
+  if (gsc_replay.sc_silent)
     return;
   if (sound_channel == nullptr)
     sound_channel = glk_schannel_create (0);
@@ -125,7 +125,7 @@ os_play_sound (const scr_char *filepath,
 void
 os_stop_sound (void)
 {
-  if (gsc_sc_silent)
+  if (gsc_replay.sc_silent)
     return;
   if (sound_channel != nullptr)
     glk_schannel_stop (sound_channel);
@@ -418,7 +418,7 @@ os_show_graphic (const scr_char *filepath, scr_int offset, scr_int length)
   if (id == 0)
     return;
 
-  if (!gsc_sc_silent && !gsc_seen_input && gsc_show_title_graphic (id))
+  if (!gsc_replay.sc_silent && !gsc_seen_input && gsc_show_title_graphic (id))
     {
       if (!gsc_title_fits_inline ())
         {

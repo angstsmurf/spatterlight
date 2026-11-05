@@ -531,24 +531,24 @@ static int
 gsc_a5_popup_replayed (std::string *answer, int *resumed)
 {
   *resumed = FALSE;
-  if (gsc_a5_popup_replay == GSC_A5_POPUP_ELSEWHERE)
+  if (gsc_replay.a5_popup_replay == GSC_A5_POPUP_ELSEWHERE)
     return FALSE;
-  if (gsc_a5_replay_answers.empty ())
+  if (gsc_replay.a5_replay_answers.empty ())
     {
-      gsc_a5_popup_replay = GSC_A5_POPUP_ELSEWHERE;
+      gsc_replay.a5_popup_replay = GSC_A5_POPUP_ELSEWHERE;
       *resumed = TRUE;
       return FALSE;
     }
-  *answer = gsc_a5_replay_answers.front ();
-  gsc_a5_replay_answers.erase (gsc_a5_replay_answers.begin ());
-  gsc_a5_popup_answers.push_back (*answer);
+  *answer = gsc_replay.a5_replay_answers.front ();
+  gsc_replay.a5_replay_answers.erase (gsc_replay.a5_replay_answers.begin ());
+  gsc_replay.a5_popup_answers.push_back (*answer);
   return TRUE;
 }
 
 static void
 gsc_a5_popup_answered (const std::string &answer)
 {
-  gsc_a5_popup_answers.push_back (answer);
+  gsc_replay.a5_popup_answers.push_back (answer);
 }
 
 /* Save the game at the question just printed. */
@@ -585,7 +585,7 @@ gsc_a5_popup_input (void * /*ctx*/, const char *prompt, const char *dflt)
   /* No window to ask in, or a silent boot (the autorestore below replays the
      intro only to reach the saved state, whose name the player already
      chose): take the default without troubling anyone. */
-  if (gsc_io.main_window == nullptr || gsc_a5_popup_silent)
+  if (gsc_io.main_window == nullptr || gsc_replay.a5_popup_silent)
     return nullptr;
 
   /* An answer is recorded as "=" and the text typed, the default as "". */
@@ -693,7 +693,7 @@ gsc_a5_popup_choice (void * /*ctx*/, const char *prompt,
   /* No window to ask in, or a silent boot (the autorestore below replays the
      opening only to reach the saved state, whose answer the player already
      gave): leave the question unasked, as an unattended Runner does. */
-  if (gsc_io.main_window == nullptr || gsc_a5_popup_silent)
+  if (gsc_io.main_window == nullptr || gsc_replay.a5_popup_silent)
     return -1;
 
   /* Recorded as "1" for the first choice and "0" for the second. */
@@ -1177,7 +1177,7 @@ gsc_a5_present_intro (a5_run_t *run)
 {
   char *text;
 
-  gsc_a5_waitkey_count = 0;
+  gsc_replay.a5_waitkey_count = 0;
   text = a5run_intro (run);
   gsc_a5_display (text);
   free (text);
@@ -1368,19 +1368,19 @@ gsc_a5_main_opening (a5_run_t *&run, int autorestore)
       glk_set_window (gsc_io.main_window);
       glk_set_style (style_Normal);
       gsc_a5_start_real_time (run);
-      gsc_a5_popup_context = GSC_A5_POPUP_BOOT;
+      gsc_replay.a5_popup_context = GSC_A5_POPUP_BOOT;
       gsc_a5_present_intro (run);
-      gsc_a5_popup_context = GSC_A5_POPUP_ELSEWHERE;
-      gsc_a5_popup_replay = GSC_A5_POPUP_ELSEWHERE;
+      gsc_replay.a5_popup_context = GSC_A5_POPUP_ELSEWHERE;
+      gsc_replay.a5_popup_replay = GSC_A5_POPUP_ELSEWHERE;
       gsc_map_auto_reveal ();
     }
   else if (autorestore)
     {
       char *text;
 
-      gsc_a5_popup_silent = TRUE;
+      gsc_replay.a5_popup_silent = TRUE;
       text = a5run_intro (run);
-      gsc_a5_popup_silent = FALSE;
+      gsc_replay.a5_popup_silent = FALSE;
       free (text);
       /* The silent boot above already consumed the game's intro, so a bad
          autosave restarts in a fresh process rather than continue from a
@@ -1406,10 +1406,10 @@ gsc_a5_main_opening (a5_run_t *&run, int autorestore)
   /* Only this first opening can be closed at one of its questions and come
      back: a relaunch reaches it again by starting the game, which is not
      where a RESTART's opening starts from. */
-  gsc_a5_popup_answers.clear ();
-  gsc_a5_popup_context = GSC_A5_POPUP_BOOT;
+  gsc_replay.a5_popup_answers.clear ();
+  gsc_replay.a5_popup_context = GSC_A5_POPUP_BOOT;
   gsc_a5_present_intro (run);
-  gsc_a5_popup_context = GSC_A5_POPUP_ELSEWHERE;
+  gsc_replay.a5_popup_context = GSC_A5_POPUP_ELSEWHERE;
   /* After the intro, so the title page is not sharing the screen with a map.
      An autorestore takes the archived pane instead, whatever it was. */
   gsc_map_auto_reveal ();
@@ -1541,21 +1541,21 @@ gsc_a5_next_command (char *input, int size)
 #else
   gsc_a5_put_prompt ("\n");
 #endif
-  if (gsc_a5_popup_replay == GSC_A5_POPUP_TURN
-      && !gsc_a5_replay_command.empty ()
-      && gsc_a5_replay_command.size () < (size_t) size)
+  if (gsc_replay.a5_popup_replay == GSC_A5_POPUP_TURN
+      && !gsc_replay.a5_replay_command.empty ()
+      && gsc_replay.a5_replay_command.size () < (size_t) size)
     {
       /* Resuming at a question this command's turn asked: the command
          is in the restored transcript, and is run again rather than
          read. */
-      memcpy (input, gsc_a5_replay_command.c_str (),
-              gsc_a5_replay_command.size () + 1);
-      gsc_a5_replay_command.clear ();
+      memcpy (input, gsc_replay.a5_replay_command.c_str (),
+              gsc_replay.a5_replay_command.size () + 1);
+      gsc_replay.a5_replay_command.clear ();
       return TRUE;
     }
 
-  gsc_a5_popup_replay = GSC_A5_POPUP_ELSEWHERE;
-  gsc_a5_waitkey_skip = 0;
+  gsc_replay.a5_popup_replay = GSC_A5_POPUP_ELSEWHERE;
+  gsc_replay.a5_waitkey_skip = 0;
   return gsc_a5_read_line (input, size) != 0;
 }
 
@@ -1638,16 +1638,16 @@ gsc_a5_play_turn (a5_run_t *&run, const char *input)
      which increments the turn counter on entry). */
   a5run_snapshot (run);
 
-  gsc_a5_popup_command = input;
-  gsc_a5_popup_answers.clear ();
-  gsc_a5_popup_context = GSC_A5_POPUP_TURN;
-  gsc_a5_waitkey_count = 0;
+  gsc_replay.a5_popup_command = input;
+  gsc_replay.a5_popup_answers.clear ();
+  gsc_replay.a5_popup_context = GSC_A5_POPUP_TURN;
+  gsc_replay.a5_waitkey_count = 0;
   text = a5run_input (run, input);
-  gsc_a5_popup_replay = GSC_A5_POPUP_ELSEWHERE;
+  gsc_replay.a5_popup_replay = GSC_A5_POPUP_ELSEWHERE;
   /* Still the turn's while its text is paged out: a <waitkey> pause in
      it is saved as a question is (gsc_a5_autosave_waitkey). */
   gsc_a5_display (text);
-  gsc_a5_popup_context = GSC_A5_POPUP_ELSEWHERE;
+  gsc_replay.a5_popup_context = GSC_A5_POPUP_ELSEWHERE;
   free (text);
   gsc_a5_show_media (run);
   gsc_a5_status (run);

@@ -303,14 +303,14 @@ gsc_a5_display_t::waitkey ()
   int resumed = FALSE;
 
   if (saved_pauses)
-    gsc_a5_waitkey_count++;
+    gsc_replay.a5_waitkey_count++;
   if (silent)
     {
-      if (gsc_a5_waitkey_count < gsc_a5_waitkey_skip)
+      if (gsc_replay.a5_waitkey_count < gsc_replay.a5_waitkey_skip)
         return;
       /* The pause the game was closed at: what follows is new. */
       silent = FALSE;
-      gsc_a5_waitkey_skip = 0;
+      gsc_replay.a5_waitkey_skip = 0;
       resumed = TRUE;
     }
 
@@ -524,7 +524,7 @@ gsc_a5_display_t::finish ()
   /* A replay that never reached the pause it was after (the turn did not
      come out as it did before) is over all the same. */
   if (silent)
-    gsc_a5_waitkey_skip = 0;
+    gsc_replay.a5_waitkey_skip = 0;
 
   /* A dangling span must not bleed into prompts and later turns. */
   if (center_depth > 0 || right_depth > 0
@@ -563,8 +563,8 @@ gsc_a5_display (const char *text)
 
   d.p = text;
   d.cur_window = gsc_io.main_window;
-  d.saved_pauses = gsc_a5_popup_context != GSC_A5_POPUP_ELSEWHERE;
-  d.silent = d.saved_pauses && gsc_a5_waitkey_skip > 0;
+  d.saved_pauses = gsc_replay.a5_popup_context != GSC_A5_POPUP_ELSEWHERE;
+  d.silent = d.saved_pauses && gsc_replay.a5_waitkey_skip > 0;
 
   if (text == nullptr)
     return;

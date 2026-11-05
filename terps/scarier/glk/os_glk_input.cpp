@@ -157,7 +157,7 @@ os_read_line (scr_char *buffer, scr_int length)
 #ifdef SPATTERLIGHT
   /* A turn run again to reach a pause never gets as far as a prompt, unless
      the pause did not come round this time; either way that is over. */
-  gsc_sc_silent = FALSE;
+  gsc_replay.sc_silent = FALSE;
 #endif
   status = gsc_read_command (buffer, length);
 #ifdef SPATTERLIGHT
@@ -216,7 +216,7 @@ gsc_prompt_prelude (scr_char *buffer, scr_int length)
          (gsc_sc_autosave_waitkey). */
       if (gsc_sc_take_replay_command (buffer, length))
         {
-          gsc_sc_silent = TRUE;
+          gsc_replay.sc_silent = TRUE;
           return TRUE;
         }
     }
@@ -477,7 +477,7 @@ gsc_get_choice_key (const char *choices)
 
       /* Wait for a standard key, ignoring Glk special keys. */
 #ifdef SPATTERLIGHT
-      gsc_sc_silent = FALSE;
+      gsc_replay.sc_silent = FALSE;
       gsc_sc_note_mid_turn_input ();
 #endif
       do

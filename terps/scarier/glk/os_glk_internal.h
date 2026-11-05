@@ -245,9 +245,6 @@ struct gsc_io_s
 typedef struct gsc_io_s gsc_io_t;
 
 extern gsc_io_t gsc_io;
-extern int gsc_sc_silent;
-extern int gsc_sc_waitkey_count;
-extern int gsc_sc_waitkey_skip;
 extern int gsc_commands_enabled;
 extern int gsc_abbreviations_enabled;
 extern int gsc_unicode_enabled;
@@ -266,22 +263,67 @@ extern int gsc_is_a5;
 extern char gsc_game_key[40];
 extern a5_run_t *gsc_a5_run;
 extern int gsc_a5_real_time;
-extern int gsc_a5_popup_silent;
-
-/* Where a %PopUp...% question is being asked from, the command whose turn
-   it is, and the answers that turn (or the opening) has been given so far:
-   what an autosave taken at the question records, and what a relaunch plays
-   back to reach it again.  See gsc_a5_autosave_popup(). */
-enum { GSC_A5_POPUP_ELSEWHERE, GSC_A5_POPUP_BOOT, GSC_A5_POPUP_TURN };
-extern int gsc_a5_popup_context;
-extern std::string gsc_a5_popup_command;
-extern std::vector<std::string> gsc_a5_popup_answers;
-extern int gsc_a5_popup_replay;
-extern std::string gsc_a5_replay_command;
-extern std::vector<std::string> gsc_a5_replay_answers;
-extern int gsc_a5_waitkey_count;
-extern int gsc_a5_waitkey_skip;
 extern winid_t gsc_a5_side_window;
+
+enum { GSC_A5_POPUP_ELSEWHERE, GSC_A5_POPUP_BOOT, GSC_A5_POPUP_TURN };
+
+/*
+ * What a relaunch replays to get back to the <waitkey> pause or %PopUp...%
+ * question the game was closed at, and what an autosave taken there
+ * records so that it can.
+ */
+struct gsc_replay_s
+{
+  /*
+   * ADRIFT <=4, set while a relaunch runs a turn (or the opening) again to
+   * get back to the <waitkey> pause the game was closed at: the text,
+   * pictures and sounds on the way there are already on the restored
+   * screen, so none of it is put out a second time.  The pause is the
+   * sc_waitkey_skip'th since the last line was read, sc_waitkey_count being
+   * how many there have been.  See gsc_sc_autosave_waitkey().
+   */
+  int sc_silent = FALSE;
+  int sc_waitkey_count = 0;
+  int sc_waitkey_skip = 0;
+
+  /*
+   * Set while the opening is replayed only to reach a saved state (the
+   * Spatterlight autorestore boot), so a %PopUpInput% naming prompt in it is
+   * answered with its default instead of asking the player again.
+   */
+  int a5_popup_silent = FALSE;
+
+  /*
+   * Where a %PopUp...% question is being asked from (a GSC_A5_POPUP_*), the
+   * command whose turn it is, and the answers that turn (or the opening) has
+   * been given so far: what an autosave taken at the question records, and
+   * what a relaunch plays back to reach it again.  See
+   * gsc_a5_autosave_popup().
+   */
+  int a5_popup_context = GSC_A5_POPUP_ELSEWHERE;
+  std::string a5_popup_command;
+  std::vector<std::string> a5_popup_answers;
+
+  /*
+   * The context an autorestore is playing back to a question, if any, with
+   * the command to run again and the answers still to be given.
+   */
+  int a5_popup_replay = GSC_A5_POPUP_ELSEWHERE;
+  std::string a5_replay_command;
+  std::vector<std::string> a5_replay_answers;
+
+  /*
+   * How many <waitkey> pauses the display of the turn in hand (or of the
+   * opening) has reached, and how many of them an autorestore's replay
+   * passes in silence: a game closed at one comes back at it.  See
+   * gsc_a5_autosave_waitkey().
+   */
+  int a5_waitkey_count = 0;
+  int a5_waitkey_skip = 0;
+};
+typedef struct gsc_replay_s gsc_replay_t;
+
+extern gsc_replay_t gsc_replay;
 
 extern scr_bool gsc_normal_measure (glui32 *fg, glui32 *bg);
 extern scr_bool gsc_colour_visible (void);

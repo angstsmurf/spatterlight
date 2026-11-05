@@ -78,15 +78,9 @@ char gsc_gamefile[1024];
 /* The story windows and the log streams; see os_glk_internal.h. */
 gsc_io_t gsc_io;
 
-/* ADRIFT <=4, set while a relaunch runs a turn (or the opening) again to get
-   back to the <waitkey> pause the game was closed at: the text, pictures and
-   sounds on the way there are already on the restored screen, so none of it
-   is put out a second time.  The pause is the gsc_sc_waitkey_skip'th since
-   the last line was read, gsc_sc_waitkey_count being how many there have
-   been.  See gsc_sc_autosave_waitkey(). */
-int gsc_sc_silent = FALSE;
-int gsc_sc_waitkey_count = 0;
-int gsc_sc_waitkey_skip = 0;
+/* What a relaunch replays to reach the pause or question an autosave was
+   taken at; see os_glk_internal.h. */
+gsc_replay_t gsc_replay;
 
 /* Options that may be turned off or set by command line flags. */
 int gsc_commands_enabled = TRUE;
@@ -239,25 +233,6 @@ a5_run_t *gsc_a5_run = nullptr;
    engine's deterministic one-tick-per-input substitute.  Decided per run by
    gsc_a5_start_real_time. */
 int gsc_a5_real_time = FALSE;
-
-/* Set while the opening is replayed only to reach a saved state (the
-   Spatterlight autorestore boot), so a %PopUpInput% naming prompt in it is
-   answered with its default instead of asking the player again. */
-int gsc_a5_popup_silent = FALSE;
-int gsc_a5_popup_context = GSC_A5_POPUP_ELSEWHERE;
-std::string gsc_a5_popup_command;
-std::vector<std::string> gsc_a5_popup_answers;
-/* The context an autorestore is playing back to a question, if any, with
-   the command to run again and the answers still to be given. */
-int gsc_a5_popup_replay = GSC_A5_POPUP_ELSEWHERE;
-std::string gsc_a5_replay_command;
-std::vector<std::string> gsc_a5_replay_answers;
-/* How many <waitkey> pauses the display of the turn in hand (or of the
-   opening) has reached, and how many of them an autorestore's replay passes
-   in silence: a game closed at one comes back at it.  See
-   gsc_a5_autosave_waitkey(). */
-int gsc_a5_waitkey_count = 0;
-int gsc_a5_waitkey_skip = 0;
 
 /* Author-defined secondary output window (ADRIFT 5 <window NAME>), opened
    lazily as a right-hand text buffer the first time the game routes text to
@@ -1410,7 +1385,7 @@ gsc_main_autorestore (void)
          it is back there. */
       glk_set_window (gsc_io.main_window);
       glk_set_style (style_Normal);
-      gsc_sc_silent = TRUE;
+      gsc_replay.sc_silent = TRUE;
       return;
     }
   /* The app resumes any interrupted sound and restores the graphics

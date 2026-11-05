@@ -193,7 +193,7 @@ gsc_sc_apply_all (const std::string &data)
       pos += strlen (GSC_SC_BOOT_MARK);
       if (!gsc_container_get_count (data, &pos, &pauses) || pauses < 1)
         return false;
-      gsc_sc_waitkey_skip = (int) pauses;
+      gsc_replay.sc_waitkey_skip = (int) pauses;
       gsc_sc_replay_boot = true;
       return true;
     }
@@ -247,7 +247,7 @@ gsc_sc_apply_all (const std::string &data)
             {
               gsc_sc_replay_command = chunk;
               gsc_sc_replay_pending = true;
-              gsc_sc_waitkey_skip = (int) pauses;
+              gsc_replay.sc_waitkey_skip = (int) pauses;
             }
         }
     }
@@ -373,10 +373,10 @@ gsc_a5_apply_all (const std::string &data)
   if (data.compare (pos, strlen (GSC_A5_BOOT_MARK), GSC_A5_BOOT_MARK) == 0)
     {
       pos += strlen (GSC_A5_BOOT_MARK);
-      if (!gsc_a5_get_answers (data, &pos, &gsc_a5_replay_answers))
+      if (!gsc_a5_get_answers (data, &pos, &gsc_replay.a5_replay_answers))
         return false;
-      gsc_a5_popup_replay = GSC_A5_POPUP_BOOT;
-      gsc_a5_waitkey_skip = gsc_a5_get_waitkeys (data, &pos);
+      gsc_replay.a5_popup_replay = GSC_A5_POPUP_BOOT;
+      gsc_replay.a5_waitkey_skip = gsc_a5_get_waitkeys (data, &pos);
       return true;
     }
 
@@ -412,11 +412,11 @@ gsc_a5_apply_all (const std::string &data)
     {
       pos++;
       if (gsc_container_get_chunk (data, &pos, &chunk)
-          && gsc_a5_get_answers (data, &pos, &gsc_a5_replay_answers))
+          && gsc_a5_get_answers (data, &pos, &gsc_replay.a5_replay_answers))
         {
-          gsc_a5_replay_command = chunk;
-          gsc_a5_popup_replay = GSC_A5_POPUP_TURN;
-          gsc_a5_waitkey_skip = gsc_a5_get_waitkeys (data, &pos);
+          gsc_replay.a5_replay_command = chunk;
+          gsc_replay.a5_popup_replay = GSC_A5_POPUP_TURN;
+          gsc_replay.a5_waitkey_skip = gsc_a5_get_waitkeys (data, &pos);
         }
     }
   return true;
@@ -690,25 +690,25 @@ gsc_a5_autosave_mid_turn (void)
   static const ScarierGlkFrontendState fresh;
   std::string state;
 
-  if (gsc_a5_popup_context == GSC_A5_POPUP_BOOT)
+  if (gsc_replay.a5_popup_context == GSC_A5_POPUP_BOOT)
     {
       state = GSC_A5_CONTAINER_MAGIC;
       state += GSC_A5_BOOT_MARK;
       gsc_rng_override = &fresh;
     }
-  else if (gsc_a5_popup_context == GSC_A5_POPUP_TURN
+  else if (gsc_replay.a5_popup_context == GSC_A5_POPUP_TURN
            && !gsc_a5_turn_state.empty ())
     {
       state = gsc_a5_turn_state;
       state += 'R';
-      gsc_container_put_chunk (state, gsc_a5_popup_command.data (),
-                               gsc_a5_popup_command.size ());
+      gsc_container_put_chunk (state, gsc_replay.a5_popup_command.data (),
+                               gsc_replay.a5_popup_command.size ());
       gsc_rng_override = &gsc_a5_turn_rng;
     }
   else
     return;
-  gsc_a5_put_answers (state, gsc_a5_popup_answers);
-  state += std::to_string ((long) gsc_a5_waitkey_count);
+  gsc_a5_put_answers (state, gsc_replay.a5_popup_answers);
+  state += std::to_string ((long) gsc_replay.a5_waitkey_count);
   state += '\n';
   scarier_autosave_write (state);
   gsc_rng_override = nullptr;
@@ -747,8 +747,8 @@ gsc_a5_autosave_waitkey (void)
  * prompt, whether or not it is written -- with the line typed there and
  * the number of pauses since.  The relaunch loads that, hands the line back
  * to the interpreter in place of reading one, and puts nothing out until
- * the pause comes round again (gsc_sc_silent).  A line of several commands
- * is one line here, and the count runs across all of them.
+ * the pause comes round again (gsc_replay.sc_silent).  A line of several
+ * commands is one line here, and the count runs across all of them.
  *
  * Pauses in the opening, before any line has been read, have nothing to
  * start from but the game as loaded: the relaunch starts it over, silently.
@@ -770,7 +770,7 @@ gsc_sc_note_turn_start (void)
   gsc_sc_turn_state.clear ();
   gsc_sc_turn_command.clear ();
   gsc_sc_turn_context = GSC_SC_TURN_NONE;
-  gsc_sc_waitkey_count = 0;
+  gsc_replay.sc_waitkey_count = 0;
   if (gsc_in_debug_read || !scarier_autosave_enabled ())
     return;
   if (gsc_game == nullptr || !scr_is_game_running (gsc_game))
@@ -829,7 +829,7 @@ gsc_sc_autosave_waitkey (void)
     }
   else
     return;
-  state += std::to_string ((long) gsc_sc_waitkey_count);
+  state += std::to_string ((long) gsc_replay.sc_waitkey_count);
   state += '\n';
   scarier_autosave_write (state);
   gsc_rng_override = nullptr;

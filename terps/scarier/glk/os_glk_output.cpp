@@ -938,7 +938,7 @@ gsc_draw_inline_graphic (glui32 id)
 
   /* On the way back to a pause the picture is on screen already; only note
      it, for the clear that may yet come. */
-  if (!gsc_sc_silent)
+  if (!gsc_replay.sc_silent)
     {
       if (!gsc_main_at_line_start)
         glk_put_char_stream (stream, '\n');
@@ -967,7 +967,7 @@ static void
 gsc_handle_cls_tag (void)
 {
   /* Clear the main text display window. */
-  if (!gsc_sc_silent)
+  if (!gsc_replay.sc_silent)
     glk_window_clear (gsc_io.main_window);
   gsc_main_at_line_start = TRUE;
   gsc_io.main_window_empty = TRUE;
@@ -1002,7 +1002,7 @@ gsc_set_alignment (glui32 centered, glui32 right)
    */
   if (centered != gsc_attribute_center || right != gsc_attribute_right)
     {
-      if (!gsc_sc_silent)
+      if (!gsc_replay.sc_silent)
         glk_put_char ('\n');
       gsc_attribute_center = centered;
       gsc_attribute_right = right;
@@ -1052,7 +1052,7 @@ gsc_handle_bgcolour_tag (const scr_char *argument)
   gsc_colour_background = wanted;
   gsc_set_glk_style ();
 
-  if (changed && gsc_colour_enabled && !gsc_sc_silent
+  if (changed && gsc_colour_enabled && !gsc_replay.sc_silent
       && gsc_io.main_window_empty && gsc_io.main_window)
     glk_window_clear (gsc_io.main_window);
 }
@@ -1075,13 +1075,13 @@ gsc_handle_waitkey_tag (void)
       /* Running the turn again after a relaunch: go by the pauses the
          player had already been through, and stop at the one the game
          was closed at -- whose save is the one just restored. */
-      gsc_sc_waitkey_count++;
-      if (gsc_sc_silent)
+      gsc_replay.sc_waitkey_count++;
+      if (gsc_replay.sc_silent)
         {
-          if (gsc_sc_waitkey_count < gsc_sc_waitkey_skip)
+          if (gsc_replay.sc_waitkey_count < gsc_replay.sc_waitkey_skip)
             return;
-          gsc_sc_silent = FALSE;
-          gsc_sc_waitkey_skip = 0;
+          gsc_replay.sc_silent = FALSE;
+          gsc_replay.sc_waitkey_skip = 0;
           resumed = TRUE;
         }
 #endif
@@ -1176,7 +1176,7 @@ os_print_tag (scr_int tag, const scr_char *argument)
        * Update the status line now only if it has its own window, then
        * handle with a specialized handler.
        */
-      if (gsc_sc_silent)
+      if (gsc_replay.sc_silent)
         break;
       if (gsc_io.status_window)
         gsc_status_notify ();
@@ -1205,8 +1205,8 @@ os_print_string (const scr_char *string)
   assert (string);
   assert (glk_stream_get_current ());
 
-  /* Already on the restored screen: see gsc_sc_silent. */
-  if (gsc_sc_silent)
+  /* Already on the restored screen: see gsc_replay.sc_silent. */
+  if (gsc_replay.sc_silent)
     {
       if (string[0] != '\0')
         {
