@@ -280,6 +280,13 @@ Do **not** change statement order inside the dispatch cascade.
   restriction and action decoders. Check how much of the decoding duplicates
   `core/scdebug.cpp` (2527 lines) and `core/scprops.cpp`, and share one
   decoder if the two have drifted.
+  *Checked 2026-11-05: nothing to share.* `scdebug` prints runtime state
+  (runnable, done, scored) and never decodes Restrictions or Actions; the
+  `scdump_task_t` decoders read the raw TAF Type/Var1-3 fields, which nothing
+  in `core/` does.  `scprops` is the property store, not a decoder.  The one
+  overlap is a ten-line object-name lookup (`scdump_object_name` returns the
+  Short name; `debug_print_object` prints through `if_print_debug`), too
+  small to merge.
 - **Ignored artefacts in the source tree** (`*.o`, `*.d` next to sources).
   They are ignored, so harmless, but an out-of-tree `BUILD` dir would stop them
   showing up in editor file lists and in `git status --ignored`.
