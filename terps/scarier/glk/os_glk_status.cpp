@@ -93,9 +93,9 @@ gsc_status_begin (glui32 *width)
      mode is turned on: in Gargoyle a grid clear re-seeds the window's
      attributes from the library's global override colours, which would wipe a
      colour set earlier on this stream. */
-  if (gsc_colour_enabled)
+  if (gsc_colour.enabled)
     garglk_set_zcolors_stream (glk_window_get_stream (gsc_io.status_window),
-                               gsc_colour_background, gsc_colour_output);
+                               gsc_colour.background, gsc_colour.output);
 #endif
 
   /* Out of colour mode the bar is a reverse-video User1 one, the way every
@@ -132,9 +132,9 @@ gsc_status_end (void)
      force would tint the story window too.  Safe with respect to the input
      echo: gsc_colour_echo() runs from gsc_read_line_locale(), after the status
      redraw, so it always has the last word on the prompt's colour. */
-  if (gsc_colour_enabled && gsc_io.main_window)
+  if (gsc_colour.enabled && gsc_io.main_window)
     garglk_set_zcolors_stream (glk_window_get_stream (gsc_io.main_window),
-                               gsc_colour_main_fg, gsc_colour_background);
+                               gsc_colour.main_fg, gsc_colour.background);
 #endif
 
   glk_set_window (gsc_io.main_window);

@@ -115,7 +115,7 @@ gsc_a5_open_side_window (void)
       /* A window opened in colour mode starts in the theme's background: it
          takes the game's only from a clear made with the colours in force,
          and there is nothing in it yet to lose to one. */
-      if (gsc_colour_enabled && gsc_a5_side_window)
+      if (gsc_colour.enabled && gsc_a5_side_window)
         {
           gsc_colour_apply (gsc_a5_side_window, GSC_COLOUR_NONE);
           glk_window_clear (gsc_a5_side_window);
@@ -406,7 +406,7 @@ gsc_a5_display_t::colour_open ()
           monospaced_stack[colour_depth] = monospaced;
           points_stack[colour_depth] = points;
           colour_stack[colour_depth++]
-            = is_input ? gsc_colour_input
+            = is_input ? gsc_colour.input
                        : gsc_colour_lookup (token);
           gsc_colour_apply (cur_window,
                             gsc_a5_colour_top (colour_stack,

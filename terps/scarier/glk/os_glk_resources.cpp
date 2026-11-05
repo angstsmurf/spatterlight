@@ -360,7 +360,7 @@ gsc_refresh_windows (void)
 {
   /* An Arrange is how a library preference flip announces itself, and the
      status redraw below asks gsc_colour_visible, so the cache goes first. */
-  gsc_normal_measure_state = -1;
+  gsc_colour.normal_measure_state = -1;
 
   gsc_status_redraw ();
 #ifdef GSC_HAVE_TITLE_WINDOW

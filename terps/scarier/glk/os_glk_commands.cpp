@@ -661,13 +661,13 @@ gsc_colour_set_normal_hints (scr_bool on)
   if (on)
     {
       glk_stylehint_set (wintype_TextBuffer, style_Normal,
-                         stylehint_TextColor, (glsi32) gsc_colour_output);
+                         stylehint_TextColor, (glsi32) gsc_colour.output);
       glk_stylehint_set (wintype_TextBuffer, style_Normal,
-                         stylehint_BackColor, (glsi32) gsc_colour_background);
+                         stylehint_BackColor, (glsi32) gsc_colour.background);
       glk_stylehint_set (wintype_TextGrid, style_Normal,
-                         stylehint_TextColor, (glsi32) gsc_colour_output);
+                         stylehint_TextColor, (glsi32) gsc_colour.output);
       glk_stylehint_set (wintype_TextGrid, style_Normal,
-                         stylehint_BackColor, (glsi32) gsc_colour_background);
+                         stylehint_BackColor, (glsi32) gsc_colour.background);
     }
   else
     {
@@ -782,14 +782,14 @@ gsc_set_colour (scr_bool state)
 {
   scr_bool rebuild;
 
-  gsc_colour_enabled = state;
+  gsc_colour.enabled = state;
   gsc_colour_set_normal_hints (state);
-  gsc_normal_measure_state = -1;
+  gsc_colour.normal_measure_state = -1;
 
   /* -c pre-applies hints before the first open; do not destroy that tree. */
   rebuild = gsc_io.main_window != nullptr
-            && !(gsc_colour_hints_preapplied && state);
-  gsc_colour_hints_preapplied = FALSE;
+            && !(gsc_colour.hints_preapplied && state);
+  gsc_colour.hints_preapplied = FALSE;
 
   if (rebuild)
     gsc_colour_rebuild_windows ();
@@ -851,7 +851,7 @@ void
 gsc_colour_startup_apply (void)
 {
 #ifdef GSC_HAVE_ZCOLORS
-  if (gsc_colour_startup)
+  if (gsc_colour.startup)
     gsc_set_colour (TRUE);
 #endif
 }
@@ -869,10 +869,10 @@ void
 gsc_colour_startup_prepare (void)
 {
 #ifdef GSC_HAVE_ZCOLORS
-  if (gsc_colour_startup)
+  if (gsc_colour.startup)
     {
       gsc_colour_set_normal_hints (TRUE);
-      gsc_colour_hints_preapplied = TRUE;
+      gsc_colour.hints_preapplied = TRUE;
     }
 #endif
 }
@@ -888,7 +888,7 @@ gsc_command_colour (const char *argument)
 
   gsc_command_toggle (poll ? "" : argument, "colour",
                       "Glk ADRIFT colours are",
-                      gsc_colour_enabled, gsc_set_colour,
+                      gsc_colour.enabled, gsc_set_colour,
                       "; text is drawn in the game's own colours, on the"
                       " black background it was written for.\n",
                       "; text follows the interpreter's own theme.\n", !poll);

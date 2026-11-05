@@ -445,7 +445,7 @@ gsc_colour_wanted_by (const scr_char *text, void *opaque)
  *
  * Called while the loading window is still up, so the theme's background can
  * be measured before colour mode publishes stylehints of its own; the answer
- * feeds gsc_colour_startup, which the -c switch also sets, and so reaches the
+ * feeds gsc_colour.startup, which the -c switch also sets, and so reaches the
  * palette by the same path -- hints published before the first window open,
  * and no rebuild.  That also means it is never consulted on an autorestore,
  * which is right: a restored session brings back the mode the player left it
@@ -489,14 +489,14 @@ void
 gsc_colour_apply (winid_t win, glui32 fg)
 {
 #ifdef GSC_HAVE_ZCOLORS
-  if (!gsc_colour_enabled || win == nullptr)
+  if (!gsc_colour.enabled || win == nullptr)
     return;
   if (fg == GSC_COLOUR_NONE)
-    fg = gsc_colour_output;
+    fg = gsc_colour.output;
   if (win == gsc_io.main_window)
-    gsc_colour_main_fg = fg;
+    gsc_colour.main_fg = fg;
   garglk_set_zcolors_stream (glk_window_get_stream (win),
-                             fg, gsc_colour_background);
+                             fg, gsc_colour.background);
 #else
   (void) win;
   (void) fg;
@@ -515,7 +515,7 @@ void
 gsc_colour_echo (scr_bool typing)
 {
   gsc_colour_apply (gsc_io.main_window,
-                    typing ? gsc_colour_input : GSC_COLOUR_NONE);
+                    typing ? gsc_colour.input : GSC_COLOUR_NONE);
 }
 
 
@@ -608,7 +608,7 @@ gsc_set_glk_style (void)
    */
   gsc_colour_apply (gsc_io.main_window,
                     font.colour != GSC_COLOUR_NONE ? font.colour
-                    : gsc_attribute_secondary_colour > 0 ? gsc_colour_input
+                    : gsc_attribute_secondary_colour > 0 ? gsc_colour.input
                     : GSC_COLOUR_NONE);
 
   /*
@@ -1047,12 +1047,12 @@ gsc_handle_bgcolour_tag (const scr_char *argument)
    */
   const glui32 colour = gsc_colour_from_tag (argument, "bgcolour");
   const glui32 wanted = (colour == GSC_COLOUR_NONE) ? 0x000000 : colour;
-  const scr_bool changed = (wanted != gsc_colour_background);
+  const scr_bool changed = (wanted != gsc_colour.background);
 
-  gsc_colour_background = wanted;
+  gsc_colour.background = wanted;
   gsc_set_glk_style ();
 
-  if (changed && gsc_colour_enabled && !gsc_replay.sc_silent
+  if (changed && gsc_colour.enabled && !gsc_replay.sc_silent
       && gsc_io.main_window_empty && gsc_io.main_window)
     glk_window_clear (gsc_io.main_window);
 }

@@ -248,14 +248,72 @@ extern gsc_io_t gsc_io;
 extern int gsc_commands_enabled;
 extern int gsc_abbreviations_enabled;
 extern int gsc_unicode_enabled;
-extern glui32 gsc_colour_background;
-extern glui32 gsc_colour_output;
-extern glui32 gsc_colour_input;
-extern int gsc_colour_enabled;
-extern int gsc_colour_startup;
-extern int gsc_colour_hints_preapplied;
-extern glui32 gsc_colour_main_fg;
-extern int gsc_normal_measure_state;
+
+/* The game palette, colour mode, and the story window's measured colours. */
+struct gsc_colour_s
+{
+  /*
+   * ADRIFT <=4 Runner default palette; the ADRIFT 5 loop overwrites these
+   * from the adventure when it loads one.  See gsc_set_colour for where the
+   * numbers come from.
+   */
+  glui32 background = 0x000000;
+  glui32 output = 0x00ff00;
+  glui32 input = 0xff3232;
+
+  /*
+   * Whether the game's own palette is in force ("glk colour", set by
+   * gsc_set_colour in os_glk_commands.cpp).  The status line picks its style
+   * by it too; where the Glk library has no zcolors extension the command is
+   * not offered and this stays FALSE.
+   */
+  int enabled = FALSE;
+
+  /*
+   * Whether colour mode should be on before the game prints a word: the "-c"
+   * command line switch, sparing the player a "glk colour on" at every
+   * launch, or a game that asks for its own palette by the colours it was
+   * written in (see gsc_colour_detect).  Acted on once the windows exist; see
+   * gsc_colour_startup_apply.
+   */
+  int startup = FALSE;
+
+  /*
+   * True when Normal colour stylehints were already set before the first
+   * window open (the -c path, and the detected one).  gsc_set_colour consumes
+   * this so it can skip a pointless rebuild of the just-opened tree.
+   */
+  int hints_preapplied = FALSE;
+
+  /*
+   * The colour last named on the story window (gsc_colour_apply), so that
+   * drawing the status bar in its own two colours can put the story's back
+   * afterwards -- a library whose zcolors are global as well as per-stream
+   * would otherwise go on painting the story window in the bar's colours.
+   * See gsc_status_end.  Only read while colour mode is on, and
+   * gsc_set_colour colours the story window before it turns the mode on, so
+   * it is always set by then.
+   */
+  glui32 main_fg = 0;
+
+  /*
+   * Cached measurement of the story window's style_Normal colours: -1 for not
+   * yet measured, 0 for a library that cannot measure, 1 for a filled cache
+   * (the colours themselves are file-static in os_glk.cpp).  Measuring is not
+   * free -- under Spatterlight every glk_style_measure call is a window flush
+   * plus a synchronous round-trip to the application process -- and the
+   * consumers ask often: gsc_colour_visible once per styled fragment of
+   * output, the map redraw once per prompt while its pane is open.  The
+   * answer only changes when colour mode itself toggles (gsc_set_colour,
+   * which also rebuilds the window tree) or when the library's style
+   * preference flips, and the latter reaches us as an Arrange event; those
+   * two places reset the state to -1.
+   */
+  int normal_measure_state = -1;
+};
+typedef struct gsc_colour_s gsc_colour_t;
+
+extern gsc_colour_t gsc_colour;
 extern scr_game gsc_game;
 extern char gsc_game_path[2048];
 extern a5_adventure_t *gsc_a5_adv;

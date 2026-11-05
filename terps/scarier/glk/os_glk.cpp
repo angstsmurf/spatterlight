@@ -87,48 +87,10 @@ int gsc_commands_enabled = TRUE;
 int gsc_abbreviations_enabled = TRUE;
 int gsc_unicode_enabled = TRUE;
 
-/* ADRIFT <=4 Runner default palette; the ADRIFT 5 loop overwrites these from
-   the adventure when it loads one.  See gsc_set_colour for where the numbers
-   come from. */
-glui32 gsc_colour_background = 0x000000;
-glui32 gsc_colour_output = 0x00ff00;
-glui32 gsc_colour_input = 0xff3232;
+/* The game palette and colour mode; see os_glk_internal.h. */
+gsc_colour_t gsc_colour;
 
-/* Whether the game's own palette is in force ("glk colour", set by
-   gsc_set_colour in os_glk_commands.cpp).  The status line picks its style by
-   it too; where the Glk library has no zcolors extension the command is not
-   offered and this stays FALSE. */
-int gsc_colour_enabled = FALSE;
-/* Whether colour mode should be on before the game prints a word: the "-c"
-   command line switch, sparing the player a "glk colour on" at every launch,
-   or a game that asks for its own palette by the colours it was written in
-   (see gsc_colour_detect).  Acted on once the windows exist; see
-   gsc_colour_startup_apply. */
-int gsc_colour_startup = FALSE;
-/* True when Normal colour stylehints were already set before the first window
-   open (the -c path, and the detected one).  gsc_set_colour consumes this so
-   it can skip a pointless rebuild of the just-opened tree. */
-int gsc_colour_hints_preapplied = FALSE;
-/* The colour last named on the story window (gsc_colour_apply), so that
-   drawing the status bar in its own two colours can put the story's back
-   afterwards -- a library whose zcolors are global as well as per-stream would
-   otherwise go on painting the story window in the bar's colours.  See
-   gsc_status_end.  Only read while colour mode is on, and gsc_set_colour
-   colours the story window before it turns the mode on, so it is always set by
-   then. */
-glui32 gsc_colour_main_fg = 0;
-
-/* Cached measurement of the story window's style_Normal colours: -1 for not
-   yet measured, 0 for a library that cannot measure, 1 for a filled cache.
-   Measuring is not free -- under Spatterlight every glk_style_measure call is
-   a window flush plus a synchronous round-trip to the application process --
-   and the consumers ask often: gsc_colour_visible once per styled fragment
-   of output, the map redraw once per prompt while its pane is open.  The
-   answer only changes when colour mode itself toggles (gsc_set_colour, which
-   also rebuilds the window tree) or when the library's style preference
-   flips, and the latter reaches us as an Arrange event; those two places
-   reset the state to -1. */
-int gsc_normal_measure_state = -1;
+/* The colours gsc_colour.normal_measure_state says are cached. */
 static glui32 gsc_normal_measured_fg, gsc_normal_measured_bg;
 
 /*
@@ -142,7 +104,7 @@ static glui32 gsc_normal_measured_fg, gsc_normal_measured_bg;
 scr_bool
 gsc_normal_measure (glui32 *fg, glui32 *bg)
 {
-  if (gsc_normal_measure_state < 0)
+  if (gsc_colour.normal_measure_state < 0)
     {
       glui32 mfg, mbg;
 
@@ -153,13 +115,13 @@ gsc_normal_measure (glui32 *fg, glui32 *bg)
         {
           gsc_normal_measured_fg = mfg;
           gsc_normal_measured_bg = mbg;
-          gsc_normal_measure_state = 1;
+          gsc_colour.normal_measure_state = 1;
         }
       else
-        gsc_normal_measure_state = 0;
+        gsc_colour.normal_measure_state = 0;
     }
 
-  if (gsc_normal_measure_state == 0)
+  if (gsc_colour.normal_measure_state == 0)
     return FALSE;
   *fg = gsc_normal_measured_fg;
   *bg = gsc_normal_measured_bg;
@@ -191,7 +153,7 @@ gsc_colour_visible (void)
 {
   glui32 fg, bg;
 
-  if (!gsc_colour_enabled)
+  if (!gsc_colour.enabled)
     return FALSE;
   if (gsc_io.main_window == nullptr)
     return TRUE;
@@ -200,7 +162,7 @@ gsc_colour_visible (void)
      colours are being honoured. */
   if (!gsc_normal_measure (&fg, &bg))
     return TRUE;
-  return fg == gsc_colour_output && bg == gsc_colour_background;
+  return fg == gsc_colour.output && bg == gsc_colour.background;
 }
 
 /* ADRIFT game to interpret. */
@@ -1098,15 +1060,15 @@ gsc_start_adrift5 (strid_t game_stream, strid_t restore_stream,
   /* Unlike ADRIFT 4, where the palette is a Runner preference the .taf
      knows nothing about, an ADRIFT 5 adventure carries the author's
      own colours; colour mode uses those. */
-  gsc_colour_background = gsc_a5_adv->bg_colour;
-  gsc_colour_output = gsc_a5_adv->output_colour;
-  gsc_colour_input = gsc_a5_adv->input_colour;
+  gsc_colour.background = gsc_a5_adv->bg_colour;
+  gsc_colour.output = gsc_a5_adv->output_colour;
+  gsc_colour.input = gsc_a5_adv->input_colour;
 #ifdef GSC_HAVE_ZCOLORS
   /* An adventure that chose its own colours starts in them, as "-c"
      would; asked here, while the loading window is still up to measure
      the theme against. */
   if (gsc_colour_detect (window))
-    gsc_colour_startup = TRUE;
+    gsc_colour.startup = TRUE;
 #endif
   glk_stream_close (game_stream, nullptr);
   if (restore_stream)
@@ -1194,7 +1156,7 @@ gsc_start_adrift4 (strid_t game_stream, strid_t restore_stream,
          Runner's palette, as "-c" would; asked here, while the loading window
          is still up to measure the theme against. */
       if (gsc_colour_detect (window))
-        gsc_colour_startup = TRUE;
+        gsc_colour.startup = TRUE;
 #endif
     }
 

@@ -209,7 +209,7 @@ glkunix_startup_code (glkunix_startup_t * data)
          that could never arrive. */
       if (strcmp (argv[argv_index], "-c") == 0)
         {
-          gsc_colour_startup = TRUE;
+          gsc_colour.startup = TRUE;
           continue;
         }
 #endif
