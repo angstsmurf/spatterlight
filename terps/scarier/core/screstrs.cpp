@@ -201,6 +201,74 @@ restr_selector_npc (scr_gameref_t game, scr_int var)
 
 
 /*
+ * restr_object_held_by_player()
+ *
+ * The "held by" test of restr_object_in_place() for the player.
+ *
+ * "Held by the player" is broader than it sounds.  The ADRIFT 4 Runner
+ * answers TRUE for an object the player is *wearing* as well as one
+ * being carried, and also for an object sitting inside a container that
+ * the player carries or wears -- one level of nesting, not a recursive
+ * search.  See the notes above restr_pass_task_object_location.
+ *
+ * The container's openness is NOT consulted, and that half was checked
+ * separately: probe `p39held`
+ * (test/adrift4/harness/make_39_heldprobe.py) run in the real run390.exe
+ * answers KEY IS HELD for a key inside a *closed* box the player
+ * carries, and only turns to NOT HELD when the box is dropped -- picking
+ * the closed box back up restores it.  All five states (loose, carried,
+ * open-carried-container, closed-carried-container,
+ * closed-container-on-floor) match Scarier exactly.  Verified 2026-08-02;
+ * this is what lets inverness's desk be unlocked with the old key still
+ * sealed inside its riddle box.
+ *
+ * Note that none of this applies to the NPC forms, nor to "worn by":
+ * those really are the single exact position test they look like.
+ *
+ * ...and it does not apply to the "any object" / "no object" quantified
+ * form either, which the Runner evaluates in a SEPARATE, hand-duplicated
+ * per-object switch (`quantified` here).  That copy dropped the worn
+ * case: at 00080871 in mdlSpreadTheLoad.Sub_20_3 the Var3 = 0 arm tests
+ * only `location == 0` (held) and the container arm `location == 246`
+ * with the parent held (0) or worn (156) -- there is no `location ==
+ * 156` test on the object itself, where the single-object path at
+ * 00080C9B plainly has one.  So a worn object counts as held when a
+ * restriction names it, but NOT when the restriction quantifies over all
+ * objects.
+ *
+ * Almost certainly a Runner slip rather than a design, but it is what
+ * shipped, and games depend on it: Cursed's second interlude gates the
+ * magical entrance on "no object is held by the player" while the player
+ * wears street clothes that the game refuses to let you remove.  Count
+ * the clothes and the veil can never be entered and the game is
+ * unwinnable from that point on.
+ */
+static scr_bool
+restr_object_held_by_player (scr_gameref_t game,
+                             scr_int object, scr_bool quantified)
+{
+  scr_int position, parent, parent_position;
+
+  position = gs_object_position (game, object);
+  if (position == OBJ_HELD_PLAYER)
+    return TRUE;
+  if (position == OBJ_WORN_PLAYER)
+    return !quantified;
+
+  if (position != OBJ_IN_OBJECT)
+    return FALSE;
+
+  parent = gs_object_parent (game, object);
+  if (parent < 0 || parent >= gs_object_count (game))
+    return FALSE;
+
+  parent_position = gs_object_position (game, parent);
+  return parent_position == OBJ_HELD_PLAYER
+         || parent_position == OBJ_WORN_PLAYER;
+}
+
+
+/*
  * restr_object_in_place()
  *
  * Is object in a certain place, state, or condition.
@@ -237,66 +305,8 @@ restr_object_in_place (scr_gameref_t game,
 
     case 1:
     case 7:                    /* Held by */
-      /*
-       * "Held by the player" is broader than it sounds.  The ADRIFT 4 Runner
-       * answers TRUE for an object the player is *wearing* as well as one
-       * being carried, and also for an object sitting inside a container that
-       * the player carries or wears -- one level of nesting, not a recursive
-       * search.  See the notes above restr_pass_task_object_location below.
-       *
-       * The container's openness is NOT consulted, and that half was checked
-       * separately: probe `p39held`
-       * (test/adrift4/harness/make_39_heldprobe.py) run in the real run390.exe
-       * answers KEY IS HELD for a key inside a *closed* box the player
-       * carries, and only turns to NOT HELD when the box is dropped -- picking
-       * the closed box back up restores it.  All five states (loose, carried,
-       * open-carried-container, closed-carried- container,
-       * closed-container-on-floor) match Scarier exactly.  Verified 2026-08-02;
-       * this is what lets inverness's desk be unlocked with the old key still
-       * sealed inside its riddle box.
-       *
-       * Note that none of this applies to the NPC forms, nor to "worn by":
-       * those really are the single exact position test they look like.
-       *
-       * ...and it does not apply to the "any object" / "no object" quantified
-       * form either, which the Runner evaluates in a SEPARATE, hand-duplicated
-       * per-object switch (`quantified` here).  That copy dropped the worn
-       * case: at 00080871 in mdlSpreadTheLoad.Sub_20_3 the Var3 = 0 arm tests
-       * only `location == 0` (held) and the container arm `location == 246`
-       * with the parent held (0) or worn (156) -- there is no `location ==
-       * 156` test on the object itself, where the single-object path at
-       * 00080C9B plainly has one.  So a worn object counts as held when a
-       * restriction names it, but NOT when the restriction quantifies over all
-       * objects.
-       *
-       * Almost certainly a Runner slip rather than a design, but it is what
-       * shipped, and games depend on it: Cursed's second interlude gates the
-       * magical entrance on "no object is held by the player" while the player
-       * wears street clothes that the game refuses to let you remove.  Count
-       * the clothes and the veil can never be entered and the game is
-       * unwinnable from that point on.
-       */
       if (var3 == 0)            /* Player */
-        {
-          scr_int position, parent, parent_position;
-
-          position = gs_object_position (game, object);
-          if (position == OBJ_HELD_PLAYER)
-            return TRUE;
-          if (position == OBJ_WORN_PLAYER)
-            return !quantified;
-
-          if (position != OBJ_IN_OBJECT)
-            return FALSE;
-
-          parent = gs_object_parent (game, object);
-          if (parent < 0 || parent >= gs_object_count (game))
-            return FALSE;
-
-          parent_position = gs_object_position (game, parent);
-          return parent_position == OBJ_HELD_PLAYER
-                 || parent_position == OBJ_WORN_PLAYER;
-        }
+        return restr_object_held_by_player (game, object, quantified);
       npc = restr_selector_npc (game, var3);
 
       return gs_object_position (game, object) == OBJ_HELD_NPC
@@ -695,6 +705,106 @@ restr_pass_task_task_state (scr_gameref_t game, scr_int var1, scr_int var2)
 
 
 /*
+ * restr_char_player()
+ * restr_char_npc()
+ *
+ * The two halves of restr_pass_task_char(): var2 types 0 and 3 to 7 for the
+ * player, and for an already-decoded NPC.
+ */
+static scr_bool
+restr_char_player (scr_gameref_t game, scr_int var2, scr_int var3)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_int npc2 = -1, gender;
+
+  switch (var2)
+    {
+    case 0:                    /* In same room as */
+      if (var3 > 0)
+        npc2 = restr_selector_npc (game, var3);
+      if (var3 == 0)           /* Player */
+        return TRUE;
+      else if (npc2 < 0)
+        return FALSE;
+      else
+        return npc_in_room (game, npc2, gs_playerroom (game));
+
+    case 3:                    /* Not alone */
+      return npc_count_in_room (game, gs_playerroom (game)) > 1;
+
+    case 4:                    /* Standing on */
+      return gs_playerposition (game) == 0
+             && gs_playerparent (game) == obj_standable_object (game, var3 - 1);
+
+    case 5:                    /* Sitting on */
+      return gs_playerposition (game) == 1
+             && gs_playerparent (game) == obj_standable_object (game, var3 - 1);
+
+    case 6:                    /* Lying on */
+      return gs_playerposition (game) == 2
+             && gs_playerparent (game) == obj_lieable_object (game, var3 - 1);
+
+    case 7:                    /* Player gender */
+      gender = prop_get_global_integer (bundle, "PlayerGender");
+      return gender == var3;
+
+    default:
+      scr_fatal ("restr_pass_task_char: invalid type, %ld\n", var2);
+    }
+}
+
+static scr_bool
+restr_char_npc (scr_gameref_t game, scr_int npc1, scr_int var2, scr_int var3)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[3];
+  scr_int npc2 = -1, gender;
+
+  switch (var2)
+    {
+    case 0:                    /* In same room as */
+      if (var3 == 0)
+        return npc_in_room (game, npc1, gs_playerroom (game));
+      if (var3 > 0)
+        npc2 = restr_selector_npc (game, var3);
+      if (npc2 < 0)
+        return FALSE;
+      return npc_in_room (game, npc1, gs_npc_location (game, npc2) - 1);
+
+    case 3:                    /* Not alone */
+      return npc_count_in_room (game, gs_npc_location (game, npc1) - 1) > 1;
+
+    /*
+     * Cases 4-6 test the NPC's position but the *player's* parent object.
+     * This reproduces the original SCARE behavior; don't "correct" it
+     * into a divergence from the ADRIFT Runner without evidence.
+     */
+    case 4:                    /* Standing on */
+      return gs_npc_position (game, npc1) == 0
+             && gs_playerparent (game) == obj_standable_object (game, var3);
+
+    case 5:                    /* Sitting on */
+      return gs_npc_position (game, npc1) == 1
+             && gs_playerparent (game) == obj_standable_object (game, var3);
+
+    case 6:                    /* Lying on */
+      return gs_npc_position (game, npc1) == 2
+             && gs_playerparent (game) == obj_lieable_object (game, var3);
+
+    case 7:                    /* NPC gender */
+      vt_key[0].string = "NPCs";
+      vt_key[1].integer = npc1;
+      vt_key[2].string = "Gender";
+      gender = prop_get_integer (bundle, "I<-sis", vt_key);
+      return gender == var3;
+
+    default:
+      scr_fatal ("restr_pass_task_char: invalid type, %ld\n", var2);
+    }
+}
+
+
+/*
  * restr_pass_task_char()
  *
  * Evaluate restrictions relating to player and NPCs.
@@ -705,7 +815,7 @@ restr_pass_task_char (scr_gameref_t game,
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_var_setref_t vars = gs_get_vars (game);
-  scr_int npc1, npc2;
+  scr_int npc1;
 
   if (restr.trace)
     {
@@ -760,7 +870,7 @@ restr_pass_task_char (scr_gameref_t game,
     return !restr_pass_task_char (game, var1, 3, var3);
 
   /* Decode NPC number, -1 if none. */
-  npc1 = npc2 = -1;
+  npc1 = -1;
   if (var1 > 0)
     npc1 = restr_selector_npc (game, var1);
 
@@ -776,96 +886,8 @@ restr_pass_task_char (scr_gameref_t game,
 
   /* Player or NPC? */
   if (var1 == 0)
-    {
-      scr_int gender;
-
-      /* Player -- decode based on var2. */
-      switch (var2)
-        {
-        case 0:                /* In same room as */
-          if (var3 > 0)
-            npc2 = restr_selector_npc (game, var3);
-          if (var3 == 0)       /* Player */
-            return TRUE;
-          else if (npc2 < 0)
-            return FALSE;
-          else
-            return npc_in_room (game, npc2, gs_playerroom (game));
-
-        case 3:                /* Not alone */
-          return npc_count_in_room (game, gs_playerroom (game)) > 1;
-
-        case 4:                /* Standing on */
-          return gs_playerposition (game) == 0
-                 && gs_playerparent (game) == obj_standable_object (game,
-                                                                    var3 - 1);
-
-        case 5:                /* Sitting on */
-          return gs_playerposition (game) == 1
-                 && gs_playerparent (game) == obj_standable_object (game,
-                                                                    var3 - 1);
-
-        case 6:                /* Lying on */
-          return gs_playerposition (game) == 2
-                 && gs_playerparent (game) == obj_lieable_object (game,
-                                                                  var3 - 1);
-
-        case 7:                /* Player gender */
-          gender = prop_get_global_integer (bundle, "PlayerGender");
-          return gender == var3;
-
-        default:
-          scr_fatal ("restr_pass_task_char: invalid type, %ld\n", var2);
-        }
-    }
-  else
-    {
-      scr_vartype_t vt_key[3];
-      scr_int gender;
-
-      /* NPC -- decode based on var2. */
-      switch (var2)
-        {
-        case 0:                /* In same room as */
-          if (var3 == 0)
-            return npc_in_room (game, npc1, gs_playerroom (game));
-          if (var3 > 0)
-            npc2 = restr_selector_npc (game, var3);
-          if (npc2 < 0)
-            return FALSE;
-          return npc_in_room (game, npc1, gs_npc_location (game, npc2) - 1);
-
-        case 3:                /* Not alone */
-          return npc_count_in_room (game, gs_npc_location (game, npc1) - 1) > 1;
-
-        /*
-         * Cases 4-6 test the NPC's position but the *player's* parent object.
-         * This reproduces the original SCARE behavior; don't "correct" it
-         * into a divergence from the ADRIFT Runner without evidence.
-         */
-        case 4:                /* Standing on */
-          return gs_npc_position (game, npc1) == 0
-                 && gs_playerparent (game) == obj_standable_object (game, var3);
-
-        case 5:                /* Sitting on */
-          return gs_npc_position (game, npc1) == 1
-                 && gs_playerparent (game) == obj_standable_object (game, var3);
-
-        case 6:                /* Lying on */
-          return gs_npc_position (game, npc1) == 2
-                 && gs_playerparent (game) == obj_lieable_object (game, var3);
-
-        case 7:                /* NPC gender */
-          vt_key[0].string = "NPCs";
-          vt_key[1].integer = npc1;
-          vt_key[2].string = "Gender";
-          gender = prop_get_integer (bundle, "I<-sis", vt_key);
-          return gender == var3;
-
-        default:
-          scr_fatal ("restr_pass_task_char: invalid type, %ld\n", var2);
-        }
-    }
+    return restr_char_player (game, var2, var3);
+  return restr_char_npc (game, npc1, var2, var3);
 }
 
 

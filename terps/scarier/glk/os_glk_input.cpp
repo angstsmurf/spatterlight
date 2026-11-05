@@ -167,11 +167,21 @@ os_read_line (scr_char *buffer, scr_int length)
   return status;
 }
 
+/*
+ * gsc_prompt_prelude()
+ *
+ * Everything said before a line is read: a pending help hint, normal style,
+ * the status line, any meta-command report, the map, then the prompt and
+ * autosave.  Returns TRUE when an autorestore that stopped at a <waitkey>
+ * pause supplies the command itself, in buffer.
+ */
 static scr_bool
-gsc_read_command (scr_char *buffer, scr_int length)
+gsc_prompt_prelude (scr_char *buffer, scr_int length)
 {
-  scr_int characters;
-  assert (buffer && length > 0);
+#ifndef SPATTERLIGHT
+  (void) buffer;
+  (void) length;
+#endif
 
   /* If a help request is pending, provide a user hint. */
   gsc_output_provide_help_hint ();
@@ -223,6 +233,20 @@ gsc_read_command (scr_char *buffer, scr_int length)
   gsc_put_prompt (">");
 #endif
 
+  return FALSE;
+}
+
+
+/*
+ * gsc_take_supplied_line()
+ *
+ * Fill buffer from a source other than the keyboard: a map or `go <place>`
+ * walk, a scripted line, or the input log being read.  Returns TRUE, with
+ * the line echoed, when one did.
+ */
+static scr_bool
+gsc_take_supplied_line (scr_char *buffer, scr_int length)
+{
   /* A walk set going by a click on the map supplies the next direction itself,
      in place of reading one from the player, and so does a `go <place>`
      walk.  Echo it so the transcript reads as though it had been typed.
@@ -249,14 +273,19 @@ gsc_read_command (scr_char *buffer, scr_int length)
         }
     }
 
-  /*
-   * No input log being read, or we just hit the end of file on one.  Revert
-   * to normal line input; start by getting a new line from Glk.
-   */
-  characters = gsc_read_line (buffer, length - 1);
-  assert (characters <= length);
-  buffer[characters] = '\0';
+  return FALSE;
+}
 
+
+/*
+ * gsc_take_clicked_walk_step()
+ *
+ * After a typed read: if a map click cancelled it to start a walk, put the
+ * walk's first step in buffer and return TRUE.
+ */
+static scr_bool
+gsc_take_clicked_walk_step (scr_char *buffer, scr_int length)
+{
   /* A click on the map cancelled the request to start a walk.  Its first
      step takes the place of the line; where the library echoed the cancelled
      line, the prompt's line has ended, and the step gets a prompt of its
@@ -274,6 +303,20 @@ gsc_read_command (scr_char *buffer, scr_int length)
       gsc_colour_echo (FALSE);
     }
 
+  return FALSE;
+}
+
+
+/*
+ * gsc_filter_typed_line()
+ *
+ * Quote-escape, abbreviation expansion and Glk local commands on a typed
+ * line.  Returns FALSE when the line was a local command and the
+ * interpreter should not see it.
+ */
+static scr_bool
+gsc_filter_typed_line (scr_char *buffer, scr_int length)
+{
   /*
    * If neither abbreviations nor local commands are enabled, use the data
    * read above without further massaging.
@@ -346,6 +389,34 @@ gsc_read_command (scr_char *buffer, scr_int length)
             }
         }
     }
+
+  return TRUE;
+}
+
+
+static scr_bool
+gsc_read_command (scr_char *buffer, scr_int length)
+{
+  scr_int characters;
+  assert (buffer && length > 0);
+
+  if (gsc_prompt_prelude (buffer, length))
+    return TRUE;
+  if (gsc_take_supplied_line (buffer, length))
+    return TRUE;
+
+  /*
+   * No input log being read, or we just hit the end of file on one.  Revert
+   * to normal line input; start by getting a new line from Glk.
+   */
+  characters = gsc_read_line (buffer, length - 1);
+  assert (characters <= length);
+  buffer[characters] = '\0';
+
+  if (gsc_take_clicked_walk_step (buffer, length))
+    return TRUE;
+  if (!gsc_filter_typed_line (buffer, length))
+    return FALSE;
 
   /*
    * If there is an input log active, log this input string to it.  Note that
