@@ -166,6 +166,9 @@ run_notify_score_change (scr_gameref_t game)
  *     line; the undo game's; and one per memo ring entry, oldest first, set
  *     after the container has rebuilt the ring;
  *   - the player's settings: verbose, score notification and wait turns;
+ *   - whether this turn's score change has been announced: the save is
+ *     taken at the prompt, after run_notify_score_change(), and a fresh
+ *     process would otherwise announce it again before that prompt;
  *   - the name and gender typed at the startup prompts, which live in the
  *     property bundle;
  *   - which startup prompt the save was taken at, if either: see
@@ -287,6 +290,7 @@ run_session_state (scr_gameref_t game)
                run_session_join ({game->verbose,
                                   game->notify_score_change,
                                   game->waitturns}));
+  sessrec_put (out, "notified", run_session_join ({game->has_notified}));
 
   sessrec_put (out, "pronouns", run_session_pronouns (game));
   if (game->undo_available)
@@ -384,6 +388,8 @@ run_restore_session_state (scr_gameref_t game, const std::string &state)
           if (numbers[2] >= 0)
             game->waitturns = numbers[2];
         }
+      else if (key == "notified" && numbers.size () == 1)
+        game->has_notified = numbers[0] != 0;
       else if (key == "pronouns")
         run_session_set_pronouns (game, game, value);
       else if (key == "undo_pronouns" && game->undo_available)

@@ -29,7 +29,8 @@ none at present.)
 
 State that lives outside the saved game -- the line `again` repeats, command
 history, pronouns, an open "Which ...?" question, a question prefix, brief/
-verbose and score notification, and which of the startup name and gender
+verbose and score notification, whether the last score change has been
+announced, and which of the startup name and gender
 prompts the game was closed at -- travels in the container's session section
 (run_session_state).  An ADRIFT 5 popup question is asked from inside a turn,
 so a game closed at one is saved as the state the turn began in, its command

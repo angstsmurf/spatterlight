@@ -91,10 +91,9 @@ Lengths are rough (to the first column-0 `}`).
   file, so it was checked with an A/B run of cheapglk `glkscarier` (HEAD
   vs new, mortality.taf, a script of abbreviations, quoted input, help,
   `glk` commands and restart): output identical. The Spatterlight autosave
-  suite (`test/adrift4/harness/run_autosave_tests.py`) passes except
-  `wesghn-4.00-sound`, which fails identically with HEAD's
-  `os_glk_input.cpp`: a "(Your score has increased ...)" line is printed
-  before input on relaunch. Pre-existing; not chased.
+  suite (`test/adrift4/harness/run_autosave_tests.py`) passes. Its one
+  failure at the time, `wesghn-4.00-sound`, predated this change and was
+  fixed separately: `has_notified` now travels in the session state.
 - `screstrs.cpp`: `restr_pass_task_char` delegates to `restr_char_player` /
   `restr_char_npc`, and the held-by-player arm of `restr_object_in_place`
   is `restr_object_held_by_player` (its long Runner comment moved with it).
