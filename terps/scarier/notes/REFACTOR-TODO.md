@@ -194,6 +194,15 @@ Do **not** change statement order inside the dispatch cascade.
   flags into `input`; autosave and map into their own) and pass or alias via
   one `static` instance per TU. Mechanical, but it touches every `glk/` file,
   so do it one feature at a time.
+  *Done 2026-11-05:* eight structs in `os_glk_internal.h`, one commit each:
+  `gsc_map_pane`, `gsc_io`, `gsc_replay` (waitkey/silent/A5 popup replay),
+  `gsc_colour`, `gsc_walk`, `gsc_options`, `gsc_title`, `gsc_a5_media`.
+  Left alone on purpose: the running-game handles (`gsc_game`, `gsc_a5_adv`,
+  `gsc_is_a5`, `gsc_game_path`...; `gsc_game` alone has 84 uses), the
+  autosave flags and file-statics (already private beside their functions),
+  and a few unrelated singletons (`gsc_patches_enabled`, `gsc_a5_real_time`,
+  `gsc_line_echo_manual`, `gsc_main_at_line_start`...). GARGLK `-Wshadow`
+  syntax check, `quick` and the autosave suite passed after every commit.
 - **`scr_bool` vs `bool`.** About 3,160 `scr_bool` against 129 plain `bool`.
   The new ADRIFT 5 code and recent v4 additions mix both. Pick one rule
   (v4 and library keep `scr_bool`, `adrift5/` uses `bool`) and write it in
