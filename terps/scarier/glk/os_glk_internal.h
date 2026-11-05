@@ -188,7 +188,7 @@ static const scr_int GSC_HINT_REFUSAL_LIMIT = 5;
  * How a given engine's status line renders text: the number of grid cells a
  * string fills, the call that prints it, and the start of the character after
  * the one at a given point (a byte step for the ADRIFT <=4 codepage strings, a
- * UTF-8 step for the ADRIFT 5 ones).  gsc_status_put_right() needs all three.
+ * UTF-8 step for the ADRIFT 5 ones).  gsc_status_draw() needs all three.
  */
 typedef struct
 {
@@ -304,9 +304,8 @@ extern scr_int gsc_read_line (scr_char *buffer, scr_int length);
 /* os_glk_status.cpp: the status line. */
 extern scr_bool gsc_status_begin (glui32 *width);
 extern void gsc_status_end (void);
-extern void gsc_status_put_right (glui32 width, glui32 room_end,
-                                  const scr_char *status,
-                                  const gsc_status_writer_t *writer);
+extern void gsc_status_draw (const scr_char *room, const scr_char *status,
+                             const gsc_status_writer_t *writer);
 extern void gsc_status_notify (void);
 extern void gsc_status_redraw (void);
 

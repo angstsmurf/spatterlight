@@ -930,20 +930,18 @@ static const gsc_status_writer_t GSC_A5_STATUS_WRITER = {
 /*
  * gsc_a5_status()
  *
- * Redraw the one-line status window: the current room name at the left, and
- * the score (when the game keeps a Score variable) plus move count at the
- * right.
+ * Redraw the status window: the current room name at the left, and the score
+ * (when the game keeps a Score variable) plus move count at the right, or on
+ * a second row when they do not fit there (gsc_status_draw).
  */
 void
 gsc_a5_status (a5_run_t *run)
 {
-  glui32 width;
   char *room;
   char right[96];
   long score, maxscore;
-  glui32 room_end;
 
-  if (!gsc_status_begin (&width))
+  if (!gsc_status_window)
     return;
 
   /* Right-hand score / moves. */
@@ -958,19 +956,7 @@ gsc_a5_status (a5_run_t *run)
   else
     snprintf (right, sizeof right, "Moves: %d", a5run_turns (run));
 
-  /* Room name at the left. */
-  glk_window_move_cursor (gsc_status_window, 1, 0);
   room = a5run_location_name (run);
-  room_end = 1;
-  if (room)
-    {
-      gsc_a5_put_string (room);
-      room_end += gsc_a5_printed_width (room);
-      free (room);
-    }
-
-  /* Right-justified score/moves. */
-  gsc_status_put_right (width, room_end, right, &GSC_A5_STATUS_WRITER);
-
-  gsc_status_end ();
+  gsc_status_draw (room, right, &GSC_A5_STATUS_WRITER);
+  free (room);
 }
