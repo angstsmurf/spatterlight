@@ -1517,8 +1517,8 @@ gsc_main_game_over (void)
 static void
 gsc_main_shutdown (void)
 {
-  map_free (gsc_map);
-  gsc_map = nullptr;
+  map_free (gsc_map_pane.map);
+  gsc_map_pane.map = nullptr;
   gsc_map_screen_drop ();
   scr_free_game (gsc_game);
 
@@ -1574,7 +1574,7 @@ gsc_main (void)
 
   /* Does the game define a MAP verb of its own?  If so it keeps it, and the
      map pane is reached with "glk map" instead. */
-  gsc_map_taken = scmap_command_taken ((scr_gameref_t) gsc_game);
+  gsc_map_pane.taken = scmap_command_taken ((scr_gameref_t) gsc_game);
 
   /* Not on an autorestore: the notes are already in the restored transcript,
      and there is no window to print them to yet. */

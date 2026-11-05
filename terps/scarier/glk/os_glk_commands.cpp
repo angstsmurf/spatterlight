@@ -698,7 +698,7 @@ gsc_colour_set_normal_hints (scr_bool on)
 static void
 gsc_colour_rebuild_windows (void)
 {
-  int was_map = gsc_map_shown;
+  int was_map = gsc_map_pane.shown;
   int was_side = gsc_a5_side_window != nullptr;
 #ifdef GSC_HAVE_TITLE_WINDOW
   int was_title = gsc_graphics_window != nullptr;
@@ -711,12 +711,12 @@ gsc_colour_rebuild_windows (void)
 
   gsc_main_window = nullptr;
   gsc_status_window = nullptr;
-  gsc_map_window = nullptr;
+  gsc_map_pane.window = nullptr;
   gsc_a5_side_window = nullptr;
 #ifdef GSC_HAVE_TITLE_WINDOW
   gsc_graphics_window = nullptr;
 #endif
-  gsc_map_shown = FALSE;
+  gsc_map_pane.shown = FALSE;
   gsc_map_screen_drop ();
 
   gsc_open_main_window ();

@@ -447,7 +447,7 @@ gsc_stash_frontend_state (ScarierGlkFrontendState *st)
   st->mainwintag = gsc_main_window ? gsc_main_window->tag : 0;
   st->statuswintag = gsc_status_window ? gsc_status_window->tag : 0;
   st->sidewintag = gsc_a5_side_window ? gsc_a5_side_window->tag : 0;
-  st->mapwintag = gsc_map_window ? gsc_map_window->tag : 0;
+  st->mapwintag = gsc_map_pane.window ? gsc_map_pane.window->tag : 0;
   st->gfxwintag = gsc_graphics_window ? gsc_graphics_window->tag : 0;
   st->transcripttag = gsc_transcript_stream ? gsc_transcript_stream->tag : 0;
   st->inputlogtag = gsc_inputlog_stream ? gsc_inputlog_stream->tag : 0;
@@ -461,13 +461,13 @@ gsc_stash_frontend_state (ScarierGlkFrontendState *st)
     }
   st->seen_input = gsc_seen_input;
   st->title_image = gsc_title_image;
-  st->map_shown = gsc_map_shown;
-  st->map_at_top = gsc_map_at_top;
-  st->map_zoom = gsc_map_zoom;
-  st->map_follow = gsc_map_follow;
-  st->map_cx = gsc_map_cam.cx;
-  st->map_cy = gsc_map_cam.cy;
-  st->map_page = gsc_map_cam.page;
+  st->map_shown = gsc_map_pane.shown;
+  st->map_at_top = gsc_map_pane.at_top;
+  st->map_zoom = gsc_map_pane.zoom;
+  st->map_follow = gsc_map_pane.follow;
+  st->map_cx = gsc_map_pane.cam.cx;
+  st->map_cy = gsc_map_pane.cam.cy;
+  st->map_page = gsc_map_pane.cam.page;
   st->colour_on = gsc_colour_enabled;
   st->colour_saved = 1;
   st->colour_bg = gsc_colour_background;
@@ -528,7 +528,7 @@ gsc_recover_frontend_state (const ScarierGlkFrontendState *st)
   gsc_main_window = gli_window_for_tag (st->mainwintag);
   gsc_status_window = gli_window_for_tag (st->statuswintag);
   gsc_a5_side_window = gli_window_for_tag (st->sidewintag);
-  gsc_map_window = gli_window_for_tag (st->mapwintag);
+  gsc_map_pane.window = gli_window_for_tag (st->mapwintag);
   gsc_graphics_window = gli_window_for_tag (st->gfxwintag);
   gsc_transcript_stream = gli_stream_for_tag (st->transcripttag);
   gsc_inputlog_stream = gli_stream_for_tag (st->inputlogtag);
@@ -541,16 +541,16 @@ gsc_recover_frontend_state (const ScarierGlkFrontendState *st)
     }
   gsc_seen_input = st->seen_input;
   gsc_title_image = (glui32) st->title_image;
-  gsc_map_shown = st->map_shown;
-  gsc_map_at_top = st->map_at_top;
-  gsc_map_zoom = st->map_zoom;
-  gsc_map_follow = st->map_follow;
-  gsc_map_cam.cx = st->map_cx;
-  gsc_map_cam.cy = st->map_cy;
-  gsc_map_cam.page = st->map_page;
+  gsc_map_pane.shown = st->map_shown;
+  gsc_map_pane.at_top = st->map_at_top;
+  gsc_map_pane.zoom = st->map_zoom;
+  gsc_map_pane.follow = st->map_follow;
+  gsc_map_pane.cam.cx = st->map_cx;
+  gsc_map_pane.cam.cy = st->map_cy;
+  gsc_map_pane.cam.page = st->map_page;
   /* So that the first redraw takes the restored pan as it finds it, instead
      of seeing a change of room and going back to following the player. */
-  gsc_map_last_player[0] = '\0';
+  gsc_map_pane.last_player[0] = '\0';
   /* The restored streams still carry the zcolors colour mode set on them, and
      the restored windows their black background, so taking the flag back is
      all it takes to pick the mode up where it left off.  (An autosave written
@@ -574,7 +574,7 @@ gsc_recover_frontend_state (const ScarierGlkFrontendState *st)
   {
     int pref = gsc_map_pref_read (nullptr);
 
-    gsc_map_want = gsc_map_shown || pref == 1
+    gsc_map_pane.want = gsc_map_pane.shown || pref == 1
                    || (pref < 0 && gsc_map_default_shown ());
   }
   /* The restored map window holds the app's snapshot pixels, not ours:
@@ -597,10 +597,10 @@ gsc_recover_frontend_state (const ScarierGlkFrontendState *st)
                             st->rng_runner_state[2], st->rng_runner_state[3] };
       scr_set_runner_random_state (words, st->rng_runner_draws);
     }
-  /* Not stashed: gsc_map_taken, assist flags and locale are re-derived at
-     startup; the walk-in-progress state is deliberately dropped (a restored
-     session simply stops walking); gsc_map itself is authored data (ADRIFT
-     5, reloaded at boot) or rebuilt every redraw (ADRIFT 4); and the restart
+  /* Not stashed: gsc_map_pane.taken, assist flags and locale are re-derived
+     at startup; the walk-in-progress state is deliberately dropped (a
+     restored session simply stops walking); gsc_map_pane.map itself is
+     authored data (ADRIFT 5, reloaded at boot) or rebuilt every redraw (ADRIFT 4); and the restart
      count gsc_map_notice_restart watches is per-process on both sides of the
      comparison, so a fresh process starts it and the engine's at zero
      together. */

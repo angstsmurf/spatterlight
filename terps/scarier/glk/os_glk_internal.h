@@ -421,20 +421,88 @@ extern void gsc_autorestore_replace_state (bool (*apply)
                                            (const std::string &data));
 #endif
 
-/* os_glk_map.cpp: the map pane's state, read by the event loops, the
- * autosave and the "glk" command table. */
-extern winid_t gsc_map_window;
-extern map_t *gsc_map;
-extern int gsc_map_shown;
-extern int gsc_map_want;
-extern int gsc_map_at_top;
-extern int gsc_map_startup;
-extern int gsc_map_taken;
-extern int gsc_map_zoom;
-extern map_camera_t gsc_map_cam;
-extern int gsc_map_follow;
-extern char gsc_map_last_player[256];
-extern int gsc_map_full_flush;
+/*
+ * os_glk_map.cpp: the map pane's state, read by the event loops, the
+ * autosave and the "glk" command table.
+ *
+ * The map is shown in a graphics window to the right of the story on request
+ * ("map").  Both engines use this pane; what differs is where the map comes
+ * from.  An ADRIFT 5 map is authored data, parsed once per adventure, aliasing
+ * its XML, and so dropped whenever the adventure is.  An ADRIFT 4 map has to
+ * be derived from the exit graph, and it depends on the room you are standing
+ * in and on how much you have explored -- so it is rebuilt on every redraw, as
+ * the ADRIFT 4 Runner rebuilt it every time it drew (drawmap with mode = 1).
+ */
+struct gsc_map_pane_s
+{
+  winid_t window = nullptr;
+  map_t *map = nullptr;
+  int shown = FALSE;
+
+  /*
+   * Whether the map pane is wanted at all: the player's remembered choice, or
+   * failing that the layout the game shipped (gsc_map_auto_reveal).  Wanted
+   * is not the same as shown -- a map with nothing on it yet is held back
+   * until there is something to see (gsc_map_worth_opening), and the per-turn
+   * redraw opens it then.  FALSE until something decides.
+   */
+  int want = FALSE;
+
+  /*
+   * Where the map pane sits: the standard 40% pane to the right of the story,
+   * or -- for games with wide maps -- a 30% band across the top of the whole
+   * screen, above the status line ("glk map top").  The choice is kept, so
+   * hiding and re-showing the map does not move it, and it is remembered with
+   * the visibility (gsc_map_pref_write) so neither does restarting.
+   */
+  int at_top = FALSE;
+
+  /*
+   * Set by "-m" or SCR_MAP_ENABLED: start every game with the map showing,
+   * whatever the player last chose or the game shipped (gsc_map_pref_read).
+   */
+  int startup = FALSE;
+
+  /*
+   * Set when the game defines a MAP command of its own (Lost Coastlines has a
+   * sea chart): the game's command wins, and the pane is reached with the
+   * "glk map" escape instead.
+   */
+  int taken = FALSE;
+
+  /*
+   * A manual zoom ("glk zoom in/out/N", or the zoom buttons), as pixels per
+   * map unit; 0 while the map is fitting itself to its window ("glk zoom
+   * auto", the default).  A manual zoom is kept until "auto" puts it back.
+   */
+  int zoom = 0;
+
+  /*
+   * The camera of the last map redraw, so a mouse click can be hit-tested
+   * against exactly what is on screen.
+   */
+  map_camera_t cam = {};
+
+  /*
+   * Whether a map too big for its window keeps the player's room in view.  A
+   * pan button turns that off, so the view stays where the player put it; it
+   * comes back when they walk into a different room, which last_player (the
+   * room of the last redraw; a room key, as long as gsc_a5_walk_to's) is
+   * there to notice.
+   */
+  int follow = TRUE;
+  char last_player[256] = "";
+
+  /*
+   * Forces the whole map surface out on the next redraw, instead of only the
+   * rows that changed since the last one (see gsc_map_screen in
+   * os_glk_map.cpp).
+   */
+  int full_flush = TRUE;
+};
+typedef struct gsc_map_pane_s gsc_map_pane_t;
+
+extern gsc_map_pane_t gsc_map_pane;
 extern char gsc_a5_walk_to[256];
 extern int gsc_a5_walk_clicked;
 extern int gsc_sc_walk_clicked;

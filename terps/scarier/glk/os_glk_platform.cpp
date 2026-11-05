@@ -215,7 +215,7 @@ glkunix_startup_code (glkunix_startup_t * data)
 #endif
       if (strcmp (argv[argv_index], "-m") == 0)
         {
-          gsc_map_startup = TRUE;
+          gsc_map_pane.startup = TRUE;
           continue;
         }
       if (strcmp (argv[argv_index], "-r") == 0)
@@ -281,7 +281,7 @@ glkunix_startup_code (glkunix_startup_t * data)
     trace_flags = 0;
   enable_debugger = (getenv ("SCR_DEBUGGER_ENABLED") != nullptr);
   if (getenv ("SCR_MAP_ENABLED") != nullptr)
-    gsc_map_startup = TRUE;
+    gsc_map_pane.startup = TRUE;
 #if defined (SPATTERLIGHT)
   stable_random = gli_determinism;
 #else
@@ -390,7 +390,7 @@ winglk_startup_code (const char *cmdline)
     trace_flags = 0;
   enable_debugger = (getenv ("SCR_DEBUGGER_ENABLED") != nullptr);
   if (getenv ("SCR_MAP_ENABLED") != nullptr)
-    gsc_map_startup = TRUE;
+    gsc_map_pane.startup = TRUE;
   stable_random = (getenv ("SCR_STABLE_RANDOM_ENABLED") != nullptr);
   locale = getenv ("SCR_LOCALE");
 

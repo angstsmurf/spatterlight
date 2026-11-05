@@ -26,59 +26,19 @@
 
 #include "os_glk_internal.h"
 
-/* The map, shown in a graphics window to the right of the story on request
-   ("map").  Both engines use this pane; what differs is where the map comes
-   from.  An ADRIFT 5 map is authored data, parsed once per adventure, aliasing
-   its XML, and so dropped whenever the adventure is.  An ADRIFT 4 map has to
-   be derived from the exit graph, and it depends on the room you are standing
-   in and on how much you have explored -- so it is rebuilt on every redraw, as
-   the ADRIFT 4 Runner rebuilt it every time it drew (drawmap with mode = 1).
-  */
-winid_t gsc_map_window = nullptr;
-map_t *gsc_map = nullptr;
-int gsc_map_shown = FALSE;
-/* Whether the map pane is wanted at all: the player's remembered choice, or
-   failing that the layout the game shipped (gsc_map_auto_reveal).  Wanted is
-   not the same as shown -- a map with nothing on it yet is held back until
-   there is something to see (gsc_map_worth_opening), and the per-turn redraw
-   opens it then.  FALSE until something decides. */
-int gsc_map_want = FALSE;
-/* Where the map pane sits: the standard 40% pane to the right of the story,
-   or -- for games with wide maps -- a 30% band across the top of the whole
-   screen, above the status line ("glk map top").  The choice is kept, so
-   hiding and re-showing the map does not move it, and it is remembered with
-   the visibility (gsc_map_pref_write) so neither does restarting. */
-int gsc_map_at_top = FALSE;
-/* Set by "-m" or SCR_MAP_ENABLED: start every game with the map showing,
-   whatever the player last chose or the game shipped (gsc_map_pref_read). */
-int gsc_map_startup = FALSE;
-/* Set when the game defines a MAP command of its own (Lost Coastlines has a
-   sea chart): the game's command wins, and the pane is reached with the
-   "glk map" escape instead. */
-int gsc_map_taken = FALSE;
+/* The map pane's state; its fields are described in os_glk_internal.h. */
+gsc_map_pane_t gsc_map_pane;
+
 /* The restart the pane was last set up for (run_get_restart_count), so that an
    ADRIFT 4 restart -- which happens entirely inside the interpreter -- is
    noticed as the replayed opening arrives (gsc_map_notice_restart). */
 static scr_int gsc_map_restarts = 0;
 
-/* The camera, button state and pixel size of the last map redraw, so a mouse
-   click can be hit-tested against exactly what is on screen. */
-map_camera_t gsc_map_cam;
+/* The button state and pixel size of the last map redraw, so a mouse click
+   can be hit-tested against exactly what is on screen (with
+   gsc_map_pane.cam). */
 static map_chrome_t gsc_map_chrome;
 static int gsc_map_px_w = 0, gsc_map_px_h = 0;
-
-/* A manual zoom ("glk zoom in/out/N", or the zoom buttons), as pixels per map
-   unit; 0 while the map is fitting itself to its window ("glk zoom auto", the
-   default).  A manual zoom is kept until "auto" puts it back. */
-int gsc_map_zoom = 0;
-
-/* Whether a map too big for its window keeps the player's room in view.  A
-   pan button turns that off, so the view stays where the player put it; it
-   comes back when they walk into a different room, which gsc_map_last_player
-   (the room of the last redraw; a room key, as long as gsc_a5_walk_to's) is
-   there to notice. */
-int gsc_map_follow = TRUE;
-char gsc_map_last_player[256] = "";
 
 static int gsc_map_chrome_click (int px, int py);
 static int gsc_map_zoom_apply (int dir);
@@ -91,19 +51,18 @@ static int gsc_map_zoom_apply (int dir);
    the display as a run of glk_window_fill_rect() calls, and Spatterlight turns
    every one of them into an NSRectFill.  Comparing against these pixels first
    is much cheaper than drawing them again.  The comparison is only valid while
-   the window still holds what we last put there, so gsc_map_full_flush forces
-   the whole surface out again whenever it may not: after an arrange or redraw
-   event (the window is resized, and its backing image with it), and when the
+   the window still holds what we last put there, so gsc_map_pane.full_flush
+   forces the whole surface out again whenever it may not: after an arrange or
+   redraw event (the window is resized, and its backing image with it), and when the
    pane is opened or cleared. */
 static map_surface_t *gsc_map_screen = nullptr;
-int gsc_map_full_flush = TRUE;
 
 void
 gsc_map_screen_drop (void)
 {
   map_surface_free (gsc_map_screen);
   gsc_map_screen = nullptr;
-  gsc_map_full_flush = TRUE;
+  gsc_map_pane.full_flush = TRUE;
 }
 
 /* A walk in progress, from clicking a room on the map (clsCharacter.WalkTo /
@@ -176,7 +135,7 @@ gsc_map_click (event_t *event)
   const char *hit, *here;
   int step = -1;
 
-  if (event->win != gsc_map_window)
+  if (event->win != gsc_map_pane.window)
     return FALSE;
 
   if (gsc_is_a5)
@@ -191,7 +150,7 @@ gsc_map_click (event_t *event)
     }
   else
     {
-      if (gsc_map == nullptr || gsc_game == nullptr)
+      if (gsc_map_pane.map == nullptr || gsc_game == nullptr)
         return FALSE;
       scmap_view ((scr_gameref_t) gsc_game, &view);
       snprintf (here_room, sizeof here_room, "%ld",
@@ -203,12 +162,12 @@ gsc_map_click (event_t *event)
   if (gsc_map_chrome_click ((int) event->val1, (int) event->val2))
     {
       if (glk_gestalt (gestalt_MouseInput, wintype_Graphics))
-        glk_request_mouse_event (gsc_map_window);
+        glk_request_mouse_event (gsc_map_pane.window);
       return FALSE;
     }
 
-  hit = map_hit (gsc_map, &view, &gsc_map_cam, gsc_map_px_w, gsc_map_px_h,
-                 (int) event->val1, (int) event->val2);
+  hit = map_hit (gsc_map_pane.map, &view, &gsc_map_pane.cam, gsc_map_px_w,
+                 gsc_map_px_h, (int) event->val1, (int) event->val2);
   /* Only a room there is a way to now starts a walk.  One behind a shut door
      is left alone like empty map, before the line request is touched:
      cancelling it would end the prompt's line, and the walk would then give
@@ -221,9 +180,9 @@ gsc_map_click (event_t *event)
      wherever that exit leads, with its first step already chosen. */
   else if (hit == nullptr && here != nullptr)
     {
-      step = map_hit_dir (gsc_map, &view, &gsc_map_cam, gsc_map_px_w,
-                          gsc_map_px_h, here, (int) event->val1,
-                          (int) event->val2);
+      step = map_hit_dir (gsc_map_pane.map, &view, &gsc_map_pane.cam,
+                          gsc_map_px_w, gsc_map_px_h, here,
+                          (int) event->val1, (int) event->val2);
       if (step >= 0)
         hit = view.exit_dest (view.ctx, here, step);
     }
@@ -248,7 +207,7 @@ gsc_map_click (event_t *event)
 
   /* A click on empty map: re-arm and keep waiting. */
   if (glk_gestalt (gestalt_MouseInput, wintype_Graphics))
-    glk_request_mouse_event (gsc_map_window);
+    glk_request_mouse_event (gsc_map_pane.window);
   return FALSE;
 }
 
@@ -264,11 +223,11 @@ gsc_map_click (event_t *event)
 void
 gsc_map_click_view (event_t *event)
 {
-  if (event->win != gsc_map_window)
+  if (event->win != gsc_map_pane.window)
     return;
   gsc_map_chrome_click ((int) event->val1, (int) event->val2);
   if (glk_gestalt (gestalt_MouseInput, wintype_Graphics))
-    glk_request_mouse_event (gsc_map_window);
+    glk_request_mouse_event (gsc_map_pane.window);
 }
 
 
@@ -397,7 +356,7 @@ gsc_map_current (map_view_t *view, const char **player, char *keybuf,
     {
       a5_state_t *st;
 
-      if (gsc_a5_run == nullptr || gsc_map == nullptr)
+      if (gsc_a5_run == nullptr || gsc_map_pane.map == nullptr)
         return FALSE;
       st = a5run_state (gsc_a5_run);
       gsc_a5_map_view (st, view);
@@ -412,10 +371,10 @@ gsc_map_current (map_view_t *view, const char **player, char *keybuf,
   built = scmap_build ((scr_gameref_t) gsc_game, view);
   if (built != nullptr)
     {
-      map_free (gsc_map);
-      gsc_map = built;
+      map_free (gsc_map_pane.map);
+      gsc_map_pane.map = built;
     }
-  else if (gsc_map == nullptr)
+  else if (gsc_map_pane.map == nullptr)
     return FALSE;
   /* else no layout from this room (HideOnMap mid-game): keep the last one. */
 
@@ -458,7 +417,7 @@ gsc_map_worth_opening (void)
 
   if (!gsc_map_current (&view, &ploc, keybuf, sizeof keybuf))
     return gsc_is_a5 || !gsc_map_available () || scmap_failed () != 0;
-  return map_has_content (gsc_map, &view, ploc);
+  return map_has_content (gsc_map_pane.map, &view, ploc);
 }
 
 /*
@@ -473,7 +432,8 @@ gsc_map_worth_opening (void)
 static int
 gsc_map_zoom_apply (int dir)
 {
-  int scale = gsc_map_zoom > 0 ? gsc_map_zoom : gsc_map_cam.scale;
+  int scale = gsc_map_pane.zoom > 0 ? gsc_map_pane.zoom
+                                    : gsc_map_pane.cam.scale;
   int zoom;
 
   /* A map with nothing drawn yet steps from the Runner's default. */
@@ -494,9 +454,9 @@ gsc_map_zoom_apply (int dir)
         zoom = 0;
     }
 
-  if (zoom == gsc_map_zoom)
+  if (zoom == gsc_map_pane.zoom)
     return FALSE;
-  gsc_map_zoom = zoom;
+  gsc_map_pane.zoom = zoom;
   gsc_map_redraw ();
   return TRUE;
 }
@@ -530,8 +490,8 @@ gsc_map_chrome_click (int px, int py)
 
     default:
       /* A pan: the view now stays put until the player changes rooms. */
-      gsc_map_follow = FALSE;
-      map_pan (&gsc_map_cam, gsc_map_px_w, gsc_map_px_h, id);
+      gsc_map_pane.follow = FALSE;
+      map_pan (&gsc_map_pane.cam, gsc_map_px_w, gsc_map_px_h, id);
       gsc_map_redraw ();
       break;
     }
@@ -542,7 +502,7 @@ gsc_map_chrome_click (int px, int py)
 static void
 gsc_map_rect (void * /* ctx */, unsigned int rgb, int x, int y, int w, int h)
 {
-  glk_window_fill_rect (gsc_map_window, rgb, x, y, (glui32) w, (glui32) h);
+  glk_window_fill_rect (gsc_map_pane.window, rgb, x, y, (glui32) w, (glui32) h);
 }
 
 /*
@@ -571,14 +531,14 @@ gsc_map_redraw (void)
 
   /* A map that was asked for while there was nothing on it: try again now
      that the game has moved on.  (gsc_map_show comes straight back here, but
-     with gsc_map_shown set, so this runs once.) */
-  if (gsc_map_want && !gsc_map_shown && gsc_map_worth_opening ())
+     with gsc_map_pane.shown set, so this runs once.) */
+  if (gsc_map_pane.want && !gsc_map_pane.shown && gsc_map_worth_opening ())
     gsc_map_show ();
 
-  if (!gsc_map_window)
+  if (!gsc_map_pane.window)
     return;
 
-  glk_window_get_size (gsc_map_window, &w, &h);
+  glk_window_get_size (gsc_map_pane.window, &w, &h);
   if (w == 0 || h == 0)
     return;
 
@@ -597,7 +557,7 @@ gsc_map_redraw (void)
       {
         map_set_palette (bg, fg);
         /* So the clear below, and any exposed edge, match the surface. */
-        glk_window_set_background_color (gsc_map_window, bg);
+        glk_window_set_background_color (gsc_map_pane.window, bg);
       }
   }
 
@@ -605,7 +565,7 @@ gsc_map_redraw (void)
      Mid-game HideOnMap keeps the previous layout via gsc_map_current. */
   if (!gsc_map_current (&view, &ploc, keybuf, sizeof keybuf))
     {
-      glk_window_clear (gsc_map_window);
+      glk_window_clear (gsc_map_pane.window);
       gsc_map_screen_drop ();
       return;
     }
@@ -615,15 +575,16 @@ gsc_map_redraw (void)
      only records the room -- it must not override a restored pan. */
   if (ploc != nullptr)
     {
-      if (gsc_map_last_player[0] != '\0'
-          && strcmp (ploc, gsc_map_last_player) != 0)
+      if (gsc_map_pane.last_player[0] != '\0'
+          && strcmp (ploc, gsc_map_pane.last_player) != 0)
         {
-          const map_node_t *pn = map_find (gsc_map, ploc);
+          const map_node_t *pn = map_find (gsc_map_pane.map, ploc);
 
           if (pn != nullptr && !pn->hidden)
-            gsc_map_follow = TRUE;
+            gsc_map_pane.follow = TRUE;
         }
-      snprintf (gsc_map_last_player, sizeof gsc_map_last_player, "%s", ploc);
+      snprintf (gsc_map_pane.last_player, sizeof gsc_map_pane.last_player,
+                "%s", ploc);
     }
 
   surf = map_surface_new ((int) w, (int) h);
@@ -633,10 +594,10 @@ gsc_map_redraw (void)
   /* The pan/zoom buttons only earn their strip of the window where they can
      be clicked. */
   buttons = glk_gestalt (gestalt_MouseInput, wintype_Graphics) != 0;
-  gsc_map_cam.chrome_h = buttons ? MAP_CHROME_H : 0;
-  map_frame (gsc_map, &view, ploc, surf, gsc_map_zoom, gsc_map_follow,
-             &gsc_map_cam, &gsc_map_chrome);
-  map_render (gsc_map, &view, ploc, &gsc_map_cam, surf);
+  gsc_map_pane.cam.chrome_h = buttons ? MAP_CHROME_H : 0;
+  map_frame (gsc_map_pane.map, &view, ploc, surf, gsc_map_pane.zoom,
+             gsc_map_pane.follow, &gsc_map_pane.cam, &gsc_map_chrome);
+  map_render (gsc_map_pane.map, &view, ploc, &gsc_map_pane.cam, surf);
   if (buttons)
     map_chrome_draw (surf, &gsc_map_chrome);
   gsc_map_px_w = surf->w;
@@ -651,18 +612,18 @@ gsc_map_redraw (void)
     gsc_map_screen_drop ();
 
   /* Untouched rows: what is on screen is already right. */
-  rgbsurf_send_rects (surf, gsc_map_full_flush ? nullptr : gsc_map_screen,
+  rgbsurf_send_rects (surf, gsc_map_pane.full_flush ? nullptr : gsc_map_screen,
                       gsc_map_rect, nullptr);
 
   /* These pixels are the screen now. */
   map_surface_free (gsc_map_screen);
   gsc_map_screen = surf;
-  gsc_map_full_flush = FALSE;
+  gsc_map_pane.full_flush = FALSE;
 
   /* Arm the click that walks the player to a room.  Mouse requests are
      one-shot, so this is re-armed after every redraw. */
   if (glk_gestalt (gestalt_MouseInput, wintype_Graphics))
-    glk_request_mouse_event (gsc_map_window);
+    glk_request_mouse_event (gsc_map_pane.window);
 }
 
 /*
@@ -788,15 +749,15 @@ gsc_a5_walk_next (a5_run_t *run, char *buf, int bufsize)
  *
  * Whether this game has a map at all.  In ADRIFT 5 that is settled at load:
  * it either shipped map data or it did not.  In ADRIFT 4 every game with
- * rooms has one, unless the author switched it off -- and gsc_map itself is
- * no guide there, being built lazily at the first redraw.  Whether there is
+ * rooms has one, unless the author switched it off -- and gsc_map_pane.map
+ * itself is no guide there, being built lazily at the first redraw.  Whether there is
  * anything to draw *right now* is a separate question (map_has_content).
  */
 static int
 gsc_map_available (void)
 {
   if (gsc_is_a5)
-    return gsc_map != nullptr;
+    return gsc_map_pane.map != nullptr;
   return gsc_game != nullptr && scmap_available ((scr_gameref_t) gsc_game);
 }
 
@@ -873,8 +834,8 @@ gsc_map_pref_ref (void)
  * as a choice.  (A third byte, left by the removed "glk map colour", is
  * ignored.)
  *
- * The "-m" switch (gsc_map_startup) reads as shown for every game, so that a
- * scripted run opens the same panes whatever the player chose before.  The
+ * The "-m" switch (gsc_map_pane.startup) reads as shown for every game, so
+ * that a scripted run opens the same panes whatever the player chose before.  The
  * player's choice is still written.
  */
 int
@@ -886,7 +847,7 @@ gsc_map_pref_read (int *at_top)
   if (at_top != nullptr)
     *at_top = -1;
 
-  if (gsc_map_startup)
+  if (gsc_map_pane.startup)
     return 1;
 
   fileref = gsc_map_pref_ref ();
@@ -961,7 +922,7 @@ gsc_map_pref_write (int shown, int at_top)
 /*
  * gsc_map_show()
  *
- * Open the map pane, in whichever position gsc_map_at_top asks for: the
+ * Open the map pane, in whichever position gsc_map_pane.at_top asks for: the
  * standard pane to the right of the story, or a band across the top of the
  * screen.  The top band splits the root window, not the story, so that it
  * sits above the status line and spans the display's full width.
@@ -982,26 +943,26 @@ gsc_map_show (void)
       return;
     }
 
-  if (gsc_map_at_top)
-    gsc_map_window = glk_window_open (glk_window_get_root (),
+  if (gsc_map_pane.at_top)
+    gsc_map_pane.window = glk_window_open (glk_window_get_root (),
                                          winmethod_Above
                                          | winmethod_Proportional,
                                          30, wintype_Graphics, 0);
   else
-    gsc_map_window = glk_window_open (gsc_main_window,
+    gsc_map_pane.window = glk_window_open (gsc_main_window,
                                          winmethod_Right
                                          | winmethod_Proportional,
                                          40, wintype_Graphics, 0);
-  if (!gsc_map_window)
+  if (!gsc_map_pane.window)
     {
       gsc_normal_string ("Sorry, the map window could not be opened.\n");
       return;
     }
-  gsc_map_shown = TRUE;
+  gsc_map_pane.shown = TRUE;
   /* A newly opened map starts out on the player, whatever was panned to in
      the last one. */
-  gsc_map_follow = TRUE;
-  gsc_map_last_player[0] = '\0';
+  gsc_map_pane.follow = TRUE;
+  gsc_map_pane.last_player[0] = '\0';
   gsc_map_screen_drop ();       /* a fresh window holds nothing */
   gsc_map_redraw ();
 
@@ -1009,7 +970,7 @@ gsc_map_show (void)
      Form29.showmapfail).  Say so here, once, rather than at every prompt: the
      pane stays open, because a layout that fails from one room may well
      succeed from the next. */
-  if (!gsc_is_a5 && gsc_map == nullptr && scmap_failed () != 0)
+  if (!gsc_is_a5 && gsc_map_pane.map == nullptr && scmap_failed () != 0)
     gsc_normal_string ("Sorry, this game's map is too complex to draw.\n");
 
   glk_set_window (gsc_main_window);
@@ -1023,12 +984,12 @@ gsc_map_show (void)
 void
 gsc_map_hide (void)
 {
-  if (gsc_map_window)
+  if (gsc_map_pane.window)
     {
-      glk_window_close (gsc_map_window, nullptr);
-      gsc_map_window = nullptr;
+      glk_window_close (gsc_map_pane.window, nullptr);
+      gsc_map_pane.window = nullptr;
     }
-  gsc_map_shown = FALSE;
+  gsc_map_pane.shown = FALSE;
   gsc_map_screen_drop ();
 }
 
@@ -1050,7 +1011,7 @@ gsc_map_set (int shown)
 
   if (shown)
     {
-      if (!gsc_map_shown)
+      if (!gsc_map_pane.shown)
         {
           if (gsc_map_worth_opening ())
             gsc_map_show ();
@@ -1063,12 +1024,12 @@ gsc_map_set (int shown)
             }
         }
     }
-  else if (gsc_map_shown)
+  else if (gsc_map_pane.shown)
     {
       gsc_map_hide ();
       gsc_normal_string ("Map hidden.\n");
     }
-  else if (gsc_map_want)
+  else if (gsc_map_pane.want)
     /* Called off before it ever got to open. */
     gsc_normal_string ("Map hidden.\n");
 
@@ -1076,8 +1037,8 @@ gsc_map_set (int shown)
      (no map, no graphics), and a pane that cannot exist is not a preference
      worth keeping.  A deferred open is the opposite case -- the player did
      ask, and the map is on its way. */
-  gsc_map_want = gsc_map_shown || deferred;
-  gsc_map_pref_write (gsc_map_want, gsc_map_at_top);
+  gsc_map_pane.want = gsc_map_pane.shown || deferred;
+  gsc_map_pref_write (gsc_map_pane.want, gsc_map_pane.at_top);
 }
 
 /*
@@ -1089,7 +1050,7 @@ gsc_map_set (int shown)
 void
 gsc_map_toggle (void)
 {
-  gsc_map_set (!(gsc_map_shown || gsc_map_want));
+  gsc_map_set (!(gsc_map_pane.shown || gsc_map_pane.want));
 }
 
 /*
@@ -1117,10 +1078,10 @@ gsc_map_auto_reveal (void)
 {
   int pref, at_top;
 
-  if (gsc_map_shown)
+  if (gsc_map_pane.shown)
     return;
 
-  gsc_map_want = FALSE;
+  gsc_map_pane.want = FALSE;
   if (!gsc_map_available ())
     return;
   if (!glk_gestalt (gestalt_Graphics, 0)
@@ -1132,7 +1093,7 @@ gsc_map_auto_reveal (void)
   /* Where the map goes is remembered whether or not it is opened now, so that
      a later "glk map on" puts it back the way the player last had it. */
   if (at_top >= 0)
-    gsc_map_at_top = at_top;
+    gsc_map_pane.at_top = at_top;
 
   if (pref < 0)
     {
@@ -1146,7 +1107,7 @@ gsc_map_auto_reveal (void)
   /* Wanted -- but an opening played out from a room the map hides has nothing
      to put in the pane, so the map may have to wait for the first real room
      (gsc_map_worth_opening, and the retry in gsc_map_redraw). */
-  gsc_map_want = TRUE;
+  gsc_map_pane.want = TRUE;
   if (gsc_map_worth_opening ())
     gsc_map_show ();
 }
@@ -1193,7 +1154,7 @@ gsc_map_notice_restart (void)
 
   stream = glk_stream_get_current ();
   gsc_map_hide ();
-  gsc_map_zoom = 0;
+  gsc_map_pane.zoom = 0;
   gsc_map_auto_reveal ();
   glk_stream_set_current (stream);
 }
@@ -1208,7 +1169,7 @@ gsc_map_notice_restart (void)
 static void
 gsc_map_place (int at_top)
 {
-  if (gsc_map_shown && gsc_map_at_top == at_top)
+  if (gsc_map_pane.shown && gsc_map_pane.at_top == at_top)
     {
       gsc_normal_string (at_top
                          ? "The map is already at the top of the screen.\n"
@@ -1217,7 +1178,7 @@ gsc_map_place (int at_top)
     }
 
   gsc_map_hide ();
-  gsc_map_at_top = at_top;
+  gsc_map_pane.at_top = at_top;
 
   /* Asking where the map goes is asking for a map -- through gsc_map_set, so
      that the request is remembered and honoured later even if there is nothing
@@ -1229,7 +1190,7 @@ gsc_map_place (int at_top)
  * gsc_command_map()
  *
  * "glk map [on|off]".  Always available, even for the rare game that defines a
- * MAP command of its own (see gsc_map_taken).
+ * MAP command of its own (see gsc_map_pane.taken).
  */
 void
 gsc_command_map (const char *argument)
@@ -1306,11 +1267,11 @@ gsc_command_zoom (const char *argument)
   if (scr_strcasecmp (argument, "auto") == 0
       || scr_strcasecmp (argument, "default") == 0)
     {
-      if (gsc_map_zoom == 0)
+      if (gsc_map_pane.zoom == 0)
         gsc_normal_string ("The map is already zooming to fit its window.\n");
       else
         {
-          gsc_map_zoom = 0;
+          gsc_map_pane.zoom = 0;
           gsc_map_redraw ();
           gsc_normal_string ("Map zoom returned to automatic.\n");
         }
@@ -1333,7 +1294,7 @@ gsc_command_zoom (const char *argument)
     }
 
   /* The rest zoom relative to, or are limited by, the map as drawn. */
-  if (!gsc_map_shown)
+  if (!gsc_map_pane.shown)
     {
       gsc_normal_string ("The map is not open.  Use ");
       gsc_standout_string ("glk map on");
@@ -1354,14 +1315,14 @@ gsc_command_zoom (const char *argument)
                 MAP_ZOOM_MIN, MAP_ZOOM_MAX);
       gsc_normal_string (buf);
     }
-  else if (pinned == gsc_map_zoom)
+  else if (pinned == gsc_map_pane.zoom)
     {
       snprintf (buf, sizeof buf, "The map is already at zoom %ld.\n", pinned);
       gsc_normal_string (buf);
     }
   else
     {
-      gsc_map_zoom = (int) pinned;
+      gsc_map_pane.zoom = (int) pinned;
       gsc_map_redraw ();
     }
 }

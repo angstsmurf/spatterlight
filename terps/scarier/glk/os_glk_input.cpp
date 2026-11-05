@@ -379,7 +379,7 @@ gsc_filter_typed_line (scr_char *buffer, scr_int length)
                  runner -- unless the game has a MAP command of its own, in
                  which case the game's wins and the pane is reached with
                  "glk map". */
-              if (!gsc_map_taken
+              if (!gsc_map_pane.taken
                   && scr_strcasecmp (buffer + posn, "map") == 0)
                 {
                   gsc_map_toggle ();

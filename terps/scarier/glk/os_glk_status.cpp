@@ -601,6 +601,6 @@ gsc_status_redraw (void)
   /* The map is rasterised to the pixel size of its window, so a resize has to
      redraw it, not just repaint it -- and the window has lost what we drew
      there, so all of it must go out again, not just what the game changed. */
-  gsc_map_full_flush = TRUE;
+  gsc_map_pane.full_flush = TRUE;
   gsc_map_redraw ();
 }

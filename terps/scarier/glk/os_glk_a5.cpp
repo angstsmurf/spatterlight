@@ -1215,7 +1215,7 @@ gsc_a5_restart_run (a5_run_t *&run)
      to a single room, which a scale chosen for a whole map would show far too
      close in. */
   gsc_map_hide ();
-  gsc_map_zoom = 0;
+  gsc_map_pane.zoom = 0;
 
   glk_window_clear (gsc_main_window);
   gsc_main_window_empty = TRUE;
@@ -1330,10 +1330,10 @@ gsc_a5_main_setup (a5_run_t *&run, int autorestore)
   gsc_a5_start_real_time (run);
 
   /* The map is authored data on the adventure, so it outlives restarts. */
-  if (gsc_map == nullptr)
+  if (gsc_map_pane.map == nullptr)
     {
-      gsc_map = a5map_load (gsc_a5_adv);
-      gsc_map_taken = a5map_command_taken (gsc_a5_adv);
+      gsc_map_pane.map = a5map_load (gsc_a5_adv);
+      gsc_map_pane.taken = a5map_command_taken (gsc_a5_adv);
     }
 }
 
@@ -1594,7 +1594,7 @@ gsc_a5_host_command (a5_run_t *&run, char *input)
   /* MAP toggles the map pane.  The Runner's map is host chrome rather than
      a game command, so authors are free to use MAP themselves; when they
      do, theirs wins and the pane is reached with "glk map". */
-  if (gsc_map != nullptr && !gsc_map_taken
+  if (gsc_map_pane.map != nullptr && !gsc_map_pane.taken
       && gsc_a5_match_command (input, "map"))
     {
       gsc_map_toggle ();
@@ -1670,8 +1670,8 @@ gsc_a5_main_shutdown (a5_run_t *&run)
     a5run_free (dead);
   }
   gsc_a5_map_names_clear ();
-  map_free (gsc_map);
-  gsc_map = nullptr;
+  map_free (gsc_map_pane.map);
+  gsc_map_pane.map = nullptr;
   gsc_map_screen_drop ();
 }
 
