@@ -556,7 +556,7 @@ int gsc_line_echo_manual = FALSE;
  *
  * Read in a line and translate out of the given locale.  Returns the count
  * of characters placed in the buffer.  When a click on the map cancelled the
- * request to start a walk, gsc_sc_walk_clicked is set, the count is 0, and
+ * request to start a walk, gsc_walk.sc_clicked is set, the count is 0, and
  * the prompt is left as it was, in the input colour, for the walk's first
  * step to follow.
  */
@@ -581,7 +581,7 @@ gsc_read_line_locale (scr_char *buffer,
       gsc_line_echo_manual = TRUE;
     }
 #endif
-  gsc_sc_walk_clicked = FALSE;
+  gsc_walk.sc_clicked = FALSE;
 
   /* The Runner echoes what the player types in its own "typed" colour, a
      different one from the text the game writes back. */
@@ -605,7 +605,7 @@ gsc_read_line_locale (scr_char *buffer,
       gsc_event_wait (evtype_LineInput, &event);
 
       /* A click on the map took the request: there is no line. */
-      if (gsc_sc_walk_clicked)
+      if (gsc_walk.sc_clicked)
         {
           free (unicode);
           return 0;
@@ -631,7 +631,7 @@ gsc_read_line_locale (scr_char *buffer,
   glk_request_line_event (gsc_io.main_window, buffer, length, 0);
   gsc_event_wait (evtype_LineInput, &event);
 
-  if (gsc_sc_walk_clicked)
+  if (gsc_walk.sc_clicked)
     return 0;
   if (gsc_line_echo_manual)
     {

@@ -290,9 +290,9 @@ gsc_take_clicked_walk_step (scr_char *buffer, scr_int length)
      step takes the place of the line; where the library echoed the cancelled
      line, the prompt's line has ended, and the step gets a prompt of its
      own. */
-  if (gsc_sc_walk_clicked)
+  if (gsc_walk.sc_clicked)
     {
-      gsc_sc_walk_clicked = FALSE;
+      gsc_walk.sc_clicked = FALSE;
       if (gsc_sc_walk_next (buffer, length))
         {
           if (!gsc_line_echo_manual)

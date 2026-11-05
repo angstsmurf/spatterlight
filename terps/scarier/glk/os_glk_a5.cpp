@@ -451,7 +451,7 @@ gsc_a5_read_line (char *buf, int bufsize)
 {
   for (;;)
     {
-      if (gsc_a5_walk_to[0] != '\0')
+      if (gsc_walk.a5_to[0] != '\0')
         {
           if (gsc_a5_walk_next (gsc_a5_run, buf, bufsize))
             {
@@ -460,13 +460,13 @@ gsc_a5_read_line (char *buf, int bufsize)
                  which took the prompt's input colour off again; and where
                  the library echoed that cancelled line, the prompt's line
                  has ended too, so the step gets a prompt of its own. */
-              if (gsc_a5_walk_clicked)
+              if (gsc_walk.a5_clicked)
                 {
                   if (gsc_a5_manual_echo)
                     gsc_colour_echo (TRUE);
                   else
                     gsc_a5_put_prompt ("");
-                  gsc_a5_walk_clicked = FALSE;
+                  gsc_walk.a5_clicked = FALSE;
                 }
               gsc_echo_input (gsc_a5_put_string, buf, TRUE);
               return (int) strlen (buf);
@@ -474,7 +474,7 @@ gsc_a5_read_line (char *buf, int bufsize)
           gsc_a5_walk_stop ();          /* arrived, blocked, or no route */
         }
 
-      gsc_a5_walk_clicked = FALSE;
+      gsc_walk.a5_clicked = FALSE;
       {
         int n;
 
@@ -483,7 +483,7 @@ gsc_a5_read_line (char *buf, int bufsize)
         gsc_a5_line_walkable = FALSE;
 
         /* A click cancelled the request: loop round and walk instead. */
-        if (gsc_a5_walk_clicked)
+        if (gsc_walk.a5_clicked)
           continue;
         return n;
       }

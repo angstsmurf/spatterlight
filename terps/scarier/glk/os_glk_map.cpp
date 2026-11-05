@@ -65,19 +65,9 @@ gsc_map_screen_drop (void)
   gsc_map_pane.full_flush = TRUE;
 }
 
-/* A walk in progress, from clicking a room on the map (clsCharacter.WalkTo /
-   DoWalk): the target room, and the room we set off from on the last step so a
-   step that fails to move us can abort the walk, as DoWalk's sLastPosition
-   does.  Each step is submitted as an ordinary direction command, one room per
-   turn. */
-char gsc_a5_walk_to[256] = "";
-/* A click beside the player's room rather than on another one walks a single
-   step that way, wherever it leads: the direction to take, or -1.  Both
-   engines share it, as only one of them is ever running. */
-static int gsc_map_step_dir = -1;
-static char gsc_a5_walk_last[256] = "";
-int gsc_a5_walk_clicked = FALSE;
-static int gsc_a5_walk_steps = 0;
+/* A walk in progress, from clicking the map; see os_glk_internal.h. */
+gsc_walk_t gsc_walk;
+
 /* A walk is bounded: a game that shuffles the player around could otherwise
    keep the route recomputing for ever. */
 #define GSC_A5_WALK_MAX 100
@@ -86,18 +76,12 @@ static void gsc_a5_map_view (a5_state_t *st, map_view_t *view);
 void
 gsc_a5_walk_stop (void)
 {
-  gsc_a5_walk_to[0] = '\0';
-  gsc_a5_walk_last[0] = '\0';
-  gsc_a5_walk_steps = 0;
-  gsc_map_step_dir = -1;
+  gsc_walk.a5_to[0] = '\0';
+  gsc_walk.a5_last[0] = '\0';
+  gsc_walk.a5_steps = 0;
+  gsc_walk.step_dir = -1;
 }
 
-/* The same walk, for ADRIFT 4.  Room keys here are just room numbers, and the
-   step is submitted as a direction word through SCARE's own parser. */
-static char gsc_sc_walk_to[16] = "";
-static char gsc_sc_walk_last[16] = "";
-int gsc_sc_walk_clicked = FALSE;
-static int gsc_sc_walk_steps = 0;
 #define GSC_SC_WALK_MAX 100
 
 static int gsc_map_available (void);
@@ -105,10 +89,10 @@ static int gsc_map_available (void);
 static void
 gsc_sc_walk_stop (void)
 {
-  gsc_sc_walk_to[0] = '\0';
-  gsc_sc_walk_last[0] = '\0';
-  gsc_sc_walk_steps = 0;
-  gsc_map_step_dir = -1;
+  gsc_walk.sc_to[0] = '\0';
+  gsc_walk.sc_last[0] = '\0';
+  gsc_walk.sc_steps = 0;
+  gsc_walk.step_dir = -1;
 }
 
 
@@ -191,16 +175,16 @@ gsc_map_click (event_t *event)
       if (gsc_is_a5)
         {
           gsc_a5_walk_stop ();
-          snprintf (gsc_a5_walk_to, sizeof gsc_a5_walk_to, "%s", hit);
-          gsc_a5_walk_clicked = TRUE;
+          snprintf (gsc_walk.a5_to, sizeof gsc_walk.a5_to, "%s", hit);
+          gsc_walk.a5_clicked = TRUE;
         }
       else
         {
           gsc_sc_walk_stop ();
-          snprintf (gsc_sc_walk_to, sizeof gsc_sc_walk_to, "%s", hit);
-          gsc_sc_walk_clicked = TRUE;
+          snprintf (gsc_walk.sc_to, sizeof gsc_walk.sc_to, "%s", hit);
+          gsc_walk.sc_clicked = TRUE;
         }
-      gsc_map_step_dir = step;
+      gsc_walk.step_dir = step;
       glk_cancel_line_event (gsc_io.main_window, event);
       return TRUE;
     }
@@ -643,18 +627,18 @@ gsc_sc_walk_next (scr_char *buffer, scr_int length)
   const scr_char *word;
   int dir;
 
-  if (gsc_sc_walk_to[0] == '\0' || gsc_game == nullptr)
+  if (gsc_walk.sc_to[0] == '\0' || gsc_game == nullptr)
     return FALSE;
-  if (++gsc_sc_walk_steps > GSC_SC_WALK_MAX)
+  if (++gsc_walk.sc_steps > GSC_SC_WALK_MAX)
     {
       gsc_sc_walk_stop ();
       return FALSE;
     }
 
   /* A single step beside the room: take it, and that is the whole walk. */
-  if (gsc_map_step_dir >= 0)
+  if (gsc_walk.step_dir >= 0)
     {
-      word = lib_direction_name (gsc_map_step_dir);
+      word = lib_direction_name (gsc_walk.step_dir);
       gsc_sc_walk_stop ();
       if (word == nullptr)
         return FALSE;
@@ -664,15 +648,15 @@ gsc_sc_walk_next (scr_char *buffer, scr_int length)
 
   snprintf (from, sizeof from, "%ld",
             (long) gs_playerroom ((scr_gameref_t) gsc_game));
-  if (strcmp (from, gsc_sc_walk_to) == 0
-      || (gsc_sc_walk_last[0] != '\0' && strcmp (from, gsc_sc_walk_last) == 0))
+  if (strcmp (from, gsc_walk.sc_to) == 0
+      || (gsc_walk.sc_last[0] != '\0' && strcmp (from, gsc_walk.sc_last) == 0))
     {
       gsc_sc_walk_stop ();
       return FALSE;
     }
 
   scmap_view ((scr_gameref_t) gsc_game, &view);
-  dir = map_walk_step (&view, from, gsc_sc_walk_to);
+  dir = map_walk_step (&view, from, gsc_walk.sc_to);
   word = (dir >= 0) ? lib_direction_name (dir) : nullptr;
   if (word == nullptr)
     {
@@ -681,7 +665,7 @@ gsc_sc_walk_next (scr_char *buffer, scr_int length)
     }
 
   snprintf (buffer, (size_t) length, "%s", word);
-  snprintf (gsc_sc_walk_last, sizeof gsc_sc_walk_last, "%s", from);
+  snprintf (gsc_walk.sc_last, sizeof gsc_walk.sc_last, "%s", from);
   return TRUE;
 }
 
@@ -702,17 +686,17 @@ gsc_a5_walk_next (a5_run_t *run, char *buf, int bufsize)
   const char *from, *word;
   int dir;
 
-  if (gsc_a5_walk_to[0] == '\0' || run == nullptr)
+  if (gsc_walk.a5_to[0] == '\0' || run == nullptr)
     return FALSE;
   if (a5run_is_over (run))
     return FALSE;                       /* the walk ended the game */
-  if (++gsc_a5_walk_steps > GSC_A5_WALK_MAX)
+  if (++gsc_walk.a5_steps > GSC_A5_WALK_MAX)
     return FALSE;
 
   /* A single step beside the room: take it, and that is the whole walk. */
-  if (gsc_map_step_dir >= 0)
+  if (gsc_walk.step_dir >= 0)
     {
-      word = a5parse_direction_name (map_dirs[gsc_map_step_dir]);
+      word = a5parse_direction_name (map_dirs[gsc_walk.step_dir]);
       gsc_a5_walk_stop ();
       if (word == nullptr)
         return FALSE;
@@ -725,13 +709,13 @@ gsc_a5_walk_next (a5_run_t *run, char *buf, int bufsize)
   if (from == nullptr)
     return FALSE;
 
-  if (strcmp (from, gsc_a5_walk_to) == 0)
+  if (strcmp (from, gsc_walk.a5_to) == 0)
     return FALSE;                       /* arrived */
-  if (gsc_a5_walk_last[0] != '\0' && strcmp (from, gsc_a5_walk_last) == 0)
+  if (gsc_walk.a5_last[0] != '\0' && strcmp (from, gsc_walk.a5_last) == 0)
     return FALSE;                       /* the last step did not move us */
 
   gsc_a5_map_view (st, &view);
-  dir = map_walk_step (&view, from, gsc_a5_walk_to);
+  dir = map_walk_step (&view, from, gsc_walk.a5_to);
   if (dir < 0)
     return FALSE;
 
@@ -740,7 +724,7 @@ gsc_a5_walk_next (a5_run_t *run, char *buf, int bufsize)
     return FALSE;
 
   snprintf (buf, (size_t) bufsize, "%s", word);
-  snprintf (gsc_a5_walk_last, sizeof gsc_a5_walk_last, "%s", from);
+  snprintf (gsc_walk.a5_last, sizeof gsc_walk.a5_last, "%s", from);
   return TRUE;
 }
 

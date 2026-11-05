@@ -610,7 +610,7 @@ struct gsc_map_pane_s
    * Whether a map too big for its window keeps the player's room in view.  A
    * pan button turns that off, so the view stays where the player put it; it
    * comes back when they walk into a different room, which last_player (the
-   * room of the last redraw; a room key, as long as gsc_a5_walk_to's) is
+   * room of the last redraw; a room key, as long as gsc_walk.a5_to's) is
    * there to notice.
    */
   int follow = TRUE;
@@ -626,9 +626,41 @@ struct gsc_map_pane_s
 typedef struct gsc_map_pane_s gsc_map_pane_t;
 
 extern gsc_map_pane_t gsc_map_pane;
-extern char gsc_a5_walk_to[256];
-extern int gsc_a5_walk_clicked;
-extern int gsc_sc_walk_clicked;
+
+/*
+ * A walk in progress, from clicking a room on the map (clsCharacter.WalkTo /
+ * DoWalk): the target room, and the room we set off from on the last step so
+ * a step that fails to move us can abort the walk, as DoWalk's sLastPosition
+ * does.  Each step is submitted as an ordinary direction command, one room
+ * per turn.
+ */
+struct gsc_walk_s
+{
+  /*
+   * A click beside the player's room rather than on another one walks a
+   * single step that way, wherever it leads: the direction to take, or -1.
+   * Both engines share it, as only one of them is ever running.
+   */
+  int step_dir = -1;
+
+  /* ADRIFT 5: room keys. */
+  char a5_to[256] = "";
+  char a5_last[256] = "";
+  int a5_clicked = FALSE;
+  int a5_steps = 0;
+
+  /*
+   * The same walk, for ADRIFT 4.  Room keys here are just room numbers, and
+   * the step is submitted as a direction word through SCARE's own parser.
+   */
+  char sc_to[16] = "";
+  char sc_last[16] = "";
+  int sc_clicked = FALSE;
+  int sc_steps = 0;
+};
+typedef struct gsc_walk_s gsc_walk_t;
+
+extern gsc_walk_t gsc_walk;
 extern int gsc_line_echo_manual;
 
 extern void gsc_map_screen_drop (void);
