@@ -1076,7 +1076,6 @@ scr_char *
 uip_rewrite_references (scr_gameref_t game, const scr_char *string,
                         scr_int prior_npc, scr_bool echo_printed)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_char *name = uip_last_npc_name (game, prior_npc);
   const std::string lowered_name = uip_lowered (name);
   std::string command (string);
