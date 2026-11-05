@@ -268,6 +268,13 @@ Do **not** change statement order inside the dispatch cascade.
   source lists are maintained twice. If they are, move the shared `SRCS` lists to
   one included `sources.mk`, so adding a TU is one edit instead of three
   (Makefile, headless, pbxproj).
+  *Checked 2026-11-05:* no `sources.mk` is needed. Both Makefiles already
+  take `core/`, `library/`, `runner/`, `map/` (and `Makefile` also
+  `adrift5/` and `glk/`) by wildcard. The only hand-kept copies were the
+  headless `A5_TEXT_SRC`/`A5_RUN_SRC`, which are now wildcards too
+  (`adrift5/*.cpp` less `a5map.cpp`, plus `text/`, plus `run/`). The full
+  `test` passed. A new TU now needs the pbxproj entry and, at a fork sync,
+  `garglk/terps/CMakeLists.txt`; neither can be shared with make.
 - **`tools/scrun_census.cpp` and `tools/scdump.cpp`** compile the whole
   engine. `scdump.cpp` (2192 lines) is a debugging tool with its own
   restriction and action decoders. Check how much of the decoding duplicates
