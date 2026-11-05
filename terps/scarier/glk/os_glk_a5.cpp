@@ -947,19 +947,8 @@ gsc_a5_restore (a5_run_t *run)
 /*  of their own (gsc_a5_resolve_media).                               */
 /*---------------------------------------------------------------------*/
 
-int gsc_a5_graphics_ok = FALSE;
-int gsc_a5_sound_ok = FALSE;
-/* Whether the game is a Blorb registered as the resource map. */
-static int gsc_a5_have_blorb = FALSE;
-
-/* One Glk sound channel per ADRIFT audio channel.  The Runner has exactly 8
-   (clsSound.vb: Channels(7), numbered 1..8 in the <audio> tag; anything out of
-   that range is a no-op); slot 0 here is simply never used. */
-schanid_t gsc_a5_channels[GSC_A5_MAX_CHANNELS];
-/* The resource playing on each channel, so a repeated play of the same sound
-   leaves it alone rather than restarting it (see gsc_a5_show_media).  It is
-   cleared when the sound finishes (see gsc_a5_sound_finished). */
-glui32 gsc_a5_chan_sound[GSC_A5_MAX_CHANNELS];
+/* What the library offers and what is playing; see os_glk_internal.h. */
+gsc_a5_media_t gsc_a5_media;
 
 /*
  * gsc_a5_stop_all_sounds()
@@ -975,13 +964,13 @@ gsc_a5_stop_all_sounds (void)
 {
   int ch;
 
-  if (!gsc_a5_sound_ok)
+  if (!gsc_a5_media.sound_ok)
     return;
   for (ch = 0; ch < GSC_A5_MAX_CHANNELS; ch++)
     {
-      if (gsc_a5_channels[ch] != nullptr)
-        glk_schannel_stop (gsc_a5_channels[ch]);
-      gsc_a5_chan_sound[ch] = 0;
+      if (gsc_a5_media.channels[ch] != nullptr)
+        glk_schannel_stop (gsc_a5_media.channels[ch]);
+      gsc_a5_media.chan_sound[ch] = 0;
     }
 }
 
@@ -1020,9 +1009,9 @@ gsc_a5_resolve_media (void * /* ctx */, const char *src, int is_image,
 {
   glui32 id;
 
-  if (mapped > 0 && gsc_a5_have_blorb)
+  if (mapped > 0 && gsc_a5_media.have_blorb)
     return mapped;
-  if (is_image ? !gsc_a5_graphics_ok : !gsc_a5_sound_ok)
+  if (is_image ? !gsc_a5_media.graphics_ok : !gsc_a5_media.sound_ok)
     return mapped;
   id = gsc_load_external_resource (src, !is_image);
   return id != 0 ? (int) id : mapped;
@@ -1034,15 +1023,16 @@ gsc_a5_init_resources (void)
 {
   strid_t stream;
 
-  gsc_a5_graphics_ok = glk_gestalt (gestalt_Graphics, 0) != 0;
-  gsc_a5_sound_ok = glk_gestalt (gestalt_Sound, 0) != 0;
-  gsc_a5_have_blorb = FALSE;
+  gsc_a5_media.graphics_ok = glk_gestalt (gestalt_Graphics, 0) != 0;
+  gsc_a5_media.sound_ok = glk_gestalt (gestalt_Sound, 0) != 0;
+  gsc_a5_media.have_blorb = FALSE;
 #ifdef SPATTERLIGHT
   /* Media files beside the game are usable with or without a Blorb, so
      losing the resource map below leaves graphics and sound on here. */
   a5run_set_media_resolver (gsc_a5_resolve_media, nullptr);
 #endif
-  if ((!gsc_a5_graphics_ok && !gsc_a5_sound_ok) || gsc_game_path[0] == '\0')
+  if ((!gsc_a5_media.graphics_ok && !gsc_a5_media.sound_ok)
+      || gsc_game_path[0] == '\0')
     return;
 
   stream = gsc_open_game_path (gsc_game_path, GSC_A5_BLORB_STREAM_ROCK);
@@ -1051,7 +1041,7 @@ gsc_a5_init_resources (void)
       /* The file is unreachable by path (a host that cannot reopen it, or a
          game that has moved since startup): no resource map, so no media. */
 #ifndef SPATTERLIGHT
-      gsc_a5_graphics_ok = gsc_a5_sound_ok = FALSE;
+      gsc_a5_media.graphics_ok = gsc_a5_media.sound_ok = FALSE;
 #endif
       return;
     }
@@ -1060,11 +1050,11 @@ gsc_a5_init_resources (void)
       /* Not a Blorb (e.g. a raw .taf with no resources): no media. */
       glk_stream_close (stream, nullptr);
 #ifndef SPATTERLIGHT
-      gsc_a5_graphics_ok = gsc_a5_sound_ok = FALSE;
+      gsc_a5_media.graphics_ok = gsc_a5_media.sound_ok = FALSE;
 #endif
       return;
     }
-  gsc_a5_have_blorb = TRUE;
+  gsc_a5_media.have_blorb = TRUE;
 }
 
 #ifdef SPATTERLIGHT
@@ -1087,9 +1077,9 @@ gsc_a5_rebind_resources (void)
 {
   strid_t stream, next;
 
-  if (!gsc_a5_have_blorb)
+  if (!gsc_a5_media.have_blorb)
     return;
-  gsc_a5_have_blorb = FALSE;
+  gsc_a5_media.have_blorb = FALSE;
   if (giblorb_unset_resource_map () != giblorb_err_None)
     return;
 
@@ -1109,7 +1099,7 @@ gsc_a5_rebind_resources (void)
       glk_stream_close (stream, nullptr);
       return;
     }
-  gsc_a5_have_blorb = TRUE;
+  gsc_a5_media.have_blorb = TRUE;
 }
 #endif
 

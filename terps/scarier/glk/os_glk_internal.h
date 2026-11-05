@@ -205,7 +205,8 @@ enum gsc_meta_t
   GSC_META_RESTART, GSC_META_QUIT
 };
 
-/* One Glk sound channel per ADRIFT 5 audio channel; see gsc_a5_channels. */
+/* One Glk sound channel per ADRIFT 5 audio channel; see
+   gsc_a5_media.channels. */
 enum { GSC_A5_MAX_CHANNELS = 9 };
 
 /*
@@ -524,10 +525,34 @@ extern glui32 gsc_readlog_line (char *buffer, glui32 length);
 extern scr_char gsc_get_choice_key (const char *choices);
 
 /* os_glk_a5.cpp: the ADRIFT 5 driver. */
-extern int gsc_a5_graphics_ok;
-extern int gsc_a5_sound_ok;
-extern schanid_t gsc_a5_channels[GSC_A5_MAX_CHANNELS];
-extern glui32 gsc_a5_chan_sound[GSC_A5_MAX_CHANNELS];
+
+/* ADRIFT 5 graphics and sound. */
+struct gsc_a5_media_s
+{
+  /* Whether the library can draw images and play sounds. */
+  int graphics_ok = FALSE;
+  int sound_ok = FALSE;
+
+  /* Whether the game is a Blorb registered as the resource map. */
+  int have_blorb = FALSE;
+
+  /*
+   * One Glk sound channel per ADRIFT audio channel.  The Runner has exactly 8
+   * (clsSound.vb: Channels(7), numbered 1..8 in the <audio> tag; anything out
+   * of that range is a no-op); slot 0 here is simply never used.
+   */
+  schanid_t channels[GSC_A5_MAX_CHANNELS] = {};
+
+  /*
+   * The resource playing on each channel, so a repeated play of the same
+   * sound leaves it alone rather than restarting it (see gsc_a5_show_media).
+   * It is cleared when the sound finishes (see gsc_a5_sound_finished).
+   */
+  glui32 chan_sound[GSC_A5_MAX_CHANNELS] = {};
+};
+typedef struct gsc_a5_media_s gsc_a5_media_t;
+
+extern gsc_a5_media_t gsc_a5_media;
 extern void gsc_a5_put_string (const char *string);
 extern void gsc_a5_main (void);
 

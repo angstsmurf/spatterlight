@@ -41,7 +41,7 @@ gsc_a5_draw_image (winid_t win, glui32 number)
   glui32 width = 0, height = 0;
   strid_t str;
 
-  if (!gsc_a5_graphics_ok || number == 0 || win == nullptr)
+  if (!gsc_a5_media.graphics_ok || number == 0 || win == nullptr)
     return FALSE;
   if (!glk_image_get_info (number, &width, &height))
     return FALSE;
@@ -647,7 +647,7 @@ gsc_a5_sound_event (const a5_media_event_t *m)
   int ch = m->channel;
   int trace = getenv ("A5_TRACE_MEDIA") != nullptr;
 
-  if (!gsc_a5_sound_ok)
+  if (!gsc_a5_media.sound_ok)
     {
       if (trace)
         fprintf (stderr, "[a5 media] kind=%d ch=%d (no sound support)\n",
@@ -663,22 +663,22 @@ gsc_a5_sound_event (const a5_media_event_t *m)
                  m->kind, ch);
       return;
     }
-  if (gsc_a5_channels[ch] == nullptr)
-    gsc_a5_channels[ch] = glk_schannel_create ((glui32) ch);
-  if (gsc_a5_channels[ch] == nullptr)
+  if (gsc_a5_media.channels[ch] == nullptr)
+    gsc_a5_media.channels[ch] = glk_schannel_create ((glui32) ch);
+  if (gsc_a5_media.channels[ch] == nullptr)
     return;
   if (m->kind == A5_MEDIA_SOUND_STOP)
     {
       if (trace)
         fprintf (stderr, "[a5 media] stop ch=%d\n", ch);
-      glk_schannel_stop (gsc_a5_channels[ch]);
-      gsc_a5_chan_sound[ch] = 0;
+      glk_schannel_stop (gsc_a5_media.channels[ch]);
+      gsc_a5_media.chan_sound[ch] = 0;
     }
   else if (m->kind == A5_MEDIA_SOUND_PAUSE)
     {
       if (trace)
         fprintf (stderr, "[a5 media] pause ch=%d\n", ch);
-      glk_schannel_pause (gsc_a5_channels[ch]);
+      glk_schannel_pause (gsc_a5_media.channels[ch]);
     }
   else if (m->number > 0)
     {
@@ -688,22 +688,22 @@ gsc_a5_sound_event (const a5_media_event_t *m)
          restart the track every time the room is re-shown.  Only a
          different sound, or one that has finished (see
          gsc_a5_sound_finished), (re)starts the channel. */
-      if ((glui32) m->number == gsc_a5_chan_sound[ch])
+      if ((glui32) m->number == gsc_a5_media.chan_sound[ch])
         {
           if (trace)
             fprintf (stderr, "[a5 media] keep ch=%d snd=%d (already "
                      "playing)\n", ch, m->number);
-          glk_schannel_unpause (gsc_a5_channels[ch]);
+          glk_schannel_unpause (gsc_a5_media.channels[ch]);
         }
       else
         {
           if (trace)
             fprintf (stderr, "[a5 media] play ch=%d snd=%d loop=%d\n",
                      ch, m->number, m->loop);
-          glk_schannel_play_ext (gsc_a5_channels[ch],
+          glk_schannel_play_ext (gsc_a5_media.channels[ch],
                                  (glui32) m->number,
                                  m->loop ? 0xffffffffu : 1, (glui32) ch);
-          gsc_a5_chan_sound[ch] = (glui32) m->number;
+          gsc_a5_media.chan_sound[ch] = (glui32) m->number;
         }
     }
 }
@@ -720,8 +720,8 @@ gsc_a5_sound_finished (const event_t *event)
   glui32 ch = event->val2;
 
   if (ch > 0 && ch < GSC_A5_MAX_CHANNELS
-      && gsc_a5_chan_sound[ch] == event->val1)
-    gsc_a5_chan_sound[ch] = 0;
+      && gsc_a5_media.chan_sound[ch] == event->val1)
+    gsc_a5_media.chan_sound[ch] = 0;
 }
 
 /*
@@ -853,7 +853,7 @@ gsc_a5_show_cover (void)
   giblorb_result_t chunk;
   const unsigned char *p;
 
-  if (!gsc_a5_graphics_ok)
+  if (!gsc_a5_media.graphics_ok)
     return;
   map = giblorb_get_resource_map ();
   if (map == nullptr)

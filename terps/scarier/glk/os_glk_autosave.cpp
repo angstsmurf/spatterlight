@@ -456,9 +456,9 @@ gsc_stash_frontend_state (ScarierGlkFrontendState *st)
   st->soundchanneltag = sound_channel ? sound_channel->tag : 0;
   for (ch = 0; ch < GSC_A5_MAX_CHANNELS; ch++)
     {
-      st->a5_channeltags[ch] = gsc_a5_channels[ch]
-                               ? gsc_a5_channels[ch]->tag : 0;
-      st->a5_chan_sound[ch] = gsc_a5_chan_sound[ch];
+      st->a5_channeltags[ch] = gsc_a5_media.channels[ch]
+                               ? gsc_a5_media.channels[ch]->tag : 0;
+      st->a5_chan_sound[ch] = gsc_a5_media.chan_sound[ch];
     }
   st->seen_input = gsc_title.seen_input;
   st->title_image = gsc_title.image;
@@ -537,8 +537,8 @@ gsc_recover_frontend_state (const ScarierGlkFrontendState *st)
   sound_channel = gli_schan_for_tag (st->soundchanneltag);
   for (ch = 0; ch < GSC_A5_MAX_CHANNELS; ch++)
     {
-      gsc_a5_channels[ch] = gli_schan_for_tag (st->a5_channeltags[ch]);
-      gsc_a5_chan_sound[ch] = st->a5_chan_sound[ch];
+      gsc_a5_media.channels[ch] = gli_schan_for_tag (st->a5_channeltags[ch]);
+      gsc_a5_media.chan_sound[ch] = st->a5_chan_sound[ch];
     }
   gsc_title.seen_input = st->seen_input;
   gsc_title.image = (glui32) st->title_image;
