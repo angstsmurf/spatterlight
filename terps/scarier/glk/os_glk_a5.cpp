@@ -26,6 +26,8 @@
 
 #include "os_glk_internal.h"
 
+#include <vector>
+
 /*---------------------------------------------------------------------*/
 /*  ADRIFT 5 Glk driver                                                */
 /*                                                                     */
@@ -385,12 +387,11 @@ gsc_a5_read_line_raw (char *buf, int bufsize)
   if (gsc_options.unicode_enabled)
     {
       const glui32 cap = 256;
-      glui32 *unicode = (glui32 *) gsc_malloc (cap * sizeof (*unicode));
+      std::vector<glui32> unicode (cap);
       glui32 i;
 
-      memset (unicode, 0, cap * sizeof (*unicode));
-      glk_request_line_event_uni (gsc_io.main_window, unicode, cap, 0);
-      done = gsc_a5_await_line (&event, nullptr, 0, unicode, cap);
+      glk_request_line_event_uni (gsc_io.main_window, unicode.data (), cap, 0);
+      done = gsc_a5_await_line (&event, nullptr, 0, unicode.data (), cap);
 
       if (done)
         for (i = 0; i < event.val1; i++)
@@ -418,7 +419,6 @@ gsc_a5_read_line_raw (char *buf, int bufsize)
                 buf[n++] = (char) (0x80 | (c & 0x3f));
               }
           }
-      free (unicode);
     }
   else
     {
@@ -887,7 +887,7 @@ gsc_a5_restore (a5_run_t *run)
 {
   frefid_t fileref;
   strid_t stream;
-  char *buffer;
+  std::vector<char> buffer;
   glui32 capacity, total;
   int ok;
 
@@ -902,16 +902,17 @@ gsc_a5_restore (a5_run_t *run)
     return FALSE;
 
   capacity = 65536;
-  buffer = (char *) gsc_malloc (capacity);
+  buffer.resize (capacity);
   total = 0;
   for (;;)
     {
-      glui32 got = glk_get_buffer_stream (stream, buffer + total, capacity - total);
+      glui32 got = glk_get_buffer_stream (stream, buffer.data () + total,
+                                          capacity - total);
       total += got;
       if (total < capacity)
         break;
       capacity *= 2;
-      buffer = (char *) gsc_realloc (buffer, capacity);
+      buffer.resize (capacity);
     }
   glk_stream_close (stream, nullptr);
 
@@ -922,8 +923,9 @@ gsc_a5_restore (a5_run_t *run)
           || (unsigned char) buffer[1] == 0xda))
     {
       uint32_t xlen = 0;
-      uint8_t *xml = a5_inflate ((const uint8_t *) buffer, total, &xlen);
-      free (buffer);
+      const uint8_t *bytes
+        = reinterpret_cast<const uint8_t *> (buffer.data ());
+      uint8_t *xml = a5_inflate (bytes, total, &xlen);
       if (!xml)
         return FALSE;
       ok = a5run_restore (run, (const char *) xml, xlen);
@@ -931,8 +933,7 @@ gsc_a5_restore (a5_run_t *run)
       return ok;
     }
 
-  ok = a5run_restore (run, buffer, total);
-  free (buffer);
+  ok = a5run_restore (run, buffer.data (), total);
   return ok;
 }
 

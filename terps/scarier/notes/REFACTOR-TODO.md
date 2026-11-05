@@ -230,6 +230,18 @@ Do **not** change statement order inside the dispatch cascade.
   (5) plus `glk/os_glk*.cpp`. Candidates for `std::vector`/`std::unique_ptr`;
   109 files already use `std::` containers. Leave anything that crosses
   `setjmp` frames alone (see next item).
+  *Done 2026-11-05 for `glk/`:* the scratch buffers that were malloc'd and
+  freed in one function are now `std::string`/`std::vector`. That covers the
+  help span and the `glk` command copy, the colour/font tag copies in
+  `os_glk_output` (which also cleared that file's `-Wshadow` warning), both
+  unicode line buffers, the ADRIFT 5 restore read buffer and the A5 display
+  plain run. The `scr_malloc`/`gsc_malloc` wrappers and `scutils` are the
+  allocators themselves and stay. Buffers whose ownership crosses into the
+  engine (`a5model_load_buffer`, `a5_inflate`'s result, `a5run_*` blobs)
+  stay too, as does the C-style `adrift5/` code. Gates: the Glk gates, plus
+  cheapglk `glkscarier` at HEAD and after on every 9th corpus game with
+  `glk help`, save and restore under `SCR_STABLE_RANDOM_ENABLED`: 98
+  transcripts and 89 save files were byte-identical.
 - **`setjmp`/`longjmp` (37 mentions in 5 files: `scexpr`, `scparser_pattern`,
   `screstrs`, `sctypes.h`, `scparser_internal.h`).** The top-level review
   already fixed the worst longjmp-over-C++-object bugs. A remaining sweep is

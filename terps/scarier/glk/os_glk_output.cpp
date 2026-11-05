@@ -231,17 +231,15 @@ gsc_colour_from_tag (const scr_char *tag, const char *key)
 {
   char american[16], token[32];
   const char *keys[2];
-  scr_char *lower;
+  std::string lowered (tag);
   glui32 result = GSC_COLOUR_NONE;
   int pass;
-  scr_int index_;
 
   /* Both the key and the value it finds are compared lowercased; the tag
      arrives as the author wrote it. */
-  lower = (decltype (lower)) gsc_malloc (strlen (tag) + 1);
-  memcpy (lower, tag, strlen (tag) + 1);
-  for (index_ = 0; lower[index_] != '\0'; index_++)
-    lower[index_] = glk_char_to_lower (lower[index_]);
+  for (char &c : lowered)
+    c = glk_char_to_lower (c);
+  const scr_char *const lower = lowered.c_str ();
 
   /* "colour" -> "color": drop the 'u' before the final 'r'. */
   {
@@ -306,7 +304,6 @@ gsc_colour_from_tag (const scr_char *tag, const char *key)
         }
     }
 
-  free (lower);
   return result;
 }
 
@@ -394,7 +391,6 @@ gsc_colour_wanted_by (const scr_char *text, void *opaque)
   for (at = text; (at = strchr (at, '<')) != nullptr; at++)
     {
       const scr_char *end = strchr (at, '>');
-      scr_char *tag;
       size_t length;
       glui32 colour;
 
@@ -409,18 +405,12 @@ gsc_colour_wanted_by (const scr_char *text, void *opaque)
           && scr_strncasecmp (at + 1, "bgcolo", 6) != 0)
         continue;
 
-      tag = (decltype (tag)) gsc_malloc (length + 1);
-      memcpy (tag, at + 1, length);
-      tag[length] = '\0';
+      const std::string tag (at + 1, length);
 
-      colour = gsc_colour_from_tag (tag, "bgcolour");
+      colour = gsc_colour_from_tag (tag.c_str (), "bgcolour");
       if (colour != GSC_COLOUR_NONE)
-        {
-          free (tag);
-          return TRUE;
-        }
-      colour = gsc_colour_from_tag (tag, "colour");
-      free (tag);
+        return TRUE;
+      colour = gsc_colour_from_tag (tag.c_str (), "colour");
       if (colour != GSC_COLOUR_NONE
           && !gsc_colour_legible (colour, wanted->background))
         return TRUE;
@@ -688,17 +678,16 @@ gsc_handle_font_tag (const scr_char *argument)
   /* Ignore the call on stack overrun. */
   if (gsc_font_index < GSC_MAX_STYLE_NESTING)
     {
-      scr_char *lower, *face, *size;
-      scr_int index_;
+      std::string lowered (argument);
+      const scr_char *lower, *face, *size;
 
       /* Start from the current top of stack, or default on empty stack. */
       gsc_font_size_t font = gsc_font_top ();
 
       /* Copy and convert argument to all lowercase. */
-      lower = (decltype(lower)) gsc_malloc (strlen (argument) + 1);
-      memcpy (lower, argument, strlen (argument) + 1);
-      for (index_ = 0; lower[index_] != '\0'; index_++)
-        lower[index_] = glk_char_to_lower (lower[index_]);
+      for (char &c : lowered)
+        c = glk_char_to_lower (c);
+      lower = lowered.c_str ();
 
       /* Find any face= portion of the tag argument. */
       face = strstr (lower, "face=");
@@ -730,9 +719,6 @@ gsc_handle_font_tag (const scr_char *argument)
       size = strstr (lower, "size=");
       if (size)
         font.size = gsc_style_apply_font_size (size, font.size);
-
-      /* Done with tag argument copy. */
-      free (lower);
 
       /*
        * Push the new font setting onto the font stack, and set Glk style.

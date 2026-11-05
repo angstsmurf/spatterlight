@@ -26,6 +26,8 @@
 
 #include "os_glk_internal.h"
 
+#include <vector>
+
 /*---------------------------------------------------------------------*/
 /*  Glk port locale data                                               */
 /*---------------------------------------------------------------------*/
@@ -593,34 +595,29 @@ gsc_read_line_locale (scr_char *buffer,
    */
   if (gsc_options.unicode_enabled)
     {
-      glui32 *unicode;
-
       /*
        * Allocate a unicode buffer long enough to hold all the characters,
        * then read in a unicode line.
        */
-      unicode = (decltype(unicode)) gsc_malloc (length * sizeof (*unicode));
-      memset (unicode, 0, length * sizeof (*unicode));
-      glk_request_line_event_uni (gsc_io.main_window, unicode, length, 0);
+      std::vector<glui32> unicode (length);
+      glk_request_line_event_uni (gsc_io.main_window, unicode.data (),
+                                  length, 0);
       gsc_event_wait (evtype_LineInput, &event);
 
       /* A click on the map took the request: there is no line. */
       if (gsc_walk.sc_clicked)
-        {
-          free (unicode);
-          return 0;
-        }
+        return 0;
       if (gsc_line_echo_manual)
         {
           glk_set_style (style_Input);
-          glk_put_buffer_uni (unicode, event.val1);
+          glk_put_buffer_uni (unicode.data (), event.val1);
           glk_set_style (style_Normal);
           glk_put_char ('\n');
         }
 
-      /* Convert the unicode buffer out, then free it. */
-      gsc_unicode_buffer_to_locale (unicode, event.val1, buffer, locale);
-      free (unicode);
+      /* Convert the unicode buffer out. */
+      gsc_unicode_buffer_to_locale (unicode.data (), event.val1, buffer,
+                                    locale);
 
       /* Return the count of characters placed in the buffer. */
       gsc_colour_echo (FALSE);

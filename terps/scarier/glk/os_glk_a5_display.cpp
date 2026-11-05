@@ -248,15 +248,11 @@ gsc_a5_display_t::style () const
 void
 gsc_a5_display_t::plain_run (const char *seg)
 {
-  size_t n = (size_t) (p - seg);
-  char *chunk = (char *) gsc_malloc (n + 1);
-  memcpy (chunk, seg, n);
-  chunk[n] = '\0';
+  const std::string chunk (seg, (size_t) (p - seg));
   if (!silent)
-    gsc_a5_put_string (chunk);
+    gsc_a5_put_string (chunk.c_str ());
   else if (cur_window == gsc_io.main_window)
     gsc_io.main_window_empty = FALSE;
-  free (chunk);
 }
 
 void

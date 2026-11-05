@@ -1824,18 +1824,13 @@ gsc_command_help_print (const char *help)
   standout = FALSE;
   while (*help)
     {
-      size_t length;
-      char *span;
+      const size_t length = strcspn (help, "`");
+      const std::string span (help, length);
 
-      length = strcspn (help, "`");
-      span = (char *) gsc_malloc (length + 1);
-      memcpy (span, help, length);
-      span[length] = '\0';
       if (standout)
-        gsc_standout_string (span);
+        gsc_standout_string (span.c_str ());
       else
-        gsc_normal_string (span);
-      free (span);
+        gsc_normal_string (span.c_str ());
 
       help += length;
       if (*help == '`')
@@ -1940,6 +1935,7 @@ int
 gsc_command_escape (const char *string)
 {
   int posn;
+  std::string copy;
   char *string_copy, *command, *argument;
   assert (string);
 
@@ -1952,10 +1948,8 @@ gsc_command_escape (const char *string)
     return FALSE;
 
   /* Take a copy of the string, without any leading space or introducer. */
-  string_copy = (decltype(string_copy)) gsc_malloc (strlen (string + posn) + 1
-                                                    - strlen ("glk"));
-  strncpy (string_copy, string + posn + strlen ("glk"),
-           strlen (string + posn) + 1 - strlen ("glk"));
+  copy = string + posn + strlen ("glk");
+  string_copy = &copy[0];
 
   /*
    * Find the subcommand; the first word in the string copy.  Find its end,
@@ -2003,7 +1997,6 @@ gsc_command_escape (const char *string)
               && matched->handler != gsc_command_help)
             {
               gsc_command_help (matched->command);
-              free (string_copy);
               return TRUE;
             }
 
@@ -2036,6 +2029,5 @@ gsc_command_escape (const char *string)
     }
 
   /* The string contained a Glk command; return TRUE. */
-  free (string_copy);
   return TRUE;
 }
