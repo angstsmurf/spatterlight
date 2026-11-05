@@ -290,6 +290,10 @@ Do **not** change statement order inside the dispatch cascade.
 - **Ignored artefacts in the source tree** (`*.o`, `*.d` next to sources).
   They are ignored, so harmless, but an out-of-tree `BUILD` dir would stop them
   showing up in editor file lists and in `git status --ignored`.
+  *Done 2026-11-05:* `Makefile` builds into `build/make/` (OBJDIR), mirroring
+  the source tree; `make clean` removes it.  `glkscarier` and `scarier` both
+  build with no in-tree objects, a header touch still triggers a rebuild, and
+  98 cheapglk transcripts and saves match the in-tree build byte for byte.
 
 ## Not recommended (looked at, leaving alone)
 

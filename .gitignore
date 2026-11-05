@@ -273,7 +273,8 @@ terps/level9/headless_obj/
 terps/level9/level9_hl
 terps/level9/test/games/
 
-# Scarier build artifacts (Makefile.headless compiles in place; the test
+# Scarier build artifacts (both Makefiles now build under build/, which is
+# ignored above; these catch objects left by older builds.  The test
 # harnesses have their own .gitignore files under terps/scarier/test/)
 /terps/scarier/*.[od]
 /terps/scarier/core/*.[od]

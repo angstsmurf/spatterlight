@@ -186,7 +186,8 @@ recompare.  What they fixed as decisions:
   `SPATTERLIGHT` and in the main window elsewhere.  ADRIFT 5 has no fatal
   path of its own: its load and out-of-memory stops print in the window.
 - **`Makefile` tracks header dependencies** with `-MMD -MP` and the `.d`
-  files; `make clean` is built from the object lists.
+  files.  Objects build under `build/make/`, as `Makefile.headless` uses
+  `build/headless/`, so `make clean` just removes that directory.
 - **`-Wshadow` is part of the check** for any split: a copied
   `type name = ...;` can shadow a struct member, and `Makefile.headless`
   builds with `-w`, so the syntax check has to be run by hand (safety net,
