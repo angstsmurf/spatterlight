@@ -53,8 +53,8 @@ static int gsc_map_zoom_apply (int dir);
    is much cheaper than drawing them again.  The comparison is only valid while
    the window still holds what we last put there, so gsc_map_pane.full_flush
    forces the whole surface out again whenever it may not: after an arrange or
-   redraw event (the window is resized, and its backing image with it), and when the
-   pane is opened or cleared. */
+   redraw event (the window is resized, and its backing image with it), and
+   when the pane is opened or cleared. */
 static map_surface_t *gsc_map_screen = nullptr;
 
 void
@@ -734,8 +734,9 @@ gsc_a5_walk_next (a5_run_t *run, char *buf, int bufsize)
  * Whether this game has a map at all.  In ADRIFT 5 that is settled at load:
  * it either shipped map data or it did not.  In ADRIFT 4 every game with
  * rooms has one, unless the author switched it off -- and gsc_map_pane.map
- * itself is no guide there, being built lazily at the first redraw.  Whether there is
- * anything to draw *right now* is a separate question (map_has_content).
+ * itself is no guide there, being built lazily at the first redraw.  Whether
+ * there is anything to draw *right now* is a separate question
+ * (map_has_content).
  */
 static int
 gsc_map_available (void)
@@ -819,8 +820,8 @@ gsc_map_pref_ref (void)
  * ignored.)
  *
  * The "-m" switch (gsc_map_pane.startup) reads as shown for every game, so
- * that a scripted run opens the same panes whatever the player chose before.  The
- * player's choice is still written.
+ * that a scripted run opens the same panes whatever the player chose before.
+ * The player's choice is still written.
  */
 int
 gsc_map_pref_read (int *at_top)

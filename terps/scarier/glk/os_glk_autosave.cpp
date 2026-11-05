@@ -601,10 +601,10 @@ gsc_recover_frontend_state (const ScarierGlkFrontendState *st)
   /* Not stashed: gsc_map_pane.taken, assist flags and locale are re-derived
      at startup; the walk-in-progress state is deliberately dropped (a
      restored session simply stops walking); gsc_map_pane.map itself is
-     authored data (ADRIFT 5, reloaded at boot) or rebuilt every redraw (ADRIFT 4); and the restart
-     count gsc_map_notice_restart watches is per-process on both sides of the
-     comparison, so a fresh process starts it and the engine's at zero
-     together. */
+     authored data (ADRIFT 5, reloaded at boot) or rebuilt every redraw
+     (ADRIFT 4); and the restart count gsc_map_notice_restart watches is
+     per-process on both sides of the comparison, so a fresh process starts
+     it and the engine's at zero together. */
 }
 
 /*
