@@ -81,7 +81,7 @@ Lengths are rough (to the first column-0 `}`).
 | `a5run_resolve_plural_objects` (name approx) | `adrift5/run/a5run_ref.cpp:854` | 204 |
 | `a5run_intro` | `adrift5/run/a5run.cpp:1416` | 157 |
 | `pass_object` | `adrift5/a5restr.cpp:342` | 160 |
-| `mapdraw` pass 1 per-link renderer | `mapdraw.cpp:2134` | 209 |
+| `mapdraw` pass 1 per-link renderer (`render_link`) | `map/map_links.cpp:768` | 209 |
 
 **Done 2026-11-05** (full `test` identical, `make`, `xcodebuild` clean):
 
@@ -118,6 +118,37 @@ Do **not** change statement order inside the dispatch cascade.
   then split into layout, link routing, and rasterising TUs. The map-corpus
   golden (`test/map_corpus_golden.txt`, `run_map_corpus.sh`) is the oracle.
   Needs pbxproj and Makefile path edits.
+
+  **Done 2026-11-05.** `mapdraw.cpp` / `mapdraw.h` moved to a new `map/`
+  folder (not `core/`, which is the ADRIFT 4 engine; `scmap` / `a5map` /
+  `os_glk_map` stay with the engines that feed them). The file is split by
+  its existing section banners:
+
+  | TU | Holds | Lines |
+  | --- | --- | --- |
+  | `map/mapdraw.cpp` | model, pages and views, `render_node`, `map_render`, hit testing and walking | ~540 |
+  | `map/map_raster.cpp` | palette, drawing primitives, bitmap text | ~670 |
+  | `map/map_layout.cpp` | projection, framing, pan/zoom chrome | ~490 |
+  | `map/map_links.cpp` | link geometry, badge sites and layout, links and exit stubs | ~1030 |
+
+  What crosses files is declared in `map/map_internal.h`, inside
+  `namespace map_internal`, so names like `palette` and `fill_rect` stay
+  off the global namespace; definitions are `map_internal::name`. Bodies
+  are unchanged. The Makefiles glob `map/*.cpp`. Gates: the
+  `run_map_corpus.sh` manifest is byte-identical to HEAD's, the full
+  headless `test` is identical, `make`, `build.sh` and the xcodebuild
+  scarier target are clean, and every TU is clean under `-Wshadow`. Note
+  that `run_map_corpus.sh` already reported FAIL at HEAD. The cause is not
+  a changed hash: four entries are missing from the committed golden,
+  the `start` and `all` views of `AFP2.taf` and of
+  `EscapeFromTheCastleOfCarnalIntent.blorb`, both in the ADRIFT 5 corpus.
+  They are now blessed (no other row changed), and the script exports
+  `LC_ALL=C`: rows follow glob order, which follows the collation locale,
+  so a bless under en_NZ.UTF-8 reordered the whole file. The GARGLK build (`-std=c++17
+  -DGARGLK`, linked against `libgarglk`) compiles and links. At the next
+  fork sync, the hand-kept `terp(scarier SRCS …)` list in
+  `garglk/terps/CMakeLists.txt` must replace `mapdraw.cpp` with the four
+  `map/*.cpp` files.
 - **`library/sclibrar_drop.cpp` (2665), `sclibrar_battle.cpp` (2567),
   `sclibrar_take_multiple.cpp` (2348).** Over 2k lines each. `drop` holds
   `lib_two_verb_line_pre400`, which is not a drop concern; it belongs in

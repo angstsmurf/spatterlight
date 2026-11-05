@@ -1062,8 +1062,8 @@ transcript() {  # $1=game path $2=solution path
 # gets here, so this is the standalone path.)
 SRC_DIR="${SCARE_DIR:-$(cd "$HERE/../../.." && pwd)}"
 if [ ! -x "$SCARE_BIN" ] \
-   || [ -n "$(find "$SRC_DIR" "$SRC_DIR/library" "$SRC_DIR/runner" -maxdepth 1 \
-              \( -name 'sc*.cpp' -o -name 'os_ansi.cpp' -o -name 'mapdraw.cpp' \
+   || [ -n "$(find "$SRC_DIR" "$SRC_DIR/library" "$SRC_DIR/runner" "$SRC_DIR/map" -maxdepth 1 \
+              \( -name 'sc*.cpp' -o -name 'os_ansi.cpp' -o -name '*.cpp' -path '*/map/*' \
                  -o -name '*.cpp' -path '*/library/*' -o -name '*.cpp' -path '*/runner/*' \
                  -o -name '*.h' \) \
               -newer "$SCARE_BIN" 2>/dev/null | head -1)" ]; then

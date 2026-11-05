@@ -1759,7 +1759,7 @@ scdump_room_names (scr_gameref_t game)
  *
  * Room exits + their task gates.  The exit array is in ADRIFT's own direction
  * order -- the diagonals are NE,SE,SW,NW, NOT NE,NW,SE,SW (DIRNAMES_8 in
- * sclibrar_room.cpp, and mapdraw.cpp's map_dirs, which both engines share).
+ * sclibrar_room.cpp, and map/mapdraw.cpp's map_dirs, which both engines share).
  * Getting this wrong mislabels every diagonal exit and sends a route
  * derivation into the wrong room.
  */

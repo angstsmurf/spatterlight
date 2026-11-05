@@ -47,7 +47,7 @@
 #ifndef MAPDRAW_H
 #define MAPDRAW_H
 
-#include "common_utils/rgbsurface.h"
+#include "../common_utils/rgbsurface.h"
 
 /*
  * The twelve directions, in the order both engines number them: ADRIFT 5's

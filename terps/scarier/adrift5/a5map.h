@@ -25,7 +25,7 @@
  * The room layout is authored data, not something the interpreter derives:
  * the Developer writes an <Adventure><Map> block of <Page>s, each holding
  * <Node>s with the location key and its X/Y/Z position in map units.  All we
- * have to do is read it; mapdraw.h then draws it.  (ADRIFT 4 stores no such
+ * have to do is read it; map/mapdraw.h then draws it.  (ADRIFT 4 stores no such
  * block, and no coordinates at all -- see scmap.h, which has to derive the
  * layout for itself.)
  */
@@ -34,7 +34,7 @@
 #define A5MAP_H
 
 #include "a5model.h"
-#include "../mapdraw.h"
+#include "../map/mapdraw.h"
 
 /* Parse <Map> out of a loaded adventure.  Returns NULL if the game has no map
    nodes at all.  The result aliases the adventure's XML document, so it must

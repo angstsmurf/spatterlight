@@ -46,8 +46,8 @@ any non-v5 file, in which case the ADRIFT 4 (SCARE) path takes over.
 Both engines share the Glk seam in glk/ (title screens, the map pane,
 status line, side windows, media, real-time timer events, saves, the `glk`
 meta-commands and the Spatterlight autosave) and the map model and
-rasteriser in mapdraw.cpp / core/scmap.cpp; mapdraw.cpp and sessrec.h stay
-at the root because both engines use them.  headless/ holds the os-layer stub
+rasteriser in map/ / core/scmap.cpp; map/ and sessrec.h sit outside
+both engines' folders because both engines use them.  headless/ holds the os-layer stub
 (sxstubs.cpp) the headless harnesses link instead of glk/;
 platform/ holds the other host layers, os_ansi.cpp (the plain stdout
 front end) and scarier-autosave.mm (the Spatterlight autosave bridge the

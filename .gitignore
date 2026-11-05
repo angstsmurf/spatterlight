@@ -284,6 +284,7 @@ terps/level9/test/games/
 /terps/scarier/library/*.[od]
 /terps/scarier/runner/*.[od]
 /terps/scarier/tools/*.[od]
+/terps/scarier/map/*.[od]
 /terps/scarier/headless/*.[od]
 /terps/scarier/glk/*.[od]
 /terps/scarier/common_utils/*.[od]

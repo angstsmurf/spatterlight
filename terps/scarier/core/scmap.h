@@ -46,7 +46,7 @@
  * the grounds that a map that matches the one ADRIFT 4 authors designed
  * against is worth more than a prettier one that does not.
  *
- * The result is handed to mapdraw.h, which draws it exactly as it draws an
+ * The result is handed to map/mapdraw.h, which draws it exactly as it draws an
  * ADRIFT 5 map.  (The ADRIFT 4 Runner's own map, built out of Visual Basic
  * Label and Line controls, looked quite different; we do not reproduce that.)
  */
@@ -55,7 +55,7 @@
 #define SCMAP_H
 
 #include "sctypes.h"
-#include "../mapdraw.h"
+#include "../map/mapdraw.h"
 
 /* Fill in the view callbacks over SCARE's game state. */
 extern void scmap_view (scr_gameref_t game, map_view_t *view);

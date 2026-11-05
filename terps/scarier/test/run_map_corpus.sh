@@ -4,7 +4,7 @@
 # test/adrift5/games/ and compares each PPM's sha256 against the committed
 # manifest test/map_corpus_golden.txt.  This is the map counterpart of the
 # walkthrough goldens: run it after touching scmap.cpp, adrift5/a5map.cpp or
-# mapdraw.cpp -- a behaviour-preserving change must leave every hash alone.
+# map/*.cpp -- a behaviour-preserving change must leave every hash alone.
 #
 # usage: test/run_map_corpus.sh [-b]
 #   -b   bless: overwrite the manifest with the current hashes
@@ -30,6 +30,10 @@ HERE=$(cd "$(dirname "$0")/.." && pwd)
 BIN4="$HERE/test/adrift4/harness/scmap_dump"
 BIN5="$HERE/test/adrift5/harness/a5map_dump"
 MANIFEST="$HERE/test/map_corpus_golden.txt"
+
+# The manifest rows follow glob order, which follows the collation locale:
+# pin it so a bless gives the same order on every machine.
+export LC_ALL=C
 OUT=/tmp/mapcorpus
 
 BLESS=0

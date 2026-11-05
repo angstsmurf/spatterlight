@@ -36,8 +36,8 @@ DEBUG	=
 CEXTRA	=
 CFLAGS	= -O2 -fPIC $(DEBUG) $(CEXTRA)
 # -I. lets the command library in library/, the runner in runner/ and the
-# front ends find the engine headers as "core/scarier.h" and the shared
-# mapdraw.h / sessrec.h at the root.
+# front ends find the engine headers as "core/scarier.h", the shared map
+# renderer as "map/mapdraw.h" and sessrec.h at the root.
 CXXFLAGS = -O2 -fPIC -Wall -W $(DEBUG) $(CEXTRA) -I.
 LDLIBS	= -lz
 LDEXTRA	=
@@ -110,10 +110,10 @@ OBJECTS	= $(filter-out $(COREDIR)/scmap.o,				\
 
 # The map pane: core/scmap.cpp builds the ADRIFT 4 map model, a5map.cpp the
 # ADRIFT 5 one, and both draw into the engine-neutral rasteriser in
-# mapdraw.cpp, which stays at the root with the other shared files.  Only the
+# map/, which neither engine owns.  Only the
 # Glk port has somewhere to show a map, but the engine calls
 # scmap_forget_game(), so every build links them.
-MAPOBJECTS = mapdraw.o $(COREDIR)/scmap.o
+MAPOBJECTS = $(patsubst %.cpp,%.o,$(wildcard map/*.cpp)) $(COREDIR)/scmap.o
 
 # The shared, seedable cross-platform RNG (erkyrath xoshiro128**): the v5
 # engine draws from it, so seeded walkthroughs reproduce across platforms, and

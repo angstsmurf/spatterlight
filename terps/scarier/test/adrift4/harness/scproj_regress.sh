@@ -84,7 +84,7 @@ fi
 # callbacks; seed.cpp forces SCARIER's portable RNG + fixed seed before
 # main()).  Engine ported C->C++ (sc*.c -> sc*.cpp), so glob the .cpp sources
 # and use clang++.
-# The library and the runner live in their own folders; mapdraw.cpp is not
+# The library and the runner live in their own folders; map/*.cpp is not
 # matched by the sc*.cpp glob, but scmap.cpp (the ADRIFT 4 map port) calls
 # map_build()/map_free() from it, so the link needs it -- same list build.sh
 # uses.
@@ -97,7 +97,7 @@ if [ -n "${SCPROJ_BIN:-}" ]; then
 else
   # The shared RNG is plain C: compiled apart from the C++ sources.
   ( cd "$SCARE" && clang -O2 -w -c ../common_utils/randomness.c -o "$BIN.rand.o" \
-      && clang++ -std=c++11 -O2 -w -I. core/sc*.cpp library/*.cpp runner/*.cpp mapdraw.cpp \
+      && clang++ -std=c++11 -O2 -w -I. core/sc*.cpp library/*.cpp runner/*.cpp map/*.cpp \
       headless/sxstubs.cpp \
       "$HERE/scproj_test.cpp" "$HERE/seed.cpp" "$BIN.rand.o" -lz -o "$BIN" \
       && rm -f "$BIN.rand.o" )

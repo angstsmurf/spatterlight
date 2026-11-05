@@ -18,7 +18,7 @@
  */
 
 /* The ADRIFT 5 map loader.  See a5map.h.  This reads the authored <Map> block
-   into the engine-neutral map_t that mapdraw.cpp draws. */
+   into the engine-neutral map_t that map/mapdraw.cpp draws. */
 
 #include <cstdlib>
 #include <cstring>

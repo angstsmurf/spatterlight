@@ -111,8 +111,8 @@ know:
   autosave bridge; `headless/sxstubs.cpp` is the stub the harnesses link
   instead of `glk/`; `tools/` is the dump and trace instrumentation,
   compiled only with `-DSCARIER_DUMP_TOOLS` into the headless binaries.
-  `mapdraw.cpp` and `sessrec.h` stay at the root because both engines use
-  them.
+  `map/` holds the engine-neutral map model and rasteriser, and `sessrec.h`
+  stays at the root; both engines use them.
 - **Tracing.** `SCR_TRACE_ON (name)` / `SCR_TRACE_IF (name, format, ...)`
   in `core/scdump.h`, beside `SCR_DEVIATION`, read their environment
   variable once and compile to nothing without `SCARIER_DUMP_TOOLS`.
@@ -238,7 +238,7 @@ Do not re-propose these without new evidence.
   node" skeleton (~25 lines, no tests of its own beyond the corpora);
   `have_seen_character` / `_object` / `_location` (the location one
   answers 0 for a non-player observer on purpose); `inout_site` /
-  `ud_site_primary` in `mapdraw.cpp` (the two switches read as the port
+  `ud_site_primary` in `map/map_links.cpp` (the two switches read as the port
   layout they draw).
 - **Making the remaining single-TU exports `static`**: `obj_seen_p`,
   `obj_visible`, `a5state_object_key_at_location` and `gsc_a5_media_fire`
@@ -246,19 +246,19 @@ Do not re-propose these without new evidence.
   the header line for a forward declaration; the `a5run_undo_*` /
   `a5run_pending_*` group exists for `glk/os_glk_autosave.cpp`, and
   `a5run.h` says so.
-- **Cutting `render_link`** (`mapdraw.cpp`, half comments, already
+- **Cutting `render_link`** (`map/map_links.cpp`, half comments, already
   extracted from `map_render`), **`pass_object`** and
   **`restr_pass_task_char`** (flat operator dispatches in the Runner's case
   order) and **`lib_stand_sit_lie`** (per-movement message switches):
   split one only when a change touches it.  29 functions are over 150
   lines; counted as code lines the largest is 128, and most of the length
   is Runner-citation comments.
-- **Moving `adrift5/a5run.h` and friends into `run/` / `text/`, a `map/`
-  folder for `mapdraw`, a `<cstdio>` / `<cstring>` sweep**: cosmetic, and
-  the header moves cost Xcode search-path churn.
+- **Moving `adrift5/a5run.h` and friends into `run/` / `text/`, a
+  `<cstdio>` / `<cstring>` sweep**: cosmetic, and the header moves cost
+  Xcode search-path churn.
 - **Sharing map, save, text or input code between the engines**: surveyed
   once per layer; only the RNG core was the same thing twice.  The two map
-  modules meet at `map_t` and share `mapdraw.cpp` already; the save
+  modules meet at `map_t` and share `map/` already; the save
   formats are fixed by the files; the text and input layers port different
   Runners.
 - **`InitGlk` extern in `glk/os_glk.cpp`** and `os_ansi.cpp`'s hand-written
@@ -286,9 +286,8 @@ Candidates, not tasks; each wants its own decision.
   `core/sctafpar.cpp`, `glk/os_glk_map.cpp` and `glk/os_glk_autosave.cpp`
   have the most.  A census of those is the first step if two games in one
   process is ever a goal.
-- **File sizes.** The largest are `library/sclibrar_drop.cpp` and
-  `mapdraw.cpp` at about 2700 lines, with a dozen more between 2000 and
-  2550; none stands out.
+- **File sizes.** The largest is `library/sclibrar_drop.cpp` at about
+  2700 lines, with a dozen more between 2000 and 2550; none stands out.
 - **Lines over 80 columns in `adrift5/`** (about 1460): its compact
   one-line bodies are that code's own style.
 - **Five `(void) x` casts under `#if`** in `glk/`: `[[maybe_unused]]` is

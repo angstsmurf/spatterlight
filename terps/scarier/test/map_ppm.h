@@ -28,7 +28,7 @@
 
 #include <stdio.h>
 
-#include "../mapdraw.h"
+#include "../map/mapdraw.h"
 
 /* Returns 0 if `path` cannot be opened for writing, 1 once it is written. */
 static inline int

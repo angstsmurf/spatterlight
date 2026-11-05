@@ -29,14 +29,14 @@ cd "$SCARE"
 # etc.), so with those vars unset the binary is behaviourally identical to a
 # build without it -- goldens are unaffected -- but SCR_DUMP_TASKS now works for
 # route debugging (e.g. finding a win task's command + restrictions).
-# mapdraw.cpp is not matched by the sc*.cpp glob but scmap.cpp (the ADRIFT 4 map
-# port) calls map_free()/map_build() from it. It is plain C++ with no Glk
+# The map renderer in map/ is not matched by the sc*.cpp glob but scmap.cpp (the
+# ADRIFT 4 map port) calls map_free()/map_build() from it. It is plain C++ with no Glk
 # dependency, so linking it here is free -- the ANSI port simply never asks for a
 # map.  The command library and the runner live in library/ and runner/, the
 # dump instrumentation in tools/.
 clang -O2 -w -c ../common_utils/randomness.c -o "$HERE/randomness.o"
 clang++ -O2 -w -I. -DSCARIER_DUMP_TOOLS \
-  core/sc*.cpp library/*.cpp runner/*.cpp tools/*.cpp mapdraw.cpp platform/os_ansi.cpp \
+  core/sc*.cpp library/*.cpp runner/*.cpp tools/*.cpp map/*.cpp platform/os_ansi.cpp \
   "$HERE/seed.cpp" "$HERE/randomness.o" \
   -lz -o "$OUT"
 rm -f "$HERE/randomness.o"
