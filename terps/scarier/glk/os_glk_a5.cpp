@@ -311,9 +311,9 @@ gsc_a5_await_line (event_t *event, char *buf, int bufsize,
 #endif
 #ifdef GSC_HAVE_TITLE_WINDOW
               /* The player's first input dismisses any title/cover window. */
-              if (!gsc_seen_input)
+              if (!gsc_title.seen_input)
                 {
-                  gsc_seen_input = TRUE;
+                  gsc_title.seen_input = TRUE;
                   gsc_close_title_graphic ();
                 }
 #endif

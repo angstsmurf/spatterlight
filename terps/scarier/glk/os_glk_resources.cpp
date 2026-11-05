@@ -171,9 +171,7 @@ os_stop_sound (void)
  * the intro text ran beneath it, which left neither the picture nor the text
  * enough room.
  */
-winid_t gsc_graphics_window = nullptr;
-glui32 gsc_title_image = 0;
-int gsc_seen_input = FALSE;
+gsc_title_t gsc_title;
 
 
 /*
@@ -187,13 +185,13 @@ gsc_title_redraw (void)
 {
   glui32 win_width, win_height, img_width, img_height, draw_width, draw_height;
 
-  if (gsc_graphics_window == nullptr || gsc_title_image == 0)
+  if (gsc_title.window == nullptr || gsc_title.image == 0)
     return;
 
-  glk_window_get_size (gsc_graphics_window, &win_width, &win_height);
+  glk_window_get_size (gsc_title.window, &win_width, &win_height);
   if (win_width == 0 || win_height == 0)
     return;
-  if (!glk_image_get_info (gsc_title_image, &img_width, &img_height)
+  if (!glk_image_get_info (gsc_title.image, &img_width, &img_height)
       || img_width == 0 || img_height == 0)
     return;
 
@@ -209,8 +207,8 @@ gsc_title_redraw (void)
       draw_width = img_width * win_height / img_height;
     }
 
-  glk_window_fill_rect (gsc_graphics_window, 0, 0, 0, win_width, win_height);
-  glk_image_draw_scaled (gsc_graphics_window, gsc_title_image,
+  glk_window_fill_rect (gsc_title.window, 0, 0, 0, win_width, win_height);
+  glk_image_draw_scaled (gsc_title.window, gsc_title.image,
                          (glsi32) ((win_width - draw_width) / 2),
                          (glsi32) ((win_height - draw_height) / 2),
                          draw_width, draw_height);
@@ -235,18 +233,18 @@ gsc_show_title_graphic (glui32 image)
       || img_width == 0 || img_height == 0)
     return FALSE;
 
-  if (gsc_graphics_window == nullptr)
+  if (gsc_title.window == nullptr)
     {
-      gsc_graphics_window = glk_window_open (glk_window_get_root (),
+      gsc_title.window = glk_window_open (glk_window_get_root (),
                                              winmethod_Above
                                              | winmethod_Proportional
                                              | winmethod_NoBorder,
                                              100, wintype_Graphics, 0);
-      if (gsc_graphics_window == nullptr)
+      if (gsc_title.window == nullptr)
         return FALSE;
     }
 
-  gsc_title_image = image;
+  gsc_title.image = image;
   gsc_title_redraw ();
   return TRUE;
 }
@@ -260,11 +258,11 @@ gsc_show_title_graphic (glui32 image)
 void
 gsc_close_title_graphic (void)
 {
-  if (gsc_graphics_window != nullptr)
+  if (gsc_title.window != nullptr)
     {
-      glk_window_close (gsc_graphics_window, nullptr);
-      gsc_graphics_window = nullptr;
-      gsc_title_image = 0;
+      glk_window_close (gsc_title.window, nullptr);
+      gsc_title.window = nullptr;
+      gsc_title.image = 0;
     }
 }
 
@@ -285,10 +283,10 @@ gsc_title_fits_inline (void)
 {
   glui32 win_width, win_height, img_width, img_height, inline_height;
 
-  glk_window_get_size (gsc_graphics_window, &win_width, &win_height);
+  glk_window_get_size (gsc_title.window, &win_width, &win_height);
   if (win_width == 0 || win_height == 0)
     return TRUE;
-  if (!glk_image_get_info (gsc_title_image, &img_width, &img_height)
+  if (!glk_image_get_info (gsc_title.image, &img_width, &img_height)
       || img_width == 0 || img_height == 0)
     return TRUE;
   if (img_height >= img_width)
@@ -311,7 +309,7 @@ gsc_title_screen_wait (void)
   int mouse;
   event_t event;
 
-  if (gsc_graphics_window == nullptr)
+  if (gsc_title.window == nullptr)
     return;
 
   /* Take the key on the title itself where the library allows it; otherwise
@@ -319,12 +317,12 @@ gsc_title_screen_wait (void)
   key_window = gsc_io.main_window;
 #ifdef gestalt_GraphicsCharInput
   if (glk_gestalt (gestalt_GraphicsCharInput, 0))
-    key_window = gsc_graphics_window;
+    key_window = gsc_title.window;
 #endif
   glk_request_char_event (key_window);
   mouse = glk_gestalt (gestalt_MouseInput, wintype_Graphics);
   if (mouse)
-    glk_request_mouse_event (gsc_graphics_window);
+    glk_request_mouse_event (gsc_title.window);
 
   for (;;)
     {
@@ -333,14 +331,14 @@ gsc_title_screen_wait (void)
         continue;
       if (event.type == evtype_CharInput && event.win == key_window)
         break;
-      if (event.type == evtype_MouseInput && event.win == gsc_graphics_window)
+      if (event.type == evtype_MouseInput && event.win == gsc_title.window)
         break;
     }
 
   if (event.type == evtype_CharInput)
     {
       if (mouse)
-        glk_cancel_mouse_event (gsc_graphics_window);
+        glk_cancel_mouse_event (gsc_title.window);
     }
   else
     glk_cancel_char_event (key_window);
@@ -418,7 +416,8 @@ os_show_graphic (const scr_char *filepath, scr_int offset, scr_int length)
   if (id == 0)
     return;
 
-  if (!gsc_replay.sc_silent && !gsc_seen_input && gsc_show_title_graphic (id))
+  if (!gsc_replay.sc_silent && !gsc_title.seen_input
+      && gsc_show_title_graphic (id))
     {
       if (!gsc_title_fits_inline ())
         {

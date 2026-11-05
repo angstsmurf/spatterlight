@@ -540,10 +540,10 @@ gsc_event_wait_2 (glui32 wait_type_1, glui32 wait_type_2, event_t * event)
 
 #ifdef GSC_HAVE_TITLE_WINDOW
   /* The player's first input dismisses any title/cover image window. */
-  if (!gsc_seen_input
+  if (!gsc_title.seen_input
       && (event->type == evtype_LineInput || event->type == evtype_CharInput))
     {
-      gsc_seen_input = TRUE;
+      gsc_title.seen_input = TRUE;
       gsc_close_title_graphic ();
     }
 #endif
@@ -1360,7 +1360,7 @@ gsc_main_autorestore (void)
      hold a cover pane open over the story; the game is past its intro
      by now, so put the story window back on its own. */
   gsc_close_title_graphic ();
-  gsc_seen_input = TRUE;
+  gsc_title.seen_input = TRUE;
 #endif
   glk_set_window (gsc_io.main_window);
   glk_set_style (style_Normal);
@@ -1527,7 +1527,7 @@ gsc_main (void)
 #ifdef SPATTERLIGHT
       if (!gsc_autorestored)
 #endif
-        gsc_seen_input = FALSE;
+        gsc_title.seen_input = FALSE;
 #endif
       /* Run the game until it ends, or the user quits. */
       gsc_status_notify ();

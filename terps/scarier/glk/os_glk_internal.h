@@ -486,9 +486,20 @@ extern char gsc_gamefile[1024];   /* os_glk.cpp */
 extern schanid_t sound_channel;
 #endif
 #ifdef GSC_HAVE_TITLE_WINDOW
-extern winid_t gsc_graphics_window;
-extern glui32 gsc_title_image;
-extern int gsc_seen_input;
+/*
+ * The title screen (os_glk_resources.cpp): the graphics window a tall cover
+ * fills while it is up, the cover's resource number, and whether the player
+ * has given any input yet, which takes the title screen down.
+ */
+struct gsc_title_s
+{
+  winid_t window = nullptr;
+  glui32 image = 0;
+  int seen_input = FALSE;
+};
+typedef struct gsc_title_s gsc_title_t;
+
+extern gsc_title_t gsc_title;
 extern int gsc_show_title_graphic (glui32 image);
 extern void gsc_close_title_graphic (void);
 #endif

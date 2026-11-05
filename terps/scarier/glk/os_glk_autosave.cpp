@@ -448,7 +448,7 @@ gsc_stash_frontend_state (ScarierGlkFrontendState *st)
   st->statuswintag = gsc_io.status_window ? gsc_io.status_window->tag : 0;
   st->sidewintag = gsc_a5_side_window ? gsc_a5_side_window->tag : 0;
   st->mapwintag = gsc_map_pane.window ? gsc_map_pane.window->tag : 0;
-  st->gfxwintag = gsc_graphics_window ? gsc_graphics_window->tag : 0;
+  st->gfxwintag = gsc_title.window ? gsc_title.window->tag : 0;
   st->transcripttag = gsc_io.transcript_stream
                        ? gsc_io.transcript_stream->tag : 0;
   st->inputlogtag = gsc_io.inputlog_stream ? gsc_io.inputlog_stream->tag : 0;
@@ -460,8 +460,8 @@ gsc_stash_frontend_state (ScarierGlkFrontendState *st)
                                ? gsc_a5_channels[ch]->tag : 0;
       st->a5_chan_sound[ch] = gsc_a5_chan_sound[ch];
     }
-  st->seen_input = gsc_seen_input;
-  st->title_image = gsc_title_image;
+  st->seen_input = gsc_title.seen_input;
+  st->title_image = gsc_title.image;
   st->map_shown = gsc_map_pane.shown;
   st->map_at_top = gsc_map_pane.at_top;
   st->map_zoom = gsc_map_pane.zoom;
@@ -530,7 +530,7 @@ gsc_recover_frontend_state (const ScarierGlkFrontendState *st)
   gsc_io.status_window = gli_window_for_tag (st->statuswintag);
   gsc_a5_side_window = gli_window_for_tag (st->sidewintag);
   gsc_map_pane.window = gli_window_for_tag (st->mapwintag);
-  gsc_graphics_window = gli_window_for_tag (st->gfxwintag);
+  gsc_title.window = gli_window_for_tag (st->gfxwintag);
   gsc_io.transcript_stream = gli_stream_for_tag (st->transcripttag);
   gsc_io.inputlog_stream = gli_stream_for_tag (st->inputlogtag);
   gsc_io.readlog_stream = gli_stream_for_tag (st->readlogtag);
@@ -540,8 +540,8 @@ gsc_recover_frontend_state (const ScarierGlkFrontendState *st)
       gsc_a5_channels[ch] = gli_schan_for_tag (st->a5_channeltags[ch]);
       gsc_a5_chan_sound[ch] = st->a5_chan_sound[ch];
     }
-  gsc_seen_input = st->seen_input;
-  gsc_title_image = (glui32) st->title_image;
+  gsc_title.seen_input = st->seen_input;
+  gsc_title.image = (glui32) st->title_image;
   gsc_map_pane.shown = st->map_shown;
   gsc_map_pane.at_top = st->map_at_top;
   gsc_map_pane.zoom = st->map_zoom;
