@@ -277,7 +277,7 @@ gsc_command_toggle (const char *argument, const char *name,
 static void
 gsc_set_abbreviations (scr_bool state)
 {
-  gsc_abbreviations_enabled = state;
+  gsc_options.abbreviations_enabled = state;
 }
 
 static void
@@ -285,7 +285,7 @@ gsc_command_abbreviations (const char *argument)
 {
   gsc_command_toggle (argument, "abbreviations",
                       "Glk abbreviation expansions are",
-                      gsc_abbreviations_enabled, gsc_set_abbreviations,
+                      gsc_options.abbreviations_enabled, gsc_set_abbreviations,
                       ".\n", ".\n", FALSE);
 }
 
@@ -1131,14 +1131,14 @@ gsc_command_commands (const char *argument)
 
   else if (scr_strcasecmp (argument, "off") == 0)
     {
-      gsc_commands_enabled = FALSE;
+      gsc_options.commands_enabled = FALSE;
       gsc_normal_string ("Glk commands are now off.\n");
     }
 
   else if (strlen (argument) == 0)
     {
       gsc_normal_string ("Glk commands are ");
-      gsc_normal_string (gsc_commands_enabled ? "on" : "off");
+      gsc_normal_string (gsc_options.commands_enabled ? "on" : "off");
       gsc_normal_string (".\n");
     }
 

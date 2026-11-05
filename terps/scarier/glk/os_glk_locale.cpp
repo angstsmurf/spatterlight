@@ -430,7 +430,7 @@ gsc_put_char_locale (scr_char ch,
        * the character that way.  The transcript is a unicode stream
        * (gsc_open_log_stream), so the echo writes it too.
        */
-      if (gsc_unicode_enabled)
+      if (gsc_options.unicode_enabled)
         {
           if (glk_gestalt (gestalt_CharOutput,
                            unicode) == gestalt_CharOutput_ExactPrint)
@@ -591,7 +591,7 @@ gsc_read_line_locale (scr_char *buffer,
    * If we have unicode, we have to use it to ensure that characters not in
    * the Latin1 locale are properly translated.
    */
-  if (gsc_unicode_enabled)
+  if (gsc_options.unicode_enabled)
     {
       glui32 *unicode;
 
@@ -699,7 +699,7 @@ gsc_status_printed_width (const scr_char *string)
               width++;
               continue;
             }
-          if (gsc_unicode_enabled
+          if (gsc_options.unicode_enabled
               && glk_gestalt (gestalt_CharOutput,
                               unicode) == gestalt_CharOutput_ExactPrint)
             {

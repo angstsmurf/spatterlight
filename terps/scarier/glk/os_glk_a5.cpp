@@ -54,7 +54,7 @@ gsc_a5_put_string (const char *string)
       && glk_stream_get_current ()
          == glk_window_get_stream (gsc_io.main_window))
     gsc_io.main_window_empty = FALSE;
-  if (!gsc_unicode_enabled)
+  if (!gsc_options.unicode_enabled)
     {
       glk_put_string ((char *) string);
       return;
@@ -382,7 +382,7 @@ gsc_a5_read_line_raw (char *buf, int bufsize)
      Glk's or the manual one below. */
   gsc_colour_echo (TRUE);
 
-  if (gsc_unicode_enabled)
+  if (gsc_options.unicode_enabled)
     {
       const glui32 cap = 256;
       glui32 *unicode = (glui32 *) gsc_malloc (cap * sizeof (*unicode));
@@ -627,7 +627,7 @@ gsc_a5_popup_input (void * /*ctx*/, const char *prompt, const char *dflt)
          a command, and does not belong in the input log.  Any action asked for
          waits for the turn loop (gsc_a5_meta_perform), which is where the run
          may be replaced; quitting needs no such care. */
-      if (gsc_commands_enabled && gsc_command_escape (input))
+      if (gsc_options.commands_enabled && gsc_command_escape (input))
         {
           if (gsc_meta_pending == GSC_META_QUIT)
             glk_exit ();
@@ -730,7 +730,7 @@ gsc_a5_popup_choice (void * /*ctx*/, const char *prompt,
       /* "glk ..." is answered here as it is at a naming prompt, and for the
          same reason; see gsc_a5_popup_input.  The loop re-asks the question.
         */
-      if (gsc_commands_enabled && gsc_command_escape (input))
+      if (gsc_options.commands_enabled && gsc_command_escape (input))
         {
           if (gsc_meta_pending == GSC_META_QUIT)
             glk_exit ();
@@ -777,7 +777,7 @@ gsc_a5_popup_choice (void * /*ctx*/, const char *prompt,
 static int
 gsc_a5_command_escape (char *input)
 {
-  if (gsc_commands_enabled)
+  if (gsc_options.commands_enabled)
     {
       char *command;
 

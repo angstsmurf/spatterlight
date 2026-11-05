@@ -245,9 +245,17 @@ struct gsc_io_s
 typedef struct gsc_io_s gsc_io_t;
 
 extern gsc_io_t gsc_io;
-extern int gsc_commands_enabled;
-extern int gsc_abbreviations_enabled;
-extern int gsc_unicode_enabled;
+
+/* Options that may be turned off or set by command line flags. */
+struct gsc_options_s
+{
+  int commands_enabled = TRUE;
+  int abbreviations_enabled = TRUE;
+  int unicode_enabled = TRUE;
+};
+typedef struct gsc_options_s gsc_options_t;
+
+extern gsc_options_t gsc_options;
 
 /* The game palette, colour mode, and the story window's measured colours. */
 struct gsc_colour_s

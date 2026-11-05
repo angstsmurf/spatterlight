@@ -901,7 +901,7 @@ gsc_a5_printed_width (const char *string)
   const unsigned char *p = (const unsigned char *) string;
   glui32 width = 0;
 
-  if (!gsc_unicode_enabled)
+  if (!gsc_options.unicode_enabled)
     return (glui32) strlen (string);
 
   for (; *p != '\0'; p++)

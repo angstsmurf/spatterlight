@@ -83,9 +83,7 @@ gsc_io_t gsc_io;
 gsc_replay_t gsc_replay;
 
 /* Options that may be turned off or set by command line flags. */
-int gsc_commands_enabled = TRUE;
-int gsc_abbreviations_enabled = TRUE;
-int gsc_unicode_enabled = TRUE;
+gsc_options_t gsc_options;
 
 /* The game palette and colour mode; see os_glk_internal.h. */
 gsc_colour_t gsc_colour;
@@ -1199,7 +1197,7 @@ gsc_startup_code (strid_t game_stream, strid_t restore_stream,
 
   /* If the Glk libarary does not support unicode, disable it. */
   if (!gsc_has_unicode || !glk_gestalt (gestalt_Unicode, 0))
-    gsc_unicode_enabled = FALSE;
+    gsc_options.unicode_enabled = FALSE;
 
   /*
    * If a locale was requested, set it in the core interpreter now.  This

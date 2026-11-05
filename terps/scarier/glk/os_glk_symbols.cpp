@@ -370,7 +370,7 @@ gsc_put_string_symbol (const scr_char *string, gsc_symbol_font_t symbol_font)
           continue;
         }
 
-      if (unicode > 0 && gsc_unicode_enabled
+      if (unicode > 0 && gsc_options.unicode_enabled
           && glk_gestalt (gestalt_CharOutput,
                           unicode) == gestalt_CharOutput_ExactPrint)
         {

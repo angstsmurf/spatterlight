@@ -190,17 +190,17 @@ glkunix_startup_code (glkunix_startup_t * data)
     {
       if (strcmp (argv[argv_index], "-nc") == 0)
         {
-          gsc_commands_enabled = FALSE;
+          gsc_options.commands_enabled = FALSE;
           continue;
         }
       if (strcmp (argv[argv_index], "-na") == 0)
         {
-          gsc_abbreviations_enabled = FALSE;
+          gsc_options.abbreviations_enabled = FALSE;
           continue;
         }
       if (strcmp (argv[argv_index], "-nu") == 0)
         {
-          gsc_unicode_enabled = FALSE;
+          gsc_options.unicode_enabled = FALSE;
           continue;
         }
 #ifdef GSC_HAVE_ZCOLORS

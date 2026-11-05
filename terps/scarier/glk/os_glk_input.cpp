@@ -321,7 +321,7 @@ gsc_filter_typed_line (scr_char *buffer, scr_int length)
    * If neither abbreviations nor local commands are enabled, use the data
    * read above without further massaging.
    */
-  if (gsc_abbreviations_enabled || gsc_commands_enabled)
+  if (gsc_options.abbreviations_enabled || gsc_options.commands_enabled)
     {
       char *command;
 
@@ -339,7 +339,7 @@ gsc_filter_typed_line (scr_char *buffer, scr_int length)
       else
         {
           /* Check for, and expand, and abbreviated commands. */
-          if (gsc_abbreviations_enabled)
+          if (gsc_options.abbreviations_enabled)
             gsc_expand_abbreviations (buffer, length);
 
           /*
@@ -347,7 +347,7 @@ gsc_filter_typed_line (scr_char *buffer, scr_int length)
            * suppress the interpreter's use of this input for Glk commands by
            * returning FALSE.
            */
-          if (gsc_commands_enabled)
+          if (gsc_options.commands_enabled)
             {
               int posn;
 
