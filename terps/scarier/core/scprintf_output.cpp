@@ -170,8 +170,8 @@ pf_output_tag (const scr_char *contents, const scr_markup_sink_t *sink)
 void
 pf_dissect_markup (const scr_char *string, const scr_markup_sink_t *sink)
 {
-  scr_char *untagged, *contents, *cursor;
-  const scr_char *marker;
+  scr_char *untagged, *contents;
+  const scr_char *marker, *cursor;
 
   /*
    * Optimize away the allocation and copy if possible.  We need to check
@@ -196,8 +196,8 @@ pf_dissect_markup (const scr_char *string, const scr_markup_sink_t *sink)
 
   /* Run through the string looking for <...> tags. */
   marker = string;
-  for (cursor = (scr_char *) strchr (marker, LESSTHAN);
-       cursor; cursor = (scr_char *) strchr (marker, LESSTHAN))
+  for (cursor = strchr (marker, LESSTHAN);
+       cursor; cursor = strchr (marker, LESSTHAN))
     {
       scr_char close;
 

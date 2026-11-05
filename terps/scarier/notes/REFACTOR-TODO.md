@@ -214,6 +214,18 @@ Do **not** change statement order inside the dispatch cascade.
 - **C-style casts.** About 85 `(char *)`/`(scr_char *)` casts and 3
   `const_cast`s. Replace with `reinterpret_cast`/`static_cast`, or fix the
   signature, where the cast papers over `const`. Check `core/scutils.cpp` first.
+  *Done 2026-11-05* for the casts that strip `const` inside the engine.
+  Redundant ones were dropped (C++ `strchr` on a `char *`, the
+  `scr_vartype_t.string` store in `scdump`). Read-only pointers became
+  `const char *` (`op` in `a5restr`, `tok_end` in `a5text_func`, the
+  `scprintf_output` cursor). `a5_state_t::ov_index`, a lazy cache, is now
+  `mutable` in place of the `const_cast`. The real puns use named casts
+  (`sctaffil` slab bytes, the inflated XML and in-situ step text in
+  `a5model`). Left alone: the roughly 55 casts on `malloc`/`realloc`
+  results, which go with the raw-allocation item below, and the Glk-boundary
+  casts (`glk_put_string`, `glk_put_buffer_stream`, the `glkunix_arguments`
+  table). Glk's API takes `char *`, as `gsc_put_literal` documents. The
+  full headless `test` passed.
 - **Raw allocation.** About 14 `malloc`-family calls, mostly `core/scutils.cpp`
   (5) plus `glk/os_glk*.cpp`. Candidates for `std::vector`/`std::unique_ptr`;
   109 files already use `std::` containers. Leave anything that crosses

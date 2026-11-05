@@ -431,7 +431,7 @@ a5_parse_sw_what (const char *s)
 static void
 a5_parse_step (a5_walkstep_t *st, const a5_xml_node_t *c)
 {
-  char *t = (char *) (c->text ? c->text : "");
+  char *t = const_cast<char *> (c->text ? c->text : "");
   char *sp = strchr (t, ' ');
   a5_parse_range (sp ? sp + 1 : nullptr, &st->ft_from, &st->ft_to);
   if (sp != nullptr) *sp = '\0';
@@ -1457,7 +1457,7 @@ a5model_load_buffer (uint8_t *file_buf, uint32_t file_len)
 
   a5_dump_xml (xml, xml_len);
 
-  doc = a5xml_parse ((char *) xml, xml_len);
+  doc = a5xml_parse (reinterpret_cast<char *> (xml), xml_len);
   if (doc == nullptr)
     {
       free (xml);

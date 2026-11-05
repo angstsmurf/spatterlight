@@ -1003,7 +1003,7 @@ taf_next_line (scr_tafref_t taf)
       scr_char *line;
 
       /* Get the effective address of the current line. */
-      line = (scr_char *) taf->slabs[taf->current_slab].data;
+      line = reinterpret_cast<scr_char *> (taf->slabs[taf->current_slab].data);
       line += taf->current_offset;
 
       /*

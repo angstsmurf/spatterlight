@@ -1621,15 +1621,16 @@ pass_property (a5_state_t *st, a5_restr_t *r)
 {
   const char *raw = r->raw ? r->raw : "";
   char *buf = strdup (raw);
-  char *p = buf, *propkey, *item, *musttok, *op, *opstart, *value;
+  char *p = buf, *propkey, *item, *musttok, *opstart, *value;
+  const char *op;
   int must_not, rr;
   const char *itemkey, *pv;
 
   propkey = next_token (&p);
   item = next_token (&p);
   musttok = next_token (&p);
-  op = next_token (&p);
-  opstart = op;
+  opstart = next_token (&p);
+  op = opstart;
   while (*p == ' ') p++;
   value = p;
 
@@ -1647,7 +1648,7 @@ pass_property (a5_state_t *st, a5_restr_t *r)
       size_t at = (size_t) (opstart - buf);
       memcpy (opstart, raw + at, strlen (raw) - at + 1);  /* undo tokenising */
       value = opstart;
-      op = (char *) "EqualTo";
+      op = "EqualTo";
     }
 
   must_not = (strcmp (musttok, "MustNot") == 0);

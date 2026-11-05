@@ -170,8 +170,9 @@ typedef struct a5_state_s {
   /* property overrides set at runtime */
   a5_prop_ov_t *ov;
   int n_ov, cap_ov;
-  /* opaque (entity, prop) hash over ov (a5state.cpp) */
-  void *ov_index;
+  /* opaque (entity, prop) hash over ov (a5state.cpp); a lookup cache, so
+     built lazily through a const state */
+  mutable void *ov_index;
 
   /* live group membership (the Runner arlMembers), ordered */
   a5_grpmem_t *gm;

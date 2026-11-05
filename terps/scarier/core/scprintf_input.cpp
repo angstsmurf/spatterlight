@@ -41,8 +41,8 @@ pf_strip_tags_common (scr_char *string, scr_bool allow_newlines)
 
   /* Run through the string looking for <...> tags. */
   marker = string;
-  for (cursor = (scr_char *) strchr (marker, LESSTHAN);
-       cursor; cursor = (scr_char *) strchr (marker, LESSTHAN))
+  for (cursor = strchr (marker, LESSTHAN);
+       cursor; cursor = strchr (marker, LESSTHAN))
     {
       scr_char *tag_end;
 

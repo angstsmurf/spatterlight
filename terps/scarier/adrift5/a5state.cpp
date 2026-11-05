@@ -146,7 +146,7 @@ ov_find_prefixed (const a5_state_t *st, const char *entkey, const char *prefix,
   if (ix == nullptr)
     {
       ix = new a5_ov_index;
-      const_cast<a5_state_t *> (st)->ov_index = ix;
+      st->ov_index = ix;
     }
   if (ix->indexed != st->n_ov)
     ix->sync (st);

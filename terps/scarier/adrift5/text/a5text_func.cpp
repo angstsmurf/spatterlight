@@ -1666,7 +1666,7 @@ resolve_model_vars_ordered (a5_state_t *st, const char *src)
           char *hit = nullptr, *scan = cur;
           const char *after;
           char *name, *rawargs = nullptr, *value = nullptr, *token;
-          char *tok_end;
+          const char *tok_end;
 
           /* Find the next "%vname" (case-insensitive) delimited by '%' or '['.
              */
@@ -1685,7 +1685,7 @@ resolve_model_vars_ordered (a5_state_t *st, const char *src)
           name = strndup (hit + 1, vlen);
           if (*after == '%')
             {
-              tok_end = (char *) after + 1;
+              tok_end = after + 1;
               value = eval_function (st, name, nullptr);
             }
           else                          /* '[' : an array element */
@@ -1703,7 +1703,7 @@ resolve_model_vars_ordered (a5_state_t *st, const char *src)
               if (!(*a == ']' && a[1] == '%'))
                 { /* unterminated -> leave for main loop */
                   free (name); break; }
-              tok_end = (char *) a + 2;
+              tok_end = a + 2;
               rawargs = strndup (astart, (size_t) (a - astart));
               /* Deferred draw: inside an AggregateOutput completion
                  (st->expr_defer armed), a random array index

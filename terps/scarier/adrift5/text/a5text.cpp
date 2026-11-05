@@ -1101,10 +1101,10 @@ a5text_strip_pres_marks (char *s)
         {
           /* A spanning mark goes with its payload: \006<number>\006 and
              friends, or nothing at all if the closing mark is missing. */
-          const char *e = strchr (r + 1, *r);
+          char *e = strchr (r + 1, *r);
 
           if (e != nullptr)
-            r = (char *) e;
+            r = e;
           continue;
         }
       if (a5_is_pres_mark (*r)

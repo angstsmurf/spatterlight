@@ -218,7 +218,7 @@ scdump_battle_ranges (scr_prop_setref_t bundle, const scr_char *format,
         lo = bv.integer;
       if (hi < 0)
         {
-          key[slot].string = (scr_char *) attrs[a];
+          key[slot].string = attrs[a];
           if (prop_get (bundle, format, &bv, key))
             lo = hi = bv.integer;
           else
