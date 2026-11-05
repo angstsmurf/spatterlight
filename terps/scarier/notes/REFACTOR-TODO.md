@@ -251,6 +251,16 @@ Do **not** change statement order inside the dispatch cascade.
   `expr_tokenize_guard`, so check that its destructor path is covered).
   Longer term, replace with C++ exceptions inside the engine and keep the C
   boundary only in `scarier.h`. This is a big change, not a cleanup.
+  *Audited 2026-11-05: clean.* Each parser has one `setjmp`. Every frame a
+  `longjmp` can unwind belongs to a `static` function in the same file:
+  20 in `scexpr`, 3 in `screstrs`, 7 in `scparser_pattern`. None is passed
+  as a function pointer, and all hold only plain-data locals.
+  `expr_tokenize_guard` is built before the `setjmp`, in the frame the jump
+  returns to, so its destructor still runs. The restriction evaluators call
+  out only to getters (`gs_`, `obj_`, `prop_`, `var_`), which neither jump
+  nor re-enter `restr_eval_task_restrictions` (whose global `jmp_buf` a
+  nested call would overwrite). A comment at each `setjmp` now states the
+  rule. Moving to exceptions stays open.
 
 ## P3: build and test plumbing
 

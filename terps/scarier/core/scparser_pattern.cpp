@@ -951,7 +951,11 @@ uip_compile_pattern (const scr_char *pattern)
     scr_trace ("UIParser: pattern \"%s\"\n", cleansed);
   uip_tokenize_start (cleansed);
 
-  /* Try parsing the pattern, and catch errors. */
+  /*
+   * Try parsing the pattern, and catch errors.  scr_longjmp skips destructors,
+   * so no frame between here and the uip_parse_* functions that jump may own a
+   * C++ object with one: keep them static, with plain-data locals.
+   */
   if (scr_setjmp (uip.parse.error) == 0)
     {
       /* Parse the pattern into a match tree. */

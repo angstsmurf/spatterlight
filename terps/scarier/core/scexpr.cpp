@@ -1882,7 +1882,13 @@ expr_evaluate_expression (const scr_char *expression, scr_var_setref_t vars,
   expr_eval_start (vars);
   const expr_tokenize_guard tokenizer (expression);
 
-  /* Try parsing an expression, and catch errors. */
+  /*
+   * Try parsing an expression, and catch errors.  scr_longjmp skips
+   * destructors, so no frame between here and the expr_parse_* and expr_eval_*
+   * functions that jump may own a C++ object with one: keep them static, with
+   * plain-data locals.  The tokenizer guard above is safe: it lives in this
+   * frame, which the jump returns to.
+   */
   expr.parse.depth = 0;
   if (scr_setjmp (expr.parse.error) == 0)
     {

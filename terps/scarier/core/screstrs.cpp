@@ -1731,7 +1731,11 @@ restr_eval_task_restrictions (scr_gameref_t game,
   restr_eval_start (game, task);
   restr_tokenize_start (pattern);
 
-  /* Try parsing the pattern, and catch errors. */
+  /*
+   * Try parsing the pattern, and catch errors.  scr_longjmp skips destructors,
+   * so no frame between here and the restr_* functions that jump may own a C++
+   * object with one: keep them static, with plain-data locals.
+   */
   if (scr_setjmp (restr.parse.error) == 0)
     {
       /* Parse the pattern, and ensure it ends at string end. */
