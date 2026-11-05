@@ -304,6 +304,10 @@ extern scr_bool lib_take_tie_400 (scr_gameref_t game, const scr_char *line,
                                   const std::vector<scr_int> &marked,
                                   scr_int mark_count);
 extern void lib_take_from_task_sweep_380 (scr_gameref_t game);
+extern scr_bool lib_take_multiple_common (scr_gameref_t game,
+                                          scr_bool is_except);
+
+/* sclibrar_take_pre400.cpp */
 extern scr_bool lib_isheld_390 (scr_gameref_t game, scr_int object);
 extern scr_bool lib_name_instr_range (scr_gameref_t game, const scr_char *line,
                                       scr_int object, scr_int *lowest,
@@ -316,8 +320,6 @@ lib_move_named_whole_line_pre400 (scr_gameref_t game,
                                   scr_bool (*resolver) (scr_gameref_t, scr_int,
                                                         scr_int),
                                   scr_int mode, scr_int *references);
-extern scr_bool lib_take_multiple_common (scr_gameref_t game,
-                                          scr_bool is_except);
 
 /* sclibrar_takefrom.cpp */
 extern scr_bool lib_take_from_filter (scr_gameref_t game, scr_int object,
@@ -367,6 +369,12 @@ typedef struct
 } lib_move_verb_t;
 
 extern const lib_move_verb_t LIB_PUT_ON_VERB;
+extern scr_bool lib_drop_filter (scr_gameref_t game, scr_int object,
+                                 scr_int unused);
+extern scr_bool lib_wear_filter (scr_gameref_t game, scr_int object,
+                                 scr_int unused);
+extern scr_bool lib_remove_filter (scr_gameref_t game, scr_int object,
+                                   scr_int unused);
 extern scr_bool lib_move_backend (scr_gameref_t game,
                                   const lib_move_verb_t *verb, scr_int target,
                                   scr_bool has_printed);
@@ -419,7 +427,7 @@ extern scr_bool lib_lock_backend (scr_gameref_t game,
                                   const lib_lock_verb_t *verb,
                                   scr_bool with_key);
 
-/* sclibrar_put_multiple.cpp */
+/* sclibrar_put_pre400.cpp */
 extern scr_int lib_instr (const scr_char *line, const scr_char *term);
 
 /* sclibrar_battle.cpp */

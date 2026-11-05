@@ -74,8 +74,8 @@ Lengths are rough (to the first column-0 `}`).
 | `restr_pass_task_char` | `core/screstrs.cpp:705` | 164 |
 | `task_print_end_game_message` | `core/sctasks_endgame.cpp:481` | 174 |
 | `gs_populate_dynamic_object`, `gs_populate`, `gs_populate_objects` | `core/scgamest.cpp` | 174, 154, 151 |
-| `lib_two_verb_line_pre400` | `library/sclibrar_drop.cpp:2182` | 173 |
-| `lib_put_named_pre400` | `library/sclibrar_put_multiple.cpp:750` | 171 |
+| `lib_two_verb_line_pre400` | `library/sclibrar_two_verb_pre400.cpp:340` | 173 |
+| `lib_put_named_pre400` | `library/sclibrar_put_pre400.cpp:467` | 171 |
 | `run_does_command_match` | `runner/scrun_match_run.cpp:918` | 169 |
 | `lib_cmd_examine_object` | `library/sclibrar_examine.cpp:1651` | 168 |
 | `a5run_resolve_plural_objects` (name approx) | `adrift5/run/a5run_ref.cpp:854` | 204 |
@@ -157,6 +157,27 @@ Do **not** change statement order inside the dispatch cascade.
   mentions in `drop`, 42 in `take_multiple`, 28 in `put_multiple`. Consider
   `sclibrar_*_pre400.cpp` TUs so a version's behaviour can be read as one
   file, mirroring what was done for `disambig_400`.
+
+  **Done 2026-11-05** for `drop`, `take_multiple` and `put_multiple`
+  (`battle` is not version-split and stays). Blocks moved whole, bodies
+  unchanged:
+
+  | New TU | Holds | Lines |
+  | --- | --- | --- |
+  | `library/sclibrar_two_verb_pre400.cpp` | `lib_two_verb_line_pre400`, `lib_two_verb_rewrite_pre400`, `lib_earlier_handler_claims_pre400` and their word tables, out of `drop` | ~515 |
+  | `library/sclibrar_take_pre400.cpp` | `lib_co_pre400`, the 3.7-3.9 helpers (`isheld`, `obhere`, `present`, the InStr ranges), the takes() crowd and held-namesake answers, `lib_take_and_pre400`, `lib_move_named_whole_line_pre400` | ~1070 |
+  | `library/sclibrar_put_pre400.cpp` | the pre-4.0 "put X in Y" answers, `lib_put_named_pre400`, the 3.9 refusal-first sweep and co helpers, `lib_cmd_put_in/on_that_390` | ~1030 |
+
+  `drop` is now ~2180 lines, `take_multiple` ~1310, `put_multiple` ~905.
+  Statics that now cross a file are declared in the private headers:
+  `lib_drop/wear/remove_filter` in `sclibrar_internal.h`; the take ones in
+  `sclibrar_internal.h` and `sclibrar_take_internal.h`; the put ones in
+  `sclibrar_put_internal.h`. `drop`'s small `lib_drop_and_arm_pre400` pair
+  stays, since only `lib_drop_multiple_common` uses it. Gates: `quick`, the
+  full headless `test` with an identical signature, `make`, the xcodebuild
+  scarier target, `-Wshadow` and the GARGLK `-std=c++17` syntax check. At
+  the next fork sync the three files join the `terp(scarier SRCS …)` list
+  in `garglk/terps/CMakeLists.txt`.
 - **`core/sctafpar_patches.cpp` (1743).** About 1,600 lines are one data table
   of per-game TAF edits with a macro DSL (`PATCH_SET`, `PATCH_ADD`, ...).
   This is the right shape, but each game is a prose comment plus a few rows.

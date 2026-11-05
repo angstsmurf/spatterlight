@@ -1615,7 +1615,7 @@ case, and their goldens are re-blessed. The row notes in
   where run400 says "You are already carrying the hat." and removes
   nothing (runner_probes/two.run400.puton.txt:26; p4TWO). The measured
   single-noun held-hat cells stay: `take off hat` with the hat held, not worn, still answers "You've
-  already got the hat!" (library/sclibrar_drop.cpp,
+  already got the hat!" (library/sclibrar_two_verb_pre400.cpp,
   library/sclibrar_take_multiple.cpp)
 - **4.0 comma noun lists (2026-11-04).** The library's list parser only
   knows "and", so `take lamp, keys`, `get all but keys, lamp` and `drop

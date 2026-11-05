@@ -84,6 +84,7 @@
 		5C1B1B000000000000000008 /* sclibrar_take.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000008 /* sclibrar_take.cpp */; };
 		5C1B1B000000000000000009 /* sclibrar_takefrom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000009 /* sclibrar_takefrom.cpp */; };
 		5C1B1B00000000000000000A /* sclibrar_drop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A00000000000000000A /* sclibrar_drop.cpp */; };
+		5C1B1B00000000000000011B /* sclibrar_two_verb_pre400.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A00000000000000011B /* sclibrar_two_verb_pre400.cpp */; };
 		5C1B1B00000000000000000B /* sclibrar_open.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A00000000000000000B /* sclibrar_open.cpp */; };
 		5C1B1B00000000000000000D /* sclibrar_put.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A00000000000000000D /* sclibrar_put.cpp */; };
 		5C1B1B00000000000000000F /* sclibrar_battle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A00000000000000000F /* sclibrar_battle.cpp */; };
@@ -104,7 +105,9 @@
 		5C1B1B00000000000000010C /* sclibrar_disambig_scan.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A00000000000000010C /* sclibrar_disambig_scan.cpp */; };
 		5C1B1B00000000000000010D /* sclibrar_disambig_400.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A00000000000000010D /* sclibrar_disambig_400.cpp */; };
 		5C1B1B00000000000000010E /* sclibrar_take_multiple.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A00000000000000010E /* sclibrar_take_multiple.cpp */; };
+		5C1B1B00000000000000011C /* sclibrar_take_pre400.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A00000000000000011C /* sclibrar_take_pre400.cpp */; };
 		5C1B1B00000000000000010F /* sclibrar_put_multiple.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A00000000000000010F /* sclibrar_put_multiple.cpp */; };
+		5C1B1B00000000000000011D /* sclibrar_put_pre400.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A00000000000000011D /* sclibrar_put_pre400.cpp */; };
 		5F3D4796DBA61A8315223DB7 /* IFCoverDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C180C725C717F30040AE79 /* IFCoverDescription.m */; };
 		61C07B5A3024065800388340 /* NowPlayingCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = 61C07B593024065800388340 /* NowPlayingCoordinator.m */; };
 		61E6BE2FF01D3415E4034249 /* scnpcs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 96800C7329F2706EB62F4306 /* scnpcs.cpp */; };
@@ -1961,6 +1964,7 @@
 		5C1B1A000000000000000008 /* sclibrar_take.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_take.cpp; sourceTree = "<group>"; };
 		5C1B1A000000000000000009 /* sclibrar_takefrom.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_takefrom.cpp; sourceTree = "<group>"; };
 		5C1B1A00000000000000000A /* sclibrar_drop.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_drop.cpp; sourceTree = "<group>"; };
+		5C1B1A00000000000000011B /* sclibrar_two_verb_pre400.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_two_verb_pre400.cpp; sourceTree = "<group>"; };
 		5C1B1A00000000000000000B /* sclibrar_open.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_open.cpp; sourceTree = "<group>"; };
 		5C1B1A00000000000000000C /* sclibrar_topic.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_topic.cpp; sourceTree = "<group>"; };
 		5C1B1A00000000000000000D /* sclibrar_put.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_put.cpp; sourceTree = "<group>"; };
@@ -1987,7 +1991,9 @@
 		5C1B1A00000000000000010C /* sclibrar_disambig_scan.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_disambig_scan.cpp; sourceTree = "<group>"; };
 		5C1B1A00000000000000010D /* sclibrar_disambig_400.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_disambig_400.cpp; sourceTree = "<group>"; };
 		5C1B1A00000000000000010E /* sclibrar_take_multiple.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_take_multiple.cpp; sourceTree = "<group>"; };
+		5C1B1A00000000000000011C /* sclibrar_take_pre400.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_take_pre400.cpp; sourceTree = "<group>"; };
 		5C1B1A00000000000000010F /* sclibrar_put_multiple.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_put_multiple.cpp; sourceTree = "<group>"; };
+		5C1B1A00000000000000011D /* sclibrar_put_pre400.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_put_pre400.cpp; sourceTree = "<group>"; };
 		5C1B1A000000000000000112 /* os_glk_platform.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_platform.cpp; sourceTree = "<group>"; };
 		5C1B1A000000000000000114 /* scrun_match_run.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scrun_match_run.cpp; sourceTree = "<group>"; };
 		5C1B1A000000000000000116 /* scrun_match_refusal.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scrun_match_refusal.cpp; sourceTree = "<group>"; };
@@ -6871,12 +6877,15 @@
 				5C1B1A000000000000000007 /* sclibrar_dispatch.cpp */,
 				5C1B1A000000000000000008 /* sclibrar_take.cpp */,
 				5C1B1A00000000000000010E /* sclibrar_take_multiple.cpp */,
+				5C1B1A00000000000000011C /* sclibrar_take_pre400.cpp */,
 				5C1B1A000000000000000009 /* sclibrar_takefrom.cpp */,
 				5C1B1A00000000000000000A /* sclibrar_drop.cpp */,
+				5C1B1A00000000000000011B /* sclibrar_two_verb_pre400.cpp */,
 				5C1B1A00000000000000000B /* sclibrar_open.cpp */,
 				5C1B1A00000000000000000C /* sclibrar_topic.cpp */,
 				5C1B1A00000000000000000D /* sclibrar_put.cpp */,
 				5C1B1A00000000000000010F /* sclibrar_put_multiple.cpp */,
+				5C1B1A00000000000000011D /* sclibrar_put_pre400.cpp */,
 				5C1B1A00000000000000000E /* sclibrar_read.cpp */,
 				5C1B1A00000000000000000F /* sclibrar_battle.cpp */,
 				5C1B1A000000000000000010 /* sclibrar_verbs.cpp */,
@@ -8077,11 +8086,14 @@
 				5C1B1B000000000000000007 /* sclibrar_dispatch.cpp in Sources */,
 				5C1B1B000000000000000008 /* sclibrar_take.cpp in Sources */,
 				5C1B1B00000000000000010E /* sclibrar_take_multiple.cpp in Sources */,
+				5C1B1B00000000000000011C /* sclibrar_take_pre400.cpp in Sources */,
 				5C1B1B000000000000000009 /* sclibrar_takefrom.cpp in Sources */,
 				5C1B1B00000000000000000A /* sclibrar_drop.cpp in Sources */,
+				5C1B1B00000000000000011B /* sclibrar_two_verb_pre400.cpp in Sources */,
 				5C1B1B00000000000000000B /* sclibrar_open.cpp in Sources */,
 				5C1B1B00000000000000000D /* sclibrar_put.cpp in Sources */,
 				5C1B1B00000000000000010F /* sclibrar_put_multiple.cpp in Sources */,
+				5C1B1B00000000000000011D /* sclibrar_put_pre400.cpp in Sources */,
 				5C1B1B00000000000000000F /* sclibrar_battle.cpp in Sources */,
 				5C1B1B000000000000000014 /* sclibrar_refuse.cpp in Sources */,
 				5C1B1B000000000000000015 /* sclibrar_verbobj.cpp in Sources */,

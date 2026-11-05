@@ -286,8 +286,8 @@ Candidates, not tasks; each wants its own decision.
   `core/sctafpar.cpp`, `glk/os_glk_map.cpp` and `glk/os_glk_autosave.cpp`
   have the most.  A census of those is the first step if two games in one
   process is ever a goal.
-- **File sizes.** The largest is `library/sclibrar_drop.cpp` at about
-  2700 lines, with a dozen more between 2000 and 2550; none stands out.
+- **File sizes.** The largest is `library/sclibrar_battle.cpp` at about
+  2570 lines, with 17 more between 2000 and 2530; none stands out.
 - **Lines over 80 columns in `adrift5/`** (about 1460): its compact
   one-line bodies are that code's own style.
 - **Five `(void) x` casts under `#if`** in `glk/`: `[[maybe_unused]]` is
