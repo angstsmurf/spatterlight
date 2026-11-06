@@ -240,8 +240,8 @@
     }
 
     // The key equivalent gives no feedback of its own, so say what changed.
-    NSString *message = on ? NSLocalizedString(@"VoiceOver now reads only the last move", nil)
-                           : NSLocalizedString(@"VoiceOver now reads all the game text", nil);
+    NSString *message = on ? NSLocalizedString(@"VoiceOver now reads only the last move", @"VoiceOver now reads only the last move")
+                           : NSLocalizedString(@"VoiceOver now reads all the game text", @"VoiceOver now reads all the game text");
     if (keyController) {
         [keyController speakStringNow:message];
     } else {
@@ -284,7 +284,7 @@
     }
     panel.allowedFileTypes = allowedTypes;
     panel.directoryURL = directory;
-    panel.message = NSLocalizedString(@"Please select a game", nil);
+    panel.message = NSLocalizedString(@"Please select a game", @"Please select a game");
 
     panel.accessoryView = _tableViewController.addToLibraryCheckBox;
     NSButton *addToLibraryCheckBox = (NSButton *)panel.accessoryView;
@@ -477,19 +477,15 @@ continueUserActivity:(NSUserActivity *)userActivity
             NSString *msg = [NSString stringWithFormat:@"%@ %@ still running.\nAny unsaved progress will be lost.",
                              [NSString stringWithSummaryOfGames:games], (alive == 1) ? @"is" : @"are"];
 
-            if (restorable == 1)
-                msg = [msg
-                       stringByAppendingString:
-                           @"\n(There is also an autorestorable game running.)"];
-            else if (restorable > 1)
+            if (restorable != 0)
                 msg = [msg
                        stringByAppendingFormat:
-                           @"\n(There are also %ld autorestorable games running.)",
+                           NSLocalizedString(@"\n(There are also %ld autorestorable games running.)", @"\n(There are also %ld autorestorable games running.)"),
                        restorable];
 
-            NSAlert *anAlert = [NSAlert alertWithMessage:NSLocalizedString(@"Do you really want to quit?", nil)
+            NSAlert *anAlert = [NSAlert alertWithMessage:NSLocalizedString(@"Do you really want to quit?", @"Do you really want to quit?")
                                                     info:msg
-                                                 buttons:@[NSLocalizedString(@"Quit", nil), NSLocalizedString(@"Cancel", nil)]];
+                                                 buttons:@[NSLocalizedString(@"Quit", @"Quit"), NSLocalizedString(@"Cancel", @"Cancel")]];
             [anAlert showSuppressionButtonWithTitle:nil];
 
             if ([anAlert runModalSuppressingWithKey:kTerminationAlertSuppressionKey] == NSAlertSecondButtonReturn) {

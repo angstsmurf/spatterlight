@@ -362,7 +362,7 @@ static const NSInteger kHeight = 30;
 
     struct fillrect cover[] = { { 0x000000, 0, 0, 20, 20 } };
     [win fillRects:cover count:1];
-    XCTAssertEqualObjects(win.accessibilityLabel, NSLocalizedString(@"Image", nil));
+    XCTAssertEqualObjects(win.accessibilityLabel, NSLocalizedString(@"Image", @"Image"));
 
     [win drawImage:red val1:5 val2:5 width:10 height:10 imagerule:0 maxwidth:0 style:style_Normal];
     [win clear];

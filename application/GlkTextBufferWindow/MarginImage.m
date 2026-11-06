@@ -184,9 +184,9 @@
     if (!label.length) {
         BOOL left = (_glkImgAlign == imagealign_MarginLeft);
         if (_linkid) {
-            label = left ? NSLocalizedString(@"Clickable left margin image", nil) : NSLocalizedString(@"Clickable right margin image", nil);
+            label = left ? NSLocalizedString(@"Clickable left margin image", @"Clickable left margin image") : NSLocalizedString(@"Clickable right margin image", @"Clickable right margin image");
         } else {
-            label = left ? NSLocalizedString(@"Left margin image", nil) : NSLocalizedString(@"Right margin image", nil);
+            label = left ? NSLocalizedString(@"Left margin image", @"Left margin image") : NSLocalizedString(@"Right margin image", @"Right margin image");
         }
     }
     return label;

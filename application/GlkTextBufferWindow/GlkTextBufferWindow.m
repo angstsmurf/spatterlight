@@ -117,7 +117,7 @@
 
         [_textview enableCaret:nil];
 
-        scrollview.accessibilityLabel = NSLocalizedString(@"buffer scroll view", nil);
+        scrollview.accessibilityLabel = NSLocalizedString(@"buffer scroll view", @"buffer scroll view");
 
         [self addSubview:scrollview];
         [self observeLiveScroll];

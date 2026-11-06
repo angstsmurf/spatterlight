@@ -960,7 +960,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     }
     alert = [NSAlert alertWithMessage:NSLocalizedString(@"Do you want to abandon the game?", nil)
                                  info:NSLocalizedString(@"Any unsaved progress will be lost.", nil)
-                              buttons:@[NSLocalizedString(@"Close", nil), NSLocalizedString(@"Cancel", nil)]];
+                              buttons:@[NSLocalizedString(@"Close", nil), NSLocalizedString(@"Cancel", @"Cancel")]];
     // Only a Close is remembered: ticking the box and cancelling keeps asking.
     [alert showSuppressionButtonWithTitle:nil];
 

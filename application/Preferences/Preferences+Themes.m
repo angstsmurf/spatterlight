@@ -335,7 +335,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 - (void)showDuplicateThemeNameAlert:(NSText *)fieldEditor theme:(Theme *)renamed {
     NSAlert *anAlert = [NSAlert alertWithMessage:[NSString stringWithFormat:NSLocalizedString(@"The theme name \"%@\" is already in use.", nil), fieldEditor.string]
                                             info:NSLocalizedString(@"Please enter another name.", nil)
-                                         buttons:@[NSLocalizedString(@"Okay", nil), NSLocalizedString(@"Discard Change", nil)]];
+                                         buttons:@[NSLocalizedString(@"Okay", @"Okay"), NSLocalizedString(@"Discard Change", @"Discard Change")]];
 
     [anAlert beginSheetModalForWindow:self.window completionHandler:^(NSInteger result){
         if (result == NSAlertSecondButtonReturn) {

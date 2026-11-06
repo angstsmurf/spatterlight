@@ -130,9 +130,9 @@ static NSRange SPNthOccurrence(NSString *text, NSString *searchString, NSRange r
         return [self textSearchResultForString:searchParameters.filterString
                                       fromItem:searchParameters.currentItem
                                      direction:searchParameters.searchDirection];
-    } else if ([rotor.label isEqualToString:NSLocalizedString(@"Command history", nil)]) {
+    } else if ([rotor.label isEqualToString:NSLocalizedString(@"Command history", @"Command history")]) {
         return [self commandHistoryRotor:rotor resultForSearchParameters:searchParameters];
-    } else if ([rotor.label isEqualToString:NSLocalizedString(@"Game windows", nil)]) {
+    } else if ([rotor.label isEqualToString:NSLocalizedString(@"Game windows", @"Game windows")]) {
         return [self glkWindowRotor:rotor resultForSearchParameters:searchParameters];
     } else if (rotor.type == NSAccessibilityCustomRotorTypeImage && _glkctl.theme.vOSpeakImages != kVOImageNone) {
         return [self imagesRotor:rotor resultForSearchParameters:searchParameters];
@@ -333,10 +333,10 @@ static NSRange SPNthOccurrence(NSString *text, NSString *searchString, NSRange r
         NSString *string = targetElement.textStorage.string;
         unichar firstChar = textRange.location < string.length ? [string characterAtIndex:textRange.location] : 0;
         if (glkctl.gameID == kGameIsAColderLight && firstChar == '<' && textRange.length == 1) {
-            searchResult.customLabel = NSLocalizedString(@"Previous Menu", nil);
+            searchResult.customLabel = NSLocalizedString(@"Previous Menu", @"Previous Menu");
         } else if (firstChar == NSAttachmentCharacter) {
             NSDictionary *attrs = [targetElement.textStorage attributesAtIndex:textRange.location effectiveRange:nil];
-            searchResult.customLabel = [NSString stringWithFormat:NSLocalizedString(@"Image with link I.D. %@", nil), attrs[NSLinkAttributeName]];
+            searchResult.customLabel = [NSString stringWithFormat:NSLocalizedString(@"Image with link I.D. %@", @"Image with link I.D. (name)"), attrs[NSLinkAttributeName]];
         } else {
             searchResult.customLabel = [string substringWithRange:textRange];
         }
@@ -520,7 +520,7 @@ static NSRange SPNthOccurrence(NSString *text, NSString *searchString, NSRange r
 
     id targetImage = children[currentItemIndex];
 
-    NSString *label = NSLocalizedString(@"image", nil);
+    NSString *label = NSLocalizedString(@"image", @"image");
 
     if (targetImage) {
         if ([targetImage isKindOfClass:[NSValue class]]) {
@@ -690,12 +690,12 @@ static NSRange SPNthOccurrence(NSString *text, NSString *searchString, NSRange r
     // and is not notified when moveRanges later become non-empty, so a rotor
     // built before the first move would stay missing. commandHistoryRotor:…
     // returns nil when there is nothing to show, so an empty rotor is harmless.
-    NSAccessibilityCustomRotor *commandHistoryRotor = [[NSAccessibilityCustomRotor alloc] initWithLabel:NSLocalizedString(@"Command history", nil) itemSearchDelegate:self];
+    NSAccessibilityCustomRotor *commandHistoryRotor = [[NSAccessibilityCustomRotor alloc] initWithLabel:NSLocalizedString(@"Command history", @"Command history") itemSearchDelegate:self];
     [rotorsArray addObject:commandHistoryRotor];
 
     // Create the Glk windows rotor
     if (glkctl.gwindows.count) {
-        NSAccessibilityCustomRotor *glkWindowRotor = [[NSAccessibilityCustomRotor alloc] initWithLabel:NSLocalizedString(@"Game windows", nil) itemSearchDelegate:self];
+        NSAccessibilityCustomRotor *glkWindowRotor = [[NSAccessibilityCustomRotor alloc] initWithLabel:NSLocalizedString(@"Game windows", @"Game windows") itemSearchDelegate:self];
         [rotorsArray addObject:glkWindowRotor];
     }
     return rotorsArray;

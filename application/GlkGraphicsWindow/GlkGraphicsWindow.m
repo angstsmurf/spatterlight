@@ -135,7 +135,7 @@ static NSSize SPResolveImageSize(NSSize srcsize, NSInteger w, NSInteger h,
         subImages = [[decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSMutableArray class], [SubImage class], nil]
                                              forKey:@"subImages"] mutableCopy] ?: [NSMutableArray new];
         // Older versions stored the "Image" placeholder among the real images.
-        if (subImages.count == 1 && [subImages.firstObject.accessibilityLabel isEqualToString:NSLocalizedString(@"Image", nil)])
+        if (subImages.count == 1 && [subImages.firstObject.accessibilityLabel isEqualToString:NSLocalizedString(@"Image", @"Image")])
             [subImages removeAllObjects];
         for (SubImage *subImage in subImages)
             subImage.accessibilityParent = self;
@@ -626,7 +626,7 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
 
 - (SubImage *)placeholderSubImage {
     if (!placeholderImage)
-        placeholderImage = [SubImage imageWithLabel:NSLocalizedString(@"Image", nil) parent:self frame:self.bounds];
+        placeholderImage = [SubImage imageWithLabel:NSLocalizedString(@"Image", @"Image") parent:self frame:self.bounds];
     placeholderImage.frameRect = self.bounds;
     return placeholderImage;
 }
@@ -637,7 +637,7 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
     if (subImages.count)
         return subImages.firstObject.accessibilityLabel;
     if (self.theme.vOSpeakImages == kVOImageAll && _showingImage)
-        return NSLocalizedString(@"Image", nil);
+        return NSLocalizedString(@"Image", @"Image");
     return nil;
 }
 
@@ -646,13 +646,13 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
 
     if (mouse_request) {
         NSAccessibilityCustomAction *mouseClick = [[NSAccessibilityCustomAction alloc]
-                                                    initWithName:NSLocalizedString(@"click on image", nil) target:self selector:@selector(accessibilityClick:)];
+                                                    initWithName:NSLocalizedString(@"click on image", @"click on image") target:self selector:@selector(accessibilityClick:)];
         [mutable addObject:mouseClick];
     }
 
     if (char_request) {
         NSAccessibilityCustomAction *keyPress = [[NSAccessibilityCustomAction alloc]
-                                             initWithName:NSLocalizedString(@"press key", nil) target:self selector:@selector(accessibilityClick:)];
+                                             initWithName:NSLocalizedString(@"press key", @"press key") target:self selector:@selector(accessibilityClick:)];
         [mutable addObject:keyPress];
     }
 
