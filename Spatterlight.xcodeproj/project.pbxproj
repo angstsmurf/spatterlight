@@ -57,7 +57,6 @@
 		55368B71272BF24700740A0A /* question-util.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B5D272BF24700740A0A /* question-util.cc */; };
 		55368B72272BF24700740A0A /* question-state.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B5E272BF24700740A0A /* question-state.cc */; };
 		55368B73272BF24700740A0A /* readfile.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B5F272BF24700740A0A /* readfile.cc */; };
-		7A51E0010000000000000001 /* question-preprocess.cc in Sources */ = {isa = PBXBuildFile; fileRef = 7A51E0010000000000000002 /* question-preprocess.cc */; };
 		55368B74272BF24700740A0A /* questionglk.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B60272BF24700740A0A /* questionglk.cc */; };
 		55368B75272BF24700740A0A /* istring.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B61272BF24700740A0A /* istring.cc */; };
 		55368B76272BF24700740A0A /* questionglkterm.c in Sources */ = {isa = PBXBuildFile; fileRef = 55368B6A272BF24700740A0A /* questionglkterm.c */; };
@@ -67,6 +66,7 @@
 		559BE460270F7BD800B93F2C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D79B0D9223262CA008C9CB7 /* Cocoa.framework */; };
 		55A01EDD2B189325003D7C18 /* BlorbResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A01EDC2B189325003D7C18 /* BlorbResource.m */; };
 		55A01EE02B1898E9003D7C18 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D79B0DE223262CA008C9CB7 /* Foundation.framework */; };
+		55F96776309D40050036A352 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 55F96775309D40050036A352 /* Localizable.xcstrings */; };
 		579385CB51D49A52A9389561 /* sclibrar_talk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000013 /* sclibrar_talk.cpp */; };
 		58DD36D7B76BB2FAEB33D5B9 /* sclibrar_meta.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000003 /* sclibrar_meta.cpp */; };
 		5A1D0C0E7E3F4B2C9D8A0001 /* ZMenuDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1D0C0E7E3F4B2C9D8A0002 /* ZMenuDetector.m */; };
@@ -255,6 +255,8 @@
 		7A51D0D32E0F4A1100C0FFEE /* ossound.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A51D0D42E0F4A1100C0FFEE /* ossound.c */; };
 		7A51D0D62E0F4A1100C0FFEE /* osglktagban.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A51D0D72E0F4A1100C0FFEE /* osglktagban.c */; };
 		7A51D0D92E0F4A1100C0FFEE /* osglkpage.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A51D0DA2E0F4A1100C0FFEE /* osglkpage.c */; };
+		7A51E0010000000000000001 /* question-preprocess.cc in Sources */ = {isa = PBXBuildFile; fileRef = 7A51E0010000000000000002 /* question-preprocess.cc */; };
+		7A51E0010000000000000003 /* questglk-style.cc in Sources */ = {isa = PBXBuildFile; fileRef = 7A51E0010000000000000004 /* questglk-style.cc */; };
 		7C0BA9071DBE485B9EF6FDA1 /* ImageDragSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 50966F36FE2F44509985FE86 /* ImageDragSource.m */; };
 		7C959AB571C19322DCCCF5E1 /* q3ext_builtin.cc in Sources */ = {isa = PBXBuildFile; fileRef = A96F706FE94CA20FD7525B14 /* q3ext_builtin.cc */; };
 		7D5ABCD8F5861F219231D00A /* question-script-output.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AC08EBD1C9A6678B44650AA /* question-script-output.cc */; };
@@ -912,7 +914,6 @@
 		C3A51F00000000000000001A /* aslx-savenative.cc in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F000000000000000011 /* aslx-savenative.cc */; };
 		C3A51F00000000000000001B /* aslxglk-map.cc in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F000000000000000012 /* aslxglk-map.cc */; };
 		C3A51F000000000000000021 /* questglk-common.cc in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F000000000000000022 /* questglk-common.cc */; };
-		7A51E0010000000000000003 /* questglk-style.cc in Sources */ = {isa = PBXBuildFile; fileRef = 7A51E0010000000000000004 /* questglk-style.cc */; };
 		C3A51F0000000000000000A1 /* questionglk-autosave.mm in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F0000000000000000A2 /* questionglk-autosave.mm */; };
 		C3A51F0000000000000000B1 /* scarier-autosave.mm in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F0000000000000000B2 /* scarier-autosave.mm */; };
 		C3A51F0000000000000000C1 /* autosavefiles.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F0000000000000000C2 /* autosavefiles.m */; };
@@ -1063,9 +1064,9 @@
 		C3EB100B2F9A100000E65111 /* zorkzero_minigames.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EB100A2F9A100000E65111 /* zorkzero_minigames.cpp */; };
 		C3EB200B2F9A100000E65111 /* v6_definitions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EB200A2F9A100000E65111 /* v6_definitions.cpp */; };
 		C3EB201B2F9A100000E65111 /* v6_hints.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EB201A2F9A100000E65111 /* v6_hints.cpp */; };
-		C3EB4DF28E01EEE339843B4A /* v6_panels.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EB3DF28E01EEE339843B4A /* v6_panels.cpp */; };
 		C3EB48E706410F814F2BD206 /* mysterious_canvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EB38E706410F814F2BD206 /* mysterious_canvas.cpp */; };
 		C3EB49DA23C581D4B1E260D9 /* v6_windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EB39DA23C581D4B1E260D9 /* v6_windows.cpp */; };
+		C3EB4DF28E01EEE339843B4A /* v6_panels.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EB3DF28E01EEE339843B4A /* v6_panels.cpp */; };
 		C3EC5026289C0C820078AB83 /* stdraw.c in Sources */ = {isa = PBXBuildFile; fileRef = C3EC5024289C0C820078AB83 /* stdraw.c */; };
 		C3ED35092F464BE200E3A33D /* unzip_in_mem.c in Sources */ = {isa = PBXBuildFile; fileRef = C3ED35082F464BE200E3A33D /* unzip_in_mem.c */; };
 		C3ED4172296E895A006EACED /* time_cruncher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3ED4171296E895A006EACED /* time_cruncher.cpp */; };
@@ -1915,7 +1916,6 @@
 		55368B5D272BF24700740A0A /* question-util.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-util.cc"; sourceTree = "<group>"; };
 		55368B5E272BF24700740A0A /* question-state.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-state.cc"; sourceTree = "<group>"; };
 		55368B5F272BF24700740A0A /* readfile.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = readfile.cc; sourceTree = "<group>"; };
-		7A51E0010000000000000002 /* question-preprocess.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = question-preprocess.cc; sourceTree = "<group>"; };
 		55368B60272BF24700740A0A /* questionglk.cc */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = questionglk.cc; sourceTree = "<group>"; };
 		55368B61272BF24700740A0A /* istring.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = istring.cc; sourceTree = "<group>"; };
 		55368B62272BF24700740A0A /* general.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = general.hh; sourceTree = "<group>"; };
@@ -1937,6 +1937,7 @@
 		55A01EDB2B188178003D7C18 /* sha2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sha2.h; sourceTree = "<group>"; };
 		55A01EDC2B189325003D7C18 /* BlorbResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlorbResource.m; sourceTree = "<group>"; };
 		55EB070086164E1D8AC570D7 /* ReadOnlyStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReadOnlyStore.h; sourceTree = "<group>"; };
+		55F96775309D40050036A352 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		590D911A50D862B9538A05DA /* question-panes.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-panes.cc"; sourceTree = "<group>"; };
 		5988597D3F5747EF835AACB3 /* GlkTextBufferWindow+Output.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GlkTextBufferWindow+Output.m"; sourceTree = "<group>"; };
 		599CF253A19E2FF6CBFB1755 /* scrun_respell.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scrun_respell.cpp; sourceTree = "<group>"; };
@@ -2258,6 +2259,8 @@
 		7A51D0D72E0F4A1100C0FFEE /* osglktagban.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = osglktagban.c; path = glk/osglktagban.c; sourceTree = "<group>"; };
 		7A51D0D82E0F4A1100C0FFEE /* osglkban.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = osglkban.h; path = glk/osglkban.h; sourceTree = "<group>"; };
 		7A51D0DA2E0F4A1100C0FFEE /* osglkpage.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = osglkpage.c; path = glk/osglkpage.c; sourceTree = "<group>"; };
+		7A51E0010000000000000002 /* question-preprocess.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-preprocess.cc"; sourceTree = "<group>"; };
+		7A51E0010000000000000004 /* questglk-style.cc */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "questglk-style.cc"; sourceTree = "<group>"; };
 		7B6D5927FF11BBFF213B0CC9 /* question-script-flow.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-script-flow.cc"; sourceTree = "<group>"; };
 		7E91B054998441D190A9189D /* NSView+Categories.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSView+Categories.h"; sourceTree = "<group>"; };
 		7EAD8F2AE9A3E211D1BB4936 /* a5parse.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5parse.cpp; sourceTree = "<group>"; };
@@ -3452,7 +3455,6 @@
 		C3A51F000000000000000013 /* aslx-runtime-internal.hh */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.h; path = "aslx-runtime-internal.hh"; sourceTree = "<group>"; };
 		C3A51F000000000000000014 /* aslxglk-map.hh */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.h; path = "aslxglk-map.hh"; sourceTree = "<group>"; };
 		C3A51F000000000000000022 /* questglk-common.cc */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "questglk-common.cc"; sourceTree = "<group>"; };
-		7A51E0010000000000000004 /* questglk-style.cc */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "questglk-style.cc"; sourceTree = "<group>"; };
 		C3A51F000000000000000023 /* questglk-common.hh */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.h; path = "questglk-common.hh"; sourceTree = "<group>"; };
 		C3A51F0000000000000000A2 /* questionglk-autosave.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "questionglk-autosave.mm"; sourceTree = "<group>"; };
 		C3A51F0000000000000000A3 /* questionglk-autosave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "questionglk-autosave.h"; sourceTree = "<group>"; };
@@ -3707,11 +3709,11 @@
 		C3EB200A2F9A100000E65111 /* v6_definitions.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = v6_definitions.cpp; sourceTree = "<group>"; };
 		C3EB201A2F9A100000E65111 /* v6_hints.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = v6_hints.cpp; sourceTree = "<group>"; };
 		C3EB379CF4481478EEC4014A /* v6_panels.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = v6_panels.hpp; sourceTree = "<group>"; };
-		C3EB3DF28E01EEE339843B4A /* v6_panels.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = v6_panels.cpp; sourceTree = "<group>"; };
-		C3EB3DDC541C5A074606F5EF /* mysterious_canvas.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = mysterious_canvas.hpp; sourceTree = "<group>"; };
 		C3EB38E706410F814F2BD206 /* mysterious_canvas.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = mysterious_canvas.cpp; sourceTree = "<group>"; };
-		C3EB3AF72BF6469B595D6858 /* v6_windows.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = v6_windows.hpp; sourceTree = "<group>"; };
 		C3EB39DA23C581D4B1E260D9 /* v6_windows.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = v6_windows.cpp; sourceTree = "<group>"; };
+		C3EB3AF72BF6469B595D6858 /* v6_windows.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = v6_windows.hpp; sourceTree = "<group>"; };
+		C3EB3DDC541C5A074606F5EF /* mysterious_canvas.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = mysterious_canvas.hpp; sourceTree = "<group>"; };
+		C3EB3DF28E01EEE339843B4A /* v6_panels.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = v6_panels.cpp; sourceTree = "<group>"; };
 		C3EC5024289C0C820078AB83 /* stdraw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stdraw.c; sourceTree = "<group>"; };
 		C3EC5027289C0C820078AB83 /* stdraw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stdraw.h; sourceTree = "<group>"; };
 		C3ED35072F464BE200E3A33D /* unzip_in_mem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = unzip_in_mem.h; sourceTree = "<group>"; };
@@ -4689,6 +4691,7 @@
 				6D85C896218BD6E00088D849 /* HelpPanelController.xib */,
 				C3F709152756127B00CAD227 /* DownloadButton.xib */,
 				6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */,
+				55F96775309D40050036A352 /* Localizable.xcstrings */,
 			);
 			path = resources;
 			sourceTree = "<group>";
@@ -7922,6 +7925,7 @@
 				96A80EFD09F5821400CC75F4 /* InfoPlist.strings in Resources */,
 				C301D30D25D35E9300DC4A2B /* Media.xcassets in Resources */,
 				966EFA7809F635D400FA7F19 /* Defaults.plist in Resources */,
+				55F96776309D40050036A352 /* Localizable.xcstrings in Resources */,
 				96B6FE6F0A0E4E0200E62E4D /* Question.png in Resources */,
 				C3853E7129679175002D4A27 /* SplitView.storyboard in Resources */,
 				C38BE433263AEAA60091B17A /* ParagraphPopOver.xib in Resources */,
@@ -9891,6 +9895,7 @@
 					"-w",
 				);
 				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
 			name = Debug;
 		};
@@ -9958,6 +9963,7 @@
 				);
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
 			name = Release;
 		};

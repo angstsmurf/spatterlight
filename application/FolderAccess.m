@@ -103,8 +103,8 @@ static NSMutableDictionary<NSURL *, FolderAccess *> *globalBookmarks;
 
 + (void)forceAccessDialogToURL:(NSURL *)url andThenRunBlock:(void (^)(void))block {
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
-    openPanel.message = NSLocalizedString(@"Spatterlight would like to access files in this folder", nil);
-    openPanel.prompt = NSLocalizedString(@"Authorize", nil);
+    openPanel.message = NSLocalizedString(@"Spatterlight would like to access files in this folder", @"Spatterlight would like to access files in this folder");
+    openPanel.prompt = NSLocalizedString(@"Authorize", @"Authorize");
     openPanel.canChooseFiles = NO;
     openPanel.canChooseDirectories = YES;
     openPanel.canCreateDirectories = NO;

@@ -566,7 +566,7 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
         if (_timerTextField.doubleValue != floor(1000.0 / self.theme.minTimer)) {
             _timerTextField.doubleValue = floor(1000.0 / (CGFloat)self.theme.minTimer);
         }
-        _timerSlider.accessibilityValueDescription = [NSString stringWithFormat:NSLocalizedString(@"%ld per second", nil), _timerSlider.integerValue];
+        _timerSlider.accessibilityValueDescription = [NSString localizedStringWithFormat:NSLocalizedString(@"%ld per second", nil), _timerSlider.integerValue];
     }
 }
 
@@ -584,9 +584,9 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
 - (NSString *)secondsAccessibilityString {
     CGFloat fractional = _vODelaySlider.doubleValue - (CGFloat)_vODelaySlider.integerValue;
     if (fractional < 0.05 || fractional > 0.95) {
-        return [NSString stringWithFormat:NSLocalizedString(@"%ld seconds", nil), (long)round(_vODelaySlider.doubleValue)];
+        return [NSString localizedStringWithFormat:NSLocalizedString(@"%ld seconds", nil), (long)round(_vODelaySlider.doubleValue)];
     } else {
-        return [NSString stringWithFormat:NSLocalizedString(@"%.1f seconds", nil), _vODelaySlider.doubleValue];
+        return [NSString localizedStringWithFormat:NSLocalizedString(@"%.1f seconds", nil), _vODelaySlider.doubleValue];
     }
 }
 
@@ -596,7 +596,7 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
                                handler:(void (^)(BOOL okay))handler {
     NSAlert *anAlert = [NSAlert alertWithMessage:message
                                             info:info
-                                         buttons:@[NSLocalizedString(@"Okay", nil), NSLocalizedString(@"Cancel", nil)]];
+                                         buttons:@[NSLocalizedString(@"Okay", @"Okay"), NSLocalizedString(@"Cancel", @"Cancel")]];
     [anAlert showSuppressionButtonWithTitle:NSLocalizedString(@"Do not show again.", nil)];
     [anAlert beginSheetModalForWindow:self.window
                    suppressingWithKey:suppressionKey
@@ -707,7 +707,7 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
         return target == self.theme;
 
     } else if (action == @selector(togglePreview:)) {
-        NSString* title = _previewShown ? NSLocalizedString(@"Hide Preview", nil) : NSLocalizedString(@"Show Preview", nil);
+        NSString* title = _previewShown ? NSLocalizedString(@"Hide Preview", @"Hide Preview") : NSLocalizedString(@"Show Preview", @"Show Preview");
         ((NSMenuItem*)menuItem).title = title;
     } else if (action == @selector(clearLightDarkOverrides:)) {
         return (_darkTheme || _lightTheme);

@@ -124,10 +124,10 @@
         self.focusRingType = NSFocusRingTypeNone;
         self.selectable = YES;
         self.cell.wraps = YES;
-        self.cell.accessibilityLabel = NSLocalizedString(@"input text field cell", nil);
+        self.cell.accessibilityLabel = NSLocalizedString(@"input text field cell", @"input text field cell");
         self.cell.accessibilityElement = YES;
 
-        self.accessibilityLabel = NSLocalizedString(@"input text field", nil);
+        self.accessibilityLabel = NSLocalizedString(@"input text field", @"input text field");
 
         MyTextFormatter *inputFormatter =
         [[MyTextFormatter alloc] initWithMaxLength:maxLength];
@@ -147,7 +147,7 @@
         // drawInsertionPointInRect:, so it could not draw the theme's caret
         // shape. Asking for the layout manager switches it to TextKit 1.
         (void)_fieldEditor.layoutManager;
-        _fieldEditor.accessibilityLabel = NSLocalizedString(@"input", nil);
+        _fieldEditor.accessibilityLabel = NSLocalizedString(@"input", @"input");
     }
     return _fieldEditor;
 }

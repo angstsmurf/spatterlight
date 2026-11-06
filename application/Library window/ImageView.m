@@ -108,16 +108,16 @@
 + (NSMenu *)defaultMenu {
     NSMenu *menu = [[NSMenu alloc] initWithTitle:@""];
     
-    NSMenuItem *reload = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Reload from Blorb" , nil) action:@selector(reloadFromBlorb:) keyEquivalent:@""];
-    NSMenuItem *open = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Select Image File…", nil) action:@selector(selectImageFile:) keyEquivalent:@""];
-    NSMenuItem *filter = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Filter", nil) action:@selector(toggleFilter:) keyEquivalent:@""];
-    NSMenuItem *download = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Download Image", nil) action:@selector(downloadImage:) keyEquivalent:@""];
-    NSMenuItem *cut = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Cut", nil) action:@selector(cut:) keyEquivalent:@""];
-    NSMenuItem *copy = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Copy", nil) action:@selector(copy:) keyEquivalent:@""];
-    NSMenuItem *paste = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Paste", nil) action:@selector(paste:) keyEquivalent:@""];
-    NSMenuItem *delete = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Delete", nil) action:@selector(delete:) keyEquivalent:@""];
-    NSMenuItem *save = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Save Image As…", nil) action:@selector(saveImage:) keyEquivalent:@""];
-    NSMenuItem *addDescription = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Add Description…", nil) action:@selector(addDescription:) keyEquivalent:@""];
+    NSMenuItem *reload = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Reload from Blorb" , @"Reload from Blorb") action:@selector(reloadFromBlorb:) keyEquivalent:@""];
+    NSMenuItem *open = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Select Image File…", @"Select Image File…") action:@selector(selectImageFile:) keyEquivalent:@""];
+    NSMenuItem *filter = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Filter", @"Filter") action:@selector(toggleFilter:) keyEquivalent:@""];
+    NSMenuItem *download = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Download Image", @"Download Image") action:@selector(downloadImage:) keyEquivalent:@""];
+    NSMenuItem *cut = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Cut", @"Cut") action:@selector(cut:) keyEquivalent:@""];
+    NSMenuItem *copy = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Copy", @"Copy") action:@selector(copy:) keyEquivalent:@""];
+    NSMenuItem *paste = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Paste", @"Paste") action:@selector(paste:) keyEquivalent:@""];
+    NSMenuItem *delete = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Delete", @"Delete") action:@selector(delete:) keyEquivalent:@""];
+    NSMenuItem *save = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Save Image As…", @"Save Image As…") action:@selector(saveImage:) keyEquivalent:@""];
+    NSMenuItem *addDescription = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Add Description…", @"Add Description…") action:@selector(addDescription:) keyEquivalent:@""];
 
     [menu addItem:open];
     [menu addItem:download];
@@ -393,9 +393,9 @@
         NSBeep();
         return;
     }
-    NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"Are you sure?", nil)
-                                          info:NSLocalizedString(@"Do you want to delete this cover image?", nil)
-                                       buttons:@[NSLocalizedString(@"Delete", nil), NSLocalizedString(@"Cancel", nil)]];
+    NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"Are you sure?", @"Are you sure?")
+                                          info:NSLocalizedString(@"Do you want to delete this cover image?", @"Do you want to delete this cover image?")
+                                       buttons:@[NSLocalizedString(@"Delete", @"Delete"), NSLocalizedString(@"Cancel", @"Cancel")]];
     alert.icon = _image;
 
     if ([alert runModal] == NSAlertFirstButtonReturn)
@@ -570,7 +570,7 @@
 
 - (IBAction)saveImage:(id)sender {
     NSSavePanel *panel = [NSSavePanel savePanel];
-    panel.nameFieldLabel = NSLocalizedString(@"Save image: ", nil);
+    panel.nameFieldLabel = NSLocalizedString(@"Save image: ", @"Save image prompt");
     panel.allowedFileTypes = @[ @"png" ];
     panel.extensionHidden = NO;
     [panel setCanCreateDirectories:YES];
@@ -578,7 +578,7 @@
     NSString *fileName = [game.path.lastPathComponent.stringByDeletingPathExtension stringByAppendingPathExtension:@"png"];
     if (!fileName.length)
         fileName = @"image.png";
-    panel.nameFieldStringValue = NSLocalizedString(fileName, nil);
+    panel.nameFieldStringValue = fileName;
 
     [panel beginSheetModalForWindow:self.window
                   completionHandler:^(NSInteger result) {
@@ -617,9 +617,9 @@
     alert.accessoryView = entryField;
     alert.window.initialFirstResponder = entryField;
 
-    [alert setMessageText:NSLocalizedString(@"Image description", nil)];
-    [alert addButtonWithTitle:NSLocalizedString(@"Okay", nil)];
-    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [alert setMessageText:NSLocalizedString(@"Image description", @"Image description")];
+    [alert addButtonWithTitle:NSLocalizedString(@"Okay", @"Okay")];
+    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel")];
 
     NSModalResponse choice = [alert runModal];
 

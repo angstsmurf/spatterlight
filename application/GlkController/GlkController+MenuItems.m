@@ -79,9 +79,9 @@ static void setLikeMenuItem(NSMenuItem *menuItem, BOOL on, NSString *onTitle, NS
 }
 
 - (IBAction)deleteGame:(id)sender {
-    NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"Are you sure?", nil)
-                                          info:NSLocalizedString(@"Do you want to close this game and delete it from the library?", nil)
-                                       buttons:@[ NSLocalizedString(@"Delete", nil), NSLocalizedString(@"Cancel", nil) ]];
+    NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"Are you sure?", @"Are you sure?")
+                                          info:NSLocalizedString(@"Do you want to close this game and delete it from the library?", @"Do you want to close this game and delete it from the library?")
+                                       buttons:@[ NSLocalizedString(@"Delete", @"Delete"), NSLocalizedString(@"Cancel", @"Cancel") ]];
 
     NSInteger choice = [alert runModal];
 
@@ -116,10 +116,10 @@ static void setLikeMenuItem(NSMenuItem *menuItem, BOOL on, NSString *onTitle, NS
         return NO;
     } else if (action == @selector(like:)) {
         setLikeMenuItem(menuItem, self.game.like == 1,
-                        NSLocalizedString(@"Liked", nil), NSLocalizedString(@"Like", nil));
+                        NSLocalizedString(@"Liked", @"Liked"), NSLocalizedString(@"Like", @"Like"));
     } else if (action == @selector(dislike:)) {
         setLikeMenuItem(menuItem, self.game.like == 2,
-                        NSLocalizedString(@"Disliked", nil), NSLocalizedString(@"Dislike", nil));
+                        NSLocalizedString(@"Disliked", @"Disliked"), NSLocalizedString(@"Dislike", @"Dislike"));
     } else if (action == @selector(applyTheme:)) {
         Preferences *prefs = [Preferences instance];
         if (prefs.darkOverrideActive || prefs.lightOverrideActive)

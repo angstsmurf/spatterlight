@@ -81,7 +81,7 @@
     if (count) {
         NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"Are you sure?", nil)
                                               info:[NSString stringWithFormat:@"%@ %@ currently in use. Do you want to close and delete %@?", [NSString stringWithSummaryOfGames:running], (count == 1) ? @"is" : @"are", (count == 1) ? @"it" : @"them"]
-                                           buttons:@[NSLocalizedString(@"Delete", nil), NSLocalizedString(@"Cancel", nil)]];
+                                           buttons:@[NSLocalizedString(@"Delete", @"Delete"), NSLocalizedString(@"Cancel", @"Cancel")]];
 
         if ([alert runModal] == NSAlertFirstButtonReturn) {
             for (Game *toDelete in running) {

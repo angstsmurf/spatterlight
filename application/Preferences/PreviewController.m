@@ -75,9 +75,9 @@
     NSParagraphStyle *para = theme.bufferNormal.attributeDict[NSParagraphStyleAttributeName];
     attributes[NSParagraphStyleAttributeName] = para;
 
-    [attrStr appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"Palace Gate", nil) attributes:attributes]];
-    [attrStr appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@" A tide of perambulators surges north along the crowded Broad Walk. ", nil) attributes:theme.bufferNormal.attributeDict]];
-    [attrStr appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"(Trinity, Brian Moriarty, Infocom 1986)", nil) attributes:theme.bufEmph.attributeDict]];
+    [attrStr appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"Palace Gate", @"Subheader text example") attributes:attributes]];
+    [attrStr appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@" A tide of perambulators surges north along the crowded Broad Walk. ", @"Normal text example") attributes:theme.bufferNormal.attributeDict]];
+    [attrStr appendAttributedString:[[NSAttributedString alloc] initWithString:NSLocalizedString(@"(Trinity, Brian Moriarty, Infocom 1986)", @"Emphasized text example") attributes:theme.bufEmph.attributeDict]];
     return attrStr;
 }
 

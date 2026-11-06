@@ -60,7 +60,7 @@ static NSUInteger commandStartAfterPromptAt(NSString *s, NSUInteger i, NSUIntege
     NSUInteger index = [moves indexOfObjectIdenticalTo:self];
     if (index == NSNotFound)
         return NSAccessibilityRoleDescription(NSAccessibilityStaticTextRole, nil);
-    return [NSString stringWithFormat:NSLocalizedString(@"move %lu of %lu", nil), (unsigned long)index + 1, (unsigned long)moves.count];
+    return [NSString localizedStringWithFormat:NSLocalizedString(@"move %lu of %lu", @"move %lu of %lu"), (unsigned long)index + 1, (unsigned long)moves.count];
 }
 
 - (NSString *)moveString {

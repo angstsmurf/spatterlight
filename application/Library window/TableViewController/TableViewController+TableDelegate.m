@@ -357,12 +357,7 @@ static NSPredicate *searchPredicateForWord(NSString *word) {
             NSLog(@"updateWindowSubtitle: %@", error);
             return;
         }
-        if (count == 0)
-            self.view.window.subtitle = NSLocalizedString(@"No games", nil);
-        else if (count == 1)
-            self.view.window.subtitle = NSLocalizedString(@"1 game", nil);
-        else
-            self.view.window.subtitle = [NSString stringWithFormat:NSLocalizedString(@"%lu games", nil), (unsigned long)count];
+        self.view.window.subtitle = [NSString localizedStringWithFormat:NSLocalizedString(@"%lu games", nil), (unsigned long)count];
     }
 }
 

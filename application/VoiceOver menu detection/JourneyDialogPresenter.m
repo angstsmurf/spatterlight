@@ -41,8 +41,8 @@ static const NSUInteger kNameMaxLength = 8;
 
 - (void)presentConfirmationWithText:(NSString *)text forWindow:(NSWindow *)window completion:(void (^)(BOOL confirmed))completion {
     NSAlert *alert = [self alertWithText:text];
-    [alert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [alert addButtonWithTitle:NSLocalizedString(@"OK", @"OK")];
+    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel")];
 
     [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse result) {
         completion(result == NSAlertFirstButtonReturn);
@@ -56,8 +56,8 @@ static const NSUInteger kNameMaxLength = 8;
     [popupButton addItemsWithTitles:titles];
     alert.accessoryView = [self accessoryViewWithControl:popupButton];
 
-    [alert addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [alert addButtonWithTitle:NSLocalizedString(@"OK", @"OK")];
+    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel")];
     alert.window.initialFirstResponder = popupButton;
 
     [alert beginSheetModalForWindow:window completionHandler:^(NSModalResponse result) {

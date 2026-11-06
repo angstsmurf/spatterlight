@@ -4,7 +4,7 @@
 @implementation DummyTextView
 
 - (void)updateTextWithAttributes:(NSDictionary *)attributes {
-    NSAttributedString *attStr = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"ABCabc1234fiffiflfflct", nil) attributes:attributes];
+    NSAttributedString *attStr = [[NSAttributedString alloc] initWithString:NSLocalizedString(@"ABCabc1234fiffiflfflct", @"A preview of characters") attributes:attributes];
     [self.textStorage setAttributedString:attStr];
     self.selectedRange = NSMakeRange(0, self.string.length);
 }

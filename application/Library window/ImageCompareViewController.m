@@ -77,14 +77,14 @@
     _rightImage.image = [[NSImage alloc] initWithData:imageA];
     _leftImage.image = [[NSImage alloc] initWithData:imageB];
 
-    [alert setMessageText:NSLocalizedString(@"Do you want to replace this image?", nil)];
-    [alert addButtonWithTitle:NSLocalizedString(@"Yes", nil)];
-    [alert addButtonWithTitle:NSLocalizedString(@"No", nil)];
+    [alert setMessageText:NSLocalizedString(@"Do you want to replace this image?", @"Do you want to replace this image?")];
+    [alert addButtonWithTitle:NSLocalizedString(@"Yes", @"Yes")];
+    [alert addButtonWithTitle:NSLocalizedString(@"No", @"No")];
 
     NSButton *checkbox = _imageSelectDialogSuppressionButton;
     if (source == kImageComparisonLocalFile) {
         [alert layout];
-        checkbox.title = NSLocalizedString(@"Don't ask again", nil);
+        checkbox.title = NSLocalizedString(@"Don't ask again", @"Don't ask again");
         NSRect frame = checkbox.frame;
         frame.origin.x += 25;
         checkbox.frame = frame;

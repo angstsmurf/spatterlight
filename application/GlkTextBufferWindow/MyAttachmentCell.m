@@ -370,9 +370,9 @@
 
     if (!label.length) {
         if (linkid)
-            label = NSLocalizedString(@"Clickable attached image", nil);
+            label = NSLocalizedString(@"Clickable attached image", @"Clickable attached image");
         else
-            label = NSLocalizedString(@"Attached image", nil);
+            label = NSLocalizedString(@"Attached image", @"Attached image");
     }
     return label;
 }
