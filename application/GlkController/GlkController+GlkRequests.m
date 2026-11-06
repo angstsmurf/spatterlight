@@ -79,7 +79,7 @@ static void playSoundNamed(NSString *name) {
     self.mustBeQuiet = YES;
 
     if (fileusage == fileusage_SavedGame)
-        panel.prompt = NSLocalizedString(@"Restore", nil);
+        panel.prompt = NSLocalizedString(@"Restore", @"Restore");
     panel.directoryURL = directory;
 
     // Display the panel attached to the document's window.
@@ -143,31 +143,31 @@ static void playSoundNamed(NSString *name) {
 
     switch (fileusage) {
         case fileusage_Data:
-            prompt = @"Save data file: ";
+            prompt = NSLocalizedString(@"Save data file: ", @"Save data file: ");
             ext = @"glkdata";
-            filename = @"Data";
+            filename = NSLocalizedString(@"Data", @"Data");
             break;
         case fileusage_SavedGame:
-            prompt = @"Save game: ";
+            prompt = NSLocalizedString(@"Save game: ", @"Save game: ");
             ext = @"glksave";
             break;
         case fileusage_Transcript:
-            prompt = @"Save transcript: ";
+            prompt = NSLocalizedString(@"Save transcript: ", @"Save transcript: ");
             ext = @"txt";
-            filename = @"Transcript of ";
+            filename = NSLocalizedString(@"Transcript of ", @"Transcript of prefix");
             break;
         case fileusage_InputRecord:
-            prompt = @"Save recording: ";
+            prompt = NSLocalizedString(@"Save recording: ", @"Save recording: ");
             ext = @"rec";
-            filename = @"Recording of ";
+            filename = NSLocalizedString(@"Recording of ", @"Recording of prefix");
             break;
         default:
-            prompt = @"Save: ";
+            prompt = NSLocalizedString(@"Save: ", @"Save: ");
             ext = nil;
             break;
     }
 
-    panel.nameFieldLabel = NSLocalizedString(prompt, nil);
+    panel.nameFieldLabel = prompt;
     if (ext)
         panel.allowedFileTypes = @[ ext ];
     panel.directoryURL = directory;

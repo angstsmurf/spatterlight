@@ -41,7 +41,7 @@
         // against a document whose height has not settled yet.
         layoutmanager.backgroundLayoutEnabled = YES;
         layoutmanager.allowsNonContiguousLayout = NO;
-        scrollview.accessibilityLabel = NSLocalizedString(@"buffer scroll view", nil);
+        scrollview.accessibilityLabel = NSLocalizedString(@"buffer scroll view", @"buffer scroll view");
         scrollview.documentView = _textview;
         [self observeLiveScroll];
         _textview.delegate = self;

@@ -134,7 +134,7 @@ static NSArray<NSSortDescriptor *> *duplicateSurvivorOrder(void) {
 - (IBAction)deleteLibrary:(id)sender {
     NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"Do you really want to delete the library?", nil)
                                           info:NSLocalizedString(@"This will empty your game list and delete all metadata. The original game files will not be affected.", nil)
-                                       buttons:@[NSLocalizedString(@"Delete Library", nil), NSLocalizedString(@"Cancel", nil)]];
+                                       buttons:@[NSLocalizedString(@"Delete Library", @"Delete Library"), NSLocalizedString(@"Cancel", @"Cancel")]];
     if (self.gameSessions.count) {
         alert.accessoryView = self.forceQuitView;
         self.forceQuitCheckBox.state = NSControlStateValueOff;
@@ -228,7 +228,7 @@ static NSArray<NSSortDescriptor *> *duplicateSurvivorOrder(void) {
 
     NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"Do you really want to prune the library?", nil)
                                           info:NSLocalizedString(@"Pruning will delete the information about games that are not in the library at the moment.", nil)
-                                       buttons:@[NSLocalizedString(@"Prune", nil), NSLocalizedString(@"Cancel", nil)]];
+                                       buttons:@[NSLocalizedString(@"Prune", @"Prune"), NSLocalizedString(@"Cancel", @"Cancel")]];
 
     NSModalResponse choice = [alert runModal];
 
@@ -276,7 +276,7 @@ static NSArray<NSSortDescriptor *> *duplicateSurvivorOrder(void) {
         [self.coreDataManager saveChanges];
 
         NotificationBezel *notification = [[NotificationBezel alloc] initWithScreen:self.view.window.screen];
-        [notification showStandardWithText:[NSString stringWithFormat:@"%ld entit%@ pruned", counter, counter == 1 ? @"y" : @"ies"]];
+        [notification showStandardWithText:[NSString stringWithFormat:NSLocalizedString(@"%ld entities pruned", @"%ld entities pruned"), counter]];
 
         [self.coreDataManager saveChanges];
     }
@@ -298,18 +298,18 @@ static NSArray<NSSortDescriptor *> *duplicateSurvivorOrder(void) {
         return NSAlertFirstButtonReturn;
 
     NSAlert *alert = [NSAlert new];
-    alert.messageText = NSLocalizedString(@"Verify Library", nil);
-    alert.informativeText = NSLocalizedString(@"Check the library for missing game files.", nil);
+    alert.messageText = NSLocalizedString(@"Verify Library", @"Verify Library");
+    alert.informativeText = NSLocalizedString(@"Check the library for missing game files.", @"Check the library for missing game files.");
     alert.showsSuppressionButton = YES;
-    alert.suppressionButton.title = NSLocalizedString(@"Remember these choices", nil);
+    alert.suppressionButton.title = NSLocalizedString(@"Remember these choices", @"Remember these choices");
 
     self.verifyDeleteMissingCheckbox.state = [defaults boolForKey:@"DeleteMissing"];
     self.verifyReCheckbox.state = [defaults boolForKey:kRecheckForMissingKey];
     self.verifyFrequencyTextField.integerValue = [defaults integerForKey:kRecheckFrequencyKey];
 
     alert.accessoryView = self.verifyView;
-    [alert addButtonWithTitle:NSLocalizedString(@"Check", nil)];
-    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    [alert addButtonWithTitle:NSLocalizedString(@"Check", @"Check")];
+    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", @"Cancel")];
     NSModalResponse choice = [alert runModal];
 
     if (choice == NSAlertFirstButtonReturn) {

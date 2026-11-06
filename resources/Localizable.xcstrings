@@ -1,0 +1,2518 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "\n(There are also %ld autorestorable games running.)" : {
+      "comment" : "\n(There are also %ld autorestorable games running.)",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "\n(There is also an autorestorable game running.)"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "new",
+                  "value" : "\n(There are also %ld autorestorable games running.)"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    " (default)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " (default)"
+          }
+        }
+      }
+    },
+    " (finished)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " (finished)"
+          }
+        }
+      }
+    },
+    " A tide of perambulators surges north along the crowded Broad Walk. " : {
+      "comment" : "Normal text example",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " A tide of perambulators surges north along the crowded Broad Walk. "
+          }
+        }
+      }
+    },
+    "\"%@\" is not a valid text file" : {
+      "comment" : "\"(Name)\" is not a valid text file",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "“%@” is not a valid text file"
+          }
+        }
+      }
+    },
+    "(Trinity, Brian Moriarty, Infocom 1986)" : {
+      "comment" : "Emphasized text example",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "(Trinity, Brian Moriarty, Infocom 1986)"
+          }
+        }
+      }
+    },
+    "%.1f seconds" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%.1f seconds"
+          }
+        }
+      }
+    },
+    "%@ are also in this folder." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ are also in this folder."
+          }
+        }
+      }
+    },
+    "%@ has individual theme settings." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ has individual theme settings."
+          }
+        }
+      }
+    },
+    "%@ have individual theme settings." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ have individual theme settings."
+          }
+        }
+      }
+    },
+    "%@ is also in this folder." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ is also in this folder."
+          }
+        }
+      }
+    },
+    "%ld alerts reset" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "One alert reset"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "new",
+                  "value" : "%ld alerts reset"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%ld entities pruned" : {
+      "comment" : "%ld entities pruned",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%ld entity pruned"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "new",
+                  "value" : "%ld entities pruned"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%ld per second" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%ld per second"
+          }
+        }
+      }
+    },
+    "%ld seconds" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%ld seconds"
+          }
+        }
+      }
+    },
+    "%ld styles changed" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "One style changed"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "new",
+                  "value" : "%ld styles changed"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lu games" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "One game"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "new",
+                  "value" : "%lu games"
+                }
+              },
+              "zero" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "No games"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lu games are now in the library folder." : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "One games is now in the library folder."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "new",
+                  "value" : "%lu games are now in the library folder."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "↑ and ↓ navigate menus and status windows. ⌘↑ and ⌘↓ step through command history." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "↑ and ↓ navigate menus and status windows. ⌘↑ and ⌘↓ step through command history."
+          }
+        }
+      }
+    },
+    "↑ and ↓ navigate menus and status windows. ⌘↑ and ⌘↓ step through command history. ← and → don't do anything." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "↑ and ↓ navigate menus and status windows. ⌘↑ and ⌘↓ step through command history. ← and → don't do anything."
+          }
+        }
+      }
+    },
+    "↑ and ↓ work as in original" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "↑ and ↓ work as in original"
+          }
+        }
+      }
+    },
+    "↑↓ and ←→ work as in original" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "↑↓ and ←→ work as in original"
+          }
+        }
+      }
+    },
+    "= unlimited" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "= unlimited"
+          }
+        }
+      }
+    },
+    "⌘↑ and ⌘↓ are used where the original uses ↑ and ↓. ↑ and ↓ step through command history as in other games." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "⌘↑ and ⌘↓ are used where the original uses ↑ and ↓. ↑ and ↓ step through command history as in other games."
+          }
+        }
+      }
+    },
+    "ABCabc1234fiffiflfflct" : {
+      "comment" : "A preview of characters",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ABCabc1234fiffiflfflct"
+          }
+        }
+      }
+    },
+    "Add" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add"
+          }
+        }
+      }
+    },
+    "Add description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add description"
+          }
+        }
+      }
+    },
+    "Add Description…" : {
+      "comment" : "Add Description…",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add Description…"
+          }
+        }
+      }
+    },
+    "Add games to library" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add games to library"
+          }
+        }
+      }
+    },
+    "Also found partial match for %@ in iFiction file." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Also found partial match for %@ in iFiction file."
+          }
+        }
+      }
+    },
+    "Also found partial matches for %@ in iFiction file." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Also found partial matches for %@ in iFiction file."
+          }
+        }
+      }
+    },
+    "Any unsaved progress will be lost." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Any unsaved progress will be lost."
+          }
+        }
+      }
+    },
+    "Apply Theme" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Apply Theme"
+          }
+        }
+      }
+    },
+    "Are you sure?" : {
+      "comment" : "Are you sure?",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you sure?"
+          }
+        }
+      }
+    },
+    "Attached image" : {
+      "comment" : "Attached image",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Attached image"
+          }
+        }
+      }
+    },
+    "Authorize" : {
+      "comment" : "Authorize",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Authorize"
+          }
+        }
+      }
+    },
+    "Autosaved" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Autosaved"
+          }
+        }
+      }
+    },
+    "Babel can not identify the file format." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Babel can not identify the file format."
+          }
+        }
+      }
+    },
+    "buffer scroll view" : {
+      "comment" : "buffer scroll view",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "buffer scroll view"
+          }
+        }
+      }
+    },
+    "Can not compute IFID from the file." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Can not compute IFID from the file."
+          }
+        }
+      }
+    },
+    "Can not recognize the file extension \".%@\"" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Can not recognize the file extension “.%@”"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+      "comment" : "Cancel",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "Cancel loading" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel loading"
+          }
+        }
+      }
+    },
+    "Cannot find an input prompt for this command script." : {
+      "comment" : "Cannot find an input prompt for this command script.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cannot find an input prompt for this command script."
+          }
+        }
+      }
+    },
+    "Cannot find an input prompt to restore this save from." : {
+      "comment" : "Cannot find an input prompt to restore this save from.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cannot find an input prompt to restore this save from."
+          }
+        }
+      }
+    },
+    "Cannot find the file." : {
+      "comment" : "Cannot find the file.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cannot find the file."
+          }
+        }
+      }
+    },
+    "Cannot play the file." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cannot play the file."
+          }
+        }
+      }
+    },
+    "characters" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "characters"
+          }
+        }
+      }
+    },
+    "Check" : {
+      "comment" : "Check",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check"
+          }
+        }
+      }
+    },
+    "Check the library for missing game files." : {
+      "comment" : "Check the library for missing game files.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check the library for missing game files."
+          }
+        }
+      }
+    },
+    "Choose" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose"
+          }
+        }
+      }
+    },
+    "Choose a folder to keep your game library in." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose a folder to keep your game library in."
+          }
+        }
+      }
+    },
+    "click on image" : {
+      "comment" : "click on image",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "click on image"
+          }
+        }
+      }
+    },
+    "Clickable attached image" : {
+      "comment" : "Clickable attached image",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clickable attached image"
+          }
+        }
+      }
+    },
+    "Clickable left margin image" : {
+      "comment" : "Clickable left margin image",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clickable left margin image"
+          }
+        }
+      }
+    },
+    "Clickable right margin image" : {
+      "comment" : "Clickable right margin image",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clickable right margin image"
+          }
+        }
+      }
+    },
+    "Close" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        }
+      }
+    },
+    "Command history" : {
+      "comment" : "Command history",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Command history"
+          }
+        }
+      }
+    },
+    "Continue" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continue"
+          }
+        }
+      }
+    },
+    "Copy" : {
+      "comment" : "Copy",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copy"
+          }
+        }
+      }
+    },
+    "Could not read command script." : {
+      "comment" : "Could not read command script.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not read command script."
+          }
+        }
+      }
+    },
+    "Could not read game." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not read game."
+          }
+        }
+      }
+    },
+    "Cut" : {
+      "comment" : "Cut",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cut"
+          }
+        }
+      }
+    },
+    "Dark theme override active" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dark theme override active"
+          }
+        }
+      }
+    },
+    "Data" : {
+      "comment" : "Data",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Data"
+          }
+        }
+      }
+    },
+    "Delete" : {
+      "comment" : "Delete",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        }
+      }
+    },
+    "Delete entry" : {
+      "comment" : "Delete entry",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete entry"
+          }
+        }
+      }
+    },
+    "Delete game" : {
+      "comment" : "Delete game",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete game"
+          }
+        }
+      }
+    },
+    "Delete Library" : {
+      "comment" : "Delete Library",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete Library"
+          }
+        }
+      }
+    },
+    "Details" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Details"
+          }
+        }
+      }
+    },
+    "Discard Change" : {
+      "comment" : "Discard Change",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Discard Change"
+          }
+        }
+      }
+    },
+    "Dislike" : {
+      "comment" : "Dislike",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dislike"
+          }
+        }
+      }
+    },
+    "Disliked" : {
+      "comment" : "Disliked",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disliked"
+          }
+        }
+      }
+    },
+    "Do not show again." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do not show again."
+          }
+        }
+      }
+    },
+    "Do you really want to delete the library?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do you really want to delete the library?"
+          }
+        }
+      }
+    },
+    "Do you really want to prune the library?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do you really want to prune the library?"
+          }
+        }
+      }
+    },
+    "Do you really want to quit?" : {
+      "comment" : "Do you really want to quit?",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do you really want to quit?"
+          }
+        }
+      }
+    },
+    "Do you want to abandon the game?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do you want to abandon the game?"
+          }
+        }
+      }
+    },
+    "Do you want to close this game and delete it from the library?" : {
+      "comment" : "Do you want to close this game and delete it from the library?",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do you want to close this game and delete it from the library?"
+          }
+        }
+      }
+    },
+    "Do you want to delete this cover image?" : {
+      "comment" : "Do you want to delete this cover image?",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do you want to delete this cover image?"
+          }
+        }
+      }
+    },
+    "Do you want to download game info from IFDB in the background?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do you want to download game info from IFDB in the background?"
+          }
+        }
+      }
+    },
+    "Do you want to replace it with an autogenerated style?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do you want to replace it with an autogenerated style?"
+          }
+        }
+      }
+    },
+    "Do you want to replace them with autogenerated styles?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do you want to replace them with autogenerated styles?"
+          }
+        }
+      }
+    },
+    "Do you want to replace this image?" : {
+      "comment" : "Do you want to replace this image?",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do you want to replace this image?"
+          }
+        }
+      }
+    },
+    "Do you want to restore this game from the save file %@?" : {
+      "comment" : "Do you want to restore this game from the save file (name)?",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do you want to restore this game from the save file %@?"
+          }
+        }
+      }
+    },
+    "Do you want to run the command script %@ with this game?" : {
+      "comment" : "Do you want to run the command script (name) with this game?",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do you want to run the command script %@ with this game?"
+          }
+        }
+      }
+    },
+    "Do you want to update it as well?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do you want to update it as well?"
+          }
+        }
+      }
+    },
+    "Do you want to update them as well?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Do you want to update them as well?"
+          }
+        }
+      }
+    },
+    "Don't ask again" : {
+      "comment" : "Don't ask again",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Don't ask again"
+          }
+        }
+      }
+    },
+    "Download game info" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Download game info"
+          }
+        }
+      }
+    },
+    "Download Image" : {
+      "comment" : "Download Image",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Download Image"
+          }
+        }
+      }
+    },
+    "Edit description" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit description"
+          }
+        }
+      }
+    },
+    "End of command history" : {
+      "comment" : "End of command history",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "End of command history"
+          }
+        }
+      }
+    },
+    "ERROR" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ERROR"
+          }
+        }
+      }
+    },
+    "Error code: %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error code: %@."
+          }
+        }
+      }
+    },
+    "Error: Current game has no metadata!" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error: Current game has no metadata!"
+          }
+        }
+      }
+    },
+    "Every game in your library will be copied into the central library folder, arranged by group and title. This may take a while for a large library." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every game in your library will be copied into the central library folder, arranged by group and title. This may take a while for a large library."
+          }
+        }
+      }
+    },
+    "Export" : {
+      "comment" : "Export",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Export"
+          }
+        }
+      }
+    },
+    "Failed to open the game." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Failed to open the game."
+          }
+        }
+      }
+    },
+    "Fatal error." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fatal error."
+          }
+        }
+      }
+    },
+    "File access to \"%@\" was not permitted." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "File access to “%@” was not permitted."
+          }
+        }
+      }
+    },
+    "File not found" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "File not found"
+          }
+        }
+      }
+    },
+    "Filter" : {
+      "comment" : "Filter",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Filter"
+          }
+        }
+      }
+    },
+    "Finished organising games." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finished organising games."
+          }
+        }
+      }
+    },
+    "Format" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Format"
+          }
+        }
+      }
+    },
+    "Format-specific settings" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Format-specific settings"
+          }
+        }
+      }
+    },
+    "Format:" : {
+      "comment" : "Format:",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Format:"
+          }
+        }
+      }
+    },
+    "Found details matching %@ in iFiction file." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Found details matching %@ in iFiction file."
+          }
+        }
+      }
+    },
+    "Found partial match for %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Found partial match for %@."
+          }
+        }
+      }
+    },
+    "Found partial matches for %@." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Found partial matches for %@."
+          }
+        }
+      }
+    },
+    "Game Info" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Game Info"
+          }
+        }
+      }
+    },
+    "Game windows" : {
+      "comment" : "Game windows",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Game windows"
+          }
+        }
+      }
+    },
+    "Glk style settings" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Glk style settings"
+          }
+        }
+      }
+    },
+    "Glk Styles" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Glk Styles"
+          }
+        }
+      }
+    },
+    "Global" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Global"
+          }
+        }
+      }
+    },
+    "Go to default" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Go to default"
+          }
+        }
+      }
+    },
+    "Hide Preview" : {
+      "comment" : "Hide Preview",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hide Preview"
+          }
+        }
+      }
+    },
+    "image" : {
+      "comment" : "image",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "image"
+          }
+        }
+      }
+    },
+    "Image" : {
+      "comment" : "Image",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Image"
+          }
+        }
+      }
+    },
+    "Image description" : {
+      "comment" : "Image description",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Image description"
+          }
+        }
+      }
+    },
+    "Image with link I.D. %@" : {
+      "comment" : "Image with link I.D. (name)",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Image with link I.D. %@"
+          }
+        }
+      }
+    },
+    "Import" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import"
+          }
+        }
+      }
+    },
+    "In progress" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In progress"
+          }
+        }
+      }
+    },
+    "input" : {
+      "comment" : "input",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "input"
+          }
+        }
+      }
+    },
+    "input text field" : {
+      "comment" : "input text field",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "input text field"
+          }
+        }
+      }
+    },
+    "input text field cell" : {
+      "comment" : "input text field cell",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "input text field cell"
+          }
+        }
+      }
+    },
+    "Interactive Fiction Metadata.iFiction" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Interactive Fiction Metadata.iFiction"
+          }
+        }
+      }
+    },
+    "Left margin image" : {
+      "comment" : "Left margin image",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Left margin image"
+          }
+        }
+      }
+    },
+    "Light theme override active" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Light theme override active"
+          }
+        }
+      }
+    },
+    "Like" : {
+      "comment" : "Like",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Like"
+          }
+        }
+      }
+    },
+    "Liked" : {
+      "comment" : "Liked",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Liked"
+          }
+        }
+      }
+    },
+    "Look for game" : {
+      "comment" : "Look for game",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Look for game"
+          }
+        }
+      }
+    },
+    "Misc" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Misc"
+          }
+        }
+      }
+    },
+    "Miscellaneous settings" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Miscellaneous settings"
+          }
+        }
+      }
+    },
+    "move %lu of %lu" : {
+      "comment" : "move %lu of %lu",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "move %1$lu of %2$lu"
+          }
+        }
+      }
+    },
+    "No" : {
+      "comment" : "No",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No"
+          }
+        }
+      }
+    },
+    "No commands entered" : {
+      "comment" : "No commands entered",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No commands entered"
+          }
+        }
+      }
+    },
+    "No executable chunk found in Blorb file." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No executable chunk found in Blorb file."
+          }
+        }
+      }
+    },
+    "No game is currently running" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No game is currently running"
+          }
+        }
+      }
+    },
+    "No matching metadata to export was found in the library." : {
+      "comment" : "No matching metadata to export was found in the library.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No matching metadata to export was found in the library."
+          }
+        }
+      }
+    },
+    "No metadata found" : {
+      "comment" : "No metadata found",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No metadata found"
+          }
+        }
+      }
+    },
+    "No prompt." : {
+      "comment" : "No prompt.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No prompt."
+          }
+        }
+      }
+    },
+    "Not a game." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not a game."
+          }
+        }
+      }
+    },
+    "Not a match." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not a match."
+          }
+        }
+      }
+    },
+    "Not a supported format." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not a supported format."
+          }
+        }
+      }
+    },
+    "Not liked" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not liked"
+          }
+        }
+      }
+    },
+    "OK" : {
+      "comment" : "OK",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
+    },
+    "Okay" : {
+      "comment" : "Okay",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Okay"
+          }
+        }
+      }
+    },
+    "Oops" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oops"
+          }
+        }
+      }
+    },
+    "Open" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open"
+          }
+        }
+      }
+    },
+    "Organise" : {
+      "comment" : "Organise",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Organise"
+          }
+        }
+      }
+    },
+    "Organise all games now?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Organise all games now?"
+          }
+        }
+      }
+    },
+    "Palace Gate" : {
+      "comment" : "Subheader text example",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Palace Gate"
+          }
+        }
+      }
+    },
+    "Paste" : {
+      "comment" : "Paste",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paste"
+          }
+        }
+      }
+    },
+    "Paste Image" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paste Image"
+          }
+        }
+      }
+    },
+    "Plain Text" : {
+      "comment" : "Plain Text",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plain Text"
+          }
+        }
+      }
+    },
+    "Play selected game" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Play selected game"
+          }
+        }
+      }
+    },
+    "Please enter another name." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please enter another name."
+          }
+        }
+      }
+    },
+    "Please select a game" : {
+      "comment" : "Please select a game",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please select a game"
+          }
+        }
+      }
+    },
+    "Presentation settings not covered by Glk styles" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Presentation settings not covered by Glk styles"
+          }
+        }
+      }
+    },
+    "press key" : {
+      "comment" : "press key",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "press key"
+          }
+        }
+      }
+    },
+    "Previous Menu" : {
+      "comment" : "Previous Menu",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Previous Menu"
+          }
+        }
+      }
+    },
+    "Prune" : {
+      "comment" : "Prune",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prune"
+          }
+        }
+      }
+    },
+    "Pruning will delete the information about games that are not in the library at the moment." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pruning will delete the information about games that are not in the library at the moment."
+          }
+        }
+      }
+    },
+    "Quit" : {
+      "comment" : "Quit",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quit"
+          }
+        }
+      }
+    },
+    "Recording of " : {
+      "comment" : "Recording of prefix",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recording of "
+          }
+        }
+      }
+    },
+    "Reload from Blorb" : {
+      "comment" : "Reload from Blorb",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reload from Blorb"
+          }
+        }
+      }
+    },
+    "Remember these choices" : {
+      "comment" : "Remember these choices",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remember these choices"
+          }
+        }
+      }
+    },
+    "Remember this choice." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remember this choice."
+          }
+        }
+      }
+    },
+    "repeat the text output of the last move" : {
+      "comment" : "repeat the text output of the last move",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "repeat the text output of the last move"
+          }
+        }
+      }
+    },
+    "Replaced by ⌘↑ and ⌘↓" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Replaced by ⌘↑ and ⌘↓"
+          }
+        }
+      }
+    },
+    "Restart" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restart"
+          }
+        }
+      }
+    },
+    "Restore" : {
+      "comment" : "Restore",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore"
+          }
+        }
+      }
+    },
+    "Restore from save file?" : {
+      "comment" : "Restore from save file?",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore from save file?"
+          }
+        }
+      }
+    },
+    "Rich Text Format" : {
+      "comment" : "Rich Text Format",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rich Text Format"
+          }
+        }
+      }
+    },
+    "Rich Text Format with images" : {
+      "comment" : "Rich Text Format with images",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rich Text Format with images"
+          }
+        }
+      }
+    },
+    "Rich Text Format without images" : {
+      "comment" : "Rich Text Format without images",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rich Text Format without images"
+          }
+        }
+      }
+    },
+    "Right margin image" : {
+      "comment" : "Right margin image",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Right margin image"
+          }
+        }
+      }
+    },
+    "Run command script?" : {
+      "comment" : "Run command script?",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Run command script?"
+          }
+        }
+      }
+    },
+    "Save data file: " : {
+      "comment" : "Save data file: ",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save data file: "
+          }
+        }
+      }
+    },
+    "Save game: " : {
+      "comment" : "Save game: ",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save game: "
+          }
+        }
+      }
+    },
+    "Save Image As…" : {
+      "comment" : "Save Image As…",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save Image As…"
+          }
+        }
+      }
+    },
+    "Save image: " : {
+      "comment" : "Save image prompt",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save image: "
+          }
+        }
+      }
+    },
+    "Save recording: " : {
+      "comment" : "Save recording: ",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save recording: "
+          }
+        }
+      }
+    },
+    "Save text: " : {
+      "comment" : "Save text prompt",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save text: "
+          }
+        }
+      }
+    },
+    "Save transcript: " : {
+      "comment" : "Save transcript: ",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save transcript: "
+          }
+        }
+      }
+    },
+    "Save: " : {
+      "comment" : "Save: ",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save: "
+          }
+        }
+      }
+    },
+    "Search" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search"
+          }
+        }
+      }
+    },
+    "Search game database" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search game database"
+          }
+        }
+      }
+    },
+    "Select and organize themes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select and organize themes"
+          }
+        }
+      }
+    },
+    "Select Image File…" : {
+      "comment" : "Select Image File…",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select Image File…"
+          }
+        }
+      }
+    },
+    "Settings for theme %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings for theme %@"
+          }
+        }
+      }
+    },
+    "Settings that apply to all themes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings that apply to all themes"
+          }
+        }
+      }
+    },
+    "Show info" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show info"
+          }
+        }
+      }
+    },
+    "Show info for selected game" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show info for selected game"
+          }
+        }
+      }
+    },
+    "Show Preview" : {
+      "comment" : "Show Preview",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show Preview"
+          }
+        }
+      }
+    },
+    "Spatterlight would like to access files in this folder" : {
+      "comment" : "Spatterlight would like to access files in this folder",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spatterlight would like to access files in this folder"
+          }
+        }
+      }
+    },
+    "speak status bar text" : {
+      "comment" : "speak status bar text",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "speak status bar text"
+          }
+        }
+      }
+    },
+    "Start of command history" : {
+      "comment" : "Start of command history",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start of command history"
+          }
+        }
+      }
+    },
+    "step backward through moves" : {
+      "comment" : "step backward through moves",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "step backward through moves"
+          }
+        }
+      }
+    },
+    "step forward through moves" : {
+      "comment" : "step forward through moves",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "step forward through moves"
+          }
+        }
+      }
+    },
+    "Stopped" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stopped"
+          }
+        }
+      }
+    },
+    "Text-to-speech settings" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Text-to-speech settings"
+          }
+        }
+      }
+    },
+    "The game \"%@\" is taking a long time to load." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The game “%@” is taking a long time to load."
+          }
+        }
+      }
+    },
+    "The game file \"%@\" is no longer accessible. This game will now close." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The game file “%@” is no longer accessible. This game will now close."
+          }
+        }
+      }
+    },
+    "The game file for \"%@\" could not be found at its original location. Do you want to look for it?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The game file for “%@” could not be found at its original location. Do you want to look for it?"
+          }
+        }
+      }
+    },
+    "The game has unexpectedly terminated." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The game has unexpectedly terminated."
+          }
+        }
+      }
+    },
+    "The game is not in a recognized file format; cannot find a suitable interpreter." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The game is not in a recognized file format; cannot find a suitable interpreter."
+          }
+        }
+      }
+    },
+    "The theme name \"%@\" is already in use." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The theme name “%@” is already in use."
+          }
+        }
+      }
+    },
+    "Theme setting for all games" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theme setting for all games"
+          }
+        }
+      }
+    },
+    "Theme setting for game %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theme setting for game %@"
+          }
+        }
+      }
+    },
+    "Themes" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Themes"
+          }
+        }
+      }
+    },
+    "There were no library matches for the games in the iFiction file." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There were no library matches for the games in the iFiction file."
+          }
+        }
+      }
+    },
+    "This file could not be read as an AGT game." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This file could not be read as an AGT game."
+          }
+        }
+      }
+    },
+    "This file does not match the game \"%@.\"\nDo you want to replace it anyway?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This file does not match the game “%@.”\nDo you want to replace it anyway?"
+          }
+        }
+      }
+    },
+    "This game is in Trash." : {
+      "comment" : "This game is in Trash.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This game is in Trash."
+          }
+        }
+      }
+    },
+    "This game was automatically restored from a previous session." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This game was automatically restored from a previous session."
+          }
+        }
+      }
+    },
+    "This theme uses %ld custom styles." : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "This theme uses a custom style."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "This theme uses %ld custom styles."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "This will empty your game list and delete all metadata. The original game files will not be affected." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This will empty your game list and delete all metadata. The original game files will not be affected."
+          }
+        }
+      }
+    },
+    "This will only be done once. You can do this later by selecting games in the library and choosing Download Info from the contextual menu." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This will only be done once. You can do this later by selecting games in the library and choosing Download Info from the contextual menu."
+          }
+        }
+      }
+    },
+    "Transcript of " : {
+      "comment" : "Transcript of prefix",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Transcript of "
+          }
+        }
+      }
+    },
+    "Unknown file format." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unknown file format."
+          }
+        }
+      }
+    },
+    "Verify Library" : {
+      "comment" : "Verify Library",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verify Library"
+          }
+        }
+      }
+    },
+    "VoiceOver" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VoiceOver"
+          }
+        }
+      }
+    },
+    "VoiceOver now reads all the game text" : {
+      "comment" : "VoiceOver now reads all the game text",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VoiceOver now reads all the game text"
+          }
+        }
+      }
+    },
+    "VoiceOver now reads only the last move" : {
+      "comment" : "VoiceOver now reads only the last move",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "VoiceOver now reads only the last move"
+          }
+        }
+      }
+    },
+    "Would you like to replace existing information?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Would you like to replace existing information?"
+          }
+        }
+      }
+    },
+    "Would you like to start over instead?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Would you like to start over instead?"
+          }
+        }
+      }
+    },
+    "Would you like to use theme %@ for all games?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Would you like to use theme %@ for all games?"
+          }
+        }
+      }
+    },
+    "Yes" : {
+      "comment" : "Yes",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yes"
+          }
+        }
+      }
+    },
+    "You won't be able to play the game until you move the file out of there." : {
+      "comment" : "This game is in Trash info",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You won't be able to play the game until you move the file out of there."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.3"
+}

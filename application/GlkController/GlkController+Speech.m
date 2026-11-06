@@ -39,13 +39,13 @@ static GlkWindow *largestByFrameArea(NSArray<GlkWindow *> *windows) {
 
 - (NSArray *)accessibilityCustomActions {
     NSAccessibilityCustomAction *speakMostRecent = [[NSAccessibilityCustomAction alloc]
-                                                    initWithName:NSLocalizedString(@"repeat the text output of the last move", nil) target:self selector:@selector(speakMostRecent:)];
+                                                    initWithName:NSLocalizedString(@"repeat the text output of the last move", @"repeat the text output of the last move") target:self selector:@selector(speakMostRecent:)];
     NSAccessibilityCustomAction *speakPrevious = [[NSAccessibilityCustomAction alloc]
-                                                  initWithName:NSLocalizedString(@"step backward through moves", nil) target:self selector:@selector(speakPrevious:)];
+                                                  initWithName:NSLocalizedString(@"step backward through moves", @"step backward through moves") target:self selector:@selector(speakPrevious:)];
     NSAccessibilityCustomAction *speakNext = [[NSAccessibilityCustomAction alloc]
-                                              initWithName:NSLocalizedString(@"step forward through moves", nil) target:self selector:@selector(speakNext:)];
+                                              initWithName:NSLocalizedString(@"step forward through moves", @"step forward through moves") target:self selector:@selector(speakNext:)];
     NSAccessibilityCustomAction *speakStatus = [[NSAccessibilityCustomAction alloc]
-                                                initWithName:NSLocalizedString(@"speak status bar text", nil) target:self selector:@selector(speakStatus:)];
+                                                initWithName:NSLocalizedString(@"speak status bar text", @"speak status bar text") target:self selector:@selector(speakStatus:)];
 
     return @[speakStatus, speakNext, speakPrevious, speakMostRecent];
 }

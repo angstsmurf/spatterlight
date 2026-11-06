@@ -117,7 +117,7 @@
 
     NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"Organise all games now?", nil)
                                           info:NSLocalizedString(@"Every game in your library will be copied into the central library folder, arranged by group and title. This may take a while for a large library.", nil)
-                                       buttons:@[NSLocalizedString(@"Organise", nil), NSLocalizedString(@"Cancel", nil)]];
+                                       buttons:@[NSLocalizedString(@"Organise", @"Organise"), NSLocalizedString(@"Cancel", @"Cancel")]];
 
     Preferences * __weak weakSelf = self;
     [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {

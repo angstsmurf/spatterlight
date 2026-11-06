@@ -56,7 +56,7 @@ static BOOL SPConfirmUnlessSuppressed(NSString *suppressionKey, NSString *messag
 
     NSAlert *anAlert = [NSAlert alertWithMessage:message
                                             info:informativeText
-                                         buttons:@[NSLocalizedString(@"Okay", nil), NSLocalizedString(@"Cancel", nil)]];
+                                         buttons:@[NSLocalizedString(@"Okay", @"Okay"), NSLocalizedString(@"Cancel", @"Cancel")]];
     [anAlert showSuppressionButtonWithTitle:nil];
     return [anAlert runModalSuppressingWithKey:suppressionKey] != NSAlertSecondButtonReturn;
 }
@@ -224,22 +224,22 @@ static BOOL SPConfirmUnlessSuppressed(NSString *suppressionKey, NSString *messag
     NSAttributedString *attStr = [[NSAttributedString alloc] initWithURL:fileURL options:@{} documentAttributes:nil error:&error];
     NSString *string = attStr.string;
     if (error || !string.length) {
-        SPReportScriptProblem(NSLocalizedString(@"Could not read command script.", nil),
-                              [NSString stringWithFormat:NSLocalizedString(@"\"%@\" is not a valid text file", nil), filename.lastPathComponent]);
+        SPReportScriptProblem(NSLocalizedString(@"Could not read command script.", @"Could not read command script."),
+                              [NSString stringWithFormat:NSLocalizedString(@"\"%@\" is not a valid text file", @"\"(Name)\" is not a valid text file"), filename.lastPathComponent]);
         return;
     }
 
     if (!win)
         win = [self findGlkWindowWithInput];
     if (!win) {
-        SPReportScriptProblem(NSLocalizedString(@"No prompt.", nil),
-                              NSLocalizedString(@"Cannot find an input prompt for this command script.", nil));
+        SPReportScriptProblem(NSLocalizedString(@"No prompt.", @"No prompt."),
+                              NSLocalizedString(@"Cannot find an input prompt for this command script.", @"Cannot find an input prompt for this command script."));
         return;
     }
 
     if (!SPConfirmUnlessSuppressed(kCommandScriptAlertSuppressionKey,
-                                   NSLocalizedString(@"Run command script?", nil),
-                                   [NSString stringWithFormat:NSLocalizedString(@"Do you want to run the command script %@ with this game?", nil), filename.lastPathComponent]))
+                                   NSLocalizedString(@"Run command script?", @"Run command script?"),
+                                   [NSString stringWithFormat:NSLocalizedString(@"Do you want to run the command script %@ with this game?", @"Do you want to run the command script (name) with this game?"), filename.lastPathComponent]))
         return;
 
     [self startCommandScript:string inWindow:win];
@@ -268,13 +268,13 @@ static BOOL SPConfirmUnlessSuppressed(NSString *suppressionKey, NSString *messag
 - (void)restoreFromSaveFile:(NSString *)filename {
     GlkWindow *win = [self windowWithLineRequest];
     if (!win) {
-        SPReportScriptProblem(NSLocalizedString(@"No prompt.", nil),
-                              NSLocalizedString(@"Cannot find an input prompt to restore this save from.", nil));
+        SPReportScriptProblem(NSLocalizedString(@"No prompt.", @"No prompt."),
+                              NSLocalizedString(@"Cannot find an input prompt to restore this save from.", @"Cannot find an input prompt to restore this save from."));
         return;
     }
     if (!SPConfirmUnlessSuppressed(kSaveFileAlertSuppressionKey,
-                                   NSLocalizedString(@"Restore from save file?", nil),
-                                   [NSString stringWithFormat:NSLocalizedString(@"Do you want to restore this game from the save file %@?", nil), filename.lastPathComponent]))
+                                   NSLocalizedString(@"Restore from save file?", @"Restore from save file?"),
+                                   [NSString stringWithFormat:NSLocalizedString(@"Do you want to restore this game from the save file %@?", @"Do you want to restore this game from the save file (name)?"), filename.lastPathComponent]))
         return;
     _glkctl.pendingSaveFilePath = filename;
     [win sendCommandLine:@"restore"];

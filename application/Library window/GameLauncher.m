@@ -131,9 +131,9 @@
         NSLog(@"Error getting Trash path: %@", error);
     if (trashUrl && [path hasPrefix:[trashUrl.path stringByAppendingString:@"/"]]) {
         if (!systemWindowRestoration) {
-            NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"This game is in Trash.", nil)
-                                                  info:NSLocalizedString(@"You won't be able to play the game until you move the file out of there.", nil)
-                                               buttons:@[ NSLocalizedString(@"Okay", nil), NSLocalizedString(@"Delete entry", nil) ]];
+            NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"This game is in Trash.", @"This game is in Trash.")
+                                                  info:NSLocalizedString(@"You won't be able to play the game until you move the file out of there.", @"This game is in Trash info")
+                                               buttons:@[ NSLocalizedString(@"Okay", @"Okay"), NSLocalizedString(@"Delete entry", @"Delete entry") ]];
             NSInteger choice = [alert runModal];
             if (choice == NSAlertSecondButtonReturn) {
                 [game.managedObjectContext deleteObject:game];

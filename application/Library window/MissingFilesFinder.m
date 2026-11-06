@@ -52,9 +52,9 @@ extern NSArray *gGameFileTypes;
 }
 
 - (void)lookForMissingFile:(Game *)game libController:(TableViewController *)libController {
-    NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"Cannot find the file.", nil)
+    NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"Cannot find the file.", @"Cannot find the file.")
                                           info:[NSString stringWithFormat: NSLocalizedString(@"The game file for \"%@\" could not be found at its original location. Do you want to look for it?", nil), game.metadata.title]
-                                       buttons:@[ NSLocalizedString(@"Look for game", nil), NSLocalizedString(@"Cancel", nil), NSLocalizedString(@"Delete game", nil) ]];
+                                       buttons:@[ NSLocalizedString(@"Look for game", @"Look for game"), NSLocalizedString(@"Cancel", @"Cancel"), NSLocalizedString(@"Delete game", @"Delete game") ]];
 
     NSModalResponse choice = [alert runModal];
 
@@ -89,7 +89,7 @@ extern NSArray *gGameFileTypes;
                 } else {
                     NSAlert *anAlert = [NSAlert alertWithMessage:NSLocalizedString(@"Not a match.", nil)
                                                             info:[NSString stringWithFormat:NSLocalizedString(@"This file does not match the game \"%@.\"\nDo you want to replace it anyway?", nil), game.metadata.title]
-                                                         buttons:@[ NSLocalizedString(@"Yes", nil), NSLocalizedString(@"Cancel", nil) ]];
+                                                         buttons:@[ NSLocalizedString(@"Yes", @"Yes"), NSLocalizedString(@"Cancel", @"Cancel") ]];
                     anAlert.alertStyle = NSAlertStyleInformational;
                     NSInteger response = [anAlert runModal];
                     if (response == NSAlertFirstButtonReturn) {
@@ -236,9 +236,9 @@ extern NSArray *gGameFileTypes;
         NSArray *matchedIfids = filenames.allValues;
 
         if (filenames.count > 0) {
-            NSAlert *alert = [NSAlert alertWithMessage:[NSString stringWithFormat:NSLocalizedString(@"%@ %@ also in this folder.", nil), [NSString stringWithSummaryOfGames:matchedIfids], (matchedIfids.count > 1) ? NSLocalizedString(@"are", nil) : NSLocalizedString(@"is", nil)]
-                                                  info:[NSString stringWithFormat:NSLocalizedString(@"Do you want to update %@ as well?", nil), (matchedIfids.count > 1) ? @"them" : @"it"]
-                                               buttons:@[NSLocalizedString(@"Yes", nil), NSLocalizedString(@"Cancel", nil)]];
+            NSAlert *alert = [NSAlert alertWithMessage:[NSString stringWithFormat:(matchedIfids.count > 1) ? NSLocalizedString(@"%@ are also in this folder.", nil) : NSLocalizedString(@"%@ is also in this folder.", nil), [NSString stringWithSummaryOfGames:matchedIfids]]
+                                                  info:(matchedIfids.count > 1) ? NSLocalizedString(@"Do you want to update them as well?", nil) : NSLocalizedString(@"Do you want to update it as well?", nil)
+                                               buttons:@[NSLocalizedString(@"Yes", @"Yes"), NSLocalizedString(@"Cancel", @"Cancel")]];
             alert.alertStyle = NSAlertStyleInformational;
 
             NSModalResponse choice = [alert runModal];
