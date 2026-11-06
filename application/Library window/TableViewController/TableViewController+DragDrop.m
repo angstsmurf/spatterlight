@@ -24,7 +24,7 @@
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     [panel setAllowsMultipleSelection:YES];
     [panel setCanChooseDirectories:YES];
-    panel.prompt = NSLocalizedString(@"Add", nil);
+    panel.prompt = NSLocalizedString(@"Add", @"Add");
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     self.lookForCoverImagesCheckBox.state = [defaults boolForKey:@"LookForImagesWhenImporting"];

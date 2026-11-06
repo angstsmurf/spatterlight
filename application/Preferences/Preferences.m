@@ -247,12 +247,12 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
 #pragma mark windowDidLoad steps
 
 - (void)setUpZArrowsMenuItems {
-    _standardZArrowsMenuItem.title = NSLocalizedString(@"↑ and ↓ work as in original", nil);
-    _standardZArrowsMenuItem.toolTip = NSLocalizedString(@"↑ and ↓ navigate menus and status windows. \u2318↑ and \u2318↓ step through command history.", nil);
-    _compromiseZArrowsMenuItem.title = NSLocalizedString(@"Replaced by \u2318↑ and \u2318↓", nil);
-    _compromiseZArrowsMenuItem.toolTip = NSLocalizedString(@"\u2318↑ and \u2318↓ are used where the original uses ↑ and ↓. ↑ and ↓ step through command history as in other games.", nil);
-    _strictZArrowsMenuItem.title = NSLocalizedString(@"↑↓ and ←→ work as in original", nil);
-    _strictZArrowsMenuItem.toolTip = NSLocalizedString(@"↑ and ↓ navigate menus and status windows. \u2318↑ and \u2318↓ step through command history. ← and → don't do anything.", nil);
+    _standardZArrowsMenuItem.title = NSLocalizedString(@"↑ and ↓ work as in original", @"↑ and ↓ work as in original");
+    _standardZArrowsMenuItem.toolTip = NSLocalizedString(@"↑ and ↓ navigate menus and status windows. \u2318↑ and \u2318↓ step through command history.", @"↑ and ↓ navigate menus and status windows. \u2318↑ and \u2318↓ step through command history.");
+    _compromiseZArrowsMenuItem.title = NSLocalizedString(@"Replaced by \u2318↑ and \u2318↓", @"Replaced by \u2318↑ and \u2318↓");
+    _compromiseZArrowsMenuItem.toolTip = NSLocalizedString(@"\u2318↑ and \u2318↓ are used where the original uses ↑ and ↓. ↑ and ↓ step through command history as in other games.", @"\u2318↑ and \u2318↓ are used where the original uses ↑ and ↓. ↑ and ↓ step through command history as in other games.");
+    _strictZArrowsMenuItem.title = NSLocalizedString(@"↑↓ and ←→ work as in original", @"↑↓ and ←→ work as in original");
+    _strictZArrowsMenuItem.toolTip = NSLocalizedString(@"↑ and ↓ navigate menus and status windows. \u2318↑ and \u2318↓ step through command history. ← and → don't do anything.", @"↑ and ↓ navigate menus and status windows. \u2318↑ and \u2318↓ step through command history. ← and → don't do anything.");
 }
 
 // On Big Sur and later the system alert sounds have new names
@@ -517,7 +517,7 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
     NSInteger scrollbackLimit = (NSInteger)[GlkTextBufferWindow clampScrollbackLimit:self.theme.scrollbackLimit];
     _scrollbackLimitTextField.integerValue = scrollbackLimit;
     _scrollbackLimitStepper.integerValue = scrollbackLimit;
-    _scrollbackUnitLabel.stringValue = (scrollbackLimit == 0) ? NSLocalizedString(@"= unlimited", nil) : NSLocalizedString(@"characters", nil);
+    _scrollbackUnitLabel.stringValue = (scrollbackLimit == 0) ? NSLocalizedString(@"= unlimited", @"= unlimited") : NSLocalizedString(@"characters", @"characters");
 
     _hardDarkCheckbox.state = self.theme.hardDark;
 
@@ -566,7 +566,7 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
         if (_timerTextField.doubleValue != floor(1000.0 / self.theme.minTimer)) {
             _timerTextField.doubleValue = floor(1000.0 / (CGFloat)self.theme.minTimer);
         }
-        _timerSlider.accessibilityValueDescription = [NSString localizedStringWithFormat:NSLocalizedString(@"%ld per second", nil), _timerSlider.integerValue];
+        _timerSlider.accessibilityValueDescription = [NSString localizedStringWithFormat:NSLocalizedString(@"%ld per second", @"%ld per second"), _timerSlider.integerValue];
     }
 }
 
@@ -584,9 +584,9 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
 - (NSString *)secondsAccessibilityString {
     CGFloat fractional = _vODelaySlider.doubleValue - (CGFloat)_vODelaySlider.integerValue;
     if (fractional < 0.05 || fractional > 0.95) {
-        return [NSString localizedStringWithFormat:NSLocalizedString(@"%ld seconds", nil), (long)round(_vODelaySlider.doubleValue)];
+        return [NSString localizedStringWithFormat:NSLocalizedString(@"%ld seconds", @"%ld seconds"), (long)round(_vODelaySlider.doubleValue)];
     } else {
-        return [NSString localizedStringWithFormat:NSLocalizedString(@"%.1f seconds", nil), _vODelaySlider.doubleValue];
+        return [NSString localizedStringWithFormat:NSLocalizedString(@"%.1f seconds", @"%.1f seconds"), _vODelaySlider.doubleValue];
     }
 }
 
@@ -597,7 +597,7 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
     NSAlert *anAlert = [NSAlert alertWithMessage:message
                                             info:info
                                          buttons:@[NSLocalizedString(@"Okay", @"Okay"), NSLocalizedString(@"Cancel", @"Cancel")]];
-    [anAlert showSuppressionButtonWithTitle:NSLocalizedString(@"Do not show again.", nil)];
+    [anAlert showSuppressionButtonWithTitle:NSLocalizedString(@"Do not show again.", @"Do not show again.")];
     [anAlert beginSheetModalForWindow:self.window
                    suppressingWithKey:suppressionKey
                     completionHandler:^(NSInteger result) {

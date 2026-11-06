@@ -136,14 +136,14 @@ static NSString *signalToName(NSTask *task) {
     [task waitUntilExit];
 
     if (task.terminationStatus != 0) {
-        NSString *info = [NSString stringWithFormat:NSLocalizedString(@"Error code: %@.", nil), signalToName(task)];
+        NSString *info = [NSString stringWithFormat:NSLocalizedString(@"Error code: %@.", @"Error code: %@."), signalToName(task)];
         if (self.pendingErrorMessage && self.errorTimeStamp.timeIntervalSinceNow > -3)
             info = self.pendingErrorMessage;
         self.pendingErrorMessage = nil;
         self.mustBeQuiet = YES;
-        NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"The game has unexpectedly terminated.", nil)
+        NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"The game has unexpectedly terminated.", @"The game has unexpectedly terminated.")
                                               info:info
-                                           buttons:@[ NSLocalizedString(@"Oops", nil) ]];
+                                           buttons:@[ NSLocalizedString(@"Oops", @"Oops") ]];
         [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {}];
     } else {
         NotificationBezel *bezel = [[NotificationBezel alloc] initWithScreen:self.window.screen];
@@ -167,7 +167,7 @@ static NSString *signalToName(NSTask *task) {
                                                         object:self
                                                       userInfo:nil];
 
-    self.window.title = [self.window.title stringByAppendingString:NSLocalizedString(@" (finished)", nil)];
+    self.window.title = [self.window.title stringByAppendingString:NSLocalizedString(@" (finished)", @" (finished)")];
     [self performScroll];
     task = nil;
     libcontroller.gameTableDirty = YES;

@@ -132,8 +132,8 @@ static NSArray<NSSortDescriptor *> *duplicateSurvivorOrder(void) {
 }
 
 - (IBAction)deleteLibrary:(id)sender {
-    NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"Do you really want to delete the library?", nil)
-                                          info:NSLocalizedString(@"This will empty your game list and delete all metadata. The original game files will not be affected.", nil)
+    NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"Do you really want to delete the library?", @"Do you really want to delete the library?")
+                                          info:NSLocalizedString(@"This will empty your game list and delete all metadata. The original game files will not be affected.", @"This will empty your game list and delete all metadata. The original game files will not be affected.")
                                        buttons:@[NSLocalizedString(@"Delete Library", @"Delete Library"), NSLocalizedString(@"Cancel", @"Cancel")]];
     if (self.gameSessions.count) {
         alert.accessoryView = self.forceQuitView;
@@ -226,8 +226,8 @@ static NSArray<NSSortDescriptor *> *duplicateSurvivorOrder(void) {
 
 - (IBAction)pruneLibrary:(id)sender {
 
-    NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"Do you really want to prune the library?", nil)
-                                          info:NSLocalizedString(@"Pruning will delete the information about games that are not in the library at the moment.", nil)
+    NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"Do you really want to prune the library?", @"Do you really want to prune the library?")
+                                          info:NSLocalizedString(@"Pruning will delete the information about games that are not in the library at the moment.", @"Pruning will delete the information about games that are not in the library at the moment.")
                                        buttons:@[NSLocalizedString(@"Prune", @"Prune"), NSLocalizedString(@"Cancel", @"Cancel")]];
 
     NSModalResponse choice = [alert runModal];

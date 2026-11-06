@@ -25,6 +25,7 @@
       }
     },
     " (default)" : {
+      "comment" : " (default)",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -35,6 +36,7 @@
       }
     },
     " (finished)" : {
+      "comment" : " (finished)",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -78,6 +80,7 @@
       }
     },
     "%.1f seconds" : {
+      "comment" : "%.1f seconds",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -88,6 +91,7 @@
       }
     },
     "%@ are also in this folder." : {
+      "comment" : "%@ are also in this folder.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -98,6 +102,7 @@
       }
     },
     "%@ has individual theme settings." : {
+      "comment" : "%@ has individual theme settings.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -108,6 +113,7 @@
       }
     },
     "%@ have individual theme settings." : {
+      "comment" : "%@ have individual theme settings.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -118,6 +124,7 @@
       }
     },
     "%@ is also in this folder." : {
+      "comment" : "%@ is also in this folder.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -128,6 +135,7 @@
       }
     },
     "%ld alerts reset" : {
+      "comment" : "%ld alerts reset",
       "localizations" : {
         "en" : {
           "variations" : {
@@ -173,6 +181,7 @@
       }
     },
     "%ld per second" : {
+      "comment" : "%ld per second",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -183,6 +192,7 @@
       }
     },
     "%ld seconds" : {
+      "comment" : "%ld seconds",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -193,6 +203,7 @@
       }
     },
     "%ld styles changed" : {
+      "comment" : "%ld styles changed",
       "localizations" : {
         "en" : {
           "variations" : {
@@ -215,6 +226,7 @@
       }
     },
     "%lu games" : {
+      "comment" : "%lu games",
       "localizations" : {
         "en" : {
           "variations" : {
@@ -243,6 +255,7 @@
       }
     },
     "%lu games are now in the library folder." : {
+      "comment" : "%lu games are now in the library folder.",
       "localizations" : {
         "en" : {
           "variations" : {
@@ -250,7 +263,7 @@
               "one" : {
                 "stringUnit" : {
                   "state" : "translated",
-                  "value" : "One games is now in the library folder."
+                  "value" : "One game is now in the library folder."
                 }
               },
               "other" : {
@@ -285,6 +298,7 @@
       }
     },
     "↑ and ↓ work as in original" : {
+      "comment" : "↑ and ↓ work as in original",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -295,6 +309,7 @@
       }
     },
     "↑↓ and ←→ work as in original" : {
+      "comment" : "↑↓ and ←→ work as in original",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -305,6 +320,7 @@
       }
     },
     "= unlimited" : {
+      "comment" : "= unlimited",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -336,6 +352,7 @@
       }
     },
     "Add" : {
+      "comment" : "Add",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -346,6 +363,7 @@
       }
     },
     "Add description" : {
+      "comment" : "Add description",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -378,6 +396,7 @@
       }
     },
     "Also found partial match for %@ in iFiction file." : {
+      "comment" : "Also found partial match for %@ in iFiction file.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -388,6 +407,7 @@
       }
     },
     "Also found partial matches for %@ in iFiction file." : {
+      "comment" : "Also found partial matches for %@ in iFiction file.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -398,6 +418,7 @@
       }
     },
     "Any unsaved progress will be lost." : {
+      "comment" : "Any unsaved progress will be lost.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -408,6 +429,7 @@
       }
     },
     "Apply Theme" : {
+      "comment" : "Apply Theme",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -451,6 +473,7 @@
       }
     },
     "Autosaved" : {
+      "comment" : "Autosaved",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -461,6 +484,7 @@
       }
     },
     "Babel can not identify the file format." : {
+      "comment" : "Babel can not identify the file format.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -482,6 +506,7 @@
       }
     },
     "Can not compute IFID from the file." : {
+      "comment" : "Can not compute IFID from the file.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -492,6 +517,7 @@
       }
     },
     "Can not recognize the file extension \".%@\"" : {
+      "comment" : "Can not recognize the file extension \".%@\"",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -513,6 +539,7 @@
       }
     },
     "Cancel loading" : {
+      "comment" : "Cancel loading",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -556,6 +583,7 @@
       }
     },
     "Cannot play the file." : {
+      "comment" : "Cannot play the file.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -566,6 +594,7 @@
       }
     },
     "characters" : {
+      "comment" : "characters",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -598,6 +627,7 @@
       }
     },
     "Choose" : {
+      "comment" : "Choose",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -608,6 +638,7 @@
       }
     },
     "Choose a folder to keep your game library in." : {
+      "comment" : "Choose a folder to keep your game library in.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -662,6 +693,7 @@
       }
     },
     "Close" : {
+      "comment" : "Close",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -683,6 +715,7 @@
       }
     },
     "Continue" : {
+      "comment" : "Continue",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -715,6 +748,7 @@
       }
     },
     "Could not read game." : {
+      "comment" : "Could not read game.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -736,6 +770,7 @@
       }
     },
     "Dark theme override active" : {
+      "comment" : "Dark theme override active",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -801,6 +836,7 @@
       }
     },
     "Details" : {
+      "comment" : "Details",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -844,6 +880,7 @@
       }
     },
     "Do not show again." : {
+      "comment" : "Do not show again.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -854,6 +891,7 @@
       }
     },
     "Do you really want to delete the library?" : {
+      "comment" : "Do you really want to delete the library?",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -864,6 +902,7 @@
       }
     },
     "Do you really want to prune the library?" : {
+      "comment" : "Do you really want to prune the library?",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -885,6 +924,7 @@
       }
     },
     "Do you want to abandon the game?" : {
+      "comment" : "Do you want to abandon the game?",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -917,6 +957,7 @@
       }
     },
     "Do you want to download game info from IFDB in the background?" : {
+      "comment" : "Do you want to download game info from IFDB in the background?",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -927,6 +968,7 @@
       }
     },
     "Do you want to replace it with an autogenerated style?" : {
+      "comment" : "Do you want to replace it with an autogenerated style?",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -937,6 +979,7 @@
       }
     },
     "Do you want to replace them with autogenerated styles?" : {
+      "comment" : "Do you want to replace them with autogenerated styles?",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -980,6 +1023,7 @@
       }
     },
     "Do you want to update it as well?" : {
+      "comment" : "Do you want to update it as well?",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -990,6 +1034,7 @@
       }
     },
     "Do you want to update them as well?" : {
+      "comment" : "Do you want to update them as well?",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1011,6 +1056,7 @@
       }
     },
     "Download game info" : {
+      "comment" : "Download game info",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1032,6 +1078,7 @@
       }
     },
     "Edit description" : {
+      "comment" : "Edit description",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1053,6 +1100,7 @@
       }
     },
     "ERROR" : {
+      "comment" : "ERROR",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1063,6 +1111,7 @@
       }
     },
     "Error code: %@." : {
+      "comment" : "Error code: %@.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1073,6 +1122,7 @@
       }
     },
     "Error: Current game has no metadata!" : {
+      "comment" : "Error: Current game has no metadata!",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1083,6 +1133,7 @@
       }
     },
     "Every game in your library will be copied into the central library folder, arranged by group and title. This may take a while for a large library." : {
+      "comment" : "Every game in your library will be copied into the central library folder, arranged by group and title. This may take a while for a large library.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1104,6 +1155,7 @@
       }
     },
     "Failed to open the game." : {
+      "comment" : "Failed to open the game.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1114,6 +1166,7 @@
       }
     },
     "Fatal error." : {
+      "comment" : "Fatal error.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1124,6 +1177,7 @@
       }
     },
     "File access to \"%@\" was not permitted." : {
+      "comment" : "File access to \"%@\" was not permitted.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1134,6 +1188,7 @@
       }
     },
     "File not found" : {
+      "comment" : "File not found",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1155,6 +1210,7 @@
       }
     },
     "Finished organising games." : {
+      "comment" : "Finished organising games.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1165,6 +1221,7 @@
       }
     },
     "Format" : {
+      "comment" : "Format",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1175,6 +1232,7 @@
       }
     },
     "Format-specific settings" : {
+      "comment" : "Format-specific settings",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1196,6 +1254,7 @@
       }
     },
     "Found details matching %@ in iFiction file." : {
+      "comment" : "Found details matching %@ in iFiction file.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1206,6 +1265,7 @@
       }
     },
     "Found partial match for %@." : {
+      "comment" : "Found partial match for %@.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1216,6 +1276,7 @@
       }
     },
     "Found partial matches for %@." : {
+      "comment" : "Found partial matches for %@.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1226,6 +1287,7 @@
       }
     },
     "Game Info" : {
+      "comment" : "Game Info",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1247,6 +1309,7 @@
       }
     },
     "Glk style settings" : {
+      "comment" : "Glk style settings",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1257,6 +1320,7 @@
       }
     },
     "Glk Styles" : {
+      "comment" : "Glk Styles",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1267,6 +1331,7 @@
       }
     },
     "Global" : {
+      "comment" : "Global",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1277,6 +1342,7 @@
       }
     },
     "Go to default" : {
+      "comment" : "Go to default",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1342,6 +1408,7 @@
       }
     },
     "Import" : {
+      "comment" : "Import",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1352,6 +1419,7 @@
       }
     },
     "In progress" : {
+      "comment" : "In progress",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1395,6 +1463,7 @@
       }
     },
     "Interactive Fiction Metadata.iFiction" : {
+      "comment" : "Interactive Fiction Metadata.iFiction",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1416,6 +1485,7 @@
       }
     },
     "Light theme override active" : {
+      "comment" : "Light theme override active",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1459,6 +1529,7 @@
       }
     },
     "Misc" : {
+      "comment" : "Misc",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1469,6 +1540,7 @@
       }
     },
     "Miscellaneous settings" : {
+      "comment" : "Miscellaneous settings",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1512,6 +1584,7 @@
       }
     },
     "No executable chunk found in Blorb file." : {
+      "comment" : "No executable chunk found in Blorb file.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1522,6 +1595,7 @@
       }
     },
     "No game is currently running" : {
+      "comment" : "No game is currently running",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1565,6 +1639,7 @@
       }
     },
     "Not a game." : {
+      "comment" : "Not a game.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1575,6 +1650,7 @@
       }
     },
     "Not a match." : {
+      "comment" : "Not a match.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1585,6 +1661,7 @@
       }
     },
     "Not a supported format." : {
+      "comment" : "Not a supported format.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1595,6 +1672,7 @@
       }
     },
     "Not liked" : {
+      "comment" : "Not liked",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1627,6 +1705,7 @@
       }
     },
     "Oops" : {
+      "comment" : "Oops",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1637,6 +1716,7 @@
       }
     },
     "Open" : {
+      "comment" : "Open",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1658,6 +1738,7 @@
       }
     },
     "Organise all games now?" : {
+      "comment" : "Organise all games now?",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1690,6 +1771,7 @@
       }
     },
     "Paste Image" : {
+      "comment" : "Paste Image",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1722,6 +1804,7 @@
       }
     },
     "Please enter another name." : {
+      "comment" : "Please enter another name.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1743,6 +1826,7 @@
       }
     },
     "Presentation settings not covered by Glk styles" : {
+      "comment" : "Presentation settings not covered by Glk styles",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1786,6 +1870,7 @@
       }
     },
     "Pruning will delete the information about games that are not in the library at the moment." : {
+      "comment" : "Pruning will delete the information about games that are not in the library at the moment.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1840,6 +1925,7 @@
       }
     },
     "Remember this choice." : {
+      "comment" : "Remember this choice.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1871,6 +1957,7 @@
       }
     },
     "Restart" : {
+      "comment" : "Restart",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2046,6 +2133,7 @@
       }
     },
     "Search" : {
+      "comment" : "Search",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2056,6 +2144,7 @@
       }
     },
     "Search game database" : {
+      "comment" : "Search game database",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2066,6 +2155,7 @@
       }
     },
     "Select and organize themes" : {
+      "comment" : "Select and organize themes",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2087,6 +2177,7 @@
       }
     },
     "Settings for theme %@" : {
+      "comment" : "Settings for theme %@",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2097,6 +2188,7 @@
       }
     },
     "Settings that apply to all themes" : {
+      "comment" : "Settings that apply to all themes",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2195,6 +2287,7 @@
       }
     },
     "Stopped" : {
+      "comment" : "Stopped",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2205,6 +2298,7 @@
       }
     },
     "Text-to-speech settings" : {
+      "comment" : "Text-to-speech settings",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2215,6 +2309,7 @@
       }
     },
     "The game \"%@\" is taking a long time to load." : {
+      "comment" : "The game \"%@\" is taking a long time to load.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2225,6 +2320,7 @@
       }
     },
     "The game file \"%@\" is no longer accessible. This game will now close." : {
+      "comment" : "The game file \"%@\" is no longer accessible. This game will now close.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2235,6 +2331,7 @@
       }
     },
     "The game file for \"%@\" could not be found at its original location. Do you want to look for it?" : {
+      "comment" : "The game file for \"%@\" could not be found at its original location. Do you want to look for it?",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2245,6 +2342,7 @@
       }
     },
     "The game has unexpectedly terminated." : {
+      "comment" : "The game has unexpectedly terminated.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2255,6 +2353,7 @@
       }
     },
     "The game is not in a recognized file format; cannot find a suitable interpreter." : {
+      "comment" : "The game is not in a recognized file format; cannot find a suitable interpreter.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2265,6 +2364,7 @@
       }
     },
     "The theme name \"%@\" is already in use." : {
+      "comment" : "The theme name \"%@\" is already in use.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2275,6 +2375,7 @@
       }
     },
     "Theme setting for all games" : {
+      "comment" : "Theme setting for all games",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2285,6 +2386,7 @@
       }
     },
     "Theme setting for game %@" : {
+      "comment" : "Theme setting for game %@",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2295,6 +2397,7 @@
       }
     },
     "Themes" : {
+      "comment" : "Themes",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2305,6 +2408,7 @@
       }
     },
     "There were no library matches for the games in the iFiction file." : {
+      "comment" : "There were no library matches for the games in the iFiction file.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2315,6 +2419,7 @@
       }
     },
     "This file could not be read as an AGT game." : {
+      "comment" : "This file could not be read as an AGT game.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2325,6 +2430,7 @@
       }
     },
     "This file does not match the game \"%@.\"\nDo you want to replace it anyway?" : {
+      "comment" : "This file does not match the game \"%@.\"\nDo you want to replace it anyway?",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2346,6 +2452,7 @@
       }
     },
     "This game was automatically restored from a previous session." : {
+      "comment" : "This game was automatically restored from a previous session.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2356,6 +2463,7 @@
       }
     },
     "This theme uses %ld custom styles." : {
+      "comment" : "This theme uses %ld custom styles.",
       "localizations" : {
         "en" : {
           "variations" : {
@@ -2378,6 +2486,7 @@
       }
     },
     "This will empty your game list and delete all metadata. The original game files will not be affected." : {
+      "comment" : "This will empty your game list and delete all metadata. The original game files will not be affected.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2388,6 +2497,7 @@
       }
     },
     "This will only be done once. You can do this later by selecting games in the library and choosing Download Info from the contextual menu." : {
+      "comment" : "This will only be done once. You can do this later by selecting games in the library and choosing Download Info from the contextual menu.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2409,6 +2519,7 @@
       }
     },
     "Unknown file format." : {
+      "comment" : "Unknown file format.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2430,6 +2541,7 @@
       }
     },
     "VoiceOver" : {
+      "comment" : "VoiceOver",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2462,6 +2574,7 @@
       }
     },
     "Would you like to replace existing information?" : {
+      "comment" : "Would you like to replace existing information?",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2472,6 +2585,7 @@
       }
     },
     "Would you like to start over instead?" : {
+      "comment" : "Would you like to start over instead?",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2482,6 +2596,7 @@
       }
     },
     "Would you like to use theme %@ for all games?" : {
+      "comment" : "Would you like to use theme %@ for all games?",
       "localizations" : {
         "en" : {
           "stringUnit" : {

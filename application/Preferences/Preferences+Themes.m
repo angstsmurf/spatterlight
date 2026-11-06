@@ -300,7 +300,7 @@ static void *kArrangedThemesContext = &kArrangedThemesContext;
 
 - (void)changeThemeName:(NSString *)name {
     [[NSUserDefaults standardUserDefaults] setObject:name forKey:kThemeNameKey];
-    NSString *themeString = [NSString stringWithFormat:NSLocalizedString(@"Settings for theme %@", nil), name];
+    NSString *themeString = [NSString stringWithFormat:NSLocalizedString(@"Settings for theme %@", @"Settings for theme %@"), name];
     _detailsHeader.stringValue = themeString;
     _miscHeader.stringValue = themeString;
     _stylesHeader.stringValue = themeString;
@@ -333,8 +333,8 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (void)showDuplicateThemeNameAlert:(NSText *)fieldEditor theme:(Theme *)renamed {
-    NSAlert *anAlert = [NSAlert alertWithMessage:[NSString stringWithFormat:NSLocalizedString(@"The theme name \"%@\" is already in use.", nil), fieldEditor.string]
-                                            info:NSLocalizedString(@"Please enter another name.", nil)
+    NSAlert *anAlert = [NSAlert alertWithMessage:[NSString stringWithFormat:NSLocalizedString(@"The theme name \"%@\" is already in use.", @"The theme name \"%@\" is already in use."), fieldEditor.string]
+                                            info:NSLocalizedString(@"Please enter another name.", @"Please enter another name.")
                                          buttons:@[NSLocalizedString(@"Okay", @"Okay"), NSLocalizedString(@"Discard Change", @"Discard Change")]];
 
     [anAlert beginSheetModalForWindow:self.window completionHandler:^(NSInteger result){
@@ -405,10 +405,10 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (void)showUseForAllAlert:(NSArray *)games {
-    NSString *format = (games.count == 1) ? NSLocalizedString(@"%@ has individual theme settings.", nil) :
-    NSLocalizedString(@"%@ have individual theme settings.", nil);
+    NSString *format = (games.count == 1) ? NSLocalizedString(@"%@ has individual theme settings.", @"%@ has individual theme settings.") :
+    NSLocalizedString(@"%@ have individual theme settings.", @"%@ have individual theme settings.");
     NSString *message = [NSString stringWithFormat:format, [NSString stringWithSummaryOfGames:games]];
-    NSString *info = [NSString stringWithFormat:NSLocalizedString(@"Would you like to use theme %@ for all games?", nil), self.theme.name];
+    NSString *info = [NSString stringWithFormat:NSLocalizedString(@"Would you like to use theme %@ for all games?", @"Would you like to use theme %@ for all games?"), self.theme.name];
 
     Preferences * __weak weakSelf = self;
     [self showOkayCancelAlertWithMessage:message
@@ -424,20 +424,20 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (NSString *)themeScopeTitle {
-    if (_lightOverrideActive) return NSLocalizedString(@"Light theme override active", nil);
-    if (_darkOverrideActive) return NSLocalizedString(@"Dark theme override active", nil);
+    if (_lightOverrideActive) return NSLocalizedString(@"Light theme override active", @"Light theme override active");
+    if (_darkOverrideActive) return NSLocalizedString(@"Dark theme override active", @"Dark theme override active");
 
-    if (_oneThemeForAll) return NSLocalizedString(@"Theme setting for all games", nil);
+    if (_oneThemeForAll) return NSLocalizedString(@"Theme setting for all games", @"Theme setting for all games");
     if (_currentGame == nil)
-        return NSLocalizedString(@"No game is currently running", nil);
+        return NSLocalizedString(@"No game is currently running", @"No game is currently running");
 
     // Show the file name of a game without a title, but leave its metadata alone
     NSString *title = _currentGame.metadata.title;
     if (!title.length)
         title = _currentGame.path.lastPathComponent;
     if (!title.length)
-        return NSLocalizedString(@"Error: Current game has no metadata!", nil);
-    return [NSString stringWithFormat:NSLocalizedString(@"Theme setting for game %@", nil), title];
+        return NSLocalizedString(@"Error: Current game has no metadata!", @"Error: Current game has no metadata!");
+    return [NSString stringWithFormat:NSLocalizedString(@"Theme setting for game %@", @"Theme setting for game %@"), title];
 }
 
 - (IBAction)changeAdjustSize:(id)sender {

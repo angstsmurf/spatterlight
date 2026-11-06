@@ -79,7 +79,7 @@
 
     NSUInteger count = running.count;
     if (count) {
-        NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"Are you sure?", nil)
+        NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"Are you sure?", @"Are you sure?")
                                               info:[NSString stringWithFormat:@"%@ %@ currently in use. Do you want to close and delete %@?", [NSString stringWithSummaryOfGames:running], (count == 1) ? @"is" : @"are", (count == 1) ? @"it" : @"them"]
                                            buttons:@[NSLocalizedString(@"Delete", @"Delete"), NSLocalizedString(@"Cancel", @"Cancel")]];
 
@@ -212,7 +212,7 @@
 
     // One menu for the contextual menu, one for the main menu
     NSMenu *(^makeMenu)(void) = ^{
-        NSMenu *menu = [[NSMenu alloc] initWithTitle:NSLocalizedString(@"Apply Theme", nil)];
+        NSMenu *menu = [[NSMenu alloc] initWithTitle:NSLocalizedString(@"Apply Theme", @"Apply Theme")];
         menu.showsStateColumn = YES;
         for (Theme *theme in themes)
             [menu addItemWithTitle:theme.name action:@selector(applyTheme:) keyEquivalent:@""];
@@ -322,9 +322,9 @@
                 matching++;
         }
         if (value == 1)
-            menuItem.title = matching ? NSLocalizedString(@"Liked", nil) : NSLocalizedString(@"Like", nil);
+            menuItem.title = matching ? NSLocalizedString(@"Liked", @"Liked") : NSLocalizedString(@"Like", @"Like");
         else
-            menuItem.title = matching ? NSLocalizedString(@"Disliked", nil) : NSLocalizedString(@"Dislike", nil);
+            menuItem.title = matching ? NSLocalizedString(@"Disliked", @"Disliked") : NSLocalizedString(@"Dislike", @"Dislike");
         if (matching == 0)
             menuItem.state = NSControlStateValueOff;
         else if (matching == count)

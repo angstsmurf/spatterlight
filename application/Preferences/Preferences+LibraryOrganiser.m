@@ -27,7 +27,7 @@
     NSString *path = root.path.stringByAbbreviatingWithTildeInPath;
     // Also treat a custom location that points at the default folder as default.
     if ([root.path isEqualToString:defaultRoot.path])
-        path = [path stringByAppendingString:NSLocalizedString(@" (default)", nil)];
+        path = [path stringByAppendingString:NSLocalizedString(@" (default)", @" (default)")];
     _libraryLocationField.stringValue = path ?: @"";
     _libraryLocationField.toolTip = root.path;
 }
@@ -59,11 +59,11 @@
     panel.allowsMultipleSelection = NO;
     panel.directoryURL = startURL;
 
-    panel.prompt = NSLocalizedString(@"Choose", nil);
-    panel.message = NSLocalizedString(@"Choose a folder to keep your game library in.", nil);
+    panel.prompt = NSLocalizedString(@"Choose", @"Choose");
+    panel.message = NSLocalizedString(@"Choose a folder to keep your game library in.", @"Choose a folder to keep your game library in.");
 
     NSButton *defaultButton =
-        [NSButton buttonWithTitle:NSLocalizedString(@"Go to default", nil)
+        [NSButton buttonWithTitle:NSLocalizedString(@"Go to default", @"Go to default")
                            target:self
                            action:@selector(goToDefaultLibraryLocation:)];
     defaultButton.bezelStyle = NSBezelStyleRounded;
@@ -115,8 +115,8 @@
     if (!libcontroller)
         return;
 
-    NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"Organise all games now?", nil)
-                                          info:NSLocalizedString(@"Every game in your library will be copied into the central library folder, arranged by group and title. This may take a while for a large library.", nil)
+    NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"Organise all games now?", @"Organise all games now?")
+                                          info:NSLocalizedString(@"Every game in your library will be copied into the central library folder, arranged by group and title. This may take a while for a large library.", @"Every game in your library will be copied into the central library folder, arranged by group and title. This may take a while for a large library.")
                                        buttons:@[NSLocalizedString(@"Organise", @"Organise"), NSLocalizedString(@"Cancel", @"Cancel")]];
 
     Preferences * __weak weakSelf = self;
@@ -128,8 +128,8 @@
         context.undoManager = nil;
         [[LibraryOrganizer sharedOrganizer] organiseAllGamesInContext:context completion:^(NSUInteger organisedCount) {
             [libcontroller.coreDataManager saveChanges];
-            NSAlert *done = [NSAlert alertWithMessage:NSLocalizedString(@"Finished organising games.", nil)
-                                                 info:[NSString stringWithFormat: NSLocalizedString(@"%lu games are now in the library folder.", nil), (unsigned long)organisedCount]
+            NSAlert *done = [NSAlert alertWithMessage:NSLocalizedString(@"Finished organising games.", @"Finished organising games.")
+                                                 info:[NSString stringWithFormat: NSLocalizedString(@"%lu games are now in the library folder.", @"%lu games are now in the library folder."), (unsigned long)organisedCount]
                                               buttons:nil];
             [done beginSheetModalForWindow:weakSelf.window completionHandler:nil];
         }];

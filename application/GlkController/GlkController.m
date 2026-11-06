@@ -846,8 +846,8 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
                 }
 
                 NSOpenPanel *openPanel = [NSOpenPanel openPanel];
-                openPanel.message = NSLocalizedString(@"Spatterlight would like to access files in this folder", nil);
-                openPanel.prompt = NSLocalizedString(@"Authorize", nil);
+                openPanel.message = NSLocalizedString(@"Spatterlight would like to access files in this folder", @"Spatterlight would like to access files in this folder");
+                openPanel.prompt = NSLocalizedString(@"Authorize", @"Authorize");
                 openPanel.canChooseFiles = NO;
                 openPanel.canChooseDirectories = YES;
                 openPanel.canCreateDirectories = NO;
@@ -880,7 +880,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 }
 
 - (void)showGameFileGoneAlert {
-    NSAlert *anAlert = [NSAlert alertWithMessage:[NSString stringWithFormat:NSLocalizedString(@"The game file \"%@\" is no longer accessible. This game will now close.", nil), self.gamefile.lastPathComponent]
+    NSAlert *anAlert = [NSAlert alertWithMessage:[NSString stringWithFormat:NSLocalizedString(@"The game file \"%@\" is no longer accessible. This game will now close.", @"The game file \"%@\" is no longer accessible. This game will now close."), self.gamefile.lastPathComponent]
                                             info:nil
                                          buttons:nil];
 
@@ -958,9 +958,9 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         NSLog(@"windowShouldClose: Window close alert suppressed");
         return YES;
     }
-    alert = [NSAlert alertWithMessage:NSLocalizedString(@"Do you want to abandon the game?", nil)
-                                 info:NSLocalizedString(@"Any unsaved progress will be lost.", nil)
-                              buttons:@[NSLocalizedString(@"Close", nil), NSLocalizedString(@"Cancel", @"Cancel")]];
+    alert = [NSAlert alertWithMessage:NSLocalizedString(@"Do you want to abandon the game?", @"Do you want to abandon the game?")
+                                 info:NSLocalizedString(@"Any unsaved progress will be lost.", @"Any unsaved progress will be lost.")
+                              buttons:@[NSLocalizedString(@"Close", @"Close"), NSLocalizedString(@"Cancel", @"Cancel")]];
     // Only a Close is remembered: ticking the box and cancelling keeps asking.
     [alert showSuppressionButtonWithTitle:nil];
 

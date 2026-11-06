@@ -350,10 +350,10 @@
     else if (menuItem.action == @selector(addDescription:)) {
         NSMenuItem *description = [self.menu itemWithTag:DESCRIPTIONTAG];
         if (!_isPlaceholder) {
-            description.title = (game.metadata.coverArtDescription.length || game.metadata.cover.imageDescription.length) ? NSLocalizedString(@"Edit description", nil) : NSLocalizedString(@"Add description", nil);
+            description.title = (game.metadata.coverArtDescription.length || game.metadata.cover.imageDescription.length) ? NSLocalizedString(@"Edit description", @"Edit description") : NSLocalizedString(@"Add description", @"Add description");
             return YES;
         } else {
-            description.title = NSLocalizedString(@"Add description", nil);
+            description.title = NSLocalizedString(@"Add description", @"Add description");
             return NO;
         }
     }
@@ -463,7 +463,7 @@
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     panel.allowsMultipleSelection = NO;
     panel.canChooseDirectories = NO;
-    panel.prompt = NSLocalizedString(@"Open", nil);
+    panel.prompt = NSLocalizedString(@"Open", @"Open");
 
     panel.allowedFileTypes = imageTypes;
 

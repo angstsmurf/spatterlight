@@ -57,7 +57,7 @@ typedef NS_ENUM(int32_t, MetadataImportResult) {
 
 - (void)importMetadataInContext:(NSManagedObjectContext *)ctx window:(NSWindow *)window {
     NSOpenPanel *panel = [NSOpenPanel openPanel];
-    panel.prompt = NSLocalizedString(@"Import", nil);
+    panel.prompt = NSLocalizedString(@"Import", @"Import");
 
     panel.allowedFileTypes = @[ @"iFiction", @"ifiction" ];
 
@@ -79,7 +79,7 @@ typedef NS_ENUM(int32_t, MetadataImportResult) {
     panel.accessoryView = accView;
     panel.allowedFileTypes = @[ @"iFiction" ];
     panel.prompt = NSLocalizedString(@"Export", @"Export");
-    panel.nameFieldStringValue = NSLocalizedString(@"Interactive Fiction Metadata.iFiction", nil);
+    panel.nameFieldStringValue = NSLocalizedString(@"Interactive Fiction Metadata.iFiction", @"Interactive Fiction Metadata.iFiction");
 
     [panel beginSheetModalForWindow:window
                   completionHandler:^(NSModalResponse result) {
@@ -162,7 +162,7 @@ typedef NS_ENUM(int32_t, MetadataImportResult) {
     NSMutableSet<NSManagedObjectID *> *gameIDs = [NSMutableSet new];
     NSMutableSet<NSManagedObjectID *> *indirectGameIDs = [NSMutableSet new];
 
-    NSString __block *msg = NSLocalizedString(@"There were no library matches for the games in the iFiction file.", nil);
+    NSString __block *msg = NSLocalizedString(@"There were no library matches for the games in the iFiction file.", @"There were no library matches for the games in the iFiction file.");
     NSString __block *msg2;
 
 
@@ -200,7 +200,7 @@ typedef NS_ENUM(int32_t, MetadataImportResult) {
 
         if (games.count > 0) {
             importResult = kImportResultExactMatchesOnly;
-            msg = [NSString stringWithFormat:NSLocalizedString(@"Found details matching %@ in iFiction file.", nil),
+            msg = [NSString stringWithFormat:NSLocalizedString(@"Found details matching %@ in iFiction file.", @"Found details matching %@ in iFiction file."),
                    [NSString stringWithSummaryOfGames:games.allObjects]];
         } else if (storyDict.count) {
             NSLog(@"askAboutImportingMetadata: None of the %ld direct matches found in database", storyDict.count);
@@ -214,15 +214,15 @@ typedef NS_ENUM(int32_t, MetadataImportResult) {
 
             if (importResult == kImportResultExactAndPartialMatches) {
                 if (indirectGames.count > 1) {
-                    msg2 = [NSString stringWithFormat:NSLocalizedString(@"Also found partial matches for %@ in iFiction file.", nil), [NSString stringWithSummaryOfGames:indirectGames.allObjects]];
+                    msg2 = [NSString stringWithFormat:NSLocalizedString(@"Also found partial matches for %@ in iFiction file.", @"Also found partial matches for %@ in iFiction file."), [NSString stringWithSummaryOfGames:indirectGames.allObjects]];
                 } else {
-                    msg2 = [NSString stringWithFormat:NSLocalizedString(@"Also found partial match for %@ in iFiction file.", nil), [NSString stringWithSummaryOfGames:indirectGames.allObjects]];
+                    msg2 = [NSString stringWithFormat:NSLocalizedString(@"Also found partial match for %@ in iFiction file.", @"Also found partial match for %@ in iFiction file."), [NSString stringWithSummaryOfGames:indirectGames.allObjects]];
                 }
             } else {
                 if (indirectGames.count > 1) {
-                    msg2 = [NSString stringWithFormat:NSLocalizedString(@"Found partial matches for %@.", nil), [NSString stringWithSummaryOfGames:indirectGames.allObjects]];
+                    msg2 = [NSString stringWithFormat:NSLocalizedString(@"Found partial matches for %@.", @"Found partial matches for %@."), [NSString stringWithSummaryOfGames:indirectGames.allObjects]];
                 } else {
-                    msg2 = [NSString stringWithFormat:NSLocalizedString(@"Found partial match for %@.", nil), [NSString stringWithSummaryOfGames:indirectGames.allObjects]];
+                    msg2 = [NSString stringWithFormat:NSLocalizedString(@"Found partial match for %@.", @"Found partial match for %@."), [NSString stringWithSummaryOfGames:indirectGames.allObjects]];
                 }
             }
         } else if (indirectDict.count) {
@@ -240,7 +240,7 @@ typedef NS_ENUM(int32_t, MetadataImportResult) {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         BOOL found = (importResult != kImportResultNoneFound);
         NSAlert *anAlert = [NSAlert alertWithMessage:msg
-                                                info:found ? NSLocalizedString(@"Would you like to replace existing information?", nil) : nil
+                                                info:found ? NSLocalizedString(@"Would you like to replace existing information?", @"Would you like to replace existing information?") : nil
                                              buttons:found ? @[ NSLocalizedString(@"Okay", @"Okay"), NSLocalizedString(@"Cancel", @"Cancel") ] : @[ NSLocalizedString(@"Okay", @"Okay") ]];
 
         [anAlert beginSheetModalForWindow:tvc.view.window completionHandler:^(NSModalResponse result){
@@ -463,8 +463,8 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasAskedToDownload"];
 
-        NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"Do you want to download game info from IFDB in the background?", nil)
-                                              info:NSLocalizedString(@"This will only be done once. You can do this later by selecting games in the library and choosing Download Info from the contextual menu.", nil)
+        NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"Do you want to download game info from IFDB in the background?", @"Do you want to download game info from IFDB in the background?")
+                                              info:NSLocalizedString(@"This will only be done once. You can do this later by selecting games in the library and choosing Download Info from the contextual menu.", @"This will only be done once. You can do this later by selecting games in the library and choosing Download Info from the contextual menu.")
                                            buttons:@[NSLocalizedString(@"Okay", @"Okay"), NSLocalizedString(@"Cancel", @"Cancel")]];
 
         MetadataHandler * __weak weakSelf = self;

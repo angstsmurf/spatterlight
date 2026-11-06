@@ -193,8 +193,8 @@ static const ButtonItemSpec kButtonItems[] = {
         toolbarItem.maxSize = NSMakeSize(200, 20);
         toolbarItem.minSize = NSMakeSize(100, 20);
     }
-    toolbarItem.label   = NSLocalizedString(@"Search", nil);
-    toolbarItem.toolTip = NSLocalizedString(@"Search game database", nil);
+    toolbarItem.label   = NSLocalizedString(@"Search", @"Search");
+    toolbarItem.toolTip = NSLocalizedString(@"Search game database", @"Search game database");
     return toolbarItem;
 }
 

@@ -313,8 +313,8 @@ void ReportImportFailure(NSString *title, NSString *info) {
     }
 
     if (report) {
-        ReportImportFailure(NSLocalizedString(@"Unknown file format.", nil),
-                            [NSString stringWithFormat:NSLocalizedString(@"Can not recognize the file extension \".%@\"", nil), path.pathExtension]);
+        ReportImportFailure(NSLocalizedString(@"Unknown file format.", @"Unknown file format."),
+                            [NSString stringWithFormat:NSLocalizedString(@"Can not recognize the file extension \".%@\"", @"Can not recognize the file extension \".%@\""), path.pathExtension]);
     }
 }
 
@@ -326,13 +326,13 @@ void ReportImportFailure(NSString *title, NSString *info) {
             return YES;
         case kBabelUnknownFormat:
             if (report)
-                ReportImportFailure(NSLocalizedString(@"Unknown file format.", nil),
-                                    NSLocalizedString(@"Babel can not identify the file format.", nil));
+                ReportImportFailure(NSLocalizedString(@"Unknown file format.", @"Unknown file format."),
+                                    NSLocalizedString(@"Babel can not identify the file format.", @"Babel can not identify the file format."));
             return NO;
         case kBabelNoIfid:
             if (report)
-                ReportImportFailure(NSLocalizedString(@"Fatal error.", nil),
-                                    NSLocalizedString(@"Can not compute IFID from the file.", nil));
+                ReportImportFailure(NSLocalizedString(@"Fatal error.", @"Fatal error."),
+                                    NSLocalizedString(@"Can not compute IFID from the file.", @"Can not compute IFID from the file."));
             else
                 NSLog(@"Babel can not compute IFID from the file.");
             return NO;
@@ -403,8 +403,8 @@ void ReportImportFailure(NSString *title, NSString *info) {
         ifid = [GameImporter identifyAGTFile:path];
         if (!ifid) {
             if (report) {
-                ReportImportFailure(NSLocalizedString(@"Could not read game.", nil),
-                                    NSLocalizedString(@"This file could not be read as an AGT game.", nil));
+                ReportImportFailure(NSLocalizedString(@"Could not read game.", @"Could not read game."),
+                                    NSLocalizedString(@"This file could not be read as an AGT game.", @"This file could not be read as an AGT game."));
             } else {
                 NSLog(@"This file could not be read as an AGT game.");
             }
@@ -430,8 +430,8 @@ void ReportImportFailure(NSString *title, NSString *info) {
         BlorbResource *executable = [blorb resourcesForUsage:BlorbUsageExecutable].firstObject;
         if (!executable) {
             if (report) {
-                ReportImportFailure(NSLocalizedString(@"Not a game.", nil),
-                                    NSLocalizedString(@"No executable chunk found in Blorb file.", nil));
+                ReportImportFailure(NSLocalizedString(@"Not a game.", @"Not a game."),
+                                    NSLocalizedString(@"No executable chunk found in Blorb file.", @"No executable chunk found in Blorb file."));
             }
             return nil;
         }
@@ -447,8 +447,8 @@ void ReportImportFailure(NSString *title, NSString *info) {
 
     if (![self isSupportedFormat:formatStr extension:extension data:fileData]) {
         if (report) {
-            ReportImportFailure(NSLocalizedString(@"Unknown file format.", nil),
-                                NSLocalizedString(@"Not a supported format.", nil));
+            ReportImportFailure(NSLocalizedString(@"Unknown file format.", @"Unknown file format."),
+                                NSLocalizedString(@"Not a supported format.", @"Not a supported format."));
         }
         return nil;
     }

@@ -152,8 +152,8 @@
         terp = gFormatMap[game.detectedFormat];
 
     if (!terp) {
-        [[NSAlert alertWithMessage:NSLocalizedString(@"Cannot play the file.", nil)
-                              info:NSLocalizedString(@"The game is not in a recognized file format; cannot find a suitable interpreter.", nil)
+        [[NSAlert alertWithMessage:NSLocalizedString(@"Cannot play the file.", @"Cannot play the file.")
+                              info:NSLocalizedString(@"The game is not in a recognized file format; cannot find a suitable interpreter.", @"The game is not in a recognized file format; cannot find a suitable interpreter.")
                            buttons:nil] runModal];
         return nil;
     }
@@ -189,8 +189,8 @@
                 }
 
                 if (newData.length == 0 || hashTag.length == 0) {
-                    [[NSAlert alertWithMessage:NSLocalizedString(@"Failed to open the game.", nil)
-                                          info:[NSString stringWithFormat:NSLocalizedString(@"File access to \"%@\" was not permitted.", nil), newURL.lastPathComponent]
+                    [[NSAlert alertWithMessage:NSLocalizedString(@"Failed to open the game.", @"Failed to open the game.")
+                                          info:[NSString stringWithFormat:NSLocalizedString(@"File access to \"%@\" was not permitted.", @"File access to \"%@\" was not permitted."), newURL.lastPathComponent]
                                        buttons:nil] runModal];
                 } else {
                     game.hashTag = hashTag;
@@ -223,9 +223,9 @@
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             // The operation is finished once it has delivered data or failed
             if (gctl.gameData == nil && !operation.isFinished && !systemWindowRestoration) {
-                gctl.slowReadAlert = [NSAlert alertWithMessage:[NSString stringWithFormat:NSLocalizedString(@"The game \"%@\" is taking a long time to load.", nil), blockGame.metadata.title]
+                gctl.slowReadAlert = [NSAlert alertWithMessage:[NSString stringWithFormat:NSLocalizedString(@"The game \"%@\" is taking a long time to load.", @"The game \"%@\" is taking a long time to load."), blockGame.metadata.title]
                                                           info:nil
-                                                       buttons:@[ NSLocalizedString(@"Cancel loading", nil) ]];
+                                                       buttons:@[ NSLocalizedString(@"Cancel loading", @"Cancel loading") ]];
                 NSAlert __weak *alert = gctl.slowReadAlert;
 
                 [alert beginSheetModalForWindow:gctl.window completionHandler:^(NSModalResponse result){

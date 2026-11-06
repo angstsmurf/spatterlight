@@ -53,7 +53,7 @@ extern NSArray *gGameFileTypes;
 
 - (void)lookForMissingFile:(Game *)game libController:(TableViewController *)libController {
     NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"Cannot find the file.", @"Cannot find the file.")
-                                          info:[NSString stringWithFormat: NSLocalizedString(@"The game file for \"%@\" could not be found at its original location. Do you want to look for it?", nil), game.metadata.title]
+                                          info:[NSString stringWithFormat: NSLocalizedString(@"The game file for \"%@\" could not be found at its original location. Do you want to look for it?", @"The game file for \"%@\" could not be found at its original location. Do you want to look for it?"), game.metadata.title]
                                        buttons:@[ NSLocalizedString(@"Look for game", @"Look for game"), NSLocalizedString(@"Cancel", @"Cancel"), NSLocalizedString(@"Delete game", @"Delete game") ]];
 
     NSModalResponse choice = [alert runModal];
@@ -62,7 +62,7 @@ extern NSArray *gGameFileTypes;
         NSOpenPanel *panel = [NSOpenPanel openPanel];
         [panel setAllowsMultipleSelection:NO];
         [panel setCanChooseDirectories:NO];
-        panel.prompt = NSLocalizedString(@"Open", nil);
+        panel.prompt = NSLocalizedString(@"Open", @"Open");
 
         NSDictionary *values = [NSURL resourceValuesForKeys:@[NSURLPathKey]
                                            fromBookmarkData:(NSData *)game.fileLocation];
@@ -87,8 +87,8 @@ extern NSArray *gGameFileTypes;
                     NSString *parentDirectory = newPath.stringByDeletingLastPathComponent;
                     [self lookForMoreMissingFilesInFolder:parentDirectory context:game.managedObjectContext];
                 } else {
-                    NSAlert *anAlert = [NSAlert alertWithMessage:NSLocalizedString(@"Not a match.", nil)
-                                                            info:[NSString stringWithFormat:NSLocalizedString(@"This file does not match the game \"%@.\"\nDo you want to replace it anyway?", nil), game.metadata.title]
+                    NSAlert *anAlert = [NSAlert alertWithMessage:NSLocalizedString(@"Not a match.", @"Not a match.")
+                                                            info:[NSString stringWithFormat:NSLocalizedString(@"This file does not match the game \"%@.\"\nDo you want to replace it anyway?", @"This file does not match the game \"%@.\"\nDo you want to replace it anyway?"), game.metadata.title]
                                                          buttons:@[ NSLocalizedString(@"Yes", @"Yes"), NSLocalizedString(@"Cancel", @"Cancel") ]];
                     anAlert.alertStyle = NSAlertStyleInformational;
                     NSInteger response = [anAlert runModal];
@@ -236,8 +236,8 @@ extern NSArray *gGameFileTypes;
         NSArray *matchedIfids = filenames.allValues;
 
         if (filenames.count > 0) {
-            NSAlert *alert = [NSAlert alertWithMessage:[NSString stringWithFormat:(matchedIfids.count > 1) ? NSLocalizedString(@"%@ are also in this folder.", nil) : NSLocalizedString(@"%@ is also in this folder.", nil), [NSString stringWithSummaryOfGames:matchedIfids]]
-                                                  info:(matchedIfids.count > 1) ? NSLocalizedString(@"Do you want to update them as well?", nil) : NSLocalizedString(@"Do you want to update it as well?", nil)
+            NSAlert *alert = [NSAlert alertWithMessage:[NSString stringWithFormat:(matchedIfids.count > 1) ? NSLocalizedString(@"%@ are also in this folder.", @"%@ are also in this folder.") : NSLocalizedString(@"%@ is also in this folder.", @"%@ is also in this folder."), [NSString stringWithSummaryOfGames:matchedIfids]]
+                                                  info:(matchedIfids.count > 1) ? NSLocalizedString(@"Do you want to update them as well?", @"Do you want to update them as well?") : NSLocalizedString(@"Do you want to update it as well?", @"Do you want to update it as well?")
                                                buttons:@[NSLocalizedString(@"Yes", @"Yes"), NSLocalizedString(@"Cancel", @"Cancel")]];
             alert.alertStyle = NSAlertStyleInformational;
 

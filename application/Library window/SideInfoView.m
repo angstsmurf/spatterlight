@@ -51,7 +51,7 @@
 + (NSMenu *)defaultMenu {
     NSMenu *menu = [[NSMenu alloc] initWithTitle:@""];
 
-    NSMenuItem *paste = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Paste Image", nil) action:@selector(paste:) keyEquivalent:@""];
+    NSMenuItem *paste = [[NSMenuItem alloc] initWithTitle:NSLocalizedString(@"Paste Image", @"Paste Image") action:@selector(paste:) keyEquivalent:@""];
 
     [menu addItem:paste];
 
@@ -413,7 +413,7 @@
             _downloadButton = [self createDownloadButton];
         if (_downloadButton.superview != titleField) {
             [self addSubview:_downloadButton];
-            _downloadButton.toolTip = NSLocalizedString(@"Download game info", nil);
+            _downloadButton.toolTip = NSLocalizedString(@"Download game info", @"Download game info");
 
             // We need to add these constraints in order to make the button
             // stay in position when resizing the side view

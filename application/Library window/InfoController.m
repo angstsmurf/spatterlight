@@ -329,7 +329,7 @@
     if (_meta.title.length) {
         self.window.title =
         [NSString stringWithFormat:@"%@ Info", _meta.title];
-    } else self.window.title = NSLocalizedString(@"Game Info", nil);
+    } else self.window.title = NSLocalizedString(@"Game Info", @"Game Info");
 
     if (_meta) {
         // Clear fields whose value was removed since the last update

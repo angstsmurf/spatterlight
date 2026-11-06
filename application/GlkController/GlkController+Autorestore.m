@@ -1188,10 +1188,10 @@ NSString * const kAutosaveGUILateFile = @"autosave-GUI-late.plist";
 
     self.mustBeQuiet = YES;
 
-    NSAlert *anAlert = [NSAlert alertWithMessage:NSLocalizedString(@"This game was automatically restored from a previous session.", nil)
-                                            info:NSLocalizedString(@"Would you like to start over instead?", nil)
-                                         buttons:@[NSLocalizedString(@"Continue", nil), NSLocalizedString(@"Restart", nil)]];
-    [anAlert showSuppressionButtonWithTitle:NSLocalizedString(@"Remember this choice.", nil)];
+    NSAlert *anAlert = [NSAlert alertWithMessage:NSLocalizedString(@"This game was automatically restored from a previous session.", @"This game was automatically restored from a previous session.")
+                                            info:NSLocalizedString(@"Would you like to start over instead?", @"Would you like to start over instead?")
+                                         buttons:@[NSLocalizedString(@"Continue", @"Continue"), NSLocalizedString(@"Restart", @"Restart")]];
+    [anAlert showSuppressionButtonWithTitle:NSLocalizedString(@"Remember this choice.", @"Remember this choice.")];
 
     GlkController * __weak weakSelf = self;
 

@@ -595,7 +595,7 @@ static NSString *stringFromPayload(char *buf, size_t len) {
     }
     self.pendingErrorMessage = nil;
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSAlert alertWithMessage:NSLocalizedString(@"ERROR", nil) info:str buttons:nil] runModal];
+        [[NSAlert alertWithMessage:NSLocalizedString(@"ERROR", @"ERROR") info:str buttons:nil] runModal];
     });
 }
 

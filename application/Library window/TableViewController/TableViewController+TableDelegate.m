@@ -357,7 +357,7 @@ static NSPredicate *searchPredicateForWord(NSString *word) {
             NSLog(@"updateWindowSubtitle: %@", error);
             return;
         }
-        self.view.window.subtitle = [NSString localizedStringWithFormat:NSLocalizedString(@"%lu games", nil), (unsigned long)count];
+        self.view.window.subtitle = [NSString localizedStringWithFormat:NSLocalizedString(@"%lu games", @"%lu games"), (unsigned long)count];
     }
 }
 
@@ -405,21 +405,21 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
 - (NSString *)imageNameForGame:(Game *)game description:(NSString * __autoreleasing *)description {
     NSString *name;
     if (!game.found) {
-        *description = NSLocalizedString(@"File not found", nil);
+        *description = NSLocalizedString(@"File not found", @"File not found");
         name = @"exclamationmark.circle";
     } else {
         BOOL playing = NO;
         GlkController *session = game.hashTag.length ? self.gameSessions[game.hashTag] : nil;
         if (session) {
             if (session.alive || session.showingCoverImage) {
-                *description = NSLocalizedString(@"In progress", nil);
+                *description = NSLocalizedString(@"In progress", @"In progress");
                 if (@available(macOS 11.0, *)) {
                     name = @"play.fill";
                 } else {
                     name = @"play";
                 }
             } else {
-                *description = NSLocalizedString(@"Stopped", nil);
+                *description = NSLocalizedString(@"Stopped", @"Stopped");
                 if (@available(macOS 11.0, *)) {
                     name = @"stop.fill";
                 } else {
@@ -430,7 +430,7 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
         }
         if (!playing) {
             if (game.autosaved) {
-                *description = NSLocalizedString(@"Autosaved", nil);
+                *description = NSLocalizedString(@"Autosaved", @"Autosaved");
                 name = @"pause.fill";
             } else {
                 *description = nil;
@@ -478,25 +478,25 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
 //! The heart of a game that is neither liked nor disliked shows only under
 //! the mouse.
 static NSImage *hoverLikeImage(BOOL hovered) {
-    return hovered ? symbolImage(@"heart", NSLocalizedString(@"Like", nil)) : nil;
+    return hovered ? symbolImage(@"heart", NSLocalizedString(@"Like", @"Like")) : nil;
 }
 
 - (void)configureLikeCell:(LikeCellView *)likeCellView game:(Game *)game row:(NSInteger)row {
     switch (game.like) {
         case 2:
-            likeCellView.likeButton.image = symbolImage(@"heart.slash.fill", NSLocalizedString(@"Disliked", nil));
-            likeCellView.toolTip = NSLocalizedString(@"Disliked", nil);
-            likeCellView.accessibilityLabel = NSLocalizedString(@"Disliked", nil);
+            likeCellView.likeButton.image = symbolImage(@"heart.slash.fill", NSLocalizedString(@"Disliked", @"Disliked"));
+            likeCellView.toolTip = NSLocalizedString(@"Disliked", @"Disliked");
+            likeCellView.accessibilityLabel = NSLocalizedString(@"Disliked", @"Disliked");
             break;
         case 1:
-            likeCellView.likeButton.image = symbolImage(@"heart.fill", NSLocalizedString(@"Liked", nil));
-            likeCellView.toolTip = NSLocalizedString(@"Liked", nil);
-            likeCellView.accessibilityLabel = NSLocalizedString(@"Liked", nil);
+            likeCellView.likeButton.image = symbolImage(@"heart.fill", NSLocalizedString(@"Liked", @"Liked"));
+            likeCellView.toolTip = NSLocalizedString(@"Liked", @"Liked");
+            likeCellView.accessibilityLabel = NSLocalizedString(@"Liked", @"Liked");
             break;
         default:
             likeCellView.likeButton.image = hoverLikeImage(row == self.gameTableView.mouseOverRow);
-            likeCellView.toolTip = NSLocalizedString(@"Like", nil);
-            likeCellView.accessibilityLabel = NSLocalizedString(@"Not liked", nil);
+            likeCellView.toolTip = NSLocalizedString(@"Like", @"Like");
+            likeCellView.accessibilityLabel = NSLocalizedString(@"Not liked", @"Not liked");
             break;
     }
 }
