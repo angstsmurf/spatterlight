@@ -82,11 +82,17 @@ run_counts_line_elements (scr_gameref_t game)
  * that starts the text or follows a space decides; it is a word if it runs
  * to the end or is followed by a space or "," -- or "." from 3.9.
  *
+ * Deliberate deviation: the cut is made at the word c() found, not at the
+ * first substring, so `x athens then look` is "x athens" and "look" rather
+ * than "x a", "s" and "look".  The Runner's test for whether to cut is
+ * unchanged; only where it cuts differs, and only on a line that holds
+ * "then" inside an earlier word.
+ *
  * Measured on p38ASK / p39ASK (harness/make_38_askprobe.py,
  * make_39_askprobe.py; run380x runner_probes/ask.run380.split.rtf,
  * run390x runner_probes/ask.run390.split.txt).
  */
-static scr_bool
+static scr_int
 run_then_in_line_pre400 (const scr_char *line, scr_int length,
                          scr_bool period_ends)
 {
@@ -100,11 +106,11 @@ run_then_in_line_pre400 (const scr_char *line, scr_int length,
         {
           const scr_int after = posn + 4;
 
-          return after == length || line[after] == ' ' || line[after] == ','
-                 || (period_ends && line[after] == '.');
+          return (after == length || line[after] == ' ' || line[after] == ','
+                  || (period_ends && line[after] == '.')) ? posn : -1;
         }
     }
-  return FALSE;
+  return -1;
 }
 
 static scr_int run_period_cut (scr_gameref_t game, const scr_char *line,
@@ -163,13 +169,16 @@ run_find_split_pre400 (scr_gameref_t game, scr_int version,
         }
     }
 
-  if (run_then_in_line_pre400 (line, head, version >= TAF_VERSION_390))
-    {
-      for (found = line; strncmp (found, "then", 4) != 0; found++)
-        ;
-      cut = found - line;
-      sep_length = 4;
-    }
+  {
+    const scr_int then = run_then_in_line_pre400 (line, head,
+                                                  version >= TAF_VERSION_390);
+
+    if (then >= 0)
+      {
+        cut = then;
+        sep_length = 4;
+      }
+  }
 
   if (cut < 0)
     return -1;

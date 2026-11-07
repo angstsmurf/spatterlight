@@ -1847,6 +1847,17 @@ case, and their goldens are re-blessed. The row notes in
   No golden changed. (runner/scrun_split.cpp, runner/scrun_input.cpp,
   tools/scrun_census.cpp)
 
+- **Pre-4.0 "then" cuts at the word, not the first substring
+  (2026-11-07).** run370 43B29B, run380 441A4B and run390's then pass test
+  c("then") -- a whole-word test -- and then cut at InStr "then", a
+  substring, so `x athens then look` ran "x a", "s" and "look"
+  (ask.run380.split.rtf). `run_then_in_line_pre400()` now returns the
+  position c() accepted and `run_find_split_pre400()` cuts there. Whether
+  a line is cut is unchanged, so `x thenstone then i` is still one command
+  (c() stops at the first hit that follows a space and "thenstone" fails
+  the word test). Probed on p38EXAM/p39EXAM: `x athens then look` is now
+  "x athens" then the room. No golden changed. (runner/scrun_split.cpp)
+
 ## Rules measured and ported (index)
 
 One entry per rule: the rule, the game or probe that found it, and the
