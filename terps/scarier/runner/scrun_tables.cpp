@@ -310,7 +310,16 @@ static scr_commands_t STANDARD_COMMANDS[] = {
    * `get on %object%` arrived at the same time; it is a `stand on` synonym
    * that refuses differently.  See lib_cmd_get_on_object().
    */
-  {"get on %object%", lib_cmd_get_on_object},
+  {"get [on/onto] %object%", lib_cmd_get_on_object},
+  /*
+   * Deliberate deviation: no Runner has `get in X` or `get out of X`; the
+   * take rows above read every one of them as a take of X (see
+   * lib_take_declines_get_motion()).  Here `get in X` stands on a standable
+   * X, or lies on a lieable one, and `get out of X` is `get off X` while the
+   * player is on X.  Anything else declines to the verb catch-all.
+   */
+  {"get [in/into/inside] %object%", lib_cmd_get_in_object},
+  {"get out of %object%", lib_cmd_get_out_of_object},
   {"get {down/up} off %object%", lib_cmd_get_off_object},
   {"get off", lib_cmd_get_off},
   {"get down", lib_cmd_get_down},

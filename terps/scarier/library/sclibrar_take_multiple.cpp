@@ -351,7 +351,7 @@ lib_cmd_take_absent (scr_gameref_t game)
   const scr_char *best_term = nullptr;
   scr_int object, best_score, best_count, best_object;
 
-  if (lib_take_declines_get_on_390 (game))
+  if (lib_take_declines_get_motion (game))
     return FALSE;
 
   /* Pre-3.9 takes() names the first match out of reach, seen or not; see
@@ -889,17 +889,62 @@ lib_take_multi_get_off_line (void)
  * literal exists in run370/run380, which pick the stool up
  * (sit.run370.geton.rtf, sit.run380.geton.rtf), and 4.0's get_outer (4582D8)
  * has no such exclusion either: "You take the stool." (sit.run400.geton.txt).
- * So only 3.9 steps aside here -- the take rows and their catch-alls
- * (lib_cmd_take_absent(), lib_cmd_get_what()), since takes() never ran at
- * all -- and the `get on %object%` row or the verb catch-all answers.
+ * At 3.9 the take rows and their catch-alls (lib_cmd_take_absent(),
+ * lib_cmd_get_what()) step aside on those two literals, since takes() never
+ * ran at all, and the `get on %object%` row or the verb catch-all answers.
+ *
+ * Deliberate deviation (2026-11-07): every version steps aside on a
+ * get-motion line -- `get in/into/inside/on/onto X`, `get out of X` -- which
+ * is sitstand's, not a take.  Every Runner takes the named object
+ * instead: `get in stool` "You pick up the stool." / "You take the stool.",
+ * `get in chair` on a static "You can't take a chair." / "You can't take the
+ * chair!", `get out of stool` held "You've already got a stool!" (p37SIT..
+ * p4SIT, runner_probes/sit.run*.getin.*; The X-Files T76 `get in the van`
+ * "You take VW Van.", xfiles.run400.t76.txt).  A take is never what the
+ * player meant by any of them, so the lines go to lib_cmd_get_in_object(),
+ * lib_cmd_get_on_object() and lib_cmd_get_out_of_object(), and a line they
+ * decline falls to the verb catch-all.  A game's own task still wins,
+ * tasks being matched first; 4.0's get_outer leaves these lines alone too
+ * (run_line_t::get_outer_400()).
  */
 scr_bool
-lib_take_declines_get_on_390 (scr_gameref_t game)
+lib_get_motion_line (const scr_char *line)
+{
+  static const scr_char *const MOTION[] = {
+    "in ", "into ", "inside ", "on ", "onto ", "out of ", nullptr
+  };
+  const scr_char *rest;
+  scr_int index_;
+
+  if (!line || scr_strncasecmp (line, "get ", 4) != 0)
+    return FALSE;
+  rest = line + 4;
+  rest += strspn (rest, " ");
+  for (index_ = 0; MOTION[index_]; index_++)
+    {
+      const size_t length = strlen (MOTION[index_]);
+
+      if (scr_strncasecmp (rest, MOTION[index_], length) == 0
+          && rest[length + strspn (rest + length, " ")] != NUL)
+        return TRUE;
+    }
+  return FALSE;
+}
+
+scr_bool
+lib_take_declines_get_motion (scr_gameref_t game)
 {
   const scr_int version = prop_get_taf_version (gs_get_bundle (game));
   const scr_char *line = run_get_dispatch_input ();
 
-  if (!line || version < TAF_VERSION_390 || version >= TAF_VERSION_400)
+  if (!line)
+    return FALSE;
+  if (lib_get_motion_line (line))
+    {
+      SCR_DEVIATION ("take_get_motion", nullptr);
+      return TRUE;
+    }
+  if (version < TAF_VERSION_390 || version >= TAF_VERSION_400)
     return FALSE;
   return run_c_word_pre400 (version, line, "get on") >= 0
          || run_c_word_pre400 (version, line, "get down") >= 0;
@@ -1248,8 +1293,8 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
           || !lib_get_off_may_take (game)))
     return FALSE;
 
-  /* 3.9 `get on X` is sitstand's; see lib_take_declines_get_on_390(). */
-  if (!is_except && lib_take_declines_get_on_390 (game))
+  /* `get on/in/out of X` is sitstand's; see lib_take_declines_get_motion(). */
+  if (!is_except && lib_take_declines_get_motion (game))
     return FALSE;
 
   /* `take off all` and friends undress; see lib_take_multi_take_off_line(). */

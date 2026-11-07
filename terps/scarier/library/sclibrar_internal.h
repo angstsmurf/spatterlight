@@ -295,7 +295,7 @@ extern void lib_take_from_npc_backend (scr_gameref_t game, scr_int associate);
 /* sclibrar_take_multiple.cpp */
 extern scr_bool lib_take_filter (scr_gameref_t game, scr_int object,
                                  scr_int unused);
-extern scr_bool lib_take_declines_get_on_390 (scr_gameref_t game);
+extern scr_bool lib_take_declines_get_motion (scr_gameref_t game);
 extern scr_int lib_take_absent_score (scr_gameref_t game, scr_int object,
                                       const scr_char *input,
                                       const scr_char **term);

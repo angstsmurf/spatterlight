@@ -34,7 +34,7 @@ enum
 enum
 { MOVE_SIT, MOVE_SIT_FLOOR,
   MOVE_STAND, MOVE_STAND_FLOOR, MOVE_LIE, MOVE_LIE_FLOOR,
-  MOVE_GET_ON
+  MOVE_GET_ON, MOVE_GET_IN
 };
 
 /*
@@ -287,7 +287,7 @@ lib_stand_sit_lie (scr_gameref_t game, scr_int movement)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_int object, position;
+  scr_int object, position, sit_lie_flags;
   const scr_char *success_message;
   scr_bool is_pre_390;
 
@@ -297,15 +297,17 @@ lib_stand_sit_lie (scr_gameref_t game, scr_int movement)
     return TRUE;
 
   /* Get a target object for movement, -1 if floor. */
+  sit_lie_flags = 0;
   switch (movement)
     {
     case MOVE_STAND:
     case MOVE_GET_ON:
+    case MOVE_GET_IN:
     case MOVE_SIT:
     case MOVE_LIE:
       {
         const scr_char *disambiguate, *cant_do_that;
-        scr_int sit_lie_flags, movement_mask;
+        scr_int movement_mask;
         scr_vartype_t vt_key[3];
         scr_bool is_ambiguous;
 
@@ -331,6 +333,12 @@ lib_stand_sit_lie (scr_gameref_t game, scr_int movement)
             disambiguate = "stand on";
             cant_do_that = nullptr;
             movement_mask = OBJ_STANDABLE_MASK;
+            break;
+          case MOVE_GET_IN:
+            /* Stands when it can, else lies; see lib_cmd_get_in_object. */
+            disambiguate = "get in";
+            cant_do_that = nullptr;
+            movement_mask = OBJ_STANDABLE_MASK | OBJ_LIEABLE_MASK;
             break;
           case MOVE_SIT:
             disambiguate = "sit on";
@@ -405,6 +413,17 @@ lib_stand_sit_lie (scr_gameref_t game, scr_int movement)
    * a stool.".  p37SIT..p4SIT (make_3738_sitprobe.py,
    * runner_probes/sit.run*.sit2.*).
    */
+  if (movement == MOVE_GET_IN)
+    {
+      scr_vartype_t vt_key[3];
+
+      /* 3.7's scan broke out above without reading the flags. */
+      vt_key[0].string = "Objects";
+      vt_key[1].integer = object;
+      vt_key[2].string = "SitLie";
+      sit_lie_flags = prop_get_integer (bundle, "I<-sis", vt_key);
+      movement = sit_lie_flags & OBJ_STANDABLE_MASK ? MOVE_STAND : MOVE_LIE;
+    }
   switch (movement)
     {
     case MOVE_STAND:
@@ -468,7 +487,7 @@ lib_cmd_stand_on_object (scr_gameref_t game)
  * such exclusion, so a portable standable is taken again there: `get on
  * stool` is run390 "You stand on the stool." but run400 "You take the
  * stool." (p39SIT/p4SIT, runner_probes/sit.run390.geton.txt,
- * sit.run400.geton.txt; see lib_take_declines_get_on_390()).
+ * sit.run400.geton.txt; see lib_take_declines_get_motion()).
  *
  * It differs from `stand on X` in what happens when the object is not a
  * standable one.  The refusal "You can't stand on X." is not produced by
@@ -480,12 +499,43 @@ lib_cmd_stand_on_object (scr_gameref_t game)
  * want me to do with the shard of glass.", where `stand on glass` refuses.
  * Declining here reproduces that fall-through.
  *
- * Deliberate deviation: 3.7/3.8 take it too; see lib_cmd_get_off().
+ * Deliberate deviation (2026-11-07): 3.7, 3.8 and 4.0 get the 3.9
+ * behaviour too, instead of the take their Runners make (p37SIT..p4SIT,
+ * runner_probes/sit.run*.geton.*); see lib_take_declines_get_motion().
  */
 scr_bool
 lib_cmd_get_on_object (scr_gameref_t game)
 {
   return lib_stand_sit_lie (game, MOVE_GET_ON);
+}
+
+/*
+ * lib_cmd_get_in_object()
+ * lib_cmd_get_out_of_object()
+ *
+ * Deliberate deviation (2026-11-07).  No Runner has either: `get in X`,
+ * `get into X`, `get inside X` and `get out of X` are all a take of X in
+ * 3.7 to 4.0 -- "You pick up the stool." / "You take the stool.", a static
+ * "You can't take a chair." / "You can't take the chair!" (p37SIT..p4SIT,
+ * runner_probes/sit.run*.getin.*).  Here `get in X` stands on X when it is
+ * standable, like the Runner's own `stand in X` (the 3.9+ sitstand stand arm
+ * accepts c("in"), run400 46B889), and lies on a lieable X otherwise; `get
+ * out of X` is `get off X` while the player is on X.  Anything else -- a
+ * coin, a held stool, a bed the player is not in -- declines, and the verb
+ * catch-all answers "I don't understand what you want me to do with the X."
+ */
+scr_bool
+lib_cmd_get_in_object (scr_gameref_t game)
+{
+  return lib_stand_sit_lie (game, MOVE_GET_IN);
+}
+
+scr_bool
+lib_cmd_get_out_of_object (scr_gameref_t game)
+{
+  if (lib_player_parent_here (game) == -1)
+    return FALSE;
+  return lib_cmd_get_off_object (game);
 }
 
 /*

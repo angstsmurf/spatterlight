@@ -1138,6 +1138,36 @@ case, and their goldens are re-blessed. The row notes in
   Prefix when there is one ("I don't think Dave would ..."). An NPC with
   an alias, and 3.9/4.0, are unchanged. `[3.7] [3.8]`
   (lib_print_take_npc_refusal, library/sclibrar_take.cpp)
+- **Get in, get on and get out of are never a take (2026-11-07).** Every
+  Runner's take handler runs ahead of its sitstand proc and keys on the
+  bare `get`, so a motion line is a take of the named object: `get in
+  chair`, `get into chair` and `get out of chair` on a static chair are
+  run370/run380 "You can't take a chair.", run390 "You can't take the
+  chair.", run400 "You can't take the chair!"; on a portable stool they
+  are "You pick up the stool." / "You take the stool." and, once held,
+  "You've already got a stool!" / "You are already carrying the stool.";
+  `get in coin` with a held coin is already-got too. Only 3.9's takes()
+  (4544C6) excludes `get on` and `get down`, so `get on stool` stands
+  there and takes everywhere else, run400's get_outer (4582D8) included
+  (X-Files T76 `get in the van` took the van). p37SIT..p4SIT,
+  runner_probes/sit.run*.getin.*, sit.run*.geton.*. Not copied: a
+  get-motion line (`get in/into/inside/on/onto/out of X`) steps out of
+  the take at every version. `get on/onto X` is the 3.9 stand-on at
+  3.7, 3.8 and 4.0 too; `get in/into/inside X` stands on a standable X
+  and lies on a lie-only one (the Runner's own `stand in X`, run400
+  46B889, has no take in the way); `get out of X` is `get off X` when
+  the player is on something. A line none of those answers falls to the
+  verb catch-all "I don't understand what you want me to do with the
+  X." (which is what run390 says to `get on coin`), where Scarier
+  3.7-3.9 used to say "Take what?" against the Runners' "You can't take
+  a/the chair.". A bare `get in` is still "Take what?", `get stool`
+  still takes, a task on the line still wins, and `climb in X` ("You
+  can't climb the X.") and `enter X` ("Just a direction will do.") are
+  unchanged. No golden walkthrough takes with a motion line. `[3.7]
+  [3.8] [3.9] [4.0]` (lib_take_declines_get_motion,
+  library/sclibrar_take_multiple.cpp; lib_cmd_get_in_object,
+  lib_cmd_get_out_of_object, library/sclibrar_sitstand.cpp;
+  runner/scrun_tables.cpp)
 - **Pre-3.9 take-from with nothing there.** The Runner says "There is
   nothing inside <raw name>." even for a surface. At 3.8 it says a bare
   "You take " when nothing is taken (968f57a74). Scarier says "There is
@@ -1453,8 +1483,10 @@ case, and their goldens are re-blessed. The row notes in
   - A 4.0 `get in/into/on/out/under/... X` line that a task matches is left
     to the tasks (run_get_motion_task_line()). run400's get_outer takes the
     named object first, so X-Files' `get in the van` took the van
-    (1b29a95c0). `get van` and a movement line no task takes keep the take.
-    The xfiles route can go back to `get in the van`.
+    (1b29a95c0). `get van` keeps the take; a movement line no task takes
+    kept it until 2026-11-07, when get-motion lines went to sitstand at
+    every version (Deliberate deviations, "Get in, get on and get out of
+    are never a take"). The xfiles route can go back to `get in the van`.
     - The line without the Runner's own everything->all, slap->hit and
       except/apart from->but rewrites (84e923733), which run before any
       task. `slap *`, `confess everything to priest` and `say nothing
@@ -4297,8 +4329,10 @@ transcript names are in the code comment next to the named function, in
     coin."; run370/run380 pick the stool up and run400's get_outer takes it
     too ("You take the stool."). `[3.9]` p39SIT
     runner_probes/sit.run390.geton.txt cells 9, 26; sit.run370.geton.rtf,
-    sit.run380.geton.rtf, sit.run400.geton.txt
-    (lib_take_declines_get_on_390, 2026-11-07)
+    sit.run380.geton.rtf, sit.run400.geton.txt. Since 2026-11-07 Scarier
+    steps aside for `get in/into/inside/on/onto/out of X` at every
+    version (Deliberate deviations, "Get in, get on and get out of are
+    never a take"). (lib_take_declines_get_motion, 2026-11-07)
   - The 3.7/3.8 static take refusal names the raw Prefix: "You can't take
     a chair."
   - sitstand is blocks entered on c("sit"), c("stand"), c("lie") ANYWHERE

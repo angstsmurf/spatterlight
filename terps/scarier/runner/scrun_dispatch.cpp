@@ -988,11 +988,15 @@ run_line_t::get_outer_400 ()
               status = TRUE;
             }
         }
-      else if (run_get_motion_task_line (game, outer_line, task_string))
+      else if (run_get_motion_task_line (game, outer_line, task_string)
+               || lib_get_motion_line (outer_line))
         {
           /*
            * Not a take: the dispatcher has the line.  See
-           * run_get_motion_task_line().
+           * run_get_motion_task_line(), and for `get in/on/out of X`
+           * without a task, lib_take_declines_get_motion(): the sitstand
+           * rows answer those (p4SIT `get in stool` is run400's "You take
+           * the stool.", runner_probes/sit.run400.getin.txt).
            */
         }
       else if (lib_take_names_dynamic_400 (game, outer_line))

@@ -242,6 +242,9 @@ extern scr_bool lib_two_verb_line_pre400 (scr_gameref_t game,
 extern scr_bool lib_cmd_stand_scan_370 (scr_gameref_t game);
 extern scr_bool lib_cmd_lie_scan_370 (scr_gameref_t game);
 extern scr_bool lib_cmd_get_on_object (scr_gameref_t game);
+extern scr_bool lib_cmd_get_in_object (scr_gameref_t game);
+extern scr_bool lib_cmd_get_out_of_object (scr_gameref_t game);
+extern scr_bool lib_get_motion_line (const scr_char *line);
 extern scr_bool lib_cmd_get_off_object (scr_gameref_t game);
 extern scr_bool lib_cmd_get_off (scr_gameref_t game);
 extern scr_bool lib_cmd_get_down (scr_gameref_t game);

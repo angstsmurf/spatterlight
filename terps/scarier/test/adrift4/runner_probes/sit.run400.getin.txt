@@ -1,0 +1,52 @@
+
+> look
+Lit Room
+A bright room.  Also here is a stool.  You can only move north.
+
+> get in chair
+You can't take the chair!
+
+> get into chair
+You can't take the chair!
+
+> get out of chair
+You can't take the chair!
+
+> climb in chair
+You can't climb the chair.
+
+> climb on chair
+You can't climb the chair.
+
+> enter chair
+Just a direction will do.
+
+> get in stool
+You take the stool.
+
+> i
+You are carrying a coin, a stone and a stool.
+
+> drop stool
+You drop the stool.  
+
+> get into stool
+You take the stool.
+
+> get out of stool
+You are already carrying the stool.
+
+> climb in stool
+You can't climb the stool.
+
+> enter stool
+Just a direction will do.
+
+> get onto stool
+You are already carrying the stool.
+
+> get in coin
+You are already carrying the coin.
+
+> i
+You are carrying a coin, a stone and a stool.
