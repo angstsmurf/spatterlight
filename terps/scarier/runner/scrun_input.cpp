@@ -113,26 +113,18 @@ run_separator_task_line (scr_gameref_t game, const scr_char *line)
 }
 
 /*
- * run_comma_splits_pre390()
+ * run_task_matches_whole_line()
  *
- * Deliberate deviation: 3.7/3.8 split a line at a comma, as SCARE did and
- * 3.9 does, where run370/run380 never do (run_find_split_pre400()).  The
- * Runner rule stands wherever a task command matches the whole line, so a
- * game that wrote a comma into a command keeps it: arlo's `kill, kill, kill`
- * and `hello, customer`, tra's `mirror mirror on the wall, who's the fairest
- * of them all`, wrecked's `out (Redstown, no ticket)`, and any `say *` that
- * takes a comma in what is said.  The test is the plain matcher on the
- * unfiltered line, ahead of the synonym and pronoun rewrites.
+ * TRUE when some task command matches LINE as typed.  The test is the
+ * plain matcher on the unfiltered line, ahead of the synonym and pronoun
+ * rewrites; it gates the two splitting deviations below.
  */
-scr_bool
-run_comma_splits_pre390 (scr_gameref_t game, const scr_char *line)
+static scr_bool
+run_task_matches_whole_line (scr_gameref_t game, const scr_char *line)
 {
   const scr_task_commands_guard task_commands;
   const scr_int task_count = gs_task_count (game);
   scr_int task;
-
-  if (!strchr (line, ','))
-    return FALSE;
 
   for (task = 0; task < task_count; task++)
     {
@@ -145,11 +137,50 @@ run_comma_splits_pre390 (scr_gameref_t game, const scr_char *line)
                 continue;
               if (scr_strcasecmp (pattern, line) == 0
                   || uip_match (pattern, line, game))
-                return FALSE;
+                return TRUE;
             }
         }
     }
-  return TRUE;
+  return FALSE;
+}
+
+/*
+ * run_comma_splits_pre390()
+ *
+ * Deliberate deviation: 3.7/3.8 split a line at a comma, as SCARE did and
+ * 3.9 does, where run370/run380 never do (run_find_split_pre400()).  The
+ * Runner rule stands wherever a task command matches the whole line, so a
+ * game that wrote a comma into a command keeps it: arlo's `kill, kill, kill`
+ * and `hello, customer`, tra's `mirror mirror on the wall, who's the fairest
+ * of them all`, wrecked's `out (Redstown, no ticket)`, and any `say *` that
+ * takes a comma in what is said.
+ */
+scr_bool
+run_comma_splits_pre390 (scr_gameref_t game, const scr_char *line)
+{
+  return strchr (line, ',') != NULL
+         && !run_task_matches_whole_line (game, line);
+}
+
+/*
+ * run_period_splits()
+ *
+ * Deliberate deviation: a full stop separates commands at every version,
+ * with or without a space after it, as SCARE always did (its SEPARATORS
+ * were ".,"), so `n.e.s` and `x me.look` run as separate commands.  No
+ * Runner below 4.0 cuts at a bare "." and run370/run380 cut at no period
+ * at all (run_find_split_pre400()); run400's ". " pass is kept as measured
+ * and this adds the bare "." under it (run_find_split_400()).  As with
+ * commas, the Runner rule stands wherever a task command matches the whole
+ * line, so `say *` text and any command an author wrote with a period keep
+ * theirs; and a period whose next word names an object is not a cut either
+ * (run_period_cut()), so `x mr. smith` stays one command.
+ */
+scr_bool
+run_period_splits (scr_gameref_t game, const scr_char *line)
+{
+  return strchr (line, '.') != NULL
+         && !run_task_matches_whole_line (game, line);
 }
 
 
@@ -327,6 +358,9 @@ run_cut_element (scr_gameref_t game)
    */
   scr_int sep_length = 1;
 
+  /* The full-stop deviation; see run_period_splits(). */
+  const scr_bool period_splits = run_period_splits (game, run_line_buffer);
+
   if (prop_get_taf_version (bundle) >= TAF_VERSION_400)
     {
       /*
@@ -342,14 +376,15 @@ run_cut_element (scr_gameref_t game)
                                                          run_line_buffer))
                             ? -1
                             : run_find_split_400 (game, run_line_buffer,
-                                                  &sep_length);
+                                                  &sep_length, period_splits);
 
       if (SCR_TRACING_DEVIATIONS () && split < 0 && run_line_buffer[0] != NUL
           && run_separator_task_line (game, run_line_buffer))
         {
           scr_int runner_length = 1;
 
-          if (run_find_split_400 (game, run_line_buffer, &runner_length) >= 0)
+          if (run_find_split_400 (game, run_line_buffer, &runner_length,
+                                  FALSE) >= 0)
             SCR_DEVIATION ("separator_unsplit", "%s",
                            run_separator_trace.c_str ());
         }
@@ -366,22 +401,22 @@ run_cut_element (scr_gameref_t game)
        * run_find_split_pre400().
        */
       const scr_int version = prop_get_taf_version (bundle);
+      const scr_bool comma_splits = version < TAF_VERSION_390
+                                    && run_comma_splits_pre390
+                                         (game, run_line_buffer);
 
       length = run_separator_task_line (game, run_line_buffer)
                ? -1
-               : run_find_split_pre400 (version, run_line_buffer, &extent,
-                                        version < TAF_VERSION_390
-                                        && run_comma_splits_pre390
-                                             (game, run_line_buffer));
+               : run_find_split_pre400 (game, version, run_line_buffer,
+                                        &extent, comma_splits, period_splits);
       if (SCR_TRACING_DEVIATIONS () && length < 0
           && run_separator_task_line (game, run_line_buffer))
         {
           scr_int runner_extent = 0;
 
-          if (run_find_split_pre400 (version, run_line_buffer, &runner_extent,
-                                     version < TAF_VERSION_390
-                                     && run_comma_splits_pre390
-                                          (game, run_line_buffer)) >= 0)
+          if (run_find_split_pre400 (game, version, run_line_buffer,
+                                     &runner_extent, comma_splits,
+                                     FALSE) >= 0)
             SCR_DEVIATION ("separator_unsplit", "%s",
                            run_separator_trace.c_str ());
         }

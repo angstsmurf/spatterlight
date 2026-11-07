@@ -104,8 +104,8 @@ all four Runners under Wine, and each version follows its own rules.
   text colours are restored with it.
 - `glk undo`, `glk restore`, `glk restart` and `glk quit` for moments when the
   game's own commands are out of reach.
-- UNDO, Z, LOOK X, GO TO and comma-separated commands are kept even in 3.7 and
-  3.8 games, whose Runners lacked them. A command that matches no task under
+- UNDO, Z, LOOK X, GO TO and comma- or full-stop-separated commands are kept
+  even in 3.7 and 3.8 games, whose Runners lacked them. A command that matches no task under
   the Runner's strict rules is retried under looser ones.
 
 ### It is faster and better tested

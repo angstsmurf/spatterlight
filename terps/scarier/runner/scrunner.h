@@ -246,11 +246,14 @@ enum run_refusal_pass_t
 
 /* scrun_split.cpp */
 extern scr_bool run_counts_line_elements (scr_gameref_t game);
-extern scr_int run_find_split_pre400 (scr_int version, const scr_char *line,
-                                      scr_int *tail, scr_bool comma_splits);
+extern scr_int run_find_split_pre400 (scr_gameref_t game, scr_int version,
+                                      const scr_char *line, scr_int *tail,
+                                      scr_bool comma_splits,
+                                      scr_bool period_splits);
 extern std::string run_empty_then_head_390 (const scr_char *line);
 extern scr_int run_find_split_400 (scr_gameref_t game, const scr_char *line,
-                                   scr_int *sep_length);
+                                   scr_int *sep_length,
+                                   scr_bool period_splits);
 extern scr_int run_get_version (const scr_prop_setref_t bundle);
 extern void run_squeeze_spaces (const scr_char *string, scr_char *buffer);
 extern scr_int run_instr (const scr_char *line, const scr_char *word);
@@ -360,6 +363,7 @@ extern scr_bool run_separator_task_line (scr_gameref_t game,
                                          const scr_char *line);
 extern scr_bool run_comma_splits_pre390 (scr_gameref_t game,
                                          const scr_char *line);
+extern scr_bool run_period_splits (scr_gameref_t game, const scr_char *line);
 extern scr_char *run_element_filtered (scr_gameref_t game);
 extern scr_bool run_player_input (scr_gameref_t game);
 

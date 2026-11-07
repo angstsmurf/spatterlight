@@ -1826,6 +1826,27 @@ case, and their goldens are re-blessed. The row notes in
   scope, so it is left alone. No golden changed.
   (library/sclibrar_sitstand.cpp)
 
+- **A full stop separates commands at every version (2026-11-07).** SCARE
+  split on "." as well as "," (`SEPARATORS ".,"`), so `n.e.s` and `x
+  me.look` always ran as separate commands. run370/run380 cut at no period
+  at all and run390 only at ". " (ask.run380.split.rtf,
+  ask.run390.split.txt); run400 cuts at ". " unless the next word names an
+  object (and.run400.txt). The Runner cuts are kept as measured and the
+  deviation is layered under them, `run_period_splits()` /
+  `run_period_cut()`: any period left in the head cuts, with or without a
+  space after it, unless a task command matches the whole typed line (the
+  same guard as `run_comma_splits_pre390()`, so `login to think.com`,
+  `url www.ebay.com`, `3.141592653` and `1.)` still reach their tasks) or
+  the word after the period names an object (run400's own suppression
+  test, so `give candy bar to Mr.White` and `x mr. smith` stay whole).
+  Position 0 never cuts, so "." alone is still one DontUnderstand. The
+  old unconditional trailing-period cut in `run_find_split_400()` is
+  folded into this pass, so a task whose command ends in a period now
+  matches instead of losing it. Probed on p37/p38/p39EXAM and p4AND:
+  `i.i` answers twice, `n.e` moves twice, `x stone.crate` is one command.
+  No golden changed. (runner/scrun_split.cpp, runner/scrun_input.cpp,
+  tools/scrun_census.cpp)
+
 ## Rules measured and ported (index)
 
 One entry per rule: the rule, the game or probe that found it, and the
