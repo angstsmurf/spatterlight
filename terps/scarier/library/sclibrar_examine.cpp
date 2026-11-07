@@ -367,6 +367,45 @@ lib_absent_seen_object (scr_gameref_t game)
   return object;
 }
 
+/*
+ * lib_examine_present_winner_400()
+ *
+ * The up-front resolver's unique PRESENT winner, when nothing %object% bound
+ * is here, else -1.  examines (457034) reads MemVar_4942F8 back before it
+ * looks at anything else, so a present object whose name the line holds as
+ * a whole word is described even where the positional match settled on an
+ * object elsewhere.  House, the Lounge furniture chopped: `x rocking chair`
+ * with the rocking chair gone and the "ex chair" (Short "chair") in the
+ * room is "A pile of wood that used to be a chair.", and `x tea chest` "A
+ * load of planks that used to be a chest."
+ * (runner_probes/house.run400.exfurniture_nouns.txt); the positional
+ * binding alone answered "You see no such thing."  A present binding is
+ * left to the ordinary path (unmeasured against the read-back).
+ */
+static scr_int
+lib_examine_present_winner_400 (scr_gameref_t game)
+{
+  const scr_char *input;
+  scr_int index_, object;
+
+  if (!lib_is_version_400 (game))
+    return -1;
+  input = run_get_dispatch_input ();
+  if (!input)
+    return -1;
+
+  GS_FOR_EACH_OBJECT (game, index_)
+    {
+      if (game->object_references[index_]
+          && (obj_indirectly_in_room (game, index_, gs_playerroom (game))
+              || obj_indirectly_held_by_player (game, index_)))
+        return -1;
+    }
+
+  object = lib_verb_object_resolve_400_string (game, input, nullptr, TRUE);
+  return object >= 0 ? object : -1;
+}
+
 scr_bool
 lib_cant_see_absent_object (scr_gameref_t game,
                             const scr_char *suffix, scr_bool is_definite)
@@ -1660,8 +1699,12 @@ lib_cmd_examine_object (scr_gameref_t game)
   if (lib_examine_tied_absent_400 (game))
     return TRUE;
 
+  /* 4.0 reads the up-front noun score's present winner back first. */
+  object = lib_examine_present_winner_400 (game);
+
   /* 3.9's referencedob() settles a crowd of co()-true objects itself. */
-  object = lib_examine_crowded_390 (game);
+  if (object == -1)
+    object = lib_examine_crowded_390 (game);
   if (object == -2)
     return lib_print_message (game,
                               "Please examine one object at a time.\n");

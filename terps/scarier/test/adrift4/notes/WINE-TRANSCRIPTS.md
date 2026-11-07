@@ -563,6 +563,33 @@ identical, so none was re-driven. chicago and shetland (rerouted
 walkthroughs) were re-driven the same day. Still owed: ghoster (if T21 is
 taken up).
 
+### Engine, measured 2026-11-07, not yet decided (4.0)
+
+House's chopped Lounge, re-driven from the current `house_solution.txt`
+(221 lines, then `e e` and the probes; the stale
+`v4_full_rerun_cmds/house.txt` lacks `drop stool` and must not be used).
+run400.exe seed 1, runner_probes/house.run400.exfurniture.txt,
+house.run400.exfurniture_nouns.txt, house.run400.cathyaway.txt.
+
+- **Settled:** run400 never prints the "You can't see the rocking chair
+  from here!The ex chair is too heavy for you to carry at the moment."
+  joint that House ALRs #11/#13/#16/#17 rewrite: `get chair` with full
+  hands is "Your hands are full.", `get table` after `drop all` is "The ex
+  table is too heavy for you to carry at the moment.", and `x cathy` with
+  Cathy away in the Lounge prints her FailMessage once ("You go to examine
+  Cathy...then realise that she isn't here."). Those ALRs are dead in
+  run400 as they are in Scarier; nothing to port.
+- **Containment binds a present namesake over an absent in-place match
+  (4.0 library take and examine).** PORTED 2026-11-07; see "A present
+  namesake is not shadowed by an absent longer name" in the index below.
+  The cause was not the parser's containment pass but the term-shadow
+  deviation, lib_co_term_shadowed(), letting the seen-but-absent rocking
+  chair hide the present ex chair's Short in the 4.0 noun score.
+- **`drop all` prints the drop list before a task's text.** run400: "You
+  drop the note, ..., the piece of chalk and the ex chest.  The thyme has
+  aged and dried.  As you watch it dissipates."; Scarier prints the herb
+  task's text first, then the list.
+
 ### Engine, needs a probe (3.7)
 
 - **3.7 alias namesakes under an unknown verb.** In the p3xEVQ world where
@@ -1917,7 +1944,9 @@ case, and their goldens are re-blessed. The row notes in
   `unit(s).There are currently` -> two spaces) are refusal-to-task,
   take-from and task-to-refusal joints, untouched here; House's Wine
   transcript shows none of its three firing (`put snuffbox in ring`,
-  runner_transcripts/house.txt). (runner/scrun_dispatch.cpp
+  runner_transcripts/house.txt), and the chopped-Lounge drive of
+  2026-11-07 (Open leads above) shows its four "from here!The ex ..."
+  take joints never printing either. (runner/scrun_dispatch.cpp
   run_line_t::put_pass)
 
 ## Rules measured and ported (index)
@@ -4139,6 +4168,23 @@ transcript names are in the code comment next to the named function, in
   taken in the dark and `x stone` gives the plain description. `[4.0]`
   p4DARK, dark.run400.{unseen,seen}.txt (lib_print_room_description,
   2026-11-04)
+- **A present namesake is not shadowed by an absent longer name.** run400's
+  up-front resolver (463640 mode 0) scores PRESENT objects only, by Short
+  or Alias as a whole word anywhere in the line, so a seen-but-absent
+  object whose longer name holds the word is no candidate and can neither
+  tie nor outrank the present one. House, the Lounge furniture chopped:
+  `get rocking chair` "You take the ex chair." (Short "chair"), `get tea
+  chest` "You take the ex chest.", `x rocking chair` "A pile of wood that
+  used to be a chair.", `x tea chest` "A load of planks that used to be a
+  chest."; the shadow deviation ("A name inside a longer name", above)
+  had left them to "Take what?" and "You can't see the rocking chair from
+  here!". The shadow now stands aside at 4.0 only when the scored object
+  is present, so the deviation's own House case, `open bathroom door` from
+  a room with no door, still names the door. examines (457034) reads the
+  resolver's winner back before anything else, so `x rocking chair`
+  describes the present ex chair even though %object% bound the absent
+  original in place. `[4.0]` house.run400.exfurniture_nouns.txt
+  (`lib_co_term_shadowed`, `lib_examine_present_winner_400`, 2026-11-07)
 - **Absent-object refusals:**
   - co() matches anywhere; the handlers refuse with Prefix + Short, and in
     takes() the last match speaks. `[<3.9]` p37EXAM/p38EXAM (b526c013b)

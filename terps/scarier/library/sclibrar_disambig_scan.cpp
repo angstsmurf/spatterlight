@@ -137,12 +137,14 @@ lib_co_term_shadowed (scr_gameref_t game, const scr_char *line,
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const size_t term_length = term ? strlen (term) : 0;
   std::string rest;
-  scr_bool shadowed = FALSE;
+  scr_bool shadowed = FALSE, object_present, present;
   scr_int other;
 
   if (!line || term_length == 0 || !lib_co_contains (line, term))
     return FALSE;
 
+  object_present = obj_indirectly_in_room (game, object, gs_playerroom (game))
+                   || obj_indirectly_held_by_player (game, object);
   rest = line;
   GS_FOR_EACH_OBJECT (game, other)
     {
@@ -158,10 +160,34 @@ lib_co_term_shadowed (scr_gameref_t game, const scr_char *line,
        * "tiny card") not yet in play drops the small card (run400x
        * runner_probes/sotc.run400.drop.txt), where the shadow
        * left the line to "I am not holding the small card.".
+       *
+       * At 4.0 an object SEEN but not here hides nothing PRESENT either:
+       * the resolver's first pass (463640 mode 0, lib_resolve_admit_mode0())
+       * scores present objects only, so an absent namesake is no candidate
+       * and can neither tie nor outrank a present one.  House, the Lounge
+       * furniture chopped: with the rocking chair (66, Short "rocking
+       * chair", alias "chair") gone and the "ex chair" (Short "chair") in
+       * the room, run400 answers `get rocking chair` "You take the ex
+       * chair." and `x rocking chair` "A pile of wood that used to be a
+       * chair." (runner_probes/house.run400.exfurniture_nouns.txt), and
+       * `get tea chest`/`x tea chest` the same for the ex chest; the shadow
+       * left them to "Take what?" and "You can't see the rocking chair from
+       * here!".  (`get lounge table` never needed this: the lounge table is
+       * Short "table" with the Prefix "a lounge".)  With the scored object
+       * absent as well the shadow stands, so that House's `open bathroom
+       * door` from a room with no door still names the door ("You can't
+       * see the bathroom door.") where run400 lets the front door and the
+       * street sign's "door" tie it down to "You can't open that." -- the
+       * deviation above, kept on purpose (WINE-TRANSCRIPTS.md, "A name
+       * inside a longer name").  Below 4.0 the pre-4.0 co() counts present
+       * objects too, but that case is unmeasured and the shadow is left as
+       * it was.
        */
-      if (!gs_object_seen (game, other)
-          && !obj_indirectly_in_room (game, other, gs_playerroom (game))
-          && !obj_indirectly_held_by_player (game, other))
+      present = obj_indirectly_in_room (game, other, gs_playerroom (game))
+                || obj_indirectly_held_by_player (game, other);
+      if (!present
+          && ((lib_is_version_400 (game) && object_present)
+              || !gs_object_seen (game, other)))
         continue;
       alias_count = lib_alias_prepare (bundle, vt_key, "Objects", other);
       for (alias = -1; alias < alias_count; alias++)
