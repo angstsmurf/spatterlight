@@ -1883,6 +1883,22 @@ case, and their goldens are re-blessed. The row notes in
   darwin`, five lines) and ticket (`where is young girl`, "Young Girl is in
   bridge.  (Right next to you, silly!)"). (library/sclibrar_misc.cpp
   lib_cmd_locate_npc)
+- **4.0 splitter: an article does not hide the object after it
+  (2026-11-07).** The Runner's suppression test reads the tail's first
+  word only, so `take lamp and the keys` in advent350b is cut at " and "
+  ("the" is no object's Short, Prefix word or Alias there) and "the keys"
+  runs as a command of its own: "You take the brass lantern." then the
+  parser's refusal. That is what the measured rule gives (and.run400.txt
+  has no `and the` cell; p4AND cannot show it because its ball's Prefix
+  is "the"), and it is useless to the player. Scarier now asks the same
+  test of the word after a leading "the", "a" or "an", at " and ", at a
+  comma and after an Oxford "and"; the library's clause loops already
+  ignore the article. `take/drop lamp and the keys` and `take food,
+  bottle, and the keys` take and drop everything named; `take lamp and
+  the zzz` and `take keys and the` still cut. p4AND's measured cells are
+  unchanged (`x coin and a hat` ties, `take coin and the ball` stops at
+  the coin, `get coin and zzz` cuts). (runner/scrun_split.cpp
+  run_split_article_names_object)
 
 ## Rules measured and ported (index)
 

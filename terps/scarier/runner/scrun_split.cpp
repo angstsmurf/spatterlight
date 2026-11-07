@@ -377,6 +377,55 @@ run_period_cut (scr_gameref_t game, const scr_char *line, scr_int limit)
 }
 
 /*
+ * Find the word that follows the LENGTH-character word at TAIL, with any
+ * trailing comma off.  Return where it starts, with *EXTENT its length (0
+ * when that word was the last of the head, which ends at END).
+ */
+static const scr_char *
+run_split_next_word (const scr_char *tail, size_t length,
+                     const scr_char *end, size_t *extent)
+{
+  const scr_char *next = tail + length;
+
+  next += strspn (next, " ");
+  *extent = next < end ? strcspn (next, " ,") : 0;
+  if (next + *extent > end)
+    *extent = end - next;
+  return next;
+}
+
+/*
+ * Deliberate deviation: an article does not stop the word after it from
+ * naming an object.  The Runner's test takes the tail's first word only,
+ * so `take lamp and the keys` is cut at " and " ("the" names nothing in
+ * advent350b) and "the keys" runs as a command of its own, which no game
+ * understands; vanilla SCARE took both.  When the LENGTH-character word at
+ * TAIL is "the", "a" or "an", ask the Runner's test of the next word
+ * instead; the library's own clause loops then read the article as the
+ * noise word it is (lib_verb_object_name_score ignores extra words).
+ * Measured as cut on run400 only by the general rule (and.run400.txt has
+ * no `and the` cell); logged in WINE-TRANSCRIPTS.md.
+ */
+static scr_bool
+run_split_article_names_object (scr_gameref_t game, const scr_char *tail,
+                                size_t length, const scr_char *end)
+{
+  const scr_char *next;
+  size_t extent;
+
+  if (!((length == 3 && strncmp (tail, "the", 3) == 0)
+        || (length == 2 && strncmp (tail, "an", 2) == 0)
+        || (length == 1 && tail[0] == 'a')))
+    return FALSE;
+
+  next = run_split_next_word (tail, length, end, &extent);
+  if (extent == 0)
+    return FALSE;
+  return run_split_word_names_object (game,
+                                      std::string (next, extent).c_str ());
+}
+
+/*
  * The deviation half of the suppression test; see run_find_split_400().
  * WORD is the tail's first word as the Runner reads it, TAIL where it
  * starts and END where the current head ends.
@@ -397,21 +446,20 @@ run_split_list_word_names_object (scr_gameref_t game, const scr_char *word,
     }
   if (after_comma && strcmp (word, "and") == 0)
     {
-      const scr_char *next = tail + length;
+      const scr_char *next;
       size_t extent;
 
-      next += strspn (next, " ");
-      extent = next < end ? strcspn (next, " ,") : 0;
-      if (next + extent > end)
-        extent = end - next;
+      next = run_split_next_word (tail, length, end, &extent);
       if (extent > 0)
         {
           const std::string after (next, extent);
 
-          return run_split_word_names_object (game, after.c_str ());
+          if (run_split_word_names_object (game, after.c_str ()))
+            return TRUE;
+          return run_split_article_names_object (game, next, extent, end);
         }
     }
-  return FALSE;
+  return run_split_article_names_object (game, tail, length, end);
 }
 
 /*
