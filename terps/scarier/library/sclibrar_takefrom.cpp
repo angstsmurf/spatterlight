@@ -593,10 +593,18 @@ lib_take_from_nowhere_named_390 (scr_gameref_t game, const scr_char *named)
  * lib_take_from_trailing()
  *
  * A take-from whose "from" ends the line.  4.0 answers nothing at all --
- * run400 prints an empty turn for `get nut from` (p4TKB cell 158) -- and
- * 3.9 treats it as a container it could not find: "Get the nut from what?"
- * with the slot armed (p39TKB cell 158).  3.7/3.8 have their one "You can't
- * do that!" (p37TKB/p38TKB cell 158).  runner_probes/tkb.run*.
+ * run400 prints an empty turn for `get nut from` (p4TKB cell 158) and for
+ * a bare `take from` (p4TKA runner_probes/tka.run400.bare.txt cell 17) --
+ * and 3.9 treats it as a container it could not find: "Get the nut from
+ * what?" with the slot armed (p39TKB cell 158).  3.7/3.8 have their one
+ * "You can't do that!" (p37TKB/p38TKB cell 158).  runner_probes/tkb.run*.
+ *
+ * Deliberate deviation (2026-11-07): the 4.0 blank turn is not copied.  A
+ * line naming nothing before "from" (`take from`, `get all from`) gets the
+ * take handler's own "Take what?", as lib_take_from_no_name() prints; one
+ * naming something (`take coin from`) gets the no-turn "I don't understand
+ * where you want to get things from." that 4.0 gives every take-from whose
+ * container is missing (lib_cmd_take_from_nowhere()).
  */
 scr_bool
 lib_take_from_trailing (scr_gameref_t game)
@@ -605,12 +613,20 @@ lib_take_from_trailing (scr_gameref_t game)
   const scr_char *line = run_get_dispatch_input ();
   scr_int at;
 
+  at = line ? run_c_word_pre400 (version, line, "from") : -1;
   if (version >= TAF_VERSION_400)
-    return TRUE;
+    {
+      const std::string head = at < 0 ? "" : lib_take_from_head (line, at);
+
+      if (head.empty () || scr_strcasecmp (head.c_str (), "all") == 0
+          || scr_strcasecmp (head.c_str (), "everything") == 0)
+        return lib_take_from_no_name (game);
+      game->is_admin = TRUE;
+      return lib_print_message (game, LIB_TAKE_FROM_NOWHERE_400);
+    }
   if (version < TAF_VERSION_390)
     return lib_take_from_no_name (game);
 
-  at = run_c_word_pre400 (version, line, "from");
   if (at < 0)
     return lib_take_from_no_name (game);
   return lib_take_from_nowhere_named_390 (game,

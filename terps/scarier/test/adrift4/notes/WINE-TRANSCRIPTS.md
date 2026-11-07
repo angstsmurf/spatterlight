@@ -1120,6 +1120,15 @@ case, and their goldens are re-blessed. The row notes in
   agreement, e.g. "some fungus are", "A bag of apples are", "the NAILS
   is". Scarier keeps SCARE's rule: an empty/"a"/"an" prefix (any case)
   is singular; otherwise a name ending in "s" but not "us" is plural.
+- **4.0 trailing "from" is answered (2026-11-07).** run400 prints an
+  empty turn for `take from`, `get from`, `take all from` and `get nut
+  from` (p4TKA runner_probes/tka.run400.bare.txt cell 17, p4TKB cell 158);
+  3.9 says "You can't do that!" / "Get the nut from what?", 3.7/3.8 "You
+  can't do that!". The blank turn is not copied: a line naming nothing
+  before "from" gets "Take what?" and one naming something (`take coin
+  from`, `take zzz from`) the no-turn "I don't understand where you want
+  to get things from.". Pre-4.0 unchanged. `[4.0]`
+  (lib_take_from_trailing, library/sclibrar_takefrom.cpp)
 - **Pre-3.9 take-from with nothing there.** The Runner says "There is
   nothing inside <raw name>." even for a surface. At 3.8 it says a bare
   "You take " when nothing is taken (968f57a74). Scarier says "There is
@@ -4407,7 +4416,8 @@ transcript names are in the code comment next to the named function, in
   "I don't understand where you want to get things from." no-turn answer
   when it does not; the dispatch rows want a %text% before "from", so the
   line had reached the generic take row and taken the table. A trailing
-  bare `take from` stays silent. `[4.0]` p4TKA
+  bare `take from` is silent in run400 (cell 17; Scarier answers it, see
+  "4.0 trailing from" under Deliberate deviations). `[4.0]` p4TKA
   runner_probes/tka.run400.bare.txt cells 11, 17, 22
   (lib_take_from_empty_head_400, 2026-11-07)
 - **Take-from with unseen contents** splits like an empty match in 4.0: a
