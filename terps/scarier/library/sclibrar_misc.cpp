@@ -279,6 +279,11 @@ static void
 lib_locate_object_in_rooms (scr_gameref_t game, scr_int object)
 {
   const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *verb;
+  std::string runner, lower;
+  size_t join;
+  scr_bool runner_shape;
   scr_int room;
 
   /*
@@ -323,11 +328,37 @@ lib_locate_object_in_rooms (scr_gameref_t game, scr_int object)
    * -- and the " -- " upstream SCARE printed here appears in none of the
    * four binaries.  Scarier keeps a capitalised name's case; see
    * lib_print_room_name_lower().
+   *
+   * The Runner's "The fire is house." has no preposition.  Scarier says
+   * "is in" (deviation policy: grammar over parity), except in a game whose
+   * ALR table was written across that join -- The Dead Man rewrites "is
+   * control room" to "is on the floor of the control room.", and a chain of
+   * two more ALRs hangs off that -- where the Runner's exact shape is kept
+   * so that the author's replacement still fires.  The test is the one the
+   * ALR filter will make: does some ALR original match the Runner's
+   * sentence at a position before the room name and run into it?  An ALR
+   * that stops before the room ("The fire is ") or starts at it ("house.")
+   * matches either form and needs no exception.  Only The Dead Man in the
+   * corpus has such an ALR (2026-11-07 scan of every table against every
+   * object x room sentence).
    */
+  verb = lib_select_plurality (game, object, " is ", " are ");
+  runner = lib_definite_object_name (bundle, object);
+  if (!runner.empty ())
+    runner[0] = scr_toupper (runner[0]);
+  runner += verb;
+  join = runner.size ();
+  lower = lib_get_room_name (game, room);
+  scr_lowercase (lower);
+  runner += lower;
+  runner += ".";
+  runner_shape = pf_alr_rewrites_span (bundle, runner.c_str (), join, join + 1);
+
   pf_new_sentence (filter);
   lib_print_object_np (game, object);
-  pf_buffer_string (filter,
-                    lib_select_plurality (game, object, " is ", " are "));
+  pf_buffer_string (filter, verb);
+  if (!runner_shape)
+    pf_buffer_string (filter, "in ");
   lib_print_room_name_lower (game, room);
   pf_buffer_string (filter, ".\n");
 }

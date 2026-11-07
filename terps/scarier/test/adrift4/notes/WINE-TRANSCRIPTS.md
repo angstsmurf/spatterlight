@@ -1857,6 +1857,21 @@ case, and their goldens are re-blessed. The row notes in
   (c() stops at the first hit that follows a space and "thenstone" fails
   the word test). Probed on p38EXAM/p39EXAM: `x athens then look` is now
   "x athens" then the room. No golden changed. (runner/scrun_split.cpp)
+- **`find X` / `where is X` says "is in <room>" (2026-11-07).** Every
+  Runner builds the object answer as name & isare & LCase(room) & "." --
+  run400 @468115 -- with no preposition: "The fire is house." Scarier
+  prints "The fire is in house." (grammar over parity), unless an ALR of
+  the game matches the Runner's sentence at a position before the room
+  name and runs into it, in which case the Runner's exact shape is kept so
+  the author's rewrite still fires. One corpus game needs that: The Dead
+  Man (one room, "Control Room") has `is control room` -> `is on the floor
+  of the control room.` with two further ALRs chained off the result, and
+  still answers "The gun is on the floor of the control room.." as in the
+  Runner. A scan of all 51,859 ALR originals in the corpus against every
+  "<object> is/are <lowercased room>." sentence found no other. The
+  character branch ("Blair Alpha is control room.") is unchanged. No golden
+  exercises the object answer. (library/sclibrar_misc.cpp
+  lib_locate_object_in_rooms; the gate is pf_alr_rewrites_span)
 
 ## Rules measured and ported (index)
 
