@@ -813,6 +813,22 @@ lib_cmd_put_container_400 (scr_gameref_t game)
     {
       if (lib_task_prematches_input (game, 0))
         return FALSE;
+      /*
+       * wears() (463690) runs after put_drop_list on every line holding
+       * the words "wear" or "put on", or "put" with a trailing " on", and
+       * its "all" branch (463736) writes its own answer over the response
+       * whatever it found: `put on all` is "I put on the wristwatch." with
+       * the watch in hand and "I don't have anything to wear." with
+       * nothing wearable, never this refusal -- goldilocks, measured
+       * 2026-11-07 (runner_probes/goldilocks.run400.q.txt,
+       * goldilocks.run400.q2.txt; `put all on` and `put everything on`
+       * the same, `put on everything` "Where do you want to put that?" as
+       * the Runner knows no "everything").  Leave the line to the wear-all
+       * row.
+       */
+      if (has_all && strcmp (preposition, "onto") == 0
+          && lib_input_contains_word (line.c_str (), "put on"))
+        return FALSE;
       pf_buffer_string (filter,
                         "I don't understand what you want to put things ");
       pf_buffer_string (filter, preposition);

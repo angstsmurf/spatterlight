@@ -1,0 +1,23 @@
+x watch
+give it to him
+ask him about it
+s
+w
+n
+n
+take bottle
+i
+x bottle, dress
+x dress, bottle
+x watch, dress
+x watch and dress
+x watch then dress
+x all
+x zzz and watch
+x bottle and zzz
+put on all
+wear all
+put on bottle
+wear bottle
+put on watch
+x bottle

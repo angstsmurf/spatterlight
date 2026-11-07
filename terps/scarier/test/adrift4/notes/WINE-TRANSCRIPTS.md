@@ -4511,7 +4511,16 @@ transcript names are in the code comment next to the named function, in
   0f061d3ab). `put X in Y` where X names nothing present clobbers the line
   to `put X `, so the catch-all speaks; a silent unnamed put also leaves the
   answer to the catch-all (icecream, house T263; 8f2898bd4, 5a8ac82fb).
-  `[4.0]`
+  `put on all` is the wear-all, not "...put things onto.": wears() runs
+  after put_drop_list on any line holding "wear" or "put on", and its "all"
+  branch writes over the response whatever it found -- "I put on the
+  wristwatch." with the watch in hand, "I don't have anything to wear." with
+  nothing wearable; `put all on` and `put everything on` the same; `put on
+  everything` is "Where do you want to put that?" (no Runner "everything")
+  and `put on bottle and watch` the and-loop's "I don't have anything to
+  wear." (unported; Scarier's "Wear what?"). goldilocks, 2026-11-07
+  (goldilocks.run400.q.txt, goldilocks.run400.q2.txt;
+  lib_cmd_put_container_400). `[4.0]`
 - **The put handler's own answers** (rules A-H): the bang; "is closed";
   "already inside" (4.0 only); the pre-4.0 put universe; the object's
   failure outranking the container's; `Put X inside what?`; the `put all`

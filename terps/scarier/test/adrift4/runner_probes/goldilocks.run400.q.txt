@@ -1,0 +1,86 @@
+
+> x watch
+It is about 5:00 AM.
+
+> give it to him
+(No male)
+(a wristwatch)
+I don't have the wristwatch!
+
+> ask him about it
+(No male)
+(a wristwatch)
+Who am I meant to be speaking to?
+
+> s
+I move south.
+On a path in the forest
+I'm on a path winding through the Enchanted Forest. The path winds it way from the north towards the west. In every other direction there are dark, sinister looking trees that wave their branches at me in an anthropomorphic kind of way. Ooh, I'm soooo scared!  I can move north, east, south and west.
+
+> w
+As I head off along the path a pathetic, mangey looking wolf jumps out from behind a bush and slobbers at me in what he probably hopes is a menacing way.
+   'I am the Big Bad Wolf!' says he. Then, after an awkward pause he adds 'well, what are you waiting for? Aren't you going to ask me the way to Grandma's house?' He looks at me quizzically for a moment and then slaps his forehead.
+   'My humblest apologies!' he says. 'You are not the young woman I seek. She of the crimson shawl must needs be elsewhere!' He darts back into the forest.
+
+
+At a fork in the path
+I'm at a fork in the path. Not the kind of fork you eat with, the sort where the path forks; you know, like a fork. To the north the path widens into a clearing. To the west it disappears into the forest.  I can move north, east and west.
+
+> n
+I move north.
+In a clearing in the forest
+I'm in a clearing. There is a teeny tiny cottage here complete with a thatched roof and leaded windows. It's just like something out of a fairy tale, funnily enough, except for the large hand-painted sign designed to deter trespassers. Just to the north is the front porch. A little path lined by rows of white-painted stones leads around the side of the house to the west.  I can move north, south and west.
+
+> n
+I move north.
+On the porch
+I'm standing on the porch of the Three Bears' cottage. It would be quite pretty in a rustic sort of way had someone not seen fit to paint it gold. The front door is closed. Just south of me is the clearing in the forest.  A battered old dustbin sits to one side of the porch.  I can also see an empty milkbottle.  I can only move south.
+
+> take bottle
+I take the empty milkbottle.
+
+> i
+I am wearing a wristwatch and a "distressed" Laura Ashley dress, and I am carrying an empty milkbottle.  A crumpled note is inside the empty milkbottle.
+
+> x bottle, dress
+I can't see that.
+
+> x dress, bottle
+I can't see that.
+
+> x watch, dress
+It's the latest in charity shop chic. Okay, so the hemline used to be a little bit lower. I got a bit scissor-happy, okay?
+
+> x watch and dress
+It's the latest in charity shop chic. Okay, so the hemline used to be a little bit lower. I got a bit scissor-happy, okay?
+
+> x watch then dress
+It's the latest in charity shop chic. Okay, so the hemline used to be a little bit lower. I got a bit scissor-happy, okay?
+
+> x all
+Please examine one object at a time.
+
+> x zzz and watch
+It is about 5:00 AM.
+
+> x bottle and zzz
+A crumpled note is inside the empty milkbottle.
+Sorry, I haven't a clue what you're on about!
+
+> put on all
+I don't have anything to wear.
+
+> wear all
+I don't have anything to wear.
+
+> put on bottle
+Where do you want to put the empty milkbottle?
+
+> wear bottle
+I can't wear the empty milkbottle.
+
+> put on watch
+I am already wearing the wristwatch!
+
+> x bottle
+A crumpled note is inside the empty milkbottle.

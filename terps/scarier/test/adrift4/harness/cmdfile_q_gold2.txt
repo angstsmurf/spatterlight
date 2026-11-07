@@ -1,0 +1,26 @@
+s
+w
+n
+n
+take bottle
+remove watch
+i
+put on all
+i
+remove watch
+remove dress
+put all on
+i
+remove watch
+put everything on
+i
+remove watch
+put on everything
+i
+remove watch
+wear everything
+i
+put on all
+put on all and bottle
+put on bottle and watch
+put bottle on
