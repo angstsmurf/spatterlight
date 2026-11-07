@@ -1,0 +1,42 @@
+
+> look
+Lit Room
+A bright room.  Also here is a stool.  You can only move north.
+
+> i
+You are carrying a coin and a stone.
+
+> get on stool
+You stand on the stool.
+
+> i
+You are carrying a coin and a stone.
+
+> look
+Lit Room
+A bright room.  Also here is a stool.  You can only move north.
+
+> get on chair
+You stand on the chair.
+
+> look
+Lit Room
+A bright room.  Also here is a stool.  You can only move north.
+
+> get on coin
+I don't understand what you want me to do with the coin.
+
+> i
+You are carrying a coin and a stone.
+
+> stand on coin
+You can't stand on the coin.
+
+> get up
+You are already standing!
+
+> get on stool
+You stand on the stool.
+
+> i
+You are carrying a coin and a stone.

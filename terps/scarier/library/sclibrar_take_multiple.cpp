@@ -351,6 +351,9 @@ lib_cmd_take_absent (scr_gameref_t game)
   const scr_char *best_term = nullptr;
   scr_int object, best_score, best_count, best_object;
 
+  if (lib_take_declines_get_on_390 (game))
+    return FALSE;
+
   /* Pre-3.9 takes() names the first match out of reach, seen or not; see
    * lib_absent_named_object_pre_390(). */
   object = lib_absent_named_object_pre_390 (game, TRUE);
@@ -878,16 +881,47 @@ lib_take_multi_get_off_line (void)
 
 
 /*
+ * run390's takes() gate (4544C6) is `c(get|take|pick) And Not c("from") And
+ * Not c("get on") And Not c("get down")`, so at 3.9 `get on stool` with the
+ * stool a portable standable is sitstand's "You stand on the stool.", and
+ * `get on coin` falls through to "I don't understand what you want me to do
+ * with the coin." (p39SIT, runner_probes/sit.run390.geton.txt).  Neither
+ * literal exists in run370/run380, which pick the stool up
+ * (sit.run370.geton.rtf, sit.run380.geton.rtf), and 4.0's get_outer (4582D8)
+ * has no such exclusion either: "You take the stool." (sit.run400.geton.txt).
+ * So only 3.9 steps aside here -- the take rows and their catch-alls
+ * (lib_cmd_take_absent(), lib_cmd_get_what()), since takes() never ran at
+ * all -- and the `get on %object%` row or the verb catch-all answers.
+ */
+scr_bool
+lib_take_declines_get_on_390 (scr_gameref_t game)
+{
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
+  const scr_char *line = run_get_dispatch_input ();
+
+  if (!line || version < TAF_VERSION_390 || version >= TAF_VERSION_400)
+    return FALSE;
+  return run_c_word_pre400 (version, line, "get on") >= 0
+         || run_c_word_pre400 (version, line, "get down") >= 0;
+}
+
+
+/*
  * `take off <...>` and `take <...> off` reach the generic take row before the
  * remove rows, so `take off all` picked up the whole room, `take off A and B`
  * said "I am already wearing my sleepshirt! I pick up my sweatshirt.", and
  * `take sweatshirt off` refused with "already wearing" (AkarisStory.taf, 3.9).
- * Deliberate deviation (no Runner probe covers these forms): leave the line
- * to the remove rows when it is a list or `all`, or when it names something
- * the player is wearing.  The measured single-noun cells keep their answers:
- * `take off hat` with the hat worn already reaches the remove rows, and with
- * it held but not worn still says "You've already got the hat!"
- * (lib_take_held_namesake_preempt_pre400()).
+ * Deliberate deviation (no Runner probe covers a take-off list): leave the
+ * line to the remove rows when it is a list or `all`, or when it names
+ * something the player is wearing.  The single-noun cells are measured with
+ * the hat worn (p37ORD/p38ORD, runner_probes/ord.run370.takeoff.rtf and
+ * ord.run380.takeoff.rtf, 2026-11-07): run380 answers both `take hat off`
+ * and `take off hat` "You are already wearing a hat!"; run370 says "You
+ * can't see a hat from here!" to `take hat off` and removes the hat for
+ * `take off hat`.  Scarier removes it in 3.7 for both and in 3.8 for `take
+ * off hat`; 3.8 `take hat off` keeps the measured "already wearing".  With
+ * the hat held but not worn, `take off hat` still says "You've already got
+ * the hat!" (lib_take_held_namesake_preempt_pre400()).
  */
 static scr_bool
 lib_take_multi_take_off_line (scr_gameref_t game)
@@ -947,6 +981,9 @@ lib_take_multi_from_line (scr_gameref_t game)
       if (line[at + 4 + strspn (line + at + 4, " ")] == NUL)
         return lib_take_from_trailing (game) ? LIB_TAKE_RETURN_TRUE
                                              : LIB_TAKE_RETURN_FALSE;
+      /* 4.0 `take from box` is no take of the box; see lib_take_from_empty_head_400(). */
+      if (version >= TAF_VERSION_400 && lib_take_from_empty_head_400 (game))
+        return LIB_TAKE_RETURN_TRUE;
       if (lib_take_from_and_line (game))
         return lib_take_from_and (game) ? LIB_TAKE_RETURN_TRUE
                                         : LIB_TAKE_RETURN_FALSE;
@@ -1209,6 +1246,10 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
   if (!is_except && lib_take_multi_get_off_line ()
       && (lib_player_parent_here (game) != -1
           || !lib_get_off_may_take (game)))
+    return FALSE;
+
+  /* 3.9 `get on X` is sitstand's; see lib_take_declines_get_on_390(). */
+  if (!is_except && lib_take_declines_get_on_390 (game))
     return FALSE;
 
   /* `take off all` and friends undress; see lib_take_multi_take_off_line(). */

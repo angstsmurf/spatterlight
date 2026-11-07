@@ -464,7 +464,11 @@ lib_cmd_stand_on_object (scr_gameref_t game)
  * (run400 loc_46B889).  3.9 is also where takes() gained its matching
  * `Not c("get on")` exclusion (run390 loc_4544C6), without which the take
  * handler would eat the command first; neither literal exists anywhere in
- * run370/run380, so this is 3.9+ only.
+ * run370/run380, so this is 3.9+ only.  4.0's get_outer (4582D8) has no
+ * such exclusion, so a portable standable is taken again there: `get on
+ * stool` is run390 "You stand on the stool." but run400 "You take the
+ * stool." (p39SIT/p4SIT, runner_probes/sit.run390.geton.txt,
+ * sit.run400.geton.txt; see lib_take_declines_get_on_390()).
  *
  * It differs from `stand on X` in what happens when the object is not a
  * standable one.  The refusal "You can't stand on X." is not produced by

@@ -1775,6 +1775,8 @@ lib_take_names_dynamic_400 (scr_gameref_t game, const scr_char *string)
 scr_bool
 lib_cmd_get_what (scr_gameref_t game)
 {
+  if (lib_take_declines_get_on_390 (game))
+    return FALSE;
   if (lib_take_scored_400 (game))
     return TRUE;
   return lib_what (game, "Take");

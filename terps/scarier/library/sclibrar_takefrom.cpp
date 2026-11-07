@@ -890,6 +890,61 @@ lib_take_from_and_390 (scr_gameref_t game)
  * tests, and only the names it holds move.  p4TKA runner_probes/tka.run400.txt
  * cells 47-134, p4TKB runner_probes/tkb.run400.txt cells 67-181.
  */
+static std::string
+lib_take_from_container_clause_400 (const scr_char *line, scr_int at)
+{
+  const scr_char *rest = line + at + 4;
+  std::string clause;
+  scr_int and_at;
+
+  while (*rest == ' ')
+    rest++;
+  and_at = run_c_word_pre400 (TAF_VERSION_400, rest, "and");
+  clause = and_at >= 0 ? std::string (rest, (size_t) and_at)
+                       : std::string (rest);
+  while (!clause.empty () && clause[clause.size () - 1] == ' ')
+    clause.erase (clause.size () - 1);
+  return clause;
+}
+
+
+/*
+ * lib_take_from_empty_head_400()
+ *
+ * A 4.0 take-from that names nothing before its "from": `take from table`.
+ * The take-from rows want a %text% before "from", so the line reaches the
+ * generic take row, which scored "from table" as a noun and took the table.
+ * get_piece (run400 473A34) resolves the container first -- nothing found is
+ * "I don't understand where you want to get things from." and no turn --
+ * and then has no piece to score: "Take what?" (run400 `take from table`,
+ * `take from box`: p4TKA, runner_probes/tka.run400.bare.txt cells 4 and 8).
+ * TRUE when the line was such a take-from and has been answered.
+ */
+scr_bool
+lib_take_from_empty_head_400 (scr_gameref_t game)
+{
+  const scr_char *line = run_get_dispatch_input ();
+  std::string clause;
+  scr_int at, container;
+
+  at = line ? run_c_word_pre400 (TAF_VERSION_400, line, "from") : -1;
+  if (at < 0 || !lib_take_from_head (line, at).empty ())
+    return FALSE;
+  clause = lib_take_from_container_clause_400 (line, at);
+  if (clause.empty ())
+    return FALSE;
+
+  container = lib_verb_object_resolve_400_string (game, clause.c_str (),
+                                                  nullptr, TRUE);
+  if (container < 0)
+    {
+      game->is_admin = TRUE;
+      return lib_print_message (game, LIB_TAKE_FROM_NOWHERE_400);
+    }
+  return lib_print_message (game, "Take what?\n");
+}
+
+
 static scr_bool
 lib_take_from_and_400 (scr_gameref_t game)
 {
@@ -940,18 +995,7 @@ lib_take_from_and_400 (scr_gameref_t game)
     }
 
   /* The container: the first clause after "from". */
-  {
-    const scr_char *rest = line + at + 4;
-    scr_int and_at;
-
-    while (*rest == ' ')
-      rest++;
-    and_at = run_c_word_pre400 (TAF_VERSION_400, rest, "and");
-    clause = and_at >= 0 ? std::string (rest, (size_t) and_at)
-                         : std::string (rest);
-    while (!clause.empty () && clause[clause.size () - 1] == ' ')
-      clause.erase (clause.size () - 1);
-  }
+  clause = lib_take_from_container_clause_400 (line, at);
   container = lib_verb_object_resolve_400_string (game, clause.c_str (),
                                                   nullptr, TRUE);
   if (container < 0)

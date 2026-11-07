@@ -1,0 +1,59 @@
+
+> x box
+A wooden box.  The box is open.  A nut is inside the box.
+
+> x table
+A low table.  A key is on the table.
+
+> x bag
+A cloth bag.  The bag is open.  A bolt is inside the bag.
+
+> take from table
+Take what?
+
+> i
+You are carrying a coin and a hat.
+
+> take from
+
+> i
+You are carrying a coin and a hat.
+
+> take from box
+Take what?
+
+> i
+You are carrying a coin and a hat.
+
+> get nut out of box
+It is not clear which nut you are referring to.
+
+> i
+You are carrying a coin and a hat.
+
+> get key off table
+It is not clear which key you are referring to.
+
+> i
+You are carrying a coin and a hat.
+
+> get nut in box
+It is not clear which nut you are referring to.
+
+> i
+You are carrying a coin and a hat.
+
+> get bolt out of bag
+It is not clear which bolt you are referring to.
+
+> i
+You are carrying a coin and a hat.
+
+> get nut from table
+You can't take anything from the table.
+
+> get nut from box
+You take the nut from the box.
+
+> i
+You are carrying a coin, a hat and a nut.

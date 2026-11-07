@@ -1633,7 +1633,14 @@ case, and their goldens are re-blessed. The row notes in
   ```
 
 - **`take off` lists and `all` undress (2026-11-04).** No Runner probe
-  covers a take-off list. In 3.9 the two-verb rewrite read the "take" of
+  covers a take-off list; the single-noun cells with the hat worn are
+  measured (p37ORD/p38ORD, runner_probes/ord.run370.takeoff.rtf,
+  ord.run380.takeoff.rtf, 2026-11-07): run380 answers both `take hat off`
+  and `take off hat` "You are already wearing a hat!", run370 `take hat
+  off` "You can't see a hat from here!" and `take off hat` "You remove a
+  hat.". Scarier removes the hat for both at 3.7 and for `take off hat` at
+  3.8; 3.8 `take hat off` keeps the measured "already wearing". In 3.9 the
+  two-verb rewrite read the "take" of
   `take off all` as the take handler, so AkarisStory.taf (3.9) emptied the
   floor into the inventory. Now `take off <list|all|everything>` is respelled
   `remove ...` when remove is its only other handler word
@@ -4251,6 +4258,15 @@ transcript names are in the code comment next to the named function, in
     and `get down`, so `get off stool` is a take; 3.7/3.8 have no get-off.
     In 3.9 a take that happened stands; otherwise sitstand's answer
     replaces it.
+  - 3.9 takes() (4544C6) steps aside for a line holding `get on` or `get
+    down`, catch-alls included, so `get on stool` with a portable standable
+    stool is "You stand on the stool." and `get on coin` (a held coin) the
+    verb catch-all's "I don't understand what you want me to do with the
+    coin."; run370/run380 pick the stool up and run400's get_outer takes it
+    too ("You take the stool."). `[3.9]` p39SIT
+    runner_probes/sit.run390.geton.txt cells 9, 26; sit.run370.geton.rtf,
+    sit.run380.geton.rtf, sit.run400.geton.txt
+    (lib_take_declines_get_on_390, 2026-11-07)
   - The 3.7/3.8 static take refusal names the raw Prefix: "You can't take
     a chair."
   - sitstand is blocks entered on c("sit"), c("stand"), c("lie") ANYWHERE
@@ -4372,6 +4388,14 @@ transcript names are in the code comment next to the named function, in
   p3xTKB/p4TKB (lib_take_from_and_390, lib_take_from_and_400,
   lib_take_from_slot_pre390, lib_take_from_nowhere_named_390,
   lib_take_from_trailing)
+- **4.0 take-from naming nothing before "from"** (`take from table`,
+  `take from box`) is "Take what?" once the container resolves, and the
+  "I don't understand where you want to get things from." no-turn answer
+  when it does not; the dispatch rows want a %text% before "from", so the
+  line had reached the generic take row and taken the table. A trailing
+  bare `take from` stays silent. `[4.0]` p4TKA
+  runner_probes/tka.run400.bare.txt cells 11, 17, 22
+  (lib_take_from_empty_head_400, 2026-11-07)
 - **Take-from with unseen contents** splits like an empty match in 4.0: a
   surface that is no container is "You can't take anything from X.", a
   container "Take what?". `[4.0]` iachini, p4DARK dark.run400.seen.txt

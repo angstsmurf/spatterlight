@@ -295,6 +295,7 @@ extern void lib_take_from_npc_backend (scr_gameref_t game, scr_int associate);
 /* sclibrar_take_multiple.cpp */
 extern scr_bool lib_take_filter (scr_gameref_t game, scr_int object,
                                  scr_int unused);
+extern scr_bool lib_take_declines_get_on_390 (scr_gameref_t game);
 extern scr_int lib_take_absent_score (scr_gameref_t game, scr_int object,
                                       const scr_char *input,
                                       const scr_char **term);
@@ -327,6 +328,7 @@ extern scr_bool lib_take_from_filter (scr_gameref_t game, scr_int object,
 extern void lib_take_from_empty (scr_gameref_t game, scr_int associate,
                                  scr_bool is_except);
 extern scr_bool lib_take_from_trailing (scr_gameref_t game);
+extern scr_bool lib_take_from_empty_head_400 (scr_gameref_t game);
 extern scr_bool lib_take_from_and_line (scr_gameref_t game);
 extern scr_bool lib_take_from_and (scr_gameref_t game);
 
