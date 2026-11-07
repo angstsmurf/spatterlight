@@ -389,6 +389,12 @@ lib_print_take_npc_refusal (scr_gameref_t game, scr_int npc)
    * House (4.0), Cathy alias "girl", no prefix: "I don't think girl would
    * appreciate being handled."
    * (runner_probes/house.run400.girl.txt).
+   *
+   * Deliberate deviation: with no alias, 3.7 and 3.8 print "I don't think
+   * would appreciate being handled." around two spaces (p37ORD `take give
+   * hat bob`, runner_probes/ord.run370.give.rtf; p38ASK `take dave`).  A
+   * text accident, not copied: the Name stands in, after the Prefix when
+   * there is one.
    */
   {
     const scr_filterref_t filter = gs_get_filter (game);
@@ -406,7 +412,16 @@ lib_print_take_npc_refusal (scr_gameref_t game, scr_int npc)
       alias = "";
 
     pf_buffer_string (filter, "I don't think ");
-    if (!is_390_plus)
+    if (!is_390_plus && alias[0] == NUL)
+      {
+        if (prefix[0] != NUL)
+          {
+            pf_buffer_string (filter, prefix);
+            pf_buffer_string (filter, " ");
+          }
+        lib_print_npc_np (game, npc);
+      }
+    else if (!is_390_plus)
       {
         pf_buffer_string (filter, prefix);
         pf_buffer_string (filter, " ");

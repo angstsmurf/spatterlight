@@ -1129,6 +1129,15 @@ case, and their goldens are re-blessed. The row notes in
   from`, `take zzz from`) the no-turn "I don't understand where you want
   to get things from.". Pre-4.0 unchanged. `[4.0]`
   (lib_take_from_trailing, library/sclibrar_takefrom.cpp)
+- **3.7/3.8 take-a-character with no alias (2026-11-07).** run370
+  (4386EE) and run380 (44057D) build "I don't think " & Prefix & " " &
+  Alias(0) & " would appreciate being handled." unconditionally, so an
+  NPC with no alias is "I don't think   would appreciate being handled."
+  (p37ORD `take give hat bob`, runner_probes/ord.run370.give.rtf; p38ASK
+  `take dave`). Text accident, not copied: the Name stands in, after the
+  Prefix when there is one ("I don't think Dave would ..."). An NPC with
+  an alias, and 3.9/4.0, are unchanged. `[3.7] [3.8]`
+  (lib_print_take_npc_refusal, library/sclibrar_take.cpp)
 - **Pre-3.9 take-from with nothing there.** The Runner says "There is
   nothing inside <raw name>." even for a surface. At 3.8 it says a bare
   "You take " when nothing is taken (968f57a74). Scarier says "There is
