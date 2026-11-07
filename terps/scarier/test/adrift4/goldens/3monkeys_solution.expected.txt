@@ -659,7 +659,7 @@ tree.  The mandrill is north.
 the fire.
 
 > get sheet
-You are already carrying your sheet.
+You are already wearing your sheet!
 
     The chimpanzee barks a chimp obscenity at the mandrill.  Either the
 mandrill couldn't think of a good retort, or he doesn't speak chimp.

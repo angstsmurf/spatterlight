@@ -1168,6 +1168,28 @@ case, and their goldens are re-blessed. The row notes in
   library/sclibrar_take_multiple.cpp; lib_cmd_get_in_object,
   lib_cmd_get_out_of_object, library/sclibrar_sitstand.cpp;
   runner/scrun_tables.cpp)
+- **4.0 take of a worn object says "wearing" (2026-11-07).** run400's
+  single-take piece tests possession with 44615C, which counts a worn
+  object as carried, so `take hat` with the hat on is "You are already
+  carrying the hat." and `take hat and stone` "You take the stone.  You
+  are already carrying the hat." (p4TKA, runner_probes/tka.run400.txt
+  cells 14/40/44; 3monkeys T65 `get sheet`; goldilocks `take watch` "I am
+  already carrying the wristwatch."), straight after an inventory that
+  said "You are wearing a hat". run380/run390 say "You are already
+  wearing a/the hat!" to the same line (tka.run380.rtf, tka.run390.txt)
+  and run370 "You can't see a hat from here!" (two.run370.verb3.rtf cell
+  7). Not copied at 4.0: a worn object on that path prints "You are
+  already wearing the hat!", the wording of every other take path and of
+  4.0's own `wear hat`; the tasks still get their look at it first, as
+  run400 gives them. A game with an ALR over "already carrying" keeps
+  the Runner's sentence so the rewrite fires (corpus SCR_DUMP_ALRS scan:
+  Bandera, El ascensor, Vardock Bates "Ya llevas", four French games
+  "Vous portez déjà", Il Golem, AFDFR, yon castle, The Plague - Redux "I
+  already had the"; Plague verified: `take shoes` worn is still "I
+  already had low heeled shoes."). A held object is unchanged. 3.7's
+  "can't see from here" for a worn object is the Runner's and stays.
+  Golden 3monkeys_solution re-blessed for the one line. `[4.0]`
+  (lib_take_t::report_held, library/sclibrar_take.cpp)
 - **Pre-3.9 take-from with nothing there.** The Runner says "There is
   nothing inside <raw name>." even for a surface. At 3.8 it says a bare
   "You take " when nothing is taken (968f57a74). Scarier says "There is

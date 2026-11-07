@@ -1582,7 +1582,8 @@ lib_take_t::report_held (void)
    * WORN object as carried (position 0 or &H9C), so a single-named take of
    * worn clothing gets the held object's task look-up and "You are already
    * carrying <object>." -- not "already wearing".
-   * 3monkeys T65 `get sheet` with the sheet worn (run400x).
+   * 3monkeys T65 `get sheet` with the sheet worn (run400x).  Scarier keeps
+   * the task look-up and changes the wording; see the deviation below.
    */
   /*
    * A 4.0 line split on "and" resolves each piece through the same single-take
@@ -1662,17 +1663,48 @@ lib_take_t::report_held (void)
       && ((lib_take_single_named && list.size () == 1)
           || (lib_take_and_pieces_400 && !list.empty ())))
     {
+      /*
+       * Deliberate deviation (2026-11-07): a WORN object on this path gets
+       * the "already wearing" wording the other versions and every other
+       * take path give it, not run400's "You are already carrying the
+       * hat." (p4TKA `take hat` with the hat worn, runner_probes/
+       * tka.run400.txt cells 14/40/44; goldilocks `take watch`), which is
+       * false: the inventory has just said "You are wearing a hat".  The
+       * worn object still had the tasks' look above, as run400 gives it.
+       * A game with an ALR over the 4.0 sentence keeps its wording so the
+       * rewrite still fires (Bandera, El ascensor, Vardock Bates, the
+       * French "Vous portez déjà" games, Plague Redux: SCR_DUMP_ALRS scan
+       * of the corpus, 2026-11-07).
+       */
+      const scr_bool wearing_worn
+        = !pf_alr_mentions (gs_get_bundle (game), "already carrying");
+
       /* One clause per piece on an "and" line (p4TKA cells 14/40/44). */
       for (const scr_int item : list)
         {
           lib_new_clause (game, has_printed);
-          pf_buffer_string (filter,
-                            lib_select_response (game,
-                                                 "You are already carrying ",
-                                                 "I am already carrying ",
-                                                 "%player% is already carrying "));
-          lib_print_object_np (game, item);
-          pf_buffer_character (filter, '.');
+          if (wearing_worn
+              && gs_object_position (game, item) == OBJ_WORN_PLAYER)
+            {
+              SCR_DEVIATION ("take_worn_wearing", nullptr);
+              pf_buffer_string (filter,
+                                lib_select_response (game,
+                                                     "You are already wearing ",
+                                                     "I am already wearing ",
+                                                     "%player% is already wearing "));
+              lib_print_object_np (game, item);
+              pf_buffer_character (filter, '!');
+            }
+          else
+            {
+              pf_buffer_string (filter,
+                                lib_select_response (game,
+                                                     "You are already carrying ",
+                                                     "I am already carrying ",
+                                                     "%player% is already carrying "));
+              lib_print_object_np (game, item);
+              pf_buffer_character (filter, '.');
+            }
           has_printed |= TRUE;
         }
     }
