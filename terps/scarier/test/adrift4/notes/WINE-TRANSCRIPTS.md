@@ -1326,6 +1326,20 @@ case, and their goldens are re-blessed. The row notes in
     onnafa's `give empty beer mug to perry` a "You can't take anything
     from the empty beer mug." first (6095ff3b0).
     lib_empty_rewrite_400() is gone; onnafa is re-blessed.
+    2026-11-07: the 4.0 verb hoist (run_hoist_verb_line()) still carried
+    "empty" in HOIST_VERBS_400_TAKE, so an object whose Prefix is "an
+    empty" lost every line naming it in full to the take-from rows:
+    goldilocks' `x empty milkbottle`, `x it`, `read it`, `wear it`, `smell
+    empty milkbottle` were all "I don't understand where you want to get
+    things from." (onnafa's mug escaped because its two-word Short is
+    masked, lib_mask_long_names()). "empty" is out of the hoist tables:
+    a take-from verb at the head of the line only. run400 on the same
+    lines (runner_probes/kemp.run400.txt, harness/cmdfile_kemp.txt): `x the
+    empty milkbottle` "I take the crumpled note from the empty
+    milkbottle.", then `wear/smell/zzz/please empty milkbottle` all
+    "There is nothing inside the empty milkbottle."; `x milkbottle
+    empty` (no trailing space, no Replace) "I see nothing special about
+    the empty milkbottle.". Scarier examines, wears, smells instead.
   - Before 4.0, `put all except X in/on Y` leaves X out, and 3.7's `drop
     all except X` keeps X. run370-390 insides() has no exception list, and
     run370's drops() has no "but" (566c6b985, p37PUT/p38PUT/p39PUT).

@@ -1,0 +1,16 @@
+s
+w
+n
+n
+take bottle
+x empty milkbottle
+x the empty milkbottle
+read empty milkbottle
+wear empty milkbottle
+smell empty milkbottle
+x empty
+zzz empty milkbottle
+please empty milkbottle
+drop bottle
+empty milkbottle
+x milkbottle empty

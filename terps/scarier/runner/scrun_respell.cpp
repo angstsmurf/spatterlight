@@ -109,8 +109,18 @@ static const scr_char *const HOIST_VERBS_400_PUTDROP[] = {
   "put", "drop", nullptr
 };
 
+/*
+ * get_outer's first act is `If c("empty") Then line = Replace(line,
+ * "empty ", "get all from ")` (458073), so the Runner's "empty" is a verb
+ * anywhere too.  It is left out here on purpose: an object whose Prefix is
+ * "an empty" puts that word in the middle of every line that names it in
+ * full, and hoisting it made goldilocks' `x empty milkbottle`, `read it`
+ * and `wear it` the take-from rows' "I don't understand where you want to
+ * get things from.".  Deliberate deviation, logged with get_outer_400():
+ * "empty" is a take-from verb at the head of the line only.
+ */
 static const scr_char *const HOIST_VERBS_400_TAKE[] = {
-  "empty", "get", "take", "pick", nullptr
+  "get", "take", "pick", nullptr
 };
 
 static const scr_char *const HOIST_VERBS_400_WEAR[] = {

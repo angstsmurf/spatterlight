@@ -1,0 +1,60 @@
+
+> s
+I move south.
+On a path in the forest
+I'm on a path winding through the Enchanted Forest. The path winds it way from the north towards the west. In every other direction there are dark, sinister looking trees that wave their branches at me in an anthropomorphic kind of way. Ooh, I'm soooo scared!  I can move north, east, south and west.
+
+> w
+As I head off along the path a pathetic, mangey looking wolf jumps out from behind a bush and slobbers at me in what he probably hopes is a menacing way.
+   'I am the Big Bad Wolf!' says he. Then, after an awkward pause he adds 'well, what are you waiting for? Aren't you going to ask me the way to Grandma's house?' He looks at me quizzically for a moment and then slaps his forehead.
+   'My humblest apologies!' he says. 'You are not the young woman I seek. She of the crimson shawl must needs be elsewhere!' He darts back into the forest.
+
+
+At a fork in the path
+I'm at a fork in the path. Not the kind of fork you eat with, the sort where the path forks; you know, like a fork. To the north the path widens into a clearing. To the west it disappears into the forest.  I can move north, east and west.
+
+> n
+I move north.
+In a clearing in the forest
+I'm in a clearing. There is a teeny tiny cottage here complete with a thatched roof and leaded windows. It's just like something out of a fairy tale, funnily enough, except for the large hand-painted sign designed to deter trespassers. Just to the north is the front porch. A little path lined by rows of white-painted stones leads around the side of the house to the west.  I can move north, south and west.
+
+> n
+I move north.
+On the porch
+I'm standing on the porch of the Three Bears' cottage. It would be quite pretty in a rustic sort of way had someone not seen fit to paint it gold. The front door is closed. Just south of me is the clearing in the forest.  A battered old dustbin sits to one side of the porch.  I can also see an empty milkbottle.  I can only move south.
+
+> take bottle
+I take the empty milkbottle.
+
+> x empty milkbottle
+A crumpled note is inside the empty milkbottle.
+
+> x the empty milkbottle
+I take the crumpled note from the empty milkbottle.
+
+> read empty milkbottle
+I can't read the empty milkbottle!
+
+> wear empty milkbottle
+There is nothing inside the empty milkbottle.
+
+> smell empty milkbottle
+There is nothing inside the empty milkbottle.
+
+> x empty
+I see no such thing.
+
+> zzz empty milkbottle
+There is nothing inside the empty milkbottle.
+
+> please empty milkbottle
+There is nothing inside the empty milkbottle.
+
+> drop bottle
+I drop the empty milkbottle.  
+
+> empty milkbottle
+There is nothing inside the empty milkbottle.  I'm not carrying any water.
+
+> x milkbottle empty
+I see nothing special about the empty milkbottle.

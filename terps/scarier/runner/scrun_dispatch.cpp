@@ -843,9 +843,12 @@ run_line_t::get_outer_400 ()
    * into a take-from, so onnafa's `give empty beer mug to perry` first says
    * "You can't take anything from the beer mug." and `x empty beer mug`
    * with the mug gone is "I don't understand where you want to get things
-   * from."  Deliberate deviation: Scarier leaves a line that only names an
-   * "empty ..." object alone; a line starting with "empty" is the take-from
-   * rows' either way.
+   * from."  Deliberate deviation: "empty" is a take-from verb at the HEAD
+   * of the line only.  It is in none of the verb-hoist tables
+   * (HOIST_VERBS_400_TAKE), so a line that names an "empty ..." object in
+   * full -- goldilocks' `x empty milkbottle`, `read it`, `wear it`, with the
+   * bottle's Prefix "an empty" -- keeps its own verb; a line starting with
+   * "empty" is the take-from rows' either way.
    */
 
   /*
