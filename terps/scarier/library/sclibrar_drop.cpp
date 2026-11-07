@@ -215,6 +215,8 @@ lib_move_backend (scr_gameref_t game, const lib_move_verb_t *verb,
 static scr_bool
 lib_drop_backend (scr_gameref_t game)
 {
+  const scr_filterref_t filter = gs_get_filter (game);
+  const size_t mark = pf_buffer_length (filter);
   scr_bool has_printed;
 
   has_printed = lib_move_try_commands (game, "drop",
@@ -246,6 +248,45 @@ lib_drop_backend (scr_gameref_t game)
             {
               game->multiple_references[object] = FALSE;
               has_printed = TRUE;
+            }
+        }
+
+      /*
+       * run400 lists the drops ahead of what the tasks said about the
+       * others.  name_object (Proc_19_41_46E5D8) runs its per-object loop
+       * first, a task claim's text accruing in the turn's string, and
+       * then, with at least one object dropped (46E3A8), sets that string
+       * aside (46E3AB), composes "<player> drop " and the list in a fresh
+       * one, and puts the saved text back after it through pspace
+       * (44A9F4 at 46E4F5, then the concatenation at 46E4FA).  House
+       * `drop all` with the desiccated herb held, task 359 claiming it:
+       * "You drop the note, ..., the piece of chalk and the ex chest.  The
+       * thyme has aged and dried.  As you watch it dissipates."
+       * (runner_probes/house.run400.exfurniture.txt).  With nothing left
+       * to drop the string is left as the tasks built it.
+       */
+      if (has_printed)
+        {
+          const scr_int object_count = gs_object_count (game);
+          scr_int object;
+
+          for (object = 0; object < object_count; object++)
+            if (game->object_references[object])
+              break;
+
+          if (object < object_count)
+            {
+              std::string claimed;
+
+              pf_undo_auto_break (filter);
+              claimed = pf_cut_tail (filter, mark);
+              lib_move_backend (game, &LIB_DROP_VERB, -1, FALSE);
+              if (!claimed.empty ())
+                {
+                  pf_buffer_pspace (filter);
+                  pf_buffer_string (filter, claimed.c_str ());
+                }
+              return TRUE;
             }
         }
     }

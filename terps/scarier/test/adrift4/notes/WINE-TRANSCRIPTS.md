@@ -585,10 +585,12 @@ house.run400.exfurniture_nouns.txt, house.run400.cathyaway.txt.
   The cause was not the parser's containment pass but the term-shadow
   deviation, lib_co_term_shadowed(), letting the seen-but-absent rocking
   chair hide the present ex chair's Short in the 4.0 noun score.
-- **`drop all` prints the drop list before a task's text.** run400: "You
-  drop the note, ..., the piece of chalk and the ex chest.  The thyme has
-  aged and dried.  As you watch it dissipates."; Scarier prints the herb
-  task's text first, then the list.
+- **`drop all` prints the drop list before a task's text.** PORTED
+  2026-11-07; see "The drop list comes before the tasks' text" under
+  "Other formatting" in the index below. The 4.0 `drops` handler (46FB8C)
+  is dead code; the live path is put_drop_list 459DB4 -> name_object
+  46E5D8, whose per-object loop lets a task claim's text accrue first and
+  then rebuilds the turn string list-first (46E3AB-46E505).
 
 ### Engine, needs a probe (3.7)
 
@@ -5100,6 +5102,20 @@ transcript names are in the code comment next to the named function, in
     `[<4.0]` read, not probed (`lib_get_room_name`, 2026-09-20)
   - The multi-take line comes before the earlier task text. `[4.0]`
     fullcircle T43 (b6d2f4f1f)
+  - The drop list comes before the tasks' text. name_object (46E5D8)
+    offers each listed object to the put/drop tasks in its per-object
+    loop, a claim's text accruing in the turn string; with at least one
+    object dropped (46E3A8) it sets that string aside, composes "<player>
+    drop " and the list afresh, and appends the saved text after a
+    pspace (44A9F4 at 46E4F5, concatenation at 46E4FA). With every object
+    claimed the string stands as the tasks built it. House `drop all`
+    with the desiccated herb held (task 359): "You drop the note, ...,
+    the piece of chalk and the ex chest.  The thyme has aged and dried.
+    As you watch it dissipates." `[4.0]` house.run400.exfurniture.txt
+    (`lib_drop_backend`, 2026-11-07). run390's drops (445F20) seeds the
+    list in the buffer before its tail loop dispatches the per-object
+    tasks (445DD7-445E7A), so 3.9 reads the same way, unmeasured and not
+    ported; the shared code also governs 4.0 `put all in X`, unmeasured.
   - The (Getting off X first) bracket line prints on its own line.
     Monsters_r2
   - The score summary prints after every EndGame; NotifyScore defaults to
