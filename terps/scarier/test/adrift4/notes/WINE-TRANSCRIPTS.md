@@ -1899,6 +1899,26 @@ case, and their goldens are re-blessed. The row notes in
   unchanged (`x coin and a hat` ties, `take coin and the ball` stops at
   the coin, `get coin and zzz` cuts). (runner/scrun_split.cpp
   run_split_article_names_object)
+- **4.0 put clause loop: two spaces at a refusal joint (2026-11-07).** A
+  refusal-only put ends without its terminator, and the Runner's clause
+  loop runs the next clause straight on from it: "The coin is too big to
+  fit inside the box.You can't put anything inside the desk!" (p4AND,
+  runner_probes/and.run400.txt t72, and.run400.c.txt t7 with
+  DUMP_SCROLLBACK), where a refusal that does end with its terminator gets
+  the usual pspace: "...the desk!  The hat is too big...". Scarier keeps
+  the pending join for every clause, not just the last, so the next
+  clause's text lands after the Runner's two-space separator: "...inside
+  the box.  You can't put anything inside the desk!". A scan of all 51,859
+  corpus ALR originals for a terminator run straight into a capital found
+  none spanning a put-refusal-to-put joint; the joints authors did write
+  against (House `...salt shaker!You place the snuff box...`, hcw `...at
+  the moment.You can't take anything from sleeping Susan.`, sa/sophie
+  `birthday.You are not holding the pink crystal.`, smercenary
+  `unit(s).There are currently` -> two spaces) are refusal-to-task,
+  take-from and task-to-refusal joints, untouched here; House's Wine
+  transcript shows none of its three firing (`put snuffbox in ring`,
+  runner_transcripts/house.txt). (runner/scrun_dispatch.cpp
+  run_line_t::put_pass)
 
 ## Rules measured and ported (index)
 

@@ -715,18 +715,22 @@ run_line_t::put_pass ()
                * can't put anything inside the desk!" is what the Runner's
                * own scrollback holds, with no separator at all where the
                * next clause begins (p4AND, runner_probes/and.run400.c.txt
-               * + DUMP_SCROLLBACK).  Only the last clause
-               * keeps the pending join, which is what a task answering the
-               * same line wants.
+               * + DUMP_SCROLLBACK).  The pending join is kept for every
+               * clause: the last one's is what a task answering the same
+               * line wants, and for the others it is a deliberate deviation
+               * that puts the Runner's own two-space separator at the
+               * joint, "...inside the box.  You can't put...", as the
+               * Runner itself does after a refusal that ends with its
+               * terminator ("...the desk!  The hat is too big...").  No
+               * corpus ALR original spans a put-refusal joint written
+               * without the space (2026-11-07 scan); see
+               * WINE-TRANSCRIPTS.md, Deliberate deviations.
                */
               refused = run_priority_refused;
               if (refused)
                 {
                   pf_note_trailing_auto_break (filter);
-                  if (is_last)
-                    pf_buffer_join_pending (filter);
-                  else
-                    pf_undo_auto_break (filter);
+                  pf_buffer_join_pending (filter);
                 }
               /*
                * name_object answers every clause where it stands, so a
