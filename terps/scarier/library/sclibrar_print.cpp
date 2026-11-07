@@ -1931,14 +1931,34 @@ lib_print_response_message (scr_gameref_t game,
  * Start a new clause in the turn's output.  Where something has already been
  * printed this turn, the clause is set off from it by two spaces; the rest is
  * either a fresh sentence, or the phrase appropriate to the perspective.
+ *
+ * What came before may be a game task's text rather than the library's own:
+ * `drop all` offers every held object to the tasks first, and House (4.0)
+ * answers the desiccated herb with task 359's "The thyme has aged and
+ * dried.  As you watch it dissipates." before the library lists the rest.
+ * That text was terminated by pf_buffer_paragraph_line(), so the "  " landed
+ * at the start of the next line ("\n  You drop the note, ...").  The Runner
+ * keeps the turn's text in one string and appends the library's line to it,
+ * so the separator first takes back a terminator of our own; an author's
+ * own trailing break is left alone.  The two spaces stay unconditional: the
+ * Runner stacks them onto an author's trailing pair (trabula "shabby.    The
+ * shabby hut is locked.", baroo, xfiles goldens), which pf_buffer_pspace()'s
+ * double-space guard would fold.
  */
+static void
+lib_clause_separator (scr_filterref_t filter)
+{
+  pf_undo_auto_break (filter);
+  pf_buffer_string (filter, "  ");
+}
+
 void
 lib_new_clause (scr_gameref_t game, scr_bool has_printed)
 {
   const scr_filterref_t filter = gs_get_filter (game);
 
   if (has_printed)
-    pf_buffer_string (filter, "  ");
+    lib_clause_separator (filter);
   pf_new_sentence (filter);
 }
 
@@ -1951,7 +1971,7 @@ lib_print_clause (scr_gameref_t game, scr_bool has_printed,
   const scr_filterref_t filter = gs_get_filter (game);
 
   if (has_printed)
-    pf_buffer_string (filter, "  ");
+    lib_clause_separator (filter);
   pf_buffer_string (filter,
                     lib_select_response (game, second_person,
                                          first_person, third_person));
