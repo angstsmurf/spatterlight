@@ -521,7 +521,7 @@ vibrate slightly and flicker with a greenish light.
 "I activated the bomb.  I wonder how much time I have until it blows."
 
 > where is sweeper
-ADRIFT-O-Sweep is
+ADRIFT-O-Sweep is in
 adrift-o-lift
 .
 
@@ -597,7 +597,7 @@ There is a lever on the wall, though it seems a little primative for such a
 fancy ship.  You can only move south.
 
 > where is sweeper
-ADRIFT-O-Sweep is
+ADRIFT-O-Sweep is in
 the adrift-o-lift
 .  (Right next to you, silly!)
 "The bomb has to blow soon.  I just know it.  I probably shouldn't have
@@ -635,7 +635,7 @@ sucking it up.
 "I activated the bomb.  I wonder how much time I have until it blows."
 
 > where is darwin
-DARWIN is
+DARWIN is in
 the laboratory
 .  ADRIFT-O-Sweep zooms out through the vent to the south-east.
 
@@ -674,7 +674,7 @@ activated it yet."
 ADRIFT-O-Sweep zooms in through the vent from the south-west.
 
 > where is darwin
-DARWIN is
+DARWIN is in
 the corridor
 .
 "I activated the bomb.  I wonder how much time I have until it blows."
@@ -693,7 +693,7 @@ Time passes...
 ADRIFT-O-Sweep zooms out through the vent to the north.
 
 > where is darwin
-DARWIN is
+DARWIN is in
 adrift-o-dump
 .
 "The bomb has to blow soon.  I just know it.  I probably shouldn't have

@@ -271,6 +271,45 @@ lib_locate_object_by_position (scr_gameref_t game, scr_int object)
 }
 
 /*
+ * lib_locate_runner_shape()
+ *
+ * TRUE if the where/find answer for 'name' in 'room' must keep the Runner's
+ * shape, "<name> is <lowercased room name>.", rather than Scarier's "is in".
+ *
+ * Every Runner builds the answer as name & is/are & LCase(room) & "." with
+ * no preposition -- "The fire is house.", run400 @468115 for objects and
+ * @47FD19 for characters.  Scarier says "is in" (deviation policy: grammar
+ * over parity), except in a game whose ALR table was written across that
+ * join: The Dead Man rewrites "is control room" to "is on the floor of the
+ * control room." and chains two more ALRs off the result, and I am the Law
+ * rewrites whole character answers, "Tim is corridor." among them.  There
+ * the Runner's exact shape is kept so that the author's replacement still
+ * fires.  The test is the one the ALR filter will make: does some ALR
+ * original match the Runner's sentence at a position before the room name
+ * and run into it?  An ALR that stops before the room ("The fire is ") or
+ * starts at it ("house.") matches either form and needs no exception.
+ * Only those two games in the corpus have such an ALR (2026-11-07 scan of
+ * every table against every object x room and character x room sentence).
+ */
+static scr_bool
+lib_locate_runner_shape (scr_gameref_t game, const scr_char *name,
+                         const scr_char *verb, scr_int room)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  std::string runner (name), lower (lib_get_room_name (game, room));
+  size_t join;
+
+  if (!runner.empty ())
+    runner[0] = scr_toupper (runner[0]);
+  runner += verb;
+  join = runner.size ();
+  scr_lowercase (lower);
+  runner += lower;
+  runner += ".";
+  return pf_alr_rewrites_span (bundle, runner.c_str (), join, join + 1);
+}
+
+/*
  * lib_locate_object_in_rooms()
  *
  * Name the first room holding the object, if the player has been there.
@@ -279,11 +318,7 @@ static void
 lib_locate_object_in_rooms (scr_gameref_t game, scr_int object)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_char *verb;
-  std::string runner, lower;
-  size_t join;
-  scr_bool runner_shape;
   scr_int room;
 
   /*
@@ -327,37 +362,17 @@ lib_locate_object_in_rooms (scr_gameref_t game, scr_int object)
    * name & isare(prefix, short) & LCase(room name) & "." -- run400 @468115
    * -- and the " -- " upstream SCARE printed here appears in none of the
    * four binaries.  Scarier keeps a capitalised name's case; see
-   * lib_print_room_name_lower().
-   *
-   * The Runner's "The fire is house." has no preposition.  Scarier says
-   * "is in" (deviation policy: grammar over parity), except in a game whose
-   * ALR table was written across that join -- The Dead Man rewrites "is
-   * control room" to "is on the floor of the control room.", and a chain of
-   * two more ALRs hangs off that -- where the Runner's exact shape is kept
-   * so that the author's replacement still fires.  The test is the one the
-   * ALR filter will make: does some ALR original match the Runner's
-   * sentence at a position before the room name and run into it?  An ALR
-   * that stops before the room ("The fire is ") or starts at it ("house.")
-   * matches either form and needs no exception.  Only The Dead Man in the
-   * corpus has such an ALR (2026-11-07 scan of every table against every
-   * object x room sentence).
+   * lib_print_room_name_lower().  "is in" unless an ALR was written
+   * against the Runner's shape; see lib_locate_runner_shape().
    */
   verb = lib_select_plurality (game, object, " is ", " are ");
-  runner = lib_definite_object_name (bundle, object);
-  if (!runner.empty ())
-    runner[0] = scr_toupper (runner[0]);
-  runner += verb;
-  join = runner.size ();
-  lower = lib_get_room_name (game, room);
-  scr_lowercase (lower);
-  runner += lower;
-  runner += ".";
-  runner_shape = pf_alr_rewrites_span (bundle, runner.c_str (), join, join + 1);
-
   pf_new_sentence (filter);
   lib_print_object_np (game, object);
   pf_buffer_string (filter, verb);
-  if (!runner_shape)
+  if (!lib_locate_runner_shape (game,
+                                lib_definite_object_name (gs_get_bundle (game),
+                                                          object).c_str (),
+                                verb, room))
     pf_buffer_string (filter, "in ");
   lib_print_room_name_lower (game, room);
   pf_buffer_string (filter, ".\n");
@@ -512,11 +527,17 @@ lib_cmd_locate_npc (scr_gameref_t game)
    * comma (deviation policy), except in a game with an ALR written against
    * the Runner's "silly!)" -- Fugitive, IceCream, panic, The Dead Man and
    * eight more rewrite or blank the clause -- where the Runner's form is
-   * kept so that the author's replacement still fires.
+   * kept so that the author's replacement still fires.  The "is in" of the
+   * sentence itself is gated the same way; see lib_locate_runner_shape().
    */
   pf_new_sentence (filter);
   lib_print_npc_np (game, npc);
   pf_buffer_string (filter, " is ");
+  if (!lib_locate_runner_shape (game,
+                                prop_get_indexed_string (gs_get_bundle (game),
+                                                         "NPCs", npc, "Name"),
+                                " is ", room))
+    pf_buffer_string (filter, "in ");
   lib_print_room_name_lower (game, room);
   pf_buffer_string (filter, ".");
   if (room == gs_playerroom (game))

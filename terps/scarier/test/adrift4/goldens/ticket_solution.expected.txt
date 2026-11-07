@@ -1126,7 +1126,7 @@ umsteigen means to change. "
 think.
 
 > where is young girl
-Young Girl is bridge.  (Right next to you, silly!)
+Young Girl is in bridge.  (Right next to you, silly!)
 
 > se
 You move southeast.

@@ -1868,10 +1868,21 @@ case, and their goldens are re-blessed. The row notes in
   of the control room.` with two further ALRs chained off the result, and
   still answers "The gun is on the floor of the control room.." as in the
   Runner. A scan of all 51,859 ALR originals in the corpus against every
-  "<object> is/are <lowercased room>." sentence found no other. The
-  character branch ("Blair Alpha is control room.") is unchanged. No golden
+  "<object> is/are <lowercased room>." sentence found no other. No golden
   exercises the object answer. (library/sclibrar_misc.cpp
-  lib_locate_object_in_rooms; the gate is pf_alr_rewrites_span)
+  lib_locate_object_in_rooms; the gate is lib_locate_runner_shape over
+  pf_alr_rewrites_span)
+- **`where is <character>` says "is in <room>" too (2026-11-07).** The
+  character answer (run400 @47FD19, "Blair Alpha is control room.") takes
+  the same "in" under the same gate. The character x room scan found two
+  games written against the Runner's shape: The Dead Man (the `is control
+  room` chain above) and I am the Law, which rewrites whole answers --
+  `Tim is corridor.`, `Calvin is workstations.`, `William is william's
+  room.` -- and both keep the Runner's text. Two goldens re-blessed, both
+  solely this change: TheADRIFTProject (`where is sweeper` / `where is
+  darwin`, five lines) and ticket (`where is young girl`, "Young Girl is in
+  bridge.  (Right next to you, silly!)"). (library/sclibrar_misc.cpp
+  lib_cmd_locate_npc)
 
 ## Rules measured and ported (index)
 
