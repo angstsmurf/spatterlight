@@ -291,6 +291,46 @@ typedef struct
 } scr_references_t;
 
 /*
+ * Turn control: what the library and the task code tell the main loop about
+ * the command in hand, and what the loop keeps between one command and the
+ * next.
+ *
+ * Undo: copied whole by gs_copy.  .tas: not saved.  Session: only
+ * has_notified (the "notified" record); a save point falls between
+ * commands, where the rest is at rest.
+ */
+typedef struct
+{
+  scr_int waitcounter;    /* turns still to run for a "wait" */
+  scr_bool has_notified;  /* a score change was announced this turn */
+  scr_bool is_admin;      /* the command is not to count as a turn */
+
+  /*
+   * TRUE once the library's movement command has moved the player on this
+   * input line; gates the 4.0 player-side walk meet (npc_tick_npcs).
+   */
+  scr_bool player_moved_by_command;
+
+  /* "again", and the main loop's requests to restart or restore. */
+  scr_bool do_again;
+  scr_int redo_sequence;
+  scr_bool do_restart;
+  scr_bool do_restore;
+
+  /*
+   * The ending an EndGame task action has armed, held until the end of the
+   * turn: 0 for none, otherwise the action's Var1 plus one (so 1 = win,
+   * 2 = lose, 3 = dead, 4 = "just stop").  The Runner keeps the same thing in
+   * a byte of its own, but numbers it differently -- its EndGame handler maps
+   * Var1 0,1,2,3 to 1,3,2,4 (0008D66E) and its endmessage switches on that --
+   * so the two are not interchangeable.  Set inside the turn and consumed by
+   * task_print_end_game_message(); never live across a command, so it is not
+   * part of the saved stream.
+   */
+  scr_int pending_endgame;
+} scr_turn_t;
+
+/*
  * The player's settings: what the metacommands and the host's preferences
  * set, as opposed to what the game does.
  *
@@ -407,18 +447,6 @@ typedef struct scr_game_s
   scr_bool has_completed;
 
   /*
-   * The ending an EndGame task action has armed, held until the end of the
-   * turn: 0 for none, otherwise the action's Var1 plus one (so 1 = win,
-   * 2 = lose, 3 = dead, 4 = "just stop").  The Runner keeps the same thing in
-   * a byte of its own, but numbers it differently -- its EndGame handler maps
-   * Var1 0,1,2,3 to 1,3,2,4 (0008D66E) and its endmessage switches on that --
-   * so the two are not interchangeable.  Set inside the turn and consumed by
-   * task_print_end_game_message(); never live across a command, so it is not
-   * part of the saved stream.
-   */
-  scr_int pending_endgame;
-
-  /*
    * ADRIFT-style carried-load running totals.  The real Runner keeps the
    * player's carried weight and size as running totals, updated incrementally
    * on each take/drop; a take of an object already possessed indirectly
@@ -449,19 +477,7 @@ typedef struct scr_game_s
    */
   scr_bool runner_phantom_held;
 
-  /* Miscellaneous library and main loop conveniences. */
-  scr_int waitcounter;
-  scr_bool has_notified;
-  scr_bool is_admin;
-  /*
-   * TRUE once the library's movement command has moved the player on this
-   * input line; gates the 4.0 player-side walk meet (npc_tick_npcs).
-   */
-  scr_bool player_moved_by_command;
-  scr_bool do_again;
-  scr_int redo_sequence;
-  scr_bool do_restart;
-  scr_bool do_restore;
+  scr_turn_t turn;
   scr_references_t refs;
   scr_pronouns_t pronouns;
 } scr_game_t;

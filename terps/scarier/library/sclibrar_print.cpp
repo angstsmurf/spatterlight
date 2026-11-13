@@ -53,7 +53,7 @@ scr_bool lib_trace = FALSE;
 void
 lib_set_admin (scr_gameref_t game)
 {
-  game->is_admin = prop_get_taf_version (gs_get_bundle (game))
+  game->turn.is_admin = prop_get_taf_version (gs_get_bundle (game))
                    >= TAF_VERSION_390;
 }
 

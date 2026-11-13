@@ -443,7 +443,7 @@ void
 lib_co_400_print_still_ambiguous (scr_gameref_t game)
 {
   pf_buffer_string (gs_get_filter (game), "That is still ambiguous!\n");
-  game->is_admin = TRUE;
+  game->turn.is_admin = TRUE;
 }
 
 /*
@@ -520,7 +520,7 @@ lib_co_400_raise_common (scr_gameref_t game, const scr_char *term,
   const scr_char *command;
   scr_int index_;
 
-  game->is_admin = TRUE;
+  game->turn.is_admin = TRUE;
 
   if (from_scan)
     {
@@ -1555,7 +1555,7 @@ lib_npc_400_raise_for_line_in (scr_gameref_t game, const scr_char *input)
 
   /* One pass of the original loop; the braces keep its indentation. */
     {
-      game->is_admin = TRUE;
+      game->turn.is_admin = TRUE;
       if (disambig.question.was_pending)
         {
           pf_buffer_string (filter, "That is still ambiguous!\n");

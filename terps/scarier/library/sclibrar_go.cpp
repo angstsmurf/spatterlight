@@ -238,7 +238,7 @@ lib_go (scr_gameref_t game, scr_int direction)
 
   gs_move_player_to_room (game, destination);
   gs_set_playerparent (game, stale_parent);
-  game->player_moved_by_command = TRUE;
+  game->turn.player_moved_by_command = TRUE;
 
   /* Describe the new room and return. */
   lib_describe_player_room (game, FALSE);
@@ -766,7 +766,7 @@ lib_goto_walk (scr_gameref_t game, scr_int target, const std::string &name)
   pf_buffer_string (filter, "Moving to ");
   pf_buffer_string (filter, name.c_str ());
   pf_buffer_string (filter, "...\n");
-  game->is_admin = TRUE;
+  game->turn.is_admin = TRUE;
 }
 
 

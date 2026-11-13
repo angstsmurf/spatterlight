@@ -1123,7 +1123,7 @@ lib_sitstand_anywhere (scr_gameref_t game, lib_line_runner_t run_line,
   scr_bool sit, stand, lie, examine, profanity, score, speaks;
   scr_int blocks;
 
-  if (!line || game->pending_endgame != 0)
+  if (!line || game->turn.pending_endgame != 0)
     return FALSE;
 
   /*
@@ -1324,7 +1324,7 @@ lib_openclose_anywhere (scr_gameref_t game, const scr_char *typed,
   scr_bool speaks;
   scr_int object;
 
-  if (!typed || !line || !run_line || game->pending_endgame != 0)
+  if (!typed || !line || !run_line || game->turn.pending_endgame != 0)
     return FALSE;
 
   /*
@@ -1488,7 +1488,7 @@ lib_whereis_anywhere (scr_gameref_t game, lib_line_runner_t run_line)
   const scr_char *const *word;
   const scr_char *scan, *at = nullptr;
 
-  if (!line || !run_line || game->pending_endgame != 0)
+  if (!line || !run_line || game->turn.pending_endgame != 0)
     return FALSE;
 
   for (scan = line; *scan != NUL && !at; scan++)

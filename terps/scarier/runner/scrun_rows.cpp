@@ -380,7 +380,7 @@ run_standard_give_npc_commands (scr_gameref_t game, const scr_char *string)
 scr_bool
 run_standard_fallback_commands (scr_gameref_t game, const scr_char *string)
 {
-  const scr_bool is_ended = game->pending_endgame != 0
+  const scr_bool is_ended = game->turn.pending_endgame != 0
       && prop_get_taf_version (gs_get_bundle (game)) == TAF_VERSION_400;
 
   /*

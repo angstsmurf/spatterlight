@@ -122,7 +122,7 @@ run_notify_score_change (scr_gameref_t game)
    * already done this once this turn.
    */
   if (!game->undo_available
-      || !game->settings.notify_score_change || game->has_notified)
+      || !game->settings.notify_score_change || game->turn.has_notified)
     return;
 
   /* Note any change in the score. */
@@ -140,7 +140,7 @@ run_notify_score_change (scr_gameref_t game)
       if_print_string (buffer);
       if_print_string (")\n");
     }
-  game->has_notified = TRUE;
+  game->turn.has_notified = TRUE;
 }
 
 
@@ -592,7 +592,7 @@ run_main_turn_input (scr_gameref_t game)
   scr_bool status;
 
   /* If waitcounter is zero, accept and try a command. */
-  if (game->waitcounter == 0)
+  if (game->turn.waitcounter == 0)
     {
       /* Not waiting, so handle a player input line. */
       run_update_status (game);
@@ -602,8 +602,8 @@ run_main_turn_input (scr_gameref_t game)
        * If waitcounter is now set, decrement it, as this turn counts as
        * one of them.
        */
-      if (game->waitcounter > 0)
-        game->waitcounter--;
+      if (game->turn.waitcounter > 0)
+        game->turn.waitcounter--;
     }
   else
     {
@@ -611,7 +611,7 @@ run_main_turn_input (scr_gameref_t game)
        * Currently "waiting"; decrement wait turns, then run a turn having
        * taken no input.
        */
-      game->waitcounter--;
+      game->turn.waitcounter--;
       status = TRUE;
     }
 
@@ -626,10 +626,10 @@ run_main_turn_tick (scr_gameref_t game, scr_bool status)
    * last command didn't match, or the last command did match but was
    * administrative.
    */
-  if (status && game->is_admin)
+  if (status && game->turn.is_admin)
     SCR_TRACE_IF ("SCR_TRACE_ADMIN", "ADMIN turn=%ld after [%s]\n",
                   game->turns, run_trace_last_input.c_str ());
-  if (status && !game->is_admin)
+  if (status && !game->turn.is_admin)
     {
       /*
        * Increment turn counter, and clear notifications done flag.  3.8
@@ -646,7 +646,7 @@ run_main_turn_tick (scr_gameref_t game, scr_bool status)
           && !(prop_get_taf_version (gs_get_bundle (game))
                >= TAF_VERSION_400 && !game->is_running))
         game->turns++;
-      game->has_notified = FALSE;
+      game->turn.has_notified = FALSE;
 
       if (game->is_running)
         {
@@ -699,12 +699,12 @@ run_main_turn_end (scr_gameref_t game)
    * (run390 43CBB9, run380 431FF2).  A walk the game ended stops there.
    */
   if (run_goto_arrival_due && game->is_running
-      && game->pending_endgame == 0)
+      && game->turn.pending_endgame == 0)
     {
       pf_buffer_string (filter, run_goto_arrival.c_str ());
       run_finish_goto_walk ();
     }
-  else if (!game->is_running || game->pending_endgame != 0)
+  else if (!game->is_running || game->turn.pending_endgame != 0)
     run_cancel_goto_walk ();
 
   /*
@@ -808,7 +808,7 @@ run_main_loop (scr_gameref_t game)
        * notion of administrative commands from input.
        */
       pf_flush (filter, vars, bundle);
-      game->is_admin = FALSE;
+      game->turn.is_admin = FALSE;
 
       status = run_main_turn_input (game);
       run_main_turn_tick (game, status);
@@ -1118,16 +1118,16 @@ run_interpret (scr_gameref_t game)
        * restart or restore game adjustments, and set the game running
        * again.
        */
-      if (game->do_restart)
+      if (game->turn.do_restart)
         {
-          game->do_restart = FALSE;
+          game->turn.do_restart = FALSE;
           run_restart_handler (game);
           game->is_running = TRUE;
         }
 
-      if (game->do_restore)
+      if (game->turn.do_restore)
         {
-          game->do_restore = FALSE;
+          game->turn.do_restore = FALSE;
           run_restore_handler (game);
           game->is_running = TRUE;
         }
@@ -1239,7 +1239,7 @@ run_restart (scr_gameref_t game)
   if (game->is_running)
     {
       game->is_running = FALSE;
-      game->do_restart = TRUE;
+      game->turn.do_restart = TRUE;
       throw run_loop_halt ();
     }
 
@@ -1327,7 +1327,7 @@ run_restore_common (scr_gameref_t game,
       if (game->is_running)
         {
           game->is_running = FALSE;
-          game->do_restore = TRUE;
+          game->turn.do_restore = TRUE;
           throw run_loop_halt ();
         }
     }
@@ -1399,7 +1399,7 @@ run_undo (scr_gameref_t game)
       if (game->is_running)
         {
           game->is_running = FALSE;
-          game->do_restore = TRUE;
+          game->turn.do_restore = TRUE;
           throw run_loop_halt ();
         }
 

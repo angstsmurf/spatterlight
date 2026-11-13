@@ -266,6 +266,6 @@ lib_cmd_read_other (scr_gameref_t game)
                               "You see no such thing.\n",
                               "I see no such thing.\n",
                               "%player% see no such thing.\n");
-  game->is_admin = TRUE;
+  game->turn.is_admin = TRUE;
   return TRUE;
 }

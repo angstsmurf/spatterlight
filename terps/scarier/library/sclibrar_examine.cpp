@@ -705,7 +705,7 @@ lib_describe_npc (scr_gameref_t game, scr_int npc)
    * the road it is restricted to.
    */
   if (lib_is_version_400 (game))
-    game->is_admin = TRUE;
+    game->turn.is_admin = TRUE;
 }
 
 scr_bool
@@ -720,7 +720,7 @@ lib_cmd_examine_npc (scr_gameref_t game)
   if (npc == -1)
     return is_ambiguous;
 
-  was_admin = game->is_admin;
+  was_admin = game->turn.is_admin;
   lib_describe_npc (game, npc);
 
   /*
@@ -742,7 +742,7 @@ lib_cmd_examine_npc (scr_gameref_t game)
       object = lib_verb_object_resolve_400_string (game, input, nullptr, FALSE);
       if (object >= 0
           && !obj_indirectly_in_room (game, object, gs_playerroom (game)))
-        game->is_admin = was_admin;
+        game->turn.is_admin = was_admin;
     }
   return TRUE;
 }
@@ -1734,11 +1734,11 @@ lib_cmd_examine_object (scr_gameref_t game)
   npc = lib_examine_npc_overwrite_400 (game);
   if (npc != -1)
     {
-      scr_bool was_admin = game->is_admin;
+      scr_bool was_admin = game->turn.is_admin;
 
       gs_set_npc_seen (game, npc, TRUE);
       lib_describe_npc (game, npc);
-      game->is_admin = was_admin;
+      game->turn.is_admin = was_admin;
       return TRUE;
     }
 
@@ -2101,7 +2101,7 @@ lib_cmd_examine_other (scr_gameref_t game)
   if (lib_npc_examine_absent (game))
     {
       if (lib_is_version_400 (game))
-        game->is_admin = TRUE;
+        game->turn.is_admin = TRUE;
       return TRUE;
     }
 
@@ -2128,7 +2128,7 @@ lib_cmd_examine_other (scr_gameref_t game)
                               "You see no such thing.\n",
                               "I see no such thing.\n",
                               "%player% see no such thing.\n");
-  game->is_admin = TRUE;
+  game->turn.is_admin = TRUE;
   return TRUE;
 }
 

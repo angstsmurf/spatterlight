@@ -229,7 +229,7 @@ run_therest_pre400 (scr_gameref_t game, const scr_char *string)
   scr_bool answered;
 
   if (is_active || version >= TAF_VERSION_400
-      || game->pending_endgame != 0)
+      || game->turn.pending_endgame != 0)
     return FALSE;
 
   /*
@@ -311,7 +311,7 @@ run_therest_absent_370 (scr_gameref_t game, const scr_char *string)
   const scr_char *const *word;
   scr_int offset;
 
-  if (version >= TAF_VERSION_380 || game->pending_endgame != 0)
+  if (version >= TAF_VERSION_380 || game->turn.pending_endgame != 0)
     return FALSE;
   if (!run_therest_winner_pre400 (version, string, &offset))
     return FALSE;
@@ -380,7 +380,7 @@ run_score_anywhere (scr_gameref_t game, const scr_char *string)
       return run_c_word (version, string, what);
     };
 
-  if (game->pending_endgame != 0 || !has_word ("score")
+  if (game->turn.pending_endgame != 0 || !has_word ("score")
       || scr_strcasecmp (string, "score") == 0)
     return FALSE;
   /*
@@ -461,7 +461,7 @@ run_wait_anywhere (scr_gameref_t game, const scr_char *string)
       return run_c_word (version, string, what);
     };
 
-  if (game->pending_endgame != 0 || !has_word ("wait"))
+  if (game->turn.pending_endgame != 0 || !has_word ("wait"))
     return FALSE;
 
   /* The plain forms keep their own rows. */
@@ -497,12 +497,12 @@ run_wait_anywhere (scr_gameref_t game, const scr_char *string)
     }
 
   const size_t mark = pf_buffer_length (filter);
-  const scr_bool was_admin = game->is_admin;
+  const scr_bool was_admin = game->turn.is_admin;
 
   lib_cmd_wait (game);
   const size_t after = pf_buffer_length (filter);
-  game->is_admin = FALSE;
-  if (lib_cmd_go_place (game) && game->is_admin)
+  game->turn.is_admin = FALSE;
+  if (lib_cmd_go_place (game) && game->turn.is_admin)
     {
       const std::string moving = pf_cut_tail (filter, after);
 
@@ -511,6 +511,6 @@ run_wait_anywhere (scr_gameref_t game, const scr_char *string)
       return TRUE;
     }
 
-  game->is_admin = was_admin;
+  game->turn.is_admin = was_admin;
   return TRUE;
 }

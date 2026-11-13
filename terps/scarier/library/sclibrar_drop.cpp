@@ -844,7 +844,7 @@ lib_drop_named_400 (scr_gameref_t game, scr_int *references)
                             prop_get_global_string (gs_get_bundle (game),
                                                     "DontUnderstand"));
           pf_buffer_character (filter, '\n');
-          game->is_admin = TRUE;
+          game->turn.is_admin = TRUE;
         }
       return TRUE;
     }
@@ -1229,7 +1229,7 @@ lib_give_present_npc_400 (scr_gameref_t game)
 static scr_bool
 lib_give_not_interested_400 (scr_gameref_t game, scr_int npc, scr_int object)
 {
-  game->is_admin = TRUE;
+  game->turn.is_admin = TRUE;
   pf_new_sentence (gs_get_filter (game));
   lib_print_npc_np (game, npc);
   lib_print_wrapped_object (game, " doesn't seem interested in ",

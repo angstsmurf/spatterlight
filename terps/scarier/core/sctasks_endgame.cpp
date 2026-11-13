@@ -484,11 +484,11 @@ task_print_end_game_message (scr_gameref_t game)
   scr_bool is_pre_400;
   scr_int var1;
 
-  if (game->pending_endgame == 0)
+  if (game->turn.pending_endgame == 0)
     return;
 
-  var1 = game->pending_endgame - 1;
-  game->pending_endgame = 0;
+  var1 = game->turn.pending_endgame - 1;
+  game->turn.pending_endgame = 0;
 
   /*
    * Every message below is concatenated onto the turn's accumulated text with
@@ -671,7 +671,7 @@ task_run_end_game_action (scr_gameref_t game, scr_int var1)
   if (var1 < 0 || var1 > 3)
     scr_fatal ("task_run_end_game_action: invalid type, %ld\n", var1);
 
-  game->pending_endgame = var1 + 1;
+  game->turn.pending_endgame = var1 + 1;
 
   /* Stop the game, and note that it's not resumeable. */
   game->is_running = FALSE;

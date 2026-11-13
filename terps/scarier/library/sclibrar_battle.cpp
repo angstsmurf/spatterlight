@@ -769,7 +769,7 @@ lib_battle_attack_bare (scr_gameref_t game, const scr_char *verb,
           if (count > 1)
             {
               lib_battle_weapon_question (game, npc);
-              game->is_admin = TRUE;
+              game->turn.is_admin = TRUE;
               return TRUE;
             }
           if (count == 1)
@@ -1950,7 +1950,7 @@ lib_battle_ask_which_target (scr_gameref_t game, const scr_char *input,
   scr_int index_;
   size_t at;
 
-  game->is_admin = TRUE;
+  game->turn.is_admin = TRUE;
 
   if (lib_is_version_400 (game))
     {
@@ -2303,7 +2303,7 @@ lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
    * the Runner ticks, a deliberate deviation; see the single-target path in
    * lib_battle_attack_bare). */
   if (!struck && !refused)
-    game->is_admin = TRUE;
+    game->turn.is_admin = TRUE;
 
   return TRUE;
 }
@@ -2738,7 +2738,7 @@ lib_cmd_status_player (scr_gameref_t game)
     lib_print_battle_status_390 (game, -1);
   else
     lib_print_battle_status (game, -1);
-  game->is_admin = TRUE;
+  game->turn.is_admin = TRUE;
   return TRUE;
 }
 
@@ -2752,7 +2752,7 @@ lib_cmd_status_npc (scr_gameref_t game)
   if (!battle_is_enabled (game))
     return lib_cmd_statusline (game);
 
-  game->is_admin = TRUE;
+  game->turn.is_admin = TRUE;
 
   /*
    * run390's NPC loop (dobattle 44C53A) takes the lowest-indexed character

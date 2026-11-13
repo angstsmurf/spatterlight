@@ -160,7 +160,7 @@ lib_cmd_quit (scr_gameref_t game)
   else
     pf_buffer_string (gs_get_filter (game), "I'm so glad you said no...\n");
 
-  game->is_admin = TRUE;
+  game->turn.is_admin = TRUE;
   return TRUE;
 }
 
@@ -279,10 +279,10 @@ lib_cmd_restart (scr_gameref_t game)
   if (if_confirm (SCR_CONF_RESTART))
     {
       game->is_running = FALSE;
-      game->do_restart = TRUE;
+      game->turn.do_restart = TRUE;
     }
 
-  game->is_admin = TRUE;
+  game->turn.is_admin = TRUE;
   return TRUE;
 }
 
@@ -379,7 +379,7 @@ lib_cmd_undo (scr_gameref_t game)
         game->turns = turns;
 
       game->is_running = FALSE;
-      game->do_restore = TRUE;
+      game->turn.do_restore = TRUE;
     }
 
   /* If no undo buffer and memo restore failed, there's no undo available. */
@@ -388,7 +388,7 @@ lib_cmd_undo (scr_gameref_t game)
                       "I can't undo any more of your blunderings!\n");
 
   /* A turn in 3.9; see lib_is_version_390(). */
-  game->is_admin = !lib_is_version_390 (game);
+  game->turn.is_admin = !lib_is_version_390 (game);
   return TRUE;
 }
 
@@ -504,7 +504,7 @@ lib_cmd_history_number (scr_gameref_t game)
     {
       if_print_string ("That's not a valid history length.\n");
 
-      game->is_admin = TRUE;
+      game->turn.is_admin = TRUE;
       return TRUE;
     }
 
@@ -532,10 +532,10 @@ lib_cmd_history (scr_gameref_t game)
 scr_bool
 lib_cmd_again (scr_gameref_t game)
 {
-  game->do_again = TRUE;
-  game->redo_sequence = 0;
+  game->turn.do_again = TRUE;
+  game->turn.redo_sequence = 0;
 
-  game->is_admin = TRUE;
+  game->turn.is_admin = TRUE;
   return TRUE;
 }
 
@@ -554,8 +554,8 @@ lib_cmd_redo_number (scr_gameref_t game)
   sequence = var_get_ref_number (vars);
   if (sequence != 0 && memo_find_command (memento, sequence))
     {
-      game->do_again = TRUE;
-      game->redo_sequence = sequence;
+      game->turn.do_again = TRUE;
+      game->turn.redo_sequence = sequence;
     }
   else
     {
@@ -571,11 +571,11 @@ lib_cmd_redo_number (scr_gameref_t game)
        * catch that as an indication not to save the command in its history.
        * Sorry for the ugliness.
        */
-      game->do_again = FALSE;
-      game->redo_sequence = INT_MAX;
+      game->turn.do_again = FALSE;
+      game->turn.redo_sequence = INT_MAX;
     }
 
-  game->is_admin = TRUE;
+  game->turn.is_admin = TRUE;
   return TRUE;
 }
 
@@ -604,10 +604,10 @@ lib_cmd_redo_text_last_common (scr_gameref_t game, const scr_char *target)
       if_print_string ("No matching entry found in the command history.\n");
 
       /* As with failed numeric redo above, special-case this return. */
-      game->do_again = FALSE;
-      game->redo_sequence = INT_MAX;
+      game->turn.do_again = FALSE;
+      game->turn.redo_sequence = INT_MAX;
 
-      game->is_admin = TRUE;
+      game->turn.is_admin = TRUE;
       return TRUE;
     }
 
@@ -661,19 +661,19 @@ lib_cmd_redo_text_last_common (scr_gameref_t game, const scr_char *target)
   /* If we found a match, set the redo values accordingly. */
   if (matched_sequence > 0)
     {
-      game->do_again = TRUE;
-      game->redo_sequence = matched_sequence;
+      game->turn.do_again = TRUE;
+      game->turn.redo_sequence = matched_sequence;
     }
   else
     {
       if_print_string ("No matching entry found in the command history.\n");
 
       /* As with failed numeric redo above, special-case this return. */
-      game->do_again = FALSE;
-      game->redo_sequence = INT_MAX;
+      game->turn.do_again = FALSE;
+      game->turn.redo_sequence = INT_MAX;
     }
 
-  game->is_admin = TRUE;
+  game->turn.is_admin = TRUE;
   return TRUE;
 }
 
@@ -755,7 +755,7 @@ lib_cmd_hints (scr_gameref_t game)
     }
 
   /* A turn in 3.7-3.9; see lib_is_version_390(). */
-  game->is_admin = lib_is_version_400 (game);
+  game->turn.is_admin = lib_is_version_400 (game);
   return TRUE;
 }
 
@@ -841,7 +841,7 @@ lib_cmd_help (scr_gameref_t game)
     " to print both Scarier's and the game's version number.\n");
 
   /* A turn in 3.7-3.9; see lib_is_version_390(). */
-  game->is_admin = lib_is_version_400 (game);
+  game->turn.is_admin = lib_is_version_400 (game);
   return TRUE;
 }
 
@@ -880,7 +880,7 @@ lib_cmd_license (scr_gameref_t game)
   lib_print_string_italics ("https://github.com/angstsmurf/spatterlight/issues");
   if_print_string (".\n");
 
-  game->is_admin = TRUE;
+  game->turn.is_admin = TRUE;
   return TRUE;
 }
 
@@ -945,7 +945,7 @@ lib_cmd_clear (scr_gameref_t game)
   pf_buffer_string (filter, "Screen cleared.\n");
 
   /* A turn in 3.7-3.9; see lib_is_version_390(). */
-  game->is_admin = lib_is_version_400 (game);
+  game->turn.is_admin = lib_is_version_400 (game);
   return TRUE;
 }
 
@@ -998,7 +998,7 @@ lib_cmd_statusline (scr_gameref_t game)
     }
   if_print_character ('\n');
 
-  game->is_admin = TRUE;
+  game->turn.is_admin = TRUE;
   return TRUE;
 }
 
@@ -1034,7 +1034,7 @@ lib_cmd_version (scr_gameref_t game)
   if_print_string (".\n");
 
   /* A turn in 3.9; see lib_is_version_390(). */
-  game->is_admin = !lib_is_version_390 (game);
+  game->turn.is_admin = !lib_is_version_390 (game);
   return TRUE;
 }
 
@@ -1069,7 +1069,7 @@ lib_cmd_wait (scr_gameref_t game)
     }
 
   /* Reset the wait counter to the current waitturns setting. */
-  game->waitcounter = game->settings.waitturns;
+  game->turn.waitcounter = game->settings.waitturns;
 
   /*
    * 4.0 stores "Time passes..." with a vbCrLf of its own (run400 48ABDA:
@@ -1098,7 +1098,7 @@ lib_cmd_wait_number (scr_gameref_t game)
   if (waitturns < 1 || waitturns > 20)
     {
       if_print_string ("You can only wait between 1 and 20 turns.\n");
-      game->is_admin = TRUE;
+      game->turn.is_admin = TRUE;
       return TRUE;
     }
 
@@ -1111,7 +1111,7 @@ lib_cmd_wait_number (scr_gameref_t game)
   if_print_string (waitturns == 1 ? " turn" : " turns");
   if_print_string (" for each 'wait' command you enter.\n");
 
-  game->is_admin = TRUE;
+  game->turn.is_admin = TRUE;
   return TRUE;
 }
 
@@ -1134,7 +1134,7 @@ lib_cmd_verbose (scr_gameref_t game)
   if_print_string (" mode, which always gives long descriptions of locations"
                    " (even if you've been there before).\n");
 
-  game->is_admin = TRUE;
+  game->turn.is_admin = TRUE;
   return TRUE;
 }
 
@@ -1150,7 +1150,7 @@ lib_cmd_brief (scr_gameref_t game)
   if_print_string (" mode, which gives long descriptions of places never"
                    " before visited and short descriptions otherwise.\n");
 
-  game->is_admin = TRUE;
+  game->turn.is_admin = TRUE;
   return TRUE;
 }
 
@@ -1197,7 +1197,7 @@ lib_cmd_notify_on_off (scr_gameref_t game)
                        " score notification.\n");
     }
 
-  game->is_admin = TRUE;
+  game->turn.is_admin = TRUE;
   return TRUE;
 }
 
@@ -1221,7 +1221,7 @@ lib_cmd_notify (scr_gameref_t game)
                        " score.\n");
     }
 
-  game->is_admin = TRUE;
+  game->turn.is_admin = TRUE;
   return TRUE;
 }
 
@@ -1248,7 +1248,7 @@ lib_cmd_time (scr_gameref_t game)
   if_print_string (".\n");
 
   /* A turn in 3.9; see lib_is_version_390(). */
-  game->is_admin = !lib_is_version_390 (game);
+  game->turn.is_admin = !lib_is_version_390 (game);
   return TRUE;
 }
 
@@ -1275,7 +1275,7 @@ lib_cmd_save (scr_gameref_t game)
    * "Game saved." and then the event tick, which is where FarFromHome's
    * event clock gained a tick per save.
    */
-  game->is_admin = !lib_is_version_390 (game);
+  game->turn.is_admin = !lib_is_version_390 (game);
   return TRUE;
 }
 
@@ -1288,14 +1288,14 @@ lib_cmd_restore (scr_gameref_t game)
         {
           if_print_string ("Ok.\n");
           game->is_running = FALSE;
-          game->do_restore = TRUE;
+          game->turn.do_restore = TRUE;
         }
       else
         if_print_string ("Restore failed.\n");
     }
 
   /* A turn in 3.9; see lib_is_version_390(). */
-  game->is_admin = !lib_is_version_390 (game);
+  game->turn.is_admin = !lib_is_version_390 (game);
   return TRUE;
 }
 

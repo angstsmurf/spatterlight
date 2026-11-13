@@ -381,7 +381,7 @@ lib_run_rebuilt_line_400 (scr_gameref_t game, const scr_char *command)
                             prop_get_global_string (gs_get_bundle (game),
                                                     "DontUnderstand"));
           pf_buffer_character (gs_get_filter (game), '\n');
-          game->is_admin = TRUE;
+          game->turn.is_admin = TRUE;
         }
       return kind == 1;
     }

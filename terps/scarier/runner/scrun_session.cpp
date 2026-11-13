@@ -171,7 +171,7 @@ run_session_state (scr_gameref_t game)
                run_session_join ({game->settings.verbose,
                                   game->settings.notify_score_change,
                                   game->settings.waitturns}));
-  sessrec_put (out, "notified", run_session_join ({game->has_notified}));
+  sessrec_put (out, "notified", run_session_join ({game->turn.has_notified}));
 
   sessrec_put (out, "pronouns", run_session_pronouns (game));
   if (game->undo_available)
@@ -270,7 +270,7 @@ run_restore_session_state (scr_gameref_t game, const std::string &state)
             game->settings.waitturns = numbers[2];
         }
       else if (key == "notified" && numbers.size () == 1)
-        game->has_notified = numbers[0] != 0;
+        game->turn.has_notified = numbers[0] != 0;
       else if (key == "pronouns")
         run_session_set_pronouns (game, game, value);
       else if (key == "undo_pronouns" && game->undo_available)

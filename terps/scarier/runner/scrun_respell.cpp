@@ -380,7 +380,7 @@ run_goto_after (scr_gameref_t game, const scr_char *typed, scr_int goto_class,
     default:
       break;
     }
-  if (claimed || game->pending_endgame != 0)
+  if (claimed || game->turn.pending_endgame != 0)
     return status;
 
   std::string earlier = pf_cut_tail (filter, mark);
@@ -389,17 +389,17 @@ run_goto_after (scr_gameref_t game, const scr_char *typed, scr_int goto_class,
   while (!earlier.empty () && earlier[earlier.size () - 1] == '\n')
     earlier.erase (earlier.size () - 1);
 
-  const scr_bool first_admin = game->is_admin;
+  const scr_bool first_admin = game->turn.is_admin;
   run_dispatch_input = typed;
-  game->is_admin = FALSE;
-  if (lib_cmd_go_place (game) && game->is_admin)
+  game->turn.is_admin = FALSE;
+  if (lib_cmd_go_place (game) && game->turn.is_admin)
     return TRUE;
 
   const std::string said = pf_cut_tail (filter, mark);
   pf_buffer_string (filter, earlier.c_str ());
   pf_buffer_string (filter, said.c_str ());
   if (goto_class != RUN_GOTO_BELOW && !earlier.empty ())
-    game->is_admin = first_admin;
+    game->turn.is_admin = first_admin;
   return status || !earlier.empty () || !said.empty ();
 }
 
@@ -613,7 +613,7 @@ run_battle_line (scr_gameref_t game, const scr_char *typed, scr_int kinds)
       return FALSE;
     }
   answer = pf_cut_tail (filter, mark);
-  admin = game->is_admin;
+  admin = game->turn.is_admin;
 
   /* wears and removes act above dobattle, and it wipes what they said. */
   if (kinds & RUN_BATTLE_WEAR)
@@ -673,7 +673,7 @@ run_battle_line (scr_gameref_t game, const scr_char *typed, scr_int kinds)
        * score is not a turn, blow or no blow (run390 45F6B5, run400
        * 48A6AE).
        */
-      admin = game->is_admin;
+      admin = game->turn.is_admin;
     }
   if (kinds & RUN_BATTLE_WHERE)
     {
@@ -725,7 +725,7 @@ run_battle_line (scr_gameref_t game, const scr_char *typed, scr_int kinds)
     }
 
   pf_buffer_string (filter, answer.c_str ());
-  game->is_admin = admin;
+  game->turn.is_admin = admin;
   return TRUE;
 }
 

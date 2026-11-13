@@ -615,7 +615,7 @@ task_run_task_unrestricted (scr_gameref_t game, scr_int task, scr_bool forwards)
    * loop stays the 4.0 path.
    */
   if (prop_get_taf_version (bundle) < TAF_VERSION_400
-      && game->pending_endgame != 0)
+      && game->turn.pending_endgame != 0)
     task_print_end_game_message (game);
 
   /* Return status -- TRUE if matched and we output something. */

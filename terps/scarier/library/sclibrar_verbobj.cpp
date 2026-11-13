@@ -367,7 +367,7 @@ lib_put_where_400_common (scr_gameref_t game, scr_int resolved)
    * the line is claimed as its answer (p4PUT2 `put coin on jar` / `put zzz
    * on jar` -> "That is still ambiguous!",
    * runner_probes/put2.run400.txt). */
-  game->is_admin = TRUE;
+  game->turn.is_admin = TRUE;
   lib_co_400_note_refusal ();
   return TRUE;
 }
@@ -833,7 +833,7 @@ lib_cmd_put_container_400 (scr_gameref_t game)
                         "I don't understand what you want to put things ");
       pf_buffer_string (filter, preposition);
       pf_buffer_string (filter, ".\n");
-      game->is_admin = TRUE;
+      game->turn.is_admin = TRUE;
       lib_co_400_note_refusal ();
       return TRUE;
     }
@@ -1460,7 +1460,7 @@ lib_verb_object_answer (scr_gameref_t game, scr_int object)
    * followed by "Seeker hums!" here; run400 is silent.
    */
   if (lib_is_version_400 (game))
-    game->is_admin = TRUE;
+    game->turn.is_admin = TRUE;
 
   /*
    * Print don't understand message.  run400's generaltasks composes this
@@ -1586,7 +1586,7 @@ lib_cmd_verb_object (scr_gameref_t game)
    * to the DontUnderstand text in run_element_not_understood(), which is the
    * tail's order too.
    */
-  if (lib_is_version_400 (game) && game->pending_endgame != 0)
+  if (lib_is_version_400 (game) && game->turn.pending_endgame != 0)
     return FALSE;
 
   if (lib_is_version_400 (game)
@@ -1719,7 +1719,7 @@ lib_cmd_verb_npc (scr_gameref_t game)
    * shopkeeper.", and no DontUnderstand either, because the line names a
    * character (the DontUnderstand path at 48B573 tests for one).
    */
-  if (lib_is_version_400 (game) && game->pending_endgame != 0)
+  if (lib_is_version_400 (game) && game->turn.pending_endgame != 0)
     return FALSE;
 
   /*
@@ -1830,7 +1830,7 @@ lib_cmd_verb_npc (scr_gameref_t game)
    * to do with Bob." and the game's DontUnderstand text and stop.
    */
   if (lib_is_version_400 (game))
-    game->is_admin = TRUE;
+    game->turn.is_admin = TRUE;
 
   /* Under a character question this line is its answer; see the slot in
    * run_element_questions() and lib_co_400_npc_answer_line(). */

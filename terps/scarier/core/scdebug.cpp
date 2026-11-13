@@ -2370,7 +2370,7 @@ debug_cmd_debugger (scr_gameref_t game)
    * Set as administrative command, so as not to consume a game turn, and
    * return successfully.
    */
-  game->is_admin = TRUE;
+  game->turn.is_admin = TRUE;
   return TRUE;
 }
 
@@ -2435,7 +2435,7 @@ debug_game_ended (scr_gameref_t game)
    * debug_game_started() when the loop restarts.  So in this case, ignore
    * the call (even if single stepping).
    */
-  if (game->do_restart || game->do_restore)
+  if (game->turn.do_restart || game->turn.do_restore)
     return;
 
   /*
@@ -2485,7 +2485,7 @@ debug_turn_update (scr_gameref_t game)
    * longer running, as we'll see a debug_game_ended() call come along to
    * handle that.
    */
-  if (game->waitcounter > 0 || !game->is_running)
+  if (game->turn.waitcounter > 0 || !game->is_running)
     return;
 
   /*

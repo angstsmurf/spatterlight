@@ -244,7 +244,7 @@ run_repeat_element (scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
 
-  game->do_again = FALSE;
+  game->turn.do_again = FALSE;
 
   /* Check there is a last element to repeat. */
   if (run_prior_element[0] == NUL)
@@ -790,7 +790,7 @@ run_element_questions (scr_gameref_t game, const scr_char *command,
           collapsed.erase (pair, 1);
 
       pf_empty (gs_get_filter (game));
-      game->is_admin = FALSE;
+      game->turn.is_admin = FALSE;
       run_rerun_skips_tasks = is_400 && collapsed != rerun;
       run_rerun_exact_spaces = !is_400
           && rerun.find ("  ") != std::string::npos;
@@ -818,7 +818,7 @@ run_element_questions (scr_gameref_t game, const scr_char *command,
   if (status
       && lib_question_with_rule (game, rerun.empty () ? command
                                                       : rerun.c_str ()))
-    game->is_admin = TRUE;
+    game->turn.is_admin = TRUE;
 
   /*
    * 3.9: an open "With what?" continues a line nothing understood, as
@@ -904,7 +904,7 @@ run_element_co_answer_400 (scr_gameref_t game, const scr_char *command,
    * (lib_co_400_raise_common()), and so does the still-ambiguous arm
    * below, so only a line that did something reaches the clock.
    */
-  game->is_admin = FALSE;
+  game->turn.is_admin = FALSE;
 
   status = run_all_commands (game, rerun.c_str ());
   if (!status)
@@ -964,7 +964,7 @@ run_element_not_understood (scr_gameref_t game, const scr_char *command)
    * from the task's text to the WinText.  Gated on the ending so the
    * general shape of the test cannot disturb an ordinary line.
    */
-  if (game->pending_endgame != 0
+  if (game->turn.pending_endgame != 0
       && prop_get_taf_version (bundle) == TAF_VERSION_400
       && uip_line_names_npc (game, run_line_element))
     {
@@ -1037,7 +1037,7 @@ run_element_note_undo (scr_gameref_t game, const scr_char *command,
    * scgamest.cpp), and backing up an undo would re-arm the buffer it
    * just spent.
    */
-  if (!game->is_admin && !game->do_restart && !game->do_restore
+  if (!game->turn.is_admin && !game->turn.do_restart && !game->turn.do_restore
       && !(was_undo_available && !game->undo_available))
     {
       if (game->undo_available)
@@ -1051,7 +1051,7 @@ run_element_note_undo (scr_gameref_t game, const scr_char *command,
       uip_assign_pronouns (game, command);
     }
   else if (prop_get_taf_version (bundle) >= TAF_VERSION_400
-           && !game->do_restart && !game->do_restore)
+           && !game->turn.do_restart && !game->turn.do_restore)
     {
       /*
        * A 4.0 line that was not a turn -- a question, "see no such
@@ -1062,7 +1062,7 @@ run_element_note_undo (scr_gameref_t game, const scr_char *command,
       uip_set_pronoun_flags (FALSE, FALSE);
     }
   else if (prop_get_taf_version (bundle) == TAF_VERSION_390
-           && !game->do_restart && !game->do_restore)
+           && !game->turn.do_restart && !game->turn.do_restore)
     uip_assign_pronouns (game, command);
 }
 
@@ -1084,7 +1084,7 @@ run_element_finish (scr_gameref_t game, scr_bool is_rerunning,
    * element in a moment, so save nothing for that case.  Otherwise save the
    * command in the history.
    */
-  if (!scr_strempty (run_line_element) && !game->do_again)
+  if (!scr_strempty (run_line_element) && !game->turn.do_again)
     {
       /*
        * If this is a failed redo, redo_sequence will be set but do_again will
@@ -1092,7 +1092,7 @@ run_element_finish (scr_gameref_t game, scr_bool is_rerunning,
        * redo commands get into the history, where they can cause problems
        * later on.
        */
-      if (game->redo_sequence == 0)
+      if (game->turn.redo_sequence == 0)
         {
           scr_int timestamp;
 
@@ -1101,7 +1101,7 @@ run_element_finish (scr_gameref_t game, scr_bool is_rerunning,
                              game->turns);
         }
       else
-        game->redo_sequence = 0;
+        game->turn.redo_sequence = 0;
     }
 
   /*
@@ -1122,7 +1122,7 @@ run_element_finish (scr_gameref_t game, scr_bool is_rerunning,
    * and return straight away.  Do the same if this was an undo, detected by
    * noting that undo is no longer available, where it was on entry.
    */
-  if (game->do_restart || game->do_restore
+  if (game->turn.do_restart || game->turn.do_restore
       || (was_undo_available && !game->undo_available))
     {
       run_line_buffer[0] = NUL;
@@ -1137,7 +1137,7 @@ run_element_finish (scr_gameref_t game, scr_bool is_rerunning,
        * Unless "again", note this line element as prior input.  "Again" shows
        * up as do_again set in the game, where it wasn't when we entered here.
        */
-      if (!game->do_again && !is_rerunning)
+      if (!game->turn.do_again && !is_rerunning)
         strncpy (run_prior_element, run_line_element, LINE_BUFFER_SIZE);
 
       /*
@@ -1146,19 +1146,19 @@ run_element_finish (scr_gameref_t game, scr_bool is_rerunning,
        * should have verified the value in redo_sequence, so fetching the
        * command string should not fail.
        */
-      if (game->do_again && game->redo_sequence != 0)
+      if (game->turn.do_again && game->turn.redo_sequence != 0)
         {
           const scr_char *redo_command;
 
-          redo_command = memo_find_command (memento, game->redo_sequence);
+          redo_command = memo_find_command (memento, game->turn.redo_sequence);
           if (redo_command)
             strncpy (run_prior_element, redo_command, LINE_BUFFER_SIZE);
           else
             {
               scr_error ("run_player_input: invalid redo sequence request\n");
-              game->do_again = FALSE;
+              game->turn.do_again = FALSE;
             }
-          game->redo_sequence = 0;
+          game->turn.redo_sequence = 0;
         }
     }
 }
@@ -1198,11 +1198,11 @@ run_player_input (scr_gameref_t game)
    * Save the settings of the game's do_again and undo_available flags for
    * later checks.
    */
-  is_rerunning = game->do_again;
+  is_rerunning = game->turn.do_again;
   was_undo_available = game->undo_available;
 
   /* See if the player asked to rerun a command element. */
-  if (game->do_again)
+  if (game->turn.do_again)
     {
       if (!run_repeat_element (game))
         return FALSE;
@@ -1223,7 +1223,7 @@ run_player_input (scr_gameref_t game)
    */
   gs_copy (game->temporary, game);
   run_temporary_text = pf_take_printed (gs_get_filter (game));
-  game->player_moved_by_command = FALSE;
+  game->turn.player_moved_by_command = FALSE;
 
   run_element_command (game, command);
   run_element_begin (game, command.c_str (), is_new_line);

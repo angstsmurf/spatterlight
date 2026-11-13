@@ -2205,16 +2205,16 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
 
   /* Non-game conveniences. */
   game->is_running = FALSE;
-  game->has_notified = FALSE;
-  game->is_admin = FALSE;
-  game->player_moved_by_command = FALSE;
+  game->turn.has_notified = FALSE;
+  game->turn.is_admin = FALSE;
+  game->turn.player_moved_by_command = FALSE;
   game->has_completed = FALSE;
-  game->pending_endgame = 0;
-  game->waitcounter = 0;
-  game->do_again = FALSE;
-  game->redo_sequence = 0;
-  game->do_restart = FALSE;
-  game->do_restore = FALSE;
+  game->turn.pending_endgame = 0;
+  game->turn.waitcounter = 0;
+  game->turn.do_again = FALSE;
+  game->turn.redo_sequence = 0;
+  game->turn.do_restart = FALSE;
+  game->turn.do_restore = FALSE;
 
   game->refs.objects.assign (game->object_count, FALSE);
   game->refs.multiple.assign (game->object_count, FALSE);
@@ -2425,20 +2425,11 @@ gs_copy (scr_gameref_t to, scr_gameref_t from)
   to->stop_sound = from->stop_sound;
 
   to->is_running = from->is_running;
-  to->has_notified = from->has_notified;
-  to->is_admin = from->is_admin;
-  to->player_moved_by_command = from->player_moved_by_command;
   to->has_completed = from->has_completed;
-  to->pending_endgame = from->pending_endgame;
 
   to->settings.waitturns = from->settings.waitturns;
 
-  to->waitcounter = from->waitcounter;
-  to->do_again = from->do_again;
-  to->redo_sequence = from->redo_sequence;
-  to->do_restart = from->do_restart;
-  to->do_restore = from->do_restore;
-
+  to->turn = from->turn;
   to->refs = from->refs;
 
   to->pronouns = from->pronouns;

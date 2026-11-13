@@ -621,7 +621,7 @@ lib_take_from_trailing (scr_gameref_t game)
       if (head.empty () || scr_strcasecmp (head.c_str (), "all") == 0
           || scr_strcasecmp (head.c_str (), "everything") == 0)
         return lib_take_from_no_name (game);
-      game->is_admin = TRUE;
+      game->turn.is_admin = TRUE;
       return lib_print_message (game, LIB_TAKE_FROM_NOWHERE_400);
     }
   if (version < TAF_VERSION_390)
@@ -954,7 +954,7 @@ lib_take_from_empty_head_400 (scr_gameref_t game)
                                                   nullptr, TRUE);
   if (container < 0)
     {
-      game->is_admin = TRUE;
+      game->turn.is_admin = TRUE;
       return lib_print_message (game, LIB_TAKE_FROM_NOWHERE_400);
     }
   return lib_print_message (game, "Take what?\n");
@@ -1016,7 +1016,7 @@ lib_take_from_and_400 (scr_gameref_t game)
                                                   nullptr, TRUE);
   if (container < 0)
     {
-      game->is_admin = TRUE;
+      game->turn.is_admin = TRUE;
       return lib_print_message (game, LIB_TAKE_FROM_NOWHERE_400);
     }
 
@@ -1452,7 +1452,7 @@ lib_cmd_take_from_nowhere_all (scr_gameref_t game)
    */
   if (lib_is_version_400 (game))
     {
-      game->is_admin = TRUE;
+      game->turn.is_admin = TRUE;
       return lib_print_message (game, LIB_TAKE_FROM_NOWHERE_400);
     }
 
@@ -1478,7 +1478,7 @@ lib_cmd_take_from_nowhere (scr_gameref_t game)
   /* Not a turn in 4.0, as in lib_cmd_take_from_nowhere_all(). */
   if (lib_is_version_400 (game))
     {
-      game->is_admin = TRUE;
+      game->turn.is_admin = TRUE;
       return lib_print_message (game, LIB_TAKE_FROM_NOWHERE_400);
     }
 

@@ -1472,7 +1472,7 @@ run_line_t::library ()
    */
   if (!status
       && prop_get_taf_version (gs_get_bundle (game)) == TAF_VERSION_390
-      && game->pending_endgame == 0)
+      && game->turn.pending_endgame == 0)
     status = run_try_command_table (EXAMINE_ABOVE_REFUSAL_390_COMMANDS,
                                     game, library_string);
   if (!status)
@@ -1513,7 +1513,7 @@ run_line_t::settle ()
    * tick still runs.
    */
   if (status && repeat_found && !repeat_pending)
-    game->is_admin = FALSE;
+    game->turn.is_admin = FALSE;
   /*
    * The silent task's DontUnderstand and its lost turn are one store in
    * run390: generaltasks' `If msg = "" And var_350 = 0 Then msg =
@@ -1539,7 +1539,7 @@ run_line_t::settle ()
                          && lib_line_names_npc_390 (game, string);
   if (silent_task_390 && !silent_names_npc_390
       && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
-    game->is_admin = TRUE;
+    game->turn.is_admin = TRUE;
 
   /*
    * 3.9: the talk-to hint replaces the fail message of a task that did not
@@ -1603,10 +1603,10 @@ run_line_t::settle ()
    * objects share (lib_co_400_line_leaves_which_pending(); Cyberclones II
    * `give electric uniform to lightning`).
    */
-  if (status && !game->is_admin && run_any_task_ran_this_command ()
+  if (status && !game->turn.is_admin && run_any_task_ran_this_command ()
       && (lib_npc_400_line_names_namesakes (game, string)
           || lib_co_400_line_leaves_which_pending (game, string)))
-    game->is_admin = TRUE;
+    game->turn.is_admin = TRUE;
 
   /*
    * 4.0: a handler's own "Which" prompt on a line holding "with" is undone
@@ -1621,7 +1621,7 @@ run_line_t::settle ()
       && lib_openclose_with_half_400 (game, string))
     {
       lib_co_400_drop_question ();
-      game->is_admin = FALSE;
+      game->turn.is_admin = FALSE;
     }
 
   /*
@@ -1641,7 +1641,7 @@ run_line_t::settle ()
   if (status && reached_library && game->is_running
       && !run_any_task_ran_this_command ()
       && lib_openclose_with_half_raise_400 (game, string))
-    game->is_admin = TRUE;
+    game->turn.is_admin = TRUE;
 
   /*
    * 4.0: and when no task ran, the same scan ASKS.  The question belongs to

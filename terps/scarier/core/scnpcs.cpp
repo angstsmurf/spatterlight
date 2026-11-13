@@ -1474,7 +1474,7 @@ npc_tick_npcs (scr_gameref_t game)
    * perhaps also NPCs, in the live gamestate.
    */
   if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400
-      && game->player_moved_by_command
+      && game->turn.player_moved_by_command
       && undo && !gs_player_in_room (undo, gs_playerroom (game)))
     {
       GS_FOR_EACH_NPC (game, npc)
