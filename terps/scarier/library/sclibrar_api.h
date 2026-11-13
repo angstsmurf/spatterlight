@@ -20,8 +20,8 @@
 
 /*
  * Prototypes for library/: the command handlers and the hooks the
- * runner's line passes and the engine call.  The library's own
- * umbrella is library/sclibrar.h.
+ * runner's line passes call.  The few the engine calls are in
+ * core/schooks.h.  The library's own umbrella is library/sclibrar.h.
  */
 
 #ifndef SCARIER_LIBRARY_API_H
@@ -29,22 +29,14 @@
 
 #include <string>
 #include <vector>
-#include "scprops.h"
+#include "core/scprops.h"
+#include "core/schooks.h"
 
 /* Silence movement handlers, so they only report whether a move is possible. */
 extern void lib_set_movement_probe (scr_bool probe);
 /* The word the parser expects for a direction, for the map's click-to-walk. */
 extern const scr_char *lib_direction_name (scr_int direction);
-extern void lib_print_room_name (scr_gameref_t game, scr_int room);
-extern scr_bool lib_room_name_headings (scr_gameref_t game);
-extern void lib_print_room_description (scr_gameref_t game, scr_int room);
-extern void lib_print_object_np (scr_gameref_t game, scr_int object);
-/* An ALR could be matching the Runner's literal " is " in a listing. */
-extern scr_bool lib_alrs_see_list_verb (scr_gameref_t game,
-                                        scr_int container);
 extern void lib_print_npc_np (scr_gameref_t game, scr_int npc);
-/* "I'm afraid you are dead!", or its first-person form for a pre-4.0 game. */
-extern const scr_char *lib_get_death_message (scr_gameref_t game);
 /*
  * Handlers that take their command-table row's argument; see
  * scr_commands_t in runner/scrunner.h.
@@ -100,7 +92,6 @@ extern scr_bool lib_cmd_version (scr_gameref_t game);
 extern scr_bool lib_cmd_look (scr_gameref_t game);
 extern scr_bool lib_cmd_look_typed (scr_gameref_t game);
 extern scr_bool lib_cmd_print_room_exits (scr_gameref_t game);
-extern void lib_print_room_exits (scr_gameref_t game, scr_int room);
 extern scr_bool lib_print_message_with_exits (scr_gameref_t game,
                                               const scr_char *message);
 extern scr_bool lib_cmd_wait (scr_gameref_t game);

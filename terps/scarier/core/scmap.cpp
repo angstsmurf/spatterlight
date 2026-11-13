@@ -44,7 +44,6 @@
 #include "scrooms.h"
 #include "scprintf.h"
 #include "scgamest_api.h"
-#include "sclibrar_api.h"
 #include "scmap.h"
 
 

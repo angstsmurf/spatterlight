@@ -31,7 +31,7 @@
 #include "scprintf.h"
 #include "scgamest_api.h"
 #include "scresour.h"
-#include "scrunner_api.h"
+#include "schooks.h"
 #include "sctasks.h"
 #include "scnpcs.h"
 #include "scobjcts.h"

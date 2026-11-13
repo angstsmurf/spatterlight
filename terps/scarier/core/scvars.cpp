@@ -44,7 +44,7 @@
 #include "scvars.h"
 #include "scgamest_api.h"
 #include "scparser.h"
-#include "sclibrar_api.h"
+#include "schooks.h"
 #include "scnpcs.h"
 #include "scobjcts.h"
 #include "scrooms.h"

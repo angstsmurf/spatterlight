@@ -21,7 +21,9 @@
 /*
  * Umbrella over the module prototype headers, in dependency order, for the
  * translation units that use most of the engine (library/, runner/, the
- * front ends).  A core/ module includes only the headers it uses.
+ * front ends).  A core/ module includes only the headers it uses, and never
+ * this one: it brings in the two upper layers' prototypes, of which core/
+ * may use only the hooks in schooks.h.
  */
 
 #ifndef SCARIER_PROTOTYPES_H
@@ -38,9 +40,9 @@
 #include "scmemos.h"
 #include "scgamest_api.h"
 #include "scparser.h"
-#include "sclibrar_api.h"
+#include "library/sclibrar_api.h"
 #include "scresour.h"
-#include "scrunner_api.h"
+#include "runner/scrunner_api.h"
 #include "scevents.h"
 #include "sctasks.h"
 #include "screstrs.h"

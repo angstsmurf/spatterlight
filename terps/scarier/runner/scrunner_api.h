@@ -20,15 +20,16 @@
 
 /*
  * Prototypes for runner/: the game runner's entry points and the hooks
- * the library and the engine call.  The own umbrella of runner/ is
- * runner/scrunner.h.
+ * the library calls.  The few the engine calls are in core/schooks.h.
+ * The own umbrella of runner/ is runner/scrunner.h.
  */
 
 #ifndef SCARIER_RUNNER_API_H
 #define SCARIER_RUNNER_API_H
 
 #include <string>
-#include "sctypes.h"
+#include "core/sctypes.h"
+#include "core/schooks.h"
 
 /* Game runner functions. */
 extern scr_bool run_game_task_commands (scr_gameref_t game,
@@ -36,9 +37,6 @@ extern scr_bool run_game_task_commands (scr_gameref_t game,
 extern scr_bool run_typed_line_task_commands (scr_gameref_t game,
                                               const scr_char *string,
                                               scr_bool loud);
-extern scr_bool run_task_run_by_index (scr_gameref_t game, scr_int task);
-extern void run_npc_walk_task (scr_gameref_t game, scr_int walktask);
-extern void run_event_task (scr_gameref_t game, scr_int eventtask);
 extern scr_bool run_does_command_match (scr_gameref_t game,
                                         const scr_char *string,
                                         scr_bool check_restrictions = FALSE,
@@ -81,12 +79,9 @@ extern scr_bool run_restore (scr_gameref_t game,
 extern scr_bool run_restore_prompted (scr_gameref_t game);
 extern scr_bool run_undo (scr_gameref_t game);
 extern const std::string &run_get_undo_text (void);
-extern void run_quit (scr_gameref_t game);
-extern scr_bool run_is_running (scr_gameref_t game);
 extern scr_int run_get_restart_count (void);
 extern scr_bool run_has_completed (scr_gameref_t game);
 extern void run_set_end_keyprompt (scr_bool flag);
-extern scr_bool run_get_end_keyprompt (void);
 extern void run_set_repeat_assist (scr_bool flag);
 extern scr_bool run_get_repeat_assist (void);
 extern scr_bool run_is_undo_available (scr_gameref_t game);
@@ -123,6 +118,5 @@ run_line_matches_task_strictly (scr_gameref_t game, const scr_char *string,
                                 scr_bool anywhere = FALSE);
 extern scr_bool run_line_yields_to_library (scr_gameref_t game,
                                             const scr_char *string);
-extern void run_forget_game (const void *game);
 
 #endif

@@ -49,11 +49,14 @@ sh test/run_map_corpus.sh           # map rasters of every corpus game against t
 python3 test/adrift4/harness/run_autosave_tests.py --build   # Spatterlight autosave, both engines
 ```
 
-`test` builds every binary first, then runs `unittest`, `vendorcheck`,
-`capacitytest`, `wheretest`, `soundtest`, `gamescheck`, `a5runtest`,
-`v4walkthroughs`, `a5maptest`, `scprojregress` and `a5walkthroughs-golden`
-through `run_stages.sh`; a stage whose corpus is absent skips, and
-`gamescheck` fails only on a file whose bytes differ from the manifest.
+`test` builds every binary first, then runs `check-layers`, `unittest`,
+`vendorcheck`, `capacitytest`, `wheretest`, `soundtest`, `gamescheck`,
+`a5runtest`, `v4walkthroughs`, `a5maptest`, `scprojregress` and
+`a5walkthroughs-golden` through `run_stages.sh`; a stage whose corpus is
+absent skips, and `gamescheck` fails only on a file whose bytes differ from
+the manifest.  `check-layers` (`check_layers.sh`) is the one stage that
+tests the build rather than a game: it fails when a `core/` object calls a
+`lib_` or `run_` function that `core/schooks.h` does not declare.
 `quick` is the same list minus the two walkthrough stages and is not a
 substitute for `test` before a commit: the corpora are what catch
 Runner-parity regressions.  Replays run with determinism on

@@ -28,7 +28,7 @@
  * scrun_rows.cpp, scrun_therest.cpp, scrun_dispatch.cpp, scrun_input.cpp,
  * scrun_session.cpp, scrun_load_draws.cpp, and by the dump tools in tools/
  * (scrun_census.cpp, scdump.cpp).  Nothing here is part of the interface the
- * rest of Scarier uses; that stays in core/scrunner_api.h.
+ * rest of Scarier uses; that is runner/scrunner_api.h.
  */
 
 #include <cstddef>
