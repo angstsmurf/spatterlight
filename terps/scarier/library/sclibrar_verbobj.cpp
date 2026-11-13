@@ -1870,4 +1870,5 @@ void
 lib_debug_trace (scr_bool flag)
 {
   lib_trace = flag;
+  room_debug_trace (flag);
 }

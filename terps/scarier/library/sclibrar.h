@@ -91,10 +91,6 @@ extern std::string lib_battle_who_pending;
 /* Functions shared across the library files, each defined where named. */
 
 /* sclibrar_print.cpp */
-extern scr_bool lib_use_room_alt (scr_gameref_t game, scr_int room,
-                                  scr_int alt);
-extern scr_bool lib_room_is_dark (scr_gameref_t game, scr_int room);
-extern scr_int lib_find_starting_alt (scr_gameref_t game, scr_int room);
 extern void lib_print_room_name_lower (scr_gameref_t game, scr_int room);
 extern scr_bool lib_compare_article_binary (const scr_char *string,
                                             const scr_char *word,

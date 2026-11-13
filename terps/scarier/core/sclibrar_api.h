@@ -40,9 +40,6 @@ enum
 
 /* Globals/Perspective as the Runner of this game's version reads it. */
 extern scr_int lib_get_perspective (scr_gameref_t game);
-extern scr_int lib_random_roomgroup_member (scr_gameref_t game,
-                                            scr_int roomgroup);
-extern const scr_char *lib_get_room_name (scr_gameref_t game, scr_int room);
 extern scr_bool lib_can_go (scr_gameref_t game, scr_int room,
                             scr_int direction);
 /* Silence movement handlers, so they only report whether a move is possible. */
@@ -52,7 +49,6 @@ extern const scr_char *lib_direction_name (scr_int direction);
 extern void lib_print_room_name (scr_gameref_t game, scr_int room);
 extern scr_bool lib_room_name_headings (scr_gameref_t game);
 extern void lib_print_room_description (scr_gameref_t game, scr_int room);
-extern scr_bool lib_room_alt_darkens (scr_gameref_t game, scr_int room);
 extern std::string lib_definite_object_name (scr_prop_setref_t bundle,
                                              scr_int object);
 extern void lib_print_object_np (scr_gameref_t game, scr_int object);

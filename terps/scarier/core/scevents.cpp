@@ -43,6 +43,7 @@
 #include "sctasks.h"
 #include "screstrs.h"
 #include "scobjcts.h"
+#include "scrooms.h"
 #include "scgamest.h"
 
 

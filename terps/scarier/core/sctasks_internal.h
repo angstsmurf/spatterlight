@@ -65,6 +65,7 @@
 #include "scnpcs.h"
 #include "scbattle.h"
 #include "scobjcts.h"
+#include "scrooms.h"
 #include "scdump.h"
 #include "scgamest.h"
 

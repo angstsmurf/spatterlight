@@ -47,6 +47,7 @@
 #include "scnpcs.h"
 #include "scbattle.h"
 #include "scobjcts.h"
+#include "scrooms.h"
 #include "scserial.h"
 #include "sclocale.h"
 #include "scdebug.h"

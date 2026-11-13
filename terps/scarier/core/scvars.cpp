@@ -47,6 +47,7 @@
 #include "sclibrar_api.h"
 #include "scnpcs.h"
 #include "scobjcts.h"
+#include "scrooms.h"
 #include "sclocale.h"
 #include "scgamest.h"
 

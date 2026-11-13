@@ -41,6 +41,7 @@
 #include "scevents.h"
 #include "sctasks.h"
 #include "scobjcts.h"
+#include "scrooms.h"
 #include "scserial.h"
 #include "scdump.h"
 #include "scgamest.h"

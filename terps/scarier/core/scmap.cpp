@@ -41,6 +41,7 @@
 #include "sctypes.h"
 #include "scutils.h"
 #include "scprops.h"
+#include "scrooms.h"
 #include "scprintf.h"
 #include "scgamest_api.h"
 #include "sclibrar_api.h"
