@@ -192,7 +192,7 @@ lib_typed_verb (const scr_char *verb)
  * by the time 4.0 has loaded the game (loader @4900EC), so it composes as
  * "the" too.
  *
- * Not sclibrar_print.cpp's lib_definite_prefix(): that one opens the name
+ * Not core/scobjcts.cpp's lib_definite_prefix(): that one opens the name
  * lib_definite_object_name() prints, carries the pre-3.9 tense() arm, and
  * also skips a "the" already present.
  */

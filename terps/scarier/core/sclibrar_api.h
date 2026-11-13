@@ -47,8 +47,6 @@ extern const scr_char *lib_direction_name (scr_int direction);
 extern void lib_print_room_name (scr_gameref_t game, scr_int room);
 extern scr_bool lib_room_name_headings (scr_gameref_t game);
 extern void lib_print_room_description (scr_gameref_t game, scr_int room);
-extern std::string lib_definite_object_name (scr_prop_setref_t bundle,
-                                             scr_int object);
 extern void lib_print_object_np (scr_gameref_t game, scr_int object);
 /* An ALR could be matching the Runner's literal " is " in a listing. */
 extern scr_bool lib_alrs_see_list_verb (scr_gameref_t game,
