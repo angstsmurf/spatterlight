@@ -831,10 +831,7 @@ run_main_loop (scr_gameref_t game)
 static void
 run_destroy_bundle (scr_prop_setref_t bundle)
 {
-  obj_forget_bundle (bundle);
-  var_forget_bundle (bundle);
-  lib_forget_bundle (bundle);
-  restr_forget_bundle (bundle);
+  run_lifecycle_forget_bundle (bundle);
   prop_destroy (bundle);
 }
 

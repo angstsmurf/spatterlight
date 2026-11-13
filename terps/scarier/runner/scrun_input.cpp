@@ -229,10 +229,7 @@ run_input_reset (void)
   memset (run_line_element, NUL, sizeof (run_line_element));
   run_typed_line.clear ();
   run_previous_typed_line.clear ();
-  lib_co_400_reset ();
-  lib_battle_who_reset ();
-  lib_with_prefix_390_reset ();
-  lib_put_reset ();
+  run_lifecycle_reset_input ();
   run_cancel_goto_walk ();
 }
 

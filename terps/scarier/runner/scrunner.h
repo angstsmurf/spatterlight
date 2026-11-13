@@ -26,9 +26,10 @@
  * scrun_respell.cpp, scrun_match.cpp, scrun_match_run.cpp,
  * scrun_match_refusal.cpp, scrun_tables.cpp, scrun_priority.cpp,
  * scrun_rows.cpp, scrun_therest.cpp, scrun_dispatch.cpp, scrun_input.cpp,
- * scrun_session.cpp, scrun_load_draws.cpp, and by the dump tools in tools/
- * (scrun_census.cpp, scdump.cpp).  Nothing here is part of the interface the
- * rest of Scarier uses; that is runner/scrunner_api.h.
+ * scrun_session.cpp, scrun_lifecycle.cpp, scrun_load_draws.cpp, and by the
+ * dump tools in tools/ (scrun_census.cpp, scdump.cpp).  Nothing here is part
+ * of the interface the rest of Scarier uses; that is
+ * runner/scrunner_api.h.
  */
 
 #include <cstddef>
@@ -61,6 +62,7 @@ extern scr_bool run_probe_strict;
 extern scr_bool run_strict_tasks_requested (const scr_char *string);
 #endif
 /* scrun_match.cpp */
+extern void run_match_forget_game (const void *game);
 extern scr_bool run_rerun_skips_tasks;
 extern scr_bool run_rerun_exact_spaces;
 extern scr_bool run_put_class_only;
@@ -432,6 +434,10 @@ extern scr_bool run_wait_anywhere (scr_gameref_t game, const scr_char *string);
 extern scr_bool run_all_commands (scr_gameref_t game, const scr_char *string);
 extern void run_finish_goto_walk (void);
 extern void run_cancel_goto_walk (void);
+
+/* scrun_lifecycle.cpp */
+extern void run_lifecycle_forget_bundle (scr_prop_setref_t bundle);
+extern void run_lifecycle_reset_input (void);
 
 /* scrun_input.cpp */
 extern scr_char run_line_element[LINE_BUFFER_SIZE];

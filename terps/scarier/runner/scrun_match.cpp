@@ -149,7 +149,7 @@ run_is_task_function (const scr_char *pattern, scr_gameref_t game)
  * so remember each task's pattern list (per direction) the first time it is
  * walked; the walk itself goes through the same fatal-checking prop_get_*
  * wrappers the uncached code used.  The cache tracks a single game;
- * gs_destroy() calls run_forget_game().
+ * gs_destroy() calls run_match_forget_game().
  */
 /*
  * What run_match_task_commands() reads off each pattern before and after
@@ -374,13 +374,14 @@ run_task_command_patterns (scr_gameref_t game, scr_int task,
  */
 
 /*
- * run_forget_game()
+ * run_match_forget_game()
  *
- * Drop any command pattern cache built for the given game.  Called from
- * gs_destroy() so a stale cache can never outlive its game.
+ * Drop any command pattern cache built for the given game.  Called when the
+ * game is freed (see the lifecycle table, scrun_lifecycle.cpp) so a stale
+ * cache can never outlive its game.
  */
 void
-run_forget_game (const void *game)
+run_match_forget_game (const void *game)
 {
   if (run_cache_game == game)
     {
@@ -1426,7 +1427,7 @@ run_command_match_t::recheck_pre400 (void)
       /*
        * Deliberate deviation: 3.7 keeps the substitution it just made,
        * for good, when the command matched on it -- see the note above
-       * run_forget_game() -- and Scarier does not.
+       * run_match_forget_game() -- and Scarier does not.
        */
     }
 }
