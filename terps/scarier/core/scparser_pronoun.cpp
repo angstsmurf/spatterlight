@@ -154,9 +154,9 @@ uip_commit_antecedent_400 (scr_gameref_t game)
 {
   if (uip.pronoun.antecedent_object >= 0 && !uip.pronoun.used)
     {
-      game->it_object = uip.pronoun.antecedent_object;
-      game->it_form = uip.pronoun.antecedent_form;
-      game->it_npc = -1;
+      game->pronouns.it_object = uip.pronoun.antecedent_object;
+      game->pronouns.it_form = uip.pronoun.antecedent_form;
+      game->pronouns.it_npc = -1;
     }
   uip.pronoun.antecedent_object = -1;
   uip.pronoun.antecedent_stage = -1;
@@ -264,39 +264,40 @@ uip_pronoun_t::find_register ()
    * pair of scissors" an "it", or a "them"?  So "it" and "them" are treated
    * equally.
    */
-  if (game->it_object != -1 && scr_compare_word (word, "it", 2))
+  if (game->pronouns.it_object != -1 && scr_compare_word (word, "it", 2))
     {
-      object = game->it_object;
+      object = game->pronouns.it_object;
       extent = 2;
     }
-  else if (game->it_object != -1 && scr_compare_word (word, "them", 4))
+  else if (game->pronouns.it_object != -1
+           && scr_compare_word (word, "them", 4))
     {
-      object = game->it_object;
+      object = game->pronouns.it_object;
       extent = 4;
     }
-  else if (game->him_npc != -1 && scr_compare_word (word, "him", 3))
+  else if (game->pronouns.him_npc != -1 && scr_compare_word (word, "him", 3))
     {
-      npc = game->him_npc;
+      npc = game->pronouns.him_npc;
       extent = 3;
     }
-  else if (game->him_npc != -1 && scr_compare_word (word, "he", 2))
+  else if (game->pronouns.him_npc != -1 && scr_compare_word (word, "he", 2))
     {
-      npc = game->him_npc;
+      npc = game->pronouns.him_npc;
       extent = 2;
     }
-  else if (game->her_npc != -1 && scr_compare_word (word, "her", 3))
+  else if (game->pronouns.her_npc != -1 && scr_compare_word (word, "her", 3))
     {
-      npc = game->her_npc;
+      npc = game->pronouns.her_npc;
       extent = 3;
     }
-  else if (game->her_npc != -1 && scr_compare_word (word, "she", 3))
+  else if (game->pronouns.her_npc != -1 && scr_compare_word (word, "she", 3))
     {
-      npc = game->her_npc;
+      npc = game->pronouns.her_npc;
       extent = 3;
     }
-  else if (game->it_npc != -1 && scr_compare_word (word, "it", 2))
+  else if (game->pronouns.it_npc != -1 && scr_compare_word (word, "it", 2))
     {
-      npc = game->it_npc;
+      npc = game->pronouns.it_npc;
       extent = 2;
     }
 }
@@ -351,16 +352,16 @@ uip_pronoun_t::object_phrase ()
    * application form)" (Prefix "an", which tense() leaves alone), and
    * `wave wand` on the held wand makes the later `drop it` the wand.
    */
-  if (game->it_form == UIP_IT_BARE
+  if (game->pronouns.it_form == UIP_IT_BARE
       && prop_get_taf_version (bundle) >= TAF_VERSION_400)
     prefix = "";            /* co()'s park arm; see above */
-  else if (game->it_form == UIP_IT_DEFINITE
+  else if (game->pronouns.it_form == UIP_IT_DEFINITE
            && prop_get_taf_version (bundle) < TAF_VERSION_390)
     {
       definite = uip_tense_prefix_3738 (prefix);
       prefix = definite.c_str ();
     }
-  else if (game->it_form == UIP_IT_DEFINITE)
+  else if (game->pronouns.it_form == UIP_IT_DEFINITE)
     {
       if (scr_compare_word (prefix, "a", 1))
         definite = std::string ("the") + (prefix + 1);
@@ -578,7 +579,7 @@ uip_pronoun_t::substitute (std::string &buffer, scr_int offset) const
   if (object > -1
       && (prop_get_taf_version (bundle) < TAF_VERSION_390
           || (prop_get_taf_version (bundle) < TAF_VERSION_400
-              && game->it_form == UIP_IT_DEFINITE)))
+              && game->pronouns.it_form == UIP_IT_DEFINITE)))
     replacement = name;
   buffer.replace (offset, extent, replacement);
   scr_lowercase (&buffer[0]);
@@ -839,14 +840,14 @@ uip_note_npc_pronoun (scr_gameref_t game, scr_int npc)
   switch (prop_get_indexed_integer (bundle, "NPCs", npc, "Gender"))
     {
     case NPC_MALE:
-      game->him_npc = npc;
+      game->pronouns.him_npc = npc;
       break;
     case NPC_FEMALE:
-      game->her_npc = npc;
+      game->pronouns.her_npc = npc;
       break;
     case NPC_NEUTER:
-      game->it_npc = npc;
-      game->it_object = -1;
+      game->pronouns.it_npc = npc;
+      game->pronouns.it_object = -1;
       break;
     default:
       break;
@@ -879,16 +880,16 @@ uip_note_named_npcs (scr_gameref_t game, const scr_char *string)
   const std::string lowered = uip_lowered (string);
   scr_int index_;
 
-  uip.pronoun.npc_before_noting = game->last_npc;
-  uip.pronoun.him_before_noting = game->him_npc;
-  uip.pronoun.her_before_noting = game->her_npc;
-  uip.pronoun.it_before_noting = game->it_npc;
-  uip.pronoun.it_object_before_noting = game->it_object;
+  uip.pronoun.npc_before_noting = game->pronouns.last_npc;
+  uip.pronoun.him_before_noting = game->pronouns.him_npc;
+  uip.pronoun.her_before_noting = game->pronouns.her_npc;
+  uip.pronoun.it_before_noting = game->pronouns.it_npc;
+  uip.pronoun.it_object_before_noting = game->pronouns.it_object;
   GS_FOR_EACH_NPC (game, index_)
     {
       if (uip_npc_named (game, index_, lowered, string))
         {
-          game->last_npc = index_;
+          game->pronouns.last_npc = index_;
           uip_note_npc_pronoun (game, index_);
         }
     }
@@ -931,13 +932,13 @@ uip_renote_named_npcs (scr_gameref_t game, const scr_char *cut_line,
                                   || lowered[0] == ',');
   scr_int index_;
 
-  game->last_npc = uip.pronoun.npc_before_noting;
-  game->him_npc = uip.pronoun.him_before_noting;
-  game->her_npc = uip.pronoun.her_before_noting;
-  if (game->it_npc != uip.pronoun.it_before_noting)
+  game->pronouns.last_npc = uip.pronoun.npc_before_noting;
+  game->pronouns.him_npc = uip.pronoun.him_before_noting;
+  game->pronouns.her_npc = uip.pronoun.her_before_noting;
+  if (game->pronouns.it_npc != uip.pronoun.it_before_noting)
     {
-      game->it_npc = uip.pronoun.it_before_noting;
-      game->it_object = uip.pronoun.it_object_before_noting;
+      game->pronouns.it_npc = uip.pronoun.it_before_noting;
+      game->pronouns.it_object = uip.pronoun.it_object_before_noting;
     }
   if (walked)
     return;
@@ -963,7 +964,7 @@ uip_renote_named_npcs (scr_gameref_t game, const scr_char *cut_line,
         }
       if (named)
         {
-          game->last_npc = index_;
+          game->pronouns.last_npc = index_;
           uip_note_npc_pronoun (game, index_);
         }
     }
@@ -1041,8 +1042,8 @@ uip_print_ask_echo (scr_gameref_t game, const scr_char *string)
   if (uip_ask_echo_skip (lowered) == 0)
     return FALSE;
 
-  uip_echo_reference (game, uip_last_npc_name (game, game->last_npc),
-                      game->last_npc == -1);
+  uip_echo_reference (game, uip_last_npc_name (game, game->pronouns.last_npc),
+                      game->pronouns.last_npc == -1);
   return TRUE;
 }
 
@@ -1385,10 +1386,10 @@ uip_assign_pronouns (scr_gameref_t game, const scr_char *string)
 
               if (form != UIP_FORM_KEEP && !handler_set)
                 {
-                  game->it_object = object;
-                  game->it_form = form == UIP_FORM_DEFINITE
+                  game->pronouns.it_object = object;
+                  game->pronouns.it_form = form == UIP_FORM_DEFINITE
                                   ? UIP_IT_DEFINITE : UIP_IT_INDEFINITE;
-                  game->it_npc = -1;
+                  game->pronouns.it_npc = -1;
                 }
 
               if (uip.trace)
@@ -1416,9 +1417,9 @@ uip_assign_pronouns (scr_gameref_t game, const scr_char *string)
                * the same treatment.  (3.9 on never reaches here; see the
                * version gate above.)
                */
-              game->him_npc = npc;
-              game->her_npc = npc;
-              game->it_npc = -1;
+              game->pronouns.him_npc = npc;
+              game->pronouns.her_npc = npc;
+              game->pronouns.it_npc = -1;
 
               if (uip.trace)
                 {

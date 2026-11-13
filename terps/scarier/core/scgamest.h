@@ -253,6 +253,27 @@ typedef struct scr_resource_s
 } scr_resource_t;
 
 /*
+ * What `it`, `him`, `her` and `them` stand for: an object or NPC index, or
+ * -1 for nothing yet.
+ *
+ *   Undo:     copied by gs_copy(), so an undo brings back the pronouns of
+ *             the turn it returns to.
+ *   .tas:     not saved; a restored game takes the loaded game's, which
+ *             are the initial ones.
+ *   Session:  the "pronouns" and "undo_pronouns" records
+ *             (run_session_state()).
+ */
+typedef struct
+{
+  scr_int it_object;
+  scr_int it_form;          /* UIP_IT_INDEFINITE, _DEFINITE or _BARE */
+  scr_int him_npc;
+  scr_int her_npc;
+  scr_int it_npc;
+  scr_int last_npc;
+} scr_pronouns_t;
+
+/*
  * Overall game state structure.  Arrays are malloc'ed for the appropriate
  * number of each of the above state structures.
  */
@@ -413,12 +434,7 @@ typedef struct scr_game_s
   std::vector<scr_bool> object_references;
   std::vector<scr_bool> multiple_references;
   std::vector<scr_bool> npc_references;
-  scr_int it_object;
-  scr_int it_form;          /* UIP_IT_INDEFINITE, _DEFINITE or _BARE */
-  scr_int him_npc;
-  scr_int her_npc;
-  scr_int it_npc;
-  scr_int last_npc;
+  scr_pronouns_t pronouns;
 } scr_game_t;
 
 #endif

@@ -508,7 +508,7 @@ run_line_t::spent_claim_390 ()
    * the same.  Both read the register before the noting, so remember what
    * it held for the rewrite in library().
    */
-  prior_npc = game->last_npc;
+  prior_npc = game->pronouns.last_npc;
   ask_echo = uip_print_ask_echo (game, string);
   uip_note_named_npcs (game, string);
 

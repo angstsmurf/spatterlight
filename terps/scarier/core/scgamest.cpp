@@ -2222,12 +2222,12 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
   game->multiple_references.assign (game->object_count, FALSE);
   game->npc_references.assign (game->npc_count, FALSE);
 
-  game->it_object = -1;
-  game->it_form = UIP_IT_INDEFINITE;
-  game->him_npc = -1;
-  game->her_npc = -1;
-  game->it_npc = -1;
-  game->last_npc = -1;
+  game->pronouns.it_object = -1;
+  game->pronouns.it_form = UIP_IT_INDEFINITE;
+  game->pronouns.him_npc = -1;
+  game->pronouns.her_npc = -1;
+  game->pronouns.it_npc = -1;
+  game->pronouns.last_npc = -1;
 
   /*
    * Seed the carried-load totals from the starting inventory.  run400 zeroes
@@ -2445,12 +2445,7 @@ gs_copy (scr_gameref_t to, scr_gameref_t from)
   to->multiple_references = from->multiple_references;
   to->npc_references = from->npc_references;
 
-  to->it_object = from->it_object;
-  to->it_form = from->it_form;
-  to->him_npc = from->him_npc;
-  to->her_npc = from->her_npc;
-  to->it_npc = from->it_npc;
-  to->last_npc = from->last_npc;
+  to->pronouns = from->pronouns;
 
   /*
    * Carry the running totals over verbatim: run400's undo snapshot restores

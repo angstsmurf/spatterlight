@@ -117,9 +117,11 @@ run_session_split (const std::string &text, size_t count,
 static std::string
 run_session_pronouns (scr_gameref_t game)
 {
-  return run_session_join ({game->it_object, game->it_form,
-                            game->him_npc, game->her_npc, game->it_npc,
-                            game->last_npc});
+  const scr_pronouns_t &pronouns = game->pronouns;
+
+  return run_session_join ({pronouns.it_object, pronouns.it_form,
+                            pronouns.him_npc, pronouns.her_npc,
+                            pronouns.it_npc, pronouns.last_npc});
 }
 
 static void
@@ -139,13 +141,14 @@ run_session_set_pronouns (scr_gameref_t game, scr_gameref_t target,
         return;
     }
 
-  target->it_object = values[0];
-  target->it_form = values[1] >= UIP_IT_INDEFINITE && values[1] <= UIP_IT_BARE
-                    ? values[1] : UIP_IT_INDEFINITE;
-  target->him_npc = values[2];
-  target->her_npc = values[3];
-  target->it_npc = values[4];
-  target->last_npc = values[5];
+  target->pronouns.it_object = values[0];
+  target->pronouns.it_form
+      = values[1] >= UIP_IT_INDEFINITE && values[1] <= UIP_IT_BARE
+        ? values[1] : UIP_IT_INDEFINITE;
+  target->pronouns.him_npc = values[2];
+  target->pronouns.her_npc = values[3];
+  target->pronouns.it_npc = values[4];
+  target->pronouns.last_npc = values[5];
 }
 
 std::string
