@@ -1462,25 +1462,21 @@ run_is_undo_available (scr_gameref_t game)
  * run_get_attributes()
  * run_set_attributes()
  *
- * Get and set selected game attributes.
+ * Get and set selected game attributes.  The getter returns the ones
+ * `wanted` names (RUN_ATTR_* bits) and leaves the rest zero; see
+ * run_attrs_t.
  */
-void
-run_get_attributes (scr_gameref_t game,
-                    const scr_char **game_name, const scr_char **game_author,
-                    const scr_char **game_compile_date,
-                    scr_int *turns, scr_int *score, scr_int *max_score,
-                    const scr_char **current_room_name,
-                    const scr_char **status_line, const scr_char **preferred_font,
-                    scr_bool *bold_room_names, scr_bool *verbose,
-                    scr_bool *notify_score_change)
+run_attrs_t
+run_get_attributes (scr_gameref_t game, scr_uint wanted)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_var_setref_t vars = gs_get_vars (game);
   scr_vartype_t vt_key[2];
+  run_attrs_t attrs = run_attrs_t ();
   assert (gs_is_game_valid (game));
 
   /* Return the game name, author, and compile date if requested. */
-  if (game_name)
+  if (wanted & RUN_ATTR_NAME)
     {
       if (!game->title)
         {
@@ -1493,9 +1489,9 @@ run_get_attributes (scr_gameref_t game,
           pf_strip_tags (filtered);
           game->title.reset (filtered);
         }
-      *game_name = game->title.get ();
+      attrs.name = game->title.get ();
     }
-  if (game_author)
+  if (wanted & RUN_ATTR_AUTHOR)
     {
       if (!game->author)
         {
@@ -1508,48 +1504,46 @@ run_get_attributes (scr_gameref_t game,
           pf_strip_tags (filtered);
           game->author.reset (filtered);
         }
-      *game_author = game->author.get ();
+      attrs.author = game->author.get ();
     }
-  if (game_compile_date)
+  if (wanted & RUN_ATTR_COMPILE_DATE)
     {
       vt_key[0].string = "CompileDate";
-      *game_compile_date = prop_get_string (bundle, "S<-s", vt_key);
+      attrs.compile_date = prop_get_string (bundle, "S<-s", vt_key);
     }
 
   /* Return the current room name and status line if requested. */
-  if (current_room_name)
-    *current_room_name = game->current_room_name.get ();
-  if (status_line)
-    *status_line = game->status_line.get ();
+  if (wanted & RUN_ATTR_ROOM)
+    attrs.room = game->current_room_name.get ();
+  if (wanted & RUN_ATTR_STATUS_LINE)
+    attrs.status_line = game->status_line.get ();
 
   /* Return any game preferred font, or NULL if none. */
-  if (preferred_font)
+  if (wanted & RUN_ATTR_PREFERRED_FONT)
     {
       vt_key[0].string = "CustomFont";
       if (prop_get_boolean (bundle, "B<-s", vt_key))
         {
           vt_key[0].string = "FontNameSize";
-          *preferred_font = prop_get_string (bundle, "S<-s", vt_key);
+          attrs.preferred_font = prop_get_string (bundle, "S<-s", vt_key);
         }
-      else
-        *preferred_font = nullptr;
     }
 
   /* Return any other selected game attributes. */
-  if (turns)
-    *turns = game->world.turns;
-  if (score)
-    *score = game->world.score;
-  if (max_score)
-    {
-      *max_score = prop_get_global_integer (bundle, "MaxScore");
-    }
-  if (bold_room_names)
-    *bold_room_names = game->settings.bold_room_names;
-  if (verbose)
-    *verbose = game->settings.verbose;
-  if (notify_score_change)
-    *notify_score_change = game->settings.notify_score_change;
+  if (wanted & RUN_ATTR_TURNS)
+    attrs.turns = game->world.turns;
+  if (wanted & RUN_ATTR_SCORE)
+    attrs.score = game->world.score;
+  if (wanted & RUN_ATTR_MAX_SCORE)
+    attrs.max_score = prop_get_global_integer (bundle, "MaxScore");
+  if (wanted & RUN_ATTR_BOLD_ROOM_NAMES)
+    attrs.bold_room_names = game->settings.bold_room_names;
+  if (wanted & RUN_ATTR_VERBOSE)
+    attrs.verbose = game->settings.verbose;
+  if (wanted & RUN_ATTR_NOTIFY_SCORE_CHANGE)
+    attrs.notify_score_change = game->settings.notify_score_change;
+
+  return attrs;
 }
 
 void

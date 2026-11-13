@@ -85,17 +85,50 @@ extern void run_set_end_keyprompt (scr_bool flag);
 extern void run_set_repeat_assist (scr_bool flag);
 extern scr_bool run_get_repeat_assist (void);
 extern scr_bool run_is_undo_available (scr_gameref_t game);
-extern void run_get_attributes (scr_gameref_t game,
-                                const scr_char **game_name,
-                                const scr_char **game_author,
-                                const scr_char **game_compile_date,
-                                scr_int *turns, scr_int *score,
-                                scr_int *max_score,
-                                const scr_char **current_room_name,
-                                const scr_char **status_line,
-                                const scr_char **preferred_font,
-                                scr_bool *bold_room_names, scr_bool *verbose,
-                                scr_bool *notify_score_change);
+
+/*
+ * The attributes run_get_attributes() can return.  'wanted' is a mask of
+ * RUN_ATTR_* bits; a field not asked for is left zero, and nothing is looked
+ * up or cached on its behalf (the game name and author are filtered and kept
+ * on first request).  RUN_ATTR_OPTIONS is the trio run_set_attributes()
+ * takes back.
+ */
+struct run_attrs_t
+{
+  const scr_char *name;
+  const scr_char *author;
+  const scr_char *compile_date;
+  scr_int turns;
+  scr_int score;
+  scr_int max_score;
+  const scr_char *room;
+  const scr_char *status_line;
+  const scr_char *preferred_font;
+  scr_bool bold_room_names;
+  scr_bool verbose;
+  scr_bool notify_score_change;
+};
+
+enum
+{
+  RUN_ATTR_NAME = 1 << 0,
+  RUN_ATTR_AUTHOR = 1 << 1,
+  RUN_ATTR_COMPILE_DATE = 1 << 2,
+  RUN_ATTR_TURNS = 1 << 3,
+  RUN_ATTR_SCORE = 1 << 4,
+  RUN_ATTR_MAX_SCORE = 1 << 5,
+  RUN_ATTR_ROOM = 1 << 6,
+  RUN_ATTR_STATUS_LINE = 1 << 7,
+  RUN_ATTR_PREFERRED_FONT = 1 << 8,
+  RUN_ATTR_BOLD_ROOM_NAMES = 1 << 9,
+  RUN_ATTR_VERBOSE = 1 << 10,
+  RUN_ATTR_NOTIFY_SCORE_CHANGE = 1 << 11,
+  RUN_ATTR_OPTIONS = RUN_ATTR_BOLD_ROOM_NAMES | RUN_ATTR_VERBOSE
+                     | RUN_ATTR_NOTIFY_SCORE_CHANGE
+};
+
+extern run_attrs_t run_get_attributes (scr_gameref_t game, scr_uint wanted);
+
 extern scr_int run_startup_prompt (void);
 extern std::string run_session_state (scr_gameref_t game);
 extern scr_bool run_restore_session_state (scr_gameref_t game,

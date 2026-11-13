@@ -790,78 +790,6 @@ scr_free_game (scr_game game)
 
 
 /*
- * if_get_attributes()
- *
- * The attributes run_get_attributes() can return, in its argument order, and
- * the one call that fetches them.  'wanted' is a mask of IF_ATTR_* bits; a
- * field not asked for is passed to the `run_` code as NULL, exactly as the
- * entry points did by hand, so nothing is looked up or cached on their behalf
- * (the game name and author are filtered and kept on first request), and is
- * left zero here.  IF_ATTR_OPTIONS is the trio run_set_attributes() takes
- * back.
- */
-struct if_attrs_t
-{
-  const scr_char *name;
-  const scr_char *author;
-  const scr_char *compile_date;
-  scr_int turns;
-  scr_int score;
-  scr_int max_score;
-  const scr_char *room;
-  const scr_char *status_line;
-  const scr_char *preferred_font;
-  scr_bool bold_room_names;
-  scr_bool verbose;
-  scr_bool notify_score_change;
-};
-
-enum
-{
-  IF_ATTR_NAME = 1 << 0,
-  IF_ATTR_AUTHOR = 1 << 1,
-  IF_ATTR_COMPILE_DATE = 1 << 2,
-  IF_ATTR_TURNS = 1 << 3,
-  IF_ATTR_SCORE = 1 << 4,
-  IF_ATTR_MAX_SCORE = 1 << 5,
-  IF_ATTR_ROOM = 1 << 6,
-  IF_ATTR_STATUS_LINE = 1 << 7,
-  IF_ATTR_PREFERRED_FONT = 1 << 8,
-  IF_ATTR_BOLD_ROOM_NAMES = 1 << 9,
-  IF_ATTR_VERBOSE = 1 << 10,
-  IF_ATTR_NOTIFY_SCORE_CHANGE = 1 << 11,
-  IF_ATTR_OPTIONS = IF_ATTR_BOLD_ROOM_NAMES | IF_ATTR_VERBOSE
-                    | IF_ATTR_NOTIFY_SCORE_CHANGE
-};
-
-static if_attrs_t
-if_get_attributes (scr_gameref_t game, scr_uint wanted)
-{
-  if_attrs_t attrs = if_attrs_t ();
-
-  run_get_attributes (game,
-                      wanted & IF_ATTR_NAME ? &attrs.name : nullptr,
-                      wanted & IF_ATTR_AUTHOR ? &attrs.author : nullptr,
-                      wanted & IF_ATTR_COMPILE_DATE
-                        ? &attrs.compile_date : nullptr,
-                      wanted & IF_ATTR_TURNS ? &attrs.turns : nullptr,
-                      wanted & IF_ATTR_SCORE ? &attrs.score : nullptr,
-                      wanted & IF_ATTR_MAX_SCORE ? &attrs.max_score : nullptr,
-                      wanted & IF_ATTR_ROOM ? &attrs.room : nullptr,
-                      wanted & IF_ATTR_STATUS_LINE
-                        ? &attrs.status_line : nullptr,
-                      wanted & IF_ATTR_PREFERRED_FONT
-                        ? &attrs.preferred_font : nullptr,
-                      wanted & IF_ATTR_BOLD_ROOM_NAMES
-                        ? &attrs.bold_room_names : nullptr,
-                      wanted & IF_ATTR_VERBOSE ? &attrs.verbose : nullptr,
-                      wanted & IF_ATTR_NOTIFY_SCORE_CHANGE
-                        ? &attrs.notify_score_change : nullptr);
-  return attrs;
-}
-
-
-/*
  * scr_is_game_running()
  * scr_does_command_match()
  * scr_get_game_name()
@@ -911,7 +839,7 @@ scr_get_game_name (scr_game game)
 {
   return if_game_guarded (game, "scr_get_game_name", [&] (scr_gameref_t game_)
     {
-      return if_get_attributes (game_, IF_ATTR_NAME).name;
+      return run_get_attributes (game_, RUN_ATTR_NAME).name;
     }, "[invalid game]");
 }
 
@@ -920,7 +848,7 @@ scr_get_game_author (scr_game game)
 {
   return if_game_guarded (game, "scr_get_game_author", [&] (scr_gameref_t game_)
     {
-      return if_get_attributes (game_, IF_ATTR_AUTHOR).author;
+      return run_get_attributes (game_, RUN_ATTR_AUTHOR).author;
     }, "[invalid game]");
 }
 
@@ -930,7 +858,7 @@ scr_get_game_compile_date (scr_game game)
   return if_game_guarded (game, "scr_get_game_compile_date",
                           [&] (scr_gameref_t game_)
     {
-      return if_get_attributes (game_, IF_ATTR_COMPILE_DATE).compile_date;
+      return run_get_attributes (game_, RUN_ATTR_COMPILE_DATE).compile_date;
     }, "[invalid game]");
 }
 
@@ -939,7 +867,7 @@ scr_get_game_turns (scr_game game)
 {
   return if_game_guarded (game, "scr_get_game_turns", [&] (scr_gameref_t game_)
     {
-      return if_get_attributes (game_, IF_ATTR_TURNS).turns;
+      return run_get_attributes (game_, RUN_ATTR_TURNS).turns;
     }, 0);
 }
 
@@ -948,7 +876,7 @@ scr_get_game_score (scr_game game)
 {
   return if_game_guarded (game, "scr_get_game_score", [&] (scr_gameref_t game_)
     {
-      return if_get_attributes (game_, IF_ATTR_SCORE).score;
+      return run_get_attributes (game_, RUN_ATTR_SCORE).score;
     }, 0);
 }
 
@@ -958,7 +886,7 @@ scr_get_game_max_score (scr_game game)
   return if_game_guarded (game, "scr_get_game_max_score",
                           [&] (scr_gameref_t game_)
     {
-      return if_get_attributes (game_, IF_ATTR_MAX_SCORE).max_score;
+      return run_get_attributes (game_, RUN_ATTR_MAX_SCORE).max_score;
     }, 0);
 }
 
@@ -967,7 +895,7 @@ scr_get_game_room (scr_game game)
 {
   return if_game_guarded (game, "scr_get_game_room", [&] (scr_gameref_t game_)
     {
-      return if_get_attributes (game_, IF_ATTR_ROOM).room;
+      return run_get_attributes (game_, RUN_ATTR_ROOM).room;
     }, "[invalid game]");
 }
 
@@ -977,7 +905,7 @@ scr_get_game_status_line (scr_game game)
   return if_game_guarded (game, "scr_get_game_status_line",
                           [&] (scr_gameref_t game_)
     {
-      return if_get_attributes (game_, IF_ATTR_STATUS_LINE).status_line;
+      return run_get_attributes (game_, RUN_ATTR_STATUS_LINE).status_line;
     }, "[invalid game]");
 }
 
@@ -987,7 +915,7 @@ scr_get_game_preferred_font (scr_game game)
   return if_game_guarded (game, "scr_get_game_preferred_font",
                           [&] (scr_gameref_t game_)
     {
-      return if_get_attributes (game_, IF_ATTR_PREFERRED_FONT).preferred_font;
+      return run_get_attributes (game_, RUN_ATTR_PREFERRED_FONT).preferred_font;
     }, "[invalid game]");
 }
 
@@ -997,7 +925,8 @@ scr_get_game_bold_room_names (scr_game game)
   return if_game_guarded (game, "scr_get_game_bold_room_names",
                           [&] (scr_gameref_t game_)
     {
-      return if_get_attributes (game_, IF_ATTR_BOLD_ROOM_NAMES).bold_room_names;
+      return run_get_attributes (game_, RUN_ATTR_BOLD_ROOM_NAMES)
+               .bold_room_names;
     }, FALSE);
 }
 
@@ -1007,7 +936,7 @@ scr_get_game_verbose (scr_game game)
   return if_game_guarded (game, "scr_get_game_verbose",
                           [&] (scr_gameref_t game_)
     {
-      return if_get_attributes (game_, IF_ATTR_VERBOSE).verbose;
+      return run_get_attributes (game_, RUN_ATTR_VERBOSE).verbose;
     }, FALSE);
 }
 
@@ -1017,7 +946,7 @@ scr_get_game_notify_score_change (scr_game game)
   return if_game_guarded (game, "scr_get_game_notify_score_change",
                           [&] (scr_gameref_t game_)
     {
-      return if_get_attributes (game_, IF_ATTR_NOTIFY_SCORE_CHANGE)
+      return run_get_attributes (game_, RUN_ATTR_NOTIFY_SCORE_CHANGE)
                .notify_score_change;
     }, FALSE);
 }
@@ -1056,7 +985,7 @@ scr_set_game_bold_room_names (scr_game game, scr_bool flag)
   if_game_guarded (game, "scr_set_game_bold_room_names",
                    [&] (scr_gameref_t game_)
     {
-      const if_attrs_t attrs = if_get_attributes (game_, IF_ATTR_OPTIONS);
+      const run_attrs_t attrs = run_get_attributes (game_, RUN_ATTR_OPTIONS);
 
       run_set_attributes (game_, flag, attrs.verbose,
                           attrs.notify_score_change);
@@ -1068,7 +997,7 @@ scr_set_game_verbose (scr_game game, scr_bool flag)
 {
   if_game_guarded (game, "scr_set_game_verbose", [&] (scr_gameref_t game_)
     {
-      const if_attrs_t attrs = if_get_attributes (game_, IF_ATTR_OPTIONS);
+      const run_attrs_t attrs = run_get_attributes (game_, RUN_ATTR_OPTIONS);
 
       run_set_attributes (game_, attrs.bold_room_names, flag,
                           attrs.notify_score_change);
@@ -1081,7 +1010,7 @@ scr_set_game_notify_score_change (scr_game game, scr_bool flag)
   if_game_guarded (game, "scr_set_game_notify_score_change",
                    [&] (scr_gameref_t game_)
     {
-      const if_attrs_t attrs = if_get_attributes (game_, IF_ATTR_OPTIONS);
+      const run_attrs_t attrs = run_get_attributes (game_, RUN_ATTR_OPTIONS);
 
       run_set_attributes (game_, attrs.bold_room_names, attrs.verbose, flag);
     });

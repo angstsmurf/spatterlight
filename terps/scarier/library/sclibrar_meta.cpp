@@ -960,16 +960,17 @@ lib_cmd_clear (scr_gameref_t game)
 scr_bool
 lib_cmd_statusline (scr_gameref_t game)
 {
-  const scr_char *name, *author, *room, *status;
-  scr_int score;
-
   /*
    * Retrieve the game's name and author, the description of the current
    * game room, and any formatted game status line.
    */
-  run_get_attributes (game, &name, &author, nullptr, nullptr,
-                      &score, nullptr, &room, &status,
-                      nullptr, nullptr, nullptr, nullptr);
+  const run_attrs_t attrs
+      = run_get_attributes (game, RUN_ATTR_NAME | RUN_ATTR_AUTHOR
+                                  | RUN_ATTR_SCORE | RUN_ATTR_ROOM
+                                  | RUN_ATTR_STATUS_LINE);
+  const scr_char *const name = attrs.name, *const author = attrs.author;
+  const scr_char *const room = attrs.room, *const status = attrs.status_line;
+  const scr_int score = attrs.score;
 
   /* If nothing is yet determined, print the game name and author. */
   if (!room || scr_strempty (room))
