@@ -351,6 +351,43 @@ typedef struct
 } scr_media_t;
 
 /*
+ * ADRIFT-style carried-load running totals.  The real Runner keeps the
+ * player's carried weight and size as running totals, updated incrementally
+ * on each take/drop; a take of an object already possessed indirectly
+ * (inside or on something carried or worn) adjusts nothing, so there is no
+ * container double-count.  It recomputes them only when loading state.
+ * These mirror that: maintained incrementally during play, recomputed at
+ * game create and restore.
+ *
+ * Undo: gs_copy copies weight, size, ready and phantom_held verbatim, and
+ * leaves suspend alone.  .tas: the live weight and size are written, as the
+ * Runner writes them, and recomputed on load (3.9 keeps the saved weight);
+ * the rest is not saved.  Session: not saved.
+ */
+typedef struct
+{
+  scr_int weight;
+  scr_int size;
+  scr_bool ready;  /* gates the incremental tracker off during game setup */
+
+  /*
+   * When TRUE, position changes bypass the incremental tracker.  The task
+   * and event object movers set this while they move: the Runner's task
+   * mover does its own total accounting (Proc_19_10), and its event mover
+   * does none at all.  Transient -- never saved, only set across a call.
+   */
+  scr_bool suspend;
+
+  /*
+   * The 3.9/4.0 Runner's phantom object: its object array is dimensioned
+   * 0 To count and loaded 0..count-1, so slot [count] stays zeroed -- and
+   * a zero position reads as "held by the player".  TRUE while that slot
+   * is still held; see task_move_phantom_object().
+   */
+  scr_bool phantom_held;
+} scr_carried_t;
+
+/*
  * The player's settings: what the metacommands and the host's preferences
  * set, as opposed to what the game does.
  *
@@ -459,36 +496,7 @@ typedef struct scr_game_s
   scr_bool is_running;
   scr_bool has_completed;
 
-  /*
-   * ADRIFT-style carried-load running totals.  The real Runner keeps the
-   * player's carried weight and size as running totals, updated incrementally
-   * on each take/drop; a take of an object already possessed indirectly
-   * (inside or on something carried or worn) adjusts nothing, so there is no
-   * container double-count.  It recomputes them only when loading state.
-   * These mirror that: maintained incrementally during play, recomputed at
-   * game create/copy/restore.  Derived state -- not part of the saved stream
-   * (the Runner stores live totals in the save but recomputes on load).
-   * carried_ready gates the incremental tracker off during game setup.
-   */
-  scr_int carried_weight;
-  scr_int carried_size;
-  scr_bool carried_ready;
-
-  /*
-   * When TRUE, position changes bypass the incremental tracker.  The task
-   * and event object movers set this while they move: the Runner's task
-   * mover does its own total accounting (Proc_19_10), and its event mover
-   * does none at all.  Transient -- never saved, only set across a call.
-   */
-  scr_bool carried_suspend;
-
-  /*
-   * The 3.9/4.0 Runner's phantom object: its object array is dimensioned
-   * 0 To count and loaded 0..count-1, so slot [count] stays zeroed -- and
-   * a zero position reads as "held by the player".  TRUE while that slot
-   * is still held; see task_move_phantom_object().
-   */
-  scr_bool runner_phantom_held;
+  scr_carried_t carried;
 
   scr_turn_t turn;
   scr_references_t refs;

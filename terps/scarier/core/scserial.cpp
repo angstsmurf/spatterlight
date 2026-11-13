@@ -2119,7 +2119,7 @@ ser_load_game_body (scr_gameref_t game,
    * after a drop, 39 again once restored; a base-only reseed would say 30).
    */
   if (obj_uses_running_weight (new_game) && !obj_uses_running_load (new_game))
-    new_game->carried_weight = saved_carried_weight;
+    new_game->carried.weight = saved_carried_weight;
 
   /*
    * If we got this far, we successfully restored the game from the file.

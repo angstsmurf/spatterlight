@@ -221,9 +221,9 @@ gs_carried_recompute (scr_gameref_t gs)
       else if (gs->objects[index_].position == OBJ_WORN_PLAYER)
         weight += obj_get_base_weight (gs, index_);
     }
-  gs->carried_weight = weight;
-  gs->carried_size = size;
-  gs->carried_ready = TRUE;
+  gs->carried.weight = weight;
+  gs->carried.size = size;
+  gs->carried.ready = TRUE;
 }
 
 
@@ -313,7 +313,7 @@ gs_runner_worn (scr_gameref_t gs, scr_int object)
  *   drop 44).
  *
  * The move-object task action (Proc_19_10) does its own accounting in
- * task_move_object.  No-op until the totals are seeded (carried_ready), so
+ * task_move_object.  No-op until the totals are seeded (carried.ready), so
  * it ignores object placement during game setup.
  *
  * All of this is 4.0's alone.  run390 has no single generic setter -- it
@@ -341,7 +341,7 @@ gs_carried_track (scr_gameref_t gs, scr_int object, scr_int old_pos,
       && old_pos == OBJ_HELD_PLAYER && new_pos != OBJ_HELD_PLAYER)
     gs->playerwield = -1;
 
-  if (!gs->carried_ready || gs->carried_suspend)
+  if (!gs->carried.ready || gs->carried.suspend)
     return;
 
   {
@@ -351,17 +351,17 @@ gs_carried_track (scr_gameref_t gs, scr_int object, scr_int old_pos,
     if (was_possessed)
       {
         if (!is_possessed)
-          gs->carried_weight -= obj_get_weight (gs, object);
+          gs->carried.weight -= obj_get_weight (gs, object);
         if (!is_possessed || (!was_worn && is_worn))
-          gs->carried_size -= obj_get_size (gs, object);
+          gs->carried.size -= obj_get_size (gs, object);
         if (is_possessed && was_worn && !is_worn)
-          gs->carried_size += obj_get_size (gs, object);
+          gs->carried.size += obj_get_size (gs, object);
       }
     else if (is_possessed)
       {
-        gs->carried_weight += obj_get_weight (gs, object);
+        gs->carried.weight += obj_get_weight (gs, object);
         if (!is_worn)
-          gs->carried_size += obj_get_size (gs, object);
+          gs->carried.size += obj_get_size (gs, object);
       }
   }
 }
@@ -606,7 +606,7 @@ scr_int
 gs_carried_weight (scr_gameref_t gs)
 {
   GS_CHECK (gs);
-  return gs->carried_weight;
+  return gs->carried.weight;
 }
 
 scr_int
@@ -630,41 +630,41 @@ gs_carried_size (scr_gameref_t gs)
       if (gs_runner_possessed (gs, object) && !gs_runner_worn (gs, object))
         possessed += obj_get_size (gs, object);
     }
-  if (gs->carried_size > possessed)
-    SCR_DEVIATION ("carried_cap", "runner=%ld ours=%ld", gs->carried_size,
+  if (gs->carried.size > possessed)
+    SCR_DEVIATION ("carried_cap", "runner=%ld ours=%ld", gs->carried.size,
                    possessed);
-  return gs->carried_size < possessed ? gs->carried_size : possessed;
+  return gs->carried.size < possessed ? gs->carried.size : possessed;
 }
 
 void
 gs_set_carried_suspend (scr_gameref_t gs, scr_bool flag)
 {
   GS_CHECK (gs);
-  gs->carried_suspend = flag;
+  gs->carried.suspend = flag;
 }
 
 scr_bool
 gs_runner_phantom_held (scr_gameref_t gs)
 {
   GS_CHECK (gs);
-  return gs->runner_phantom_held;
+  return gs->carried.phantom_held;
 }
 
 void
 gs_set_runner_phantom_held (scr_gameref_t gs, scr_bool flag)
 {
   GS_CHECK (gs);
-  gs->runner_phantom_held = flag;
+  gs->carried.phantom_held = flag;
 }
 
 void
 gs_carried_adjust (scr_gameref_t gs, scr_int weight, scr_int size)
 {
   GS_CHECK (gs);
-  if (!gs->carried_ready)
+  if (!gs->carried.ready)
     return;
-  gs->carried_weight += weight;
-  gs->carried_size += size;
+  gs->carried.weight += weight;
+  gs->carried.size += size;
 }
 
 
@@ -2113,12 +2113,12 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
    * running totals rather than the legacy per-check recompute, unless the
    * capacity assist default asks for the recompute (see gs_capacity_assist).
    */
-  game->carried_weight = 0;
-  game->carried_size = 0;
-  game->carried_ready = FALSE;
-  game->carried_suspend = FALSE;
+  game->carried.weight = 0;
+  game->carried.size = 0;
+  game->carried.ready = FALSE;
+  game->carried.suspend = FALSE;
   game->settings.capacity_recompute = gs_capacity_assist;
-  game->runner_phantom_held = TRUE;
+  game->carried.phantom_held = TRUE;
 
   /* Create rooms state array. */
   vt_key[0].string = "Rooms";
@@ -2445,15 +2445,15 @@ gs_copy (scr_gameref_t to, scr_gameref_t from)
    * settings, so it is left invariant across copies and deliberately not
    * propagated here.
    */
-  to->carried_weight = from->carried_weight;
-  to->carried_size = from->carried_size;
-  to->carried_ready = from->carried_ready;
+  to->carried.weight = from->carried.weight;
+  to->carried.size = from->carried.size;
+  to->carried.ready = from->carried.ready;
 
   /*
    * Undo carries the phantom along.  A restore copies in the freshly loaded
    * game's, so a restored save brings back a still-held one -- unmeasured.
    */
-  to->runner_phantom_held = from->runner_phantom_held;
+  to->carried.phantom_held = from->carried.phantom_held;
 }
 
 
