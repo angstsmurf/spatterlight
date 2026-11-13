@@ -40,8 +40,6 @@ enum
 
 /* Globals/Perspective as the Runner of this game's version reads it. */
 extern scr_int lib_get_perspective (scr_gameref_t game);
-extern scr_bool lib_can_go (scr_gameref_t game, scr_int room,
-                            scr_int direction);
 /* Silence movement handlers, so they only report whether a move is possible. */
 extern void lib_set_movement_probe (scr_bool probe);
 /* The word the parser expects for a direction, for the map's click-to-walk. */

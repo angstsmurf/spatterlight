@@ -35,6 +35,8 @@ extern scr_bool lib_room_alt_darkens (scr_gameref_t game, scr_int room);
 extern scr_bool lib_room_is_dark (scr_gameref_t game, scr_int room);
 extern scr_int lib_find_starting_alt (scr_gameref_t game, scr_int room);
 extern const scr_char *lib_get_room_name (scr_gameref_t game, scr_int room);
+extern scr_bool lib_can_go (scr_gameref_t game, scr_int room,
+                            scr_int direction);
 extern void room_debug_trace (scr_bool flag);
 
 #endif
