@@ -528,24 +528,6 @@ lib_cmd_turn_object (scr_gameref_t game)
   return lib_cant_do_common (game, "turn", TRUE, lib_turn_particle (game));
 }
 
-scr_bool
-lib_cmd_block_other (scr_gameref_t game)
-{
-  return lib_cant_do_other (game, "block");
-}
-
-scr_bool
-lib_cmd_climb_other (scr_gameref_t game)
-{
-  return lib_cant_do_other (game, "climb");
-}
-
-scr_bool
-lib_cmd_clean_other (scr_gameref_t game)
-{
-  return lib_cant_do_other (game, "clean");
-}
-
 /*
  * lib_open_close_resolved_400()
  *
@@ -820,75 +802,9 @@ lib_cmd_lie_other (scr_gameref_t game)
 }
 
 scr_bool
-lib_cmd_cut_other (scr_gameref_t game)
-{
-  return lib_cant_do_other (game, "cut");
-}
-
-scr_bool
-lib_cmd_drink_other (scr_gameref_t game)
-{
-  return lib_cant_do_other (game, "drink");
-}
-
-scr_bool
-lib_cmd_lift_other (scr_gameref_t game)
-{
-  return lib_cant_do_other (game, "lift");
-}
-
-scr_bool
-lib_cmd_light_other (scr_gameref_t game)
-{
-  return lib_cant_do_other (game, "light");
-}
-
-scr_bool
-lib_cmd_move_other (scr_gameref_t game)
-{
-  return lib_cant_do_other (game, "move");
-}
-
-scr_bool
-lib_cmd_stop_other (scr_gameref_t game)
-{
-  return lib_cant_do_other (game, "stop");
-}
-
-scr_bool
-lib_cmd_rub_other (scr_gameref_t game)
-{
-  return lib_cant_do_other (game, "rub");
-}
-
-scr_bool
-lib_cmd_suck_other (scr_gameref_t game)
-{
-  return lib_cant_do_other (game, "suck");
-}
-
-scr_bool
 lib_cmd_turn_other (scr_gameref_t game)
 {
   return lib_cant_do_common (game, "turn", FALSE, lib_turn_particle (game));
-}
-
-scr_bool
-lib_cmd_touch_other (scr_gameref_t game)
-{
-  return lib_cant_do_other (game, "touch");
-}
-
-scr_bool
-lib_cmd_unblock_other (scr_gameref_t game)
-{
-  return lib_cant_do_other (game, "unblock");
-}
-
-scr_bool
-lib_cmd_wash_other (scr_gameref_t game)
-{
-  return lib_cant_do_other (game, "wash");
 }
 
 
@@ -975,12 +891,6 @@ lib_dont_think_other (scr_gameref_t game, const scr_char *verb)
  *
  * Assorted don't-think messages.
  */
-scr_bool
-lib_cmd_clear_other (scr_gameref_t game)
-{
-  return lib_cant_do_other (game, "clear");
-}
-
 scr_bool
 lib_cmd_fix_object (scr_gameref_t game)
 {
@@ -1150,10 +1060,24 @@ lib_what_or_other (scr_gameref_t game, const scr_char *verb,
   return lib_what (game, verb);
 }
 
+/*
+ * lib_what_or_cant_do()
+ *
+ * lib_what_or_other() for the verbs whose catch-all is the plain can't-do
+ * reply, as a command-table row's handler.  The row's argument is the verb
+ * in lower case, as lib_cant_do_other() prints it; "<Verb> what?" wants it
+ * capitalised.
+ */
 scr_bool
-lib_cmd_block_what (scr_gameref_t game)
+lib_what_or_cant_do (scr_gameref_t game, const scr_char *verb)
 {
-  return lib_what_or_other (game, "Block", lib_cmd_block_other);
+  std::string asked (verb);
+
+  if (lib_bare_verb_pre390 (game))
+    return lib_cant_do_other (game, verb);
+
+  asked[0] = scr_toupper (asked[0]);
+  return lib_what (game, asked.c_str ());
 }
 
 scr_bool
@@ -1178,24 +1102,6 @@ scr_bool
 lib_cmd_buy_what (scr_gameref_t game)
 {
   return lib_what_or_other (game, "Buy", lib_cmd_buy_other);
-}
-
-scr_bool
-lib_cmd_clean_what (scr_gameref_t game)
-{
-  return lib_what_or_other (game, "Clean", lib_cmd_clean_other);
-}
-
-scr_bool
-lib_cmd_climb_what (scr_gameref_t game)
-{
-  return lib_what_or_other (game, "Climb", lib_cmd_climb_other);
-}
-
-scr_bool
-lib_cmd_cut_what (scr_gameref_t game)
-{
-  return lib_what_or_other (game, "Cut", lib_cmd_cut_other);
 }
 
 scr_bool
@@ -1239,27 +1145,9 @@ lib_cmd_kick_what (scr_gameref_t game)
 }
 
 scr_bool
-lib_cmd_light_what (scr_gameref_t game)
-{
-  return lib_what_or_other (game, "Light", lib_cmd_light_other);
-}
-
-scr_bool
-lib_cmd_lift_what (scr_gameref_t game)
-{
-  return lib_what_or_other (game, "Lift", lib_cmd_lift_other);
-}
-
-scr_bool
 lib_cmd_mend_what (scr_gameref_t game)
 {
   return lib_what_or_other (game, "Mend", lib_cmd_mend_other);
-}
-
-scr_bool
-lib_cmd_move_what (scr_gameref_t game)
-{
-  return lib_what_or_other (game, "Move", lib_cmd_move_other);
 }
 
 scr_bool
@@ -1299,52 +1187,9 @@ lib_cmd_shake_what (scr_gameref_t game)
 }
 
 scr_bool
-lib_cmd_rub_what (scr_gameref_t game)
-{
-  /*
-   * No Runner below 4.0 has a rub arm, so a bare `rub` is left for the
-   * catch-all -- and at 3.9 for the pending "<Verb> what?" prefix:
-   * `repair` / `rub` is "I don't think you can repair that." (run390x
-   * runner_probes/npcamb.run390.bareverb.txt T23-24).  Deliberate deviation:
-   * Scarier answers it as the other bare verbs of each version.
-   */
-  return lib_what_or_other (game, "Rub", lib_cmd_rub_other);
-}
-
-scr_bool
-lib_cmd_stop_what (scr_gameref_t game)
-{
-  return lib_what_or_other (game, "Stop", lib_cmd_stop_other);
-}
-
-scr_bool
-lib_cmd_suck_what (scr_gameref_t game)
-{
-  return lib_what_or_other (game, "Suck", lib_cmd_suck_other);
-}
-
-scr_bool
-lib_cmd_touch_what (scr_gameref_t game)
-{
-  return lib_what_or_other (game, "Touch", lib_cmd_touch_other);
-}
-
-scr_bool
 lib_cmd_turn_what (scr_gameref_t game)
 {
   return lib_what_or_other (game, "Turn", lib_cmd_turn_other);
-}
-
-scr_bool
-lib_cmd_unblock_what (scr_gameref_t game)
-{
-  return lib_what_or_other (game, "Unblock", lib_cmd_unblock_other);
-}
-
-scr_bool
-lib_cmd_wash_what (scr_gameref_t game)
-{
-  return lib_what_or_other (game, "Wash", lib_cmd_wash_other);
 }
 
 /*

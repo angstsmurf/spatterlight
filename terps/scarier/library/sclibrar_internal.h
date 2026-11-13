@@ -442,7 +442,6 @@ extern scr_bool lib_checkverb_bare_400 (scr_gameref_t game,
                                         const scr_char *label);
 
 /* sclibrar_refuse.cpp */
-extern scr_bool lib_cant_do_other (scr_gameref_t game, const scr_char *verb);
 extern scr_bool lib_cmd_unclear_object (scr_gameref_t game);
 extern scr_int lib_seen_named_object_400 (scr_gameref_t game,
                                           const scr_char *input);
