@@ -14,6 +14,8 @@
 		0EDD73D8B95118DBBE9686BA /* actions.c in Sources */ = {isa = PBXBuildFile; fileRef = C94FA27EE915B77190069612 /* actions.c */; };
 		144A2FE274534FB4993C777A /* GlkTextBufferWindow+Input.m in Sources */ = {isa = PBXBuildFile; fileRef = A14490B80EA24F1C864C91E3 /* GlkTextBufferWindow+Input.m */; };
 		173BCAC39A06DA931B4F8506 /* scrunner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A6ADA87D19CD2A79FA2A9CD6 /* scrunner.cpp */; };
+		5C1B1B000000000000000126 /* scrun_load_draws.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000126 /* scrun_load_draws.cpp */; };
+		5C1B1B000000000000000125 /* scrun_session.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000125 /* scrun_session.cpp */; };
 		19D88E2BC51CE7D70C5E993E /* scmemos.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 696FA361A71397E8752D0FB6 /* scmemos.cpp */; };
 		1ABB2ED57F81352C17CB2330 /* scexpr.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E220FDEDCD8D1B5AE9EA51D2 /* scexpr.cpp */; };
 		1AE8023714624955A595CABF /* GlkTextBufferWindow+Images.m in Sources */ = {isa = PBXBuildFile; fileRef = 4414D6A890CD4808BA95A025 /* GlkTextBufferWindow+Images.m */; };
@@ -3030,6 +3032,8 @@
 		A5MAP0000000000000000002 /* a5map.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5map.cpp; sourceTree = "<group>"; };
 		A5MAP0000000000000000003 /* a5map.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5map.h; sourceTree = "<group>"; };
 		A6ADA87D19CD2A79FA2A9CD6 /* scrunner.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scrunner.cpp; sourceTree = "<group>"; };
+		5C1B1A000000000000000126 /* scrun_load_draws.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scrun_load_draws.cpp; sourceTree = "<group>"; };
+		5C1B1A000000000000000125 /* scrun_session.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scrun_session.cpp; sourceTree = "<group>"; };
 		A6AE1074305149939B370BB6 /* GlkTextBufferWindow+Speech.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GlkTextBufferWindow+Speech.h"; sourceTree = "<group>"; };
 		A7E1C0DE5EED0000000000A1 /* gamedefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gamedefs.h; sourceTree = "<group>"; usesTabs = 0; };
 		A84FCA68DDFF405DAE9AA890 /* NSAlert+Spatterlight.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSAlert+Spatterlight.m"; sourceTree = "<group>"; };
@@ -6923,6 +6927,8 @@
 			isa = PBXGroup;
 			children = (
 				A6ADA87D19CD2A79FA2A9CD6 /* scrunner.cpp */,
+				5C1B1A000000000000000126 /* scrun_load_draws.cpp */,
+				5C1B1A000000000000000125 /* scrun_session.cpp */,
 				487DE1329A70886BDCED86FC /* scrun_dispatch.cpp */,
 				A5B000000000000000000121 /* scrun_tables.cpp */,
 				5C1B1A000000000000000124 /* scrun_therest.cpp */,
@@ -8136,6 +8142,8 @@
 				5C1B1B000000000000000120 /* sclibrar_alrs.cpp in Sources */,
 				5C1B1B00000000000000011F /* sclibrar_names.cpp in Sources */,
 				173BCAC39A06DA931B4F8506 /* scrunner.cpp in Sources */,
+				5C1B1B000000000000000126 /* scrun_load_draws.cpp in Sources */,
+				5C1B1B000000000000000125 /* scrun_session.cpp in Sources */,
 				4C44E5DB3A10C6F1FE7545B4 /* scrun_dispatch.cpp in Sources */,
 				A5B000000000000000000122 /* scrun_tables.cpp in Sources */,
 				5C1B1B000000000000000124 /* scrun_therest.cpp in Sources */,

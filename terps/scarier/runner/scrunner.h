@@ -25,9 +25,10 @@
  * Internal header of runner/, shared by scrunner.cpp, scrun_split.cpp,
  * scrun_respell.cpp, scrun_match.cpp, scrun_match_run.cpp,
  * scrun_match_refusal.cpp, scrun_tables.cpp, scrun_priority.cpp,
- * scrun_rows.cpp, scrun_therest.cpp, scrun_dispatch.cpp, scrun_input.cpp, and by the dump tools in tools/ (scrun_census.cpp,
- * scdump.cpp).  Nothing here is part of the interface the rest of Scarier
- * uses; that stays in core/scrunner_api.h.
+ * scrun_rows.cpp, scrun_therest.cpp, scrun_dispatch.cpp, scrun_input.cpp,
+ * scrun_session.cpp, scrun_load_draws.cpp, and by the dump tools in tools/
+ * (scrun_census.cpp, scdump.cpp).  Nothing here is part of the interface the
+ * rest of Scarier uses; that stays in core/scrunner_api.h.
  */
 
 #include <string>
@@ -66,6 +67,11 @@ extern scr_bool run_put_class_only;
 extern scr_bool run_matcher_second_pass;
 /* scrun_match_refusal.cpp */
 extern scr_bool run_repeat_assist;
+
+/* scrunner.cpp: the startup prompt being read for, and the one to resume at */
+enum { RUN_STARTUP_NAME = 1, RUN_STARTUP_GENDER = 2 };
+extern scr_int run_startup_stage;
+extern scr_int run_startup_resume;
 
 /* scrun_priority.cpp */
 extern scr_bool run_priority_deferred;
@@ -243,6 +249,9 @@ enum run_refusal_pass_t
 
 
 /* Functions shared across the `run_` files, each defined in the file named. */
+
+/* scrun_load_draws.cpp */
+extern void run_runner_load_draws (scr_gameref_t game);
 
 /* scrun_split.cpp */
 extern scr_bool run_counts_line_elements (scr_gameref_t game);
