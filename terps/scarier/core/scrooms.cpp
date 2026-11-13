@@ -558,7 +558,7 @@ lib_find_starting_alt (scr_gameref_t game, scr_int room)
  * lib_get_room_name()
  *
  * Get the name for a given room.  lib_print_room_name() in
- * library/sclibrar_print.cpp prints it.
+ * library/sclibrar_room.cpp prints it.
  */
 const scr_char *
 lib_get_room_name (scr_gameref_t game, scr_int room)

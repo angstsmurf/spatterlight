@@ -90,13 +90,17 @@ extern std::string lib_battle_who_pending;
 
 /* Functions shared across the library files, each defined where named. */
 
-/* sclibrar_print.cpp */
-extern void lib_print_room_name_lower (scr_gameref_t game, scr_int room);
+/* sclibrar_names.cpp */
 extern scr_bool lib_compare_article_binary (const scr_char *string,
                                             const scr_char *word,
                                             scr_int length);
 extern void lib_print_object (scr_gameref_t game, scr_int object);
 extern void lib_print_object_raw (scr_gameref_t game, scr_int object);
+
+/* sclibrar_alrs.cpp */
+extern scr_bool lib_alrs_see_gap (scr_gameref_t game);
+
+/* sclibrar_print.cpp */
 extern scr_bool lib_is_version_400 (scr_gameref_t game);
 extern scr_bool lib_is_version_390 (scr_gameref_t game);
 extern void lib_set_admin (scr_gameref_t game);
@@ -162,6 +166,7 @@ extern scr_bool lib_npc_text_is_default (const scr_char *description);
 extern scr_bool lib_inroomdesc_is_absent (const scr_char *inroomdesc);
 
 /* sclibrar_room.cpp */
+extern void lib_print_room_name_lower (scr_gameref_t game, scr_int room);
 extern const scr_char *const * lib_compass_names (scr_gameref_t game);
 extern scr_bool lib_room_exit_available (scr_gameref_t game, scr_int room,
                                          scr_int direction);

@@ -19,47 +19,305 @@
  */
 
 /*
- * Room contents, room descriptions and exits.
+ * Room names and headings, room contents, room descriptions and exits.
  */
 
 #include "sclibrar.h"
 
 
 /*
- * lib_alrs_see_gap()
+ * lib_print_room_name_lower()
  *
- * TRUE if any of the game's ALRs could match across the Runner's literal
- * two-space gap after a line break: an Original that opens with a space, or
- * one that spans a break.  perspectives' ' Also here is a gun. ' is one --
- * it only fires on the Runner's "<br><br>  Also here is a gun.  " -- and
- * which ALRs fire is game behaviour, not text shape.
+ * Print a room's name for the where/find/locate answers.  The Runner folds
+ * the whole name to lower case there -- it builds the answer as `... &
+ * LCase(room.name) & "."` -- so "Drake Stables" comes out "Janai is drake
+ * stables." (aegis).
+ *      run400 @468143 (objects, whereis) and @47FD19 (characters)
+ *
+ * Deliberate deviation (WINE-TRANSCRIPTS.md): the fold reads well for
+ * "In the pantry", "Your room" or "EXERCISE YARD", but turns a name into
+ * a common noun.  Scarier keeps a name as authored when it capitalises two
+ * or more words past an opening article or preposition -- "Drake Stables",
+ * "Amanda's Living Room" -- or opens with a possessive, "Jane's house", and
+ * lowers only that opening word: "the Main Hall".  Everything else is
+ * folded as the Runner folds it, and so is every name in a game whose ALRs
+ * quote the folded form.
+ */
+static const scr_char *const LIB_ROOM_OPENING_WORDS[] =
+  { "a", "an", "the", "in", "inside", "on", "at", "by", "near", "outside",
+    "under", "underneath", "beneath", "below", "above", "behind",
+    "beside", "before", "within", "among", "atop", "along", "across",
+    "into", "onto", "upon", NULL };
+
+static scr_bool
+lib_room_opening_word (const std::string &word)
+{
+  const scr_char *const *entry;
+
+  for (entry = LIB_ROOM_OPENING_WORDS; *entry; entry++)
+    if (scr_strcasecmp (word.c_str (), *entry) == 0)
+      return TRUE;
+  return FALSE;
+}
+
+void
+lib_print_room_name_lower (scr_gameref_t game, scr_int room)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  std::string name (lib_get_room_name (game, room));
+  std::string lower (name);
+  size_t index_ = 0, first_start = std::string::npos, first_end = 0;
+  scr_int words = 0, capitalised = 0;
+  scr_bool possessive = FALSE, opener = FALSE;
+
+  scr_lowercase (lower);
+  if (pf_alr_mentions (gs_get_bundle (game), lower.c_str ()))
+    {
+      pf_buffer_string (filter, lower.c_str ());
+      return;
+    }
+
+  /* Walk the words outside tags. */
+  while (index_ < name.size ())
+    {
+      size_t end;
+      scr_bool has_lower = FALSE;
+
+      if (name[index_] == '<')
+        {
+          const size_t close = name.find ('>', index_);
+          if (close == std::string::npos)
+            break;
+          index_ = close + 1;
+          continue;
+        }
+      if (!scr_isalpha (name[index_]))
+        {
+          index_++;
+          continue;
+        }
+      for (end = index_; end < name.size ()
+                         && (scr_isalpha (name[end]) || name[end] == '\'');
+           end++)
+        has_lower |= (scr_toupper (name[end]) != name[end]);
+
+      if (words == 0)
+        {
+          const std::string word (name, index_, end - index_);
+
+          first_start = index_;
+          first_end = end;
+          opener = lib_room_opening_word (word);
+          possessive = (scr_tolower (name[index_]) != name[index_]) && word.size () > 2
+                       && word.compare (word.size () - 2, 2, "'s") == 0;
+        }
+      if (!(words == 0 && opener)
+          && (scr_tolower (name[index_]) != name[index_]) && has_lower)
+        capitalised++;
+      words++;
+      index_ = end;
+    }
+
+  if (capitalised < 2 && !possessive)
+    {
+      pf_buffer_string (filter, lower.c_str ());
+      return;
+    }
+  if (opener)
+    for (index_ = first_start; index_ < first_end; index_++)
+      name[index_] = scr_tolower (name[index_]);
+  pf_buffer_string (filter, name.c_str ());
+}
+
+
+/*
+ * lib_room_name_text()
+ * lib_long_opens_with_name()
+ * lib_room_name_headings()
+ *
+ * Whether to head a 3.9/4.0 room description with the room's name.
+ *
+ * The heading is the Runner's "Room names in descriptions" Appearance
+ * option ("showshortroom", default on; see lib_describe_player_room()).  It
+ * is a player preference, not game data, and some authors wrote with it
+ * off: their descriptions carry the room's name themselves, so the Runner's
+ * default prints it twice -- CityInFear's "Alley" heading over "ALLEY", or
+ * SILKNOIL's "In Silk Tunnel" over its own bold "In Silk Tunnel".  Games
+ * upconverted from 3.8, where no Runner printed a heading, do the same.
+ *
+ * Deliberate deviation (WINE-TRANSCRIPTS.md): a game in which more than half
+ * of the rooms with a description open it with the room's name, standing on
+ * its own, gets no heading.  Counted across the corpus on 2026-11-04, 20
+ * of the 724 3.9/4.0 game files (16 games, plus patched copies) are over
+ * that line, every one at 60% or more; the next is at 50% (ssteacher, 1
+ * of 2), then 29%.  Scene of the Crime counts only 63%, but every one of its
+ * rooms opens with a heading of its own in other words ("Alley" over "AN
+ * ALLEY").
  */
 static scr_bool
-lib_alrs_see_gap (scr_gameref_t game)
+lib_is_word_char (scr_char character)
+{
+  return scr_isalpha (character) || isdigit ((unsigned char) character);
+}
+
+static std::string
+lib_room_name_text (const scr_char *text)
+{
+  std::string out;
+  scr_bool space = FALSE;
+
+  for (; *text; text++)
+    {
+      if (*text == '<')
+        {
+          const scr_char *close = strchr (text, '>');
+          if (!close)
+            break;
+          out += '\x01';
+          space = FALSE;
+          text = close;
+          continue;
+        }
+      if (*text == ' ' || *text == '\t')
+        {
+          space = TRUE;
+          continue;
+        }
+      if (space && !out.empty ())
+        out += ' ';
+      space = FALSE;
+      out += scr_tolower (*text);
+    }
+  return out;
+}
+
+static scr_bool
+lib_long_opens_with_name (const scr_char *short_name, const scr_char *long_text)
+{
+  std::string name = lib_room_name_text (short_name);
+  std::string text = lib_room_name_text (long_text);
+  size_t start, end, index_;
+
+  /* The name without tags, outer punctuation or space. */
+  name.erase (std::remove (name.begin (), name.end (), '\x01'), name.end ());
+  for (start = 0; start < name.size () && !lib_is_word_char (name[start]);
+       start++)
+    ;
+  for (end = name.size (); end > start && !lib_is_word_char (name[end - 1]);
+       end--)
+    ;
+  if (end - start < 2)
+    return FALSE;
+  name = name.substr (start, end - start);
+
+  /* The description's opening, past tags, newlines and quotes. */
+  for (index_ = 0; index_ < text.size ()
+                   && (text[index_] == '\x01' || text[index_] == '\n'
+                       || text[index_] == '\r' || text[index_] == ' '
+                       || text[index_] == '"');
+       index_++)
+    ;
+  if (text.compare (index_, name.size (), name) != 0)
+    return FALSE;
+
+  /* The name must stand alone, not open a sentence: "Alley" then "\n". */
+  for (index_ += name.size (); index_ < text.size () && text[index_] == ' ';
+       index_++)
+    ;
+  return index_ == text.size () || !lib_is_word_char (text[index_]);
+}
+
+static scr_bool
+lib_has_words (const scr_char *text)
+{
+  const std::string plain = lib_room_name_text (text);
+  size_t index_;
+
+  for (index_ = 0; index_ < plain.size (); index_++)
+    if (lib_is_word_char (plain[index_]))
+      return TRUE;
+  return FALSE;
+}
+
+scr_bool
+lib_room_name_headings (scr_gameref_t game)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[3];
-  scr_int alr_count, alr;
 
-  vt_key[0].string = "ALRs";
-  alr_count = prop_get_child_count (bundle, "I<-s", vt_key);
-  for (alr = 0; alr < alr_count; alr++)
+  if (game->room_name_headings == 0)
     {
-      const scr_char *original, *cursor;
+      scr_vartype_t vt_key[3];
+      scr_int room_count, room, described = 0, named = 0;
 
-      vt_key[1].integer = alr;
-      vt_key[2].string = "Original";
-      original = prop_get_string (bundle, "S<-sis", vt_key);
-      if (original[0] == ' ' || strchr (original, '\n'))
-        return TRUE;
-      for (cursor = strchr (original, '<'); cursor;
-           cursor = strchr (cursor + 1, '<'))
+      vt_key[0].string = "Rooms";
+      room_count = prop_get_child_count (bundle, "I<-s", vt_key);
+      for (room = 0; room < room_count; room++)
         {
-          if (scr_strncasecmp (cursor, "<br>", 4) == 0)
-            return TRUE;
+          const scr_char *short_name, *long_text;
+
+          vt_key[1].integer = room;
+          vt_key[2].string = "Short";
+          short_name = prop_get_string (bundle, "S<-sis", vt_key);
+          vt_key[2].string = "Long";
+          long_text = prop_get_string (bundle, "S<-sis", vt_key);
+          if (!lib_has_words (long_text))
+            continue;
+          described++;
+          if (lib_long_opens_with_name (short_name, long_text))
+            named++;
         }
+      game->room_name_headings = (described > 0 && named * 2 > described)
+                                 ? 2 : 1;
     }
-  return FALSE;
+  return game->room_name_headings == 1;
+}
+
+
+void
+lib_print_room_name (scr_gameref_t game, scr_int room)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_char *name;
+
+  /*
+   * Open a paragraph for the name.  The Runner has no inline room name, so
+   * anything already buffered ran straight into the room description there;
+   * here it would run straight into a heading instead.  See
+   * pf_buffer_paragraph_break().
+   */
+  pf_buffer_paragraph_break (filter);
+
+  /* Print the room name, possibly in bold. */
+  name = lib_get_room_name (game, room);
+  if (game->bold_room_names)
+    {
+      pf_buffer_tag (filter, SCR_TAG_BOLD);
+      pf_buffer_string (filter, name);
+      pf_buffer_tag (filter, SCR_TAG_ENDBOLD);
+    }
+  else
+    pf_buffer_string (filter, name);
+
+  /*
+   * The heading's newline is one the Runner has too, so it is not a section
+   * terminator of ours for pf_buffer_join() to pop.  Left unmarked, a room
+   * whose description is empty ran its contents straight on after the name:
+   *
+   *     Inside the Top Hat  A bunny twitches its whiskers at me  <- Scarier
+   *     Inside the Top Hat                                       <- run400
+   *     A bunny twitches its whiskers at me
+   *
+   * tophat.taf (4.0), whose one room has an empty Long, in both `up` turns
+   * of its transcript; professor t11/t18/t38/t54, viewtohome t20/t56 and
+   * woof t8 say the same.  Read with the leading break that
+   * pf_buffer_paragraph_break() supplies just above, the measurements fit a
+   * Runner that appends a break, the name and a break onto the one output
+   * string the turn is building -- pspace() only ever appends a separator,
+   * so it leaves that trailing Chr(10) standing and never takes it back.
+   * The P-code has not been read; the transcripts are the evidence.
+   */
+  pf_buffer_character (filter, '\n');
+  pf_buffer_hard_break (filter);
 }
 
 
