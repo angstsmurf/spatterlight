@@ -402,17 +402,31 @@ lib_run_rebuilt_line_400 (scr_gameref_t game, const scr_char *command)
   return TRUE;
 }
 
+/*
+ * How lib_try_game_command_common() is to build its line.  The first two
+ * say what `associate` indexes, and are exclusive; with neither, the line
+ * is the verb and the object alone and `preposition` is unused.
+ */
+enum
+{
+  LIB_RETRY_ASSOCIATE_OBJECT = 1 << 0,
+  LIB_RETRY_ASSOCIATE_NPC = 1 << 1,
+  LIB_RETRY_TYPED_VERB = 1 << 2,  /* the verb as typed, not the canonical */
+  LIB_RETRY_DEFINITE = 1 << 3     /* 4.0's "the"-normalized names */
+};
+
 static scr_bool
 lib_try_game_command_common (scr_gameref_t game,
                              const scr_char *verb, scr_int object,
                              const scr_char *preposition,
-                             scr_int associate,
-                             scr_bool is_associate_object,
-                             scr_bool is_associate_npc,
-                             scr_bool use_typed_verb,
-                             scr_bool use_definite = FALSE)
+                             scr_int associate, scr_uint flags)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_bool is_associate_object
+    = (flags & LIB_RETRY_ASSOCIATE_OBJECT) != 0;
+  const scr_bool is_associate_npc = (flags & LIB_RETRY_ASSOCIATE_NPC) != 0;
+  const scr_bool use_typed_verb = (flags & LIB_RETRY_TYPED_VERB) != 0;
+  const scr_bool use_definite = (flags & LIB_RETRY_DEFINITE) != 0;
   /*
    * No pre-4.0 Runner rebuilds the line from the resolved object's authored
    * Prefix.  Measured on p37PRETRY / p38PRETRY / p39PRETRY (2026-09-20,
@@ -612,8 +626,8 @@ scr_bool
 lib_try_game_command_short (scr_gameref_t game,
                             const scr_char *verb, scr_int object)
 {
-  return lib_try_game_command_common (game, verb, object,
-                                      nullptr, -1, FALSE, FALSE, TRUE);
+  return lib_try_game_command_common (game, verb, object, nullptr, -1,
+                                      LIB_RETRY_TYPED_VERB);
 }
 
 /*
@@ -629,8 +643,7 @@ scr_bool
 lib_try_game_command_short_canonical (scr_gameref_t game,
                                       const scr_char *verb, scr_int object)
 {
-  return lib_try_game_command_common (game, verb, object,
-                                      nullptr, -1, FALSE, FALSE, FALSE);
+  return lib_try_game_command_common (game, verb, object, nullptr, -1, 0);
 }
 
 /*
@@ -671,8 +684,8 @@ lib_try_game_command_short_definite (scr_gameref_t game,
   assert (lib_is_version_400 (game));
 
   run_set_task_class_filter (2);
-  status = lib_try_game_command_common (game, verb, object,
-                                        nullptr, -1, FALSE, FALSE, FALSE, TRUE);
+  status = lib_try_game_command_common (game, verb, object, nullptr, -1,
+                                        LIB_RETRY_DEFINITE);
 
   /*
    * Any of the object's names can fill the noun slot, not just its Short.
@@ -736,10 +749,11 @@ lib_try_game_command_take_definite (scr_gameref_t game, scr_int object)
     status = lib_try_game_command_common (game, "get", object,
                                           "from",
                                           gs_object_parent (game, object),
-                                          TRUE, FALSE, FALSE, TRUE);
+                                          LIB_RETRY_ASSOCIATE_OBJECT
+                                          | LIB_RETRY_DEFINITE);
   else
     status = lib_try_game_command_common (game, "get", object, nullptr, -1,
-                                          FALSE, FALSE, FALSE, TRUE);
+                                          LIB_RETRY_DEFINITE);
   lib_rebuilt_silent_continues = FALSE;
   lib_rebuilt_raw_dispatch = FALSE;
   run_set_task_class_filter (0);
@@ -853,7 +867,8 @@ lib_try_game_command_take_from_parent_400 (scr_gameref_t game, scr_int object,
     }
   if (!status)
     status = lib_try_game_command_common (game, "get", object, "from", parent,
-                                          TRUE, FALSE, FALSE, TRUE);
+                                          LIB_RETRY_ASSOCIATE_OBJECT
+                                          | LIB_RETRY_DEFINITE);
   lib_rebuilt_silent_continues = FALSE;
   lib_rebuilt_raw_dispatch = FALSE;
   run_set_task_class_filter (0);
@@ -867,8 +882,9 @@ lib_try_game_command_with_object (scr_gameref_t game,
                                   scr_int other_object)
 {
   return lib_try_game_command_common (game, verb, object,
-                                      preposition, other_object, TRUE, FALSE,
-                                      TRUE);
+                                      preposition, other_object,
+                                      LIB_RETRY_ASSOCIATE_OBJECT
+                                      | LIB_RETRY_TYPED_VERB);
 }
 
 /*
@@ -928,8 +944,9 @@ lib_try_game_command_with_object_400 (scr_gameref_t game,
   run_set_task_class_filter (2);
   lib_rebuilt_raw_dispatch = TRUE;
   status = lib_try_game_command_common (game, verb, object,
-                                        preposition, other_object, TRUE, FALSE,
-                                        FALSE, TRUE);
+                                        preposition, other_object,
+                                        LIB_RETRY_ASSOCIATE_OBJECT
+                                        | LIB_RETRY_DEFINITE);
   lib_rebuilt_raw_dispatch = FALSE;
   run_set_task_class_filter (0);
 
@@ -998,7 +1015,9 @@ lib_try_game_command_with_npc (scr_gameref_t game,
                                const scr_char *preposition, scr_int npc)
 {
   return lib_try_game_command_common (game, verb, object,
-                                      preposition, npc, FALSE, TRUE, TRUE);
+                                      preposition, npc,
+                                      LIB_RETRY_ASSOCIATE_NPC
+                                      | LIB_RETRY_TYPED_VERB);
 }
 
 
