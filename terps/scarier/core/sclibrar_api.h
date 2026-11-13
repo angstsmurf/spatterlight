@@ -31,15 +31,6 @@
 #include <vector>
 #include "scprops.h"
 
-/* Library perspective enumeration and functions. */
-enum
-{ LIB_FIRST_PERSON = 0,
-  LIB_SECOND_PERSON = 1,
-  LIB_THIRD_PERSON = 2
-};
-
-/* Globals/Perspective as the Runner of this game's version reads it. */
-extern scr_int lib_get_perspective (scr_gameref_t game);
 /* Silence movement handlers, so they only report whether a move is possible. */
 extern void lib_set_movement_probe (scr_bool probe);
 /* The word the parser expects for a direction, for the map's click-to-walk. */

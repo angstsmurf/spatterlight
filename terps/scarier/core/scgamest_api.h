@@ -50,6 +50,19 @@ extern scr_var_setref_t gs_get_vars (scr_gameref_t gs);
 extern scr_prop_setref_t gs_get_bundle (scr_gameref_t gs);
 extern scr_filterref_t gs_get_filter (scr_gameref_t gs);
 extern scr_memo_setref_t gs_get_memento (scr_gameref_t gs);
+
+/* Perspective enumeration, and the version and perspective of the game. */
+enum
+{ LIB_FIRST_PERSON = 0,
+  LIB_SECOND_PERSON = 1,
+  LIB_THIRD_PERSON = 2
+};
+
+/* Globals/Perspective as the Runner of this game's version reads it. */
+extern scr_int lib_get_perspective (scr_gameref_t game);
+extern scr_bool lib_is_version_400 (scr_gameref_t game);
+extern scr_bool lib_is_version_390 (scr_gameref_t game);
+
 extern void gs_set_playerroom (scr_gameref_t gs, scr_int room);
 extern void gs_set_playerposition (scr_gameref_t gs, scr_int position);
 extern void gs_set_playerparent (scr_gameref_t gs, scr_int parent);

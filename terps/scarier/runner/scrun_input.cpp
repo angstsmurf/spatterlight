@@ -1037,7 +1037,7 @@ run_element_note_undo (scr_gameref_t game, const scr_char *command,
   /*
    * An undo, restore or restart is never itself backed up: at 3.9 undo
    * and restore are real turns (see lib_is_version_390() in
-   * sclibrar_print.cpp), and backing up an undo would re-arm the buffer it
+   * scgamest.cpp), and backing up an undo would re-arm the buffer it
    * just spent.
    */
   if (!game->is_admin && !game->do_restart && !game->do_restore

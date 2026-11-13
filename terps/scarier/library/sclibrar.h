@@ -101,8 +101,6 @@ extern void lib_print_object_raw (scr_gameref_t game, scr_int object);
 extern scr_bool lib_alrs_see_gap (scr_gameref_t game);
 
 /* sclibrar_print.cpp */
-extern scr_bool lib_is_version_400 (scr_gameref_t game);
-extern scr_bool lib_is_version_390 (scr_gameref_t game);
 extern void lib_set_admin (scr_gameref_t game);
 extern scr_bool lib_matcher_requires_seen (scr_gameref_t game);
 extern const scr_char * lib_select_response (scr_gameref_t game,
