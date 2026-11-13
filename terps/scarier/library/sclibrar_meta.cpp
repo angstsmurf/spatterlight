@@ -20,7 +20,8 @@
 
 /*
  * Look, quit, restart, undo, history/redo, hints, help and the other
- * out-of-game commands, plus wait, verbose/brief, notify and time.
+ * out-of-game commands, plus wait, verbose/brief, notify, time, save,
+ * restore, turns and score.
  *
  * Out-of-game output that is not the game's own text prints directly rather
  * than through the printfilter, to avoid possible clashes with ALRs.
@@ -1257,4 +1258,110 @@ scr_bool
 lib_cmd_date (scr_gameref_t game)
 {
   return lib_print_message (game, "Maybe we should just be good friends.\n");
+}
+
+
+/*
+ * lib_cmd_save()
+ * lib_cmd_restore()
+ *
+ * Save/restore a game.
+ */
+scr_bool
+lib_cmd_save (scr_gameref_t game)
+{
+  if (if_confirm (SCR_CONF_SAVE))
+    {
+      if (ser_save_game_prompted (game))
+        if_print_string ("Ok.\n");
+      else
+        if_print_string ("Save failed.\n");
+    }
+
+  /*
+   * A turn in 3.9 (see lib_is_version_390()): run390 answers `save` with
+   * "Game saved." and then the event tick, which is where FarFromHome's
+   * event clock gained a tick per save.
+   */
+  game->is_admin = !lib_is_version_390 (game);
+  return TRUE;
+}
+
+scr_bool
+lib_cmd_restore (scr_gameref_t game)
+{
+  if (if_confirm (SCR_CONF_RESTORE))
+    {
+      if (ser_load_game_prompted (game))
+        {
+          if_print_string ("Ok.\n");
+          game->is_running = FALSE;
+          game->do_restore = TRUE;
+        }
+      else
+        if_print_string ("Restore failed.\n");
+    }
+
+  /* A turn in 3.9; see lib_is_version_390(). */
+  game->is_admin = !lib_is_version_390 (game);
+  return TRUE;
+}
+
+
+/*
+ * lib_cmd_turns()
+ * lib_cmd_score()
+ *
+ * Display turns taken and score so far.
+ */
+scr_bool
+lib_cmd_turns (scr_gameref_t game)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  /*
+   * Deliberate deviation: no Runner singularises "1 turns" (run400 48ACA1
+   * concatenates the one literal; measured run400 EV16
+   * runner_probes/ev16.run400.txt and run390 BobBobsly.taf
+   * runner_probes/bob_bobsly.run390.txt, both "You have taken 1 turns so
+   * far."), but no corpus ALR quotes it, so the agreement is fixed here.
+   */
+  pf_buffer_string (filter, "You have taken ");
+  pf_buffer_integer (filter, game->turns);
+  pf_buffer_string (filter, game->turns == 1 ? " turn so far.\n"
+                                             : " turns so far.\n");
+
+  lib_set_admin (game);
+  return TRUE;
+}
+
+scr_bool
+lib_cmd_score (scr_gameref_t game)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_int max_score, percent;
+
+  /* Get max score, and calculate score as a percentage. */
+  max_score = prop_get_global_integer (bundle, "MaxScore");
+  if (game->score > 0 && max_score > 0)
+    percent = (game->score * 100) / max_score;
+  else
+    percent = 0;
+
+  /* Output carefully formatted response. */
+  pf_buffer_string (filter,
+                    lib_select_response (game,
+                                         "Your score is ",
+                                         "My score is ",
+                                         "%player%'s score is "));
+  pf_buffer_integer (filter, game->score);
+  pf_buffer_string (filter, " out of a maximum of ");
+  pf_buffer_integer (filter, max_score);
+  pf_buffer_string (filter, ".  (");
+  pf_buffer_integer (filter, percent);
+  pf_buffer_string (filter, "%)\n");
+
+  lib_set_admin (game);
+  return TRUE;
 }

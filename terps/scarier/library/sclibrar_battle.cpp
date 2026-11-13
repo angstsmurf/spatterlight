@@ -18,7 +18,8 @@
  */
 
 /*
- * Battle System attacks and the who/with question continuations.
+ * Battle System attacks, the who/with question continuations and the
+ * "status" command.
  */
 
 #include "sclibrar.h"
@@ -2564,4 +2565,247 @@ scr_bool
 lib_cmd_fight_npc_with (scr_gameref_t game)
 {
   return lib_battle_attack_with (game, "fight", -1, FALSE);
+}
+
+
+/*
+ * lib_print_battle_attribute()
+ * lib_print_battle_status()
+ *
+ * Helpers for the Battle System "status" command, matching the Runner's status
+ * table (settled live, probes pWS/pWS2): a header row "Range / Max / Current
+ * value (inc weapons/armour)", then one row per attribute.  The stamina row is
+ * live / max / live (no lo-hi range); the other rows are "lo-hi", the
+ * configured max, a fresh effective roll that folds in the wielded weapon and
+ * worn armour, and -- for the three rows equipment can affect -- the equipment
+ * share in parentheses (agility takes none, so its row has no parenthesis).
+ * The table has no leading "You have:" line, and the trailing wielding line is
+ * indented to the first column and names the weapon with its article prefix
+ * ("a sword"), or "nothing".  Until a wield is set the player's values are
+ * bare -- no would-be weapon is folded in.
+ */
+enum
+{ STATUS_COL_LABEL = 16,
+  STATUS_COL_RANGE = 14,
+  STATUS_COL_MAX = 12,
+  STATUS_COL_CURRENT = 12
+};
+
+static void
+lib_print_battle_attribute (scr_gameref_t game, scr_int npc,
+                            const scr_char *label, const scr_char *base,
+                            scr_bool has_bonus)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  scr_char buffer[96], range[32];
+  scr_int lo, hi, current;
+
+  battle_attribute_report (game, npc, base, &lo, &hi, &current);
+  snprintf (range, sizeof (range), "%ld-%ld", lo, hi);
+  if (has_bonus)
+    snprintf (buffer, sizeof (buffer), "%-*s%-*s%-*ld%-*ld(%ld)",
+              STATUS_COL_LABEL, label, STATUS_COL_RANGE, range,
+              STATUS_COL_MAX, battle_attribute_max (game, npc, base),
+              STATUS_COL_CURRENT, current,
+              battle_attribute_bonus (game, npc, base));
+  else
+    snprintf (buffer, sizeof (buffer), "%-*s%-*s%-*ld%ld",
+              STATUS_COL_LABEL, label, STATUS_COL_RANGE, range,
+              STATUS_COL_MAX, battle_attribute_max (game, npc, base),
+              current);
+  pf_buffer_string (filter, buffer);
+  pf_buffer_answer_break (filter);
+}
+
+static void
+lib_print_battle_status (scr_gameref_t game, scr_int npc)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  scr_char buffer[96];
+  scr_int stamina, maxstamina, weapon;
+
+  maxstamina = battle_attribute_max (game, npc, "Stamina");
+
+  /* A character with no stamina configured is not a combatant. */
+  if (npc >= 0 && maxstamina <= 0)
+    {
+      lib_print_npc_np (game, npc);
+      pf_buffer_string (filter, " has:\n   Nothing worth mentioning.\n");
+      return;
+    }
+
+  /* The header row, indented past the label column as the Runner's is. */
+  snprintf (buffer, sizeof (buffer), "%-*s%-*s%-*s%s",
+            STATUS_COL_LABEL, "", STATUS_COL_RANGE, "Range",
+            STATUS_COL_MAX, "Max", "Current value (inc weapons/armour)");
+  pf_buffer_string (filter, buffer);
+  pf_buffer_answer_break (filter);
+
+  /* The stamina row is live / max / live -- no lo-hi range, no bonus. */
+  stamina = (npc < 0)
+            ? gs_playerstamina (game) : gs_npc_stamina (game, npc);
+  snprintf (buffer, sizeof (buffer), "%-*s%-*ld%-*ld%ld",
+            STATUS_COL_LABEL, "Stamina:", STATUS_COL_RANGE, stamina,
+            STATUS_COL_MAX, maxstamina, stamina);
+  pf_buffer_string (filter, buffer);
+  pf_buffer_answer_break (filter);
+
+  lib_print_battle_attribute (game, npc, "Hit strength:", "Strength", TRUE);
+  lib_print_battle_attribute (game, npc, "Accuracy:", "Accuracy", TRUE);
+  lib_print_battle_attribute (game, npc, "Defense value:", "Defense", TRUE);
+  lib_print_battle_attribute (game, npc, "Agility:", "Agility", FALSE);
+
+  /* Name the weapon the combatant is wielding -- "nothing" when unarmed --
+   * with the article prefix the Runner uses ("... is wielding a sword."). */
+  weapon = battle_combatant_weapon (game, npc);
+  snprintf (buffer, sizeof (buffer), "%-*s", STATUS_COL_LABEL, "");
+  pf_buffer_string (filter, buffer);
+  if (npc < 0)
+    pf_buffer_string (filter,
+                      lib_select_response (game,
+                                           "You are wielding ",
+                                           "I am wielding ",
+                                           "%player% is wielding "));
+  else
+    {
+      lib_print_npc_np (game, npc);
+      pf_buffer_string (filter, " is wielding ");
+    }
+  if (weapon >= 0)
+    lib_print_object (game, weapon);
+  else
+    pf_buffer_string (filter, "nothing");
+  pf_buffer_string (filter, ".\n");
+}
+
+
+/*
+ * lib_print_battle_status_390()
+ *
+ * run390's status is not the 4.0 table but three tab-joined rows
+ * (dobattle, player arm from 44C6D2):
+ *
+ *   Stamina:<tab><tab>80 (102)
+ *   Hit strength:<tab><tab>6 (1)
+ *   Defense value:<tab>3 (0)
+ *
+ * The value is the live stamina, hitstrength() (the record's strength plus
+ * the wielded or best weapon's HitValue) or armourstrength() (defence plus
+ * worn protection), and the bracket is the attribute's maximum field.  No
+ * header, no Accuracy or Agility row and no wielding line.  Measured on the
+ * town of azra (3.9, run390x runner_transcripts/the_town_of_azra_v390.txt
+ * T60).
+ */
+static void
+lib_print_battle_status_390 (scr_gameref_t game, scr_int npc)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  scr_char buffer[96];
+  scr_int lo, hi, current;
+
+  snprintf (buffer, sizeof (buffer), "Stamina:\t\t%ld (%ld)\n",
+            (npc < 0) ? gs_playerstamina (game) : gs_npc_stamina (game, npc),
+            battle_attribute_max (game, npc, "Stamina"));
+  pf_buffer_string (filter, buffer);
+
+  battle_attribute_report (game, npc, "Strength", &lo, &hi, &current);
+  snprintf (buffer, sizeof (buffer), "Hit strength:\t\t%ld (%ld)\n",
+            current, battle_attribute_max (game, npc, "Strength"));
+  pf_buffer_string (filter, buffer);
+
+  battle_attribute_report (game, npc, "Defense", &lo, &hi, &current);
+  snprintf (buffer, sizeof (buffer), "Defense value:\t%ld (%ld)\n",
+            current, battle_attribute_max (game, npc, "Defense"));
+  pf_buffer_string (filter, buffer);
+}
+
+
+/*
+ * lib_cmd_status_player()
+ * lib_cmd_status_npc()
+ *
+ * The Battle System "status" and "status <character>" commands.  When the
+ * Battle System is disabled these fall back to the traditional behaviour of
+ * "status", which prints the game's status line.
+ */
+scr_bool
+lib_cmd_status_player (scr_gameref_t game)
+{
+  if (!battle_is_enabled (game))
+    return lib_cmd_statusline (game);
+
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400)
+    lib_print_battle_status_390 (game, -1);
+  else
+    lib_print_battle_status (game, -1);
+  game->is_admin = TRUE;
+  return TRUE;
+}
+
+scr_bool
+lib_cmd_status_npc (scr_gameref_t game)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_var_setref_t vars = gs_get_vars (game);
+  scr_int index_, count, npc;
+
+  if (!battle_is_enabled (game))
+    return lib_cmd_statusline (game);
+
+  game->is_admin = TRUE;
+
+  /*
+   * run390's NPC loop (dobattle 44C53A) takes the lowest-indexed character
+   * the line names by Name or first Alias, and exits on it: its table if
+   * seen, otherwise the refusal below.  A line naming nobody drops out of
+   * the loop into the player's table.
+   */
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400)
+    {
+      GS_FOR_EACH_NPC (game, index_)
+        {
+          if (!game->npc_references[index_])
+            continue;
+          var_set_ref_character (vars, index_);
+          if (gs_npc_seen (game, index_))
+            lib_print_battle_status_390 (game, index_);
+          else
+            pf_buffer_string (filter,
+                              lib_select_response (game,
+                                  "You can't get the status of a character"
+                                  " you've not seen yet!\n",
+                                  "I can't get the status of a character"
+                                  " I've not seen yet!\n",
+                                  "%player% can't get the status of a"
+                                  " character you've not seen yet!\n"));
+          return TRUE;
+        }
+      lib_print_battle_status_390 (game, -1);
+      return TRUE;
+    }
+
+  /* Count and identify the NPCs referenced by the command. */
+  count = lib_count_npc_references (game, &npc);
+
+  if (count == 0)
+    {
+      pf_buffer_string (filter, "I don't know who you mean.\n");
+      return TRUE;
+    }
+  else if (count > 1)
+    {
+      pf_buffer_string (filter,
+                        "Please be more clear about whose status you want.\n");
+      return TRUE;
+    }
+
+  /* Unambiguous reference; note it, as we bypassed disambiguation. */
+  var_set_ref_character (vars, npc);
+
+  /* Refuse to report on a character the player has not encountered. */
+  if (lib_npc_not_seen_yet (game, npc))
+    return TRUE;
+
+  lib_print_battle_status (game, npc);
+  return TRUE;
 }

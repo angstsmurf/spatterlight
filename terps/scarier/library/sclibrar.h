@@ -176,6 +176,9 @@ extern scr_bool lib_room_exit_destination (scr_gameref_t game,
 extern void lib_describe_player_room (scr_gameref_t game,
                                       scr_bool force_verbose);
 
+/* sclibrar_locate.cpp */
+extern scr_bool lib_npc_not_seen_yet (scr_gameref_t game, scr_int npc);
+
 /* sclibrar_go.cpp */
 extern std::string lib_command_slot_370 (scr_prop_setref_t bundle,
                                          scr_int slot);
