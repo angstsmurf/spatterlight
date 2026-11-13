@@ -24,8 +24,8 @@
 /*
  * Internal header of runner/, shared by scrunner.cpp, scrun_split.cpp,
  * scrun_respell.cpp, scrun_match.cpp, scrun_match_run.cpp,
- * scrun_match_refusal.cpp, scrun_tables.cpp, scrun_dispatch.cpp,
- * scrun_input.cpp, and by the dump tools in tools/ (scrun_census.cpp,
+ * scrun_match_refusal.cpp, scrun_tables.cpp, scrun_priority.cpp,
+ * scrun_rows.cpp, scrun_therest.cpp, scrun_dispatch.cpp, scrun_input.cpp, and by the dump tools in tools/ (scrun_census.cpp,
  * scdump.cpp).  Nothing here is part of the interface the rest of Scarier
  * uses; that stays in core/scrunner_api.h.
  */
@@ -67,7 +67,7 @@ extern scr_bool run_matcher_second_pass;
 /* scrun_match_refusal.cpp */
 extern scr_bool run_repeat_assist;
 
-/* scrun_tables.cpp */
+/* scrun_priority.cpp */
 extern scr_bool run_priority_deferred;
 extern scr_bool run_priority_refused;
 extern scr_bool run_put_clause_loop_active;
@@ -319,7 +319,18 @@ extern void run_takes_second_pass_370 (scr_gameref_t game,
                                        size_t task_mark);
 
 /* scrun_tables.cpp */
+extern scr_commands_t MOVE_COMMANDS_4[];
+extern scr_commands_t MOVE_COMMANDS_8[];
+extern scr_commands_t PRIORITY_COMMANDS[];
+extern scr_commands_t STANDARD_COMMANDS[];
+extern scr_commands_t STANDARD_TAKE_FROM_COMMANDS[];
+extern scr_commands_t STANDARD_PUT_COMMANDS[];
+extern scr_commands_t STANDARD_ABOVE_REFUSAL_COMMANDS[];
+extern scr_commands_t STANDARD_FALLBACK_COMMANDS[];
+extern scr_commands_t STANDARD_ENDED_FALLBACK_COMMANDS[];
 extern scr_commands_t EXAMINE_ABOVE_REFUSAL_390_COMMANDS[];
+
+/* scrun_priority.cpp */
 extern scr_bool run_priority_commands (scr_gameref_t game,
                                        const scr_char *string);
 extern scr_bool run_is_put_command (scr_gameref_t game,
@@ -331,6 +342,8 @@ extern scr_bool run_is_inventory_command (scr_gameref_t game,
                                           const scr_char *string);
 extern scr_bool run_repeat_survivor_400 (scr_gameref_t game,
                                          const scr_char *string);
+
+/* scrun_rows.cpp */
 extern scr_bool run_try_command_table (scr_commandsref_t command,
                                        scr_gameref_t game,
                                        const scr_char *string);
@@ -342,6 +355,8 @@ extern scr_bool
 run_standard_give_npc_commands (scr_gameref_t game, const scr_char *string);
 extern scr_bool
 run_standard_fallback_commands (scr_gameref_t game, const scr_char *string);
+
+/* scrun_therest.cpp */
 extern scr_bool run_therest_arm_at (scr_int version, const scr_char *word);
 extern scr_bool run_therest_pre400 (scr_gameref_t game, const scr_char *string);
 extern scr_bool run_therest_absent_370 (scr_gameref_t game,
