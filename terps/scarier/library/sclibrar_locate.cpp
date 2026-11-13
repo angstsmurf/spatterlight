@@ -44,7 +44,7 @@ lib_locate_referenced_object (scr_gameref_t game)
   GS_FOR_EACH_OBJECT (game, index_)
     {
       if (!gs_object_seen (game, index_))
-        game->object_references[index_] = FALSE;
+        game->refs.objects[index_] = FALSE;
     }
 
   /* Count the number of objects referenced by the last command. */
@@ -52,7 +52,7 @@ lib_locate_referenced_object (scr_gameref_t game)
   object = -1;
   GS_FOR_EACH_OBJECT (game, index_)
     {
-      if (game->object_references[index_])
+      if (game->refs.objects[index_])
         {
           count++;
           object = index_;

@@ -950,7 +950,7 @@ lib_take_t::try_game_commands (void)
     {
       scr_bool status;
 
-      if (!game->object_references[object])
+      if (!game->refs.objects[object])
         continue;
 
       /*
@@ -968,7 +968,7 @@ lib_take_t::try_game_commands (void)
 
           lib_print_not_holding (game, gs_object_parent (game, object), ".");
           for (index_ = 0; index_ < object_count; index_++)
-            game->object_references[index_] = FALSE;
+            game->refs.objects[index_] = FALSE;
           return FALSE;
         }
 
@@ -985,7 +985,7 @@ lib_take_t::try_game_commands (void)
 
           lib_print_cannot_reach (game, gs_object_parent (game, object));
           for (index_ = 0; index_ < object_count; index_++)
-            game->object_references[index_] = FALSE;
+            game->refs.objects[index_] = FALSE;
           return FALSE;
         }
 
@@ -1000,7 +1000,7 @@ lib_take_t::try_game_commands (void)
           {
             over_capacity.push_back (object);
             over_is_size.push_back (is_size);
-            game->object_references[object] = FALSE;
+            game->refs.objects[object] = FALSE;
             continue;
           }
       }
@@ -1030,7 +1030,7 @@ lib_take_t::try_game_commands (void)
         }
       if (status)
         {
-          game->object_references[object] = FALSE;
+          game->refs.objects[object] = FALSE;
           has_printed = TRUE;
         }
     }
@@ -1060,7 +1060,7 @@ lib_take_t::count_fits_390 (void)
       any_size = any_weight = FALSE;
       for (object = 0; object < object_count; object++)
         {
-          if (!game->object_references[object]
+          if (!game->refs.objects[object]
               || !(gs_object_position (game, object) == OBJ_IN_OBJECT
                    || gs_object_position (game, object) == OBJ_ON_OBJECT)
               || gs_object_parent (game, object) != associate)
@@ -1093,7 +1093,7 @@ lib_take_t::count_fits_390 (void)
                               "That is too heavy.",
                               "That is too heavy.");
           for (object = 0; object < object_count; object++)
-            game->object_references[object] = FALSE;
+            game->refs.objects[object] = FALSE;
           return FALSE;
         }
     }
@@ -1365,7 +1365,7 @@ lib_take_t::acquire (void)
       list.clear ();
       for (object = 0; object < object_count; object++)
         {
-          if (!game->object_references[object])
+          if (!game->refs.objects[object])
             continue;
 
           /*
@@ -1568,8 +1568,8 @@ lib_take_t::report_npc_not_carrying (void)
      */
     for (object = 0; object < object_count; object++)
       {
-        game->multiple_references[object] |= game->object_references[object];
-        game->object_references[object] = FALSE;
+        game->refs.multiple[object] |= game->refs.objects[object];
+        game->refs.objects[object] = FALSE;
       }
 }
 

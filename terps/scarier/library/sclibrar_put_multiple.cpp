@@ -74,10 +74,10 @@ lib_put_all_common (scr_gameref_t game, scr_int target, scr_bool typed_on)
 
       GS_FOR_EACH_OBJECT (game, object)
         {
-          if (game->object_references[object]
+          if (game->refs.objects[object]
               && !lib_co_pre400 (game, run_get_dispatch_input (), object, 0))
             {
-              game->object_references[object] = FALSE;
+              game->refs.objects[object] = FALSE;
               objects--;
             }
         }
@@ -366,7 +366,7 @@ lib_put_already_400 (scr_gameref_t game, scr_int target, scr_bool is_on)
   left = 0;
   for (object = 0; object < object_count; object++)
     {
-      if (!game->multiple_references[object])
+      if (!game->refs.multiple[object])
         continue;
 
       if (gs_object_position (game, object) == position
@@ -380,7 +380,7 @@ lib_put_already_400 (scr_gameref_t game, scr_int target, scr_bool is_on)
           pf_buffer_string (filter, is_on ? " already on " : " already inside ");
           lib_print_object_np (game, target);
           pf_buffer_character (filter, '!');
-          game->multiple_references[object] = FALSE;
+          game->refs.multiple[object] = FALSE;
           has_printed = TRUE;
           continue;
         }
@@ -511,7 +511,7 @@ lib_put_named_400 (scr_gameref_t game, scr_int *references)
   if (!gs_object_seen (game, object))
     lib_put_present_unseen = object;
   gs_clear_multiple_references (game);
-  game->multiple_references[object] = TRUE;
+  game->refs.multiple[object] = TRUE;
   *references = 1;
   return FALSE;
 }
@@ -647,7 +647,7 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
               if (!gs_object_seen (game, present))
                 lib_put_present_unseen = present;
               gs_clear_multiple_references (game);
-              game->multiple_references[present] = TRUE;
+              game->refs.multiple[present] = TRUE;
               references = 1;
               parsed = TRUE;
             }
@@ -668,7 +668,7 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
           if (shut >= 0)
             {
               gs_clear_multiple_references (game);
-              game->multiple_references[shut] = TRUE;
+              game->refs.multiple[shut] = TRUE;
               if (lib_put_already_400 (game, container, FALSE))
                 return TRUE;
               gs_clear_multiple_references (game);

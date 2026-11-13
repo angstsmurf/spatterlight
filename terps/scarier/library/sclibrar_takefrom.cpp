@@ -760,7 +760,7 @@ lib_take_from_slot_pre390 (scr_gameref_t game)
         continue;
       if ((is_and || !is_all) && !lib_co_pre400 (game, line, object, 0))
         continue;
-      game->object_references[object] = TRUE;
+      game->refs.objects[object] = TRUE;
       any++;
     }
 
@@ -877,7 +877,7 @@ lib_take_from_and_390 (scr_gameref_t game)
       if (lib_take_from_filter (game, object, container)
           && lib_co_pre400 (game, line, object, 0))
         {
-          game->object_references[object] = TRUE;
+          game->refs.objects[object] = TRUE;
           any++;
         }
     }
@@ -1043,9 +1043,9 @@ lib_take_from_and_400 (scr_gameref_t game)
     {
       for (size_t index_ = 0; index_ < resolved.size (); index_++)
         {
-          if (!game->multiple_references[resolved[index_]])
+          if (!game->refs.multiple[resolved[index_]])
             {
-              game->multiple_references[resolved[index_]] = TRUE;
+              game->refs.multiple[resolved[index_]] = TRUE;
               references++;
             }
         }
@@ -1165,7 +1165,7 @@ lib_take_from_piece_400 (scr_gameref_t game, scr_int associate)
  * lib_take_from_resolved()
  *
  * The take-from handler once the container (associate) is fixed and the
- * names are parsed into multiple_references: validate the container, filter
+ * names are parsed into refs.multiple: validate the container, filter
  * the names by it and answer.
  */
 static scr_bool

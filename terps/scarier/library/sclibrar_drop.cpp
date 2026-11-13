@@ -91,14 +91,14 @@ lib_move_try_commands (scr_gameref_t game, const scr_char *command,
   object_count = gs_object_count (game);
   for (object = 0; object < object_count; object++)
     {
-      if (!game->object_references[object])
+      if (!game->refs.objects[object])
         continue;
 
       if (use_definite
           ? lib_try_game_command_short_definite (game, command, object)
           : lib_try_game_command_short (game, command, object))
         {
-          game->object_references[object] = FALSE;
+          game->refs.objects[object] = FALSE;
           has_printed = TRUE;
         }
     }
@@ -111,8 +111,8 @@ lib_move_try_commands (scr_gameref_t game, const scr_char *command,
  * lib_move_backend()
  *
  * Shared tail of the drop, remove, and put-on handlers.  Moves and lists
- * every object still flagged in object_references, then lists the ones left
- * in multiple_references as objects the player hasn't got.  The caller has
+ * every object still flagged in refs.objects, then lists the ones left
+ * in refs.multiple as objects the player hasn't got.  The caller has
  * already offered the objects to the game's own handlers, and says with
  * has_printed whether any of those printed anything.
  *
@@ -136,7 +136,7 @@ lib_move_backend (scr_gameref_t game, const lib_move_verb_t *verb,
   /* Move every object that remains referenced. */
   for (object = 0; object < object_count; object++)
     {
-      if (!game->object_references[object])
+      if (!game->refs.objects[object])
         continue;
 
       list.push_back (object);
@@ -241,12 +241,12 @@ lib_drop_backend (scr_gameref_t game)
 
       for (object = 0; object < object_count; object++)
         {
-          if (!game->multiple_references[object])
+          if (!game->refs.multiple[object])
             continue;
 
           if (lib_try_game_command_short_definite (game, "drop", object))
             {
-              game->multiple_references[object] = FALSE;
+              game->refs.multiple[object] = FALSE;
               has_printed = TRUE;
             }
         }
@@ -271,7 +271,7 @@ lib_drop_backend (scr_gameref_t game)
           scr_int object;
 
           for (object = 0; object < object_count; object++)
-            if (game->object_references[object])
+            if (game->refs.objects[object])
               break;
 
           if (object < object_count)
@@ -850,7 +850,7 @@ lib_drop_named_400 (scr_gameref_t game, scr_int *references)
     }
 
   gs_clear_multiple_references (game);
-  game->multiple_references[object] = TRUE;
+  game->refs.multiple[object] = TRUE;
   *references = 1;
   return FALSE;
 }
@@ -981,7 +981,7 @@ lib_move_what_after_silent_task_pre400 (scr_gameref_t game)
  * The "and" arm's own walk: it never parses the list, so a word that names
  * nothing is simply not found.  Every object held or worn directly (o(22) 0
  * or &H9C, not one inside a held container) whose name co(obj, 0) finds is
- * marked in multiple_references; returns the count.  p37PUT/p38PUT/p39PUT
+ * marked in refs.multiple; returns the count.  p37PUT/p38PUT/p39PUT
  * `drop foo and bar` is "You are not carrying anything." and `drop coin and
  * foo` is "You drop the coin." (runner_probes/put.run3*.drop.*), where
  * Scarier said "Drop what?" and "I only understood you as far as wanting to
@@ -1001,7 +1001,7 @@ lib_drop_and_arm_collect_pre400 (scr_gameref_t game)
            || gs_object_position (game, object) == OBJ_WORN_PLAYER)
           && lib_co_pre400 (game, line, object, 0))
         {
-          game->multiple_references[object] = TRUE;
+          game->refs.multiple[object] = TRUE;
           count++;
         }
     }
@@ -1442,7 +1442,7 @@ lib_wear_backend (scr_gameref_t game)
   object_count = gs_object_count (game);
   for (object = 0; object < object_count; object++)
     {
-      if (!game->object_references[object])
+      if (!game->refs.objects[object])
         continue;
 
       /*
@@ -1460,7 +1460,7 @@ lib_wear_backend (scr_gameref_t game)
 
       if (lib_try_game_command_short (game, "wear", object))
         {
-          game->object_references[object] = FALSE;
+          game->refs.objects[object] = FALSE;
           has_printed = TRUE;
         }
     }
@@ -1469,7 +1469,7 @@ lib_wear_backend (scr_gameref_t game)
   list.clear ();
   for (object = 0; object < object_count; object++)
     {
-      if (!game->object_references[object])
+      if (!game->refs.objects[object])
         continue;
 
       list.push_back (object);

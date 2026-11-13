@@ -132,7 +132,7 @@ run_is_task_function (const scr_char *pattern, scr_gameref_t game)
 
   /* Set this object reference, unambiguously, as if %object% match. */
   gs_clear_object_references (game);
-  game->object_references[object] = TRUE;
+  game->refs.objects[object] = TRUE;
   var_set_ref_object (vars, object);
 
   return TRUE;
@@ -1413,13 +1413,13 @@ run_command_match_t::recheck_pre400 (void)
           if (ref_object >= 0)
             {
               gs_clear_object_references (game);
-              game->object_references[ref_object] = TRUE;
+              game->refs.objects[ref_object] = TRUE;
               var_set_ref_object (vars, ref_object);
             }
           if (ref_character >= 0)
             {
               gs_clear_npc_references (game);
-              game->npc_references[ref_character] = TRUE;
+              game->refs.npcs[ref_character] = TRUE;
               var_set_ref_character (vars, ref_character);
             }
         }
@@ -1490,7 +1490,7 @@ run_command_match_t::trace (void) const
         bound_present = FALSE;
         GS_FOR_EACH_OBJECT (game, object)
           {
-            if (!game->object_references[object])
+            if (!game->refs.objects[object])
               continue;
             matched++;
             if (obj_indirectly_in_room (game, object, room))

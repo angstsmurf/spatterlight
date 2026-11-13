@@ -1052,7 +1052,7 @@ uip_entity_sweep_t::drop_unknown ()
  *
  * Match a %character% or an %object% reference.  These search all of the NPC
  * or object names and aliases for possible matches, and set the game's
- * npc_references or object_references flag for any that match.  One of them
+ * refs.npcs or refs.objects flag for any that match.  One of them
  * is also stored in variables as the reference proper: normally the final
  * one to match, but a 4.0 task command's %character% or %object% keeps the
  * first, and its %object% weighs scope before index.
@@ -1107,8 +1107,8 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
                                                ? uip.cache.npcs
                                                : uip.cache.objects;
   std::vector<scr_bool> &references = is_character
-                                      ? game->npc_references
-                                      : game->object_references;
+                                      ? game->refs.npcs
+                                      : game->refs.objects;
 
   /*
    * A trailing %object% in a library command is resolved the way the Runner's

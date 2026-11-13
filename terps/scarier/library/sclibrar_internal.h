@@ -277,11 +277,11 @@ lib_drain_multiple_references_if (scr_gameref_t game, scr_int object_count,
   list.clear ();
   for (object = 0; object < object_count; object++)
     {
-      if (!game->multiple_references[object] || !keep (object))
+      if (!game->refs.multiple[object] || !keep (object))
         continue;
 
       list.push_back (object);
-      game->multiple_references[object] = FALSE;
+      game->refs.multiple[object] = FALSE;
     }
 }
 

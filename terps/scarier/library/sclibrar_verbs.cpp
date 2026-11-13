@@ -562,7 +562,7 @@ lib_cmd_verb_absent_400 (scr_gameref_t game)
   GS_FOR_EACH_OBJECT (game, object)
     {
       if (lib_verb_object_name_score (game, object, input) > 0)
-        game->object_references[object] = TRUE;
+        game->refs.objects[object] = TRUE;
     }
   return lib_cant_see_absent_object (game, ".\n", TRUE);
 }

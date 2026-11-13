@@ -277,8 +277,8 @@ static size_t lib_put_announce_bytes = 0;
 static scr_bool
 lib_put_reject_reference (scr_gameref_t game, scr_int object)
 {
-  game->object_references[object] = FALSE;
-  game->multiple_references[object] = TRUE;
+  game->refs.objects[object] = FALSE;
+  game->refs.multiple[object] = TRUE;
   return FALSE;
 }
 
@@ -410,7 +410,7 @@ lib_put_implicit_take (scr_gameref_t game, scr_int object, scr_int target,
                                  "You can't take ",
                                  "I can't take ",
                                  "%player% can't take ", object, "!");
-      game->object_references[object] = FALSE;
+      game->refs.objects[object] = FALSE;
       *printed = TRUE;
       return FALSE;
     }
@@ -509,7 +509,7 @@ lib_put_nothing_carried_400 (scr_gameref_t game, scr_bool has_printed)
 
   GS_FOR_EACH_OBJECT (game, object)
     {
-      if (game->object_references[object] || game->multiple_references[object])
+      if (game->refs.objects[object] || game->refs.multiple[object])
         return FALSE;
 
       if (gs_object_position (game, object) == OBJ_HELD_PLAYER)
@@ -559,9 +559,9 @@ lib_put_in_closed_400 (scr_gameref_t game, scr_int container,
   object_count = gs_object_count (game);
   for (object = 0; object < object_count; object++)
     {
-      if (game->object_references[object])
+      if (game->refs.objects[object])
         {
-          game->object_references[object] = FALSE;
+          game->refs.objects[object] = FALSE;
           any_referenced = TRUE;
         }
     }
@@ -623,8 +623,8 @@ lib_put_deferred_stage_400 (scr_gameref_t game, const lib_list_t &pending,
       if (lib_try_game_command_with_object_400 (game, "put", pending_object,
                                                 preposition, target))
         {
-          game->object_references[pending_object] = FALSE;
-          game->multiple_references[pending_object] = FALSE;
+          game->refs.objects[pending_object] = FALSE;
+          game->refs.multiple[pending_object] = FALSE;
           *has_printed = TRUE;
           *task_claimed = TRUE;
         }
@@ -637,8 +637,8 @@ lib_put_deferred_stage_400 (scr_gameref_t game, const lib_list_t &pending,
   if (!*task_claimed && pending.size () == 1
       && lib_try_typed_put_line_400 (game))
     {
-      game->object_references[pending.front ()] = FALSE;
-      game->multiple_references[pending.front ()] = FALSE;
+      game->refs.objects[pending.front ()] = FALSE;
+      game->refs.multiple[pending.front ()] = FALSE;
       *has_printed = TRUE;
       *task_claimed = TRUE;
     }
@@ -661,13 +661,13 @@ lib_put_deferred_stage_400 (scr_gameref_t game, const lib_list_t &pending,
    */
   for (const scr_int pending_object : pending)
     {
-      if (!game->object_references[pending_object])
+      if (!game->refs.objects[pending_object])
         continue;
 
       if (!lib_check_put_recursion (game, pending_object, target,
                                     !*has_printed, is_on))
         {
-          game->object_references[pending_object] = FALSE;
+          game->refs.objects[pending_object] = FALSE;
           *has_printed = TRUE;
           *recursion_rejected = TRUE;
         }
@@ -743,7 +743,7 @@ lib_put_in_t::try_game_commands (void)
 
   for (object = 0; object < object_count; object++)
     {
-      if (!game->object_references[object])
+      if (!game->refs.objects[object])
         continue;
 
       /*
@@ -810,7 +810,7 @@ lib_put_in_t::try_game_commands (void)
       if (!lib_check_put_recursion (game, object, container, !has_printed,
                                     FALSE))
         {
-          game->object_references[object] = FALSE;
+          game->refs.objects[object] = FALSE;
           has_printed = TRUE;
           recursion_rejected = TRUE;
           continue;
@@ -819,8 +819,8 @@ lib_put_in_t::try_game_commands (void)
       if (lib_try_game_command_with_object (game,
                                             "put", object, "in", container))
         {
-          game->object_references[object] = FALSE;
-          game->multiple_references[object] = FALSE;
+          game->refs.objects[object] = FALSE;
+          game->refs.multiple[object] = FALSE;
           has_printed = TRUE;
           task_claimed = TRUE;
           continue;
@@ -863,7 +863,7 @@ lib_put_in_t::report_full_390 (void)
 
       for (object = 0; object < object_count; object++)
         {
-          if (game->object_references[object]
+          if (game->refs.objects[object]
               && obj_get_size (game, object) <= free_space)
             any_fits = TRUE;
         }
@@ -871,7 +871,7 @@ lib_put_in_t::report_full_390 (void)
       if (any_fits)
         {
           for (object = 0; object < object_count; object++)
-            game->object_references[object] = FALSE;
+            game->refs.objects[object] = FALSE;
 
           lib_new_clause (game, has_printed);
           lib_print_object_np (game, container);
@@ -914,8 +914,8 @@ lib_put_in_t::put_counted_390 (void)
       free_space = obj_get_container_free_space (game, container);
       for (object = 0; object < object_count; object++)
         {
-          remaining += game->object_references[object] ? 1 : 0;
-          if (game->object_references[object]
+          remaining += game->refs.objects[object] ? 1 : 0;
+          if (game->refs.objects[object]
               && obj_get_size (game, object) <= free_space - spent)
             {
               spent += obj_get_size (game, object);
@@ -930,10 +930,10 @@ lib_put_in_t::put_counted_390 (void)
       left_over = 0;
       for (object = 0; fits > 0 && object < object_count; object++)
         {
-          if (!game->object_references[object])
+          if (!game->refs.objects[object])
             continue;
 
-          game->object_references[object] = FALSE;
+          game->refs.objects[object] = FALSE;
           if (static_cast<scr_int> (list.size ()) < fits)
             {
               list.push_back (object);
@@ -975,7 +975,7 @@ lib_put_in_t::put_remaining (void)
     {
       scr_int size;
 
-      if (!game->object_references[object])
+      if (!game->refs.objects[object])
         continue;
 
       /* If too big, or no longer room for it, ignore for now. */
@@ -986,7 +986,7 @@ lib_put_in_t::put_remaining (void)
 
       list.push_back (object);
       gs_object_move_into (game, object, container);
-      game->object_references[object] = FALSE;
+      game->refs.objects[object] = FALSE;
     }
 
   if (!list.empty ())
@@ -1041,10 +1041,10 @@ lib_put_in_t::report_full_pre390 (void)
       count = 0;
       for (object = 0; object < object_count; object++)
         {
-          if (!game->object_references[object])
+          if (!game->refs.objects[object])
             continue;
 
-          game->object_references[object] = FALSE;
+          game->refs.objects[object] = FALSE;
           count++;
         }
 
@@ -1070,7 +1070,7 @@ lib_put_in_t::report_nothing_fits_390 (void)
   if (nothing_fits_390)
     {
       for (object = 0; object < object_count; object++)
-        game->object_references[object] = FALSE;
+        game->refs.objects[object] = FALSE;
       lib_new_clause (game, has_printed);
       lib_print_wrapped_object (game, "Nothing will fit inside ",
                                 container, ".");
@@ -1092,14 +1092,14 @@ lib_put_in_t::report_too_big (void)
   list.clear ();
   for (object = 0; object < object_count; object++)
     {
-      if (!game->object_references[object])
+      if (!game->refs.objects[object])
         continue;
 
       if (!(obj_get_size (game, object) > capacity))
         continue;
 
       list.push_back (object);
-      game->object_references[object] = FALSE;
+      game->refs.objects[object] = FALSE;
     }
 
   if (!list.empty ())
@@ -1130,11 +1130,11 @@ lib_put_in_t::report_no_room (void)
   list.clear ();
   for (object = 0; object < object_count; object++)
     {
-      if (!game->object_references[object])
+      if (!game->refs.objects[object])
         continue;
 
       list.push_back (object);
-      game->object_references[object] = FALSE;
+      game->refs.objects[object] = FALSE;
     }
 
   if (!list.empty ())
@@ -1159,7 +1159,7 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
   /* How many objects the line named, for 3.9's all/and arm below. */
   put.entry_count = 0;
   GS_FOR_EACH_OBJECT (game, object)
-    put.entry_count += game->object_references[object] ? 1 : 0;
+    put.entry_count += game->refs.objects[object] ? 1 : 0;
 
   length_before = lib_output_length (game);
   lib_put_announce_bytes = 0;
@@ -1393,7 +1393,7 @@ lib_put_target_pre390 (scr_gameref_t game, const scr_char *prompt,
   /* lib_disambiguate_object_common() clears what it rejects; keep a copy. */
   named.assign (gs_object_count (game), FALSE);
   GS_FOR_EACH_OBJECT (game, index_)
-    named[index_] = game->object_references[index_];
+    named[index_] = game->refs.objects[index_];
 
   container = lib_disambiguate_object (game, prompt, is_ambiguous);
   if (container != -1 || *is_ambiguous)
@@ -1413,7 +1413,7 @@ lib_put_target_pre390 (scr_gameref_t game, const scr_char *prompt,
     return -1;
 
   GS_FOR_EACH_OBJECT (game, index_)
-    game->object_references[index_] = (index_ == object);
+    game->refs.objects[index_] = (index_ == object);
   return object;
 }
 
@@ -1705,7 +1705,7 @@ lib_put_on_backend (scr_gameref_t game, scr_int supporter)
   object_count = gs_object_count (game);
   for (object = 0; object < object_count; object++)
     {
-      if (!game->object_references[object])
+      if (!game->refs.objects[object])
         continue;
 
       /*
@@ -1734,7 +1734,7 @@ lib_put_on_backend (scr_gameref_t game, scr_int supporter)
       if (!lib_check_put_recursion (game, object, supporter, !has_printed,
                                     TRUE))
         {
-          game->object_references[object] = FALSE;
+          game->refs.objects[object] = FALSE;
           has_printed = TRUE;
           recursion_rejected = TRUE;
           continue;
@@ -1743,8 +1743,8 @@ lib_put_on_backend (scr_gameref_t game, scr_int supporter)
       if (lib_try_game_command_with_object (game,
                                             "put", object, "on", supporter))
         {
-          game->object_references[object] = FALSE;
-          game->multiple_references[object] = FALSE;
+          game->refs.objects[object] = FALSE;
+          game->refs.multiple[object] = FALSE;
           has_printed = TRUE;
           task_claimed = TRUE;
           continue;

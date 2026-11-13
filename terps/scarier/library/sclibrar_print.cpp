@@ -528,7 +528,7 @@ lib_count_npc_references (scr_gameref_t game, scr_int *npc)
   *npc = -1;
   GS_FOR_EACH_NPC (game, index_)
     {
-      if (game->npc_references[index_])
+      if (game->refs.npcs[index_])
         {
           count++;
           *npc = index_;

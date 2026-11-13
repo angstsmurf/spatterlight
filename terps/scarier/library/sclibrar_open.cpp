@@ -457,7 +457,7 @@ lib_open_close_with_400 (scr_gameref_t game, const scr_char *verb,
   if (whole >= 0)
     {
       gs_clear_object_references (game);
-      game->object_references[whole] = TRUE;
+      game->refs.objects[whole] = TRUE;
       return FALSE;
     }
 

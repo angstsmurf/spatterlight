@@ -274,6 +274,23 @@ typedef struct
 } scr_pronouns_t;
 
 /*
+ * What the current command refers to, one flag per object or NPC.  Objects
+ * the command is to act on are flagged in objects; objects requested but
+ * deemed not actionable are flagged in multiple; NPCs it names are flagged
+ * in npcs.  The parser and the library's multiple-object verbs fill these in
+ * and the task and restriction code reads them back.
+ *
+ * Undo: copied whole by gs_copy.  .tas: not saved.  Session: not saved --
+ * the flags describe one command, and none is in flight at a save point.
+ */
+typedef struct
+{
+  std::vector<scr_bool> objects;   /* sized object_count */
+  std::vector<scr_bool> multiple;  /* sized object_count */
+  std::vector<scr_bool> npcs;      /* sized npc_count */
+} scr_references_t;
+
+/*
  * The player's settings: what the metacommands and the host's preferences
  * set, as opposed to what the game does.
  *
@@ -445,13 +462,7 @@ typedef struct scr_game_s
   scr_int redo_sequence;
   scr_bool do_restart;
   scr_bool do_restore;
-  /*
-   * Objects a command is to act on are flagged in object_references; objects
-   * requested but deemed not actionable are flagged in multiple_references.
-  */
-  std::vector<scr_bool> object_references;
-  std::vector<scr_bool> multiple_references;
-  std::vector<scr_bool> npc_references;
+  scr_references_t refs;
   scr_pronouns_t pronouns;
 } scr_game_t;
 

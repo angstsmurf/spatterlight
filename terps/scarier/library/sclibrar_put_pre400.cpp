@@ -439,7 +439,7 @@ lib_put_co_resolve_390 (scr_gameref_t game, scr_int container,
         continue;
       if (!lib_co_pre400 (game, line, object, 0))
         continue;
-      game->multiple_references[object] = TRUE;
+      game->refs.multiple[object] = TRUE;
       count++;
     }
   if (count == 0)
@@ -522,7 +522,7 @@ lib_put_named_pre400 (scr_gameref_t game, scr_int target, scr_bool typed_on)
   for (object = 0; has_object && is_pre_390 && object < object_count;
        object++)
     {
-      if (game->multiple_references[object] && obj_is_static (game, object))
+      if (game->refs.multiple[object] && obj_is_static (game, object))
         {
           gs_clear_multiple_references (game);
           return FALSE;
@@ -545,7 +545,7 @@ lib_put_named_pre400 (scr_gameref_t game, scr_int target, scr_bool typed_on)
    * same coin draws as somebody else's container two feeds later
    * (runner_probes/dark.run380.putin3.txt:47).
    */
-  if (has_object && references == 1 && game->multiple_references[container])
+  if (has_object && references == 1 && game->refs.multiple[container])
     {
       gs_clear_multiple_references (game);
       if (is_pre_390)
@@ -593,7 +593,7 @@ lib_put_named_pre400 (scr_gameref_t game, scr_int target, scr_bool typed_on)
   /* Now, and only now, the object has to be somewhere the player can reach. */
   for (object = 0; object < object_count; object++)
     {
-      if (game->multiple_references[object]
+      if (game->refs.multiple[object]
           && !lib_put_named_filter (game, object))
         {
           gs_clear_multiple_references (game);
@@ -606,7 +606,7 @@ lib_put_named_pre400 (scr_gameref_t game, scr_int target, scr_bool typed_on)
                               &references);
   for (object = 0; object < object_count; object++)
     {
-      if (game->object_references[object])
+      if (game->refs.objects[object])
         moving.push_back (object);
     }
   sweep_from = pf_buffer_length (gs_get_filter (game));

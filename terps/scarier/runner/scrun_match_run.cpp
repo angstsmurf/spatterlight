@@ -165,7 +165,7 @@ run_task_reachable_by_library_callback (scr_gameref_t game, scr_int task,
   const std::vector<const scr_char *> &patterns =
       run_task_command_patterns (game, task, is_forwards);
   const scr_ref_entity_guard ref_entity (game);
-  std::vector<scr_bool> references (game->object_references);
+  std::vector<scr_bool> references (game->refs.objects);
   const scr_char *verb;
   scr_int verb_length, object;
   scr_bool is_reachable = FALSE;
@@ -212,7 +212,7 @@ run_task_reachable_by_library_callback (scr_gameref_t game, scr_int task,
         }
     }
 
-  game->object_references = references;
+  game->refs.objects = references;
   return is_reachable;
 }
 
@@ -428,8 +428,8 @@ run_line_matches_task_strictly (scr_gameref_t game, const scr_char *string,
                                 const scr_char *except, scr_bool anywhere)
 {
   const scr_var_setref_t vars = gs_get_vars (game);
-  const std::vector<scr_bool> object_references = game->object_references;
-  const std::vector<scr_bool> npc_references = game->npc_references;
+  const std::vector<scr_bool> object_references = game->refs.objects;
+  const std::vector<scr_bool> npc_references = game->refs.npcs;
   const scr_int ref_object = var_get_ref_object (vars);
   const scr_int ref_character = var_get_ref_character (vars);
   const scr_int ref_number = var_get_ref_number (vars);
@@ -459,8 +459,8 @@ run_line_matches_task_strictly (scr_gameref_t game, const scr_char *string,
                                                FALSE, FALSE);
     }
 
-  game->object_references = object_references;
-  game->npc_references = npc_references;
+  game->refs.objects = object_references;
+  game->refs.npcs = npc_references;
   var_set_ref_object (vars, ref_object);
   var_set_ref_character (vars, ref_character);
   var_set_ref_number (vars, ref_number);

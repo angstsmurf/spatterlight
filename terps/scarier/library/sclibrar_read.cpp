@@ -225,9 +225,9 @@ lib_cmd_read_other (scr_gameref_t game)
         {
           GS_FOR_EACH_OBJECT (game, index_)
             {
-              game->object_references[index_]
+              game->refs.objects[index_]
                 = lib_co_pre400 (game, line, index_, 0);
-              if (game->object_references[index_])
+              if (game->refs.objects[index_])
                 matched++;
             }
           if (matched > 1)

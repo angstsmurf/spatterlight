@@ -316,7 +316,7 @@ lib_take_held_namesake_preempt_pre400 (scr_gameref_t game,
     {
       GS_FOR_EACH_OBJECT (game, object)
         {
-          if (!game->multiple_references[object])
+          if (!game->refs.multiple[object])
             continue;
           if (target != -1)
             return FALSE;
@@ -883,7 +883,7 @@ lib_take_and_t::from_parent ()
           && (taf_version < TAF_VERSION_390
               || gs_object_seen (game, object)))
         {
-          game->object_references[object] = TRUE;
+          game->refs.objects[object] = TRUE;
           any++;
         }
     }
@@ -1061,7 +1061,7 @@ lib_move_named_whole_line_pre400 (scr_gameref_t game,
     return FALSE;
 
   gs_clear_multiple_references (game);
-  game->multiple_references[found] = TRUE;
+  game->refs.multiple[found] = TRUE;
   *references = 1;
   return TRUE;
 }

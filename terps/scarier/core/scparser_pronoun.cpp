@@ -1363,7 +1363,7 @@ uip_assign_pronouns (scr_gameref_t game, const scr_char *string)
           object = -1;
           GS_FOR_EACH_OBJECT (game, index_)
             {
-              if (game->object_references[index_]
+              if (game->refs.objects[index_]
                   && (gs_object_seen (game, index_)
                       || prop_get_taf_version (bundle) < TAF_VERSION_390)
                   && obj_indirectly_in_room (game,

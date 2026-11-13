@@ -148,7 +148,7 @@ lib_last_named_npc (scr_gameref_t game)
   npc = -1;
   GS_FOR_EACH_NPC (game, index_)
     {
-      if (game->npc_references[index_])
+      if (game->refs.npcs[index_])
         npc = index_;
     }
   return npc;
@@ -244,7 +244,7 @@ lib_disambiguate_npc_pick (scr_gameref_t game, const scr_char *verb,
   npc = -1;
   GS_FOR_EACH_NPC (game, index_)
     {
-      if (game->npc_references[index_]
+      if (game->refs.npcs[index_]
           && gs_npc_seen (game, index_)
           && npc_in_room (game, index_, gs_playerroom (game)))
         {
@@ -252,7 +252,7 @@ lib_disambiguate_npc_pick (scr_gameref_t game, const scr_char *verb,
           npc = index_;
         }
       else
-        game->npc_references[index_] = FALSE;
+        game->refs.npcs[index_] = FALSE;
     }
 
   /*
@@ -270,7 +270,7 @@ lib_disambiguate_npc_pick (scr_gameref_t game, const scr_char *verb,
     {
       const scr_char *line = run_get_dispatch_input ();
 
-      lib_keep_top_scored (game->npc_references, gs_npc_count (game), &count, &npc,
+      lib_keep_top_scored (game->refs.npcs, gs_npc_count (game), &count, &npc,
                            [&] (scr_int candidate)
         {
           return lib_npc_400_prefix_score (game, candidate, line);
@@ -329,7 +329,7 @@ lib_disambiguate_npc_pick (scr_gameref_t game, const scr_char *verb,
   listed = 0;
   GS_FOR_EACH_NPC (game, index_)
     {
-      if (game->npc_references[index_])
+      if (game->refs.npcs[index_])
         {
           lib_print_npc_np (game, index_);
           listed++;
@@ -470,7 +470,7 @@ lib_first_named_pre400 (scr_gameref_t game, scr_int fallback)
 
   GS_FOR_EACH_OBJECT (game, index_)
     {
-      if (!game->object_references[index_])
+      if (!game->refs.objects[index_])
         continue;
       offset = lib_name_offset_pre400 (game, index_, line);
       if (offset < 0)
@@ -487,7 +487,7 @@ lib_first_named_pre400 (scr_gameref_t game, scr_int fallback)
 /*
  * One lib_disambiguate_object_common() call: the verb and resolver it was
  * given, and the candidates still standing -- COUNT of them flagged in
- * object_references, OBJECT the last one found.  A stage that settles the
+ * refs.objects, OBJECT the last one found.  A stage that settles the
  * question returns TRUE and leaves the answer in RESULT.
  */
 struct lib_disambig_t
@@ -546,7 +546,7 @@ lib_disambig_t::gather_candidates (void)
   object = -1;
   GS_FOR_EACH_OBJECT (game, index_)
     {
-      if (game->object_references[index_]
+      if (game->refs.objects[index_]
           && (!requires_seen || gs_object_seen (game, index_))
           && obj_indirectly_in_room (game, index_, gs_playerroom (game)))
         {
@@ -554,7 +554,7 @@ lib_disambig_t::gather_candidates (void)
           object = index_;
         }
       else
-        game->object_references[index_] = FALSE;
+        game->refs.objects[index_] = FALSE;
     }
 
 #ifdef SCARIER_DUMP_TOOLS
@@ -627,7 +627,7 @@ lib_disambig_t::narrow_named_pre400 (void)
         mode = 4;
       GS_FOR_EACH_OBJECT (game, index_)
         {
-          if (game->object_references[index_]
+          if (game->refs.objects[index_]
               && lib_co_pre400 (game, line, index_, mode))
             kept++;
         }
@@ -656,14 +656,14 @@ lib_disambig_t::narrow_named_pre400 (void)
           object = -1;
           GS_FOR_EACH_OBJECT (game, index_)
             {
-              if (game->object_references[index_]
+              if (game->refs.objects[index_]
                   && lib_co_pre400 (game, line, index_, mode))
                 {
                   count++;
                   object = index_;
                 }
               else
-                game->object_references[index_] = FALSE;
+                game->refs.objects[index_] = FALSE;
             }
         }
     }
@@ -707,7 +707,8 @@ lib_disambig_t::narrow_top_scored_400 (void)
     {
       const scr_char *line = run_get_dispatch_input ();
 
-      lib_keep_top_scored (game->object_references, gs_object_count (game), &count, &object,
+      lib_keep_top_scored (game->refs.objects, gs_object_count (game),
+                           &count, &object,
                            [&] (scr_int candidate)
         {
           return lib_verb_object_name_score (game, candidate, line);
@@ -737,7 +738,7 @@ lib_disambig_t::narrow_with_resolver (void)
       object = -1;
       GS_FOR_EACH_OBJECT (game, index_)
         {
-          if (game->object_references[index_]
+          if (game->refs.objects[index_]
               && resolver (game, index_, resolver_arg))
             {
               retry_count++;
@@ -764,11 +765,11 @@ lib_disambig_t::narrow_with_resolver (void)
               count = 0;
               GS_FOR_EACH_OBJECT (game, index_)
                 {
-                  if (game->object_references[index_]
+                  if (game->refs.objects[index_]
                       && resolver (game, index_, resolver_arg))
                     count++;
                   else
-                    game->object_references[index_] = FALSE;
+                    game->refs.objects[index_] = FALSE;
                 }
             }
         }
@@ -835,7 +836,7 @@ lib_disambig_t::ask_which_examine_pre390 (void)
       listed = 0;
       GS_FOR_EACH_OBJECT (game, index_)
         {
-          if (!game->object_references[index_])
+          if (!game->refs.objects[index_])
             continue;
           if (listed > 0)
             pf_buffer_string (filter, listed == count - 1 ? " or " : ", ");
@@ -877,7 +878,7 @@ lib_disambig_t::pick_wear_remove_pre380 (void)
 
           GS_FOR_EACH_OBJECT (game, index_)
             {
-              if (!game->object_references[index_])
+              if (!game->refs.objects[index_])
                 continue;
               if (first == -1)
                 first = index_;
@@ -894,7 +895,7 @@ lib_disambig_t::pick_wear_remove_pre380 (void)
             }
           object = last != -1 ? last : first;
           GS_FOR_EACH_OBJECT (game, index_)
-            game->object_references[index_] = (index_ == object);
+            game->refs.objects[index_] = (index_ == object);
           count = 1;
         }
     }
@@ -963,13 +964,13 @@ lib_disambig_t::pick_take_drop_pre400 (void)
                index_ < gs_object_count (game) && !lib_co_contains (line, "from");
                index_++)
             {
-              if (game->object_references[index_]
+              if (game->refs.objects[index_]
                   || obj_is_static (game, index_)
                   || !lib_co_candidate (game, index_, gs_playerroom (game))
                   || !lib_names_object_370 (game, line, index_)
                   || lib_names_only_shadowed_370 (game, line, index_))
                 continue;
-              game->object_references[index_] = TRUE;
+              game->refs.objects[index_] = TRUE;
               count++;
             }
 
@@ -989,7 +990,7 @@ lib_disambig_t::pick_take_drop_pre400 (void)
            */
           GS_FOR_EACH_OBJECT (game, index_)
             {
-              if (game->object_references[index_]
+              if (game->refs.objects[index_]
                   && lib_object_held_pre380 (game, index_) != is_take)
                 eligible++;
             }
@@ -998,33 +999,33 @@ lib_disambig_t::pick_take_drop_pre400 (void)
               object = -1;
               if (is_take)
                 GS_FOR_EACH_OBJECT (game, index_)
-                  if (game->object_references[index_]
+                  if (game->refs.objects[index_]
                       && lib_object_held_pre380 (game, index_))
                     object = index_;
               if (object == -1)
                 object = lib_first_named_pre400 (game, -1);
               if (object == -1)
                 GS_FOR_EACH_OBJECT (game, index_)
-                  if (game->object_references[index_])
+                  if (game->refs.objects[index_])
                     {
                       object = index_;
                       break;
                     }
               GS_FOR_EACH_OBJECT (game, index_)
-                game->object_references[index_] = (index_ == object);
+                game->refs.objects[index_] = (index_ == object);
               count = 1;
               return FALSE;
             }
 
           GS_FOR_EACH_OBJECT (game, index_)
             {
-              if (!game->object_references[index_])
+              if (!game->refs.objects[index_])
                 continue;
               if (lib_object_held_pre380 (game, index_) == is_take
                   || (lib_namesake_crowded_pre380 (game, line, index_,
                                                    !is_take)
                       && !lib_co_names_prefix (game, line, index_)))
-                game->object_references[index_] = FALSE;
+                game->refs.objects[index_] = FALSE;
               else
                 kept++;
             }
@@ -1041,7 +1042,7 @@ lib_disambig_t::pick_take_drop_pre400 (void)
 
       GS_FOR_EACH_OBJECT (game, index_)
         {
-          if (!game->object_references[index_])
+          if (!game->refs.objects[index_])
             continue;
           if (first == -1)
             first = index_;
@@ -1059,7 +1060,7 @@ lib_disambig_t::pick_take_drop_pre400 (void)
 
       object = taf_version >= TAF_VERSION_390 ? first : last;
       GS_FOR_EACH_OBJECT (game, index_)
-        game->object_references[index_] = (index_ == object);
+        game->refs.objects[index_] = (index_ == object);
       count = 1;
     }
   return FALSE;
@@ -1104,7 +1105,7 @@ lib_disambig_t::pick_open_close_pre400 (void)
 
       GS_FOR_EACH_OBJECT (game, index_)
         {
-          if (!game->object_references[index_])
+          if (!game->refs.objects[index_])
             continue;
           if (lowest == -1)
             lowest = index_;
@@ -1140,7 +1141,7 @@ lib_disambig_t::pick_open_close_pre400 (void)
       else
         object = lib_first_named_pre400 (game, lowest);
       GS_FOR_EACH_OBJECT (game, index_)
-        game->object_references[index_] = (index_ == object);
+        game->refs.objects[index_] = (index_ == object);
       count = 1;
     }
 }
@@ -1222,7 +1223,7 @@ lib_disambig_t::resolve_take_400 (void)
       if (object >= 0)
         {
           GS_FOR_EACH_OBJECT (game, index_)
-            game->object_references[index_] = (index_ == object);
+            game->refs.objects[index_] = (index_ == object);
           var_set_ref_object (vars, object);
           if (is_ambiguous)
             *is_ambiguous = FALSE;
@@ -1415,7 +1416,7 @@ lib_disambig_t::list_choices (void)
   listed = 0;
   GS_FOR_EACH_OBJECT (game, index_)
     {
-      if (game->object_references[index_])
+      if (game->refs.objects[index_])
         {
           lib_print_object_np (game, index_);
           listed++;

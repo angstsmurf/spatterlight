@@ -2764,7 +2764,7 @@ lib_cmd_status_npc (scr_gameref_t game)
     {
       GS_FOR_EACH_NPC (game, index_)
         {
-          if (!game->npc_references[index_])
+          if (!game->refs.npcs[index_])
             continue;
           var_set_ref_character (vars, index_);
           if (gs_npc_seen (game, index_))

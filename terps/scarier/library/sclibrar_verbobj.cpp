@@ -1022,7 +1022,7 @@ lib_verb_object_catch_all_pre390 (scr_gameref_t game)
   unseen = -1;
   GS_FOR_EACH_OBJECT (game, object)
     {
-      if (!game->object_references[object]
+      if (!game->refs.objects[object]
           && !lib_catch_all_names_pre390 (game, object))
         continue;
 
@@ -1143,7 +1143,7 @@ lib_verb_object_count_present (scr_gameref_t game,
   *object = -1;
   GS_FOR_EACH_OBJECT (game, index_)
     {
-      if (game->object_references[index_]
+      if (game->refs.objects[index_]
           && (gs_object_seen (game, index_)
               || !lib_matcher_requires_seen (game))
           && obj_indirectly_in_room (game, index_, gs_playerroom (game)))
@@ -1355,7 +1355,7 @@ lib_verb_object_absent (scr_gameref_t game, scr_int *count, scr_int *object)
       *object = -1;
       GS_FOR_EACH_OBJECT (game, index_)
         {
-          if (game->object_references[index_]
+          if (game->refs.objects[index_]
               && (gs_object_seen (game, index_)
                   || !lib_matcher_requires_seen (game)))
             {
@@ -1652,7 +1652,7 @@ lib_cmd_verb_object (scr_gameref_t game)
  *
  * The Runner's tail consults no reference flags: it rescans the typed line
  * for every NPC in index order, so this does the same rather than reading
- * game->npc_references[], which the parser sets from prefixes and positions
+ * game->refs.npcs[], which the parser sets from prefixes and positions
  * the tail knows nothing about.  The in-room case returns FALSE and leaves
  * lib_cmd_verb_npc()'s own unambiguous-reference test to answer it, which is
  * where this differs from the Runner: the Runner has no such test and prints
@@ -1740,7 +1740,7 @@ lib_cmd_verb_npc (scr_gameref_t game)
   npc = -1;
   GS_FOR_EACH_NPC (game, index_)
     {
-      if (game->npc_references[index_]
+      if (game->refs.npcs[index_]
           && gs_npc_seen (game, index_)
           && npc_in_room (game, index_, gs_playerroom (game)))
         {
@@ -1775,7 +1775,7 @@ lib_cmd_verb_npc (scr_gameref_t game)
         {
           scr_int score;
 
-          if (!game->npc_references[index_]
+          if (!game->refs.npcs[index_]
               || !gs_npc_seen (game, index_)
               || !npc_in_room (game, index_, gs_playerroom (game)))
             continue;

@@ -244,7 +244,7 @@ lib_references_are_namesakes (scr_gameref_t game)
     {
       const scr_char *shortname;
 
-      if (!game->object_references[index_])
+      if (!game->refs.objects[index_])
         continue;
       shortname = prop_get_indexed_string (bundle, "Objects", index_, "Short");
       if (!shortname)

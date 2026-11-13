@@ -1456,31 +1456,28 @@ void
 gs_clear_npc_references (scr_gameref_t gs)
 {
   GS_CHECK (gs);
-  std::fill (gs->npc_references.begin (), gs->npc_references.end (), FALSE);
+  std::fill (gs->refs.npcs.begin (), gs->refs.npcs.end (), FALSE);
 }
 
 void
 gs_clear_object_references (scr_gameref_t gs)
 {
   GS_CHECK (gs);
-  std::fill (gs->object_references.begin (), gs->object_references.end (),
-             FALSE);
+  std::fill (gs->refs.objects.begin (), gs->refs.objects.end (), FALSE);
 }
 
 void
 gs_set_multiple_references (scr_gameref_t gs)
 {
   GS_CHECK (gs);
-  std::fill (gs->multiple_references.begin (), gs->multiple_references.end (),
-             TRUE);
+  std::fill (gs->refs.multiple.begin (), gs->refs.multiple.end (), TRUE);
 }
 
 void
 gs_clear_multiple_references (scr_gameref_t gs)
 {
   GS_CHECK (gs);
-  std::fill (gs->multiple_references.begin (), gs->multiple_references.end (),
-             FALSE);
+  std::fill (gs->refs.multiple.begin (), gs->refs.multiple.end (), FALSE);
 }
 
 
@@ -2219,9 +2216,9 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
   game->do_restart = FALSE;
   game->do_restore = FALSE;
 
-  game->object_references.assign (game->object_count, FALSE);
-  game->multiple_references.assign (game->object_count, FALSE);
-  game->npc_references.assign (game->npc_count, FALSE);
+  game->refs.objects.assign (game->object_count, FALSE);
+  game->refs.multiple.assign (game->object_count, FALSE);
+  game->refs.npcs.assign (game->npc_count, FALSE);
 
   game->pronouns.it_object = -1;
   game->pronouns.it_form = UIP_IT_INDEFINITE;
@@ -2442,9 +2439,7 @@ gs_copy (scr_gameref_t to, scr_gameref_t from)
   to->do_restart = from->do_restart;
   to->do_restore = from->do_restore;
 
-  to->object_references = from->object_references;
-  to->multiple_references = from->multiple_references;
-  to->npc_references = from->npc_references;
+  to->refs = from->refs;
 
   to->pronouns = from->pronouns;
 
@@ -2491,7 +2486,7 @@ gs_destroy (scr_gameref_t game)
 
   /*
    * The state arrays (rooms, objects, tasks, events, npcs and their walksteps,
-   * the *_references) are std::vector and the owning game strings
+   * the refs flags) are std::vector and the owning game strings
    * (current_room_name, status_line, title, author, hint_text) are
    * scr_owned_string; all free themselves when the game is delete'd below,
    * so there is nothing to free by hand here.

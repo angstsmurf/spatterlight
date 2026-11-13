@@ -567,7 +567,7 @@ lib_take_whole_line_400 (scr_gameref_t game, scr_int *references,
   if (object >= 0)
     {
       gs_clear_multiple_references (game);
-      game->multiple_references[object] = TRUE;
+      game->refs.multiple[object] = TRUE;
       *references = 1;
       *bound = TRUE;
       return FALSE;
@@ -651,7 +651,7 @@ lib_take_from_task_sweep_380 (scr_gameref_t game)
  *
  * run400x runner_probes/tk[ab].run400.txt.  0 when
  * this does not apply and the ordinary parse should run; 1 when the pieces are
- * in multiple_references and *references counts them.
+ * in refs.multiple and *references counts them.
  */
 static scr_int
 lib_take_and_400 (scr_gameref_t game, scr_int *references)
@@ -738,9 +738,9 @@ lib_take_and_400 (scr_gameref_t game, scr_int *references)
           && !((position == OBJ_IN_OBJECT || position == OBJ_ON_OBJECT)
                && gs_object_parent (game, piece) == first_parent))
         continue;
-      if (!game->multiple_references[piece])
+      if (!game->refs.multiple[piece])
         {
-          game->multiple_references[piece] = TRUE;
+          game->refs.multiple[piece] = TRUE;
           (*references)++;
         }
     }
@@ -748,9 +748,9 @@ lib_take_and_400 (scr_gameref_t game, scr_int *references)
     {
       for (size_t index_ = 0; index_ < refused.size (); index_++)
         {
-          if (!game->multiple_references[refused[index_]])
+          if (!game->refs.multiple[refused[index_]])
             {
-              game->multiple_references[refused[index_]] = TRUE;
+              game->refs.multiple[refused[index_]] = TRUE;
               (*references)++;
             }
         }
@@ -1114,7 +1114,7 @@ lib_take_multi_unparsed (scr_gameref_t game, scr_bool is_except,
       if (object < 0)
         return LIB_TAKE_RETURN_FALSE;
       gs_clear_multiple_references (game);
-      game->multiple_references[object] = TRUE;
+      game->refs.multiple[object] = TRUE;
       *references = 1;
     }
   return LIB_TAKE_GO_ON;
@@ -1141,10 +1141,10 @@ lib_take_multi_crowded_pre400 (scr_gameref_t game)
       gs_clear_multiple_references (game);
       return TRUE;
     }
-  if (winner != -1 && !game->multiple_references[winner])
+  if (winner != -1 && !game->refs.multiple[winner])
     {
       gs_clear_multiple_references (game);
-      game->multiple_references[winner] = TRUE;
+      game->refs.multiple[winner] = TRUE;
     }
   return FALSE;
 }
@@ -1182,7 +1182,7 @@ lib_take_multi_co_fails_pre400 (scr_gameref_t game)
   scr_int target;
 
   GS_FOR_EACH_OBJECT (game, target)
-    if (game->multiple_references[target])
+    if (game->refs.multiple[target])
       break;
   if (line && target < gs_object_count (game)
       && !lib_take_co_pre400 (game, line, target))
@@ -1224,7 +1224,7 @@ lib_take_multi_run (scr_gameref_t game, scr_bool is_except,
       scr_int index_;
 
       GS_FOR_EACH_OBJECT (game, index_)
-        if (game->object_references[index_]
+        if (game->refs.objects[index_]
             && (gs_object_position (game, index_) == OBJ_IN_OBJECT
                 || gs_object_position (game, index_) == OBJ_ON_OBJECT))
           is_take_from_380 = TRUE;

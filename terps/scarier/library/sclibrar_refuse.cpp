@@ -544,7 +544,7 @@ lib_open_close_resolved_400 (scr_gameref_t game,
     return FALSE;
 
   gs_clear_object_references (game);
-  game->object_references[object] = TRUE;
+  game->refs.objects[object] = TRUE;
   *status = handler (game);
   return TRUE;
 }
@@ -1236,7 +1236,7 @@ lib_first_named_object_pre_390 (scr_gameref_t game)
 
   GS_FOR_EACH_OBJECT (game, object)
     {
-      if (game->object_references[object])
+      if (game->refs.objects[object])
         return object;
     }
   return -1;
@@ -1423,7 +1423,7 @@ lib_cmd_put_unclear (scr_gameref_t game)
     {
       GS_FOR_EACH_OBJECT (game, index_)
         {
-          if (game->object_references[index_]
+          if (game->refs.objects[index_]
               && obj_indirectly_in_room (game, index_, gs_playerroom (game)))
             return FALSE;
         }
@@ -1447,7 +1447,7 @@ lib_cmd_put_unclear (scr_gameref_t game)
     {
       GS_FOR_EACH_OBJECT (game, index_)
         {
-          if (game->object_references[index_]
+          if (game->refs.objects[index_]
               && gs_object_seen (game, index_)
               && !obj_indirectly_in_room (game, index_, gs_playerroom (game)))
             return FALSE;

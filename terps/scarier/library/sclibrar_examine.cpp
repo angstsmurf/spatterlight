@@ -348,7 +348,7 @@ lib_absent_seen_object (scr_gameref_t game)
   GS_FOR_EACH_OBJECT (game, index_)
     {
       /* Something the noun names is here; the ordinary path handles it. */
-      if (game->object_references[index_]
+      if (game->refs.objects[index_]
           && obj_indirectly_in_room (game, index_, gs_playerroom (game)))
         return -1;
     }
@@ -360,7 +360,7 @@ lib_absent_seen_object (scr_gameref_t game)
   /* Pass 2, every seen object; a tie or no score is -1 as well. */
   object = lib_verb_object_resolve_400_string (game, input, nullptr, FALSE);
   if (object < 0
-      || !game->object_references[object]
+      || !game->refs.objects[object]
       || obj_indirectly_in_room (game, object, gs_playerroom (game)))
     return -1;
 
@@ -396,7 +396,7 @@ lib_examine_present_winner_400 (scr_gameref_t game)
 
   GS_FOR_EACH_OBJECT (game, index_)
     {
-      if (game->object_references[index_]
+      if (game->refs.objects[index_]
           && (obj_indirectly_in_room (game, index_, gs_playerroom (game))
               || obj_indirectly_held_by_player (game, index_)))
         return -1;
@@ -489,7 +489,7 @@ lib_absent_named_object_pre_390 (scr_gameref_t game, scr_bool last)
   first = -1;
   GS_FOR_EACH_OBJECT (game, object)
     {
-      if (!game->object_references[object])
+      if (!game->refs.objects[object])
         continue;
 
       if (obj_indirectly_in_room (game, object, gs_playerroom (game))
@@ -2085,7 +2085,7 @@ lib_cmd_examine_other (scr_gameref_t game)
       if (found != -1)
         {
           GS_FOR_EACH_NPC (game, npc)
-            game->npc_references[npc] = (npc == found);
+            game->refs.npcs[npc] = (npc == found);
           if (lib_cmd_examine_npc (game))
             return TRUE;
         }

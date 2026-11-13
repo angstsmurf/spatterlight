@@ -138,7 +138,7 @@ npc_count_referenced_present (scr_gameref_t game, scr_int *npc)
   *npc = -1;
   GS_FOR_EACH_NPC (game, index_)
     {
-      if (game->npc_references[index_]
+      if (game->refs.npcs[index_]
           && gs_npc_seen (game, index_)
           && npc_in_room (game, index_, gs_playerroom (game)))
         {

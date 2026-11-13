@@ -259,7 +259,7 @@ run_is_put_command (scr_gameref_t game, const scr_char *string)
 {
   const scr_ref_number_guard ref_number (game);
   const scr_ref_entity_guard ref_entity (game);
-  std::vector<scr_bool> references (game->object_references);
+  std::vector<scr_bool> references (game->refs.objects);
   scr_commandsref_t command;
   scr_bool is_put = FALSE;
 
@@ -284,7 +284,7 @@ run_is_put_command (scr_gameref_t game, const scr_char *string)
       break;
     }
 
-  game->object_references = references;
+  game->refs.objects = references;
   return is_put;
 }
 
@@ -434,8 +434,8 @@ run_repeat_survivor_400 (scr_gameref_t game, const scr_char *string)
 {
   const scr_ref_number_guard ref_number (game);
   const scr_ref_entity_guard ref_entity (game);
-  std::vector<scr_bool> objects (game->object_references);
-  std::vector<scr_bool> npcs (game->npc_references);
+  std::vector<scr_bool> objects (game->refs.objects);
+  std::vector<scr_bool> npcs (game->refs.npcs);
   const scr_repeat_survivor_t *row;
   scr_bool survives = FALSE;
 
@@ -448,8 +448,8 @@ run_repeat_survivor_400 (scr_gameref_t game, const scr_char *string)
         }
     }
 
-  game->object_references = objects;
-  game->npc_references = npcs;
+  game->refs.objects = objects;
+  game->refs.npcs = npcs;
   return survives;
 }
 

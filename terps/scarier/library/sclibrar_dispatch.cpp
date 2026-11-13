@@ -55,7 +55,7 @@ lib_save_object_references (scr_gameref_t game, scr_bool buffer[], scr_int lengt
    * must not be handed NULL even for zero bytes.
    */
   if (required > 0)
-    memcpy (references, game->object_references.data (), required);
+    memcpy (references, game->refs.objects.data (), required);
   return references;
 }
 
@@ -67,7 +67,7 @@ lib_restore_object_references (scr_gameref_t game, const scr_bool references[])
   /* Calculate the bytes in the references array, and copy back to the game. */
   bytes = gs_object_count (game) * sizeof (references[0]);
   if (bytes > 0)
-    memcpy (game->object_references.data (), references, bytes);
+    memcpy (game->refs.objects.data (), references, bytes);
 }
 
 
@@ -972,8 +972,8 @@ lib_try_typed_put_line_400 (scr_gameref_t game)
    * Task matching re-binds the references, and a miss must leave them as
    * the handler had them.
    */
-  const std::vector<scr_bool> references = game->object_references;
-  const std::vector<scr_bool> multiple = game->multiple_references;
+  const std::vector<scr_bool> references = game->refs.objects;
+  const std::vector<scr_bool> multiple = game->refs.multiple;
 
   /* The take report ahead of it, if any, is a clause of its own. */
   const scr_bool joined = pf_buffer_tentative_join (gs_get_filter (game));
@@ -986,8 +986,8 @@ lib_try_typed_put_line_400 (scr_gameref_t game)
     pf_retract_tentative_join (gs_get_filter (game));
   if (!status)
     {
-      game->object_references = references;
-      game->multiple_references = multiple;
+      game->refs.objects = references;
+      game->refs.multiple = multiple;
     }
   return status;
 }
@@ -1082,7 +1082,7 @@ lib_parse_next_object (scr_gameref_t game, const scr_char *verb,
  *
  * Parser for commands that take multiple object targets from a %text% match.
  * Parses object lists such as "object" and "object and object" and returns
- * the multiple objects in the game's multiple_references.
+ * the multiple objects in the game's refs.multiple.
  */
 scr_bool
 lib_parse_multiple_objects (scr_gameref_t game, const scr_char *verb,
@@ -1137,7 +1137,7 @@ lib_parse_multiple_objects (scr_gameref_t game, const scr_char *verb,
     }
 
   /* Mark this first object as referenced in the return array. */
-  game->multiple_references[object] = TRUE;
+  game->refs.multiple[object] = TRUE;
   count_++;
 
   /* Now parse each additional object from the list. */
@@ -1155,7 +1155,7 @@ lib_parse_multiple_objects (scr_gameref_t game, const scr_char *verb,
                                   resolver, resolver_arg,
                                   &object, &are_more_objects, &is_ambiguous)
           || object == -1
-          || game->multiple_references[object])
+          || game->refs.multiple[object])
         {
           if (!is_ambiguous)
             {
@@ -1173,7 +1173,7 @@ lib_parse_multiple_objects (scr_gameref_t game, const scr_char *verb,
         }
 
       /* Mark the object as referenced in the return array. */
-      game->multiple_references[object] = TRUE;
+      game->refs.multiple[object] = TRUE;
       count_++;
     }
 
@@ -1226,7 +1226,7 @@ lib_multiple_retains_associate (scr_gameref_t game, scr_int associate,
 {
   const scr_filterref_t filter = gs_get_filter (game);
 
-  if (!game->multiple_references[associate])
+  if (!game->refs.multiple[associate])
     return FALSE;
 
   pf_buffer_string (filter, "I only understood you as far as wanting to ");
@@ -1270,17 +1270,17 @@ lib_apply_filter (scr_gameref_t game,
         continue;
 
       /* Consume the list entry, if this object was one. */
-      is_listed = game->multiple_references[object];
+      is_listed = game->refs.multiple[object];
       if (is_listed)
         {
-          game->multiple_references[object] = FALSE;
+          game->refs.multiple[object] = FALSE;
           references_--;
         }
 
       /* Reference the listed objects, or -- for "all except" -- the rest. */
       if (is_except ? !is_listed : is_listed)
         {
-          game->object_references[object] = TRUE;
+          game->refs.objects[object] = TRUE;
           count++;
         }
     }
