@@ -102,32 +102,12 @@ static scr_bool run_defer_give_npc = FALSE;
  * calls below therest, wait for it -- and lose to it.  With the Battle
  * System on, those rows are dobattle's, which run390 calls above therest
  * (45F4AF): secret_of_lost_world's `hit ghost with excalibur` is a blow.
+ * The rows that wait carry RUN_ROW_WITH_DEFERRED.
  */
 static scr_bool run_defer_with_390 = FALSE;
 
-static scr_bool
-run_is_with_deferred_handler (scr_bool (*handler) (scr_gameref_t))
-{
-  static scr_bool (*const DEFERRED[]) (scr_gameref_t) = {
-    lib_cmd_attack_npc, lib_cmd_attack_npc_with, lib_cmd_attack_npcs,
-    lib_cmd_attack_npcs_with, lib_cmd_chop_npc, lib_cmd_chop_npc_with,
-    lib_cmd_cut_npc, lib_cmd_cut_npc_with, lib_cmd_fight_npc,
-    lib_cmd_fight_npc_with, lib_cmd_hit_npc_with, lib_cmd_kill_npc,
-    lib_cmd_kill_npc_with, lib_cmd_shoot_npc, lib_cmd_shoot_npc_with,
-    lib_cmd_slap_npc, lib_cmd_slap_npc_with, lib_cmd_stab_npc,
-    lib_cmd_stab_npc_with, lib_cmd_throw_npc_with, nullptr
-  };
-
-  for (scr_int index_ = 0; DEFERRED[index_]; index_++)
-    {
-      if (DEFERRED[index_] == handler)
-        return TRUE;
-    }
-  return FALSE;
-}
-
 /*
- * run_is_scare_only_handler()
+ * RUN_ROW_SCARE_ONLY
  * run_line_opens_with_scare_word()
  * run_game_owns_scare_word()
  *
@@ -151,26 +131,8 @@ run_is_with_deferred_handler (scr_bool (*handler) (scr_gameref_t))
  * reach: `glk verbose`, `glk notify`, `glk hints`, `glk license` and `glk
  * statusline` cannot be shadowed, and `history` and `!` are the Runner's
  * own.  The one-letter `g`, `i`, `q` and `z` are left alone -- conveniences
- * kept on purpose.
+ * kept on purpose.  The rows that stand aside carry RUN_ROW_SCARE_ONLY.
  */
-static scr_bool
-run_is_scare_only_handler (scr_bool (*handler) (scr_gameref_t))
-{
-  static scr_bool (*const SCARE_ONLY[]) (scr_gameref_t) = {
-    lib_cmd_verbose, lib_cmd_brief, lib_cmd_notify_on_off, lib_cmd_notify,
-    lib_cmd_hints, lib_cmd_history, lib_cmd_history_number,
-    lib_cmd_redo_number, lib_cmd_redo_text, lib_cmd_redo_last,
-    lib_cmd_license, lib_cmd_statusline, nullptr
-  };
-
-  for (scr_int index_ = 0; SCARE_ONLY[index_]; index_++)
-    {
-      if (SCARE_ONLY[index_] == handler)
-        return TRUE;
-    }
-  return FALSE;
-}
-
 /* The length of the SCARE word the line opens with, or 0. */
 static size_t
 run_line_opens_with_scare_word (const scr_char *string)
@@ -224,7 +186,7 @@ run_try_command_table (scr_commandsref_t command,
     {
       if (run_defer_give_npc && command->handler == lib_cmd_give_object_npc)
         continue;
-      if (run_defer_with_390 && run_is_with_deferred_handler (command->handler))
+      if (run_defer_with_390 && (command->flags & RUN_ROW_WITH_DEFERRED))
         continue;
 
       /*
@@ -270,7 +232,7 @@ run_try_command_table (scr_commandsref_t command,
            * run_game_owns_scare_word().  Asked once, and only of a line
            * that reaches one of those rows.
            */
-          if (run_is_scare_only_handler (command->handler))
+          if (command->flags & RUN_ROW_SCARE_ONLY)
             {
               if (scare_word_owned < 0)
                 scare_word_owned = run_game_owns_scare_word (game, string);

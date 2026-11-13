@@ -280,9 +280,7 @@ run_is_put_command (scr_gameref_t game, const scr_char *string)
       if (command->handler == lib_cmd_put_container_400)
         continue;
 
-      is_put = command->handler == lib_cmd_put_in_multiple
-               || command->handler == lib_cmd_put_on_multiple
-               || command->handler == lib_cmd_drop_multiple;
+      is_put = (command->flags & RUN_ROW_PUT) != 0;
       break;
     }
 

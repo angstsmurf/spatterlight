@@ -195,6 +195,18 @@ extern std::string run_undo_text;
  * fields it leaves out.  Call a row through run_command_handle(), never
  * through HANDLER directly.
  */
+
+/* What the runner needs to know about a row beyond its handler. */
+enum
+{
+  /* A SCARE word no Runner answers; stands aside when a task names it. */
+  RUN_ROW_SCARE_ONLY = 1,
+  /* A 3.9 attack row that waits for run390's with-arm. */
+  RUN_ROW_WITH_DEFERRED = 2,
+  /* A named put-in, put-on or drop: run_is_put_command(). */
+  RUN_ROW_PUT = 4
+};
+
 typedef struct scr_commands_s
 {
   const scr_char *const command;

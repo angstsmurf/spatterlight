@@ -84,12 +84,14 @@ scr_commands_t MOVE_COMMANDS_8[] = {
    lib_cmd_put_all_in}, \
   {verb " [all/everything] [[except/but] {for}/apart from] %text%" \
    " [in/into/inside {of}] %object%", lib_cmd_put_in_except_multiple}, \
-  {verb " %text% [in/into/inside {of}] %object%", lib_cmd_put_in_multiple}, \
+  {verb " %text% [in/into/inside {of}] %object%", \
+   lib_cmd_put_in_multiple, RUN_ROW_PUT}, \
   {verb " [all/everything] [on/onto/on top of] %object%", \
    lib_cmd_put_all_on}, \
   {verb " [all/everything] [[except/but] {for}/apart from] %text%" \
    " [on/onto/on top of] %object%", lib_cmd_put_on_except_multiple}, \
-  {verb " %text% [on/onto/on top of] %object%", lib_cmd_put_on_multiple},
+  {verb " %text% [on/onto/on top of] %object%", \
+   lib_cmd_put_on_multiple, RUN_ROW_PUT},
 
 /* "Priority" library commands, may take precedence over the game. */
 scr_commands_t PRIORITY_COMMANDS[] = {
@@ -177,8 +179,8 @@ scr_commands_t PRIORITY_COMMANDS[] = {
    lib_cmd_drop_all},
   {"[drop/put down] [all/everything] [[except/but] {for}/apart from] %text%",
    lib_cmd_drop_except_multiple},
-  {"[drop/put down] %text%", lib_cmd_drop_multiple},
-  {"put %text% down", lib_cmd_drop_multiple},
+  {"[drop/put down] %text%", lib_cmd_drop_multiple, RUN_ROW_PUT},
+  {"put %text% down", lib_cmd_drop_multiple, RUN_ROW_PUT},
   /* Below 4.0 `leave` is a third spelling of `drop`; see
    * lib_cmd_leave_all_pre400().  The all-row has to come first, as "leave
    * all" matches the named row with %text% = "all" as well. */
@@ -372,29 +374,39 @@ scr_commands_t STANDARD_COMMANDS[] = {
   {"talk to %character% about %text%", lib_cmd_talk_to_npc_about},
   {"[talk/speak] to %character% *", lib_cmd_talk_to_npc},
   {"[talk/speak] %character% *", lib_cmd_talk_to_npc_pre_390},
-  {"[attack/kick] %character% with %object%", lib_cmd_attack_npc_with},
-  {"chop %character% with %object%", lib_cmd_chop_npc_with},
-  {"cut %character% with %object%", lib_cmd_cut_npc_with},
-  {"hit %character% with %object%", lib_cmd_hit_npc_with},
-  {"shoot %character% with %object%", lib_cmd_shoot_npc_with},
-  {"stab %character% with %object%", lib_cmd_stab_npc_with},
-  {"throw %object% at %character%", lib_cmd_throw_npc_with},
-  {"kill %character% with %object%", lib_cmd_kill_npc_with},
-  {"fight %character% with %object%", lib_cmd_fight_npc_with},
+  {"[attack/kick] %character% with %object%",
+   lib_cmd_attack_npc_with, RUN_ROW_WITH_DEFERRED},
+  {"chop %character% with %object%",
+   lib_cmd_chop_npc_with, RUN_ROW_WITH_DEFERRED},
+  {"cut %character% with %object%",
+   lib_cmd_cut_npc_with, RUN_ROW_WITH_DEFERRED},
+  {"hit %character% with %object%",
+   lib_cmd_hit_npc_with, RUN_ROW_WITH_DEFERRED},
+  {"shoot %character% with %object%",
+   lib_cmd_shoot_npc_with, RUN_ROW_WITH_DEFERRED},
+  {"stab %character% with %object%",
+   lib_cmd_stab_npc_with, RUN_ROW_WITH_DEFERRED},
+  {"throw %object% at %character%",
+   lib_cmd_throw_npc_with, RUN_ROW_WITH_DEFERRED},
+  {"kill %character% with %object%",
+   lib_cmd_kill_npc_with, RUN_ROW_WITH_DEFERRED},
+  {"fight %character% with %object%",
+   lib_cmd_fight_npc_with, RUN_ROW_WITH_DEFERRED},
   /*
    * `slap` is a pre-parse rewrite to `hit`, not a grammar verb, and it is
    * space-bounded in 4.0 so a command-initial `slap` never fires there.
    * `smack` is in no Runner at all.  See lib_cmd_slap_*() for the sites.
    */
-  {"[attack/kick] %character%", lib_cmd_attack_npc},
-  {"slap %character% with %object%", lib_cmd_slap_npc_with},
-  {"slap %character%", lib_cmd_slap_npc},
-  {"chop %character%", lib_cmd_chop_npc},
-  {"cut %character%", lib_cmd_cut_npc},
-  {"shoot %character%", lib_cmd_shoot_npc},
-  {"stab %character%", lib_cmd_stab_npc},
-  {"kill %character%", lib_cmd_kill_npc},
-  {"fight %character%", lib_cmd_fight_npc},
+  {"[attack/kick] %character%", lib_cmd_attack_npc, RUN_ROW_WITH_DEFERRED},
+  {"slap %character% with %object%",
+   lib_cmd_slap_npc_with, RUN_ROW_WITH_DEFERRED},
+  {"slap %character%", lib_cmd_slap_npc, RUN_ROW_WITH_DEFERRED},
+  {"chop %character%", lib_cmd_chop_npc, RUN_ROW_WITH_DEFERRED},
+  {"cut %character%", lib_cmd_cut_npc, RUN_ROW_WITH_DEFERRED},
+  {"shoot %character%", lib_cmd_shoot_npc, RUN_ROW_WITH_DEFERRED},
+  {"stab %character%", lib_cmd_stab_npc, RUN_ROW_WITH_DEFERRED},
+  {"kill %character%", lib_cmd_kill_npc, RUN_ROW_WITH_DEFERRED},
+  {"fight %character%", lib_cmd_fight_npc, RUN_ROW_WITH_DEFERRED},
   /*
    * One line naming several NPCs: dobattle strikes every one of them, where
    * Scarier asks which was meant and strikes that one alone (a deliberate
@@ -403,12 +415,12 @@ scr_commands_t STANDARD_COMMANDS[] = {
    * verbs too (47E9EF): les_feux T115 `throw grappin on rocher` asks Who.
    */
   {"[attack/kick/fight/kill/chop/cut/hit/shoot/stab/throw] %text%"
-   " with %object%", lib_cmd_attack_npcs_with},
+   " with %object%", lib_cmd_attack_npcs_with, RUN_ROW_WITH_DEFERRED},
   {"[attack/kick/fight/kill/chop/cut/hit/shoot/stab/throw] %text%",
-   lib_cmd_attack_npcs},
+   lib_cmd_attack_npcs, RUN_ROW_WITH_DEFERRED},
   /* A bare battle verb asks too, ahead of `kick`'s and `hit`'s "what?". */
   {"[attack/kick/fight/kill/chop/cut/hit/shoot/stab/throw]",
-   lib_cmd_attack_npcs},
+   lib_cmd_attack_npcs, RUN_ROW_WITH_DEFERRED},
 
   /* More movement, waiting, and miscellaneous administrative commands. */
   /*
@@ -481,13 +493,13 @@ scr_commands_t STANDARD_COMMANDS[] = {
    * clash with either, so they cost nothing.
    */
 #ifdef SCARIER_NO_ABBREVIATIONS
-  {"!%number%", lib_cmd_redo_number},
-  {"!%text%", lib_cmd_redo_text},
-  {"!", lib_cmd_redo_last},
+  {"!%number%", lib_cmd_redo_number, RUN_ROW_SCARE_ONLY},
+  {"!%text%", lib_cmd_redo_text, RUN_ROW_SCARE_ONLY},
+  {"!", lib_cmd_redo_last, RUN_ROW_SCARE_ONLY},
 #else
-  {"[redo /!]%number%", lib_cmd_redo_number},
-  {"[redo /!]%text%", lib_cmd_redo_text},
-  {"[redo/!]", lib_cmd_redo_last},
+  {"[redo /!]%number%", lib_cmd_redo_number, RUN_ROW_SCARE_ONLY},
+  {"[redo /!]%text%", lib_cmd_redo_text, RUN_ROW_SCARE_ONLY},
+  {"[redo/!]", lib_cmd_redo_last, RUN_ROW_SCARE_ONLY},
 #endif
   /*
    * `bye` and `end` are exact synonyms of `quit` in every Runner -- one
@@ -531,17 +543,17 @@ scr_commands_t STANDARD_COMMANDS[] = {
    * is a SCARE extension on top of both, and `hist` is ours alone; see the
    * audit note below. */
 #ifdef SCARIER_NO_ABBREVIATIONS
-  {"[history/past] %number%", lib_cmd_history_number},
-  {"[history/past]", lib_cmd_history},
-  {"hint", lib_cmd_hints},
+  {"[history/past] %number%", lib_cmd_history_number, RUN_ROW_SCARE_ONLY},
+  {"[history/past]", lib_cmd_history, RUN_ROW_SCARE_ONLY},
+  {"hint", lib_cmd_hints, RUN_ROW_SCARE_ONLY},
 #else
-  {"[hist/history/past] %number%", lib_cmd_history_number},
-  {"[hist/history/past]", lib_cmd_history},
-  {"[hint/hints]", lib_cmd_hints},
-  {"verbose", lib_cmd_verbose},
-  {"brief", lib_cmd_brief},
-  {"[notify/notification] %text%", lib_cmd_notify_on_off},
-  {"[notify/notification]", lib_cmd_notify},
+  {"[hist/history/past] %number%", lib_cmd_history_number, RUN_ROW_SCARE_ONLY},
+  {"[hist/history/past]", lib_cmd_history, RUN_ROW_SCARE_ONLY},
+  {"[hint/hints]", lib_cmd_hints, RUN_ROW_SCARE_ONLY},
+  {"verbose", lib_cmd_verbose, RUN_ROW_SCARE_ONLY},
+  {"brief", lib_cmd_brief, RUN_ROW_SCARE_ONLY},
+  {"[notify/notification] %text%", lib_cmd_notify_on_off, RUN_ROW_SCARE_ONLY},
+  {"[notify/notification]", lib_cmd_notify, RUN_ROW_SCARE_ONLY},
 #endif
   {"time", lib_cmd_time},
   /* The ADRIFT Runner answers with the system date; a smart-alec reply. */
@@ -549,12 +561,12 @@ scr_commands_t STANDARD_COMMANDS[] = {
    "Maybe we should just be good friends.\n"},
   {"[help/commands]", lib_cmd_help},
 #ifndef SCARIER_NO_ABBREVIATIONS
-  {"[gpl/license]", lib_cmd_license},
+  {"[gpl/license]", lib_cmd_license, RUN_ROW_SCARE_ONLY},
 #endif
   {"[about/info/information/author]", lib_cmd_information},
   {"[clear/cls/clr]", lib_cmd_clear},
 #ifndef SCARIER_NO_ABBREVIATIONS
-  {"[statusline/stats]", lib_cmd_statusline},
+  {"[statusline/stats]", lib_cmd_statusline, RUN_ROW_SCARE_ONLY},
 #endif
   {"[control panel/control-panel/control/panel]", lib_cmd_control_panel},
   /*
@@ -810,7 +822,7 @@ scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"slap", lib_cmd_slap_what},
   {"hum *", lib_cmd_hum},
   {"jump *", nullptr, lib_print_message, "Wheee-boinng.\n"},
-  {"kick %character%", lib_cmd_attack_npc},
+  {"kick %character%", lib_cmd_attack_npc, RUN_ROW_WITH_DEFERRED},
   {"kick %object% *", lib_cmd_kick_object},
   {"kick %text%", lib_cmd_verb_absent_400},
   {"kick %text%", lib_cmd_kick_other},
