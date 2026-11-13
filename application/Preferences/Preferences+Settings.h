@@ -10,6 +10,9 @@
 // Outlet names of the controls that changeSimpleSetting: handles, with the
 // theme attribute or user defaults key each one stores
 @property (class, readonly) NSDictionary<NSString *, NSString *> *simpleSettingKeys;
+// The transformer between the stored value and the one the control shows, or
+// nil if the control shows the stored value
++ (NSValueTransformer *)simpleSettingTransformerForControl:(NSString *)control;
 
 - (void)setUpSimpleSettings;
 - (void)updateSimpleSettings;

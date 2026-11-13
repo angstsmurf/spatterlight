@@ -201,7 +201,8 @@
 @property (weak) IBOutlet NSPopUpButton *styleNamePopup;
 @property (weak) IBOutlet NSButton *quoteBoxCheckBox;
 
-@property (weak) IBOutlet NSPopUpButton *comprehendGraphicsPopup;
+@property (weak) IBOutlet NSButton *comprehendColorsCheckBox;
+@property (weak) IBOutlet NSButton *htmlTadsCheckBox;
 @property (weak) IBOutlet NSPopUpButton *z6GraphicsPopup;
 @property (weak) IBOutlet NSButton *z6ColorizeCheckBox;
 

@@ -98,6 +98,12 @@
         [[NSUserDefaults standardUserDefaults] setObject:@(value) forKey:key];
 }
 
+// The stored value that a control shows as value
+- (NSInteger)storedValueOf:(NSInteger)value forOutlet:(NSString *)outlet {
+    NSValueTransformer *transformer = [Preferences simpleSettingTransformerForControl:outlet];
+    return transformer ? [[transformer reverseTransformedValue:@(value)] integerValue] : value;
+}
+
 // The values the control can show: check box states, or the pop-up tags
 - (NSArray<NSNumber *> *)valuesOfControl:(NSControl *)control {
     if (![control isKindOfClass:[NSPopUpButton class]])
@@ -154,14 +160,14 @@
             NSInteger other = values[(i + 1) % values.count].integerValue;
 
             // Store to control
-            [self storeValue:value forKey:key];
+            [self storeValue:[self storedValueOf:value forOutlet:outlet] forKey:key];
             [self.prefs updateSimpleSettings];
             XCTAssertEqual([self valueShownByControl:control], value, @"%@ does not show %@ = %ld", outlet, key, value);
 
             // Control to store
             [self setControl:control toValue:other];
             [self.prefs changeSimpleSetting:control];
-            XCTAssertEqual([[self storedValueForKey:key] integerValue], other, @"%@ did not store %@ = %ld", outlet, key, other);
+            XCTAssertEqual([[self storedValueForKey:key] integerValue], [self storedValueOf:other forOutlet:outlet], @"%@ did not store %@ = %ld", outlet, key, other);
             XCTAssertEqual(Preferences.theme, self.editableTheme, @"%@ replaced the theme", outlet);
         }
     }];
@@ -176,6 +182,8 @@
     XCTAssertEqualObjects(keys[@"btnShowBezels"], kShowBezelsKey);
     XCTAssertEqualObjects(keys[@"libraryAtStartCheckbox"], kShowLibraryKey);
     XCTAssertEqualObjects(keys[@"addToLibraryCheckbox"], kAddToLibraryKey);
+    XCTAssertEqual([Preferences simpleSettingTransformerForControl:@"comprehendColorsCheckBox"],
+                   [NSValueTransformer valueTransformerForName:NSNegateBooleanTransformerName]);
 }
 
 // A sender that is not in the table changes nothing

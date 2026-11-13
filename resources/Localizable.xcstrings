@@ -278,6 +278,7 @@
       }
     },
     "↑ and ↓ navigate menus and status windows. ⌘↑ and ⌘↓ step through command history." : {
+      "comment" : "↑ and ↓ navigate menus and status windows. ⌘↑ and ⌘↓ step through command history.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -288,6 +289,7 @@
       }
     },
     "↑ and ↓ navigate menus and status windows. ⌘↑ and ⌘↓ step through command history. ← and → don't do anything." : {
+      "comment" : "↑ and ↓ navigate menus and status windows. ⌘↑ and ⌘↓ step through command history. ← and → don't do anything.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -331,6 +333,7 @@
       }
     },
     "⌘↑ and ⌘↓ are used where the original uses ↑ and ↓. ↑ and ↓ step through command history as in other games." : {
+      "comment" : "⌘↑ and ⌘↓ are used where the original uses ↑ and ↓. ↑ and ↓ step through command history as in other games.",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1947,6 +1950,7 @@
       }
     },
     "Replaced by ⌘↑ and ⌘↓" : {
+      "comment" : "Replaced by ⌘↑ and ⌘↓",
       "localizations" : {
         "en" : {
           "stringUnit" : {

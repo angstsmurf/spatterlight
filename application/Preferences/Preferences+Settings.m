@@ -21,8 +21,10 @@ typedef NS_ENUM(NSUInteger, kSettingStore) {
 };
 
 // Controls that store one value under one key and do nothing else: a check
-// box whether it is on, a pop-up button its selected tag. setUpSimpleSettings
-// makes changeSimpleSetting: their action, and updateSimpleSettings shows the
+// box whether it is on, a pop-up button its selected tag. A row may name a
+// value transformer: the control shows the transformed stored value and
+// stores the reverse-transformed control value. setUpSimpleSettings makes
+// changeSimpleSetting: their action, and updateSimpleSettings shows the
 // stored values. Settings with side effects or a different mapping (styles,
 // space format, autosave, VoiceOver delay, missing-file check) keep their own
 // actions.
@@ -30,6 +32,7 @@ static const struct {
     __unsafe_unretained NSString *control; // outlet name
     __unsafe_unretained NSString *key;
     kSettingStore store;
+    __unsafe_unretained NSValueTransformerName transformer; // nil: the value as stored
 } simpleSettings[] = {
     // Presentation
     { @"btnSmartQuotes", @"smartQuotes", kThemeSetting },
@@ -46,7 +49,10 @@ static const struct {
     { @"bZArrowsMenu", @"bZTerminator", kThemeSetting },
     { @"quoteBoxCheckBox", @"quoteBox", kThemeSetting },
     { @"zMachineNoErrWinCheckbox", @"zMachineNoErrWin", kThemeSetting },
-    { @"comprehendGraphicsPopup", @"comprehendGraphicsType", kThemeSetting },
+    // Checked is kComprehendGraphicsMoreColors (0). @"NSNegateBoolean" is
+    // NSNegateBooleanTransformerName, which is not a compile-time constant.
+    { @"comprehendColorsCheckBox", @"comprehendGraphicsType", kThemeSetting, @"NSNegateBoolean" },
+    { @"htmlTadsCheckBox", @"htmlTads", kThemeSetting },
     { @"z6GraphicsPopup", @"z6GraphicsType", kThemeSetting },
     { @"z6ColorizeCheckBox", @"z6Colorize1Bit", kThemeSetting },
     { @"palettePopup", @"sAPalette", kThemeSetting },
@@ -81,6 +87,13 @@ static const NSUInteger simpleSettingsCount = sizeof(simpleSettings) / sizeof(si
 
 #pragma mark Simple settings
 
++ (NSValueTransformer *)simpleSettingTransformerForControl:(NSString *)control {
+    for (NSUInteger i = 0; i < simpleSettingsCount; i++)
+        if ([simpleSettings[i].control isEqualToString:control])
+            return simpleSettings[i].transformer ? [NSValueTransformer valueTransformerForName:simpleSettings[i].transformer] : nil;
+    return nil;
+}
+
 + (NSDictionary<NSString *, NSString *> *)simpleSettingKeys {
     NSMutableDictionary *keys = [NSMutableDictionary dictionaryWithCapacity:simpleSettingsCount];
     for (NSUInteger i = 0; i < simpleSettingsCount; i++)
@@ -101,6 +114,8 @@ static const NSUInteger simpleSettingsCount = sizeof(simpleSettings) / sizeof(si
     for (NSUInteger i = 0; i < simpleSettingsCount; i++) {
         NSString *key = simpleSettings[i].key;
         id value = (simpleSettings[i].store == kThemeSetting) ? [self.theme valueForKey:key] : [defaults objectForKey:key];
+        if (simpleSettings[i].transformer)
+            value = [[NSValueTransformer valueTransformerForName:simpleSettings[i].transformer] transformedValue:value];
         NSControl *control = [self valueForKey:simpleSettings[i].control];
         if ([control isKindOfClass:[NSPopUpButton class]])
             [(NSPopUpButton *)control selectItemWithTag:[value integerValue]];
@@ -118,6 +133,8 @@ static const NSUInteger simpleSettingsCount = sizeof(simpleSettings) / sizeof(si
             value = @(((NSPopUpButton *)sender).selectedTag);
         else
             value = @(((NSButton *)sender).state == NSControlStateValueOn);
+        if (simpleSettings[i].transformer)
+            value = [[NSValueTransformer valueTransformerForName:simpleSettings[i].transformer] reverseTransformedValue:value];
         if (simpleSettings[i].store == kThemeSetting)
             [self changeThemeValue:value forKey:simpleSettings[i].key];
         else

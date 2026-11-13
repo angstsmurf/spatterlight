@@ -726,6 +726,13 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         }
     }
 
+    // TADS 2 and 3: -nohtml runs the game as a text-only interpreter would,
+    // with no HTML markup, pictures, sounds or links (terps/tads/glk/README.md)
+    if (!theme.htmlTads && ([_game.detectedFormat isEqualToString:@"tads2"] ||
+                            [_game.detectedFormat isEqualToString:@"tads3"])) {
+        arguments = [@[@"-nohtml"] arrayByAddingObjectsFromArray:arguments];
+    }
+
     return arguments;
 }
 

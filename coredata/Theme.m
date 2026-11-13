@@ -62,6 +62,7 @@
 @dynamic hardDark;
 @dynamic hardLight;
 @dynamic hardLightOrDark;
+@dynamic htmlTads;
 @dynamic minTimer;
 @dynamic morePrompt;
 @dynamic name;
@@ -310,6 +311,7 @@
     self.doGraphics = YES;
     self.doSound = YES;
     self.editable = NO;
+    self.htmlTads = YES;
 
     self.minTimer = 1;
     self.smoothScroll = YES;

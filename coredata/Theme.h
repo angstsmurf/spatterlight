@@ -117,6 +117,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) BOOL hardDark;
 @property (nonatomic) BOOL hardLight;
 @property (nonatomic) BOOL hardLightOrDark;
+@property (nonatomic) BOOL htmlTads;
 @property (nonatomic) double minTimer;
 @property (nullable, nonatomic, retain) NSObject *morePrompt;
 @property (nullable, nonatomic, copy) NSString *name;
