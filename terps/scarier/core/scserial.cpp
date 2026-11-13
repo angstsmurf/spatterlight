@@ -2103,8 +2103,8 @@ ser_load_game_body (scr_gameref_t game,
    * game.  This way, both the requested and the active resources in the
    * game are unchanged by restore.
    */
-  new_game->requested_sound = game->requested_sound;
-  new_game->requested_graphic = game->requested_graphic;
+  new_game->media.requested_sound = game->media.requested_sound;
+  new_game->media.requested_graphic = game->media.requested_graphic;
 
   /*
    * Reseed the carried-load totals from the restored inventory the way the

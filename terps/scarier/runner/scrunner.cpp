@@ -1034,7 +1034,7 @@ run_restore_handler (scr_gameref_t game)
    * be too broad; stopping sounds (in case one is looping) is the one thing
    * done.
    */
-  game->stop_sound = TRUE;
+  game->media.stop_sound = TRUE;
 }
 
 

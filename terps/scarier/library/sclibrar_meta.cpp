@@ -360,7 +360,7 @@ lib_cmd_undo (scr_gameref_t game)
                          run_get_undo_text ());
 
       /* Undo can't properly unravel layered sounds... */
-      game->stop_sound = TRUE;
+      game->media.stop_sound = TRUE;
     }
 
   /*

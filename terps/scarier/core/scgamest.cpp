@@ -2187,12 +2187,12 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
    */
 
   /* Resource controls. */
-  res_clear_resource (&game->requested_sound);
-  res_clear_resource (&game->requested_graphic);
-  res_clear_resource (&game->playing_sound);
-  res_clear_resource (&game->displayed_graphic);
-  game->stop_sound = FALSE;
-  game->sound_active = FALSE;
+  res_clear_resource (&game->media.requested_sound);
+  res_clear_resource (&game->media.requested_graphic);
+  res_clear_resource (&game->media.playing_sound);
+  res_clear_resource (&game->media.displayed_graphic);
+  game->media.stop_sound = FALSE;
+  game->media.sound_active = FALSE;
 
   /*
    * Initialize wait turns from game properties.  A negative count would set
@@ -2420,9 +2420,9 @@ gs_copy (scr_gameref_t to, scr_gameref_t from)
    * Specifically exclude playing sound and displayed graphic from the copy
    * so that they remain invariant across game copies.
    */
-  to->requested_sound = from->requested_sound;
-  to->requested_graphic = from->requested_graphic;
-  to->stop_sound = from->stop_sound;
+  to->media.requested_sound = from->media.requested_sound;
+  to->media.requested_graphic = from->media.requested_graphic;
+  to->media.stop_sound = from->media.stop_sound;
 
   to->is_running = from->is_running;
   to->has_completed = from->has_completed;

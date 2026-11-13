@@ -331,6 +331,26 @@ typedef struct
 } scr_turn_t;
 
 /*
+ * Resource management data, in two halves.  The requests are what the game
+ * has asked for and belong to the game's state; the rest is what the host
+ * is showing and playing right now, which no undo or restore changes.
+ *
+ * Undo: gs_copy copies the requests (requested_sound, requested_graphic,
+ * stop_sound) and leaves the rest alone.  .tas: not saved.  Session: not
+ * saved.
+ */
+typedef struct
+{
+  scr_resource_t requested_sound;
+  scr_resource_t requested_graphic;
+  scr_bool stop_sound;
+
+  scr_bool sound_active;
+  scr_resource_t playing_sound;
+  scr_resource_t displayed_graphic;
+} scr_media_t;
+
+/*
  * The player's settings: what the metacommands and the host's preferences
  * set, as opposed to what the game does.
  *
@@ -433,14 +453,7 @@ typedef struct scr_game_s
   scr_owned_string author;
   scr_owned_string hint_text;
 
-  /* Resource management data. */
-  scr_resource_t requested_sound;
-  scr_resource_t requested_graphic;
-  scr_bool stop_sound;
-  scr_bool sound_active;
-
-  scr_resource_t playing_sound;
-  scr_resource_t displayed_graphic;
+  scr_media_t media;
 
   /* Game running and game completed flags. */
   scr_bool is_running;

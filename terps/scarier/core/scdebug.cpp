@@ -1506,45 +1506,45 @@ debug_resources (scr_gameref_t game, scr_command_type_t type)
       return;
     }
 
-  if (game->stop_sound)
+  if (game->media.stop_sound)
     {
       if_print_debug ("Sound stop");
-      if (strlen (game->requested_sound.name) > 0)
+      if (strlen (game->media.requested_sound.name) > 0)
         if_print_debug (" before new sound");
       if_print_debug (" requested");
-      if (game->sound_active)
+      if (game->media.sound_active)
         if_print_debug (", sound active");
       if_print_debug (".\n");
       printed = TRUE;
     }
-  if (!res_compare_resource (&game->requested_sound,
-                             &game->playing_sound))
+  if (!res_compare_resource (&game->media.requested_sound,
+                             &game->media.playing_sound))
     {
       if_print_debug ("Requested Sound ");
-      debug_print_resource (&game->requested_sound);
+      debug_print_resource (&game->media.requested_sound);
       if_print_debug (".\n");
       printed = TRUE;
     }
-  if (!res_compare_resource (&game->requested_graphic,
-                             &game->displayed_graphic))
+  if (!res_compare_resource (&game->media.requested_graphic,
+                             &game->media.displayed_graphic))
     {
       if_print_debug ("Requested Graphic ");
-      debug_print_resource (&game->requested_graphic);
+      debug_print_resource (&game->media.requested_graphic);
       if_print_debug (".\n");
       printed = TRUE;
     }
 
-  if (strlen (game->playing_sound.name) > 0)
+  if (strlen (game->media.playing_sound.name) > 0)
     {
       if_print_debug ("Playing Sound ");
-      debug_print_resource (&game->playing_sound);
+      debug_print_resource (&game->media.playing_sound);
       if_print_debug (".\n");
       printed = TRUE;
     }
-  if (strlen (game->displayed_graphic.name) > 0)
+  if (strlen (game->media.displayed_graphic.name) > 0)
     {
       if_print_debug ("Displaying Graphic ");
-      debug_print_resource (&game->displayed_graphic);
+      debug_print_resource (&game->media.displayed_graphic);
       if_print_debug (".\n");
       printed = TRUE;
     }

@@ -752,9 +752,9 @@ scr_note_resources_synced (scr_game game)
   if (if_game_error (game_, "scr_note_resources_synced"))
     return;
 
-  game_->playing_sound = game_->requested_sound;
-  game_->displayed_graphic = game_->requested_graphic;
-  game_->stop_sound = FALSE;
+  game_->media.playing_sound = game_->media.requested_sound;
+  game_->media.displayed_graphic = game_->media.requested_graphic;
+  game_->media.stop_sound = FALSE;
 }
 
 
