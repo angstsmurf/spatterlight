@@ -51,7 +51,7 @@ lib_cmd_kill_other (scr_gameref_t game)
  * runner_probes/npcamb.run3[78]0.bareverb.rtf.
  *
  * Deliberate deviation: Scarier gives touch and shake their 3.9 arms at
- * every version, and rub its 4.0 one (see lib_cmd_rub_object()), so the
+ * every version, and rub its 4.0 one (see its row in scrun_tables.cpp), so the
  * player learns the verb was understood.
  */
 static scr_bool
@@ -489,7 +489,7 @@ lib_cant_do_common (scr_gameref_t game, const scr_char *verb,
   return TRUE;
 }
 
-static scr_bool
+scr_bool
 lib_cant_do_object (scr_gameref_t game, const scr_char *verb)
 {
   return lib_cant_do_common (game, verb, TRUE, "");
@@ -523,102 +523,9 @@ lib_turn_particle (scr_gameref_t game)
  * Assorted can't-do messages.
  */
 scr_bool
-lib_cmd_block_object (scr_gameref_t game)
-{
-  return lib_cant_do_object (game, "block");
-}
-
-scr_bool
-lib_cmd_climb_object (scr_gameref_t game)
-{
-  return lib_cant_do_object (game, "climb");
-}
-
-scr_bool
-lib_cmd_clean_object (scr_gameref_t game)
-{
-  return lib_cant_do_object (game, "clean");
-}
-
-scr_bool
-lib_cmd_cut_object (scr_gameref_t game)
-{
-  return lib_cant_do_object (game, "cut");
-}
-
-scr_bool
-lib_cmd_drink_object (scr_gameref_t game)
-{
-  return lib_cant_do_object (game, "drink");
-}
-
-scr_bool
-lib_cmd_light_object (scr_gameref_t game)
-{
-  return lib_cant_do_object (game, "light");
-}
-
-scr_bool
-lib_cmd_lift_object (scr_gameref_t game)
-{
-  return lib_cant_do_object (game, "lift");
-}
-
-scr_bool
-lib_cmd_move_object (scr_gameref_t game)
-{
-  return lib_cant_do_object (game, "move");
-}
-
-/*
- * The rub arm is run400's alone: no "rub" sits in run370, run380 or run390
- * (string census, decompiles), so below 4.0 `rub coin` that no task takes
- * is the object catch-all's "I don't understand what you want me to do with
- * the coin." and `rub,coin` (no whole word "coin") "I don't understand."
- * (p37TASK/p38TASK, runner_probes/task.run3[78]0.comma.rtf; p39TASK
- * runner_probes/task.run390.comma.txt).  Deliberate deviation: Scarier has
- * the rub arm at every version.
- */
-scr_bool
-lib_cmd_rub_object (scr_gameref_t game)
-{
-  return lib_cant_do_object (game, "rub");
-}
-
-scr_bool
-lib_cmd_stop_object (scr_gameref_t game)
-{
-  return lib_cant_do_object (game, "stop");
-}
-
-scr_bool
-lib_cmd_suck_object (scr_gameref_t game)
-{
-  return lib_cant_do_object (game, "suck");
-}
-
-scr_bool
-lib_cmd_touch_object (scr_gameref_t game)
-{
-  return lib_cant_do_object (game, "touch");
-}
-
-scr_bool
 lib_cmd_turn_object (scr_gameref_t game)
 {
   return lib_cant_do_common (game, "turn", TRUE, lib_turn_particle (game));
-}
-
-scr_bool
-lib_cmd_unblock_object (scr_gameref_t game)
-{
-  return lib_cant_do_object (game, "unblock");
-}
-
-scr_bool
-lib_cmd_wash_object (scr_gameref_t game)
-{
-  return lib_cant_do_object (game, "wash");
 }
 
 scr_bool
@@ -1068,21 +975,6 @@ lib_dont_think_other (scr_gameref_t game, const scr_char *verb)
  *
  * Assorted don't-think messages.
  */
-/*
- * therest's clear arm (run370 43DFB7 ... run400 4896AC) answers any line
- * holding the word "clear" that the exact-line clear/cls/clr command did
- * not take: "You can't clear the rope." / "... the rope with the knife."
- * (p4WITHQ2, runner_probes/withq2.run400{,.clear}.txt), and "You can't
- * clear that." for a word naming nothing, a turn at every version
- * (runner_probes/admin.run3[78]0.rtf, runner_probes/admin.run390.clear.txt,
- * runner_probes/withq2.run400.clear.txt).
- */
-scr_bool
-lib_cmd_clear_object (scr_gameref_t game)
-{
-  return lib_cant_do_object (game, "clear");
-}
-
 scr_bool
 lib_cmd_clear_other (scr_gameref_t game)
 {

@@ -277,7 +277,7 @@ run_try_command_table (scr_commandsref_t command,
               if (scare_word_owned)
                 continue;
             }
-          if (command->handler (game))
+          if (run_command_handle (command, game))
             return TRUE;
         }
     }

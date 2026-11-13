@@ -731,7 +731,7 @@ scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"ask %object% *", lib_cmd_ask_object},
   {"ask * about *", lib_cmd_ask_about_nothing},
   {"ask *", lib_cmd_ask_other},
-  {"block %object% *", lib_cmd_block_object},
+  {"block %object% *", nullptr, lib_cant_do_object, "block"},
   {"block %text%", lib_cmd_block_other},
   {"block", lib_cmd_block_what},
   {"[break/destroy/smash] %object% *", lib_cmd_break_object},
@@ -744,23 +744,23 @@ scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"buy %object% *", lib_cmd_buy_absent},
   {"buy %text%", lib_cmd_buy_other},
   {"buy", lib_cmd_buy_what},
-  {"clean %object% *", lib_cmd_clean_object},
+  {"clean %object% *", nullptr, lib_cant_do_object, "clean"},
   /* clean, wash, cut, shake, climb and sell are therest arms below the
    * 4887A0 clause too. */
   {"clean %text%", lib_cmd_verb_absent_400},
   {"clean %text%", lib_cmd_clean_other},
   {"clean", lib_cmd_clean_what},
-  {"climb %object% *", lib_cmd_climb_object},
+  {"climb %object% *", nullptr, lib_cant_do_object, "climb"},
   {"climb %text%", lib_cmd_verb_absent_400},
   {"climb %text%", lib_cmd_climb_other},
   {"climb", lib_cmd_climb_what},
   {"cry *", lib_cmd_cry},
-  {"cut %object% *", lib_cmd_cut_object},
+  {"cut %object% *", nullptr, lib_cant_do_object, "cut"},
   {"cut %text%", lib_cmd_verb_absent_400},
   {"cut %text%", lib_cmd_cut_other},
   {"cut", lib_cmd_cut_what},
   {"dance *", lib_cmd_dance},
-  {"drink %object% *", lib_cmd_drink_object},
+  {"drink %object% *", nullptr, lib_cant_do_object, "drink"},
   {"drink %text%", lib_cmd_drink_other},
   {"drink", lib_cmd_drink_what},
   /* therest()'s seen-but-absent clause comes before the eat arm, so a
@@ -772,7 +772,16 @@ scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"feed *", lib_cmd_feed},
   {"feel *", lib_cmd_feel},
   {"fight *", lib_cmd_fight},
-  {"clear %object% *", lib_cmd_clear_object},
+  /*
+   * therest's clear arm (run370 43DFB7 ... run400 4896AC) answers any line
+   * holding the word "clear" that the exact-line clear/cls/clr command did
+   * not take: "You can't clear the rope." / "... the rope with the knife."
+   * (p4WITHQ2, runner_probes/withq2.run400{,.clear}.txt), and "You can't
+   * clear that." for a word naming nothing, a turn at every version
+   * (runner_probes/admin.run3[78]0.rtf, runner_probes/admin.run390.clear.txt,
+   * runner_probes/withq2.run400.clear.txt).
+   */
+  {"clear %object% *", nullptr, lib_cant_do_object, "clear"},
   {"clear %text%", lib_cmd_clear_other},
   {"fix %object% *", lib_cmd_fix_object},
   /* Every therest() verb meets the seen-but-absent clause (4887A0) before
@@ -803,11 +812,11 @@ scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"kiss %object% *", lib_cmd_kiss_object},
   {"kiss *", lib_cmd_kiss_other},
   {"kill *", lib_cmd_kill_other},
-  {"lift %object% *", lib_cmd_lift_object},
+  {"lift %object% *", nullptr, lib_cant_do_object, "lift"},
   {"lift %text%", lib_cmd_verb_absent_400},
   {"lift %text%", lib_cmd_lift_other},
   {"lift", lib_cmd_lift_what},
-  {"light %object% *", lib_cmd_light_object},
+  {"light %object% *", nullptr, lib_cant_do_object, "light"},
   {"light %text%", lib_cmd_verb_absent_400},
   {"light %text%", lib_cmd_light_other},
   {"light", lib_cmd_light_what},
@@ -816,7 +825,7 @@ scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"mend %text%", lib_cmd_verb_absent_400},
   {"mend %text%", lib_cmd_mend_other},
   {"mend", lib_cmd_mend_what},
-  {"move %object% *", lib_cmd_move_object},
+  {"move %object% *", nullptr, lib_cant_do_object, "move"},
   {"move %text%", lib_cmd_verb_absent_400},
   {"move %text%", lib_cmd_move_other},
   {"move", lib_cmd_move_what},
@@ -838,7 +847,16 @@ scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"repair %text%", lib_cmd_verb_absent_400},
   {"repair %text%", lib_cmd_repair_other},
   {"repair", lib_cmd_repair_what},
-  {"rub %object% *", lib_cmd_rub_object},
+  /*
+   * The rub arm is run400's alone: no "rub" sits in run370, run380 or run390
+   * (string census, decompiles), so below 4.0 `rub coin` that no task takes
+   * is the object catch-all's "I don't understand what you want me to do with
+   * the coin." and `rub,coin` (no whole word "coin") "I don't understand."
+   * (p37TASK/p38TASK, runner_probes/task.run3[78]0.comma.rtf; p39TASK
+   * runner_probes/task.run390.comma.txt).  Deliberate deviation: Scarier has
+   * the rub arm at every version.
+   */
+  {"rub %object% *", nullptr, lib_cant_do_object, "rub"},
   {"rub %text%", lib_cmd_verb_absent_400},
   {"rub %text%", lib_cmd_rub_other},
   {"rub", lib_cmd_rub_what},
@@ -857,14 +875,14 @@ scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"sleep *", lib_cmd_sleep},
   {"smell %object% *", lib_cmd_smell_object},
   {"smell *", lib_cmd_smell_other},
-  {"stop %object% *", lib_cmd_stop_object},
+  {"stop %object% *", nullptr, lib_cant_do_object, "stop"},
   /* stop is a therest arm below the 4887A0 clause too: British
    * Fox T376 `stop engine`, the Britmobile's engine seen elsewhere, is
    * "You can't see Britmobile engine." */
   {"stop %text%", lib_cmd_verb_absent_400},
   {"stop %text%", lib_cmd_stop_other},
   {"stop", lib_cmd_stop_what},
-  {"suck %object% *", lib_cmd_suck_object},
+  {"suck %object% *", nullptr, lib_cant_do_object, "suck"},
   {"suck %text%", lib_cmd_suck_other},
   {"suck", lib_cmd_suck_what},
   {"talk to * about *", lib_cmd_ask_about_nothing},
@@ -879,13 +897,13 @@ scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"turn %text%", lib_cmd_verb_absent_400},
   {"turn %text%", lib_cmd_turn_other},
   {"turn", lib_cmd_turn_what},
-  {"touch %object% *", lib_cmd_touch_object},
+  {"touch %object% *", nullptr, lib_cant_do_object, "touch"},
   {"touch %text%", lib_cmd_touch_other},
   {"touch", lib_cmd_touch_what},
-  {"unblock %object% *", lib_cmd_unblock_object},
+  {"unblock %object% *", nullptr, lib_cant_do_object, "unblock"},
   {"unblock %text%", lib_cmd_unblock_other},
   {"unblock", lib_cmd_unblock_what},
-  {"wash %object% *", lib_cmd_wash_object},
+  {"wash %object% *", nullptr, lib_cant_do_object, "wash"},
   {"wash %text%", lib_cmd_verb_absent_400},
   {"wash %text%", lib_cmd_wash_other},
   {"wash", lib_cmd_wash_what},

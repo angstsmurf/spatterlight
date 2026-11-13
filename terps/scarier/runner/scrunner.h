@@ -31,6 +31,7 @@
  * rest of Scarier uses; that stays in core/scrunner_api.h.
  */
 
+#include <cstddef>
 #include <string>
 #include <vector>
 
@@ -175,12 +176,52 @@ extern std::string run_undo_text;
 
 
 
-/* Structure used to associate a pattern with a handler function. */
+/*
+ * Structure used to associate a pattern with a handler function.
+ *
+ * A row names one handler.  The plain kind takes the game alone:
+ *
+ *     {"inventory", lib_cmd_inventory}
+ *
+ * The other kind also takes the row's ARG, so a family of replies that
+ * differ in one word needs no forwarding function per verb.  Its row leaves
+ * HANDLER null:
+ *
+ *     {"block %object% *", nullptr, lib_cant_do_object, "block"}
+ *
+ * Either form may end with RUN_ROW_* flags.  The constructors are constexpr
+ * so the tables stay constant-initialized; they are there, rather than
+ * plain aggregate rows, so that a two-field row does not warn about the
+ * fields it leaves out.  Call a row through run_command_handle(), never
+ * through HANDLER directly.
+ */
 typedef struct scr_commands_s
 {
   const scr_char *const command;
   scr_bool (*const handler) (scr_gameref_t game);
+  scr_bool (*const handler_arg) (scr_gameref_t game, const scr_char *arg);
+  const scr_char *const arg;
+  const scr_uint flags;
+
+  constexpr scr_commands_s (const scr_char *command_,
+                            scr_bool (*handler_) (scr_gameref_t),
+                            scr_uint flags_ = 0)
+    : command (command_), handler (handler_), handler_arg (nullptr),
+      arg (nullptr), flags (flags_) {}
+  constexpr scr_commands_s (const scr_char *command_, std::nullptr_t,
+                            scr_bool (*handler_arg_) (scr_gameref_t,
+                                                      const scr_char *),
+                            const scr_char *arg_, scr_uint flags_ = 0)
+    : command (command_), handler (nullptr), handler_arg (handler_arg_),
+      arg (arg_), flags (flags_) {}
 } scr_commands_t;
+
+static inline scr_bool
+run_command_handle (const scr_commands_t *command, scr_gameref_t game)
+{
+  return command->handler ? command->handler (game)
+                          : command->handler_arg (game, command->arg);
+}
 
 typedef scr_commands_t *scr_commandsref_t;
 

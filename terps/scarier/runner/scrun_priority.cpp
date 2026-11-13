@@ -208,7 +208,7 @@ run_priority_commands (scr_gameref_t game, const scr_char *string)
     {
       if (uip_match (command->command, string, game))
         {
-          if (command->handler (game))
+          if (run_command_handle (command, game))
             {
               run_priority_pass_active = FALSE;
               return TRUE;
