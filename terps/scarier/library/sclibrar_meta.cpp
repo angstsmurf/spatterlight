@@ -1059,17 +1059,17 @@ lib_cmd_wait (scr_gameref_t game)
 
   /* Note if wait turns is different from the game's setting. */
   waitturns = prop_get_global_integer (bundle, "WaitTurns");
-  if (waitturns != game->waitturns)
+  if (waitturns != game->settings.waitturns)
     {
 
       pf_buffer_string (filter, "(");
-      pf_buffer_integer (filter, game->waitturns);
-      pf_buffer_string (filter,
-                        game->waitturns == 1 ? " turn)\n" : " turns)\n");
+      pf_buffer_integer (filter, game->settings.waitturns);
+      pf_buffer_string (filter, game->settings.waitturns == 1
+                                ? " turn)\n" : " turns)\n");
     }
 
   /* Reset the wait counter to the current waitturns setting. */
-  game->waitcounter = game->waitturns;
+  game->waitcounter = game->settings.waitturns;
 
   /*
    * 4.0 stores "Time passes..." with a vbCrLf of its own (run400 48ABDA:
@@ -1103,7 +1103,7 @@ lib_cmd_wait_number (scr_gameref_t game)
     }
 
   /* Update the game setting, and confirm for the player. */
-  game->waitturns = waitturns;
+  game->settings.waitturns = waitturns;
 
   if_print_string ("The game will now wait ");
   snprintf (buffer, sizeof(buffer), "%ld", waitturns);
@@ -1126,7 +1126,7 @@ scr_bool
 lib_cmd_verbose (scr_gameref_t game)
 {
   /* Set game verbose flag and return. */
-  game->verbose = TRUE;
+  game->settings.verbose = TRUE;
   if_print_string ("The game is now in its ");
   if_print_tag (SCR_TAG_ITALICS, "");
   if_print_string ("verbose");
@@ -1142,7 +1142,7 @@ scr_bool
 lib_cmd_brief (scr_gameref_t game)
 {
   /* Clear game verbose flag and return. */
-  game->verbose = FALSE;
+  game->settings.verbose = FALSE;
   if_print_string ("The game is now in its ");
   if_print_tag (SCR_TAG_ITALICS, "");
   if_print_string ("brief");
@@ -1172,7 +1172,7 @@ lib_cmd_notify_on_off (scr_gameref_t game)
   if (scr_strcasecmp (control, "on") == 0)
     {
       /* Set score change notification. */
-      game->notify_score_change = TRUE;
+      game->settings.notify_score_change = TRUE;
       if_print_string ("Game score change notification is now ");
       if_print_tag (SCR_TAG_ITALICS, "");
       if_print_string ("on");
@@ -1183,7 +1183,7 @@ lib_cmd_notify_on_off (scr_gameref_t game)
   else if (scr_strcasecmp (control, "off") == 0)
     {
       /* Clear score change notification. */
-      game->notify_score_change = FALSE;
+      game->settings.notify_score_change = FALSE;
       if_print_string ("Game score change notification is now ");
       if_print_tag (SCR_TAG_ITALICS, "");
       if_print_string ("off");
@@ -1207,10 +1207,10 @@ lib_cmd_notify (scr_gameref_t game)
   /* Report the current state of notification. */
   if_print_string ("Game score change notification is ");
   if_print_tag (SCR_TAG_ITALICS, "");
-  if_print_string (game->notify_score_change ? "on" : "off");
+  if_print_string (game->settings.notify_score_change ? "on" : "off");
   if_print_tag (SCR_TAG_ENDITALICS, "");
 
-  if (game->notify_score_change)
+  if (game->settings.notify_score_change)
     {
       if_print_string (", and the game will tell you of any changes in the"
                        " score.\n");

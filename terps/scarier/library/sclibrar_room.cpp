@@ -289,7 +289,7 @@ lib_print_room_name (scr_gameref_t game, scr_int room)
 
   /* Print the room name, possibly in bold. */
   name = lib_get_room_name (game, room);
-  if (game->bold_room_names)
+  if (game->settings.bold_room_names)
     {
       pf_buffer_tag (filter, SCR_TAG_BOLD);
       pf_buffer_string (filter, name);
@@ -1361,8 +1361,8 @@ lib_describe_player_room (scr_gameref_t game, scr_bool force_verbose)
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   scr_bool is_verbose;
 
-  is_verbose = force_verbose
-               || game->verbose || !gs_room_seen (game, gs_playerroom (game));
+  is_verbose = force_verbose || game->settings.verbose
+               || !gs_room_seen (game, gs_playerroom (game));
 
   if (prop_get_taf_version (bundle) >= TAF_VERSION_390)
     {

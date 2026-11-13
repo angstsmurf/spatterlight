@@ -168,9 +168,9 @@ run_session_state (scr_gameref_t game)
     sessrec_put (out, "startup_prompt",
                  std::to_string ((long) run_startup_stage));
   sessrec_put (out, "settings",
-               run_session_join ({game->verbose,
-                                  game->notify_score_change,
-                                  game->waitturns}));
+               run_session_join ({game->settings.verbose,
+                                  game->settings.notify_score_change,
+                                  game->settings.waitturns}));
   sessrec_put (out, "notified", run_session_join ({game->has_notified}));
 
   sessrec_put (out, "pronouns", run_session_pronouns (game));
@@ -264,10 +264,10 @@ run_restore_session_state (scr_gameref_t game, const std::string &state)
         run_startup_resume = numbers[0];
       else if (key == "settings" && numbers.size () >= 3)
         {
-          game->verbose = numbers[0] != 0;
-          game->notify_score_change = numbers[1] != 0;
+          game->settings.verbose = numbers[0] != 0;
+          game->settings.notify_score_change = numbers[1] != 0;
           if (numbers[2] >= 0)
-            game->waitturns = numbers[2];
+            game->settings.waitturns = numbers[2];
         }
       else if (key == "notified" && numbers.size () == 1)
         game->has_notified = numbers[0] != 0;

@@ -132,13 +132,13 @@ gs_index_fatal (const scr_char *function,
 
 /*
  * Optional "capacity assist" default (opt-in, off by default).  The per-game
- * flag gs->capacity_recompute selects the legacy recompute-from-held-objects
- * accounting instead of the Runner's running total, and is normally flipped
- * per session by `glk capacity on` or by the known-game assist table, both of
- * which act on a game that already exists.  Hosts with no game in hand when
- * they choose -- the headless harness, which reads SCR_ASSUME_CAPACITY in its
- * pre-main constructor -- set this default instead, and every game created
- * afterwards starts with the assist on.
+ * flag gs->settings.capacity_recompute selects the legacy
+ * recompute-from-held-objects accounting instead of the Runner's running
+ * total, and is normally flipped per session by `glk capacity on` or by the
+ * known-game assist table, both of which act on a game that already exists.
+ * Hosts with no game in hand when they choose -- the headless harness, which
+ * reads SCR_ASSUME_CAPACITY in its pre-main constructor -- set this default
+ * instead, and every game created afterwards starts with the assist on.
  */
 static scr_bool gs_capacity_assist = FALSE;
 
@@ -2120,7 +2120,7 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
   game->carried_size = 0;
   game->carried_ready = FALSE;
   game->carried_suspend = FALSE;
-  game->capacity_recompute = gs_capacity_assist;
+  game->settings.capacity_recompute = gs_capacity_assist;
   game->runner_phantom_held = TRUE;
 
   /* Create rooms state array. */
@@ -2169,19 +2169,20 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
    * Glk host sets it), the game's own NoScoreNotify decides instead, as in
    * SCARE, so a game that asks for notification gets it.
    */
-  game->notify_score_change = FALSE;
+  game->settings.notify_score_change = FALSE;
   if (gs_score_notify_assist)
     {
       vt_key[0].string = "Globals";
       vt_key[1].string = "NoScoreNotify";
-      game->notify_score_change = !prop_get_boolean (bundle, "B<-ss", vt_key);
+      game->settings.notify_score_change
+          = !prop_get_boolean (bundle, "B<-ss", vt_key);
     }
 
   /* Miscellaneous state defaults. */
   game->turns = 0;
   game->score = 0;
-  game->bold_room_names = TRUE;
-  game->verbose = TRUE;
+  game->settings.bold_room_names = TRUE;
+  game->settings.verbose = TRUE;
 
   /*
    * The owning status strings default-construct to NULL via value-init
@@ -2201,9 +2202,9 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
    * a wait counter the main loop never brings back to zero, so it would run
    * turns forever without reading input; treat it as no wait.
    */
-  game->waitturns = prop_get_global_integer (bundle, "WaitTurns");
-  if (game->waitturns < 0)
-    game->waitturns = 0;
+  game->settings.waitturns = prop_get_global_integer (bundle, "WaitTurns");
+  if (game->settings.waitturns < 0)
+    game->settings.waitturns = 0;
 
   /* Non-game conveniences. */
   game->is_running = FALSE;
@@ -2405,9 +2406,9 @@ gs_copy (scr_gameref_t to, scr_gameref_t from)
   to->playerbattle = from->playerbattle;
 
   /*
-   * Copy over miscellaneous other details.  Specifically exclude bold rooms,
-   * verbose, and score notification, so that they are invariant across copies,
-   * particularly undo/restore.
+   * Copy over miscellaneous other details.  The player's settings are
+   * specifically excluded, so that they are invariant across copies,
+   * particularly undo/restore; see scr_settings_t for the one that is not.
    */
   to->turns = from->turns;
   to->score = from->score;
@@ -2433,7 +2434,7 @@ gs_copy (scr_gameref_t to, scr_gameref_t from)
   to->has_completed = from->has_completed;
   to->pending_endgame = from->pending_endgame;
 
-  to->waitturns = from->waitturns;
+  to->settings.waitturns = from->settings.waitturns;
 
   to->waitcounter = from->waitcounter;
   to->do_again = from->do_again;
@@ -2454,9 +2455,9 @@ gs_copy (scr_gameref_t to, scr_gameref_t from)
    * quirks survive an undo.  A restored SAVE is different -- the .tas
    * loader reseeds base-only sums -- and the restore path handles that by
    * calling gs_carried_recompute() on the freshly loaded game before it is
-   * copied here.  The capacity_recompute mode flag is a session preference,
-   * so (like verbose) it is left invariant across copies and deliberately
-   * not propagated here.
+   * copied here.  The capacity_recompute mode flag is one of the player's
+   * settings, so it is left invariant across copies and deliberately not
+   * propagated here.
    */
   to->carried_weight = from->carried_weight;
   to->carried_size = from->carried_size;

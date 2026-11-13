@@ -794,11 +794,11 @@ debug_game (scr_gameref_t game, scr_command_type_t type)
     if_print_debug (", Completed");
   else
     if_print_debug (", Not completed");
-  if (game->verbose)
+  if (game->settings.verbose)
     if_print_debug (", Verbose");
   else
     if_print_debug (", Not verbose");
-  if (game->bold_room_names)
+  if (game->settings.bold_room_names)
     if_print_debug (", Bold");
   else
     if_print_debug (", Not bold");

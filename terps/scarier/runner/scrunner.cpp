@@ -122,7 +122,7 @@ run_notify_score_change (scr_gameref_t game)
    * already done this once this turn.
    */
   if (!game->undo_available
-      || !game->notify_score_change || game->has_notified)
+      || !game->settings.notify_score_change || game->has_notified)
     return;
 
   /* Note any change in the score. */
@@ -1543,11 +1543,11 @@ run_get_attributes (scr_gameref_t game,
       *max_score = prop_get_global_integer (bundle, "MaxScore");
     }
   if (bold_room_names)
-    *bold_room_names = game->bold_room_names;
+    *bold_room_names = game->settings.bold_room_names;
   if (verbose)
-    *verbose = game->verbose;
+    *verbose = game->settings.verbose;
   if (notify_score_change)
-    *notify_score_change = game->notify_score_change;
+    *notify_score_change = game->settings.notify_score_change;
 }
 
 void
@@ -1558,9 +1558,9 @@ run_set_attributes (scr_gameref_t game,
   assert (gs_is_game_valid (game));
 
   /* Set game options. */
-  game->bold_room_names = bold_room_names;
-  game->verbose = verbose;
-  game->notify_score_change = notify_score_change;
+  game->settings.bold_room_names = bold_room_names;
+  game->settings.verbose = verbose;
+  game->settings.notify_score_change = notify_score_change;
 }
 
 

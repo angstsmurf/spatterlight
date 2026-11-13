@@ -100,7 +100,7 @@ lib_sum_carried (scr_gameref_t game,
 static scr_int
 lib_carried_size (scr_gameref_t game)
 {
-  if (obj_uses_running_load (game) && !game->capacity_recompute)
+  if (obj_uses_running_load (game) && !game->settings.capacity_recompute)
     return gs_carried_size (game);
 
   return lib_sum_carried (game, obj_get_size);
@@ -109,7 +109,7 @@ lib_carried_size (scr_gameref_t game)
 static scr_int
 lib_carried_weight (scr_gameref_t game)
 {
-  if (obj_uses_running_weight (game) && !game->capacity_recompute)
+  if (obj_uses_running_weight (game) && !game->settings.capacity_recompute)
     return gs_carried_weight (game);
 
   return lib_sum_carried (game, obj_get_weight);

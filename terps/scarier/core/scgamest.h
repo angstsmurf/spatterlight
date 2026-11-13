@@ -274,6 +274,37 @@ typedef struct
 } scr_pronouns_t;
 
 /*
+ * The player's settings: what the metacommands and the host's preferences
+ * set, as opposed to what the game does.
+ *
+ *   Undo:     not copied by gs_copy() -- an undo or a restore leaves the
+ *             settings as the player has them -- with the one exception of
+ *             WAITTURNS, which gs_copy() does carry, so an undo takes back
+ *             a `wait N` too.
+ *   .tas:     not saved.
+ *   Session:  VERBOSE, NOTIFY_SCORE_CHANGE and WAITTURNS are the "settings"
+ *             record (run_session_state()); the other two are the host's
+ *             to set again.
+ */
+typedef struct
+{
+  scr_bool bold_room_names;
+  scr_bool verbose;
+  scr_bool notify_score_change;
+
+  /* Player's setting for waitturns; overrides the game's. */
+  scr_int waitturns;
+
+  /*
+   * When TRUE, the capacity checks recompute the carried load from currently
+   * held objects each time (legacy SCARE behaviour); when FALSE (default)
+   * they consult the running totals in scr_game_t, matching the real Runner.
+   * Toggled with the "capacity" metacommand.
+   */
+  scr_bool capacity_recompute;
+} scr_settings_t;
+
+/*
  * Overall game state structure.  Arrays are malloc'ed for the appropriate
  * number of each of the above state structures.
  */
@@ -328,10 +359,8 @@ typedef struct scr_game_s
 
   scr_int turns;
   scr_int score;
-  scr_bool bold_room_names;
+  scr_settings_t settings;
   scr_int room_name_headings;  /* 0 unknown, 1 print, 2 the game has its own */
-  scr_bool verbose;
-  scr_bool notify_score_change;
   /*
    * Owning game-status strings, freed at scope exit.
    * scr_owned_string preserves the engine's char* contract exactly -- .get()
@@ -372,9 +401,6 @@ typedef struct scr_game_s
    */
   scr_int pending_endgame;
 
-  /* Player's setting for waitturns; overrides the game's. */
-  scr_int waitturns;
-
   /*
    * ADRIFT-style carried-load running totals.  The real Runner keeps the
    * player's carried weight and size as running totals, updated incrementally
@@ -397,14 +423,6 @@ typedef struct scr_game_s
    * does none at all.  Transient -- never saved, only set across a call.
    */
   scr_bool carried_suspend;
-
-  /*
-   * When TRUE, the capacity checks recompute the carried load from currently
-   * held objects each time (legacy SCARE behaviour); when FALSE (default)
-   * they consult the running totals above, matching the real Runner.  Toggled
-   * with the "capacity" metacommand.
-   */
-  scr_bool capacity_recompute;
 
   /*
    * The 3.9/4.0 Runner's phantom object: its object array is dimensioned

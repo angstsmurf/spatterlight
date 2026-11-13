@@ -272,7 +272,7 @@ hostile_input_checks (const char *path)
     check ("negative WaitTurns loads", game != nullptr, 1);
     if (game)
       check ("negative WaitTurns -> 0",
-             ((scr_gameref_t) game)->waitturns, 0);
+             ((scr_gameref_t) game)->settings.waitturns, 0);
     scr_free_game (game);
 
     /* 5g. The vest, the only container, "in" container 0: itself. */

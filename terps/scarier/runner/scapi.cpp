@@ -1105,7 +1105,7 @@ scr_get_game_capacity_recompute (scr_game game)
   if (if_game_error (game_, "scr_get_game_capacity_recompute"))
     return FALSE;
 
-  return game_->capacity_recompute;
+  return game_->settings.capacity_recompute;
 }
 
 void
@@ -1116,7 +1116,7 @@ scr_set_game_capacity_recompute (scr_game game, scr_bool flag)
   if (if_game_error (game_, "scr_set_game_capacity_recompute"))
     return;
 
-  game_->capacity_recompute = flag;
+  game_->settings.capacity_recompute = flag;
 }
 
 

@@ -631,8 +631,8 @@ obj_weigh (scr_gameref_t game, scr_int object, scr_int depth)
    * rod, letter and key weigh into the knife, 94 > 90) and puts 19 of
    * goldilocks' worn watch and dress into the package.  That is a Runner bug
    * no game needs, so every version weighs the position-filtered membership,
-   * as 3.9 does and as `glk capacity on` (game->capacity_recompute) does at
-   * 4.0.  runner_parent itself stays: the possession predicates
+   * as 3.9 does and as `glk capacity on` (settings.capacity_recompute) does
+   * at 4.0.  runner_parent itself stays: the possession predicates
    * (gs_runner_possessed()) still read it.  Logged under "Deliberate
    * deviations" in test/adrift4/notes/WINE-TRANSCRIPTS.md.
    */
