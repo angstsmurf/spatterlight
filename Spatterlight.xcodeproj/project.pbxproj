@@ -94,7 +94,7 @@
 		5C1B1B00000000000000000D /* sclibrar_put.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A00000000000000000D /* sclibrar_put.cpp */; };
 		5C1B1B00000000000000000F /* sclibrar_battle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A00000000000000000F /* sclibrar_battle.cpp */; };
 		5C1B1B000000000000000014 /* sclibrar_refuse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000014 /* sclibrar_refuse.cpp */; };
-		5C1B1B000000000000000015 /* sclibrar_verbobj.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000015 /* sclibrar_verbobj.cpp */; };
+		5C1B1B000000000000000015 /* sclibrar_resolve_400.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000015 /* sclibrar_resolve_400.cpp */; };
 		5C1B1B000000000000000100 /* scparser_pattern.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000100 /* scparser_pattern.cpp */; };
 		5C1B1B000000000000000101 /* scparser_match.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000101 /* scparser_match.cpp */; };
 		5C1B1B000000000000000102 /* scparser_entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000102 /* scparser_entity.cpp */; };
@@ -1991,7 +1991,7 @@
 		5C1B1A000000000000000121 /* sclibrar_locate.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_locate.cpp; sourceTree = "<group>"; };
 		5C1B1A000000000000000013 /* sclibrar_talk.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_talk.cpp; sourceTree = "<group>"; };
 		5C1B1A000000000000000014 /* sclibrar_refuse.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_refuse.cpp; sourceTree = "<group>"; };
-		5C1B1A000000000000000015 /* sclibrar_verbobj.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_verbobj.cpp; sourceTree = "<group>"; };
+		5C1B1A000000000000000015 /* sclibrar_resolve_400.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sclibrar_resolve_400.cpp; sourceTree = "<group>"; };
 		5C1B1A000000000000000100 /* scparser_pattern.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scparser_pattern.cpp; sourceTree = "<group>"; };
 		5C1B1A000000000000000101 /* scparser_match.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scparser_match.cpp; sourceTree = "<group>"; };
 		5C1B1A000000000000000102 /* scparser_entity.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scparser_entity.cpp; sourceTree = "<group>"; };
@@ -6922,7 +6922,7 @@
 				5C1B1A000000000000000121 /* sclibrar_locate.cpp */,
 				5C1B1A000000000000000013 /* sclibrar_talk.cpp */,
 				5C1B1A000000000000000014 /* sclibrar_refuse.cpp */,
-				5C1B1A000000000000000015 /* sclibrar_verbobj.cpp */,
+				5C1B1A000000000000000015 /* sclibrar_resolve_400.cpp */,
 			);
 			path = library;
 			sourceTree = "<group>";
@@ -8133,7 +8133,7 @@
 				5C1B1B00000000000000011D /* sclibrar_put_pre400.cpp in Sources */,
 				5C1B1B00000000000000000F /* sclibrar_battle.cpp in Sources */,
 				5C1B1B000000000000000014 /* sclibrar_refuse.cpp in Sources */,
-				5C1B1B000000000000000015 /* sclibrar_verbobj.cpp in Sources */,
+				5C1B1B000000000000000015 /* sclibrar_resolve_400.cpp in Sources */,
 				579385CB51D49A52A9389561 /* sclibrar_talk.cpp in Sources */,
 				5070568329EDB20AF0D8E419 /* sclibrar_misc.cpp in Sources */,
 				5C1B1B000000000000000121 /* sclibrar_locate.cpp in Sources */,

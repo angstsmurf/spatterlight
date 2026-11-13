@@ -446,7 +446,7 @@ extern scr_bool lib_cmd_unclear_object (scr_gameref_t game);
 extern scr_int lib_seen_named_object_400 (scr_gameref_t game,
                                           const scr_char *input);
 
-/* sclibrar_verbobj.cpp */
+/* sclibrar_resolve_400.cpp */
 extern scr_bool lib_resolve_admit_mode0 (scr_gameref_t game, scr_int object,
                                          scr_int pass);
 extern scr_bool lib_resolve_admit_take (scr_gameref_t game, scr_int object,

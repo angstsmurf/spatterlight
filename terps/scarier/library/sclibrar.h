@@ -245,7 +245,7 @@ extern const scr_char * lib_ask_format_subject (scr_gameref_t game);
 /* sclibrar_refuse.cpp */
 extern scr_bool lib_what (scr_gameref_t game, const scr_char *verb);
 
-/* sclibrar_verbobj.cpp */
+/* sclibrar_resolve_400.cpp */
 extern scr_int lib_verb_object_name_score (scr_gameref_t game, scr_int object,
                                            const scr_char *input);
 extern scr_int

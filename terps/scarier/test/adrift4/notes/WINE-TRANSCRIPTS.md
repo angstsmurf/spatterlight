@@ -1871,7 +1871,7 @@ case, and their goldens are re-blessed. The row notes in
   refusal would have been. A bare `creature` still gets the refusal. The 14
   games whose ALRs restyle "what you want to do with" (arlo, enc2-4,
   fantasy, Oh_Human, pestilence and others) keep it. No golden changed.
-  (library/sclibrar_verbobj.cpp, runner/scrun_input.cpp)
+  (library/sclibrar_resolve_400.cpp, runner/scrun_input.cpp)
 
 - **"Take what?", "Drop what?" and "Where do you want to put the coin?"
   take an answer (2026-11-04).** run400 stores no prefix for bare `drop`,
@@ -1888,7 +1888,7 @@ case, and their goldens are re-blessed. The row notes in
   measured prefixes, only a line nothing else answers is completed, so
   `take` / `look` still looks. No text is new, so no ALR is involved. No
   golden changed. (library/sclibrar_refuse.cpp, library/sclibrar_battle.cpp,
-  library/sclibrar_verbobj.cpp)
+  library/sclibrar_resolve_400.cpp)
 
 - **`where is` keeps a capitalised room name (2026-11-04).** Every Runner
   folds the room name to lower case in its where/find answers (`LCase`,
