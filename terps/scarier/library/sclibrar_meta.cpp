@@ -1228,11 +1228,9 @@ lib_cmd_notify (scr_gameref_t game)
 
 /*
  * lib_cmd_time()
- * lib_cmd_date()
  *
- * Print elapsed game time, and smart-alec "date" response.  The ADRIFT
- * Runner responds here with the system time and date, but we'll do something
- * different.
+ * Print elapsed game time.  The ADRIFT Runner responds here with the system
+ * time, but we'll do something different.
  */
 scr_bool
 lib_cmd_time (scr_gameref_t game)
@@ -1252,12 +1250,6 @@ lib_cmd_time (scr_gameref_t game)
   /* A turn in 3.9; see lib_is_version_390(). */
   game->is_admin = !lib_is_version_390 (game);
   return TRUE;
-}
-
-scr_bool
-lib_cmd_date (scr_gameref_t game)
-{
-  return lib_print_message (game, "Maybe we should just be good friends.\n");
 }
 
 

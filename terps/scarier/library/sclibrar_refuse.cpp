@@ -25,17 +25,6 @@
 #include "sclibrar.h"
 #include "sclibrar_internal.h"
 
-/*
- * lib_cmd_kill_other()
- *
- * Uninteresting kill message when no weaponry is involved.
- */
-scr_bool
-lib_cmd_kill_other (scr_gameref_t game)
-{
-  return lib_print_message (game, "Now that isn't very nice.\n");
-}
-
 
 /*
  * run370 and run380 have no checkverb: the only "<Verb> what?" literals

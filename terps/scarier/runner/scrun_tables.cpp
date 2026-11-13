@@ -219,7 +219,8 @@ scr_commands_t STANDARD_COMMANDS[] = {
    lib_cmd_examine_npc},
   {"[ex/exam/examine/look {at}] [me/self/myself]",
    lib_cmd_examine_self},
-  {"[ex/exam/examine/look {at}] all", lib_cmd_examine_all},
+  {"[ex/exam/examine/look {at}] all", nullptr, lib_print_message,
+   "Please examine one object at a time.\n"},
 #else
   {"[inventory/inv/i]", lib_cmd_inventory},
   {"[x/ex/exam/examine/l/look {at}] {{the} [room/location]}",
@@ -231,7 +232,8 @@ scr_commands_t STANDARD_COMMANDS[] = {
    lib_cmd_examine_npc},
   {"[x/ex/exam/examine/look {at}] [me/self/myself]",
    lib_cmd_examine_self},
-  {"[x/ex/exam/examine/look {at}] all", lib_cmd_examine_all},
+  {"[x/ex/exam/examine/look {at}] all", nullptr, lib_print_message,
+   "Please examine one object at a time.\n"},
 #endif
 
   /* Attempted acquisition of and disposal of NPCs. */
@@ -542,7 +544,9 @@ scr_commands_t STANDARD_COMMANDS[] = {
   {"[notify/notification]", lib_cmd_notify},
 #endif
   {"time", lib_cmd_time},
-  {"date", lib_cmd_date},
+  /* The ADRIFT Runner answers with the system date; a smart-alec reply. */
+  {"date", nullptr, lib_print_message,
+   "Maybe we should just be good friends.\n"},
   {"[help/commands]", lib_cmd_help},
 #ifndef SCARIER_NO_ABBREVIATIONS
   {"[gpl/license]", lib_cmd_license},
@@ -725,8 +729,9 @@ scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"[x/ex/exam/examine/look {at}] %object%", lib_cmd_examine_absent},
   {"[x/ex/exam/examine/look {at}] *", lib_cmd_examine_other},
   {"[locate/where {is/are}/find] *", lib_cmd_locate_other},
-  {"[cp/mv/ln/ls] *", lib_cmd_unix_like},
-  {"dir *", lib_cmd_dos_like},
+  {"[cp/mv/ln/ls] *", nullptr, lib_print_message,
+   "This isn't Unix you know!\n"},
+  {"dir *", nullptr, lib_print_message, "This isn't Dos you know!\n"},
   {"ask %character% *", lib_cmd_ask_npc},
   {"ask %object% *", lib_cmd_ask_object},
   {"ask * about *", lib_cmd_ask_about_nothing},
@@ -754,7 +759,7 @@ scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"climb %text%", lib_cmd_verb_absent_400},
   {"climb %text%", nullptr, lib_cant_do_other, "climb"},
   {"climb", nullptr, lib_what_or_cant_do, "climb"},
-  {"cry *", lib_cmd_cry},
+  {"cry *", nullptr, lib_print_message, "There's no need for that!\n"},
   {"cut %object% *", nullptr, lib_cant_do_object, "cut"},
   {"cut %text%", lib_cmd_verb_absent_400},
   {"cut %text%", nullptr, lib_cant_do_other, "cut"},
@@ -769,9 +774,11 @@ scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
    * lib_cmd_verb_absent_400(). */
   {"eat *", lib_cmd_verb_absent_400},
   {"eat *", lib_cmd_eat_other},
-  {"feed *", lib_cmd_feed},
+  {"feed *", nullptr, lib_print_message,
+   "There is nothing worth feeding here.\n"},
   {"feel *", lib_cmd_feel},
-  {"fight *", lib_cmd_fight},
+  {"fight *", nullptr, lib_print_message,
+   "There is nothing worth fighting here.\n"},
   /*
    * therest's clear arm (run370 43DFB7 ... run400 4896AC) answers any line
    * holding the word "clear" that the exact-line clear/cls/clr command did
@@ -802,7 +809,7 @@ scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"slap %text%", lib_cmd_slap_other},
   {"slap", lib_cmd_slap_what},
   {"hum *", lib_cmd_hum},
-  {"jump *", lib_cmd_jump},
+  {"jump *", nullptr, lib_print_message, "Wheee-boinng.\n"},
   {"kick %character%", lib_cmd_attack_npc},
   {"kick %object% *", lib_cmd_kick_object},
   {"kick %text%", lib_cmd_verb_absent_400},
@@ -811,7 +818,8 @@ scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"kiss %character% *", lib_cmd_kiss_npc},
   {"kiss %object% *", lib_cmd_kiss_object},
   {"kiss *", lib_cmd_kiss_other},
-  {"kill *", lib_cmd_kill_other},
+  /* Uninteresting kill message when no weaponry is involved. */
+  {"kill *", nullptr, lib_print_message, "Now that isn't very nice.\n"},
   {"lift %object% *", nullptr, lib_cant_do_object, "lift"},
   {"lift %text%", lib_cmd_verb_absent_400},
   {"lift %text%", nullptr, lib_cant_do_other, "lift"},
@@ -838,7 +846,8 @@ scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"pull %text%", lib_cmd_verb_absent_400},
   {"pull %text%", lib_cmd_pull_other},
   {"pull", lib_cmd_pull_what},
-  {"punch *", lib_cmd_punch},
+  {"punch *", nullptr, lib_print_message,
+   "Who do you think you are, Mike Tyson?\n"},
   {"push %object% *", lib_cmd_push_object},
   {"push %text%", lib_cmd_verb_absent_400},
   {"push %text%", lib_cmd_push_other},
@@ -870,9 +879,9 @@ scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"shake %text%", lib_cmd_verb_absent_400},
   {"shake %text%", lib_cmd_shake_other},
   {"shake", lib_cmd_shake_what},
-  {"shout *", lib_cmd_shout},
+  {"shout *", nullptr, lib_print_message, "Aaarrrrgggghhhhhh!\n"},
   {"sing *", lib_cmd_sing},
-  {"sleep *", lib_cmd_sleep},
+  {"sleep *", nullptr, lib_print_message, "Zzzzz.  Bored are you?\n"},
   {"smell %object% *", lib_cmd_smell_object},
   {"smell *", lib_cmd_smell_other},
   {"stop %object% *", nullptr, lib_cant_do_object, "stop"},
@@ -888,7 +897,7 @@ scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
   {"talk to * about *", lib_cmd_ask_about_nothing},
   {"talk *", lib_cmd_talk},
   {"speak *", lib_cmd_speak_pre390},
-  {"thank *", lib_cmd_thank},
+  {"thank *", nullptr, lib_print_message, "You're welcome.\n"},
   {"turn %object% *", lib_cmd_turn_object},
   {"turn %object% *", lib_cmd_turn_absent},
   /* The clause reads every object the line names, not the one a pattern

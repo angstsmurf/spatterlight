@@ -2540,8 +2540,8 @@ lib_cmd_throw_npc_with (scr_gameref_t game)
  * attack verbs, so with the Battle System enabled they resolve a real blow
  * like "attack".  They are not "legacy" verbs, though: with the Battle System
  * off these fall through (return FALSE) to the later "kill *"/"fight *"
- * grammar, preserving the traditional flavour responses lib_cmd_kill_other()
- * and lib_cmd_fight() provide.
+ * grammar, preserving the traditional flavour responses those rows of
+ * scrun_tables.cpp provide.
  */
 scr_bool
 lib_cmd_kill_npc (scr_gameref_t game)

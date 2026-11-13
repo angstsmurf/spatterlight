@@ -67,24 +67,6 @@ lib_cmd_profanity_pre_400 (scr_gameref_t game)
 
 
 scr_bool
-lib_cmd_unix_like (scr_gameref_t game)
-{
-  return lib_print_message (game, "This isn't Unix you know!\n");
-}
-
-scr_bool
-lib_cmd_dos_like (scr_gameref_t game)
-{
-  return lib_print_message (game, "This isn't Dos you know!\n");
-}
-
-scr_bool
-lib_cmd_cry (scr_gameref_t game)
-{
-  return lib_print_message (game, "There's no need for that!\n");
-}
-
-scr_bool
 lib_cmd_dance (scr_gameref_t game)
 {
   return lib_print_response_message (game,
@@ -109,18 +91,6 @@ lib_cmd_eat_other (scr_gameref_t game)
 
   return lib_print_message (game,
                             "I don't understand what you are trying to eat.\n");
-}
-
-scr_bool
-lib_cmd_fight (scr_gameref_t game)
-{
-  return lib_print_message (game, "There is nothing worth fighting here.\n");
-}
-
-scr_bool
-lib_cmd_feed (scr_gameref_t game)
-{
-  return lib_print_message (game, "There is nothing worth feeding here.\n");
 }
 
 scr_bool
@@ -159,12 +129,6 @@ lib_cmd_hum (scr_gameref_t game)
 }
 
 scr_bool
-lib_cmd_jump (scr_gameref_t game)
-{
-  return lib_print_message (game, "Wheee-boinng.\n");
-}
-
-scr_bool
 lib_cmd_listen (scr_gameref_t game)
 {
   return lib_print_response_message (game,
@@ -183,24 +147,12 @@ lib_cmd_please (scr_gameref_t game)
 }
 
 scr_bool
-lib_cmd_punch (scr_gameref_t game)
-{
-  return lib_print_message (game, "Who do you think you are, Mike Tyson?\n");
-}
-
-scr_bool
 lib_cmd_run (scr_gameref_t game)
 {
   return lib_print_response_message (game,
                                      "Why would you want to run?\n",
                                      "Why would I want to run?\n",
                                      "Why would %player_pronoun% want to run?\n");
-}
-
-scr_bool
-lib_cmd_shout (scr_gameref_t game)
-{
-  return lib_print_message (game, "Aaarrrrgggghhhhhh!\n");
 }
 
 scr_bool
@@ -260,12 +212,6 @@ lib_cmd_sing (scr_gameref_t game)
                                      "You sing a little song.\n",
                                      "I sing a little song.\n",
                                      "%player% sing a little song.\n");
-}
-
-scr_bool
-lib_cmd_sleep (scr_gameref_t game)
-{
-  return lib_print_message (game, "Zzzzz.  Bored are you?\n");
 }
 
 /*
@@ -347,12 +293,6 @@ lib_cmd_talk (scr_gameref_t game)
       "No-one listens to your rabblings.\n",
       "No-one listens to my rabblings.\n",
       "No-one listens to %player%'s rabblings.\n");
-}
-
-scr_bool
-lib_cmd_thank (scr_gameref_t game)
-{
-  return lib_print_message (game, "You're welcome.\n");
 }
 
 scr_bool

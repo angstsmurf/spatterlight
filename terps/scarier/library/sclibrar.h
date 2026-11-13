@@ -129,8 +129,6 @@ extern void lib_print_response_npc (scr_gameref_t game,
                                     const scr_char *first_person,
                                     const scr_char *third_person,
                                     scr_int npc, const scr_char *suffix);
-extern scr_bool lib_print_message (scr_gameref_t game,
-                                   const scr_char *message);
 extern scr_bool lib_print_response_message (scr_gameref_t game,
                                             const scr_char *second_person,
                                             const scr_char *first_person,

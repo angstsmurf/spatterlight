@@ -1862,12 +1862,6 @@ lib_cmd_examine_object (scr_gameref_t game)
 }
 
 
-scr_bool
-lib_cmd_examine_all (scr_gameref_t game)
-{
-  return lib_print_message (game, "Please examine one object at a time.\n");
-}
-
 /*
  * lib_npc_examine_absent()
  *
