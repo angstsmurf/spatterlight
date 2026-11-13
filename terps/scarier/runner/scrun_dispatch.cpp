@@ -390,7 +390,7 @@ run_comma_list_respell_400 (scr_gameref_t game, const scr_char *line,
   const scr_char *const *verb;
   const scr_char *scan;
 
-  if (run_get_version (gs_get_bundle (game)) < TAF_VERSION_400
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400
       || !line || !strchr (line, ','))
     return FALSE;
   for (verb = LIST_VERBS; *verb; verb++)
@@ -437,7 +437,7 @@ static scr_bool
 silent_read_line (scr_gameref_t game, const scr_char *line)
 {
   return line
-      && run_c_word_pre400 (run_get_version (gs_get_bundle (game)), line,
+      && run_c_word_pre400 (prop_get_taf_version (gs_get_bundle (game)), line,
                             "read") == 0;
 }
 
@@ -520,7 +520,7 @@ run_line_t::spent_claim_390 ()
    * answer; they are a turn either way.  Matched on the line as typed: the
    * give and ask/talk rewrites are further down generaltasks.
    */
-  if (run_get_version (gs_get_bundle (game)) < TAF_VERSION_400
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400
       && !run_repeat_assist)
     {
       const scr_char *message;
@@ -595,7 +595,7 @@ run_line_t::put_prepass ()
    * -- runner_probes/repeat2.run400.txt, and see the survivor's turn in
    * settle()).
    */
-  repeat_found = run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
+  repeat_found = prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400
                  && run_task_refusal (game, string, REFUSAL_PASS_PROBE);
   repeat_pending = repeat_found && !run_repeat_survivor_400 (game, string);
   run_repeat_found_400 = repeat_found;
@@ -614,7 +614,7 @@ run_line_t::put_prepass ()
    */
   battle_kinds = repeat_pending ? 0 : run_battle_line_class (game, string);
   if ((battle_kinds & RUN_BATTLE_DROP)
-      && run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400)
+      && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400)
     {
       /* The words after the drop word: "drop bob coin" finds no coin. */
       const scr_char *const word = run_battle_kind_word (TAF_VERSION_400,
@@ -626,7 +626,7 @@ run_line_t::put_prepass ()
           : std::string (string + at);
       put_line = put_hoisted.c_str ();
     }
-  else if (run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
+  else if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400
            && run_hoist_verb_line (game, lib_line, put_hoisted))
     put_line = put_hoisted.c_str ();
   /*
@@ -636,10 +636,10 @@ run_line_t::put_prepass ()
    * CLAUSE, which is what the Runner actually resolves.  See
    * lib_put_clauses_400() and put_pass().
    */
-  if (run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
+  if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400
       && !repeat_pending)
     lib_put_clauses_400 (game, put_line, put_clauses);
-  if (run_get_version (gs_get_bundle (game)) < TAF_VERSION_400
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400
       || repeat_pending)
     put_first = FALSE;
   else if (put_clauses.empty ())
@@ -677,7 +677,7 @@ run_line_t::put_pass ()
    * wrecked T24 (run380x): "I am wearing my clothes, ..." and then task 43's
    * "Boff says ...".  Only run390 lets the listing claim the line (45F45B).
    */
-  inv_listed = run_get_version (gs_get_bundle (game)) != TAF_VERSION_390
+  inv_listed = prop_get_taf_version (gs_get_bundle (game)) != TAF_VERSION_390
                && run_is_inventory_command (game, string)
                && run_priority_commands (game, string);
   if (put_first)
@@ -868,14 +868,14 @@ run_line_t::get_outer_400 ()
    * take and is a blow.  See run_battle_line().
    */
   if ((battle_kinds & RUN_BATTLE_TAKE)
-      && run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400)
+      && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400)
     {
       outer_battle = run_battle_respell (game, string, RUN_BATTLE_TAKE,
           run_battle_kind_word (TAF_VERSION_400, string, RUN_BATTLE_TAKE));
       outer_line = outer_battle.c_str ();
     }
   if (!status && !refused && !put_first && !repeat_pending && !inv_listed
-      && run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
+      && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400
       && (strncmp (outer_line, "get ", 4) == 0
           || strncmp (outer_line, "take ", 5) == 0
           || strncmp (outer_line, "pick ", 5) == 0)
@@ -1033,7 +1033,7 @@ void
 run_line_t::task_peek ()
 {
   if (!status && !refused
-      && run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400)
+      && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400)
     run_restriction_cache_task_pick (game, task_string);
 
   /*
@@ -1061,7 +1061,7 @@ run_line_t::task_peek ()
     {
       status = run_game_commands_in_parser_context (
                    game, task_string, FALSE,
-                   run_get_version (gs_get_bundle (game))
+                   prop_get_taf_version (gs_get_bundle (game))
                    >= TAF_VERSION_400);
       if (run_any_task_ran_this_command ())
         run_takes_second_pass_370 (game, string, task_string, task_mark);
@@ -1088,7 +1088,7 @@ run_line_t::task_peek ()
   silent_before_priority = !claimed_before_tasks && !status
       && run_any_task_ran_this_command ()
       && pf_buffer_length (filter) == task_mark
-      && run_get_version (gs_get_bundle (game)) < TAF_VERSION_400
+      && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400
       && !silent_read_line (game, task_string);
 }
 
@@ -1111,7 +1111,7 @@ run_line_t::priority_pass ()
    * lib_move_named_whole_line_pre400() for the noun half that then has to
    * find "coin" past the nonsense word.
    */
-  if (run_get_version (gs_get_bundle (game)) < TAF_VERSION_400)
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400)
     {
       /*
        * A leading goto word is no verb to takes() and drops(); see
@@ -1161,7 +1161,7 @@ run_line_t::priority_pass ()
        * on a refusal.  See run_battle_line().
        */
       if (status && battle_kinds
-          && run_get_version (gs_get_bundle (game)) < TAF_VERSION_400
+          && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400
           && run_battle_places (game) == battle_places)
         {
           pf_truncate (filter, goto_mark);
@@ -1243,7 +1243,7 @@ run_line_t::task_passes ()
   silent_task_390 = !claimed_before_tasks && !status
       && run_any_task_ran_this_command ()
       && pf_buffer_length (filter) == task_mark
-      && run_get_version (gs_get_bundle (game)) < TAF_VERSION_400
+      && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400
       && !silent_read_line (game, task_string);
 }
 
@@ -1288,7 +1288,7 @@ run_line_t::battle_pass ()
    * Recovery lines in.  Recovery is a 4.0 property; 3.9 has none of this.
    */
   if (!status && !repeat_found
-      && run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
+      && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400
       && battle_is_enabled (game)
       && !(pf_buffer_length (filter) == 0
            && lib_input_contains_word (string, "status")))
@@ -1402,7 +1402,7 @@ run_line_t::library ()
    * Pre-4.0 the already-done refusal outranks the standard library; see
    * the note on run_task_refusal().  The room half still runs after it.
    */
-  if (run_get_version (gs_get_bundle (game)) < TAF_VERSION_400)
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400)
     {
       /*
        * With the repeat assist on, the already-done answer waits for
@@ -1471,7 +1471,7 @@ run_line_t::library ()
    * loses to every dedicated handler above it.
    */
   if (!status
-      && run_get_version (gs_get_bundle (game)) == TAF_VERSION_390
+      && prop_get_taf_version (gs_get_bundle (game)) == TAF_VERSION_390
       && game->pending_endgame == 0)
     status = run_try_command_table (EXAMINE_ABOVE_REFUSAL_390_COMMANDS,
                                     game, library_string);
@@ -1538,7 +1538,7 @@ run_line_t::settle ()
   silent_names_npc_390 = silent_task_390
                          && lib_line_names_npc_390 (game, string);
   if (silent_task_390 && !silent_names_npc_390
-      && run_get_version (gs_get_bundle (game)) >= TAF_VERSION_390)
+      && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
     game->is_admin = TRUE;
 
   /*
@@ -1556,8 +1556,8 @@ run_line_t::settle ()
    * the task's text alone.
    */
   if ((task_claimed || silent_names_npc_390)
-      && run_get_version (gs_get_bundle (game)) >= TAF_VERSION_390
-      && run_get_version (gs_get_bundle (game)) < TAF_VERSION_400
+      && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390
+      && prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400
       && (uip_match ("ask %character% about %text%", string, game)
           || uip_match ("talk to %character% about %text%", string, game)))
     {
@@ -1673,7 +1673,7 @@ run_line_t::settle ()
    * "...and its term is the OBJECT that shares the flagged character's
    * index" in test/adrift4/notes/WINE-TRANSCRIPTS.md).
    */
-  if (run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
+  if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400
       && game->is_running
       && !run_any_task_ran_this_command ()
       && !lib_battle_400_line_claimed ()
@@ -1892,7 +1892,7 @@ run_game_task_commands (scr_gameref_t game, const scr_char *string)
    * this flag.
    */
   const scr_bool include_restrictions =
-      run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400;
+      prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400;
 
   SCR_TRACE_IF ("SCR_TRACE_MATCH", "DISPATCH input=[%s]\n", string);
 

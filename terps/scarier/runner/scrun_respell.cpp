@@ -231,7 +231,7 @@ run_goto_line_class (scr_gameref_t game, const scr_char *line)
     "wear", "remove", "where", "find", "locate", nullptr
   };
   static const scr_char *const OPEN[] = { "open", "close", nullptr };
-  const scr_int version = run_get_version (gs_get_bundle (game));
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
   scr_int found = RUN_GOTO_NONE, groups = 0;
 
   if (!line || strchr (line, ',') || strchr (line, '.')
@@ -310,7 +310,7 @@ scr_bool
 run_goto_strip_head (scr_gameref_t game, const scr_char *line,
                      std::string &rest)
 {
-  const scr_int version = run_get_version (gs_get_bundle (game));
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
   std::vector<std::string> heads = { "goto", "go to" };
   scr_vartype_t vt_key[3], vt_rvalue;
 
@@ -353,7 +353,7 @@ run_goto_after (scr_gameref_t game, const scr_char *typed, scr_int goto_class,
                 scr_bool status)
 {
   const scr_filterref_t filter = gs_get_filter (game);
-  const scr_int version = run_get_version (gs_get_bundle (game));
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
   const scr_bool named = lib_goto_line_names_object (game, typed);
   scr_bool moved = FALSE, claimed = FALSE;
   scr_int object;
@@ -475,7 +475,7 @@ static const struct
 scr_int
 run_battle_line_class (scr_gameref_t game, const scr_char *line)
 {
-  const scr_int version = run_get_version (gs_get_bundle (game));
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
   scr_int index, kinds = 0;
 
   if (!line || !lib_battle_line_verb (game, line))
@@ -561,7 +561,7 @@ std::string
 run_battle_respell (scr_gameref_t game, const scr_char *line, scr_int kind,
                     const scr_char *head)
 {
-  const scr_int version = run_get_version (gs_get_bundle (game));
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
   std::string rest = run_battle_cut_word (version, line,
                                           lib_battle_line_verb (game, line));
   const scr_char *word = run_battle_kind_word (version, rest.c_str (), kind);
@@ -594,7 +594,7 @@ run_battle_line (scr_gameref_t game, const scr_char *typed, scr_int kinds)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  const scr_int version = run_get_version (bundle);
+  const scr_int version = prop_get_taf_version (bundle);
   const size_t mark = pf_buffer_length (filter);
   const scr_int npc = lib_battle_line_npc (game, typed);
   const scr_char *const name = npc >= 0
@@ -837,7 +837,7 @@ run_hoist_longest_400 (const scr_char *word)
 static const scr_char *
 run_hoist_verb_at (scr_gameref_t game, const scr_char *word)
 {
-  const scr_int version = run_get_version (gs_get_bundle (game));
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
   const scr_char *best;
 
   if (version < TAF_VERSION_400)
@@ -1091,7 +1091,7 @@ scr_bool
 run_two_verb_line_400 (scr_gameref_t game, const scr_char *line,
                        std::string &hoisted)
 {
-  const scr_int version = run_get_version (gs_get_bundle (game));
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
   std::vector<const scr_char *> spans;
   const scr_char *scan, *winner_at = nullptr, *winner_word = nullptr;
   scr_int winner_rank = -1, seen = 0, index;
@@ -1278,7 +1278,7 @@ run_hoist_verb_line (scr_gameref_t game, const scr_char *string,
   {
     std::string decided;
 
-    if (run_get_version (gs_get_bundle (game)) < TAF_VERSION_400
+    if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400
         && lib_two_verb_line_pre400 (game, string, &decided))
       {
         std::string unused;
@@ -1341,10 +1341,10 @@ run_hoist_verb_line (scr_gameref_t game, const scr_char *string,
        * runner_probes/rew.run390.verb.txt).
        */
       if (scan == string
-          && !(run_get_version (gs_get_bundle (game)) < TAF_VERSION_400
+          && !(prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400
                && !run_hoist_verb_at (game, scan)
-               && run_therest_arm_at (run_get_version (gs_get_bundle (game)),
-                                      scan)))
+               && run_therest_arm_at
+                    (prop_get_taf_version (gs_get_bundle (game)), scan)))
         return FALSE;
       if (scan == string)
         {

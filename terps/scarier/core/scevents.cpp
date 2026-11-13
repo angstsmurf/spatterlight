@@ -87,7 +87,6 @@ typedef struct
 
 static const void *evt_cache_game = nullptr;
 static std::vector<scr_event_props_t> evt_cache;
-static scr_int evt_cache_version = 0;  /* bundle "Version", 0 = unknown */
 
 /*
  * evt_cache_sync()
@@ -105,7 +104,6 @@ evt_cache_sync (scr_gameref_t game)
 
       initial.known = 0;
       evt_cache.assign (gs_event_count (game), initial);
-      evt_cache_version = 0;
       evt_cache_game = game;
     }
 }
@@ -130,7 +128,6 @@ evt_forget_game (const void *game)
     {
       evt_cache_game = nullptr;
       evt_cache.clear ();
-      evt_cache_version = 0;
     }
 }
 
@@ -462,23 +459,6 @@ evt_move_object (scr_gameref_t game, scr_int object, scr_int destination,
 
 
 /*
- * evt_taf_version()
- *
- * Return the game's TAF version.  It is immutable, so it is read once per
- * game and cached (evt_cache_sync synchronizes the cache, including the
- * version slot, to this game).
- */
-static scr_int
-evt_taf_version (scr_gameref_t game)
-{
-  evt_cache_sync (game);
-  if (evt_cache_version == 0)
-    evt_cache_version = prop_get_taf_version (gs_get_bundle (game));
-  return evt_cache_version;
-}
-
-
-/*
  * evt_buffer_text()
  *
  * Buffer an event's Start, Finish or PrefText.  Every checkevent puts the
@@ -585,7 +565,7 @@ static void evt_start_event (scr_gameref_t game, scr_int event,
 static scr_bool
 evt_fixup_v390_v380_immediate_restart (scr_gameref_t game, scr_int event)
 {
-  if (evt_taf_version (game) >= TAF_VERSION_400)
+  if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400)
     return FALSE;
 
   if (evt_trace)
@@ -676,7 +656,7 @@ evt_run_affected_task (scr_gameref_t game, scr_int task)
 {
   const scr_filterref_t filter = gs_get_filter (game);
 
-  if (evt_taf_version (game) < TAF_VERSION_400)
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400)
     {
       /*
        * The 3.9 Runner dispatches the task by its command text through the
@@ -1018,7 +998,7 @@ evt_starter_task_is_complete (scr_gameref_t game, scr_int event)
    * its task 74 never ran.
    */
   if (task == 0)
-    return evt_taf_version (game) >= TAF_VERSION_400
+    return prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400
            && evt_any_task_in_state (game, TRUE);
 
   return task > 0 && task - 1 < gs_task_count (game)
@@ -1317,7 +1297,7 @@ evt_tick_running (scr_gameref_t game, scr_int event)
    * roll; the ordered pass then reaches it and must not finish it a
    * turn early.
    */
-  if (evt_taf_version (game) >= TAF_VERSION_400)
+  if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400)
     {
       if (gs_event_ticked (game, event))
         {
@@ -1437,7 +1417,7 @@ evt_tick_awaiting (scr_gameref_t game, scr_int event)
        * pause test, no notification, no finish -- so the start is all
        * that happens here.
        */
-      already_ticked = evt_taf_version (game) >= TAF_VERSION_400
+      already_ticked = lib_is_version_400 (game)
                        && gs_event_ticked (game, event);
 
       evt_start_event (game, event, FALSE);
@@ -1720,7 +1700,7 @@ evt_check_events_started_by_task (scr_gameref_t game, scr_int task)
   scr_int event;
 
   if (gs_event_count (game) == 0
-      || evt_taf_version (game) < TAF_VERSION_400)
+      || prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400)
     return;
 
   GS_FOR_EACH_EVENT (game, event)
@@ -1798,7 +1778,7 @@ evt_start_load_events (scr_gameref_t game)
        * decrement is the first one it ever sees.
        */
       if (gs_event_time (game, event) > 0
-          && evt_taf_version (game) >= TAF_VERSION_390)
+          && prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
         gs_set_event_time (game, event, gs_event_time (game, event) + 1);
     }
 }

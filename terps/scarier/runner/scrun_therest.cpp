@@ -222,7 +222,7 @@ scr_bool
 run_therest_pre400 (scr_gameref_t game, const scr_char *string)
 {
   static scr_bool is_active = FALSE;
-  const scr_int version = run_get_version (gs_get_bundle (game));
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
   const scr_char *winner;
   scr_int offset = -1;
   std::string moved;
@@ -307,7 +307,7 @@ run_therest_absent_370 (scr_gameref_t game, const scr_char *string)
     "when", "who", "what", "how", "can", "why", "score", "ask", "talk", "say",
     nullptr
   };
-  const scr_int version = run_get_version (gs_get_bundle (game));
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
   const scr_char *const *word;
   scr_int offset;
 

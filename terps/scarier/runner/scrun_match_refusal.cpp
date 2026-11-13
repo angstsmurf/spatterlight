@@ -649,7 +649,7 @@ run_task_refusal (scr_gameref_t game, const scr_char *string,
   if (run_any_task_ran_this_command ())
     return FALSE;
 
-  version = run_get_version (bundle);
+  version = prop_get_taf_version (bundle);
 
   /*
    * Both refusals are the Runner's answers to a line it matched, so the scan
@@ -753,7 +753,7 @@ run_put_take_400 (scr_gameref_t game, const scr_char *string)
   scr_bool moved = FALSE;
   scr_int object;
 
-  if (run_get_version (gs_get_bundle (game)) < TAF_VERSION_400
+  if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400
       || !lib_input_contains_word (string, "put")
       || !(lib_input_contains_word (string, "take")
            || lib_input_contains_word (string, "get")

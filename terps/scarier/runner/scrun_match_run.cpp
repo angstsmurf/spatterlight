@@ -230,7 +230,7 @@ run_task_is_silent_and_literal (scr_gameref_t game, scr_int task)
   vt_key[2].string = "CompleteText";
   completetext = prop_get_string (bundle, "S<-sis", vt_key);
   /* 4.0: raw, as task_run_task_unrestricted() tests it. */
-  if (run_get_version (bundle) == TAF_VERSION_400
+  if (prop_get_taf_version (bundle) == TAF_VERSION_400
       ? completetext[0] != '\0' : !scr_strempty (completetext))
     return FALSE;
 
@@ -346,7 +346,7 @@ run_task_run_speaks (scr_gameref_t game, scr_int task, scr_bool is_forwards)
   if (task_run_task (game, task, is_forwards))
     return TRUE;
 
-  return run_get_version (gs_get_bundle (game)) >= TAF_VERSION_390
+  return prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390
          && pf_buffer_length (filter) > length;
 }
 
@@ -803,7 +803,7 @@ run_game_commands_common (scr_gameref_t game, const scr_char *string,
   pass.is_library = is_library;
   pass.exclude_silent_literal = exclude_silent_literal;
   pass.is_restriction_first =
-      run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400;
+      prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400;
   pass.is_matched = pass.is_handled = pass.is_abandoned = FALSE;
   if (include_restrictions)
     pass.is_matching.assign (gs_task_count (game), FALSE);
@@ -1006,7 +1006,7 @@ run_does_command_match (scr_gameref_t game, const scr_char *string,
                * results instead of walking; see restr_cache_fallback().
                */
               if (pass_number == 1
-                  && run_get_version (gs_get_bundle (game))
+                  && prop_get_taf_version (gs_get_bundle (game))
                      >= TAF_VERSION_400)
                 {
                   if (restr_cache_fallback (game, task, &fail_message) < 0)
@@ -1136,7 +1136,7 @@ run_task_run_by_index (scr_gameref_t game, scr_int task)
     }
 
   /* The run400 dispatch filter's walk (45FA02) caches a failing result. */
-  if (run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
+  if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400
       && game->is_running)
     {
       const scr_char *fail_message;
@@ -1189,7 +1189,7 @@ run_npc_walk_task (scr_gameref_t game, scr_int walktask)
   if (!gs_task_valid (game, walktask))
     return;
 
-  if (run_get_version (bundle) < TAF_VERSION_400)
+  if (prop_get_taf_version (bundle) < TAF_VERSION_400)
     run_task_command_dispatch (game, walktask);
   else if (task_can_run_task_directional (game, walktask, TRUE))
     run_task_run_by_index (game, walktask);
@@ -1396,7 +1396,7 @@ run_defer_loud_tasks_to_movement (scr_gameref_t game, const scr_char *string)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
 
-  if (run_get_version (bundle) > TAF_VERSION_380)
+  if (prop_get_taf_version (bundle) > TAF_VERSION_380)
     return FALSE;
 
   return run_movement_succeeds (game, string);

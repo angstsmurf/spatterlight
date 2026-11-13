@@ -263,7 +263,6 @@ extern std::string run_empty_then_head_390 (const scr_char *line);
 extern scr_int run_find_split_400 (scr_gameref_t game, const scr_char *line,
                                    scr_int *sep_length,
                                    scr_bool period_splits);
-extern scr_int run_get_version (const scr_prop_setref_t bundle);
 extern void run_squeeze_spaces (const scr_char *string, scr_char *buffer);
 extern scr_int run_instr (const scr_char *line, const scr_char *word);
 

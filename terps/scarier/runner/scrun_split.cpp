@@ -572,19 +572,6 @@ run_find_split_400 (scr_gameref_t game, const scr_char *line,
 
 
 /*
- * run_get_version()
- *
- * Return the game's TAF version from the bundle's top-level "Version"
- * property -- a TAF_VERSION_* value, set once at parse time.
- */
-scr_int
-run_get_version (const scr_prop_setref_t bundle)
-{
-  return prop_get_taf_version (bundle);
-}
-
-
-/*
  * run_squeeze_spaces()
  *
  * Copy 'string' into 'buffer' with every space dropped.  The 4.0 Runner

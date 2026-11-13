@@ -83,18 +83,6 @@ npc_walk_meetobject_needs_fixup (scr_gameref_t game)
 
 
 /*
- * npc_version()
- *
- * Return the game's TAF version constant.
- */
-static scr_int
-npc_version (scr_gameref_t game)
-{
-  return prop_get_taf_version (gs_get_bundle (game));
-}
-
-
-/*
  * npc_in_room()
  *
  * Return TRUE if a given NPC is currently in a given room.
@@ -391,7 +379,7 @@ npc_walk_is_preempted (scr_gameref_t game, scr_int npc, scr_int walk)
 static scr_bool
 npc_start_walk_is_390_noop (scr_gameref_t game, scr_int npc, scr_int walk)
 {
-  if (npc_version (game) >= TAF_VERSION_400)
+  if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400)
     return FALSE;
 
   return !npc_walk_is_loop (game, npc, walk);
@@ -692,7 +680,7 @@ npc_wherefrom (scr_gameref_t game, scr_int roomfrom, scr_int roomto)
   if (roomfrom == -1)
     return NOWHERE;
 
-  length = (npc_version (game) >= TAF_VERSION_400) ? 12 : 8;
+  length = lib_is_version_400 (game) ? 12 : 8;
   for (dir = 0; dir < length; dir++)
     {
       if (npc_exit_dest (game, roomfrom, dir) == roomto)
@@ -804,7 +792,7 @@ npc_announce (scr_gameref_t game, scr_int npc,
   if (!showenterexit)
     return;
 
-  is_400 = npc_version (game) >= TAF_VERSION_400;
+  is_400 = prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400;
   dir = npc_wherefrom (game, other_room, gs_playerroom (game));
 
   /*
@@ -886,7 +874,7 @@ npc_announce_hidden (scr_gameref_t game, scr_int npc)
   const scr_char *text, *name;
   scr_int version;
 
-  version = npc_version (game);
+  version = prop_get_taf_version (gs_get_bundle (game));
   if (version != TAF_VERSION_370 && version < TAF_VERSION_400)
     return;
 
@@ -1124,7 +1112,7 @@ npc_walk_tick_t::destination ()
           scr_int group;
 
           group = destnum - 2 - gs_room_count (game);
-          if (npc_version (game) >= TAF_VERSION_400)
+          if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400)
             {
               /*
                * run400 Proc_19_19_4568BC: rejection sampling over the
@@ -1211,7 +1199,8 @@ npc_walk_tick_t::move ()
       if (!gs_player_in_room (game, start) && gs_player_in_room (game, dest)
           && (start != -1
               || was_walk_hidden
-              || npc_version (game) == TAF_VERSION_370))
+              || prop_get_taf_version (gs_get_bundle (game))
+                 == TAF_VERSION_370))
         npc_announce (game, npc, FALSE, start);
     }
 }
@@ -1357,7 +1346,7 @@ npc_tick_npc_walk (scr_gameref_t game, scr_int npc, scr_int walk)
 static void
 npc_tick_npc (scr_gameref_t game, scr_int npc)
 {
-  const scr_bool is_400 = npc_version (game) >= TAF_VERSION_400;
+  const scr_bool is_400 = lib_is_version_400 (game);
   scr_int walk_count, walk;
 
   if (npc_trace)
@@ -1443,7 +1432,7 @@ npc_tick_npcs (scr_gameref_t game)
    * `u` into the oak tree lists Haraxis, who skitters off below; `attack
    * haraxis` then answers "Haraxis isn't here!".
    */
-  if (npc_version (game) >= TAF_VERSION_390)
+  if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
     {
       GS_FOR_EACH_NPC (game, npc)
         {
@@ -1485,7 +1474,7 @@ npc_tick_npcs (scr_gameref_t game)
    * rather than properly recording the prior location of the player, and
    * perhaps also NPCs, in the live gamestate.
    */
-  if (npc_version (game) >= TAF_VERSION_400
+  if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400
       && game->player_moved_by_command
       && undo && !gs_player_in_room (undo, gs_playerroom (game)))
     {

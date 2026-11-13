@@ -210,7 +210,7 @@ run_is_repeat_word (scr_gameref_t game, const scr_char *element)
     return TRUE;
 #ifndef SCARIER_NO_ABBREVIATIONS
   if (word == "g")
-    return run_get_version (gs_get_bundle (game)) >= TAF_VERSION_390;
+    return prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390;
 #endif
   return FALSE;
 }
@@ -968,7 +968,7 @@ run_element_not_understood (scr_gameref_t game, const scr_char *command)
    * general shape of the test cannot disturb an ordinary line.
    */
   if (game->pending_endgame != 0
-      && run_get_version (bundle) == TAF_VERSION_400
+      && prop_get_taf_version (bundle) == TAF_VERSION_400
       && uip_line_names_npc (game, run_line_element))
     {
       run_line_buffer[0] = NUL;
@@ -1006,13 +1006,13 @@ run_element_not_understood (scr_gameref_t game, const scr_char *command)
    * runner_probes/wtie3.run400.it2.txt).  See uip_note_antecedent_400()
    * in scparser.cpp.
    */
-  if (run_get_version (bundle) >= TAF_VERSION_400)
+  if (prop_get_taf_version (bundle) >= TAF_VERSION_400)
     {
       uip_commit_antecedent_400 (game);
       uip_set_pronoun_flags (FALSE, FALSE);
     }
   /* 3.9: generaltasks' co() pre-pass ran before anything answered. */
-  else if (run_get_version (bundle) == TAF_VERSION_390)
+  else if (prop_get_taf_version (bundle) == TAF_VERSION_390)
     uip_assign_pronouns (game, command);
 }
 
@@ -1053,7 +1053,7 @@ run_element_note_undo (scr_gameref_t game, const scr_char *command,
 
       uip_assign_pronouns (game, command);
     }
-  else if (run_get_version (bundle) >= TAF_VERSION_400
+  else if (prop_get_taf_version (bundle) >= TAF_VERSION_400
            && !game->do_restart && !game->do_restore)
     {
       /*
@@ -1064,7 +1064,7 @@ run_element_note_undo (scr_gameref_t game, const scr_char *command,
       uip_commit_antecedent_400 (game);
       uip_set_pronoun_flags (FALSE, FALSE);
     }
-  else if (run_get_version (bundle) == TAF_VERSION_390
+  else if (prop_get_taf_version (bundle) == TAF_VERSION_390
            && !game->do_restart && !game->do_restore)
     uip_assign_pronouns (game, command);
 }

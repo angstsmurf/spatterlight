@@ -85,7 +85,7 @@ run_is_task_function (const scr_char *pattern, scr_gameref_t game)
   scr_int length, argument_length, room, object;
   scr_char *argument;
 
-  if (run_get_version (bundle) < TAF_VERSION_400)
+  if (prop_get_taf_version (bundle) < TAF_VERSION_400)
     return FALSE;
 
   /* The Runner tests the raw command's final character for the ")". */
@@ -957,7 +957,7 @@ run_pre400_substitute_references (scr_gameref_t game, const scr_char *line,
                                   scr_int *object, scr_int *character)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  const scr_int version = run_get_version (bundle);
+  const scr_int version = prop_get_taf_version (bundle);
 
   literal = pattern;
   *object = *character = -1;
@@ -1536,7 +1536,7 @@ run_match_task_commands (scr_gameref_t game,
   /* 3.9 and up bind %object% strictly, and only 4.0 binds it case-
    * sensitively -- see the note above uip_compare_reference_strict().  Task
    * commands only; the library's own patterns keep the tolerant matcher. */
-  const scr_int version = run_get_version (gs_get_bundle (game));
+  const scr_int version = prop_get_taf_version (gs_get_bundle (game));
   const scr_strict_reference_guard strict_reference
       (version >= TAF_VERSION_390, version >= TAF_VERSION_400);
   const scr_task_commands_guard task_commands;

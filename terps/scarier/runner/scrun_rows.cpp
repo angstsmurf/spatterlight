@@ -381,7 +381,7 @@ run_standard_verb_commands (scr_gameref_t game, const scr_char *string)
    * fries.".  4.0 gives in the input routine (48A98A), above the refusal.
    */
   run_defer_give_npc =
-      run_get_version (gs_get_bundle (game)) < TAF_VERSION_400;
+      prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400;
   run_defer_with_390 = !battle_is_enabled (game)
                        && lib_with_arm_390_applies (game);
   const scr_bool status = run_standard_verb_commands_inner (game, string);
@@ -404,7 +404,7 @@ run_standard_give_npc_commands (scr_gameref_t game, const scr_char *string)
     {nullptr, nullptr}
   };
 
-  if (run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400)
+  if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_400)
     return FALSE;
   if (run_try_command_table (GIVE_NPC_COMMANDS, game, string))
     return TRUE;
@@ -419,7 +419,7 @@ scr_bool
 run_standard_fallback_commands (scr_gameref_t game, const scr_char *string)
 {
   const scr_bool is_ended = game->pending_endgame != 0
-      && run_get_version (gs_get_bundle (game)) == TAF_VERSION_400;
+      && prop_get_taf_version (gs_get_bundle (game)) == TAF_VERSION_400;
 
   /*
    * The fallback verbs resolve their noun the Runner's way too: generaltasks

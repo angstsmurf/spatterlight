@@ -242,7 +242,7 @@ run_prompt_player_name (scr_gameref_t game, scr_int resume)
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_var_setref_t vars = gs_get_vars (game);
-  const scr_bool is_400 = run_get_version (bundle) >= TAF_VERSION_400;
+  const scr_bool is_400 = prop_get_taf_version (bundle) >= TAF_VERSION_400;
   scr_vartype_t vt_key[2];
   scr_char buffer[LINE_BUFFER_SIZE];
   const scr_char *name;
@@ -568,7 +568,7 @@ run_main_startup (scr_gameref_t game)
    * whose only effect is an un-complete of a task nothing has completed
    * yet.
    */
-  if (run_get_version (bundle) >= TAF_VERSION_390)
+  if (prop_get_taf_version (bundle) >= TAF_VERSION_390)
     {
       evt_finish_load_events (game);
       evt_tick_events (game);

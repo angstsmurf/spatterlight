@@ -135,20 +135,12 @@ battle_get_combat_assist (void)
 /*
  * battle_is_legacy_version()
  *
- * Return TRUE for a version 3.9 or 3.8 game, read from the bundle's top-level
- * "Version" integer (written by the parser).  A missing or unrecognised
- * version is treated as modern (4.0), leaving behaviour unchanged.
+ * Return TRUE for a pre-4.0 game.
  */
 static scr_bool
 battle_is_legacy_version (scr_gameref_t game)
 {
-  const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key, vt_rvalue;
-
-  vt_key.string = "Version";
-  if (prop_get (bundle, "I<-s", &vt_rvalue, &vt_key))
-    return vt_rvalue.integer < TAF_VERSION_400;
-  return FALSE;
+  return prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400;
 }
 
 
