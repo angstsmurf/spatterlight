@@ -21,7 +21,7 @@ game be completed:
   Beyond* traps the player in the mansion.
 
 Public API is `scr_set_combat_assist` / `scr_get_combat_assist` and
-`scr_set_move_assist` / `scr_get_move_assist` (`scarier.h`, `scinterf.cpp`).
+`scr_set_move_assist` / `scr_get_move_assist` (`scarier.h`, `scapi.cpp`).
 
 ## What already exists (do not re-do)
 
@@ -42,7 +42,7 @@ Public API is `scr_set_combat_assist` / `scr_get_combat_assist` and
   `SCR_ASSUME_REPEATS` / `SCR_ASSUME_ROOMS` / `SCR_ASSUME_CAPACITY` env vars in
   `test/adrift4/harness/seed.cpp`. Capacity is a per-game flag, so its var
   cannot set it directly from a pre-main constructor: `scr_set_capacity_assist`
-  (scinterf.cpp) sets a process-wide default (`gs_capacity_assist`,
+  (scapi.cpp) sets a process-wide default (`gs_capacity_assist`,
   scgamest.cpp) that `gs_create` gives each new game. Added 2026-09-26, which
   is what lets the wonderland row win (215) instead of stalling at `get knife`.
 

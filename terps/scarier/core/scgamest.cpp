@@ -77,7 +77,7 @@ static const scr_uint GAME_MAGIC = 0x35aed26e;
  * by an alternate description, a walk's character), and published games have
  * out of range ones; gs_create() repairs the cases met so far, see
  * test/adrift4/harness/badparent_test.cpp.  One that gets this far is bad
- * game data, so it is an scr_fatal(), which the entry points in scinterf.cpp
+ * game data, so it is an scr_fatal(), which the entry points in scapi.cpp
  * catch and turn into a clean failure, and not an abort() of the host.
  */
 static inline scr_bool

@@ -56,7 +56,7 @@
  * as before, so the type is empty.
  *
  * It is caught specifically (never `catch (...)`) so that a scr_fatal_error --
- * or any other genuine exception -- still propagates to the scinterf boundary
+ * or any other genuine exception -- still propagates to the scapi boundary
  * instead of being mistaken for a normal halt.
  */
 namespace { struct run_loop_halt {}; }

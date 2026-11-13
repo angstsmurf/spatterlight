@@ -21,7 +21,7 @@
  * scr_fatal() used to print a message and call abort(), so a corrupt or
  * pathological game -- or any internal consistency failure -- took down the
  * whole host application (Spatterlight).  It now throws scr_fatal_error, and
- * the public entry points in scinterf.cpp catch it at the host boundary and
+ * the public entry points in scapi.cpp catch it at the host boundary and
  * return a clean failure (NULL game / FALSE) instead.
  *
  * This test proves two things, neither of which the other harnesses cover:
@@ -90,7 +90,7 @@ load_from_buffer (const scr_byte *data, scr_int length)
 /*
  * A read callback that raises a scr_fatal() partway through loading, standing
  * in for any internal fatal (allocation failure, consistency check, ...) that
- * can fire deep inside run_create().  This proves the scinterf.cpp boundary
+ * can fire deep inside run_create().  This proves the scapi.cpp boundary
  * catches a fatal thrown through the whole parse call stack -- where the host
  * would previously have abort()ed -- and turns it into a clean NULL.
  */
@@ -163,7 +163,7 @@ main (void)
   }
 
   /* 2d. A scr_fatal() raised deep inside the real run_create() parse call
-   * stack must be caught at the scinterf.cpp boundary and reported as a NULL
+   * stack must be caught at the scapi.cpp boundary and reported as a NULL
    * game -- the exact crash this phase removes. */
   {
     scr_game game = scr_game_from_callback (fatal_read_callback, nullptr);

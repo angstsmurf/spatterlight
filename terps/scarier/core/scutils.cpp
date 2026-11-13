@@ -99,7 +99,7 @@ scr_fatal (const scr_char *format, ...)
   fprintf (stderr, "scarier: internal error: %s", message);
 
   /*
-   * Throw rather than abort().  The public entry points in scinterf.cpp catch
+   * Throw rather than abort().  The public entry points in scapi.cpp catch
    * this at the host boundary and return a clean failure, so a corrupt or
    * pathological game does not take down the whole application.  From an
    * unwrapped path it still terminates the process, as abort() did.

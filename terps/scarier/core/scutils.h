@@ -55,7 +55,7 @@ extern void scr_fatal (const scr_char *format, ...);
 /*
  * Exception thrown by scr_fatal() instead of abort()-ing the host.  Every
  * engine fatal -- allocation failure, malformed-game consistency check, etc.
- * -- raises this, and the public entry points in scinterf.cpp catch it at the
+ * -- raises this, and the public entry points in scapi.cpp catch it at the
  * host boundary and return a clean failure rather than crashing Spatterlight.
  * The engine still leaks on this path (raw malloc'd state is not unwound), but
  * the whole game session is torn down at the catch site anyway.

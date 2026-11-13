@@ -21,7 +21,7 @@ Per row:
   * Runner  -- by .taf header bytes 8-10: 4.00 run400x, 3.90 run390x,
                3.80 run380x, 3.70 run370x.
   * seed    -- the row's SCR_SEED, else 1234 (Scarier's xoshiro default,
-               scinterf.cpp; vbrng's default too).
+               scapi.cpp; vbrng's default too).
   * feed    -- make_wine_cmdfile.py with SCR_RNG=xoshiro (the harness's own
                default, run_v4_walkthroughs.sh), written to
                ~/adrift-battle/runner/wine/runner_transcripts_cmds/<tag>.txt;

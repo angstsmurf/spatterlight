@@ -150,7 +150,7 @@ recompare.  What they fixed as decisions:
   rather than calling the exported `gs_is_game_valid()`, which was 5% of
   self time in the 2026-10-04 profile, and it compiles out under `NDEBUG`.
   The index half is not an invariant (published games carry out-of-range
-  indexes), so it is an `scr_fatal()` that the `scinterf.cpp` entry points
+  indexes), so it is an `scr_fatal()` that the `scapi.cpp` entry points
   catch, not an `abort()` of the host.  `GS_FOR_EACH_*` are the entity
   loops.
 - **Stage splits follow the Runner's order, not the version.** The
