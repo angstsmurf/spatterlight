@@ -368,10 +368,10 @@ task_print_end_game_summary (scr_gameref_t game, scr_bool is_win,
       percent = 100;
     }
   else
-    percent = task_percent_x87 (game->score, max_score);
+    percent = task_percent_x87 (game->world.score, max_score);
 
   pf_buffer_string (filter, "You scored ");
-  snprintf (buffer, sizeof (buffer), "%ld", game->score);
+  snprintf (buffer, sizeof (buffer), "%ld", game->world.score);
   pf_buffer_string (filter, buffer);
   pf_buffer_string (filter, " out of the maximum ");
   snprintf (buffer, sizeof (buffer), "%ld", max_score);
@@ -386,12 +386,13 @@ task_print_end_game_summary (scr_gameref_t game, scr_bool is_win,
   /* Only the win branch weighs the score against the maximum. */
   if (is_win)
     {
-      if (game->score == max_score)
+      if (game->world.score == max_score)
         pf_buffer_string (filter, "Well done - you scored maximum points!\n");
       else
         {
           pf_buffer_string (filter, "You finished ");
-          snprintf (buffer, sizeof (buffer), "%ld", max_score - game->score);
+          snprintf (buffer, sizeof (buffer), "%ld",
+                    max_score - game->world.score);
           pf_buffer_string (filter, buffer);
           pf_buffer_string (filter, " points short.\n");
         }

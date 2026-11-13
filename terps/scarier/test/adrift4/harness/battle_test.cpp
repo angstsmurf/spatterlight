@@ -220,15 +220,15 @@ hostile_input_checks (const char *path)
   gs_set_playerwield (scratch_, -1);
 
   /* 5c. Player room 0 in the save (room -1) is refused. */
-  scratch_->playerroom = -1;
+  scratch_->world.playerroom = -1;
   check ("player room 0 refused", restore_saved (scratch, target), 0);
-  scratch_->playerroom = 0;
+  scratch_->world.playerroom = 0;
 
   /* 5d. Two objects inside each other are refused. */
-  scratch_->objects[0].position = OBJ_IN_OBJECT;
-  scratch_->objects[0].parent = 1;
-  scratch_->objects[1].position = OBJ_IN_OBJECT;
-  scratch_->objects[1].parent = 0;
+  scratch_->world.objects[0].position = OBJ_IN_OBJECT;
+  scratch_->world.objects[0].parent = 1;
+  scratch_->world.objects[1].position = OBJ_IN_OBJECT;
+  scratch_->world.objects[1].parent = 0;
   check ("containment loop refused", restore_saved (scratch, target), 0);
   check ("target untouched by refusals", gs_playerroom (target_), 0);
 

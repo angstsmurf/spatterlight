@@ -112,20 +112,20 @@ gs_index_fatal (const scr_char *function,
     } \
   while (0)
 #define GS_CHECK_EVENT(gs, event) \
-  GS_CHECK_INDEX (gs, "event", event, (gs)->event_count)
+  GS_CHECK_INDEX (gs, "event", event, (gs)->world.event_count)
 #define GS_CHECK_ROOM(gs, room) \
-  GS_CHECK_INDEX (gs, "room", room, (gs)->room_count)
+  GS_CHECK_INDEX (gs, "room", room, (gs)->world.room_count)
 #define GS_CHECK_TASK(gs, task) \
-  GS_CHECK_INDEX (gs, "task", task, (gs)->task_count)
+  GS_CHECK_INDEX (gs, "task", task, (gs)->world.task_count)
 #define GS_CHECK_OBJECT(gs, object) \
-  GS_CHECK_INDEX (gs, "object", object, (gs)->object_count)
+  GS_CHECK_INDEX (gs, "object", object, (gs)->world.object_count)
 #define GS_CHECK_NPC(gs, npc) \
-  GS_CHECK_INDEX (gs, "npc", npc, (gs)->npc_count)
+  GS_CHECK_INDEX (gs, "npc", npc, (gs)->world.npc_count)
 #define GS_CHECK_WALK(gs, npc, walk) \
   do \
     { \
       GS_CHECK_NPC (gs, npc); \
-      GS_CHECK_INDEX (gs, "walk", walk, (gs)->npcs[npc].walkstep_count); \
+      GS_CHECK_INDEX (gs, "walk", walk, (gs)->world.npcs[npc].walkstep_count); \
     } \
   while (0)
 
@@ -211,14 +211,14 @@ gs_carried_recompute (scr_gameref_t gs)
 {
   scr_int index_, weight = 0, size = 0;
 
-  for (index_ = 0; index_ < gs->object_count; index_++)
+  for (index_ = 0; index_ < gs->world.object_count; index_++)
     {
-      if (gs->objects[index_].position == OBJ_HELD_PLAYER)
+      if (gs->world.objects[index_].position == OBJ_HELD_PLAYER)
         {
           weight += obj_get_base_weight (gs, index_);
           size += obj_get_size (gs, index_);
         }
-      else if (gs->objects[index_].position == OBJ_WORN_PLAYER)
+      else if (gs->world.objects[index_].position == OBJ_WORN_PLAYER)
         weight += obj_get_base_weight (gs, index_);
     }
   gs->carried.weight = weight;
@@ -249,7 +249,7 @@ gs_runner_reaches (scr_gameref_t gs, scr_int object, scr_bool worn_only)
 
   for (depth = 0; depth < GS_RUNNER_WALK_LIMIT; depth++)
     {
-      const scr_int position = gs->objects[walk].position;
+      const scr_int position = gs->world.objects[walk].position;
 
       if (position == OBJ_WORN_PLAYER)
         return TRUE;
@@ -257,8 +257,8 @@ gs_runner_reaches (scr_gameref_t gs, scr_int object, scr_bool worn_only)
         return !worn_only;
       if (position != OBJ_IN_OBJECT && position != OBJ_ON_OBJECT)
         return FALSE;
-      walk = gs->objects[walk].runner_parent;
-      if (walk < 0 || walk >= gs->object_count)
+      walk = gs->world.objects[walk].runner_parent;
+      if (walk < 0 || walk >= gs->world.object_count)
         return FALSE;
     }
   return FALSE;
@@ -337,9 +337,9 @@ gs_carried_track (scr_gameref_t gs, scr_int object, scr_int old_pos,
    * bypasses this by assigning positions directly, so a restored wield is
    * whatever the save says.
    */
-  if (object == gs->playerwield
+  if (object == gs->world.playerwield
       && old_pos == OBJ_HELD_PLAYER && new_pos != OBJ_HELD_PLAYER)
-    gs->playerwield = -1;
+    gs->world.playerwield = -1;
 
   if (!gs->carried.ready || gs->carried.suspend)
     return;
@@ -382,27 +382,27 @@ gs_move_player_to_room (scr_gameref_t game, scr_int room)
     {
       scr_fatal ("gs_move_player_to_room: invalid room, %ld\n", room);
     }
-  else if (room < game->room_count)
-    game->playerroom = room;
+  else if (room < game->world.room_count)
+    game->world.playerroom = room;
   else
     {
       scr_int dest = lib_random_roomgroup_member (game,
-                                                 room - game->room_count);
+                                                 room - game->world.room_count);
 
       if (dest < 0)
         return;                  /* Empty group: leave the player in place. */
-      game->playerroom = dest;
+      game->world.playerroom = dest;
     }
 
-  game->playerparent = -1;
-  game->playerposition = 0;
+  game->world.playerparent = -1;
+  game->world.playerposition = 0;
 }
 
 scr_bool
 gs_player_in_room (scr_gameref_t game, scr_int room)
 {
   GS_CHECK (game);
-  return game->playerroom == room;
+  return game->world.playerroom == room;
 }
 
 
@@ -421,28 +421,28 @@ scr_bool
 gs_room_valid (scr_gameref_t gs, scr_int room)
 {
   GS_CHECK (gs);
-  return gs_in_range (room, gs->room_count);
+  return gs_in_range (room, gs->world.room_count);
 }
 
 scr_bool
 gs_task_valid (scr_gameref_t gs, scr_int task)
 {
   GS_CHECK (gs);
-  return gs_in_range (task, gs->task_count);
+  return gs_in_range (task, gs->world.task_count);
 }
 
 scr_bool
 gs_object_valid (scr_gameref_t gs, scr_int object)
 {
   GS_CHECK (gs);
-  return gs_in_range (object, gs->object_count);
+  return gs_in_range (object, gs->world.object_count);
 }
 
 scr_bool
 gs_npc_valid (scr_gameref_t gs, scr_int npc)
 {
   GS_CHECK (gs);
-  return gs_in_range (npc, gs->npc_count);
+  return gs_in_range (npc, gs->world.npc_count);
 }
 
 
@@ -564,42 +564,42 @@ void
 gs_set_playerroom (scr_gameref_t gs, scr_int room)
 {
   GS_CHECK (gs);
-  gs->playerroom = room;
+  gs->world.playerroom = room;
 }
 
 void
 gs_set_playerposition (scr_gameref_t gs, scr_int position)
 {
   GS_CHECK (gs);
-  gs->playerposition = position;
+  gs->world.playerposition = position;
 }
 
 void
 gs_set_playerparent (scr_gameref_t gs, scr_int parent)
 {
   GS_CHECK (gs);
-  gs->playerparent = parent;
+  gs->world.playerparent = parent;
 }
 
 scr_int
 gs_playerroom (scr_gameref_t gs)
 {
   GS_CHECK (gs);
-  return gs->playerroom;
+  return gs->world.playerroom;
 }
 
 scr_int
 gs_playerposition (scr_gameref_t gs)
 {
   GS_CHECK (gs);
-  return gs->playerposition;
+  return gs->world.playerposition;
 }
 
 scr_int
 gs_playerparent (scr_gameref_t gs)
 {
   GS_CHECK (gs);
-  return gs->playerparent;
+  return gs->world.playerparent;
 }
 
 scr_int
@@ -625,7 +625,7 @@ gs_carried_size (scr_gameref_t gs)
    * player still possesses by the same rule, so the Runner's own count stands
    * everywhere it does not leak.
    */
-  for (object = 0; object < gs->object_count; object++)
+  for (object = 0; object < gs->world.object_count; object++)
     {
       if (gs_runner_possessed (gs, object) && !gs_runner_worn (gs, object))
         possessed += obj_get_size (gs, object);
@@ -675,84 +675,84 @@ scr_int
 gs_event_count (scr_gameref_t gs)
 {
   GS_CHECK (gs);
-  return gs->event_count;
+  return gs->world.event_count;
 }
 
 void
 gs_set_event_state (scr_gameref_t gs, scr_int event, scr_int state)
 {
   GS_CHECK_EVENT (gs, event);
-  gs->events[event].state = state;
+  gs->world.events[event].state = state;
 }
 
 void
 gs_set_event_time (scr_gameref_t gs, scr_int event, scr_int etime)
 {
   GS_CHECK_EVENT (gs, event);
-  gs->events[event].time = etime;
+  gs->world.events[event].time = etime;
 }
 
 scr_int
 gs_event_state (scr_gameref_t gs, scr_int event)
 {
   GS_CHECK_EVENT (gs, event);
-  return gs->events[event].state;
+  return gs->world.events[event].state;
 }
 
 void
 gs_set_event_loadtime (scr_gameref_t gs, scr_int event, scr_int etime)
 {
   GS_CHECK_EVENT (gs, event);
-  gs->events[event].loadtime = etime;
+  gs->world.events[event].loadtime = etime;
 }
 
 scr_int
 gs_event_loadtime (scr_gameref_t gs, scr_int event)
 {
   GS_CHECK_EVENT (gs, event);
-  return gs->events[event].loadtime;
+  return gs->world.events[event].loadtime;
 }
 
 void
 gs_set_event_taskstate (scr_gameref_t gs, scr_int event, scr_bool done)
 {
   GS_CHECK_EVENT (gs, event);
-  gs->events[event].taskstate = done ? 1 : 0;
+  gs->world.events[event].taskstate = done ? 1 : 0;
 }
 
 scr_bool
 gs_event_taskstate (scr_gameref_t gs, scr_int event)
 {
   GS_CHECK_EVENT (gs, event);
-  return gs->events[event].taskstate != 0;
+  return gs->world.events[event].taskstate != 0;
 }
 
 void
 gs_set_event_ticked (scr_gameref_t gs, scr_int event, scr_bool ticked)
 {
   GS_CHECK_EVENT (gs, event);
-  gs->events[event].ticked = ticked ? 1 : 0;
+  gs->world.events[event].ticked = ticked ? 1 : 0;
 }
 
 scr_bool
 gs_event_ticked (scr_gameref_t gs, scr_int event)
 {
   GS_CHECK_EVENT (gs, event);
-  return gs->events[event].ticked != 0;
+  return gs->world.events[event].ticked != 0;
 }
 
 scr_int
 gs_event_time (scr_gameref_t gs, scr_int event)
 {
   GS_CHECK_EVENT (gs, event);
-  return gs->events[event].time;
+  return gs->world.events[event].time;
 }
 
 void
 gs_decrement_event_time (scr_gameref_t gs, scr_int event)
 {
   GS_CHECK_EVENT (gs, event);
-  gs->events[event].time--;
+  gs->world.events[event].time--;
 }
 
 
@@ -763,21 +763,21 @@ scr_int
 gs_room_count (scr_gameref_t gs)
 {
   GS_CHECK (gs);
-  return gs->room_count;
+  return gs->world.room_count;
 }
 
 void
 gs_set_room_seen (scr_gameref_t gs, scr_int room, scr_bool seen)
 {
   GS_CHECK_ROOM (gs, room);
-  gs->rooms[room].visited = seen;
+  gs->world.rooms[room].visited = seen;
 }
 
 scr_bool
 gs_room_seen (scr_gameref_t gs, scr_int room)
 {
   GS_CHECK_ROOM (gs, room);
-  return gs->rooms[room].visited;
+  return gs->world.rooms[room].visited;
 }
 
 
@@ -788,35 +788,35 @@ scr_int
 gs_task_count (scr_gameref_t gs)
 {
   GS_CHECK (gs);
-  return gs->task_count;
+  return gs->world.task_count;
 }
 
 void
 gs_set_task_done (scr_gameref_t gs, scr_int task, scr_bool done)
 {
   GS_CHECK_TASK (gs, task);
-  gs->tasks[task].done = done;
+  gs->world.tasks[task].done = done;
 }
 
 void
 gs_set_task_scored (scr_gameref_t gs, scr_int task, scr_bool scored)
 {
   GS_CHECK_TASK (gs, task);
-  gs->tasks[task].scored = scored;
+  gs->world.tasks[task].scored = scored;
 }
 
 scr_bool
 gs_task_done (scr_gameref_t gs, scr_int task)
 {
   GS_CHECK_TASK (gs, task);
-  return gs->tasks[task].done;
+  return gs->world.tasks[task].done;
 }
 
 scr_bool
 gs_task_scored (scr_gameref_t gs, scr_int task)
 {
   GS_CHECK_TASK (gs, task);
-  return gs->tasks[task].scored;
+  return gs->world.tasks[task].scored;
 }
 
 
@@ -827,28 +827,28 @@ scr_int
 gs_object_count (scr_gameref_t gs)
 {
   GS_CHECK (gs);
-  return gs->object_count;
+  return gs->world.object_count;
 }
 
 void
 gs_set_object_openness (scr_gameref_t gs, scr_int object, scr_int openness)
 {
   GS_CHECK_OBJECT (gs, object);
-  gs->objects[object].openness = openness;
+  gs->world.objects[object].openness = openness;
 }
 
 void
 gs_set_object_state (scr_gameref_t gs, scr_int object, scr_int state)
 {
   GS_CHECK_OBJECT (gs, object);
-  gs->objects[object].state = state;
+  gs->world.objects[object].state = state;
 }
 
 void
 gs_set_object_seen (scr_gameref_t gs, scr_int object, scr_bool seen)
 {
   GS_CHECK_OBJECT (gs, object);
-  gs->objects[object].seen = seen;
+  gs->world.objects[object].seen = seen;
 }
 
 
@@ -868,7 +868,7 @@ void
 gs_set_object_unmoved (scr_gameref_t gs, scr_int object, scr_bool unmoved)
 {
   GS_CHECK_OBJECT (gs, object);
-  gs->objects[object].unmoved = unmoved;
+  gs->world.objects[object].unmoved = unmoved;
 }
 
 void
@@ -876,42 +876,42 @@ gs_set_object_static_unmoved (scr_gameref_t gs, scr_int object,
                               scr_bool unmoved)
 {
   GS_CHECK_OBJECT (gs, object);
-  gs->objects[object].static_unmoved = unmoved;
+  gs->world.objects[object].static_unmoved = unmoved;
 }
 
 scr_int
 gs_object_openness (scr_gameref_t gs, scr_int object)
 {
   GS_CHECK_OBJECT (gs, object);
-  return gs->objects[object].openness;
+  return gs->world.objects[object].openness;
 }
 
 scr_int
 gs_object_state (scr_gameref_t gs, scr_int object)
 {
   GS_CHECK_OBJECT (gs, object);
-  return gs->objects[object].state;
+  return gs->world.objects[object].state;
 }
 
 scr_bool
 gs_object_seen (scr_gameref_t gs, scr_int object)
 {
   GS_CHECK_OBJECT (gs, object);
-  return gs->objects[object].seen;
+  return gs->world.objects[object].seen;
 }
 
 scr_bool
 gs_object_unmoved (scr_gameref_t gs, scr_int object)
 {
   GS_CHECK_OBJECT (gs, object);
-  return gs->objects[object].unmoved;
+  return gs->world.objects[object].unmoved;
 }
 
 scr_bool
 gs_object_static_unmoved (scr_gameref_t gs, scr_int object)
 {
   GS_CHECK_OBJECT (gs, object);
-  return gs->objects[object].static_unmoved;
+  return gs->world.objects[object].static_unmoved;
 }
 
 
@@ -922,7 +922,7 @@ void
 gs_object_static_rooms_clear (scr_gameref_t gs, scr_int object)
 {
   GS_CHECK_OBJECT (gs, object);
-  gs->objects[object].static_rooms.clear ();
+  gs->world.objects[object].static_rooms.clear ();
 }
 
 void
@@ -932,7 +932,7 @@ gs_object_static_rooms_add (scr_gameref_t gs, scr_int object, scr_int room)
   std::vector<scr_int>::iterator at;
 
   GS_CHECK_OBJECT (gs, object);
-  rooms = &gs->objects[object].static_rooms;
+  rooms = &gs->world.objects[object].static_rooms;
   at = std::lower_bound (rooms->begin (), rooms->end (), room);
   if (at == rooms->end () || *at != room)
     rooms->insert (at, room);
@@ -942,7 +942,7 @@ scr_bool
 gs_object_static_rooms_empty (scr_gameref_t gs, scr_int object)
 {
   GS_CHECK_OBJECT (gs, object);
-  return gs->objects[object].static_rooms.empty ();
+  return gs->world.objects[object].static_rooms.empty ();
 }
 
 scr_bool
@@ -951,7 +951,7 @@ gs_object_in_static_rooms (scr_gameref_t gs, scr_int object, scr_int room)
   const std::vector<scr_int> *rooms;
 
   GS_CHECK_OBJECT (gs, object);
-  rooms = &gs->objects[object].static_rooms;
+  rooms = &gs->world.objects[object].static_rooms;
   return std::binary_search (rooms->begin (), rooms->end (), room);
 }
 
@@ -959,14 +959,14 @@ scr_int
 gs_object_position (scr_gameref_t gs, scr_int object)
 {
   GS_CHECK_OBJECT (gs, object);
-  return gs->objects[object].position;
+  return gs->world.objects[object].position;
 }
 
 scr_int
 gs_object_parent (scr_gameref_t gs, scr_int object)
 {
   GS_CHECK_OBJECT (gs, object);
-  return gs->objects[object].parent;
+  return gs->world.objects[object].parent;
 }
 
 
@@ -1011,19 +1011,19 @@ gs_object_parent (scr_gameref_t gs, scr_int object)
 static void
 gs_rp_detach (scr_gameref_t gs, scr_int object, scr_bool clear_worn)
 {
-  const scr_int old_pos = gs->objects[object].position;
+  const scr_int old_pos = gs->world.objects[object].position;
 
   if (old_pos == OBJ_IN_OBJECT || old_pos == OBJ_ON_OBJECT
       || (clear_worn
           && (old_pos == OBJ_WORN_PLAYER || old_pos == OBJ_WORN_NPC)))
-    gs->objects[object].runner_parent = -1;
+    gs->world.objects[object].runner_parent = -1;
 }
 
 scr_int
 gs_object_runner_parent (scr_gameref_t gs, scr_int object)
 {
   GS_CHECK_OBJECT (gs, object);
-  return gs->objects[object].runner_parent;
+  return gs->world.objects[object].runner_parent;
 }
 
 void
@@ -1031,7 +1031,7 @@ gs_set_object_runner_parent (scr_gameref_t gs, scr_int object,
                              scr_int runner_parent)
 {
   GS_CHECK_OBJECT (gs, object);
-  gs->objects[object].runner_parent = runner_parent;
+  gs->world.objects[object].runner_parent = runner_parent;
 }
 
 
@@ -1054,7 +1054,7 @@ gs_object_place_unchecked (scr_gameref_t gs, scr_int object,
                            scr_int position, scr_int parent,
                            gs_rp_mode_t rp_mode, scr_int runner_parent)
 {
-  scr_int old_pos = gs->objects[object].position;
+  scr_int old_pos = gs->world.objects[object].position;
   scr_bool was_possessed, was_worn;
 
   GS_CHECK_OBJECT (gs, object);
@@ -1062,10 +1062,10 @@ gs_object_place_unchecked (scr_gameref_t gs, scr_int object,
   was_worn = gs_runner_worn (gs, object);
   if (rp_mode != GS_RP_SET)
     gs_rp_detach (gs, object, rp_mode == GS_RP_DETACH_WORN);
-  gs->objects[object].position = position;
-  gs->objects[object].parent = parent;
+  gs->world.objects[object].position = position;
+  gs->world.objects[object].parent = parent;
   if (rp_mode == GS_RP_SET)
-    gs->objects[object].runner_parent = runner_parent;
+    gs->world.objects[object].runner_parent = runner_parent;
   gs_carried_track (gs, object, old_pos, position, was_possessed, was_worn);
 }
 
@@ -1125,8 +1125,8 @@ void
 gs_object_move_onto (scr_gameref_t gs, scr_int object, scr_int onto)
 {
   GS_CHECK_OBJECT (gs, object);
-  if (gs->objects[object].position != OBJ_ON_OBJECT
-      || gs->objects[object].parent != onto)
+  if (gs->world.objects[object].position != OBJ_ON_OBJECT
+      || gs->world.objects[object].parent != onto)
     {
       gs_object_move_onto_unchecked (gs, object, onto);
     }
@@ -1136,8 +1136,8 @@ void
 gs_object_move_into (scr_gameref_t gs, scr_int object, scr_int into)
 {
   GS_CHECK_OBJECT (gs, object);
-  if (gs->objects[object].position != OBJ_IN_OBJECT
-      || gs->objects[object].parent != into)
+  if (gs->world.objects[object].position != OBJ_IN_OBJECT
+      || gs->world.objects[object].parent != into)
     {
       gs_object_move_into_unchecked (gs, object, into);
     }
@@ -1147,7 +1147,7 @@ void
 gs_object_make_hidden (scr_gameref_t gs, scr_int object)
 {
   GS_CHECK_OBJECT (gs, object);
-  if (gs->objects[object].position != OBJ_HIDDEN)
+  if (gs->world.objects[object].position != OBJ_HIDDEN)
     {
       gs_object_make_hidden_unchecked (gs, object);
     }
@@ -1157,7 +1157,7 @@ void
 gs_object_player_get (scr_gameref_t gs, scr_int object)
 {
   GS_CHECK_OBJECT (gs, object);
-  if (gs->objects[object].position != OBJ_HELD_PLAYER)
+  if (gs->world.objects[object].position != OBJ_HELD_PLAYER)
     {
       gs_object_player_get_unchecked (gs, object);
     }
@@ -1167,8 +1167,8 @@ void
 gs_object_npc_get (scr_gameref_t gs, scr_int object, scr_int npc)
 {
   GS_CHECK_OBJECT (gs, object);
-  if (gs->objects[object].position != OBJ_HELD_NPC
-      || gs->objects[object].parent != npc)
+  if (gs->world.objects[object].position != OBJ_HELD_NPC
+      || gs->world.objects[object].parent != npc)
     {
       gs_object_npc_get_unchecked (gs, object, npc);
     }
@@ -1178,7 +1178,7 @@ void
 gs_object_player_wear (scr_gameref_t gs, scr_int object)
 {
   GS_CHECK_OBJECT (gs, object);
-  if (gs->objects[object].position != OBJ_WORN_PLAYER)
+  if (gs->world.objects[object].position != OBJ_WORN_PLAYER)
     {
       gs_object_player_wear_unchecked (gs, object);
     }
@@ -1188,8 +1188,8 @@ void
 gs_object_npc_wear (scr_gameref_t gs, scr_int object, scr_int npc)
 {
   GS_CHECK_OBJECT (gs, object);
-  if (gs->objects[object].position != OBJ_WORN_NPC
-      || gs->objects[object].parent != npc)
+  if (gs->world.objects[object].position != OBJ_WORN_NPC
+      || gs->world.objects[object].parent != npc)
     {
       gs_object_npc_wear_unchecked (gs, object, npc);
     }
@@ -1199,7 +1199,7 @@ void
 gs_object_to_room (scr_gameref_t gs, scr_int object, scr_int room)
 {
   GS_CHECK_OBJECT (gs, object);
-  if (gs->objects[object].position != room + 1)
+  if (gs->world.objects[object].position != room + 1)
     {
       gs_object_to_room_unchecked (gs, object, room);
     }
@@ -1213,14 +1213,14 @@ scr_int
 gs_npc_count (scr_gameref_t gs)
 {
   GS_CHECK (gs);
-  return gs->npc_count;
+  return gs->world.npc_count;
 }
 
 void
 gs_set_npc_location (scr_gameref_t gs, scr_int npc, scr_int location)
 {
   GS_CHECK_NPC (gs, npc);
-  gs->npcs[npc].location = location;
+  gs->world.npcs[npc].location = location;
 
   /*
    * Any placement at all clears the walk-hidden marker; npc_tick_npc_walk()
@@ -1228,85 +1228,85 @@ gs_set_npc_location (scr_gameref_t gs, scr_int npc, scr_int location)
    * dead marker for the same reason: both stand in for a value the Runner
    * keeps in the room field this call overwrites.
    */
-  gs->npcs[npc].walk_hidden = FALSE;
-  gs->npcs[npc].dead = FALSE;
+  gs->world.npcs[npc].walk_hidden = FALSE;
+  gs->world.npcs[npc].dead = FALSE;
 }
 
 void
 gs_set_npc_walk_hidden (scr_gameref_t gs, scr_int npc, scr_bool hidden)
 {
   GS_CHECK_NPC (gs, npc);
-  gs->npcs[npc].walk_hidden = hidden;
+  gs->world.npcs[npc].walk_hidden = hidden;
 }
 
 scr_bool
 gs_npc_walk_hidden (scr_gameref_t gs, scr_int npc)
 {
   GS_CHECK_NPC (gs, npc);
-  return gs->npcs[npc].walk_hidden;
+  return gs->world.npcs[npc].walk_hidden;
 }
 
 void
 gs_set_npc_dead (scr_gameref_t gs, scr_int npc, scr_bool dead)
 {
   GS_CHECK_NPC (gs, npc);
-  gs->npcs[npc].dead = dead;
+  gs->world.npcs[npc].dead = dead;
 }
 
 scr_bool
 gs_npc_dead (scr_gameref_t gs, scr_int npc)
 {
   GS_CHECK_NPC (gs, npc);
-  return gs->npcs[npc].dead;
+  return gs->world.npcs[npc].dead;
 }
 
 scr_int
 gs_npc_location (scr_gameref_t gs, scr_int npc)
 {
   GS_CHECK_NPC (gs, npc);
-  return gs->npcs[npc].location;
+  return gs->world.npcs[npc].location;
 }
 
 void
 gs_set_npc_position (scr_gameref_t gs, scr_int npc, scr_int position)
 {
   GS_CHECK_NPC (gs, npc);
-  gs->npcs[npc].position = position;
+  gs->world.npcs[npc].position = position;
 }
 
 scr_int
 gs_npc_position (scr_gameref_t gs, scr_int npc)
 {
   GS_CHECK_NPC (gs, npc);
-  return gs->npcs[npc].position;
+  return gs->world.npcs[npc].position;
 }
 
 void
 gs_set_npc_parent (scr_gameref_t gs, scr_int npc, scr_int parent)
 {
   GS_CHECK_NPC (gs, npc);
-  gs->npcs[npc].parent = parent;
+  gs->world.npcs[npc].parent = parent;
 }
 
 scr_int
 gs_npc_parent (scr_gameref_t gs, scr_int npc)
 {
   GS_CHECK_NPC (gs, npc);
-  return gs->npcs[npc].parent;
+  return gs->world.npcs[npc].parent;
 }
 
 void
 gs_set_npc_seen (scr_gameref_t gs, scr_int npc, scr_bool seen)
 {
   GS_CHECK_NPC (gs, npc);
-  gs->npcs[npc].seen = seen;
+  gs->world.npcs[npc].seen = seen;
 }
 
 scr_bool
 gs_npc_seen (scr_gameref_t gs, scr_int npc)
 {
   GS_CHECK_NPC (gs, npc);
-  return gs->npcs[npc].seen;
+  return gs->world.npcs[npc].seen;
 }
 
 
@@ -1317,84 +1317,84 @@ void
 gs_set_playerstamina (scr_gameref_t gs, scr_int stamina)
 {
   GS_CHECK (gs);
-  gs->playerstamina = stamina;
+  gs->world.playerstamina = stamina;
 }
 
 scr_int
 gs_playerstamina (scr_gameref_t gs)
 {
   GS_CHECK (gs);
-  return gs->playerstamina;
+  return gs->world.playerstamina;
 }
 
 void
 gs_set_playerstaminacounter (scr_gameref_t gs, scr_int counter)
 {
   GS_CHECK (gs);
-  gs->playerstaminacounter = counter;
+  gs->world.playerstaminacounter = counter;
 }
 
 scr_int
 gs_playerstaminacounter (scr_gameref_t gs)
 {
   GS_CHECK (gs);
-  return gs->playerstaminacounter;
+  return gs->world.playerstaminacounter;
 }
 
 void
 gs_set_playerwield (scr_gameref_t gs, scr_int object)
 {
   GS_CHECK (gs);
-  gs->playerwield = object;
+  gs->world.playerwield = object;
 }
 
 scr_int
 gs_playerwield (scr_gameref_t gs)
 {
   GS_CHECK (gs);
-  return gs->playerwield;
+  return gs->world.playerwield;
 }
 
 void
 gs_set_npc_stamina (scr_gameref_t gs, scr_int npc, scr_int stamina)
 {
   GS_CHECK_NPC (gs, npc);
-  gs->npcs[npc].stamina = stamina;
+  gs->world.npcs[npc].stamina = stamina;
 }
 
 scr_int
 gs_npc_stamina (scr_gameref_t gs, scr_int npc)
 {
   GS_CHECK_NPC (gs, npc);
-  return gs->npcs[npc].stamina;
+  return gs->world.npcs[npc].stamina;
 }
 
 void
 gs_set_npc_staminacounter (scr_gameref_t gs, scr_int npc, scr_int counter)
 {
   GS_CHECK_NPC (gs, npc);
-  gs->npcs[npc].staminacounter = counter;
+  gs->world.npcs[npc].staminacounter = counter;
 }
 
 scr_int
 gs_npc_staminacounter (scr_gameref_t gs, scr_int npc)
 {
   GS_CHECK_NPC (gs, npc);
-  return gs->npcs[npc].staminacounter;
+  return gs->world.npcs[npc].staminacounter;
 }
 
 void
 gs_set_npc_attackcounter (scr_gameref_t gs, scr_int npc, scr_int counter)
 {
   GS_CHECK_NPC (gs, npc);
-  gs->npcs[npc].attackcounter = counter;
+  gs->world.npcs[npc].attackcounter = counter;
 }
 
 scr_int
 gs_npc_attackcounter (scr_gameref_t gs, scr_int npc)
 {
   GS_CHECK_NPC (gs, npc);
-  return gs->npcs[npc].attackcounter;
+  return gs->world.npcs[npc].attackcounter;
 }
 
 
@@ -1409,21 +1409,21 @@ scr_battle_t *
 gs_player_battle (scr_gameref_t gs)
 {
   GS_CHECK (gs);
-  return &gs->playerbattle;
+  return &gs->world.playerbattle;
 }
 
 scr_battle_t *
 gs_npc_battle (scr_gameref_t gs, scr_int npc)
 {
   GS_CHECK_NPC (gs, npc);
-  return &gs->npcs[npc].battle;
+  return &gs->world.npcs[npc].battle;
 }
 
 scr_int
 gs_npc_walkstep_count (scr_gameref_t gs, scr_int npc)
 {
   GS_CHECK_NPC (gs, npc);
-  return gs->npcs[npc].walkstep_count;
+  return gs->world.npcs[npc].walkstep_count;
 }
 
 void
@@ -1431,21 +1431,21 @@ gs_set_npc_walkstep (scr_gameref_t gs,
                      scr_int npc, scr_int walk, scr_int walkstep)
 {
   GS_CHECK_WALK (gs, npc, walk);
-  gs->npcs[npc].walksteps[walk] = walkstep;
+  gs->world.npcs[npc].walksteps[walk] = walkstep;
 }
 
 scr_int
 gs_npc_walkstep (scr_gameref_t gs, scr_int npc, scr_int walk)
 {
   GS_CHECK_WALK (gs, npc, walk);
-  return gs->npcs[npc].walksteps[walk];
+  return gs->world.npcs[npc].walksteps[walk];
 }
 
 void
 gs_decrement_npc_walkstep (scr_gameref_t gs, scr_int npc, scr_int walk)
 {
   GS_CHECK_WALK (gs, npc, walk);
-  gs->npcs[npc].walksteps[walk]--;
+  gs->world.npcs[npc].walksteps[walk]--;
 }
 
 
@@ -1514,7 +1514,7 @@ gs_populate_dynamic_object (scr_gameref_t game, scr_prop_setref_t bundle,
         {
           const scr_int npc = initialparent - 1;
 
-          if (npc >= 0 && npc < game->npc_count)
+          if (npc >= 0 && npc < game->world.npc_count)
             gs_object_npc_get_unchecked (game, index_, npc);
           else
             {
@@ -1530,7 +1530,7 @@ gs_populate_dynamic_object (scr_gameref_t game, scr_prop_setref_t bundle,
         const scr_int container = obj_container_object (game,
                                                        initialparent);
 
-        if (container >= 0 && container < game->object_count)
+        if (container >= 0 && container < game->world.object_count)
           gs_object_move_into_unchecked (game, index_, container);
         else
           {
@@ -1546,7 +1546,7 @@ gs_populate_dynamic_object (scr_gameref_t game, scr_prop_setref_t bundle,
         const scr_int surface = obj_surface_object (game,
                                                    initialparent);
 
-        if (surface >= 0 && surface < game->object_count)
+        if (surface >= 0 && surface < game->world.object_count)
           gs_object_move_onto_unchecked (game, index_, surface);
         else
           {
@@ -1559,12 +1559,12 @@ gs_populate_dynamic_object (scr_gameref_t game, scr_prop_setref_t bundle,
 
     default:           /* In room, or worn by player/NPC. */
       if (initialposition >= 4
-          && initialposition < 4 + game->room_count)
+          && initialposition < 4 + game->world.room_count)
         {
           gs_object_to_room_unchecked (game,
                                        index_, initialposition - 4);
         }
-      else if (initialposition == 4 + game->room_count)
+      else if (initialposition == 4 + game->world.room_count)
         {
           /*
            * 0 is the player; an unset -1 is too.  run380 already
@@ -1578,7 +1578,7 @@ gs_populate_dynamic_object (scr_gameref_t game, scr_prop_setref_t bundle,
             {
               const scr_int npc = initialparent - 1;
 
-              if (npc >= 0 && npc < game->npc_count)
+              if (npc >= 0 && npc < game->world.npc_count)
                 gs_object_npc_wear_unchecked (game, index_, npc);
               else
                 {
@@ -1591,7 +1591,7 @@ gs_populate_dynamic_object (scr_gameref_t game, scr_prop_setref_t bundle,
       else
         {
           scr_error ("gs_create: object in out of bounds room, %ld\n",
-                    initialposition - 4 - game->room_count);
+                    initialposition - 4 - game->world.room_count);
           gs_object_to_room_unchecked (game, index_, -2);
         }
     }
@@ -1625,10 +1625,10 @@ gs_populate_dynamic_object (scr_gameref_t game, scr_prop_setref_t bundle,
    * the other, and `take cane` out of the open case was refused as too
    * heavy where run400 takes it.
    */
-  if (game->objects[index_].position == OBJ_HELD_PLAYER)
+  if (game->world.objects[index_].position == OBJ_HELD_PLAYER)
     gs_set_object_runner_parent (game, index_, -1);
-  else if (game->objects[index_].position == OBJ_HELD_NPC
-           || game->objects[index_].position == OBJ_WORN_NPC)
+  else if (game->world.objects[index_].position == OBJ_HELD_NPC
+           || game->world.objects[index_].position == OBJ_WORN_NPC)
     {
       /*
        * An NPC-HELD object keeps the NPC index in [2E].  run400's
@@ -1661,8 +1661,8 @@ gs_populate_dynamic_object (scr_gameref_t game, scr_prop_setref_t bundle,
                                    initialparent > 0
                                      ? initialparent - 1 : -1);
     }
-  else if (game->objects[index_].position != OBJ_IN_OBJECT
-           && game->objects[index_].position != OBJ_ON_OBJECT)
+  else if (game->world.objects[index_].position != OBJ_IN_OBJECT
+           && game->world.objects[index_].position != OBJ_ON_OBJECT)
     gs_set_object_runner_parent (game, index_, initialparent);
 }
 
@@ -1680,8 +1680,8 @@ gs_populate_objects (scr_gameref_t game, scr_prop_setref_t bundle)
 
   /* Create objects state array. */
   vt_key[0].string = "Objects";
-  game->object_count = prop_get_child_count (bundle, "I<-s", vt_key);
-  game->objects.resize (game->object_count);
+  game->world.object_count = prop_get_child_count (bundle, "I<-s", vt_key);
+  game->world.objects.resize (game->world.object_count);
 
   /*
    * The NPCs array is not built until further below, but the object setup
@@ -1689,11 +1689,11 @@ gs_populate_objects (scr_gameref_t game, scr_prop_setref_t bundle)
    * is "held/worn by NPC" (some games name a nonexistent NPC); read it now.
    */
   vt_key[0].string = "NPCs";
-  game->npc_count = prop_get_child_count (bundle, "I<-s", vt_key);
+  game->world.npc_count = prop_get_child_count (bundle, "I<-s", vt_key);
   vt_key[0].string = "Objects";
 
   /* Set up initial object states. */
-  for (index_ = 0; index_ < game->object_count; index_++)
+  for (index_ = 0; index_ < game->world.object_count; index_++)
     {
       scr_bool is_static, unmoved;
 
@@ -1712,7 +1712,7 @@ gs_populate_objects (scr_gameref_t game, scr_prop_setref_t bundle)
             {
               scr_int parent;
 
-              game->objects[index_].position = OBJ_PART_NPC;
+              game->world.objects[index_].position = OBJ_PART_NPC;
 
               /*
                * Parent 0 is the player; a nonexistent NPC reads as 0 too,
@@ -1720,10 +1720,10 @@ gs_populate_objects (scr_gameref_t game, scr_prop_setref_t bundle)
                */
               vt_key[2].string = "Parent";
               parent = prop_get_integer (bundle, "I<-sis", vt_key) - 1;
-              if (parent < 0 || parent >= game->npc_count)
+              if (parent < 0 || parent >= game->world.npc_count)
                 parent = -1;
-              game->objects[index_].parent = parent;
-              game->objects[index_].runner_parent = -1;
+              game->world.objects[index_].parent = parent;
+              game->world.objects[index_].runner_parent = -1;
             }
           else
             {
@@ -1733,7 +1733,7 @@ gs_populate_objects (scr_gameref_t game, scr_prop_setref_t bundle)
                * longer clears unconditionally, so do it here (the vector
                * resize zero-fill would falsely match object 0).
                */
-              game->objects[index_].runner_parent = -1;
+              game->world.objects[index_].runner_parent = -1;
             }
         }
       else
@@ -1813,16 +1813,16 @@ gs_populate_objects (scr_gameref_t game, scr_prop_setref_t bundle)
    * container index, so look for the loop here: a chain longer than the
    * object count must revisit an object.
    */
-  for (index_ = 0; index_ < game->object_count; index_++)
+  for (index_ = 0; index_ < game->world.object_count; index_++)
     {
       scr_int object = index_, steps = 0;
 
-      while (game->objects[object].position == OBJ_IN_OBJECT
-             || game->objects[object].position == OBJ_ON_OBJECT)
+      while (game->world.objects[object].position == OBJ_IN_OBJECT
+             || game->world.objects[object].position == OBJ_ON_OBJECT)
         {
-          if (++steps > game->object_count)
+          if (++steps > game->world.object_count)
             scr_fatal ("gs_create: object %ld is inside itself\n", index_);
-          object = game->objects[object].parent;
+          object = game->world.objects[object].parent;
         }
     }
 }
@@ -1841,20 +1841,20 @@ gs_populate_events (scr_gameref_t game, scr_prop_setref_t bundle)
 
   /* Create events state array. */
   vt_key[0].string = "Events";
-  game->event_count = prop_get_child_count (bundle, "I<-s", vt_key);
-  game->events.resize (game->event_count);
+  game->world.event_count = prop_get_child_count (bundle, "I<-s", vt_key);
+  game->world.events.resize (game->world.event_count);
 
   /* Set up initial events states. */
-  for (index_ = 0; index_ < game->event_count; index_++)
+  for (index_ = 0; index_ < game->world.event_count; index_++)
     {
       scr_int startertype;
 
       vt_key[1].integer = index_;
       vt_key[2].string = "StarterType";
       startertype = prop_get_integer (bundle, "I<-sis", vt_key);
-      game->events[index_].loadtime = -1;
-      game->events[index_].taskstate = 0;
-      game->events[index_].ticked = 0;
+      game->world.events[index_].loadtime = -1;
+      game->world.events[index_].taskstate = 0;
+      game->world.events[index_].ticked = 0;
 
       switch (startertype)
         {
@@ -1909,35 +1909,35 @@ gs_populate_npcs (scr_gameref_t game, scr_prop_setref_t bundle)
 
   /* Create NPCs state array (npc_count was read before the objects). */
   vt_key[0].string = "NPCs";
-  game->npcs.resize (game->npc_count);
+  game->world.npcs.resize (game->world.npc_count);
 
   /* Set up initial NPCs states. */
-  for (index_ = 0; index_ < game->npc_count; index_++)
+  for (index_ = 0; index_ < game->world.npc_count; index_++)
     {
       scr_int walk, walkstep_count, startroom;
 
       gs_set_npc_position (game, index_, 0);
       gs_set_npc_parent (game, index_, -1);
       gs_set_npc_seen (game, index_, FALSE);
-      game->npcs[index_].stamina = 0;
-      game->npcs[index_].staminacounter = 0;
-      game->npcs[index_].attackcounter = 0;
-      game->npcs[index_].battle = {};
+      game->world.npcs[index_].stamina = 0;
+      game->world.npcs[index_].staminacounter = 0;
+      game->world.npcs[index_].attackcounter = 0;
+      game->world.npcs[index_].battle = {};
 
       vt_key[1].integer = index_;
 
       /* StartRoom 0 is nowhere, n room n-1; a nonexistent room is nowhere. */
       vt_key[2].string = "StartRoom";
       startroom = prop_get_integer (bundle, "I<-sis", vt_key);
-      if (startroom < 0 || startroom > game->room_count)
+      if (startroom < 0 || startroom > game->world.room_count)
         startroom = 0;
       gs_set_npc_location (game, index_, startroom);
 
       vt_key[2].string = "Walks";
       walkstep_count = prop_get_child_count (bundle, "I<-sis", vt_key);
 
-      game->npcs[index_].walkstep_count = walkstep_count;
-      game->npcs[index_].walksteps.resize (walkstep_count);
+      game->world.npcs[index_].walkstep_count = walkstep_count;
+      game->world.npcs[index_].walksteps.resize (walkstep_count);
 
       for (walk = 0; walk < walkstep_count; walk++)
         gs_set_npc_walkstep (game, index_, walk, 0);
@@ -1958,15 +1958,16 @@ gs_populate_player (scr_gameref_t game, scr_prop_setref_t bundle)
   /* Set up the player portions of the game state. */
   vt_key[0].string = "Header";
   vt_key[1].string = "StartRoom";
-  game->playerroom = prop_get_integer (bundle, "I<-ss", vt_key);
+  game->world.playerroom = prop_get_integer (bundle, "I<-ss", vt_key);
 
   /* The start room indexes the rooms array from the first turn on. */
-  if (game->playerroom < 0 || game->playerroom >= game->room_count)
+  if (game->world.playerroom < 0
+      || game->world.playerroom >= game->world.room_count)
     scr_fatal ("gs_create: start room out of range, %ld\n",
-               game->playerroom);
+               game->world.playerroom);
   vt_key[0].string = "Globals";
   vt_key[1].string = "Position";
-  game->playerposition = prop_get_integer (bundle, "I<-ss", vt_key);
+  game->world.playerposition = prop_get_integer (bundle, "I<-ss", vt_key);
   vt_key[1].string = "ParentObject";
   {
     /*
@@ -1987,16 +1988,16 @@ gs_populate_player (scr_gameref_t game, scr_prop_setref_t bundle)
     scr_int ordinal = prop_get_integer (bundle, "I<-ss", vt_key);
 
     if (ordinal <= 0)
-      game->playerparent = -1;
-    else if (game->playerposition == 2)
-      game->playerparent = obj_lieable_object (game, ordinal - 1);
+      game->world.playerparent = -1;
+    else if (game->world.playerposition == 2)
+      game->world.playerparent = obj_lieable_object (game, ordinal - 1);
     else
-      game->playerparent = obj_standable_object (game, ordinal - 1);
+      game->world.playerparent = obj_standable_object (game, ordinal - 1);
   }
-  game->playerstamina = 0;
-  game->playerstaminacounter = 0;
-  game->playerwield = -1;
-  game->playerbattle = {};
+  game->world.playerstamina = 0;
+  game->world.playerstaminacounter = 0;
+  game->world.playerwield = -1;
+  game->world.playerbattle = {};
 }
 
 
@@ -2060,17 +2061,17 @@ gs_populate_seen_sweep (scr_gameref_t game, scr_prop_setref_t bundle)
 
   if (taf_version >= TAF_VERSION_390)
     {
-      for (index_ = 0; index_ < game->object_count; index_++)
+      for (index_ = 0; index_ < game->world.object_count; index_++)
         {
           if (gs_object_seen (game, index_))
             continue;
 
           if (taf_version < TAF_VERSION_400
               && (!obj_is_static (game, index_)
-                  || lib_room_alt_darkens (game, game->playerroom)))
+                  || lib_room_alt_darkens (game, game->world.playerroom)))
             continue;
 
-          if (obj_indirectly_in_room (game, index_, game->playerroom))
+          if (obj_indirectly_in_room (game, index_, game->world.playerroom))
             gs_set_object_seen (game, index_, TRUE);
         }
     }
@@ -2122,22 +2123,22 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
 
   /* Create rooms state array. */
   vt_key[0].string = "Rooms";
-  game->room_count = prop_get_child_count (bundle, "I<-s", vt_key);
-  game->rooms.resize (game->room_count);
+  game->world.room_count = prop_get_child_count (bundle, "I<-s", vt_key);
+  game->world.rooms.resize (game->world.room_count);
 
   /* Set up initial rooms states. */
-  for (index_ = 0; index_ < game->room_count; index_++)
+  for (index_ = 0; index_ < game->world.room_count; index_++)
     gs_set_room_seen (game, index_, FALSE);
 
   gs_populate_objects (game, bundle);
 
   /* Create tasks state array. */
   vt_key[0].string = "Tasks";
-  game->task_count = prop_get_child_count (bundle, "I<-s", vt_key);
-  game->tasks.resize (game->task_count);
+  game->world.task_count = prop_get_child_count (bundle, "I<-s", vt_key);
+  game->world.tasks.resize (game->world.task_count);
 
   /* Set up initial tasks states. */
-  for (index_ = 0; index_ < game->task_count; index_++)
+  for (index_ = 0; index_ < game->world.task_count; index_++)
     {
       gs_set_task_done (game, index_, FALSE);
       gs_set_task_scored (game, index_, FALSE);
@@ -2176,8 +2177,8 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
     }
 
   /* Miscellaneous state defaults. */
-  game->turns = 0;
-  game->score = 0;
+  game->world.turns = 0;
+  game->world.score = 0;
   game->settings.bold_room_names = TRUE;
   game->settings.verbose = TRUE;
 
@@ -2216,9 +2217,9 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
   game->turn.do_restart = FALSE;
   game->turn.do_restore = FALSE;
 
-  game->refs.objects.assign (game->object_count, FALSE);
-  game->refs.multiple.assign (game->object_count, FALSE);
-  game->refs.npcs.assign (game->npc_count, FALSE);
+  game->refs.objects.assign (game->world.object_count, FALSE);
+  game->refs.multiple.assign (game->world.object_count, FALSE);
+  game->refs.npcs.assign (game->world.npc_count, FALSE);
 
   game->pronouns.it_object = -1;
   game->pronouns.it_form = UIP_IT_INDEFINITE;
@@ -2373,42 +2374,19 @@ gs_copy (scr_gameref_t to, scr_gameref_t from)
   /* Copy over the variable timestamp. */
   var_set_elapsed_seconds (to->vars, var_get_elapsed_seconds (from->vars));
 
-  /* Copy over room states. */
-  assert (to->room_count == from->room_count);
-  to->rooms = from->rooms;
-
-  /* Copy over object states. */
-  assert (to->object_count == from->object_count);
-  to->objects = from->objects;
-
-  /* Copy over task states. */
-  assert (to->task_count == from->task_count);
-  to->tasks = from->tasks;
-
-  /* Copy over event states. */
-  assert (to->event_count == from->event_count);
-  to->events = from->events;
-
-  /* Copy over NPC states, walks included. */
-  assert (to->npc_count == from->npc_count);
-  to->npcs = from->npcs;
-
-  /* Copy over player information. */
-  to->playerroom = from->playerroom;
-  to->playerposition = from->playerposition;
-  to->playerparent = from->playerparent;
-  to->playerstamina = from->playerstamina;
-  to->playerstaminacounter = from->playerstaminacounter;
-  to->playerwield = from->playerwield;
-  to->playerbattle = from->playerbattle;
-
   /*
-   * Copy over miscellaneous other details.  The player's settings are
-   * specifically excluded, so that they are invariant across copies,
-   * particularly undo/restore; see scr_settings_t for the one that is not.
+   * Copy over the world: the room, object, task, event and NPC states (NPC
+   * walks included), the player, the turn count and the score.  The player's
+   * settings are specifically excluded, so that they are invariant across
+   * copies, particularly undo/restore; see scr_settings_t for the one that
+   * is not.
    */
-  to->turns = from->turns;
-  to->score = from->score;
+  assert (to->world.room_count == from->world.room_count);
+  assert (to->world.object_count == from->world.object_count);
+  assert (to->world.task_count == from->world.task_count);
+  assert (to->world.event_count == from->world.event_count);
+  assert (to->world.npc_count == from->world.npc_count);
+  to->world = from->world;
 
   gs_string_copy (to->current_room_name, from->current_room_name.get ());
   gs_string_copy (to->status_line, from->status_line.get ());

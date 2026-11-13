@@ -388,6 +388,50 @@ typedef struct
 } scr_carried_t;
 
 /*
+ * The world: basic game state -- rooms, objects, and so on -- with the
+ * player, the turn count and the score.
+ *
+ * Undo: copied whole by gs_copy.  .tas: saved; this is what a saved game is.
+ * Session: not saved, the session record rides on a .tas of its own.
+ *
+ * The state arrays are std::vector: they free themselves when the game is
+ * delete'd, so a throw partway through gs_create (a prop_* scr_fatal) leaks
+ * none of the already-allocated arrays.  The *_count fields remain the
+ * iteration source of truth (matching every existing loop, the serializer,
+ * and the asserts); the vectors are sized to match.
+ */
+typedef struct
+{
+  scr_int room_count;
+  std::vector<scr_roomstate_t> rooms;
+  scr_int object_count;
+  std::vector<scr_objectstate_t> objects;
+  scr_int task_count;
+  std::vector<scr_taskstate_t> tasks;
+  scr_int event_count;
+  std::vector<scr_eventstate_t> events;
+  scr_int npc_count;
+  std::vector<scr_npcstate_t> npcs;
+  scr_int playerroom;
+  scr_int playerposition;
+  scr_int playerparent;
+
+  /*
+   * Battle system state for the player -- current stamina, recovery, and the
+   * object index of the weapon the player has wielded (-1 for none).
+   */
+  scr_int playerstamina;
+  scr_int playerstaminacounter;
+  scr_int playerwield;
+
+  /* Mutable battle attributes for the player (no attitude/speed). */
+  scr_battle_t playerbattle;
+
+  scr_int turns;
+  scr_int score;
+} scr_world_t;
+
+/*
  * The player's settings: what the metacommands and the host's preferences
  * set, as opposed to what the game does.
  *
@@ -438,41 +482,7 @@ typedef struct scr_game_s
   struct scr_game_s *undo;
   scr_bool undo_available;
 
-  /*
-   * Basic game state -- rooms, objects, and so on.  The state arrays are
-   * std::vector: they free themselves when the game is delete'd, so a throw
-   * partway through gs_create (a prop_* scr_fatal) leaks none of the
-   * already-allocated arrays.  The *_count fields remain the iteration source
-   * of truth (matching every existing loop, the serializer, and the asserts);
-   * the vectors are sized to match.
-   */
-  scr_int room_count;
-  std::vector<scr_roomstate_t> rooms;
-  scr_int object_count;
-  std::vector<scr_objectstate_t> objects;
-  scr_int task_count;
-  std::vector<scr_taskstate_t> tasks;
-  scr_int event_count;
-  std::vector<scr_eventstate_t> events;
-  scr_int npc_count;
-  std::vector<scr_npcstate_t> npcs;
-  scr_int playerroom;
-  scr_int playerposition;
-  scr_int playerparent;
-
-  /*
-   * Battle system state for the player -- current stamina, recovery, and the
-   * object index of the weapon the player has wielded (-1 for none).
-   */
-  scr_int playerstamina;
-  scr_int playerstaminacounter;
-  scr_int playerwield;
-
-  /* Mutable battle attributes for the player (no attitude/speed). */
-  scr_battle_t playerbattle;
-
-  scr_int turns;
-  scr_int score;
+  scr_world_t world;
   scr_settings_t settings;
   scr_int room_name_headings;  /* 0 unknown, 1 print, 2 the game has its own */
   /*

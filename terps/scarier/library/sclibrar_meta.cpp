@@ -213,7 +213,7 @@ lib_cmd_endgame (scr_gameref_t game)
   max_score = prop_get_global_integer (bundle, "MaxScore");
 
   pf_buffer_string (filter, "You scored ");
-  snprintf (buffer, sizeof (buffer), "%ld", game->score);
+  snprintf (buffer, sizeof (buffer), "%ld", game->world.score);
   pf_buffer_string (filter, buffer);
   pf_buffer_string (filter, " out of the maximum ");
   snprintf (buffer, sizeof (buffer), "%ld", max_score);
@@ -221,7 +221,7 @@ lib_cmd_endgame (scr_gameref_t game)
   pf_buffer_string (filter, "!\n");
 
   divisor = max_score == 0 ? 1 : max_score;
-  percent = (scr_int) floor (game->score * (100.0 / divisor));
+  percent = (scr_int) floor (game->world.score * (100.0 / divisor));
   pf_buffer_string (filter, "That is ");
   snprintf (buffer, sizeof (buffer), "%ld", percent);
   pf_buffer_string (filter, buffer);
@@ -344,7 +344,7 @@ lib_cmd_undo (scr_gameref_t game)
    * runner_probes/admin.run390.txt's `turns` after
    * undo/redo/x me/i/z/wait/exits/yes reads 37, one per element typed.
    */
-  const scr_int turns = game->turns;
+  const scr_int turns = game->world.turns;
   std::string replay;
 
   /* If an undo buffer is available, restore it. */
@@ -352,7 +352,7 @@ lib_cmd_undo (scr_gameref_t game)
     {
       gs_copy (game, game->undo);
       if (lib_is_version_390 (game))
-        game->turns = turns;
+        game->world.turns = turns;
       game->undo_available = FALSE;
 
       pf_buffer_string (filter, "Undone.\n");
@@ -376,7 +376,7 @@ lib_cmd_undo (scr_gameref_t game)
       pf_buffer_printed (filter, gs_get_vars (game), gs_get_bundle (game),
                          replay);
       if (lib_is_version_390 (game))
-        game->turns = turns;
+        game->world.turns = turns;
 
       game->is_running = FALSE;
       game->turn.do_restore = TRUE;
@@ -438,7 +438,7 @@ lib_cmd_history_common (scr_gameref_t game, scr_int limit)
    * the c-shell, which always shows 'history' listed last.
    */
   timestamp = var_get_elapsed_seconds (vars);
-  memo_save_command (memento, "[history]", timestamp, game->turns);
+  memo_save_command (memento, "[history]", timestamp, game->world.turns);
 
   /* Decide on the first history to display; all if limit is 0 or less. */
   if (limit > 0)
@@ -1319,8 +1319,8 @@ lib_cmd_turns (scr_gameref_t game)
    * far."), but no corpus ALR quotes it, so the agreement is fixed here.
    */
   pf_buffer_string (filter, "You have taken ");
-  pf_buffer_integer (filter, game->turns);
-  pf_buffer_string (filter, game->turns == 1 ? " turn so far.\n"
+  pf_buffer_integer (filter, game->world.turns);
+  pf_buffer_string (filter, game->world.turns == 1 ? " turn so far.\n"
                                              : " turns so far.\n");
 
   lib_set_admin (game);
@@ -1336,8 +1336,8 @@ lib_cmd_score (scr_gameref_t game)
 
   /* Get max score, and calculate score as a percentage. */
   max_score = prop_get_global_integer (bundle, "MaxScore");
-  if (game->score > 0 && max_score > 0)
-    percent = (game->score * 100) / max_score;
+  if (game->world.score > 0 && max_score > 0)
+    percent = (game->world.score * 100) / max_score;
   else
     percent = 0;
 
@@ -1347,7 +1347,7 @@ lib_cmd_score (scr_gameref_t game)
                                          "Your score is ",
                                          "My score is ",
                                          "%player%'s score is "));
-  pf_buffer_integer (filter, game->score);
+  pf_buffer_integer (filter, game->world.score);
   pf_buffer_string (filter, " out of a maximum of ");
   pf_buffer_integer (filter, max_score);
   pf_buffer_string (filter, ".  (");

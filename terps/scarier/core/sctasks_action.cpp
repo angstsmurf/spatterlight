@@ -344,7 +344,7 @@ task_run_change_score_action (scr_gameref_t game, scr_int task, scr_int var1)
           if (tasks.trace)
             scr_trace ("Task: increased score by %ld\n", var1);
 
-          game->score += var1;
+          game->world.score += var1;
           gs_set_task_scored (game, task, TRUE);
         }
     }
@@ -354,7 +354,7 @@ task_run_change_score_action (scr_gameref_t game, scr_int task, scr_int var1)
       if (tasks.trace)
         scr_trace ("Task: decreased score by %ld\n", -(var1));
 
-      game->score += var1;
+      game->world.score += var1;
     }
 }
 

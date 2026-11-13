@@ -126,17 +126,19 @@ run_notify_score_change (scr_gameref_t game)
     return;
 
   /* Note any change in the score. */
-  if (game->score > undo->score)
+  if (game->world.score > undo->world.score)
     {
       if_print_string ("(Your score has increased by ");
-      snprintf (buffer, sizeof(buffer), "%ld", game->score - undo->score);
+      snprintf (buffer, sizeof(buffer), "%ld",
+                game->world.score - undo->world.score);
       if_print_string (buffer);
       if_print_string (")\n");
     }
-  else if (game->score < undo->score)
+  else if (game->world.score < undo->world.score)
     {
       if_print_string ("(Your score has decreased by ");
-      snprintf (buffer, sizeof(buffer), "%ld", undo->score - game->score);
+      snprintf (buffer, sizeof(buffer), "%ld",
+                undo->world.score - game->world.score);
       if_print_string (buffer);
       if_print_string (")\n");
     }
@@ -628,7 +630,7 @@ run_main_turn_tick (scr_gameref_t game, scr_bool status)
    */
   if (status && game->turn.is_admin)
     SCR_TRACE_IF ("SCR_TRACE_ADMIN", "ADMIN turn=%ld after [%s]\n",
-                  game->turns, run_trace_last_input.c_str ());
+                  game->world.turns, run_trace_last_input.c_str ());
   if (status && !game->turn.is_admin)
     {
       /*
@@ -645,7 +647,7 @@ run_main_turn_tick (scr_gameref_t game, scr_bool status)
       if (!run_counts_line_elements (game)
           && !(prop_get_taf_version (gs_get_bundle (game))
                >= TAF_VERSION_400 && !game->is_running))
-        game->turns++;
+        game->world.turns++;
       game->turn.has_notified = FALSE;
 
       if (game->is_running)
@@ -1535,9 +1537,9 @@ run_get_attributes (scr_gameref_t game,
 
   /* Return any other selected game attributes. */
   if (turns)
-    *turns = game->turns;
+    *turns = game->world.turns;
   if (score)
-    *score = game->score;
+    *score = game->world.score;
   if (max_score)
     {
       *max_score = prop_get_global_integer (bundle, "MaxScore");
@@ -1588,7 +1590,7 @@ run_hint_iterate (scr_gameref_t game, scr_hintref_t hint)
   else
     {
       /* Convert into pointer, and range check. */
-      task = hint - game->tasks.data ();
+      task = hint - game->world.tasks.data ();
       if (task < 0 || task >= gs_task_count (game))
         {
           scr_error ("run_hint_iterate: invalid iteration hint\n");
@@ -1607,7 +1609,7 @@ run_hint_iterate (scr_gameref_t game, scr_hintref_t hint)
     }
 
   /* Return a pointer to the state of the task identified, or NULL. */
-  return task < gs_task_count (game) ? &game->tasks[task] : nullptr;
+  return task < gs_task_count (game) ? &game->world.tasks[task] : nullptr;
 }
 
 
@@ -1635,7 +1637,7 @@ run_get_hint_common (scr_gameref_t game, scr_hintref_t hint,
   assert (gs_is_game_valid (game));
 
   /* Verify the caller passed in a valid hint. */
-  task = hint - game->tasks.data ();
+  task = hint - game->world.tasks.data ();
   if (task < 0 || task >= gs_task_count (game))
     {
       scr_error ("run_get_hint_common: invalid iteration hint\n");

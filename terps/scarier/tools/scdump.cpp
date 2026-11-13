@@ -2024,7 +2024,7 @@ scr_dump_npc_trace (scr_gameref_t game)
   if (trace_player)
     {
       scr_dump_log ("PLAYERROOM room=%ld stamina=%ld\n",
-            gs_playerroom (game), game->playerstamina);
+            gs_playerroom (game), game->world.playerstamina);
       scr_dump_flush ();
     }
 

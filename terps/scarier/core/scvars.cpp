@@ -903,7 +903,7 @@ var_return_global_string (scr_var_setref_t vars, const scr_char *key,
 }
 
 static scr_bool
-var_return_game_count (scr_var_setref_t vars, scr_int scr_game_s::*count,
+var_return_game_count (scr_var_setref_t vars, scr_int scr_world_t::*count,
                        const scr_char *what,
                        scr_int *type, scr_vartype_t *vt_rvalue)
 {
@@ -916,7 +916,7 @@ var_return_game_count (scr_var_setref_t vars, scr_int scr_game_s::*count,
       return var_return_integer (0, type, vt_rvalue);
     }
 
-  return var_return_integer (game->*count, type, vt_rvalue);
+  return var_return_integer (game->world.*count, type, vt_rvalue);
 }
 
 
@@ -1448,7 +1448,7 @@ var_system_score (scr_var_setref_t vars, const scr_char * /* name */,
                   scr_int *type, scr_vartype_t *vt_rvalue)
 {
   /* Return the current game score. */
-  return var_return_game_count (vars, &scr_game_s::score, "score",
+  return var_return_game_count (vars, &scr_world_t::score, "score",
                                 type, vt_rvalue);
 }
 
@@ -1660,7 +1660,7 @@ var_system_turns (scr_var_setref_t vars, const scr_char * /* name */,
                   scr_int *type, scr_vartype_t *vt_rvalue)
 {
   /* Return the count of game turns. */
-  return var_return_game_count (vars, &scr_game_s::turns, "turns",
+  return var_return_game_count (vars, &scr_world_t::turns, "turns",
                                 type, vt_rvalue);
 }
 

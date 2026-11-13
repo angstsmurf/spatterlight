@@ -503,7 +503,7 @@ run_count_element (scr_gameref_t game)
 {
   if (run_counts_line_elements (game))
     {
-      game->turns++;
+      game->world.turns++;
 
       /*
        * `both` is the one in-line re-run that really counts twice: 45FEB6
@@ -517,7 +517,7 @@ run_count_element (scr_gameref_t game)
        */
       if (scr_strcasecmp (run_line_element, "both") == 0
           && prop_get_taf_version (gs_get_bundle (game)) == TAF_VERSION_390)
-        game->turns++;
+        game->world.turns++;
     }
 }
 
@@ -806,7 +806,7 @@ run_element_questions (scr_gameref_t game, const scr_char *command,
        * prefix, the object catch-all -- by one.  See run_count_element().
        */
       if (prop_get_taf_version (bundle) == TAF_VERSION_390)
-        game->turns++;
+        game->world.turns++;
     }
 
   /*
@@ -1098,7 +1098,7 @@ run_element_finish (scr_gameref_t game, scr_bool is_rerunning,
 
           timestamp = var_get_elapsed_seconds (gs_get_vars (game));
           memo_save_command (memento, run_line_element, timestamp,
-                             game->turns);
+                             game->world.turns);
         }
       else
         game->turn.redo_sequence = 0;

@@ -815,7 +815,8 @@ ser_save_object_location (scr_gameref_t game, scr_int object)
     {
       /* Relocated static object: present in its current room, or nowhere. */
       const scr_int position = gs_object_position (game, object);
-      const std::vector<scr_int> &rooms = game->objects[object].static_rooms;
+      const std::vector<scr_int> &rooms
+          = game->world.objects[object].static_rooms;
 
       /* ...or, once 4.0 finish moves have piled up, in all of these. */
       if (position != OBJ_HELD_PLAYER && !rooms.empty ())
@@ -937,7 +938,7 @@ ser_save_header (scr_gameref_t game)
   ser_buffer_int (gs_npc_count (game));
 
   /* Write the score. */
-  ser_buffer_int (game->score);
+  ser_buffer_int (game->world.score);
 }
 
 /* The player block, encumbrance, and the player's battle block. */
@@ -1194,7 +1195,7 @@ ser_save_game_body (scr_gameref_t game)
   ser_buffer_uint (var_get_elapsed_seconds (vars));
 
   /* Save turns count. */
-  ser_buffer_uint ((scr_uint) game->turns);
+  ser_buffer_uint ((scr_uint) game->world.turns);
 
   /*
    * Note: the live Battle System state (stamina, attributes, attitudes, etc.)
@@ -1578,7 +1579,7 @@ ser_restore_object_location (scr_gameref_t game, scr_int object,
 
       if (position >= OBJ_HELD_PLAYER && position <= gs_room_count (game))
         {
-          game->objects[object].position = position;
+          game->world.objects[object].position = position;
           gs_set_object_static_unmoved (game, object, FALSE);
         }
     }
@@ -1597,7 +1598,7 @@ ser_restore_object_location (scr_gameref_t game, scr_int object,
         {
           if (count == 0)
             {
-              game->objects[object].position = OBJ_HIDDEN;
+              game->world.objects[object].position = OBJ_HIDDEN;
               gs_set_object_static_unmoved (game, object, FALSE);
             }
           else
@@ -1613,7 +1614,7 @@ ser_restore_object_location (scr_gameref_t game, scr_int object,
                          && rooms[index_] <= gs_room_count (game);
               if (!valid)
                 return;
-              game->objects[object].position = rooms[count];
+              game->world.objects[object].position = rooms[count];
               gs_set_object_static_unmoved (game, object, FALSE);
               gs_object_static_rooms_clear (game, object);
               for (index_ = 1; index_ <= count; index_++)
@@ -1622,7 +1623,7 @@ ser_restore_object_location (scr_gameref_t game, scr_int object,
         }
     }
   else
-    game->objects[object].position = ser_get_int ();
+    game->world.objects[object].position = ser_get_int ();
 }
 
 
@@ -1756,7 +1757,7 @@ ser_load_object (scr_gameref_t game, scr_int object, scr_bool runner_format)
   /* Bypass mutators for position and parent.  Fix later? */
   ser_restore_object_location (game, object, runner_format);
   gs_set_object_seen (game, object, ser_get_boolean ());
-  game->objects[object].parent = ser_get_int ();
+  game->world.objects[object].parent = ser_get_int ();
 
   /*
    * Validate a dynamic object's restored position and parent against the
@@ -1765,8 +1766,8 @@ ser_load_object (scr_gameref_t game, scr_int object, scr_bool runner_format)
    */
   if (!obj_is_static (game, object))
     {
-      const scr_int position = game->objects[object].position;
-      const scr_int parent = game->objects[object].parent;
+      const scr_int position = game->world.objects[object].position;
+      const scr_int parent = game->world.objects[object].parent;
 
       ser_reject_if (!ser_object_position_valid (game, position));
       ser_reject_if (!ser_object_parent_valid (game, position, parent));
@@ -1816,11 +1817,11 @@ ser_load_object_runner_parent (scr_gameref_t game, scr_int object)
     gs_set_object_runner_parent (game, object, -1);
   else
     {
-      const scr_int position = game->objects[object].position;
+      const scr_int position = game->world.objects[object].position;
 
       if (position == OBJ_IN_OBJECT || position == OBJ_ON_OBJECT)
         gs_set_object_runner_parent (game, object,
-                                     game->objects[object].parent);
+                                     game->world.objects[object].parent);
       else if (position == OBJ_HELD_NPC || position == OBJ_WORN_NPC)
         gs_set_object_runner_parent (game, object, -1);
       else
@@ -1854,11 +1855,11 @@ ser_reject_containment_loops (scr_gameref_t game)
       scr_int object = index_, steps = 0;
 
       while (!obj_is_static (game, object)
-             && (game->objects[object].position == OBJ_IN_OBJECT
-                 || game->objects[object].position == OBJ_ON_OBJECT))
+             && (game->world.objects[object].position == OBJ_IN_OBJECT
+                 || game->world.objects[object].position == OBJ_ON_OBJECT))
         {
           ser_reject_if (++steps > gs_object_count (game));
-          object = game->objects[object].parent;
+          object = game->world.objects[object].parent;
         }
     }
 }
@@ -2057,7 +2058,7 @@ ser_load_game_body (scr_gameref_t game,
   battle_start (new_game);
 
   /* Restore the score. */
-  new_game->score = ser_get_int ();
+  new_game->world.score = ser_get_int ();
 
   saved_carried_weight = ser_load_player (new_game, runner_format);
 
@@ -2093,7 +2094,7 @@ ser_load_game_body (scr_gameref_t game,
   var_set_elapsed_seconds (new_vars, ser_get_uint ());
 
   /* Restore turns count. */
-  new_game->turns = (scr_int) ser_get_uint ();
+  new_game->world.turns = (scr_int) ser_get_uint ();
 
   ser_load_legacy_battle (new_game, runner_format);
 
