@@ -1026,7 +1026,7 @@
 		C3CF369B2660207E004D0F7B /* neo.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CF36992660207E004D0F7B /* neo.c */; };
 		C3CF8A172DF8799500EF2297 /* FileSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF8A152DF8762600EF2297 /* FileSignature.m */; };
 		C3D1A0032F4B000100A1B2C3 /* ImageAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D1A0022F4B000100A1B2C3 /* ImageAnimation.m */; };
-		C3D1A00526EE4E75006F430E /* SFBSoundBackend.mm in Sources */ = {isa = PBXBuildFile; fileRef = C3D1A00226EE4E75006F430E /* SFBSoundBackend.mm */; };
+		C3D1A00526EE4E75006F430E /* SFBSoundBackend.mm in Sources */ = {isa = PBXBuildFile; fileRef = C3D1A00226EE4E75006F430E /* SFBSoundBackend.mm */; settings = {COMPILER_FLAGS = "-F$(SRCROOT)/SFBAudioEngine/build/$(CONFIGURATION)"; }; };
 		C3D1A00626EE4E75006F430E /* MIDISoundBackend.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D1A00426EE4E75006F430E /* MIDISoundBackend.m */; };
 		C3D1A0062F4B000100A1B2C3 /* ImageResource.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D1A0052F4B000100A1B2C3 /* ImageResource.m */; };
 		C3D1A00926EE4E75006F430E /* MIDISequenceUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D1A00826EE4E75006F430E /* MIDISequenceUtils.m */; };
