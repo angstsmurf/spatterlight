@@ -24,3 +24,6 @@ scmap_dump
 # the tree -- see "Probes and offline oracles" in
 # ../notes/WINE-TRANSCRIPTS.md.
 p[0-9]*.taf
+# The 4.00 generators write their pre-pack plaintext as p4<TAG>.plain, which
+# the *.taf.plain rule above misses.
+p[0-9]*.plain
