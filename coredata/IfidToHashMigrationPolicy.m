@@ -49,8 +49,14 @@
         }
     }
 
-    if (destinationMetadata.ifids.count == 0) {
-        [destinationMetadata createIfid:sourceIfid];
+    // During a migration the destination instances are plain NSManagedObjects,
+    // not Metadata: modelled properties work, but methods implemented in
+    // Metadata.m (such as createIfid:) do not exist on them. So build the Ifid
+    // by hand here.
+    if (destinationMetadata.ifids.count == 0 && sourceIfid.length) {
+        NSManagedObject *destinationIfid = [NSEntityDescription insertNewObjectForEntityForName:@"Ifid" inManagedObjectContext:destinationMetadata.managedObjectContext];
+        [destinationIfid setValue:sourceIfid forKey:@"ifidString"];
+        [destinationIfid setValue:destinationMetadata forKey:@"metadata"];
     }
 }
 
@@ -118,7 +124,13 @@
     } else if ([mapping.destinationEntityName isEqualToString:@"Game"]) {
         Game *game = (Game *)destinationInstance;
         if (game.found && !game.hashTag.length) {
-            [FolderAccess grantAccessToFile:[game urlForBookmark]];
+            // This guard is not dead code: during a migration "game" is a
+            // plain NSManagedObject, which has the modelled properties but
+            // none of the methods implemented in Game.m. Calling
+            // urlForBookmark unguarded crashed 1.5.6 (30) at launch for
+            // everyone whose library needed this migration.
+            if ([game respondsToSelector:@selector(urlForBookmark)])
+                [FolderAccess grantAccessToFile:[game urlForBookmark]];
             game.hashTag = [game.path signatureFromFile];
         }
     }

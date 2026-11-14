@@ -17,6 +17,7 @@
 #import "Game.h"
 #import "Theme.h"
 #import "Metadata.h"
+#import "Ifid.h"
 #import "CoreDataManager.h"
 #import "Fetches.h"
 #import "ProgressiveMigrator.h"
@@ -2245,6 +2246,101 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
 
     [[[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:finalModel]
      destroyPersistentStoreAtURL:tmpStore withType:NSSQLiteStoreType options:nil error:NULL];
+}
+
+// Regression test for the 1.5.6 (30) launch crash, "-[NSManagedObject
+// urlForBookmark]: unrecognized selector", thrown from
+// IfidToHashMigrationPolicy inside migrateStoreFromURL:. During a migration the
+// destination instances are plain NSManagedObjects, so the policy must not call
+// anything implemented in Game.m or Metadata.m on them. Two such calls existed:
+//  - [game urlForBookmark], reached for every game with found == YES
+//  - [metadata createIfid:], reached for a Metadata with games but no Ifid
+// The fixture below reaches both. (testProgressiveMigrationFromRealV13Store
+// sets found = NO everywhere and so never got to the first one.)
+- (void)testIfidToHashMigrationOfFoundGameWithoutIfidObjects {
+    NSFileManager *fm = NSFileManager.defaultManager;
+    NSURL *momd = [[NSBundle mainBundle] URLForResource:@"Spatterlight" withExtension:@"momd"];
+    NSManagedObjectModel *v13 = [[NSManagedObjectModel alloc]
+                                 initWithContentsOfURL:[momd URLByAppendingPathComponent:@"Spatterlight 13.mom"]];
+    XCTAssertNotNil(v13, @"model 13 must exist in the momd");
+
+    NSManagedObjectModel *finalModel = [[CoreDataManager alloc] initWithModelName:@"Spatterlight"].managedObjectModel;
+    XCTAssertNotNil(finalModel);
+
+    NSString *unique = NSProcessInfo.processInfo.globallyUniqueString;
+    NSURL *tmpDir = [NSURL fileURLWithPath:NSTemporaryDirectory()];
+    NSURL *tmpStore = [tmpDir URLByAppendingPathComponent:[NSString stringWithFormat:@"v13found-%@.storedata", unique]];
+    // A real file, so that the game is genuinely "found".
+    NSURL *gameFile = [tmpDir URLByAppendingPathComponent:[NSString stringWithFormat:@"v13found-%@.z5", unique]];
+    NSMutableData *gameData = [NSMutableData dataWithLength:1024];
+    memset(gameData.mutableBytes, 0x5a, gameData.length);
+    XCTAssertTrue([gameData writeToURL:gameFile atomically:YES]);
+
+    NSString *ifid = @"ZCODE-1-123456-ABCD";
+
+    @autoreleasepool {
+        NSPersistentStoreCoordinator *c13 = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:v13];
+        NSError *e = nil;
+        XCTAssertNotNil([c13 addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:tmpStore options:nil error:&e], @"create v13 store: %@", e);
+        NSManagedObjectContext *ctx = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        ctx.persistentStoreCoordinator = c13;
+        NSManagedObject *metadata = [NSEntityDescription insertNewObjectForEntityForName:@"Metadata" inManagedObjectContext:ctx];
+        [metadata setValue:@"V13 title" forKey:@"title"];
+        NSManagedObject *game = [NSEntityDescription insertNewObjectForEntityForName:@"Game" inManagedObjectContext:ctx];
+        [game setValue:ifid forKey:@"ifid"];
+        [game setValue:@YES forKey:@"found"];
+        [game setValue:@"old hash tag" forKey:@"hashTag"];
+        [game setValue:gameFile.path forKey:@"path"];
+        [game setValue:@"zcode" forKey:@"detectedFormat"];
+        // Metadata.games is set, Metadata.ifids is left empty.
+        [game setValue:metadata forKey:@"metadata"];
+        XCTAssertEqual(((NSSet *)[metadata valueForKey:@"games"]).count, 1u);
+        XCTAssertEqual(((NSSet *)[metadata valueForKey:@"ifids"]).count, 0u);
+        XCTAssertTrue([ctx save:&e], @"save v13 store: %@", e);
+        for (NSPersistentStore *s in c13.persistentStores.copy)
+            [c13 removePersistentStore:s error:NULL];
+    }
+
+    NSError *migErr = nil;
+    BOOL ok = NO;
+    @try {
+        ok = [ProgressiveMigrator migrateStoreAtURL:tmpStore ofType:NSSQLiteStoreType toModel:finalModel modelName:@"Spatterlight" error:&migErr];
+    } @catch (NSException *exception) {
+        XCTFail(@"migration threw %@: %@", exception.name, exception.reason);
+    }
+    XCTAssertTrue(ok, @"migration failed: %@", migErr);
+
+    NSDictionary *postMetaDict = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:NSSQLiteStoreType URL:tmpStore options:nil error:NULL];
+    XCTAssertTrue([finalModel isConfiguration:nil compatibleWithStoreMetadata:postMetaDict], @"store is not at the current model after migration");
+
+    @autoreleasepool {
+        NSPersistentStoreCoordinator *cFinal = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:finalModel];
+        NSError *e = nil;
+        XCTAssertNotNil([cFinal addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:tmpStore options:nil error:&e], @"open migrated store: %@", e);
+        NSManagedObjectContext *ctx = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        ctx.persistentStoreCoordinator = cFinal;
+        NSArray<Game *> *games = [ctx executeFetchRequest:[NSFetchRequest fetchRequestWithEntityName:@"Game"] error:&e];
+        XCTAssertEqual(games.count, 1u);
+        Game *game = games.firstObject;
+        XCTAssertEqualObjects(game.ifid, ifid);
+        XCTAssertFalse([game.hashTag isEqualToString:@"old hash tag"], @"the policy should have replaced the old hashTag");
+        NSArray<Metadata *> *metas = [ctx executeFetchRequest:[NSFetchRequest fetchRequestWithEntityName:@"Metadata"] error:&e];
+        XCTAssertEqual(metas.count, 1u);
+        Metadata *metadata = metas.firstObject;
+        XCTAssertEqualObjects(metadata.title, @"V13 title");
+        XCTAssertEqualObjects(game.metadata, metadata);
+        // The policy must have made the Ifid that createIfid: was meant to.
+        XCTAssertEqual(metadata.ifids.count, 1u);
+        XCTAssertEqualObjects(metadata.ifids.anyObject.ifidString, ifid);
+        NSUInteger ifidCount = [ctx countForFetchRequest:[NSFetchRequest fetchRequestWithEntityName:@"Ifid"] error:&e];
+        XCTAssertEqual(ifidCount, 1u, @"no stray Ifid objects");
+        for (NSPersistentStore *s in cFinal.persistentStores.copy)
+            [cFinal removePersistentStore:s error:NULL];
+    }
+
+    [[[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:finalModel]
+     destroyPersistentStoreAtURL:tmpStore withType:NSSQLiteStoreType options:nil error:NULL];
+    [fm removeItemAtURL:gameFile error:NULL];
 }
 
 #pragma mark - Blorb parser hardening (corrupt / truncated files)
