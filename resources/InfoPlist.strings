@@ -1,4 +1,4 @@
 /* Strings added to those in Info.plist */
 
 CFBundleName = "Spatterlight";
-NSHumanReadableCopyright = "Copyright 2007-2022 by Tor Andersson";
+NSHumanReadableCopyright = "Copyright 2007-2026 Tor Andersson and others.";
