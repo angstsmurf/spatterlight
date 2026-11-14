@@ -5,7 +5,8 @@
 ### Serious bugs fixed
 
 #### Crashes
-- Fixes several crashes when autorestoring, and one when an event arrives for a window that has just closed.
+- Fixes several crashes when autorestoring.
+- Fixes a potential crash when an event reaches a recently closed window.
 - Line input in an empty text grid window no longer crashes.
 - Quick Look and the Finder thumbnails no longer crash on a damaged Blorb file.
 - Fixes a crash when dragging a picture that has no bitmap.
@@ -14,7 +15,7 @@
 - VoiceOver: An empty menu title in *Journey* no longer crashes, and neither does reading the menus of *The Unforgotten*.
 - Bocfel: *Robot Finds Kitten* works again. Its patch was dropped by mistake in the previous release.
 - TADS: TADS 3 error messages with string parameters were written past the end of their block, which garbled the messages or crashed. A deleted banner's child banners no longer point at their freed parent. A long path to the interpreter no longer overruns a buffer, and a TADS 3 game reading a text file no longer reads past an empty buffer, which could crash it.
-- ScottFree: Resizing the window while the game selection menu of a disk image with several games is showing no longer crashes.
+- ScottFree: Resizing the window while the game selection menu of a disk image with several games is showing no longer crashes (Chris Spiegel).
 
 #### Hangs
 - Hugo: A game that pauses in a loop until it gets the key it wants, as the hint screens of *Future Boy!* do, no longer spins forever at full CPU without ever asking for a key.
