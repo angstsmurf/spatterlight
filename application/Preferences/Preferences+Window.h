@@ -11,6 +11,7 @@
 - (void)resizeWindowToHeight:(CGFloat)height animate:(BOOL)animate;
 - (CGFloat)calculateWindowHeightWithPreview;
 - (NSToolbarItem *)toolbarItemWithImage:(NSString *)imageName label:(NSString *)label tooltip:(NSString *)tooltip identifier:(NSToolbarItemIdentifier)identifier;
+- (CGFloat)heightOfPanel:(NSView *)panel;
 - (void)switchToPanel:(NSToolbarItem *)item;
 - (void)switchToPanel:(NSToolbarItem *)item resizePreview:(BOOL)resizePreview;
 

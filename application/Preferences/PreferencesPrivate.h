@@ -30,6 +30,9 @@
     IBOutlet NSTableView *themesTableView;
 
     NSDictionary<NSToolbarItemIdentifier, NSView *> *itemIdentifierToViewDict;
+    // The height each panel has in the nib. A panel in the window is
+    // resized with it, so its frame is not a reliable measure.
+    NSDictionary<NSToolbarItemIdentifier, NSNumber *> *itemIdentifierToHeightDict;
 
     NSButton *selectedFontButton;
 

@@ -233,12 +233,17 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
     [contextMenu removeItemAtIndex:0];
     themesTableView.menu = contextMenu;
 
+    // Setting the autosave name applies the saved frame, whose height is
+    // that of whichever panel and preview were showing when it was saved.
+    // It must be in place before the window is fitted to this panel, or
+    // the window opens with a gap where a hidden preview would be.
+    self.windowFrameAutosaveName = @"PrefsPanel";
+
     [self setUpWindowHeight];
     [self showSelectedPanelOfToolbar:toolbar];
 
     [self restoreThemeSelection:self.theme];
 
-    self.windowFrameAutosaveName = @"PrefsPanel";
     themesTableView.autosaveName = @"ThemesTable";
 
     [self addObservers];
@@ -303,6 +308,9 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
         self.theme = self.defaultTheme;
 
     _previewController.theme = self.theme;
+    // The text view is empty in the nib. Fill it now, so that the preview
+    // can be measured when the window is fitted below.
+    [_previewController updatePreviewText];
 
     [self findDarkAndLightThemes];
     if (_lightTheme && [Preferences currentSystemMode] == kLightMode) {
@@ -347,6 +355,11 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
         globalPanel:_globalView
     };
 
+    NSMutableDictionary<NSToolbarItemIdentifier, NSNumber *> *heights = [NSMutableDictionary new];
+    for (NSToolbarItemIdentifier identifier in itemIdentifierToViewDict)
+        heights[identifier] = @(NSHeight(itemIdentifierToViewDict[identifier].frame));
+    itemIdentifierToHeightDict = heights;
+
     NSToolbar *toolbar = [[NSToolbar alloc] initWithIdentifier:@"prefsToolbar"];
     toolbar.delegate = self;
     toolbar.displayMode = NSToolbarDisplayModeIconAndLabel;
@@ -370,14 +383,18 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
         currentPanel = _belowView.subviews[0];
     }
 
-    defaultWindowHeight = ceil(NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0,  kDefaultPrefWindowWidth, NSHeight(currentPanel.frame))]));
+    defaultWindowHeight = ceil(NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0,  kDefaultPrefWindowWidth, [self heightOfPanel:currentPanel])]));
 
     if (!_previewShown) {
         _previewHeightConstraint.constant = 0;
         [self resizeWindowToHeight:defaultWindowHeight animate:NO];
     } else {
+        // What the saved frame leaves for the preview. It may have been
+        // saved with another panel showing, or with the preview off, so
+        // anything too small to hold the text margins gets the height that
+        // fits the text instead.
         CGFloat height = NSHeight(self.window.frame) - defaultWindowHeight;
-        if (height <= 0)
+        if (height < 40)
             height = [_previewController calculateHeight] + 40;
         [self resizeWindowToHeight:height + defaultWindowHeight animate:NO];
         [_previewController fixScrollBar];

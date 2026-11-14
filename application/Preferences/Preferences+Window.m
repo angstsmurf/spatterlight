@@ -218,22 +218,31 @@
         self.window.toolbar.selectedItemIdentifier = toolbarItemIdentifier;
 
     NSNumber *previewHeightNumber = (NSNumber *)[state decodeObjectOfClass:[NSNumber class] forKey:@"previewHeight"];
-    if (previewHeightNumber) {
-        restoredPreviewHeight = previewHeightNumber.floatValue;
-        _previewHeightConstraint.constant = restoredPreviewHeight;
-    } else {
-        restoredPreviewHeight = 0;
+    // The Show Preview setting decides whether there is a preview, and the
+    // saved height only how tall it is. If the two disagree, a saved height
+    // with the preview off would show it under a "Show Preview" menu item,
+    // and no saved height with the preview on would hide it.
+    CGFloat previewHeight = 0;
+    if (_previewShown) {
+        previewHeight = previewHeightNumber.floatValue;
+        if (previewHeight <= 0)
+            previewHeight = [_previewController calculateHeight] + 40;
     }
+    restoredPreviewHeight = previewHeight;
+    _previewHeightConstraint.constant = previewHeight;
 
     if (restoredItem && itemIdentifierToViewDict[toolbarItemIdentifier]) {
         currentPanel = itemIdentifierToViewDict[toolbarItemIdentifier];
-        defaultWindowHeight = ceil(NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0, kDefaultPrefWindowWidth, NSHeight(currentPanel.frame))]));
+        defaultWindowHeight = ceil(NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0, kDefaultPrefWindowWidth, [self heightOfPanel:currentPanel])]));
         [self switchToPanel:restoredItem resizePreview:YES];
         // The window is still off screen here, so the switch above and the
         // one in windowDidLoad resized synchronously and left no animation
         // running for this resize to race. It is synchronous too.
-        [self resizeWindowToHeight:previewHeightNumber.floatValue + defaultWindowHeight animate:YES];
+        [self resizeWindowToHeight:previewHeight + defaultWindowHeight animate:YES];
     }
+    // switchToPanel:resizePreview: returns early, without using this up,
+    // when the restored panel is the one already showing
+    restoredPreviewHeight = 0;
 }
 
 - (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window {
@@ -305,6 +314,17 @@
     return toolbarItem;
 }
 
+// The height of a panel as designed. Its frame can't be asked: once the
+// panel is in the window it follows the window's size, and until the first
+// layout pass it has the height the nib gives its container.
+- (CGFloat)heightOfPanel:(NSView *)panel {
+    for (NSToolbarItemIdentifier identifier in itemIdentifierToViewDict) {
+        if (itemIdentifierToViewDict[identifier] == panel)
+            return itemIdentifierToHeightDict[identifier].doubleValue;
+    }
+    return NSHeight(panel.frame);
+}
+
 - (void)switchToPanel:(NSToolbarItem *)item {
     [self switchToPanel:item resizePreview:NO];
 }
@@ -320,7 +340,7 @@
 
     currentPanel = preferencePane;
 
-    CGFloat currentPanelHeight = NSHeight(currentPanel.frame);
+    CGFloat currentPanelHeight = [self heightOfPanel:currentPanel];
 
     defaultWindowHeight = ceil(NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0,  kDefaultPrefWindowWidth, currentPanelHeight)]));
     self.window.minSize = NSMakeSize(kDefaultPrefWindowWidth, currentPanelHeight);
@@ -333,7 +353,7 @@
     window.title = item.label;
 
     NSRect newFrame = window.frame;
-    NSRect frameForContent = [window frameRectForContentRect:currentPanel.frame];
+    NSRect frameForContent = [window frameRectForContentRect:NSMakeRect(0, 0, kDefaultPrefWindowWidth, currentPanelHeight)];
 
     CGFloat previewHeight = 0;
 
