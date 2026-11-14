@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak) GlkController *glkctl;
 
-- (nullable NSAccessibilityCustomRotorItemResult *)textSearchResultForString:(NSString *)searchString fromRange:(NSRange)fromRange direction:(NSAccessibilityCustomRotorSearchDirection)direction;
+- (nullable NSAccessibilityCustomRotorItemResult *)textSearchResultForString:(NSString *)searchString fromItem:(nullable NSAccessibilityCustomRotorItemResult *)currentItem direction:(NSAccessibilityCustomRotorSearchDirection)direction;
 
 - (nullable NSAccessibilityCustomRotorItemResult *)linksRotor:(NSAccessibilityCustomRotor *)rotor
                            resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters;

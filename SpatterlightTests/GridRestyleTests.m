@@ -100,7 +100,7 @@ static const CGFloat kRestoredWidth = 730;
 
 // The number of columns setFrame: gives a grid this wide.
 - (NSUInteger)columnsIn:(CGFloat)width theme:(Theme *)theme {
-    return (NSUInteger)round((width - 2 * theme.gridMarginX - 10) / theme.cellWidth);
+    return gli_cells_in(width - 2 * theme.gridMarginX - 10, theme.cellWidth);
 }
 
 // Stands in for SIZWIN, which only works out a frame and sets it. The menu

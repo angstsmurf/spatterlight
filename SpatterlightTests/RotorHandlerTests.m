@@ -143,18 +143,18 @@ static const int kStatus = 1;
     RotorHandler *rotors = [self rotorsFor:ctl];
 
     NSAccessibilityCustomRotorItemResult *result =
-    [rotors textSearchResultForString:@"room" fromRange:NSMakeRange(0, 0)
-                            direction:NSAccessibilityCustomRotorSearchDirectionNext];
+    [rotors textSearchResultForString:@"room" fromItem:nil
+                           direction:NSAccessibilityCustomRotorSearchDirectionNext];
     XCTAssertEqual(result.targetElement, ctl.gwindows[@(kStatus)].textview);
     XCTAssertEqualObjects([self textOf:result], @"Room");
 
-    result = [rotors textSearchResultForString:@"BRASS" fromRange:NSMakeRange(0, 0)
-                                     direction:NSAccessibilityCustomRotorSearchDirectionNext];
+    result = [rotors textSearchResultForString:@"BRASS" fromItem:nil
+                                    direction:NSAccessibilityCustomRotorSearchDirectionNext];
     XCTAssertEqual(result.targetElement, ctl.gwindows[@(kStory)].textview);
     XCTAssertEqualObjects([self textOf:result], @"brass");
 
-    XCTAssertNil([rotors textSearchResultForString:@"sword" fromRange:NSMakeRange(0, 0)
-                                         direction:NSAccessibilityCustomRotorSearchDirectionNext]);
+    XCTAssertNil([rotors textSearchResultForString:@"sword" fromItem:nil
+                                        direction:NSAccessibilityCustomRotorSearchDirectionNext]);
 }
 
 - (void)testLinksRotorStepsThroughTheLinksOfTheBuffer {

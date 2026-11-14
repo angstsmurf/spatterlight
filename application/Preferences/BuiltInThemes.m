@@ -533,9 +533,9 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
     return zoomTheme;
 }
 
-// Scanlines, glow and an underline cursor, for the themes that imitate a PC
-// screen. Set before the early return, like resetCommonValues, so that
-// existing built-in themes get them too.
+// Scanlines, glow and a block cursor, as in Infocom's DOS interpreters, for
+// the themes that imitate a PC screen. Set before the early return, like
+// resetCommonValues, so that existing built-in themes get them too.
 + (void)applyCRTLookToTheme:(Theme *)theme {
     theme.crtScanlines = YES;
     theme.crtGlow = YES;

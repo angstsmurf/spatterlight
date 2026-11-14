@@ -43,6 +43,7 @@ Interpreter: scarier
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -104,6 +105,7 @@ Good luck...
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -150,6 +152,7 @@ Also here is a fallen oak tree.  You can move north, south, west, southeast and 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -193,6 +196,7 @@ You can move west, up, down and northwest.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -231,6 +235,7 @@ Also here is a bird
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -265,6 +270,7 @@ It is a typical magpie
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -294,6 +300,7 @@ You take the egg from the bird
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -322,6 +329,7 @@ You take the chain attached to a medallion from the bird
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -365,6 +373,7 @@ You can move west, up, down and northwest.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -404,6 +413,7 @@ Also here is a fallen oak tree.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -423,12 +433,14 @@ Also here is a fallen oak tree.
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=24
 [TEXT] give fet egg
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=782
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=848
 [TEXT] 
+(Your score has increased by 10)
 You do so, and Fetlar grabs it, stuffs it into his mouth, snaps his teeth shut, gurgles on the yoke, and finally swallows it.  "Mmm, that was nice," Fetlar says, wiping his lipless mouth, "One good turn deserves another, or evil turn in this case; here, take this sword." A broadsword suddenly appears in your hands. Fetlar says, "Its name is Seeker. It warns you when enemies are about."
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -464,6 +476,7 @@ Also here is a body and a staff.  You can move north, east, south and west.  Fet
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -483,8 +496,9 @@ Also here is a body and a staff.  You can move north, east, south and west.  Fet
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=28
 [TEXT] fet read runes
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=8
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=72
 [TEXT] 
+(Your score has increased by 5)
 "It
 [MSG] cmd=CANPRINT a1=8217 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
@@ -501,6 +515,7 @@ Also here is a body and a staff.  You can move north, east, south and west.  Fet
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -520,12 +535,14 @@ Also here is a body and a staff.  You can move north, east, south and west.  Fet
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=10
 [TEXT] death
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=228
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=292
 [TEXT] 
+(Your score has increased by 5)
 The henge glows and hums momentarily, then stops. A shield appears out of thin air, and clatters to the ground.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -552,6 +569,7 @@ You take the Shield.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -570,12 +588,14 @@ You take the Shield.
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=32
 [TEXT] hide from dragon
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=356
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=422
 [TEXT] 
+(Your score has increased by 10)
 You manage to find a decent place to hide, and Shade, the black dragon, pulls up into the sky and moves on.  Fetlar smiles and sniffs the air, as a foul smell erupts from him.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -610,6 +630,7 @@ It is raining...  You can move south and up.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -648,6 +669,7 @@ It is raining...  You can only move down.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -675,6 +697,7 @@ You hear the flutter of batlike wings.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -699,6 +722,7 @@ You put on the pair of leather gloves.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -739,6 +763,7 @@ You hear Fetlar
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -778,6 +803,7 @@ Also here is a body and a staff.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -816,6 +842,7 @@ You can move north, east and west.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -849,6 +876,7 @@ You can move north and south.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -884,6 +912,7 @@ You can move south and west.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -918,6 +947,7 @@ Also here is a  very large log.  You can move north, east and west.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -944,6 +974,7 @@ As you do so, something inside bites your finger, but you are protected by the t
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -968,6 +999,7 @@ You take brass key.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1007,6 +1039,7 @@ You can only move south.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1032,6 +1065,7 @@ You pluck a rose from the flowerbed.  A dark shadow appears from above. Somethin
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1080,6 +1114,7 @@ The wolf attacks you with the fine set of teeth in its muzzle, but you manage to
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1114,6 +1149,7 @@ You can move south and west.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1147,6 +1183,7 @@ You can move north and south.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1188,6 +1225,7 @@ You catch a faint whiff of Fetlar. He must be somewhere nearby.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1227,6 +1265,7 @@ Also here is a body and a staff.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1246,12 +1285,14 @@ Also here is a body and a staff.
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=36
 [TEXT] give rose to rossi
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=494
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=560
 [TEXT] 
+(Your score has increased by 10)
 Rossi grabs hold of the rose with its nasty elongated fingers, but no sooner has it grabbed hold of it, than Rossi shrieks in terror, "AHHHH, the smell! That dreaded perfume-y smell," it growls. With this, Rossi backs off, whimpering to itself.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1291,6 +1332,7 @@ Also here is a fallen oak tree.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1326,6 +1368,7 @@ You can move north, east, west, northeast and northwest.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1360,6 +1403,7 @@ Also here is a sword.  You can move north, east, west, northeast and northwest.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1385,6 +1429,7 @@ You take the sword.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1417,6 +1462,7 @@ You stand in the Great Swamp.  You can move north, east, south, west, northeast,
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1451,6 +1497,7 @@ Also here is a statue of a fair maiden and a sign.  You can move north, east, so
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1490,6 +1537,7 @@ Also here is a Statues and a sign.  You can move east and west.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1520,6 +1568,7 @@ You put on the chain attached to a medallion.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1538,8 +1587,9 @@ You put on the chain attached to a medallion.
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=2
 [TEXT] w
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=34
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=100
 [TEXT] 
+(Your score has increased by 10)
 You move west.
 
 
@@ -1560,6 +1610,7 @@ You are inside a cave leading into the mountainside. To the west, the cave goes 
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1595,6 +1646,7 @@ Also here is a Statues and a sign.  You can move east and west.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1628,6 +1680,7 @@ Also here is a statue of a fair maiden and a sign.  You can move north, east, so
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1670,6 +1723,7 @@ You stand in the Great Swamp.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1705,6 +1759,7 @@ You can move north, east, west, northeast and northwest.  It starts to rain...
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1739,6 +1794,7 @@ Also here is a fallen oak tree.  It is raining...  You can move north, south, we
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1784,6 +1840,7 @@ You hear Fetlar
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1822,6 +1879,7 @@ You can move north, east and west.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1855,6 +1913,7 @@ You can move north, east, west and northeast.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1890,6 +1949,7 @@ You can move north, west, down and northwest.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1923,6 +1983,7 @@ You can move up and down.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1958,6 +2019,7 @@ You can move south and up.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1983,6 +2045,7 @@ You open the stone slab.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -2020,6 +2083,7 @@ Also here is a sarcophagus.  A stone wall drops down behind you, blocking your e
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -2051,6 +2115,7 @@ You open the sarcophagus.  A vial is inside the sarcophagus.  As you open the sa
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -2079,6 +2144,7 @@ You take the vial from the sarcophagus.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -2110,6 +2176,7 @@ The wraith hits you, but it doesn't seem to do any damage.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -2128,8 +2195,9 @@ The wraith hits you, but it doesn't seem to do any damage.
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=22
 [TEXT] turn handle
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=234
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=300
 [TEXT] 
+(Your score has increased by 10)
 As you reach up and turn the handle, it jams into position, and a secret passage is revealed in the northern wall.  
 [MSG] cmd=PRINT a1=0 a2=4 a3=0 len=24
 [TEXT] Seeker hums!
@@ -2138,6 +2206,7 @@ As you reach up and turn the handle, it jams into position, and a secret passage
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -2173,6 +2242,7 @@ You can only move south.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -2191,12 +2261,14 @@ You can only move south.
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=20
 [TEXT] turn wheel
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=358
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=424
 [TEXT] 
+(Your score has increased by 10)
 As you do so, you hear a grinding noise coming from the burial chamber.  The stone wall blocking your exit from the burial chamber room seems to have moved. Your exit is clear.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -2241,6 +2313,7 @@ Also here is a sarcophagus.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -2273,6 +2346,7 @@ You can move east, south and up.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -2308,6 +2382,7 @@ You can move up and down.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -2342,6 +2417,7 @@ You can move north, west, down and northwest.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -2375,6 +2451,7 @@ You can move north, south, west, southwest and northwest.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -2418,6 +2495,7 @@ The plains stretch off in all directions, while north and east are blocked by th
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -2456,6 +2534,7 @@ The sunlight streams into the entrance hall of the cave, making visible a room f
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -2475,12 +2554,14 @@ The sunlight streams into the entrance hall of the cave, making visible a room f
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=18
 [TEXT] open vial
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1146
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1212
 [TEXT] 
+(Your score has increased by 10)
 You open the vial.  The group of fairies seem to have cast some type of magical spell barring you from going any further into the cave.  The open vial starts to pulsate when near the fairies. Suddenly it explodes in a shower of crystal and smoke. You hear the high-pitched squeals of the fairies, and are momentarily blinded by the explosion. When the smoke finally clears, you realise the fairies have gone. Grumski shouts with glee! "AND NOW GRUMSKI WILL HELP MANLING." He quickly stomps into the cave and checks that everything is okay before stomping back out again.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -2524,6 +2605,7 @@ The plains stretch off in all directions, while north and east are blocked by th
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -2558,6 +2640,7 @@ You can move north, east, south, northeast and southeast.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -2591,6 +2674,7 @@ You can move north, east, west and northeast.  Grumski stomps over from the nort
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -2629,6 +2713,7 @@ You can move north, east and west.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -2670,6 +2755,7 @@ You hear Fetlar
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -2706,6 +2792,7 @@ You hear the flutter of batlike wings.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -2741,6 +2828,7 @@ You can move north, east, west, northeast and northwest.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -2773,6 +2861,7 @@ You stand in the Great Swamp.  You can move north, east, south, west, northeast,
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -2808,6 +2897,7 @@ Also here is a statue of a fair maiden and a sign.  You can move north, east, so
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -2841,6 +2931,7 @@ Also here is a Statues and a sign.  You can move east and west.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -2876,6 +2967,7 @@ Also here is a stone basilisk.  You can only move east.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -2907,6 +2999,7 @@ Also here is a stone basilisk.  You can only move east.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -2937,6 +3030,7 @@ Also here is a stone basilisk.  You can only move east.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -2966,6 +3060,7 @@ Also here is a stone basilisk.  You can only move east.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -2998,6 +3093,7 @@ You catch a faint whiff of Fetlar. He must be somewhere nearby.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -3027,6 +3123,7 @@ You catch a faint whiff of Fetlar. He must be somewhere nearby.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -3059,6 +3156,7 @@ Grumski stomps over from the east.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -3084,6 +3182,7 @@ Grumski pushes the large boulder to one side, revealing a passage going further 
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -3119,6 +3218,7 @@ Also here is large wooden chest.  You can only move east.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -3144,6 +3244,7 @@ You unlock large wooden chest with brass key.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -3171,6 +3272,7 @@ You hear the flutter of batlike wings.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -3196,6 +3298,7 @@ You take the small copper ring, the pile of rubble and the triangular piece of m
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -3220,6 +3323,7 @@ You put on the small copper ring.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -3253,6 +3357,7 @@ Also here is a stone basilisk.  You can move east and west.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -3288,6 +3393,7 @@ Also here is a Statues and a sign.  You can move east and west.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -3321,6 +3427,7 @@ Also here is a statue of a fair maiden and a sign.  It is raining...  You can mo
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -3359,6 +3466,7 @@ You stand in the Great Swamp.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -3393,6 +3501,7 @@ It is raining...  You can move north, east, west, northeast and northwest.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -3437,6 +3546,7 @@ Also here is a fallen oak tree.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -3456,12 +3566,14 @@ Also here is a fallen oak tree.
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=26
 [TEXT] roll oak tree
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=150
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=214
 [TEXT] 
+(Your score has increased by 5)
 You heave the tree to one side, revealing a crushed villager underneath.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -3481,12 +3593,14 @@ You heave the tree to one side, revealing a crushed villager underneath.
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=26
 [TEXT] move villager
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=178
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=242
 [TEXT] 
+(Your score has increased by 5)
 You heave the dead villager to one side,  revealing a pair of leather boots and pants.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -3514,6 +3628,7 @@ You catch a faint whiff of Fetlar. He must be somewhere nearby.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -3538,6 +3653,7 @@ You put on the pair of thick leather boots.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -3581,6 +3697,7 @@ It is raining...  You can move west, up, down and northwest.  Lightning lances t
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -3600,8 +3717,9 @@ It is raining...  You can move west, up, down and northwest.  Lightning lances t
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=6
 [TEXT] fly
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=400
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=466
 [TEXT] 
+(Your score has increased by 10)
 The ring glows and you float up into the air. The cold wind blows you southward across the chasm, to the other side, where you land safely. The copper ring turns to dust and blows away in the wind.
 
 
@@ -3618,6 +3736,7 @@ You can only move south.  You feel weak, and very tired. Your strength starts to
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -3671,6 +3790,7 @@ Boris drags himself off to the east.  Fetlar shouts, "Good luck, buddy friend. I
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -3697,6 +3817,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -3721,6 +3842,7 @@ You stab the zombie with the sword.  Holga stumbles off to the south.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -3758,6 +3880,7 @@ You manage to avoid the zombie's attack.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -3783,6 +3906,7 @@ Boris isn't here!  Holga stumbles off to below.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -3807,6 +3931,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -3842,6 +3967,7 @@ Jarris staggers in from the east.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -3879,6 +4005,7 @@ Jarris lumbers off to the east.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -3915,6 +4042,7 @@ You manage to avoid the zombie's attack.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -3950,6 +4078,7 @@ You manage to avoid the zombie's attack.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -3984,6 +4113,7 @@ You manage to avoid the zombie's attack.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -4025,6 +4155,7 @@ Boris lumbers in from the east.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -4056,6 +4187,7 @@ Holga stumbles off to the west.  Boris drags himself off to below.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -4085,6 +4217,7 @@ Holga stumbles off to the west.  Boris drags himself off to below.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -4121,6 +4254,7 @@ Jarris staggers in from the east.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -4156,6 +4290,7 @@ Jarris lumbers off to below.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -4203,6 +4338,7 @@ The zombie hits you, but it doesn't seem to do any damage.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -4233,6 +4369,7 @@ Holga stumbles off to below.  Jarris lumbers off to the east.  Boris drags himse
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -4269,6 +4406,7 @@ Holga stumbles in from below.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -4299,6 +4437,7 @@ Holga stumbles off to below.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -4335,6 +4474,7 @@ Jarris staggers in from the east.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -4365,6 +4505,7 @@ Jarris lumbers off to the east.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -4401,6 +4542,7 @@ Holga stumbles in from below.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -4431,6 +4573,7 @@ Holga stumbles off to below.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -4468,6 +4611,7 @@ The zombie hits you, but it doesn't seem to do any damage.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -4498,6 +4642,7 @@ Holga stumbles off to below.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -4533,6 +4678,7 @@ Boris lumbers in from the south.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -4574,6 +4720,7 @@ Holga stumbles in from below.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -4604,6 +4751,7 @@ Holga stumbles off to the south.  Boris drags himself off to below.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -4645,6 +4793,7 @@ Arthur pulls himself in from the south.  You see a horrible sight. Arthur, one o
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -4675,6 +4824,7 @@ Boris drags himself off to the south.  Arthur pulls himself away to below.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -4717,6 +4867,7 @@ The zombie hits you, but it doesn't seem to do any damage.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -4747,6 +4898,7 @@ Holga stumbles off to the east.  Boris drags himself off to the east.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -4788,6 +4940,7 @@ Arthur pulls himself in from below.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -4823,6 +4976,7 @@ Jarris lumbers off to below.  Arthur pulls himself away to the south.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -4864,6 +5018,7 @@ Arthur pulls himself in from the south.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -4900,6 +5055,7 @@ Boris drags himself off to below.  Arthur pulls himself away to the south.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -4935,6 +5091,7 @@ You manage to avoid the zombie's attack.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -4976,6 +5133,7 @@ Jarris lumbers off to the east.  Boris lumbers in from below.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -5006,6 +5164,7 @@ Holga stumbles off to the west.  Boris drags himself off to below.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -5048,6 +5207,7 @@ You manage to avoid the zombie's attack.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -5078,6 +5238,7 @@ Holga stumbles off to the west.  Jarris lumbers off to the east.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -5114,6 +5275,7 @@ Boris lumbers in from below.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -5144,6 +5306,7 @@ Boris drags himself off to the west.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -5179,6 +5342,7 @@ Boris lumbers in from the west.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -5221,6 +5385,7 @@ Boris drags himself off to the south.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -5245,6 +5410,7 @@ Arthur isn't here!  Holga stumbles off to the south.  Jarris lumbers off to the 
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -5285,7 +5451,10 @@ It looks to be in very bad condition; the door hangs off its hinges. East leads 
 You can move east and west.
 
 
+[MSG] cmd=CANPRINT a1=8217 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -5297,8 +5466,6 @@ You can move east and west.
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=6
 [TEXT] ’s.
-[MSG] cmd=CANPRINT a1=8217 a2=0 a3=0 len=0
-[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=26 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=104
 [TEXT] …turns have passed since you started this adventure.
@@ -5333,7 +5500,10 @@ It appears that the blacksmith isn
 Also here is an anvil and a cupboard.  You can only move west.
 
 
+[MSG] cmd=CANPRINT a1=8217 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -5345,8 +5515,6 @@ Also here is an anvil and a cupboard.  You can only move west.
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=6
 [TEXT] ’s.
-[MSG] cmd=CANPRINT a1=8217 a2=0 a3=0 len=0
-[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=25 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=108
 [TEXT] …2 turns have passed since you started this adventure.
@@ -5370,7 +5538,10 @@ Also here is an anvil and a cupboard.  You can only move west.
 [TEXT] Time passes...
 
 
+[MSG] cmd=CANPRINT a1=8217 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -5382,8 +5553,6 @@ Also here is an anvil and a cupboard.  You can only move west.
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=6
 [TEXT] ’s.
-[MSG] cmd=CANPRINT a1=8217 a2=0 a3=0 len=0
-[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=25 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=108
 [TEXT] …3 turns have passed since you started this adventure.
@@ -5406,7 +5575,10 @@ Also here is an anvil and a cupboard.  You can only move west.
 [TEXT] Time passes...
 
 
+[MSG] cmd=CANPRINT a1=8217 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -5418,8 +5590,6 @@ Also here is an anvil and a cupboard.  You can only move west.
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=6
 [TEXT] ’s.
-[MSG] cmd=CANPRINT a1=8217 a2=0 a3=0 len=0
-[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=25 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=108
 [TEXT] …4 turns have passed since you started this adventure.
@@ -5437,7 +5607,10 @@ Also here is an anvil and a cupboard.  You can only move west.
 You open the cupboard.  A tinderbox is inside the cupboard.
 
 
+[MSG] cmd=CANPRINT a1=8217 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -5449,8 +5622,6 @@ You open the cupboard.  A tinderbox is inside the cupboard.
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=6
 [TEXT] ’s.
-[MSG] cmd=CANPRINT a1=8217 a2=0 a3=0 len=0
-[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=25 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=108
 [TEXT] …5 turns have passed since you started this adventure.
@@ -5468,7 +5639,10 @@ You open the cupboard.  A tinderbox is inside the cupboard.
 You take the tinderbox from the cupboard.
 
 
+[MSG] cmd=CANPRINT a1=8217 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -5480,8 +5654,6 @@ You take the tinderbox from the cupboard.
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=6
 [TEXT] ’s.
-[MSG] cmd=CANPRINT a1=8217 a2=0 a3=0 len=0
-[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=25 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=108
 [TEXT] …6 turns have passed since you started this adventure.
@@ -5515,7 +5687,10 @@ It looks to be in very bad condition; the door hangs off its hinges. East leads 
 You can move east and west.
 
 
+[MSG] cmd=CANPRINT a1=8217 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -5527,8 +5702,6 @@ You can move east and west.
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=6
 [TEXT] ’s.
-[MSG] cmd=CANPRINT a1=8217 a2=0 a3=0 len=0
-[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=26 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=104
 [TEXT] …turns have passed since you started this adventure.
@@ -5560,6 +5733,7 @@ Also here is a market stall and a Well.  You can move north, east, south, west a
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -5608,6 +5782,7 @@ You manage to avoid the zombie's attack.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -5666,6 +5841,7 @@ You manage to avoid the zombie's attack.  Boris drags himself off to the east.  
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -5703,6 +5879,7 @@ Arthur pulls himself away to above.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -5732,6 +5909,7 @@ Jarris lumbers off to the east.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -5777,7 +5955,10 @@ You stand halfway up the spiral staircase. The stairs creak with your weight.
 [TEXT] 
 
 
+[MSG] cmd=CANPRINT a1=8217 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -5789,8 +5970,6 @@ You stand halfway up the spiral staircase. The stairs creak with your weight.
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] ’s stairs.
-[MSG] cmd=CANPRINT a1=8217 a2=0 a3=0 len=0
-[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=24 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
 [TEXT] 163 turns have passed since you started this adventure.
@@ -5819,6 +5998,7 @@ You can only move down.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -5845,6 +6025,7 @@ There is a silver coin here stuck in a crack in a floorboard.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -5869,6 +6050,7 @@ You take silver coin.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -5913,7 +6095,10 @@ You stand halfway up the spiral staircase. The stairs creak with your weight.
 [TEXT] 
 
 
+[MSG] cmd=CANPRINT a1=8217 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -5925,8 +6110,6 @@ You stand halfway up the spiral staircase. The stairs creak with your weight.
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=20
 [TEXT] ’s stairs.
-[MSG] cmd=CANPRINT a1=8217 a2=0 a3=0 len=0
-[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=24 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
 [TEXT] 167 turns have passed since you started this adventure.
@@ -5955,6 +6138,7 @@ Also here is a bar and a shelf.  You can move east, west and up.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -5996,7 +6180,10 @@ Apart from the rotting foodstuffs and shabby kitchen utensils, the kitchen doesn
 Also here is a large wooden box.  You can only move east.
 
 
+[MSG] cmd=CANPRINT a1=8217 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -6008,8 +6195,6 @@ Also here is a large wooden box.  You can only move east.
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] ’s kitchen.
-[MSG] cmd=CANPRINT a1=8217 a2=0 a3=0 len=0
-[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=24 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
 [TEXT] 169 turns have passed since you started this adventure.
@@ -6032,7 +6217,10 @@ You open the large wooden box.  A leg of lamb is inside the large wooden box.
 [TEXT] 
 
 
+[MSG] cmd=CANPRINT a1=8217 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -6044,8 +6232,6 @@ You open the large wooden box.  A leg of lamb is inside the large wooden box.
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] ’s kitchen.
-[MSG] cmd=CANPRINT a1=8217 a2=0 a3=0 len=0
-[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=24 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
 [TEXT] 170 turns have passed since you started this adventure.
@@ -6067,7 +6253,10 @@ You take the leg of lamb from the large wooden box.  Bambi, a child zombie, clim
 [TEXT] 
 
 
+[MSG] cmd=CANPRINT a1=8217 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -6079,8 +6268,6 @@ You take the leg of lamb from the large wooden box.  Bambi, a child zombie, clim
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] ’s kitchen.
-[MSG] cmd=CANPRINT a1=8217 a2=0 a3=0 len=0
-[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=24 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
 [TEXT] 171 turns have passed since you started this adventure.
@@ -6093,12 +6280,16 @@ You take the leg of lamb from the large wooden box.  Bambi, a child zombie, clim
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=24
 [TEXT] attack bambi
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=166
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=232
 [TEXT] 
+(Your score has increased by 10)
 You stab the zombie with the sword.  The poor child keels over and finally dies.
 
 
+[MSG] cmd=CANPRINT a1=8217 a2=0 a3=0 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -6110,8 +6301,6 @@ You stab the zombie with the sword.  The poor child keels over and finally dies.
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
 [TEXT] ’s kitchen.
-[MSG] cmd=CANPRINT a1=8217 a2=0 a3=0 len=0
-[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=24 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=110
 [TEXT] 172 turns have passed since you started this adventure.
@@ -6139,6 +6328,7 @@ Also here is a bar and a shelf.  You can move east, west and up.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -6201,6 +6391,7 @@ The zombie hits you, but it doesn't seem to do any damage.  Boris drags himself 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -6253,6 +6444,7 @@ Holga stumbles off to the east.  Lazaraz rides over from the east.  You feel a t
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -6287,6 +6479,7 @@ Also here is some water.  You can only move up.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -6313,6 +6506,7 @@ You pour out its contents.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -6337,6 +6531,7 @@ You fill the bottle with some water.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -6375,6 +6570,7 @@ Also here is a market stall and a Well.  You can move north, east, south, west a
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -6400,6 +6596,7 @@ Take what?
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -6447,6 +6644,7 @@ Arthur pulls himself in from the west.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -6480,6 +6678,7 @@ You can move north, east, west and northeast.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -6519,6 +6718,7 @@ You can move east and northeast.  There is a large pack of wolves here. They blo
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -6538,12 +6738,14 @@ You can move east and northeast.  There is a large pack of wolves here. They blo
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=52
 [TEXT] give leg of lamb to wolves
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=214
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=280
 [TEXT] 
+(Your score has increased by 10)
 One of the wolves grabs the leg of lamb in its jaws and makes off with it. The other wolves soon follow.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -6596,6 +6798,7 @@ Jarris lumbers off to the east.  Arthur pulls himself in from the west.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -6630,6 +6833,7 @@ Also here is church door.  You can move west and northwest.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -6655,6 +6859,7 @@ You open church door.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -6690,6 +6895,7 @@ Also here is church door, a altar, a large open window and a bronze statue.  You
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -6716,6 +6922,7 @@ Suddenly, the room is filled with a bright light, so bright that it hurts your e
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -6734,12 +6941,14 @@ Suddenly, the room is filled with a bright light, so bright that it hurts your e
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=24
 [TEXT] say loralang
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1708
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1772
 [TEXT] 
+(Your score has increased by 5)
 Upon hearing your name, Horamis smiles, and his face brightens. He tells you to look out of the window. As you look, you see the old village graveyard, and something else too. The lost spirits of the villagers are roaming the area. They look in pain, not from their injuries, but from sorrow. "Morac did this. He turned them all into undead zombies for his army, leaving their spirits wandering in this place. You, Loralang, are the chosen one, from the prophecy of which I told them; it is you who must defeat Morac." With this, he calmly puts his pipe and weed on the altar. "You may have it," he says, pointing at it. "You never know when you might need a good smoke. In return, I will see what I can do about fixing Borantha's staff. " As he says this, you see the broken staff appear in his hands. He turns, winks at you, and promptly disappears.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -6766,6 +6975,7 @@ You take the smoking pipe and weed from the altar.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -6784,12 +6994,14 @@ You take the smoking pipe and weed from the altar.
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=38
 [TEXT] put bottle on altar
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=152
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=218
 [TEXT] 
+(Your score has increased by 10)
 The bottle briefly glows, and you feel an aura of holiness in the church.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -6816,6 +7028,7 @@ You take the Bottle from the altar.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -6840,6 +7053,7 @@ You light the pipe with the tinderbox. It smells lovely.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -6873,6 +7087,7 @@ Also here is church door.  You can move south, west and northwest.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -6908,6 +7123,7 @@ You can move north, east, west and northeast.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -6941,6 +7157,7 @@ You can move east, south, west, northeast and southwest.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -6980,6 +7197,7 @@ Also here is a gypsy caravan and small table.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -7018,6 +7236,7 @@ Also here is a dried husk and huge web.  You can move west and up.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -7048,6 +7267,7 @@ As you examine the webs, you realise that your feet are actually stuck in the we
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -7067,8 +7287,9 @@ As you examine the webs, you realise that your feet are actually stuck in the we
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=16
 [TEXT] burn web
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=122
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=186
 [TEXT] 
+(Your score has increased by 5)
 You burn the web away with the lit pipe. Your free again!.  
 [MSG] cmd=PRINT a1=0 a2=4 a3=0 len=24
 [TEXT] Seeker hums!
@@ -7077,6 +7298,7 @@ You burn the web away with the lit pipe. Your free again!.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -7121,6 +7343,7 @@ The giant spider hits you, but it doesn't seem to do any damage.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -7151,6 +7374,7 @@ The giant spider hits you, but it doesn't seem to do any damage.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -7183,6 +7407,7 @@ The giant spider hits you.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -7212,6 +7437,7 @@ You stab the giant spider with the sword.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -7237,6 +7463,7 @@ You stab the giant spider with the sword.  Haraxis skitters off to below.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -7261,6 +7488,7 @@ Haraxis isn't here!
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -7298,6 +7526,7 @@ The giant spider hits you, but it doesn't seem to do any damage.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -7326,6 +7555,7 @@ You stab the giant spider with the sword.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -7358,6 +7588,7 @@ The giant spider hits you.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -7382,6 +7613,7 @@ You stab the giant spider with the sword.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -7414,6 +7646,7 @@ The giant spider hits you.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -7438,6 +7671,7 @@ You stab the giant spider with the sword.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -7470,6 +7704,7 @@ The giant spider hits you, but it doesn't seem to do any damage.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -7494,6 +7729,7 @@ You stab the giant spider with the sword.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -7526,6 +7762,7 @@ The giant spider hits you.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -7544,12 +7781,14 @@ The giant spider hits you.
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=28
 [TEXT] attack haraxis
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=270
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=336
 [TEXT] 
+(Your score has increased by 30)
 You stab the giant spider with the sword.  The giant spider slumps to the ground with a loud squelch. The horrible creature is dead.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -7576,6 +7815,7 @@ Haraxis isn't here!
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -7600,6 +7840,7 @@ Haraxis isn't here!
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -7626,6 +7867,7 @@ Haraxis isn't here!
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -7650,6 +7892,7 @@ Haraxis isn't here!
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -7676,6 +7919,7 @@ Haraxis isn't here!
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -7700,6 +7944,7 @@ Haraxis isn't here!
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -7726,6 +7971,7 @@ Haraxis isn't here!
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -7750,6 +7996,7 @@ Haraxis isn't here!
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -7776,6 +8023,7 @@ Haraxis isn't here!
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -7800,6 +8048,7 @@ Haraxis isn't here!
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -7826,6 +8075,7 @@ Haraxis isn't here!
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -7850,6 +8100,7 @@ Haraxis isn't here!
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -7876,6 +8127,7 @@ Haraxis isn't here!
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -7900,6 +8152,7 @@ Haraxis isn't here!
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -7926,6 +8179,7 @@ Haraxis isn't here!
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -7950,6 +8204,7 @@ Haraxis isn't here!
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -7976,6 +8231,7 @@ Haraxis isn't here!
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -8000,6 +8256,7 @@ Haraxis isn't here!
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -8026,6 +8283,7 @@ Haraxis isn't here!
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -8050,6 +8308,7 @@ Haraxis isn't here!
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -8083,6 +8342,7 @@ Also here is a dead giant spider and a dried husk.  You can move west and up.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -8122,6 +8382,7 @@ Also here is a gypsy caravan and small table.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -8141,8 +8402,9 @@ Also here is a gypsy caravan and small table.
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=50
 [TEXT] give coin to madam evenov
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=464
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=530
 [TEXT] 
+(Your score has increased by 10)
 She quickly puts the coin in her robes. " To the east lies the lair of Haraxis the giant spider " she sputters. " She has been troubling me of late. If you can kill her, I will cast a spell on you to neutralize the effects of Morac
 [MSG] cmd=CANPRINT a1=8217 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
@@ -8151,6 +8413,7 @@ She quickly puts the coin in her robes. " To the east lies the lair of Haraxis t
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -8170,8 +8433,9 @@ She quickly puts the coin in her robes. " To the east lies the lair of Haraxis t
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=6
 [TEXT] one
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=358
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=422
 [TEXT] 
+(Your score has increased by 5)
 "You have chosen the queen of spades," she gasps. "The prize you seek is hidden deep in the depths of Shadowpeak; find the crypts, and you shall find your prize in the dark queen
 [MSG] cmd=CANPRINT a1=8217 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
@@ -8180,6 +8444,7 @@ She quickly puts the coin in her robes. " To the east lies the lair of Haraxis t
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -8218,6 +8483,7 @@ You stand in a haze of fog. You can
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -8251,6 +8517,7 @@ You can move north and south.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -8293,6 +8560,7 @@ You can move north and south.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -8340,6 +8608,7 @@ You can only move north.  A thin mist gathers here. It turns into a female form.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -8376,6 +8645,7 @@ The vampire hits you.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -8411,6 +8681,7 @@ That is 100% of the game!
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -8439,6 +8710,7 @@ Would you like to RESTART, UNDO a turn, or QUIT?
 [TEXT] 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -8512,6 +8784,7 @@ Good luck...
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -8536,6 +8809,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -8571,6 +8845,7 @@ Also here is a fallen oak tree.  You can move north, south, west, southeast and 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -8605,6 +8880,7 @@ You can move north, east, west and northwest.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -8630,6 +8906,7 @@ You cannot go in that direction for fear of falling into the chasm.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -8661,6 +8938,7 @@ You cannot go in that direction for fear of falling into the chasm.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -8685,6 +8963,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -8711,6 +8990,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -8735,6 +9015,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -8761,6 +9042,7 @@ You cannot go in that direction for fear of falling into the chasm.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -8785,6 +9067,7 @@ Drop what?
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -8811,6 +9094,7 @@ Drop what?
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -8835,6 +9119,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -8861,6 +9146,7 @@ Where do you want to put that?
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -8885,6 +9171,7 @@ There is nothing worth taking here.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -8911,6 +9198,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -8935,6 +9223,7 @@ Take what?
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -8961,6 +9250,7 @@ Take what?  Fetlar the overly fetid flutters down from the north.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -8985,6 +9275,7 @@ Take what?
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -9021,6 +9312,7 @@ You hear the flutter of batlike wings.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -9047,6 +9339,7 @@ It starts to rain...
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -9078,6 +9371,7 @@ It starts to rain...
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -9102,6 +9396,7 @@ Take what?
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -9137,6 +9432,7 @@ You catch a faint whiff of Fetlar. He must be somewhere nearby.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -9168,6 +9464,7 @@ You catch a faint whiff of Fetlar. He must be somewhere nearby.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -9197,6 +9494,7 @@ You catch a faint whiff of Fetlar. He must be somewhere nearby.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -9228,6 +9526,7 @@ You catch a faint whiff of Fetlar. He must be somewhere nearby.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -9258,6 +9557,7 @@ You catch a faint whiff of Fetlar. He must be somewhere nearby.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -9287,6 +9587,7 @@ You catch a faint whiff of Fetlar. He must be somewhere nearby.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -9319,6 +9620,7 @@ You stand in the Great Swamp.  It is raining...  You can move north, east, south
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -9354,6 +9656,7 @@ It is raining...  You can move north, east, west, northeast and northwest.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -9379,6 +9682,7 @@ You cannot go in that direction for fear of falling into the chasm.  A dark shad
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -9410,6 +9714,7 @@ The dragon
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -9435,6 +9740,7 @@ You hear the flutter of batlike wings.  The dragon goes into a dive and heads st
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -9478,6 +9784,7 @@ That is 100% of the game!
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -9518,6 +9825,7 @@ Would you like to RESTART, UNDO a turn, or QUIT?
 [TEXT] 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -9591,6 +9899,7 @@ Good luck...
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -9621,6 +9930,7 @@ Good luck...
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -9645,6 +9955,7 @@ Take what?
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -9680,6 +9991,7 @@ You can move south and up.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -9705,6 +10017,7 @@ You can't go in that direction, but you can move south and up.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -9744,6 +10057,7 @@ You can only move down.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -9770,6 +10084,7 @@ You can only move down.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -9795,6 +10110,7 @@ You can only move down.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -9819,6 +10135,7 @@ You can only move down.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -9854,6 +10171,7 @@ You can move south and up.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -9880,6 +10198,7 @@ You can't go in that direction, but you can move south and up.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -9904,6 +10223,7 @@ You can't open that.  Fetlar the overly fetid flutters down.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -9930,6 +10250,7 @@ It starts to rain...
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -9965,6 +10286,7 @@ Also here is a body and a staff.  It is raining...  You can move north, east, so
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -9990,6 +10312,7 @@ You can't go in that direction, but you can move north, east, south and west.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -10025,6 +10348,7 @@ You catch a faint whiff of Fetlar. He must be somewhere nearby.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -10059,6 +10383,7 @@ It is raining...  You can move north, east, south, west, northeast, southeast, s
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -10085,6 +10410,7 @@ You hear the flutter of batlike wings.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -10118,6 +10444,7 @@ It is raining...  You can move north, east, south, west, northeast, southeast, s
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -10153,6 +10480,7 @@ Also here is a double doors.  It is raining...  You can move east, south, west, 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -10179,6 +10507,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -10203,6 +10532,7 @@ You can't go in that direction, but you can move east, south, west, southeast an
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -10234,6 +10564,7 @@ You can't go in that direction, but you can move east, south, west, southeast an
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -10258,6 +10589,7 @@ Take what?
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -10291,6 +10623,7 @@ It is raining...  You can move north, east, south, west, northeast, southeast, s
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -10326,6 +10659,7 @@ It is raining...  You can move north, east, south, west, northeast, southeast, s
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -10358,6 +10692,7 @@ You stand in the Great Swamp.  It is raining...  You can move north, east, south
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -10393,6 +10728,7 @@ It is raining...  You can move north, east, south, west, southeast, southwest an
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -10423,6 +10759,7 @@ But you don
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -10447,6 +10784,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -10482,6 +10820,7 @@ Also here is a fallen oak tree.  It is raining...  You can move north, south, we
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -10507,6 +10846,7 @@ You can't go in that direction, but you can move north, south, west, southeast a
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -10534,6 +10874,7 @@ A dark shadow appears from above. Something seems to be blocking out the light o
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -10558,6 +10899,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -10588,6 +10930,7 @@ The dragon
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -10627,6 +10970,7 @@ You can move north, east, south and west.  Fetlar the overly fetid flutters down
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -10672,6 +11016,7 @@ That is 100% of the game!
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -10756,6 +11101,7 @@ Would you like to RESTART, UNDO a turn, or QUIT?
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -10828,6 +11174,7 @@ Good luck...
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -10853,6 +11200,7 @@ Gosh, that was very impressive.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -10877,6 +11225,7 @@ I don't understand what you are trying to eat.  Fetlar the overly fetid flies of
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -10916,6 +11265,7 @@ Also here is a fallen oak tree.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -10950,6 +11300,7 @@ You can move north, east, west and northwest.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -10976,6 +11327,7 @@ You can't go in that direction, but you can move north, east, west and northwest
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -11000,6 +11352,7 @@ You can't go in that direction, but you can move north, east, west and northwest
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -11043,6 +11396,7 @@ You can move west, up, down and northwest.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -11069,6 +11423,7 @@ Take what?
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -11093,6 +11448,7 @@ I don't understand what you are trying to eat.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -11119,6 +11475,7 @@ Take what?  Fetlar the overly fetid flutters down from the north-west.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -11144,6 +11501,7 @@ You can't go in that direction, but you can move west, up, down and northwest.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -11168,6 +11526,7 @@ You cannot go in that direction for fear of falling into the chasm.  Fetlar scra
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -11202,6 +11561,7 @@ You can move north, east, west and northwest.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -11227,6 +11587,7 @@ Take what?
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -11274,6 +11635,7 @@ Where a tree growing precariously from the side of the chasm
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -11299,6 +11661,7 @@ You can't go in that direction, but you can move west, up, down and northwest.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -11332,6 +11695,7 @@ You can move north, east, west and northwest.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -11369,6 +11733,7 @@ You catch a faint whiff of Fetlar. He must be somewhere nearby.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -11396,6 +11761,7 @@ A chill wind blows southerly.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -11421,6 +11787,7 @@ You cannot go in that direction for fear of falling into the chasm.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -11445,6 +11812,7 @@ Take what?
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -11478,6 +11846,7 @@ It is raining...  You can move north, east, south, west, southeast, southwest an
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -11517,6 +11886,7 @@ You stand amidst the Shadow Forest.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -11543,6 +11913,7 @@ You can't open that.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -11567,6 +11938,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -11598,6 +11970,7 @@ You hear Fetlar
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -11622,6 +11995,7 @@ You can't open that.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -11656,6 +12030,7 @@ It is raining...  You can move north, east, south, west, southeast, southwest an
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -11681,6 +12056,7 @@ You can't go in that direction, but you can move north, east, south, west, south
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -11708,6 +12084,7 @@ You hear the flutter of batlike wings.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -11733,6 +12110,7 @@ Lightning lances the clouds above. The rumble of thunder can be heard over the r
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -11766,6 +12144,7 @@ You can move north, east, south, west, southwest and northwest.  A dark shadow a
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -11815,6 +12194,7 @@ You can move north, east, south and west.  Upon seeing you, Rossi gets a little 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -11842,6 +12222,7 @@ The dragon goes into a dive and heads straight for you!
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -11866,6 +12247,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -11897,6 +12279,7 @@ That is 100% of the game!
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -11962,6 +12345,7 @@ The previous turn has been undone.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -11975,6 +12359,7 @@ The previous turn has been undone.
 [TEXT] 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -12006,6 +12391,7 @@ That is 100% of the game!
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -12057,6 +12443,7 @@ Would you like to RESTART, UNDO a turn, or QUIT?
 [TEXT] 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -12130,6 +12517,7 @@ Good luck...
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -12164,6 +12552,7 @@ You can move south and up.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -12190,6 +12579,7 @@ You see no such thing.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -12215,6 +12605,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -12239,6 +12630,7 @@ You can't go in that direction, but you can move south and up.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -12265,6 +12657,7 @@ You can't go in that direction, but you can move south and up.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -12289,6 +12682,7 @@ You can't go in that direction, but you can move south and up.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -12315,6 +12709,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -12340,6 +12735,7 @@ You can't go in that direction, but you can move south and up.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -12364,6 +12760,7 @@ You can't go in that direction, but you can move south and up.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -12398,6 +12795,7 @@ Also here is a body and a staff.  You can move north, east, south and west.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -12438,6 +12836,7 @@ Also here is a fallen oak tree.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -12463,6 +12862,7 @@ You can't go in that direction, but you can move north, south, west, southeast a
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -12497,6 +12897,7 @@ Also here is a body and a staff.  You can move north, east, south and west.  Fet
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -12533,6 +12934,7 @@ It is raining...  You can move south and up.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -12552,13 +12954,14 @@ It is raining...  You can move south and up.
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=8 a3=0 len=24
 [TEXT] enter portal
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=134
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=190
 [TEXT] 
-Just a direction will do.
+Just a direction will do.  You can move south and up.
 You hear the flutter of batlike wings.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -12585,6 +12988,7 @@ Now that isn't very nice.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -12609,6 +13013,7 @@ You can't go in that direction, but you can move south and up.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -12635,6 +13040,7 @@ You can't go in that direction, but you can move south and up.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -12660,6 +13066,7 @@ You can't go in that direction, but you can move south and up.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -12684,6 +13091,7 @@ You can't go in that direction, but you can move south and up.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -12711,6 +13119,7 @@ You catch a faint whiff of Fetlar. He must be somewhere nearby.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -12735,6 +13144,7 @@ You can't go in that direction, but you can move south and up.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -12762,6 +13172,7 @@ A chill wind blows southerly.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -12786,6 +13197,7 @@ Uh huh, yes, very interesting.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -12812,6 +13224,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -12836,6 +13249,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -12862,6 +13276,7 @@ You can't go in that direction, but you can move south and up.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -12886,6 +13301,7 @@ You can't see the fallen oak tree.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -12922,6 +13338,7 @@ You hear Fetlar
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -12947,6 +13364,7 @@ Take what?
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -12969,6 +13387,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -12994,6 +13413,7 @@ You can't go in that direction, but you can move south and up.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -13020,6 +13440,7 @@ You can't go in that direction, but you can move south and up.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -13044,6 +13465,7 @@ You can't go in that direction, but you can move south and up.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -13071,6 +13493,7 @@ You hear the flutter of batlike wings.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -13110,6 +13533,7 @@ Also here is a body and a staff.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -13135,6 +13559,7 @@ You can't go in that direction, but you can move north, east, south and west.  F
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -13169,6 +13594,7 @@ You can move north, east, south, west, southwest and northwest.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -13202,6 +13628,7 @@ It is raining...  You can move north, east, south, west, northeast, southeast, s
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -13238,6 +13665,7 @@ You catch a faint whiff of Fetlar. He must be somewhere nearby.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -13271,6 +13699,7 @@ It is raining...  You can move north, east, northeast and southeast.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -13306,6 +13735,7 @@ It is raining...  You can move east, south and southeast.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -13332,6 +13762,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -13357,6 +13788,7 @@ You can't open that.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -13381,6 +13813,7 @@ The mountains are impassable.  A dark shadow appears from above. Something seems
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -13411,6 +13844,7 @@ You can't open that.  Fetlar the overly fetid flutters down.  It stops raining..
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -13437,6 +13871,7 @@ A chill wind blows southerly.  The dragon goes into a dive and heads straight fo
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -13461,6 +13896,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -13505,6 +13941,7 @@ That is 100% of the game!
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -13667,6 +14104,7 @@ The previous turn has been undone.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -13680,6 +14118,7 @@ The previous turn has been undone.
 [TEXT] 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -13712,6 +14151,7 @@ That is 100% of the game!
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -13738,6 +14178,7 @@ Would you like to RESTART, UNDO a turn, or QUIT?
 [TEXT] 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -13811,6 +14252,7 @@ Good luck...
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -13835,6 +14277,7 @@ Who do you want to attack?
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -13870,6 +14313,7 @@ You can move south and up.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -13896,6 +14340,7 @@ Gosh, that was very impressive.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -13920,6 +14365,7 @@ You can't go in that direction, but you can move south and up.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -13946,6 +14392,7 @@ You can't rub that.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -13970,6 +14417,7 @@ Not surprisingly, no-one takes any notice of you.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -14009,6 +14457,7 @@ You can only move down.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -14035,6 +14484,7 @@ You can only move down.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -14059,6 +14509,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -14085,6 +14536,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -14109,6 +14561,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -14135,6 +14588,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -14159,6 +14613,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -14185,6 +14640,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -14210,6 +14666,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -14234,6 +14691,7 @@ You can only move down.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -14260,6 +14718,7 @@ You can only move down.  Fetlar the overly fetid flutters down.  It starts to ra
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -14284,6 +14743,7 @@ I don't understand what you are trying to eat.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -14310,6 +14770,7 @@ You can only move down.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -14334,6 +14795,7 @@ You can only move down.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -14361,6 +14823,7 @@ Fetlar smiles and sniffs the air, as a foul smell erupts from him.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -14387,6 +14850,7 @@ Fetlar scratches himself.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -14411,6 +14875,7 @@ You can only move down.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -14437,6 +14902,7 @@ You can only move down.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -14461,6 +14927,7 @@ You can only move down.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -14487,6 +14954,7 @@ You can only move down.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -14512,6 +14980,7 @@ You can only move down.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -14536,6 +15005,7 @@ You can only move down.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -14563,6 +15033,7 @@ A chill wind blows southerly.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -14587,6 +15058,7 @@ You can only move down.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -14614,6 +15086,7 @@ Lightning lances the clouds above. The rumble of thunder can be heard over the r
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -14638,6 +15111,7 @@ You can only move down.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -14664,6 +15138,7 @@ You can only move down.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -14689,6 +15164,7 @@ You can only move down.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -14713,6 +15189,7 @@ You can only move down.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -14740,6 +15217,7 @@ You hear the distant howling of wolves.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -14766,6 +15244,7 @@ You catch a faint whiff of Fetlar. He must be somewhere nearby.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -14790,6 +15269,7 @@ You can only move down.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -14821,6 +15301,7 @@ You hear Fetlar
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -14845,6 +15326,7 @@ You can only move down.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -14873,6 +15355,7 @@ You hear the flutter of batlike wings.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -14897,6 +15380,7 @@ You can only move down.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -14923,6 +15407,7 @@ You can only move down.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -14947,6 +15432,7 @@ You can only move down.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -14973,6 +15459,7 @@ You can only move down.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -14997,6 +15484,7 @@ You can only move down.  Fetlar the overly fetid flutters down.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -15023,6 +15511,7 @@ You can only move down.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -15047,6 +15536,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -15073,6 +15563,7 @@ You can only move down.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -15098,6 +15589,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -15122,6 +15614,7 @@ You can only move down.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -15147,6 +15640,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -15173,30 +15667,6 @@ You can only move down.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
-[TEXT]                                                                                 
-[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
-[TEXT] Up a tree
-[MSG] cmd=MOVETO a1=1 a2=25 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=108
-[TEXT] 43 turns have passed since you started this adventure.
-[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
-[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
-[TEXT] >
-[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
-[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=30
-[TEXT] attack damastus
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=204
-[TEXT] 
-I don't understand what you mean. I'm only a text adventure, you know! Try rephrasing your command.
-
-
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -15222,6 +15692,33 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
+[TEXT] Up a tree
+[MSG] cmd=MOVETO a1=1 a2=25 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=108
+[TEXT] 43 turns have passed since you started this adventure.
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=30
+[TEXT] attack damastus
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=204
+[TEXT] 
+I don't understand what you mean. I'm only a text adventure, you know! Try rephrasing your command.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -15249,6 +15746,7 @@ A chill wind blows southerly.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -15274,6 +15772,7 @@ A dark shadow appears from above. Something seems to be blocking out the light o
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -15305,6 +15804,7 @@ Fetlar smiles and sniffs the air, as a foul smell erupts from him.  The dragon
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -15330,6 +15830,7 @@ The dragon goes into a dive and heads straight for you!
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -15361,6 +15862,7 @@ That is 100% of the game!
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -15403,6 +15905,7 @@ Would you like to RESTART, UNDO a turn, or QUIT?
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -15475,6 +15978,7 @@ Good luck...
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -15499,6 +16003,7 @@ Take what?
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -15525,6 +16030,7 @@ Wear what?  Fetlar the overly fetid flies off to the south.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -15549,6 +16055,7 @@ You can't go in that direction, but you can move north, east, south and west.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -15575,6 +16082,7 @@ You can't go in that direction, but you can move north, east, south and west.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -15599,6 +16107,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -15637,6 +16146,7 @@ Also here is a fallen oak tree.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -15681,6 +16191,7 @@ You can move west, up, down and northwest.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -15707,6 +16218,7 @@ You can't go in that direction, but you can move west, up, down and northwest.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -15731,6 +16243,7 @@ Uh huh, yes, very interesting.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -15757,6 +16270,7 @@ You can't see the staff.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -15782,6 +16296,7 @@ You cannot go in that direction for fear of falling into the chasm.  Fetlar the 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -15806,6 +16321,7 @@ You whistle a little tune.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -15837,6 +16353,7 @@ You whistle a little tune.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -15866,6 +16383,7 @@ You whistle a little tune.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -15897,6 +16415,7 @@ You whistle a little tune.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -15926,6 +16445,7 @@ You whistle a little tune.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -15957,6 +16477,7 @@ You whistle a little tune.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -15982,6 +16503,7 @@ Fetlar scratches himself.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -16021,6 +16543,7 @@ You catch a faint whiff of Fetlar. He must be somewhere nearby.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -16046,6 +16569,7 @@ Take what?
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -16093,6 +16617,7 @@ Where a tree growing precariously from the side of the chasm
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -16118,6 +16643,7 @@ You can't stand on that.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -16145,6 +16671,7 @@ A chill wind blows southerly.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -16169,6 +16696,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -16195,6 +16723,7 @@ You can't open that.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -16220,30 +16749,6 @@ You can't go in that direction, but you can move west, up, down and northwest.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
-[TEXT]                                                                                 
-[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
-[TEXT] Chasm edge.
-[MSG] cmd=MOVETO a1=1 a2=25 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=108
-[TEXT] 24 turns have passed since you started this adventure.
-[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
-[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
-[TEXT] >
-[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
-[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=30
-[TEXT] attack cerberus
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=204
-[TEXT] 
-I don't understand what you mean. I'm only a text adventure, you know! Try rephrasing your command.
-
-
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -16270,30 +16775,6 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
-[TEXT]                                                                                 
-[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
-[TEXT] Chasm edge.
-[MSG] cmd=MOVETO a1=1 a2=25 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=108
-[TEXT] 24 turns have passed since you started this adventure.
-[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
-[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
-[TEXT] >
-[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
-[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=30
-[TEXT] attack cerberus
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=204
-[TEXT] 
-I don't understand what you mean. I'm only a text adventure, you know! Try rephrasing your command.
-
-
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -16320,6 +16801,7 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -16344,6 +16826,59 @@ I don't understand what you mean. I'm only a text adventure, you know! Try rephr
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
+[TEXT] Chasm edge.
+[MSG] cmd=MOVETO a1=1 a2=25 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=108
+[TEXT] 24 turns have passed since you started this adventure.
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=30
+[TEXT] attack cerberus
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=204
+[TEXT] 
+I don't understand what you mean. I'm only a text adventure, you know! Try rephrasing your command.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=22
+[TEXT] Chasm edge.
+[MSG] cmd=MOVETO a1=1 a2=25 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=108
+[TEXT] 24 turns have passed since you started this adventure.
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=30
+[TEXT] attack cerberus
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=204
+[TEXT] 
+I don't understand what you mean. I'm only a text adventure, you know! Try rephrasing your command.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -16369,6 +16904,7 @@ You can't go in that direction, but you can move west, up, down and northwest.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -16395,6 +16931,7 @@ You can't go in that direction, but you can move west, up, down and northwest.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -16419,6 +16956,7 @@ You can't touch that.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -16445,6 +16983,7 @@ You can't go in that direction, but you can move west, up, down and northwest.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -16470,6 +17009,7 @@ You hear the distant howling of wolves.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 

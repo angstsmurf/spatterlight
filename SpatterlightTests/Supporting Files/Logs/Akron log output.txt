@@ -43,6 +43,7 @@ Interpreter: scarier
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -65,6 +66,7 @@ Interpreter: scarier
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -103,6 +105,7 @@ You pick up the library card.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -128,6 +131,7 @@ This is Garbanzo Street, in the south end of Akron. It stretches as far as the e
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -156,6 +160,7 @@ Akron Public Library is a small community library, with a relatively limited sel
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -182,6 +187,7 @@ The librarian looks at your card, and nods. Immediately, someone else comes in a
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -206,6 +212,7 @@ You take a thick book from the return cart.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -232,6 +239,7 @@ You take a thin book from the return cart.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -257,6 +265,7 @@ This is Garbanzo Street, in the south end of Akron. It stretches as far as the e
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -285,6 +294,7 @@ This is the western end of Garbanzo Street, extending into the industrial distri
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -312,6 +322,7 @@ You stand just outside what was formerly some kind of men's clothing store. All 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -338,6 +349,7 @@ You drop Great Expectations onto the floor, and stand up on top. Now you can see
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -363,6 +375,7 @@ You pick up the small brass key.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -387,6 +400,7 @@ You put the key into the door, and it fits easily. The door is now unlocked, and
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -415,6 +429,7 @@ This is a deserted men's clothing store. Empty racks are all around you - there 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -441,6 +456,7 @@ You pick up the spiffy tuxedo.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -465,6 +481,7 @@ You remove the grubby sweatshirt.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -491,6 +508,7 @@ You remove the pair of ragged jeans.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -515,6 +533,7 @@ You put the tuxedo on. Boy, do you look good.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -541,6 +560,7 @@ You stand just outside what was formerly some kind of men's clothing store. All 
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -569,6 +589,7 @@ This is the western end of Garbanzo Street, extending into the industrial distri
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -595,6 +616,7 @@ This is Garbanzo Street, in the south end of Akron. It stretches as far as the e
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -623,6 +645,7 @@ Garbanzo Street makes a sharp curve to the left here, just managing to stay insi
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -650,6 +673,7 @@ There is next to nothing here. Some trash has been tossed into this area, but mo
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -676,6 +700,7 @@ You pick up the surveyor's stake.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -701,6 +726,7 @@ Garbanzo Street makes a sharp curve to the left here, just managing to stay insi
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -729,6 +755,7 @@ You have blundered into a cornfield. Oh my. It looks like this is another one of
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -756,6 +783,7 @@ Wow! You made it all the way through the maze! I'm so impressed! This is a clear
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -782,6 +810,7 @@ You drive the surveyor's stake right through Elizabeth Dole's heart. She screams
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -806,6 +835,7 @@ You pick up the small passcard.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -832,6 +862,7 @@ You have blundered into a cornfield. Oh my. It looks like this is another one of
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -860,6 +891,7 @@ Garbanzo Street makes a sharp curve to the left here, just managing to stay insi
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -886,6 +918,7 @@ This is Garbanzo Street, in the south end of Akron. It stretches as far as the e
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -914,6 +947,7 @@ This is the western end of Garbanzo Street, extending into the industrial distri
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -941,6 +975,7 @@ This is the lobby of the Johnson automotive plant, employer of nearly everybody 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -966,6 +1001,7 @@ The clerk looks at your passcard warily. "I'm not sure I should... oh well, go o
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -994,6 +1030,7 @@ Machines clang all around you. Workers bustle in every direction. Noise is shatt
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1020,6 +1057,7 @@ You pick up the wedding ring.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1044,6 +1082,7 @@ You put on the wedding ring.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1070,6 +1109,7 @@ This is the lobby of the Johnson automotive plant, employer of nearly everybody 
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1098,6 +1138,7 @@ This is the western end of Garbanzo Street, extending into the industrial distri
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1124,6 +1165,7 @@ Garbanzo Street becomes Kumquat Avenue here, as we enter the Smallwood Green sub
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1152,6 +1194,7 @@ Kumquat Avenue reaches a dead end here. Interestingly, there is a police car par
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1179,6 +1222,7 @@ You stand on the doorstep outside 37 Kumquat Avenue.  Officer Stanley Peters, of
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1204,6 +1248,7 @@ Officer Peters looks at the Treatise on Crippled Shareware. "Wow!" he exclaims. 
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1235,6 +1280,7 @@ Well done - you scored maximum points!
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 

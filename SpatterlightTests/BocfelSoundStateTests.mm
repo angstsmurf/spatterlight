@@ -120,9 +120,14 @@ bool is_game(Game game) { return false; }
     init_sound();
     XCTAssertFalse(sound_loaded(), @"channels created despite gestalt_Sound2 = 0");
 
-    library_state_data dat;
-    memset(&dat, 0x5A, sizeof dat);
-    library_state_data before = dat;
+    // library_state_data holds std::vectors, so it can't be memset or
+    // memcmp'd: check the fields stash/recover use, set to markers.
+    library_state_data dat{};
+    dat.routine = 0x5A5A;
+    dat.queued_sound = 0x5A5A5A5A;
+    dat.queued_volume = 0x5A5A5A5A;
+    dat.sound_channel_tag = 0x5A5A5A5A;
+    dat.music_channel_tag = 0x5A5A5A5A;
 
     // Issue #166: these threw std::out_of_range from channels.at() when no
     // channels existed. They must be silent no-ops instead.
@@ -134,15 +139,18 @@ bool is_game(Game game) { return false; }
     } catch (const std::exception &e) {
         XCTFail(@"stash/recover with no sound channels threw: %s", e.what());
     }
-    XCTAssertEqual(memcmp(&dat, &before, sizeof dat), 0,
-                   @"stash/recover touched the state despite having no channels");
+    XCTAssertEqual(dat.routine, 0x5A5A, @"stash/recover touched the state despite having no channels");
+    XCTAssertEqual(dat.queued_sound, 0x5A5A5A5A, @"stash/recover touched the state despite having no channels");
+    XCTAssertEqual(dat.queued_volume, 0x5A5A5A5A, @"stash/recover touched the state despite having no channels");
+    XCTAssertEqual(dat.sound_channel_tag, 0x5A5A5A5A, @"stash/recover touched the state despite having no channels");
+    XCTAssertEqual(dat.music_channel_tag, 0x5A5A5A5A, @"stash/recover touched the state despite having no channels");
 
     // --- Sound enabled: the new guard must not break real stash/recover.
     stub_sound_supported = true;
     init_sound();
     XCTAssertTrue(sound_loaded(), @"channels not created with sound enabled");
 
-    memset(&dat, 0, sizeof dat);
+    dat = library_state_data{};
     stash_library_sound_state(&dat);
     XCTAssertEqual(dat.sound_channel_tag, 4712, @"stash did not record the effects channel's tag");
 
@@ -158,8 +166,7 @@ bool is_game(Game game) { return false; }
     dat.music_channel_tag = 31338;
     recover_library_sound_state(&dat);
 
-    library_state_data out;
-    memset(&out, 0, sizeof out);
+    library_state_data out{};
     stash_library_sound_state(&out);
     XCTAssertEqual(out.routine, (uint16_t)7);
     XCTAssertEqual(out.queued_sound, 3);
@@ -183,7 +190,7 @@ bool is_game(Game game) { return false; }
     XCTAssertTrue(music != NULL && music != channels.at(Channels::Effects)->channel,
                   @"music was not given a channel of its own");
 
-    memset(&out, 0, sizeof out);
+    out = library_state_data{};
     stash_library_sound_state(&out);
     XCTAssertEqual(out.sound_channel_tag, 500);
     XCTAssertEqual(out.music_channel_tag, music->tag);

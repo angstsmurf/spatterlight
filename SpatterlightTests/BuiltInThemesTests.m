@@ -192,7 +192,7 @@ static NSString *describeObject(NSManagedObject *object) {
     }
 }
 
-// The PC screen themes get scanlines, glow and an underline cursor, also
+// The PC screen themes get scanlines, glow and a block cursor, also
 // when they already exist, and the other themes none of them.
 - (void)testDOSThemesHaveTheCRTLook {
     [BuiltInThemes createBuiltInThemesInContext:self.context forceRebuild:NO];
@@ -212,7 +212,7 @@ static NSString *describeObject(NSManagedObject *object) {
             found++;
         XCTAssertEqual(theme.crtScanlines, dos, @"%@", theme.name);
         XCTAssertEqual(theme.crtGlow, dos, @"%@", theme.name);
-        XCTAssertEqual(theme.caretShape, dos ? kCaretUnderline : kCaretLine, @"%@", theme.name);
+        XCTAssertEqual(theme.caretShape, dos ? kCaretBlock : kCaretLine, @"%@", theme.name);
     }
     XCTAssertEqual(found, 2u);
 }

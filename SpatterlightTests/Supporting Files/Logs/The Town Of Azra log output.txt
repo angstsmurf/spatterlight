@@ -51,6 +51,7 @@ Interpreter: scarier
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -95,6 +96,7 @@ Interpreter: scarier
 [TEXT] 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -159,6 +161,7 @@ Press any key to continue...
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -192,6 +195,7 @@ E-Mail Me at MrTencza@aol.com! I'd love to hear suggestions and/or comments.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -214,6 +218,7 @@ This is a busy street. You see the crowd here buzzing buy, murmuring to itself a
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -255,6 +260,7 @@ This is a brightly lit tavern. People are jammed in here, and
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -281,6 +287,7 @@ You ask the store owner for some change. The owner agrees. You hand the owner a 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -305,6 +312,7 @@ You holler out for a coffee in the loud, rambunctious tavern. Harthro hears your
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -331,6 +339,7 @@ You take a mug of coffee from the bar.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -355,6 +364,7 @@ You tip the cup back and take a medium-sized gulp of the coffee. There is 85 per
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -381,6 +391,7 @@ You yell out to Harthro that you'd like to order his best steak for 8 dollars. H
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -405,6 +416,7 @@ You take a decent bite out of the steak. It tastes delicious. Another masterpiec
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -437,6 +449,7 @@ This is a busy street. You see the crowd here buzzing buy, murmuring to itself a
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -479,6 +492,7 @@ You are in
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -505,6 +519,7 @@ You ask Golapho for the bronze helmet. He puts his book down, and with a grumble
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -529,6 +544,7 @@ You count out $90 to buy the armor. You mutter to Golapho that you'd like to buy
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -555,6 +571,7 @@ You put on the rawhide armor.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -579,6 +596,7 @@ You put on the bronze helmet.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -612,6 +630,7 @@ This is a busy street. You see the crowd here buzzing buy, murmuring to itself a
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -644,6 +663,7 @@ This is a small plaza of shops and stalls. It was named after the first Council 
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -694,6 +714,7 @@ This is shop where you can buy metal items, such as
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -720,6 +741,7 @@ You give $80 to Calado and ask for the hunting sword. He grins and hands you the
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -744,6 +766,7 @@ You wield the hunting sword.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -776,6 +799,7 @@ This is a small plaza of shops and stalls. It was named after the first Council 
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -838,6 +862,7 @@ This is
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -863,6 +888,7 @@ You count out $50 and hand it to Gralle. She smiles and points to your room. You
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -908,6 +934,7 @@ This is a small room, with a
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -934,6 +961,7 @@ You lie down on the bed.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -958,6 +986,7 @@ You begin to take a short nap... You fall asleep...
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -974,6 +1003,7 @@ You feel a little better, after taking the nap.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1036,6 +1066,7 @@ This is
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1068,6 +1099,7 @@ This is a small plaza of shops and stalls. It was named after the first Council 
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1102,6 +1134,7 @@ This is a busy street. You see the crowd here buzzing buy, murmuring to itself a
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1134,6 +1167,7 @@ This a trail that leads out of the town, to the north. It is well kept by garden
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1173,6 +1207,7 @@ You move north.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1203,30 +1238,6 @@ This is Bandit Trail. This area of the countryside is notorious for its random
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
-[TEXT]                                                                                 
-[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=30
-[TEXT] On Bandit Trail
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
-[TEXT] Score: 0
-[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
-[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
-[TEXT] >
-[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
-[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=26
-[TEXT] attack bandit
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=128
-[TEXT] 
-You chop a bandit with the hunting sword.  A bandit hits you.
-
-
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1253,30 +1264,6 @@ You chop a bandit with the hunting sword.  A bandit hits you.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
-[TEXT]                                                                                 
-[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=30
-[TEXT] On Bandit Trail
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
-[TEXT] Score: 0
-[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
-[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
-[TEXT] >
-[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
-[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=26
-[TEXT] attack bandit
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=128
-[TEXT] 
-You chop a bandit with the hunting sword.  A bandit hits you.
-
-
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1303,30 +1290,6 @@ You chop a bandit with the hunting sword.  A bandit hits you.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
-[TEXT]                                                                                 
-[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=30
-[TEXT] On Bandit Trail
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
-[TEXT] Score: 0
-[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
-[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
-[TEXT] >
-[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
-[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=26
-[TEXT] attack bandit
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=128
-[TEXT] 
-You chop a bandit with the hunting sword.  A bandit hits you.
-
-
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1353,30 +1316,6 @@ You chop a bandit with the hunting sword.  A bandit hits you.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
-[TEXT]                                                                                 
-[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=30
-[TEXT] On Bandit Trail
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
-[TEXT] Score: 0
-[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
-[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
-[TEXT] >
-[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
-[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=26
-[TEXT] attack bandit
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=128
-[TEXT] 
-You chop a bandit with the hunting sword.  A bandit hits you.
-
-
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1403,6 +1342,7 @@ You chop a bandit with the hunting sword.  A bandit hits you.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1427,6 +1367,111 @@ You chop a bandit with the hunting sword.  A bandit hits you.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=30
+[TEXT] On Bandit Trail
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=26
+[TEXT] attack bandit
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=128
+[TEXT] 
+You chop a bandit with the hunting sword.  A bandit hits you.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=30
+[TEXT] On Bandit Trail
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=26
+[TEXT] attack bandit
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=128
+[TEXT] 
+You chop a bandit with the hunting sword.  A bandit hits you.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=30
+[TEXT] On Bandit Trail
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=26
+[TEXT] attack bandit
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=128
+[TEXT] 
+You chop a bandit with the hunting sword.  A bandit hits you.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=30
+[TEXT] On Bandit Trail
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=26
+[TEXT] attack bandit
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=128
+[TEXT] 
+You chop a bandit with the hunting sword.  A bandit hits you.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1453,6 +1498,7 @@ You chop a bandit with the hunting sword.  You kill the vile bandit! Hopefully h
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1477,6 +1523,7 @@ You search the dead body for some money. You now have $384 and 110 cents.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1510,6 +1557,7 @@ This is the Northern Forest. It is thick with trees, moss, rocks, and ferns. You
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1536,30 +1584,6 @@ You chop an animal with the hunting sword.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
-[TEXT]                                                                                 
-[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
-[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
-[TEXT] In the Northern Forest
-[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
-[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
-[TEXT] Score: 0
-[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
-[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
-[TEXT] >
-[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
-[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
-[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=22
-[TEXT] attack deer
-[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=90
-[TEXT] 
-You chop an animal with the hunting sword.
-
-
-[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1585,6 +1609,33 @@ You chop an animal with the hunting sword.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
+[TEXT]                                                                                 
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
+[TEXT] In the Northern Forest
+[MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
+[MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
+[TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
+[TEXT] >
+[MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
+[MSG] cmd=INITLINE a1=0 a2=255 a3=0 len=0
+[MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
+[MSG] cmd=PRINT a1=0 a2=8 a3=0 len=22
+[TEXT] attack deer
+[MSG] cmd=PRINT a1=0 a2=0 a3=0 len=90
+[TEXT] 
+You chop an animal with the hunting sword.
+
+
+[MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1611,6 +1662,7 @@ You chop an animal with the hunting sword.  You strike the deer one last and fin
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1635,6 +1687,7 @@ You pick up the deer carcass.
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1673,6 +1726,7 @@ You move south.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1702,6 +1756,7 @@ This is Bandit Trail. This area of the countryside is notorious for its random
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1734,6 +1789,7 @@ This a trail that leads out of the town, to the north. It is well kept by garden
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1768,6 +1824,7 @@ This is a busy street. You see the crowd here buzzing buy, murmuring to itself a
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1801,6 +1858,7 @@ This is a small plaza of shops and stalls. It was named after the first Council 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1833,6 +1891,7 @@ You are on a semi-busy road. A few people can be seen going by you. To the south
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1871,6 +1930,7 @@ This is a butcher shop. You can see many dead carcasses hanging against the wall
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1897,6 +1957,7 @@ You show the carcass of the deer to Drako. He considers it for a minute. He then
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -1921,6 +1982,7 @@ You hand the large carcass of the deer over to Drako. He counts out the money he
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1950,6 +2012,7 @@ Money Status:                                                             You ha
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -1981,6 +2044,7 @@ Ormulus says, "Great! After I teach you the basics, you'll be a terrific hunter.
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -2005,6 +2069,7 @@ You remember what Ormulus told you as you crouch and use stealth movements. Reme
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -2032,6 +2097,7 @@ Defense value:        3 (0)
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
@@ -2066,6 +2132,7 @@ For Stamina, Strength, and Defense values, type
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
@@ -2094,6 +2161,7 @@ Money Status:                                                             You ha
 
 
 [MSG] cmd=CLRWIN a1=1 a2=0 a3=0 len=0
+[MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=MOVETO a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=160
 [TEXT]                                                                                 

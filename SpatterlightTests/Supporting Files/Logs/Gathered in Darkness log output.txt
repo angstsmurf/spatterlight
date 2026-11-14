@@ -156,6 +156,7 @@ The figure is tall and menacing, dressed in a black cloak with a purple velvet l
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=3 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
 [TEXT] Compass
@@ -167,6 +168,7 @@ The figure is tall and menacing, dressed in a black cloak with a purple velvet l
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -221,6 +223,7 @@ You want to yell at him to come back, to give you answers to what is going on.  
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=16
 [TEXT] Moves: 1
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
 [TEXT] Compass
@@ -232,6 +235,7 @@ You want to yell at him to come back, to give you answers to what is going on.  
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -281,6 +285,7 @@ You want to yell at him to come back, to give you answers to what is going on.  
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=16
 [TEXT] Moves: 1
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
 [TEXT] Compass
@@ -292,6 +297,7 @@ You want to yell at him to come back, to give you answers to what is going on.  
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -325,6 +331,7 @@ You crash...hard.  The soft blankets almost seem to fold themselves around you a
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=16
 [TEXT] Moves: 1
 [MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
 [TEXT] Compass
@@ -336,6 +343,7 @@ You crash...hard.  The soft blankets almost seem to fold themselves around you a
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -379,6 +387,7 @@ Welcome to:
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=16
 [TEXT] Moves: 1
 [MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=16
 [TEXT] Compass
@@ -390,6 +399,7 @@ Welcome to:
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -444,6 +454,7 @@ Piercing The Darkness
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=40
 [TEXT] Chapter 1 | Moves: 2
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -491,6 +502,7 @@ Piercing The Darkness
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -554,6 +566,7 @@ Dr. Skinn"
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=40
 [TEXT] Chapter 1 | Moves: 3
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -590,6 +603,7 @@ Dr. Skinn"
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -639,6 +653,7 @@ Dr. Skinn"
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=40
 [TEXT] Chapter 1 | Moves: 4
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -689,6 +704,7 @@ Dr. Skinn"
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -738,6 +754,7 @@ Dr. Skinn"
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=40
 [TEXT] Chapter 1 | Moves: 5
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -760,6 +777,7 @@ Dr. Skinn"
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -798,6 +816,7 @@ The mahogany desk sports a very tasteful black cherry wood stain.  A single unlo
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=40
 [TEXT] Chapter 1 | Moves: 6
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -831,6 +850,7 @@ The mahogany desk sports a very tasteful black cherry wood stain.  A single unlo
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -869,6 +889,7 @@ You pick up the radio.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=40
 [TEXT] Chapter 1 | Moves: 7
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -898,6 +919,7 @@ You pick up the radio.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -947,6 +969,7 @@ You pick up the radio.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=40
 [TEXT] Chapter 1 | Moves: 8
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -1004,6 +1027,7 @@ You pick up the radio.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -1053,6 +1077,7 @@ You pick up the radio.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=40
 [TEXT] Chapter 1 | Moves: 9
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -1103,6 +1128,7 @@ You pick up the radio.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -1136,6 +1162,7 @@ As you open the door to the guest room that belongs to Kitty a gust of her perfu
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=40
 [TEXT] Chapter 1 | Moves: 9
 [MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -1186,6 +1213,7 @@ As you open the door to the guest room that belongs to Kitty a gust of her perfu
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -1221,6 +1249,7 @@ You force the memories of last night, the final good ones that you can recall be
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=40
 [TEXT] Chapter 1 | Moves: 9
 [MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -1271,6 +1300,7 @@ You force the memories of last night, the final good ones that you can recall be
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -1315,6 +1345,7 @@ You force the memories of last night, the final good ones that you can recall be
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 1 | Moves: 10
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -1355,6 +1386,7 @@ You force the memories of last night, the final good ones that you can recall be
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -1393,6 +1425,7 @@ This is your dinner jacket.  You have always found that a black, sporty, light c
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 1 | Moves: 11
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -1429,6 +1462,7 @@ This is your dinner jacket.  You have always found that a black, sporty, light c
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -1478,6 +1512,7 @@ This is your dinner jacket.  You have always found that a black, sporty, light c
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 1 | Moves: 12
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -1535,6 +1570,7 @@ This is your dinner jacket.  You have always found that a black, sporty, light c
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -1584,6 +1620,7 @@ This is your dinner jacket.  You have always found that a black, sporty, light c
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 1 | Moves: 13
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -1648,6 +1685,7 @@ This is your dinner jacket.  You have always found that a black, sporty, light c
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -1697,6 +1735,7 @@ This is your dinner jacket.  You have always found that a black, sporty, light c
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 1 | Moves: 14
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -1747,6 +1786,7 @@ This is your dinner jacket.  You have always found that a black, sporty, light c
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -1797,6 +1837,7 @@ You insert the small brass key into the lock and give it a turn.  The closet doo
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 1 | Moves: 15
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -1837,6 +1878,7 @@ You insert the small brass key into the lock and give it a turn.  The closet doo
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -1875,6 +1917,7 @@ You take the flashlight.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 1 | Moves: 16
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -1911,6 +1954,7 @@ You take the flashlight.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -1949,6 +1993,7 @@ You open up the battery compartment in the back and find two D cell batteries.  
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 1 | Moves: 17
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -1985,6 +2030,7 @@ You open up the battery compartment in the back and find two D cell batteries.  
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -2023,6 +2069,7 @@ You unscrew the bottom of the flashlight and put the batteries inside of it.  Ev
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 1 | Moves: 18
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -2052,6 +2099,7 @@ You unscrew the bottom of the flashlight and put the batteries inside of it.  Ev
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -2090,6 +2138,7 @@ You push the button on the handle of the flashlight and watch as a strong beam o
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 1 | Moves: 19
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -2119,6 +2168,7 @@ You push the button on the handle of the flashlight and watch as a strong beam o
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -2168,6 +2218,7 @@ You push the button on the handle of the flashlight and watch as a strong beam o
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 1 | Moves: 20
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -2211,6 +2262,7 @@ You push the button on the handle of the flashlight and watch as a strong beam o
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -2260,6 +2312,7 @@ You push the button on the handle of the flashlight and watch as a strong beam o
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 1 | Moves: 21
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -2317,6 +2370,7 @@ You push the button on the handle of the flashlight and watch as a strong beam o
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -2366,6 +2420,7 @@ You push the button on the handle of the flashlight and watch as a strong beam o
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 1 | Moves: 22
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -2416,6 +2471,7 @@ You push the button on the handle of the flashlight and watch as a strong beam o
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -2465,6 +2521,7 @@ You push the button on the handle of the flashlight and watch as a strong beam o
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 1 | Moves: 23
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -2519,6 +2576,7 @@ You push the button on the handle of the flashlight and watch as a strong beam o
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -2581,6 +2639,7 @@ You push the button on the handle of the flashlight and watch as a strong beam o
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 1 | Moves: 24
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -2642,6 +2701,7 @@ You push the button on the handle of the flashlight and watch as a strong beam o
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -2691,6 +2751,7 @@ You push the button on the handle of the flashlight and watch as a strong beam o
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 1 | Moves: 25
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -2748,6 +2809,7 @@ You push the button on the handle of the flashlight and watch as a strong beam o
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -2797,6 +2859,7 @@ You push the button on the handle of the flashlight and watch as a strong beam o
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 1 | Moves: 26
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -2861,6 +2924,7 @@ You push the button on the handle of the flashlight and watch as a strong beam o
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -2899,6 +2963,7 @@ You unlock the gate and slide it into a recess in the wall.  It goes in far enou
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 1 | Moves: 27
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -2956,6 +3021,7 @@ You unlock the gate and slide it into a recess in the wall.  It goes in far enou
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -3014,6 +3080,7 @@ The Ivory Keys
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 28
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -3092,6 +3159,7 @@ The Ivory Keys
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -3146,6 +3214,7 @@ The two continue on in silence into the hallway northwest, closing the door behi
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 29
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -3224,6 +3293,7 @@ The two continue on in silence into the hallway northwest, closing the door behi
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -3273,6 +3343,7 @@ The two continue on in silence into the hallway northwest, closing the door behi
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 30
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -3309,6 +3380,7 @@ The two continue on in silence into the hallway northwest, closing the door behi
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -3358,6 +3430,7 @@ The two continue on in silence into the hallway northwest, closing the door behi
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 31
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -3398,6 +3471,7 @@ The two continue on in silence into the hallway northwest, closing the door behi
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -3436,6 +3510,7 @@ You take the rusty pliers.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 32
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -3472,6 +3547,7 @@ You take the rusty pliers.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -3522,6 +3598,7 @@ Steve"
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 33
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -3558,6 +3635,7 @@ Steve"
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -3607,6 +3685,7 @@ Steve"
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 34
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -3650,6 +3729,7 @@ Steve"
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -3697,6 +3777,7 @@ You press a random key at the central terminal to bring up the screen asking for
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 35
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -3740,6 +3821,7 @@ You press a random key at the central terminal to bring up the screen asking for
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -3789,6 +3871,7 @@ You press a random key at the central terminal to bring up the screen asking for
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 36
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -3874,6 +3957,7 @@ You press a random key at the central terminal to bring up the screen asking for
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -3923,6 +4007,7 @@ You press a random key at the central terminal to bring up the screen asking for
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 37
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -3987,6 +4072,7 @@ You press a random key at the central terminal to bring up the screen asking for
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -4036,6 +4122,7 @@ You press a random key at the central terminal to bring up the screen asking for
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 38
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -4072,6 +4159,7 @@ You press a random key at the central terminal to bring up the screen asking for
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -4106,6 +4194,7 @@ Choose [1-6]>
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 38
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -4142,6 +4231,7 @@ Choose [1-6]>
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -4191,6 +4281,7 @@ The following words flicker across the screen:
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 38
 [MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -4227,6 +4318,7 @@ The following words flicker across the screen:
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -4257,6 +4349,7 @@ Choose [1-6]>
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 38
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -4293,6 +4386,7 @@ Choose [1-6]>
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -4328,6 +4422,7 @@ Choose [1-6]>
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 39
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -4364,6 +4459,7 @@ Choose [1-6]>
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -4413,6 +4509,7 @@ Choose [1-6]>
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 40
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -4477,6 +4574,7 @@ Choose [1-6]>
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -4526,6 +4624,7 @@ Choose [1-6]>
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 41
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -4611,6 +4710,7 @@ Choose [1-6]>
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -4661,6 +4761,7 @@ Choose [1-6]>
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 42
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -4718,6 +4819,7 @@ Choose [1-6]>
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -4767,6 +4869,7 @@ Choose [1-6]>
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 43
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -4810,6 +4913,7 @@ Choose [1-6]>
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -4848,6 +4952,7 @@ You get close enough to the shelf to see that someone has placed many strange th
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 44
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -4902,6 +5007,7 @@ You get close enough to the shelf to see that someone has placed many strange th
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -4949,6 +5055,7 @@ You take the left half of the music.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 45
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -4999,6 +5106,7 @@ You take the left half of the music.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -5051,6 +5159,7 @@ It contains the
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 46
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -5119,6 +5228,7 @@ It contains the
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -5160,6 +5270,7 @@ You take the key with you.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 48
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -5228,6 +5339,7 @@ You take the key with you.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -5277,6 +5389,7 @@ You take the key with you.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 49
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -5348,6 +5461,7 @@ You take the key with you.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -5397,6 +5511,7 @@ You take the key with you.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 50
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -5496,6 +5611,7 @@ You take the key with you.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -5554,6 +5670,7 @@ You take the key with you.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 51
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -5650,6 +5767,7 @@ You take the key with you.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -5699,6 +5817,7 @@ You take the key with you.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 52
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -5770,6 +5889,7 @@ You take the key with you.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -5808,6 +5928,7 @@ You search among the bowls of nuts and fruits and the cornucopias too.  All you 
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 53
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -5890,6 +6011,7 @@ You search among the bowls of nuts and fruits and the cornucopias too.  All you 
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -5928,6 +6050,7 @@ You take the rotten apple.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 54
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -6006,6 +6129,7 @@ You take the rotten apple.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -6055,6 +6179,7 @@ You take the rotten apple.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 55
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -6130,6 +6255,7 @@ You take the rotten apple.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -6179,6 +6305,7 @@ You take the rotten apple.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 55
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -6236,6 +6363,7 @@ You take the rotten apple.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -6274,6 +6402,7 @@ Rummaging around in the tray you find a steel, heavy duty cheese grader.  This t
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 56
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -6342,6 +6471,7 @@ Rummaging around in the tray you find a steel, heavy duty cheese grader.  This t
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -6380,6 +6510,7 @@ You grab the cheese grader and vow to take it with you.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 57
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -6444,6 +6575,7 @@ You grab the cheese grader and vow to take it with you.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -6493,6 +6625,7 @@ You grab the cheese grader and vow to take it with you.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 58
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -6575,6 +6708,7 @@ You grab the cheese grader and vow to take it with you.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -6624,6 +6758,7 @@ You grab the cheese grader and vow to take it with you.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 58
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -6709,6 +6844,7 @@ You grab the cheese grader and vow to take it with you.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -6767,6 +6903,7 @@ You grab the cheese grader and vow to take it with you.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 59
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -6863,6 +7000,7 @@ You grab the cheese grader and vow to take it with you.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -6901,6 +7039,7 @@ An I.D. card inside the wallet identifies the owner as "David Sanders."  You are
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 60
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -7004,6 +7143,7 @@ An I.D. card inside the wallet identifies the owner as "David Sanders."  You are
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -7053,6 +7193,7 @@ An I.D. card inside the wallet identifies the owner as "David Sanders."  You are
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 61
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -7138,6 +7279,7 @@ An I.D. card inside the wallet identifies the owner as "David Sanders."  You are
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -7176,6 +7318,7 @@ As you flip through the music you can only find one that is scored for piano.  E
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 62
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -7272,6 +7415,7 @@ As you flip through the music you can only find one that is scored for piano.  E
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -7319,6 +7463,7 @@ You take the right half of the music.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 63
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -7411,6 +7556,7 @@ You take the right half of the music.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -7449,6 +7595,7 @@ I don't understand your command. Type HELP for a list of valid commands.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 64
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -7541,6 +7688,7 @@ I don't understand your command. Type HELP for a list of valid commands.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -7579,6 +7727,7 @@ You use the tape residue to attach the two halves to Bach's "Contrapunctus I."  
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 65
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -7664,6 +7813,7 @@ You use the tape residue to attach the two halves to Bach's "Contrapunctus I."  
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -7702,6 +7852,7 @@ The bowl seems to be very expensive and made out of ornate metal.  The bowl cont
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 66
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -7798,6 +7949,7 @@ The bowl seems to be very expensive and made out of ornate metal.  The bowl cont
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -7836,6 +7988,7 @@ You take the golden apple.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 67
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -7928,6 +8081,7 @@ You take the golden apple.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -7977,6 +8131,7 @@ You take the golden apple.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 68
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -8083,6 +8238,7 @@ You take the golden apple.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -8132,6 +8288,7 @@ You take the golden apple.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 69
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -8263,6 +8420,7 @@ You take the golden apple.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -8312,6 +8470,7 @@ You take the golden apple.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 70
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -8446,6 +8605,7 @@ You take the golden apple.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -8475,6 +8635,7 @@ Choose [1-2]>
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 70
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -8609,6 +8770,7 @@ Choose [1-2]>
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -8644,6 +8806,7 @@ The key fits perfectly into the northwest door and unlocks it.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 71
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -8771,6 +8934,7 @@ The key fits perfectly into the northwest door and unlocks it.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -8820,6 +8984,7 @@ The key fits perfectly into the northwest door and unlocks it.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 72
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -8919,6 +9084,7 @@ The key fits perfectly into the northwest door and unlocks it.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -8968,6 +9134,7 @@ The key fits perfectly into the northwest door and unlocks it.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 73
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -9057,6 +9224,7 @@ The key fits perfectly into the northwest door and unlocks it.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -9095,6 +9263,7 @@ You place "Contrapunctus I" on the holder in front of the keys, nod respectfully
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 74
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -9177,6 +9346,7 @@ You place "Contrapunctus I" on the holder in front of the keys, nod respectfully
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -9210,6 +9380,7 @@ You put in the code that you generated in the office on the third floor and the 
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 2 | Moves: 74
 [MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -9292,6 +9463,7 @@ You put in the code that you generated in the office on the third floor and the 
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -9346,6 +9518,7 @@ The Great Skin Hunt
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 75
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -9424,6 +9597,7 @@ The Great Skin Hunt
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -9474,6 +9648,7 @@ The Great Skin Hunt
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 76
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -9566,6 +9741,7 @@ The Great Skin Hunt
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -9616,6 +9792,7 @@ The Great Skin Hunt
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 77
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -9708,6 +9885,7 @@ The Great Skin Hunt
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -9758,6 +9936,7 @@ The Great Skin Hunt
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 78
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -9836,6 +10015,7 @@ The Great Skin Hunt
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -9869,6 +10049,7 @@ Choose [1-6]>
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 78
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -9947,6 +10128,7 @@ Choose [1-6]>
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -9994,6 +10176,7 @@ Choose [1-6]>
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 78
 [MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -10072,6 +10255,7 @@ Choose [1-6]>
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -10102,6 +10286,7 @@ Choose [1-6]>
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 78
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -10180,6 +10365,7 @@ Choose [1-6]>
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -10210,6 +10396,7 @@ You press the selection and the computer indicates that the electronic locks on 
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 78
 [MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -10288,6 +10475,7 @@ You press the selection and the computer indicates that the electronic locks on 
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -10318,6 +10506,7 @@ Choose [1-6]>
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 78
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -10396,6 +10585,7 @@ Choose [1-6]>
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -10431,6 +10621,7 @@ Choose [1-6]>
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 79
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -10509,6 +10700,7 @@ Choose [1-6]>
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -10543,6 +10735,7 @@ You begin to cross the elaborate office of Dr. Skinn to check out the items he h
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 79
 [MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -10621,6 +10814,7 @@ You begin to cross the elaborate office of Dr. Skinn to check out the items he h
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -10673,6 +10867,7 @@ You here the footsteps head off away from your position and then the steel plate
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 80
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -10769,6 +10964,7 @@ You here the footsteps head off away from your position and then the steel plate
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -10807,6 +11003,7 @@ You take the black key ring.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 81
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -10903,6 +11100,7 @@ You take the black key ring.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -10952,6 +11150,7 @@ You take the black key ring.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 82
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -11051,6 +11250,7 @@ You take the black key ring.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -11100,6 +11300,7 @@ You take the black key ring.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 83
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -11199,6 +11400,7 @@ You take the black key ring.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -11248,6 +11450,7 @@ You take the black key ring.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 84
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -11333,6 +11536,7 @@ You take the black key ring.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -11382,6 +11586,7 @@ You take the black key ring.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 85
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -11478,6 +11683,7 @@ You take the black key ring.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -11527,6 +11733,7 @@ You take the black key ring.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 86
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -11626,6 +11833,7 @@ You take the black key ring.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -11675,6 +11883,7 @@ You take the black key ring.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 87
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -11802,6 +12011,7 @@ You take the black key ring.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -11851,6 +12061,7 @@ You take the black key ring.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 88
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -11943,6 +12154,7 @@ You take the black key ring.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -11981,6 +12193,7 @@ You unlock the door to the tower.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 89
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -12066,6 +12279,7 @@ You unlock the door to the tower.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -12116,6 +12330,7 @@ The Tower is locked
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 90
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -12212,6 +12427,7 @@ The Tower is locked
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -12261,6 +12477,7 @@ The Tower is locked
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 90
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -12343,6 +12560,7 @@ The Tower is locked
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -12381,6 +12599,7 @@ You take the tubing.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 91
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -12459,6 +12678,7 @@ You take the tubing.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -12508,6 +12728,7 @@ You take the tubing.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 92
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -12611,6 +12832,7 @@ You take the tubing.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -12660,6 +12882,7 @@ You take the tubing.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 92
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -12745,6 +12968,7 @@ You take the tubing.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -12783,6 +13007,7 @@ You flip the switch and unlock the doors to the cells.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 93
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -12868,6 +13093,7 @@ You flip the switch and unlock the doors to the cells.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -12917,6 +13143,7 @@ You flip the switch and unlock the doors to the cells.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 94
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -13016,6 +13243,7 @@ You flip the switch and unlock the doors to the cells.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -13065,6 +13293,7 @@ You flip the switch and unlock the doors to the cells.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 95
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -13154,6 +13383,7 @@ You flip the switch and unlock the doors to the cells.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -13192,6 +13422,7 @@ You take the bucket.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 96
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -13277,6 +13508,7 @@ You take the bucket.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -13326,6 +13558,7 @@ You take the bucket.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 97
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -13432,6 +13665,7 @@ You take the bucket.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -13492,6 +13726,7 @@ You take the bucket.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 98
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -13595,6 +13830,7 @@ You take the bucket.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -13645,6 +13881,7 @@ You take the bucket.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=42
 [TEXT] Chapter 3 | Moves: 99
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -13744,6 +13981,7 @@ You take the bucket.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -13793,6 +14031,7 @@ You take the bucket.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
 [TEXT] Chapter 3 | Moves: 100
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -13889,6 +14128,7 @@ You take the bucket.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -13924,6 +14164,7 @@ You hold the golden apple in your hands and watch the expression on Heath's face
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
 [TEXT] Chapter 3 | Moves: 100
 [MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -13995,6 +14236,7 @@ You hold the golden apple in your hands and watch the expression on Heath's face
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -14052,6 +14294,7 @@ You hold the golden apple in your hands and watch the expression on Heath's face
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
 [TEXT] Chapter 3 | Moves: 101
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -14155,6 +14398,7 @@ You hold the golden apple in your hands and watch the expression on Heath's face
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -14193,6 +14437,7 @@ You turn Heath's body to where the his back is facing you and raise up the chees
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
 [TEXT] Chapter 3 | Moves: 102
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -14296,6 +14541,7 @@ You turn Heath's body to where the his back is facing you and raise up the chees
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -14334,6 +14580,7 @@ You scoop up the shavings and put them in the bucket.  Now all you need is some 
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
 [TEXT] Chapter 3 | Moves: 103
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -14430,6 +14677,7 @@ You scoop up the shavings and put them in the bucket.  Now all you need is some 
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -14479,6 +14727,7 @@ You scoop up the shavings and put them in the bucket.  Now all you need is some 
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
 [TEXT] Chapter 3 | Moves: 104
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -14550,6 +14799,7 @@ You scoop up the shavings and put them in the bucket.  Now all you need is some 
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -14599,6 +14849,7 @@ You scoop up the shavings and put them in the bucket.  Now all you need is some 
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
 [TEXT] Chapter 3 | Moves: 105
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -14688,6 +14939,7 @@ You scoop up the shavings and put them in the bucket.  Now all you need is some 
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -14737,6 +14989,7 @@ You scoop up the shavings and put them in the bucket.  Now all you need is some 
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
 [TEXT] Chapter 3 | Moves: 105
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -14815,6 +15068,7 @@ You scoop up the shavings and put them in the bucket.  Now all you need is some 
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -14853,6 +15107,7 @@ You input the code and watch as green lights flash to signal that you have unloc
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
 [TEXT] Chapter 3 | Moves: 106
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -14931,6 +15186,7 @@ You input the code and watch as green lights flash to signal that you have unloc
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -14980,6 +15236,7 @@ You input the code and watch as green lights flash to signal that you have unloc
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
 [TEXT] Chapter 3 | Moves: 107
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -15044,6 +15301,7 @@ You input the code and watch as green lights flash to signal that you have unloc
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -15090,6 +15348,7 @@ It contains the
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
 [TEXT] Chapter 3 | Moves: 108
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -15165,6 +15424,7 @@ It contains the
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -15212,6 +15472,7 @@ You take the syringe filled with NASSIC.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
 [TEXT] Chapter 3 | Moves: 109
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -15283,6 +15544,7 @@ You take the syringe filled with NASSIC.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -15321,6 +15583,7 @@ You empty the syringe of NASSIC into the bucket full of skin shavings.  The purp
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
 [TEXT] Chapter 3 | Moves: 110
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -15385,6 +15648,7 @@ You empty the syringe of NASSIC into the bucket full of skin shavings.  The purp
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -15434,6 +15698,7 @@ You empty the syringe of NASSIC into the bucket full of skin shavings.  The purp
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
 [TEXT] Chapter 3 | Moves: 111
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -15512,6 +15777,7 @@ You empty the syringe of NASSIC into the bucket full of skin shavings.  The purp
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -15561,6 +15827,7 @@ You empty the syringe of NASSIC into the bucket full of skin shavings.  The purp
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
 [TEXT] Chapter 3 | Moves: 112
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -15674,6 +15941,7 @@ You empty the syringe of NASSIC into the bucket full of skin shavings.  The purp
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -15723,6 +15991,7 @@ You empty the syringe of NASSIC into the bucket full of skin shavings.  The purp
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
 [TEXT] Chapter 3 | Moves: 113
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -15808,6 +16077,7 @@ You empty the syringe of NASSIC into the bucket full of skin shavings.  The purp
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -15857,6 +16127,7 @@ You empty the syringe of NASSIC into the bucket full of skin shavings.  The purp
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
 [TEXT] Chapter 3 | Moves: 114
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -15939,6 +16210,7 @@ You empty the syringe of NASSIC into the bucket full of skin shavings.  The purp
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -15988,6 +16260,7 @@ You empty the syringe of NASSIC into the bucket full of skin shavings.  The purp
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
 [TEXT] Chapter 3 | Moves: 115
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -16059,6 +16332,7 @@ You empty the syringe of NASSIC into the bucket full of skin shavings.  The purp
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -16108,6 +16382,7 @@ You empty the syringe of NASSIC into the bucket full of skin shavings.  The purp
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
 [TEXT] Chapter 3 | Moves: 116
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -16193,6 +16468,7 @@ You empty the syringe of NASSIC into the bucket full of skin shavings.  The purp
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -16242,6 +16518,7 @@ You empty the syringe of NASSIC into the bucket full of skin shavings.  The purp
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
 [TEXT] Chapter 3 | Moves: 117
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -16327,6 +16604,7 @@ You empty the syringe of NASSIC into the bucket full of skin shavings.  The purp
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -16366,6 +16644,7 @@ You place the bucket full of treated skin into the sliding tray and close the do
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
 [TEXT] Chapter 3 | Moves: 118
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -16444,6 +16723,7 @@ You place the bucket full of treated skin into the sliding tray and close the do
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -16492,6 +16772,7 @@ With everything in place you press the red button next to the sliding tray and h
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
 [TEXT] Chapter 3 | Moves: 119
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -16570,6 +16851,7 @@ With everything in place you press the red button next to the sliding tray and h
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -16615,6 +16897,7 @@ His voice trails off and his eyes close.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
 [TEXT] Chapter 3 | Moves: 119
 [MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -16693,6 +16976,7 @@ His voice trails off and his eyes close.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
@@ -16732,6 +17016,7 @@ His voice trails off and his eyes close.
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
 [TEXT] Chapter 3 | Moves: 119
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=2 a2=16711680 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=2 a2=4 a3=0 len=20
 [TEXT] Inventory
@@ -16810,6 +17095,7 @@ His voice trails off and his eyes close.
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=2
 [TEXT] 
 
+[MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
 [REPLY] cmd=1 a1=1 a2=16711680 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12

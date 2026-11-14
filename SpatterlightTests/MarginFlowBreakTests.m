@@ -267,6 +267,7 @@
     [rig print:@"A first line.\n"];
     NSUInteger second = rig.storage.length;
     [rig print:@"A second line.\n"];
+    [rig layOut];
 
     XCTAssertEqual(image.bounds.size.width, 100);
     XCTAssertEqualWithAccuracy(NSMinX([rig lineAt:first]), NSMaxX(image.bounds), 0.5);
