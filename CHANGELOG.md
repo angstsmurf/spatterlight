@@ -1,33 +1,84 @@
 # Change log
 
-## Unreleased
+## Release 1.5.6
+
+### Serious bugs fixed
+
+#### Crashes
+- Fixes several crashes when autorestoring, and one when an event arrives for a window that has just closed.
+- Line input in an empty text grid window no longer crashes.
+- Quick Look and the Finder thumbnails no longer crash on a damaged Blorb file.
+- Fixes a crash when dragging a picture that has no bitmap.
+- Fixes a potential crash when clicking a link in *Dead Cities*.
+- Starting a sound on a channel that is already playing one no longer crashes (issue #77): the old sound could still be writing into an audio buffer that the new one had just freed. A sound that can't be decoded no longer crashes either. A burst of more than eight short sounds in a few seconds left a sound that could not be stopped at all, and the channel could hang forever when closed. Each sound channel no longer leaks an audio output.
+- VoiceOver: An empty menu title in *Journey* no longer crashes, and neither does reading the menus of *The Unforgotten*.
+- Bocfel: *Robot Finds Kitten* works again. Its patch was dropped by mistake in the previous release.
+- TADS: TADS 3 error messages with string parameters were written past the end of their block, which garbled the messages or crashed. A deleted banner's child banners no longer point at their freed parent. A long path to the interpreter no longer overruns a buffer, and a TADS 3 game reading a text file no longer reads past an empty buffer, which could crash it.
+- ScottFree: Resizing the window while the game selection menu of a disk image with several games is showing no longer crashes.
+
+#### Hangs
+- Hugo: A game that pauses in a loop until it gets the key it wants, as the hint screens of *Future Boy!* do, no longer spins forever at full CPU without ever asking for a key.
+- Hugo: Fixes a hang when a game asks for the foreground colour 20.
+- TADS: A TADS 2 game that is stuck in a loop, running for about five seconds without reading input or printing anything, is interrupted as if you had pressed break, and the turn is undone. *Six* does this when a one-letter word is typed at its death prompt in HTML mode.
+- Sound decoding runs at the right thread priority, so the main thread no longer waits on it in a priority inversion, which creates a hang risk.
+
+#### Reading or writing outside memory
+- Level 9: A message number past the end of the message table prints nothing instead of memory garbage, and the object search can no longer overflow its stack. Games detected as version 3 no longer list nonsense exits read from past the end of their exit table.
+- Comprehend: A picture whose drawing instructions end in the middle of an operation stops drawing there instead of reading past the end of the picture data. A double hi-res line that spans all 256 rows is drawn, where it used to scribble across the whole page.
+- Comprehend: A double hi-res rectangle fill stays inside its bounds, where it used to fill the whole picture, so the items at the beaver dam in *Talisman* no longer wipe the room.
+- Damaged Z-code, Blorb and NEO files are refused instead of being read past their end.
+- Hugo: Hugo files older than version 2.0, whose header is laid out differently, are refused instead of being run and read past their memory. A game that moves an object into something that isn't an object no longer writes past the object table, so the award ceremony in *Doom, Death, Destruction and All That* plays to the end.
+
+#### Lost data or settings
+- Updating a library from an older version of Spatterlight no longer replaces the game titles with file names. If the library can't be moved to its new shared location, Spatterlight keeps using it where it is and tries again at the next launch, instead of quitting.
+- Your "Old settings" theme is no longer overwritten, recreated or deleted with each new build of Spatterlight or by Rebuild Default Themes.
+- Purging pictures no longer deletes picture files that belong to the game.
+- Verify Library no longer acts on games that have been deleted, and can't remove the game you are playing.
+- Data downloaded from IFDB no longer overwrites the headline with the year; the year goes to the first-published date. When Download Info changes a game's title while its title cell is open for editing, the old title is no longer written back and marked as edited by you.
+- A home folder name with non-ASCII characters no longer breaks autosaves and temporary files.
+- Text typed at the prompt but not yet sent survives an autorestore with every character deletable. An autosave taken while the game was waiting for the line, as Scarier up to 1.5.5 wrote when the game was closed, kept the typed text in the window, and the new session fenced it in as game output before putting the typed text back behind it: the first few characters could not be deleted, and the input was there twice.
+
+#### Security
+- Spatterlight no longer accepts an untrusted certificate when talking to IFDB.
+
+#### Games that could not be played or finished
+- Level 9: Typing a number works in every game: commands like WAIT 25 failed in *Lancelot*, *Scapeghost* and *Ingrid's Back*, because the number was not stored the way the games expect.
+- Level 9: A failed RESTORE goes back to the state before the command, so a game that prepares for the restore first, as *Ingrid's Back* does, no longer carries on into the wrong part when the restore fails.
+- Level 9: A ZX Spectrum image of the oldest release of *Snowball*, which could not be played, now works: a control byte in its dictionary ended the dictionary early, so every word after it was unknown. The *Silicon Dreams* version was not affected. A tape game's part number now counts from the first tape of the set, so *Ingrid's Back* can load its part 3.
+- Comprehend: Saved games from the second disk of *The Crimson Crown* and the Lands Beyond half of *Talisman* load correctly from the start of the game or from an earlier part. Earlier *Talisman* saves from the desert still load, but some need the Lands Beyond half to be running first.
+- Quest: A Quest 4 take message written by QDK as `error <defaulttake; ...>` is used as the take message (a deliberate deviation). Quest itself doesn't recognise the name and overwrites the game's "I don't understand" message with it, so *The Mansion* answered "You pick it up." to every command it could not make sense of.
 
 ### Bocfel (Z-code)
 - Random events continue the same way after an autorestore: the random number generator is saved exactly, where it used to be re-seeded from the new session.
-- *Robot Finds Kitten* no longer crashes with "attempt to write to read-only address 0x1" during its ending animation (issue #87). The patch for it was dropped by mistake in the previous release.
 
 ### Scarier (Adrift)
 - Some Adrift 4.0 games have ALRs (text substitutions) written for the older take wording, which the 4.0 runner never prints. Scarier now texts the older wording against a game's ALRs (a deliberate deviation from the original Adrift Runner), so Hubert's retorts in *To Hell in a Hamper* appear, and the "already got" replacements in *Cursed* and a dozen other games fire.
 - An ALR that contains its own replacement text is now only printed once.
-- Adrift games get more text styles from their own markup: before the game window opens, Scarier counts the bold, italic, monospaced, size and alignment combinations the game's text uses and gives the most used ones Glk styles of their own, so a centred 20-point title prints centred and large, and the 14-point title every Adrift 4 game opens with is no longer bold. A combination left without a style of its own falls back to the nearest one. The look with "Games can set colors and styles" off is unchanged.
+- Adrift games keep more text styles from their original markup: before the game window opens, Scarier counts the bold, italic, monospaced, size and alignment combinations the game's text uses and gives the most used ones Glk styles of their own, so a centred 20-point title prints centred and large, and the 14-point title every Adrift 4 game opens with is no longer bold. A combination left without a style of its own falls back to the nearest one. The look with "Games can set colors and styles" off is unchanged.
 - A game's background and text colour, as set by `<bgcolour>` and the like, are kept when the game is autorestored, where it used to come back in the default colours.
 - An Adrift 5 sub-event timed in seconds, on an event otherwise counted in turns, now runs on a real-time clock of its own as in the original Adrift Runner, and pausing, resuming or stopping the event acts on it. Its countdown is kept in saved games and autosaves.
 - The `Held` and `Worn` lists of Adrift 5 text functions follow the Runner's rule for their argument: nothing, True, 1 or -1 includes what is inside carried containers, False or 0 gives only what is held directly, and anything else gives an empty list. `.List` now follows an object that has children with what is on or in it, unless its arguments contain "false" or "0".
+- A status that no longer fits beside the room name in the status bar moves to a second row under it, instead of being cut off, and moves back up when the window is wide enough again.
+- A game that asks for score notifications now starts with them on. The original Runner ignores the setting, so this is a deliberate deviation. The notice is no longer repeated when a game is autorestored right after a scoring turn, and NOTIFY SCORE is answered by the NOTIFY command instead of printing the score.
+- The room name is no longer printed twice in Adrift 3.9 and 4.0 games that open their room descriptions with the name themselves, which about twenty known games do.
+- A full stop separates commands in every Adrift version, so `n.e.s` and `x me.look` work, and a full stop, exclamation mark or question mark at the end of a line is ignored, so `look.` and `x me!` are understood. In Adrift 4.0 games, commas in a list of objects read as "and", and `take lamp and the keys` is no longer split into two commands at the article. A "then" inside a longer word no longer cuts the line in the wrong place, as `x athens then look` did. These are deliberate deviations from the Runners.
+- The next line can answer a question: after `take` and "Take what?", typing `coin` takes the coin, and the same goes for "Drop what?" and Adrift 4.0's "Where do you want to put the coin?". A bare OPEN, CLOSE, LOCK or UNLOCK asks what to open, close, lock or unlock.
+- `sit stool` sits on the stool, where the Runners sit you on the ground unless the line says "on". GET IN, GET ON and GET OUT OF are treated as movement and no longer try to pick the furniture up. Both are deliberate deviations.
+- FIND and WHERE IS answer "The fire is in house." rather than the Runner's "The fire is house.", and a capitalised room name such as "Drake Stables" keeps its capitals. Games whose own text substitutions depend on the Runner's wording keep it.
+- Smaller wording fixes: "1 turn" rather than "1 turns", no "(Absolutely nothing)" or "(Nobody)" echoed for a pronoun that has never been set, no "I don't understand what you want to do with Creature." before the answer to `creature, take tube`, the exits are listed after "Unknown place" and "Just a direction", taking something you are wearing in an Adrift 4.0 game says you are already wearing it, and refusing to take a character with no alias in a 3.7 or 3.8 game names the character.
+- Closer to the Adrift 4.0 Runner: `drop all` lists what was dropped before any text from the game's tasks, `put on all` wears everything wearable, `take from table` asks "Take what?" instead of taking the table, and objects in a dark room that you have not yet seen lit can't be examined or taken. An object that is present is no longer hidden by an absent one with a longer name, so `get rocking chair` in *House* takes the chair that is there. An object described as "empty", like the milk bottle in *Goldilocks is a FOX!*, can be examined and worn again. In 3.9 games, `take off all` undresses instead of picking up the room, and `get on stool` stands on the stool.
 
 ### Plus
-- The IFID of the *X-Men* fragment is now properly calculated.
+- The IFID of the *X-Men* prototype is now properly calculated.
 
 ### Level9
-- Typing a number works in every game: commands like WAIT 25 failed in *Lancelot*, *Scapeghost* and *Ingrid's Back*, because the number was not stored the way the games expect. As in the original interpreter, a number on its own is refused by the older games.
-- A failed RESTORE goes back to the state before the command, so a game that prepares for the restore first, as *Ingrid's Back* does, no longer carries on into the wrong part when the restore fails.
 - Punctuation typed in a command reaches the game instead of being turned into spaces, and abbreviated words are resolved the way the original interpreter resolves them: fewer than four letters only count as an abbreviation when no later word starts the same way.
-- Games detected as version 3 no longer list nonsense exits read from past the end of their exit table. Text after "!" is no longer wrongly capitalised, so *Ingrid's Back* prints "copyright" in lower case, as the original does.
-- Pictures that are clipped to the window are decoded correctly in the PC, Atari ST, Amiga and Macintosh formats, where the rows used to drift, and a missing picture draws nothing, not even its frame. A game that chains to its next part stays in text-only mode.
-- A message number past the end of the message table prints nothing instead of memory garbage, the object search can no longer overflow its stack, and the driver calls the interpreter doesn't implement answer the way the Level 9 driver documentation specifies, so a game's call to return to the operating system ends the game.
-- A ZX Spectrum image of the first version of *Snowball*, which could not be played, now works: a control byte in its dictionary ended the dictionary early, so every word after it was unknown. The *Silicon Dreams* version was not affected. A tape game's part number now counts from the first tape of the set, so *Ingrid's Back* can load its part 3.
+- Text after "!" is no longer wrongly capitalised, so *Ingrid's Back* prints "copyright" in lower case, as the original does.
+- Pictures that are clipped to the window are decoded correctly in the PC, Atari ST, Amiga and Macintosh formats, where the rows used to drift, and a missing picture draws nothing, not even its frame. A game in text-only mode that chains to its next part stays in text-only mode.
+- A game's call to return to the operating system now properly ends the game.
 
 ### Question (Quest)
-- Quest 4 and Quest 5 games get text styles from their own markup: before the window opens, Question counts the bold, italic, size, alignment and (in Quest 5) monospaced combinations the game's text uses and gives the most used ones Glk styles of their own, so a centred 20-point title prints centred and large instead of as plain bold. A combination left without a style of its own falls back to the nearest one.
+- Quest 4 and Quest 5 games get text styles from their original markup: before the window opens, Question counts the bold, italic, size, alignment and (in Quest 5) monospaced combinations the game's text uses and gives the most used ones Glk styles of their own, so a centred 20-point title prints centred and large instead of as plain bold. A combination left without a style of its own falls back to the nearest one.
 - Quest 5 text now considers `font-size`, `font-family`, `text-align`, `<font>`, `<h1>` to `<h6>`, `<center>`, `<pre>`, `<code>` and `<tt>`, measured against the game's own font size, and the centred title and other `PrintCentered` text is centred.
 - Underlined text prints in the italic style instead of in reverse video, which looked like a selection.
 - A Quest 5 message that leaves a tag open, such as Warriors' `<b>...<b/>`, no longer turns the rest of the game's text bold: as in Quest Viva, the tag ends with its message.
@@ -40,13 +91,10 @@
 - A Quest 4 side pane follows a background or foreground colour the game sets in play, as Quest 4.1.5 does, where it used to keep the colours it opened with until the next COLOURS toggle.
 - Quest 5 page and block backgrounds are drawn as in Quest Viva. A background the game sets with CSS on the output area wins over SetBackgroundColour, so the Hub in *Pixie's Quest* shows its text on white instead of black, a CSS background on a span or block colours that text, and a block with a background is drawn as a rectangle from margin to margin instead of a ragged run of colour. RESTART and RESTORE start on a fresh page, so a game restored from a red warning screen no longer stays red.
 - A text file a Quest 5 game shows in a frame, as the cat and ls commands in *Pixie's Quest* do, is printed in monospaced text instead of being dropped.
-- A Quest 4 take message written by QDK as `error <defaulttake; ...>` is used as the take message (a deliberate deviation). Quest itself doesn't recognise the name and overwrites the game's "I don't understand" message with it, so *The Mansion* answered "You pick it up." to every command it could not make sense of.
 
 ### Hugo
-- A game that pauses in a loop until it gets the key it wants, as the hint screens of *Future Boy!* do, no longer spins forever at full CPU without ever asking for a key.
 - A fatal error in a game is shown in the window and printed to the terminal, where it used to just close the window.
-- Hugo files older than version 2.0, whose header is laid out differently, are refused instead of being run and read past their memory. A game that moves an object into something that isn't an object no longer writes past the object table, so the award ceremony in *Doom, Death, Destruction and All That* plays to the end.
-- Fixes a hang when a game asks for the foreground colour 20, resource lookups that could never use the last slot, and the *Guilty Bastards* windows being resized after a full-screen clear had given their slots to other windows.
+- Fixes resource lookups that could never use the last slot, and the *Guilty Bastards* windows being resized after a full-screen clear had given their slots to other windows.
 - A Hugo game is told the screen is one column narrower than it is, not two, so status lines, menus and centred text reach a cell closer to the right edge. A window that starts at the left edge and nearly spans the screen is stretched to the right edge instead of being shifted right.
 - A background colour the game sets without clearing the screen, as a restored game does when it sets its colours again, fills the main window at the next prompt, where the old colour used to stay behind the text.
 
@@ -60,16 +108,13 @@
 - Tables are written out line by line, with a row to each line and a gap between the cells, keeping the cell colours. Status lines made of tables stay in their columns, as in *Threnody*.
 - Games that depend on these details now work as written: the credits of *Tomorrow Never Comes* roll up their banner a row at a time, the starfield of *Macrocosm*'s intro is drawn beside the movie, and the upper picture banner of *1893*'s About page no longer scrolls. An end tag with no start tag open closes the innermost open tag, so a stray `</A>` in *Drool* doesn't leave the rest of the text bold.
 - A slideshow paced with timeDelay, such as the intro of *Six Stories*, shows every frame instead of jumping from the title to the last one.
-- TADS 3 error messages with string parameters were written past the end of their block, which garbled the messages or crashed. A deleted banner's child banners no longer point at their freed parent. A long path to the interpreter no longer overruns a buffer, and a TADS 3 game reading a text file no longer reads past an empty buffer, which could crash it.
-- A TADS 2 game that is stuck in a loop, running for about five seconds without reading input or printing anything, is interrupted as if you had pressed break, and the turn is undone. *Six* does this when a one-letter word is typed at its death prompt in HTML mode.
 - The guess between MacRoman, Windows and Cyrillic text in older games is better: the bullets in the status line of *Ruined Robots* no longer turn into Cyrillic letters.
+- New HTML TADS check box on the Format tab of Preferences, on by default and set per theme. With it off, TADS 2 and TADS 3 games run as on a text-only interpreter. The change takes effect the next time a game is started.
 
 ### Comprehend
-- Saved games from the second disk of *The Crimson Crown* and the Lands Beyond half of *Talisman* load correctly from the start of the game or from an earlier part. Earlier *Talisman* saves from the desert still load, but some need the Lands Beyond half to be running first.
-- A picture whose drawing instructions end in the middle of an operation stops drawing there instead of reading past the end of the picture data. A double hi-res line that spans all 256 rows is drawn, where it used to scribble across the whole page.
 - In the Lands Beyond half of *Talisman*, a double hi-res picture that changes the colour its current fill pattern is built from now repaints with the new pattern at once, as the Apple II interpreter does. The pattern used to keep its old colours until the next fill-colour change, so five desert pictures came out with wrong fills. Every Lands Beyond room picture now matches the original byte for byte.
-- A double hi-res rectangle fill stays inside its bounds, where it used to fill the whole picture, so the items at the beaver dam in *Talisman* no longer wipe the room.
 - The DOS version of *The Crimson Crown* prints its ending when you win, where it used to print just "x".
+- The "Preferred graphics" pop-up on the Format tab of Preferences is now a "More Comprehend colors" check box. Checked, the default, gives the PCjr pictures of the DOS games and the double hi-res pictures of the Apple II games; unchecked gives CGA and standard hi-res. Existing settings are kept.
 
 ### VoiceOver
 - VoiceOver lands on the last move when a game window is activated, instead of reading all the game text from the start (issue #80). Each move is now an accessibility element of its own ("move 3 of 11"), and after a move has been spoken, when the window goes to the background, and after an autorestore, the last move is kept as the focused element, so that switching to the game reads that move only. When VoiceOver does not read the move itself, the Interrupt VoiceOver when appropriate announcement speaks it instead, as described below. These elements exist only while VoiceOver is running.
@@ -84,9 +129,9 @@
 - The VoiceOver labels of pictures and the input history are localised.
 - VoiceOver announcements made with no game window open, such as "1 alert reset" in the Preferences window, are no longer lost.
 - The VoiceOver menus of the Infocom Z6 games read accented letters correctly.
-- In *Journey*, VoiceOver no longer capitalises names wrongly ("AnnA" for "Anna"), the menus come back correctly when the game is autorestored, an empty menu title no longer crashes, and rebuilding the dialog no longer drops a character.
+- In *Journey*, VoiceOver no longer capitalises names wrongly ("AnnA" for "Anna"), the menus come back correctly when the game is autorestored, and rebuilding the dialog no longer drops a character.
 - In *Bureaucracy*, the VoiceOver form reading is fixed, and an instruction waiting to be spoken survives an error message.
-- A menu read by VoiceOver no longer speaks the instruction for a key twice. Reading the menus of *The Unforgotten* with VoiceOver no longer crashes, and the *Journey* dialog no longer shows the last move twice.
+- A menu read by VoiceOver no longer speaks the instruction for a key twice. The *Journey* dialog no longer shows the last move twice.
 - VoiceOver finds the menus of HTML TADS games, including those of the TADS 2 menu library, two-item menus, and the hint menu of *Thaumistry*.
 
 ### General
@@ -99,27 +144,25 @@
 - A hyperlink in a status line or other grid window keeps the colour of the text around it. It used to take the normal text colour, which made links invisible in a reverse-video status line. Clicking one now scrolls the story to the new text, as a click in the story window does.
 - The input field in a grid window no longer draws a focus ring, which could hide an underline caret.
 - Quick Look previews and Finder thumbnails now cover every game type the library opens: Quest 5, Archetype, ZX Spectrum snapshots and tapes, Commodore 64 disk and tape images and Apple II disk images. Finder thumbnails were missing for most types, because macOS refuses the DAT type and dropped every type listed after it. The TAP tape type was registered under the wrong extension.
-- Quick Look and the Finder thumbnails no longer crash on a damaged Blorb file. The Quick Look preview of a Blorb keeps its paragraph breaks and shows characters such as `&amp;` decoded, and the preview of an iFiction file colours all its entities, is readable in dark mode, and says so when the file can't be parsed.
+- The Quick Look preview of a Blorb keeps its paragraph breaks and shows characters such as `&amp;` decoded, and the preview of an iFiction file colours all its entities, is readable in dark mode, and says so when the file can't be parsed.
 - The story name stored in a Blorb file is read correctly, where it used to come out empty for the Infocom Blorbs, and the cover picture is chosen the same way everywhere. A Blorb whose cover entry names a picture that isn't there falls back to the first picture.
-- Data downloaded from IFDB no longer overwrites the headline with the year; the year goes to the first-published date. The forgiveness rating is stored, dates in odd formats are understood, and the language is stored as a code, so "French, English (fr, en)" becomes "fr". Covers downloaded from IFDB are saved straight away, and Open in IFDB works for games without an IFID. Spatterlight no longer accepts an untrusted certificate when talking to IFDB.
+- In data downloaded from IFDB, the forgiveness rating is stored, dates in odd formats are understood, and the language is stored as a code, so "French, English (fr, en)" becomes "fr". Covers downloaded from IFDB are saved straight away, and Open in IFDB works for games without an IFID.
 - Games with the older Zoom-style IFIDs are matched the same way as babel does.
-- Verify Library no longer acts on games that have been deleted, can't remove the game you are playing, and doesn't import games that have several IFIDs again. The check for missing files and for dropped files ignores the case of the file name, and the check for files in the Trash only matches the Trash folder itself. When looking for missing files in a moved folder, a folder name no longer matches inside a longer one, such as "Games" inside "MyGames".
-- Exported metadata escapes characters that are special in XML. Damaged Z-code, Blorb and NEO files are refused instead of being read past their end. Files ending in .zlb and .gblorb are recognised as Blorbs.
+- Verify Library doesn't import games that have several IFIDs again. The check for missing files and for dropped files ignores the case of the file name, and the check for files in the Trash only matches the Trash folder itself. When looking for missing files in a moved folder, a folder name no longer matches inside a longer one, such as "Games" inside "MyGames".
+- Exported metadata escapes characters that are special in XML. Files ending in .zlb and .gblorb are recognised as Blorbs.
 - Sorting the library by the Liked column works, and the window subtitle shows the right count. Copying and pasting covers in the info window is fixed, and the temporary file a dropped cover is read from is deleted. When organising the library, a game's group is only recorded once the file has actually been moved. The "taking a long time" alert is no longer shown after a game has failed to load.
 - The copy of *Beyond Zork*'s SCREEN.DAT title image that the import code makes is now deleted afterwards.
 - Changing only the size in the font panel no longer resets the font to a different family. The Right and Center alignment buttons were swapped on Intel Macs. The baseline of the DOSBox and Montserrat themes is fixed. Out-of-range values for the default size and the update check interval are corrected, and the quote box checkbox shows the right state.
-- Updating a library from an older version of Spatterlight no longer replaces the game titles with file names. If the library can't be moved to its new shared location, Spatterlight keeps using it where it is and tries again at the next launch, instead of quitting.
-- Your "Old settings" theme is no longer overwritten, recreated or deleted with each new build of Spatterlight or by Rebuild Default Themes.
 - Removing the light mode override of a theme works.
 - Notification bezels shown in quick succession wait their turn instead of drawing on top of each other. The Game Over bezel gets the right tint, and vector covers and tall portrait covers show correctly in bezels.
-- A home folder name with non-ASCII characters no longer breaks autosaves and temporary files. Fixes several crashes when autorestoring, and one when an event arrives for a window that has just closed. Characters outside the Basic Multilingual Plane work in preloaded input, replies and erased text, and the position in a Unicode file stream is kept correctly.
-- Starting a sound on a channel that is already playing one no longer crashes (issue #77): the old sound could still be writing into an audio buffer that the new one had just freed. A burst of more than eight short sounds in a few seconds left a sound that could not be stopped at all, and the channel could hang forever when closed. Each sound channel no longer leaks an audio output. A sound that can't be decoded no longer crashes, and is not played again after an autorestore. A fade in progress when the game was autosaved continues with the right timing, and volumes out of range are clamped. A sound that can't be resumed after a pause starts again from where it was. Autosaves stay compatible with older and newer builds.
+- Characters outside the Basic Multilingual Plane work in preloaded input, replies and erased text, and the position in a Unicode file stream is kept correctly.
+- A sound that can't be decoded is not played again after an autorestore. A fade in progress when the game was autosaved continues with the right timing, and volumes out of range are clamped. A sound that can't be resumed after a pause starts again from where it was. Autosaves stay compatible with older and newer builds.
 - ZX Spectrum beeps play at the exact pitch (a 4000 Hz note used to play at 4410 Hz), and a tune stops when the game ends.
 - Graphics windows with a transparent background resize correctly, edges no longer grow softer with each resize, and the window is redrawn when moved to a screen with a different resolution. A click no longer counts as a drag unless the mouse moves at least 3 points, and dragging a graphics window drags a picture of its contents.
 - A dragged picture can be dropped as a file, for example into Terminal.
-- Images replaced by a game are read in full, and purging pictures no longer deletes picture files that belong to the game. Placeholder rectangles in a Blorb file are kept, a picture that fails to load no longer leaves the previous one showing, and the temporary files of replaced pictures are deleted once decoded.
+- Images replaced by a game are read in full. Placeholder rectangles in a Blorb file are kept, a picture that fails to load no longer leaves the previous one showing, and the temporary files of replaced pictures are deleted once decoded.
 - JPEG pictures with Exif data are recognised.
-- In text buffer windows, turning echo on and off works, clicks on hyperlinks are only sent when the game is waiting for one, a margin picture keeps its link when rescaled, and clearing the scrollback is fixed. Fixes a crash when dragging a picture that has no bitmap and one in *Dead Cities*.
+- In text buffer windows, turning echo on and off works, clicks on hyperlinks are only sent when the game is waiting for one, a margin picture keeps its link when rescaled, and clearing the scrollback is fixed.
 - Scrollback trim no longer happens on a background thread. Also, only off-screen text is trimmed.
 - Line input after a prompt that ends with a newline, such as "Name?", starts on the next line instead of at the end of the prompt. Text printed after a game takes back part of its output is no longer paged past unread, and auto-scrolling no longer stops there.
 - A margin picture at the bottom of a text buffer window no longer leaves blank space below the text or makes typing jump, scrolling to the bottom keeps the input caret on screen, and a window scrolled up from the bottom comes back where it was after an autorestore.
@@ -127,16 +170,14 @@
 - A merged quote box, such as the side-by-side quotes in *Trinity*, is restored in the right place, and the turn count is kept across an autorestore.
 - Graphics window autosaves are far smaller (a *Journey* autosave went from 6.2 MB to 30 KB).
 - Impulse Tracker (IT) music is recognised instead of being taken for MP3, a fading sound no longer keeps its channel alive, and MIDI music that can't be started is reported to the game as failed instead of silently doing nothing.
-- When Download Info changes a game's title while its title cell is open for editing, the old title is no longer written back and marked as edited by you. The status icons in the library's found column are a fixed 14×14, which may make them show up on macOS 10.13.
+- The status icons in the library's found column are a fixed 14×14, which may make them show up on macOS 10.13.
 - Comparing a downloaded cover with the one a game already has uses Vision feature prints on macOS 10.15 and later, so re-encoded or resized copies of the same picture are recognised.
 - In Preferences, the "Game specific hacks" check box is now "Disable game-specific hacks", the selected theme is restored as soon as the theme list loads, and editing a built-in theme straight after opening the window makes only one copy of it. The window reopened at launch is the right size from the start, instead of resizing itself a moment after it appears, and switching panels quickly no longer hides the preview. The Show Info toolbar label is the same on all macOS versions.
 - The Preferences window no longer opens with an empty band where the theme preview would be, which could happen with the preview hidden if the window was last closed on a taller tab or with the preview showing. The preview is also the right height the first time it is shown, where it could come up too short for its text.
-- In text grid windows, such as status lines, making the window narrower no longer leaves the last character of each row behind, and line input in an empty grid window no longer crashes. A selection that ends at the last character is kept when the game is autorestored.
-- Sound decoding runs at the right thread priority, so the main thread no longer waits on it in a priority inversion that Xcode flagged as a hang risk.
+- In text grid windows, such as status lines, making the window narrower no longer leaves the last character of each row behind. A selection that ends at the last character is kept when the game is autorestored.
 - Files ending in .glb are recognised as Blorbs, as the library already accepted them as games.
-- Each theme can give the input caret a shape of its own: the usual line, a block or an underline, set with the new Cursor shape menu on the Details tab of Preferences (issue #39). The built-in MS-DOS and DOSBox themes use an underline.
+- Each theme can give the input caret a shape of its own: the usual line, a block or an underline, set with the new Cursor shape menu on the Details tab of Preferences (issue #39). The built-in MS-DOS and DOSBox themes use a block.
 - A theme can ask for a retro CRT look (issue #6): a faint phosphor glow around the text, and scanlines with a darkened vignette over the window, set with the CRT glow and CRT scanlines check boxes on the Details tab. The MS-DOS and DOSBox themes have both on. The effects are drawn over the ordinary text views, so selection, links and VoiceOver work as before, they follow the window between Retina and other screens, and they are left out while the system Increase contrast or Reduce transparency options are on.
-- Text typed at the prompt but not yet sent survives an autorestore with every character deletable. An autosave taken while the game was waiting for the line, as Scarier up to 1.5.5 wrote when the game was closed, kept the typed text in the window, and the new session fenced it in as game output before putting the typed text back behind it: the first few characters could not be deleted, and the input was there twice.
 - A game asking for the size of a window in cells now gets the whole cells that fit, where it used to be rounded to the nearest cell, so a game that fills its status line no longer wraps the last character. A fixed-size split gets enough pixels for the cells it asks for.
 - Text runs beside a margin picture at the top of a window, where the first line used to run over it, as with the vignette in *According to Cain*.
 - A window that grows as a key is pressed, such as a map window above the text closing when a command is entered, no longer pauses auto-scrolling in a game with a timer or a running command script, which left the reply partly out of view.
