@@ -325,6 +325,7 @@
     self.borderBehavior = kAutomatic;
     if (!self.borderColor)
         self.borderColor = NSColor.whiteColor;
+    self.scrollbackLimit = 0;
     self.bufLinkStyle = NSUnderlineStyleSingle;
     self.bufLinkColor = nil;
     self.gridLinkColor = nil;
