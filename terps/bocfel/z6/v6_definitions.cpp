@@ -14,6 +14,8 @@
 #include "zterp.h"
 #include "v6_specific.h"
 
+#include "zorkzero.hpp"
+
 #include "v6_shared.hpp"
 #include "v6_windows.hpp"
 
@@ -315,6 +317,12 @@ void V_DEFINE(void) {
 
     v6_define_window(&V6_TEXT_BUFFER_WINDOW, 0, 0, 0, 0);
     v6_define_window(&V6_STATUS_WINDOW, 0, 0, 0, 0);
+    // With the border on, Zork Zero shows the region and score in a second
+    // status window at the top right. Hide it too, or it stays on top of the
+    // definitions screen until something arranges the windows again.
+    if (is_spatterlight_zork0 && z0_right_status_window != nullptr) {
+        z0_hide_right_status();
+    }
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_ReverseColor, 0);
     screenmode = MODE_DEFINE;
 

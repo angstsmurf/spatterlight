@@ -23,7 +23,6 @@ constexpr int DIM_SHOW_MOVES_BOX = 467;
 constexpr int DIM_RESTART_BOX = 469;
 
 // In zorkzero.cpp
-void z0_hide_right_status(void);
 void z0_close_encyclopedia_window(void);
 void z0_set_bordered_status_colors(void);
 void ADJUST_TEXT_WINDOW(int id);

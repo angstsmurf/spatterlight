@@ -192,6 +192,7 @@ void z0_update_colors(void);
 void DISPLAY_BORDER(BorderType border);
 void z0_leave_stale_map_for_line_input(void);
 void z0_erase_screen(void);
+void z0_hide_right_status(void);
 void z0_display_hint_border(void);
 
 // State other files read
