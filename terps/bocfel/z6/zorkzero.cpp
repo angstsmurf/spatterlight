@@ -963,6 +963,13 @@ static void set_text_colour_hints(void) {
     glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_BackColor, user_selected_background);
 }
 
+// Whether the text colour hints are ours to set: not when the player has
+// turned game styles off, nor when a black-and-white format is colorized.
+static bool text_colour_hints_follow_player(void) {
+    return gli_enable_styles && !(gli_z6_colorize &&
+        (gli_z6_graphics == kGraphicsTypeCGA || gli_z6_graphics == kGraphicsTypeMacBW));
+}
+
 // Configures foreground and background colours based on the current interpreter
 // type and graphics mode. Each platform has different default colours (on a
 // real CGA monitor, "white" may be green or orange):
@@ -1447,8 +1454,7 @@ void z0_update_on_resize(void) {
             // The hint screens make text windows of their own as the player
             // moves between them. After a switch between light and dark,
             // these must come out in the new colours.
-            if (gli_enable_styles && !(gli_z6_colorize &&
-                (gli_z6_graphics == kGraphicsTypeCGA || gli_z6_graphics == kGraphicsTypeMacBW)))
+            if (text_colour_hints_follow_player())
                 set_text_colour_hints();
             redraw_hint_screen_on_resize();
             return;
@@ -1466,6 +1472,15 @@ void z0_update_on_resize(void) {
         case MODE_NO_GRAPHICS:
             if (redraw_minigame_on_resize(get_global(zg.CURRENT_SPLIT)))
                 return;
+
+            // With the border off V-$REFRESH does not get to
+            // z0_update_colors, and the text window is about to take the
+            // hints anew: without this, room names and emphasis would keep
+            // the text colour of the side the theme just left. (The mode
+            // does not tell reliably whether the border is off, so this is
+            // done with it on as well, where it changes nothing.)
+            if (text_colour_hints_follow_player())
+                set_text_colour_hints();
 
             // Skip when V-REFRESH wasn't located: pack_routine(0)
             // underflows to a bogus packed address that unpacks into string
