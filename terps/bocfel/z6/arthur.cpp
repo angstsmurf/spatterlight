@@ -328,18 +328,29 @@ static void arthur_apply_graphics_setting(void) {
     }
 }
 
+// Gives window 2 the map's place between the banner pillars, in picture
+// pixels. RT-DRAW-ROSE puts the compass rose at the right edge of window 2
+// (WINGET 2 X-SIZE less the rose's width), so this must be set before the
+// game draws the map, not only on an arrange event: otherwise the first
+// map after picture mode got the width a text mode left, in screen pixels,
+// and the rose was pushed onto the scroll's right pole.
+static void arthur_set_map_window(void) {
+    int x_margin = 0;
+    get_image_size(K_PIC_BANNER_MARGIN, &x_margin, nullptr);
+    ARTHUR_ROOM_GRAPHIC_WIN.y_origin = 0;
+    ARTHUR_ROOM_GRAPHIC_WIN.x_origin = x_margin;
+    ARTHUR_ROOM_GRAPHIC_WIN.x_size = hw_screenwidth - 2 * x_margin;
+}
+
 // Sizes the status window and the main text window to fit between the
 // banner pillars, with the text ending at screenheight. In map mode it also
 // records where the map goes. Every mode with a border comes here.
 static void arthur_layout_text_windows(int screenheight) {
-    int x_margin = 0, y_margin = 0;
-    get_image_size(K_PIC_BANNER_MARGIN, &x_margin, &y_margin);
+    int x_margin = 0;
+    get_image_size(K_PIC_BANNER_MARGIN, &x_margin, nullptr);
 
-    if (screenmode == MODE_MAP) {
-        ARTHUR_ROOM_GRAPHIC_WIN.y_origin = 0;
-        ARTHUR_ROOM_GRAPHIC_WIN.x_origin = x_margin;
-        ARTHUR_ROOM_GRAPHIC_WIN.x_size = hw_screenwidth - 2 * x_margin;
-    }
+    if (screenmode == MODE_MAP)
+        arthur_set_map_window();
 
     x_margin *= imagescalex;
 
@@ -558,6 +569,7 @@ void RT_UPDATE_STAT_WINDOW(void) {
 // Enables mouse events on the background graphics window for clickable map.
 void RT_UPDATE_MAP_WINDOW(void) {
     screenmode = MODE_MAP;
+    arthur_set_map_window();
     glk_request_mouse_event(graphics_bg_glk);
 }
 
