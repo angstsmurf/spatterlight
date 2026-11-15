@@ -33,7 +33,11 @@ horror2 stops early, probably because it needs data saved by part I.
 ## What the cases cover
 
 Each game runs as a short walk, a walk with window resizes (`arrange:`
-entries), fixed window sizes, and a run with graphics off. Every picture and
+entries), a walk with the theme going dark and light again after each command
+(`dark:` entries), fixed window sizes, and a run with graphics off. In the
+theme walk the tracer changes its theme colours and sends an arrange event of
+the same size, as Spatterlight does. The run fails if a game then gives
+a window a background, or prints text, in a colour of the side the theme left. Every picture and
 sound is traced by the digest of its bytes. The tracer answers `SIZEIMAGE`
 with the real JPEG/PNG size of the picture last loaded, so the code that
 fits and places pictures is exercised.
@@ -45,8 +49,9 @@ the story must stay `marjorie.hex`.
 
 Not covered:
 
-- An arrange event that does not change the size. Spatterlight sends one
-  after theme and margin changes.
+- What is already on screen when the theme changes. The app recolours text
+  printed in theme colours it knows by name or by a style measure. Text in
+  any other colour stays as it is, and the tracer cannot tell.
 
 ## Decisions from the heglk refactor (2026-10)
 

@@ -46,6 +46,14 @@ Script entries that are not typed lines:
                  ADRIFT 5 real-time clock); needs the sa_delays setting on, or
                  no timer is ever armed and the entry is dropped with a note
                  in the log
+  dark:1 dark:0  switch the theme to its dark / light side while the terp is
+                 waiting for input: a forced arrange event that carries the
+                 new colours, as the app sends one.  A script with such an
+                 entry runs with a theme (see THEME_LIGHT below), and the
+                 output ends with a STALE section: every colour the terp
+                 sent after a switch that is one of the other side's, and
+                 every one it had sent before and left standing (a window's
+                 background, its colour hints, the colours it prints in)
 
 Ending the script while a prompt is up sends EVTQUIT, the autosave-preserving
 "window closed" exit, so "did this prompt autosave, and does the next launch
@@ -98,13 +106,26 @@ def name_of(names, n):
         return names.get(n, str(n))
     return names[n] if 0 <= n < len(names) else str(n)
 
-def make_settings(determinism=1, sa_delays=0):
+# The theme of a run that switches between light and dark: buffer text and
+# background, grid text and background, on each side.  No two are the same,
+# so a colour in a message tells which side it was read from, and where.
+# Such a run also answers STYLEMEASURE for the colours, as the app does;
+# without a theme the colours are black on white and cannot be measured.
+THEME_LIGHT = (0x101820, 0xf4f0e8, 0x182430, 0xe4ecf4)
+THEME_DARK = (0xd8d0c8, 0x202428, 0xc4ccd4, 0x2c3034)
+THEME_USES = ("buffer text", "buffer background", "grid text",
+              "grid background")
+NO_THEME = (0x000000, 0xffffff, 0x000000, 0xffffff)
+
+
+def make_settings(determinism=1, sa_delays=0, theme=None, force=0):
+    theme = theme or NO_THEME
     return struct.pack(
         "<6i4f21i",
         800, 600, 0, 0, 0, 0,           # screen w/h, buffer/grid margins
         8.0, 16.0, 8.0, 16.0,           # grid cell w/h, buffer cell w/h
-        0x000000, 0xffffff,             # buffer fg/bg
-        0x000000, 0xffffff,             # grid fg/bg
+        theme[0], theme[1],             # buffer fg/bg
+        theme[2], theme[3],             # grid fg/bg
         1,                              # do_styles
         0,                              # quote_boxes
         sa_delays,                      # sa_delays: real-time timers on
@@ -112,7 +133,7 @@ def make_settings(determinism=1, sa_delays=0):
                                         # sa_palette, slowdraw, flicker
         0, 0, 0, 0, 0,                  # zmachine*, voiceover, z6*
         determinism,                    # determinism
-        0, 0, 0)                        # error_handling, comprehend, force_arrange
+        0, 0, force)                    # error_handling, comprehend, force_arrange
 
 
 SETTINGS = make_settings()
@@ -120,11 +141,27 @@ SETTINGS = make_settings()
 
 class Driver:
     def __init__(self, terp, game, home, script, tag="", savepath=None,
-                 determinism=1, sa_delays=0, terp_args=()):
+                 determinism=1, sa_delays=0, terp_args=(), theme=None):
         env = dict(os.environ)
         env["HOME"] = home
         self.savepath = savepath
-        self.settings = make_settings(determinism, sa_delays)
+        # theme: None, "light" or "dark" (the side to start on); a script
+        # that switches sides starts on the light one
+        if theme is None and any(s.startswith("dark:") for s in script):
+            theme = "light"
+        self.theme = {None: None, "light": THEME_LIGHT,
+                      "dark": THEME_DARK}[theme]
+        self.stale_colours = {}         # colour -> what it was, after a switch
+        self.stale = []                 # messages that carried one
+        self.win_types = {}             # peer -> wintype
+        self.win_bgnd = {}              # peer -> its last SETBGND colour
+        self.win_zcolor = {}            # peer -> its last SETZCOLOR (fg, bg)
+        self.win_empty = set()          # peers sized to nothing: not seen
+        self.win_clear = set()          # peers made transparent
+        self.settling = False           # a switch the terp hasn't answered
+        self.stale_prints = set()       # (peer, style) noted since a switch
+        self.setting_args = (determinism, sa_delays)
+        self.settings = make_settings(determinism, sa_delays, self.theme)
         self.p = subprocess.Popen([terp, *terp_args, game], stdin=subprocess.PIPE,
                                   stdout=subprocess.PIPE,
                                   stderr=subprocess.PIPE, env=env)
@@ -178,7 +215,131 @@ class Driver:
         err = self.p.stderr.read().decode("utf-8", "replace")
         return rc, err
 
+    def switch_theme(self, dark):
+        """The theme changes sides; from here on the colours of the side it
+        left are stale."""
+        old = self.theme
+        self.theme = THEME_DARK if dark else THEME_LIGHT
+        if old and old != self.theme:
+            side = "dark" if old == THEME_DARK else "light"
+            self.stale_colours = {
+                colour: "the %s side's %s" % (side, use)
+                for colour, use in zip(old, THEME_USES)}
+            self.settling = True
+            self.stale_prints = set()
+
+    def note_stale(self, text):
+        self.stale.append(text)
+        self.log.append("STALE " + text)
+
+    def check_stale(self, cmd, a1, a2, a3, a4, payload):
+        """Note the colours of the theme's other side in a message."""
+        if cmd == STYLEHINT and a3 in (7, 8):
+            sent = [("%s %s %s hint" % (name_of(WINTYPE_NAMES, a1),
+                                        name_of(STYLE_NAMES, a2),
+                                        name_of(HINT_NAMES, a3)), a4)]
+        elif cmd == SETZCOLOR:
+            sent = [("zcolor text in window %d" % a1, a2),
+                    ("zcolor background in window %d" % a1, a3)]
+        elif cmd == SETBGND:
+            sent = [("background of window %d" % a1, a2)]
+        elif cmd == FILLRECT:
+            sent = [("rectangle in window %d" % a1,
+                     struct.unpack_from("<I", payload, off)[0])
+                    for off in range(0, len(payload) - 11, 12)]
+        else:
+            return
+        self.note_if_stale(sent, "is")
+
+    def note_if_stale(self, colours, verb):
+        seen = set()
+        for what, colour in colours:
+            colour &= 0xffffffff
+            if colour in self.stale_colours and (what, colour) not in seen:
+                seen.add((what, colour))
+                self.note_stale("%s %s %06x, %s"
+                                % (what, verb, colour,
+                                   self.stale_colours[colour]))
+
+    def check_standing(self):
+        """The terp has had the arrange event of a switch and asks for the
+        next event: note the backgrounds it set before the switch and has
+        left, where they show: not in a window of no size, nor in one made
+        transparent.  (Colour hints a window was opened with are noted when
+        text is printed in them, see check_print.)"""
+        left = [("background of window %d" % peer, colour)
+                for peer, colour in sorted(self.win_bgnd.items())
+                if peer in self.win_types and peer not in self.win_empty
+                and peer not in self.win_clear]
+        self.note_if_stale(left, "is still")
+
+    def check_print(self, peer, style):
+        """Text printed in colours set before the switch: a zcolor, or where
+        the zcolor leaves a colour at the default, the hint the window was
+        opened with."""
+        if (peer, style) in self.stale_prints:
+            return
+        fg, bg = self.win_zcolor.get(peer, (-1, -1))
+        hints = self.win_hints.get(peer, {})
+        used = []
+        for colour, hint, which in ((fg, 7, "text"), (bg, 8, "background")):
+            if colour & 0xffffffff == 0xffffffff:       # zcolor_Default
+                if (style, hint) in hints:
+                    used.append(("text printed in window %d: %s %s hint"
+                                 % (peer, name_of(STYLE_NAMES, style),
+                                    name_of(HINT_NAMES, hint)),
+                                 hints[(style, hint)]))
+            else:
+                used.append(("text printed in window %d: zcolor %s"
+                             % (peer, which), colour))
+        before = len(self.stale)
+        self.note_if_stale(used, "is still")
+        if len(self.stale) > before:
+            self.stale_prints.add((peer, style))
+
+    def measure_colour(self, peer, style, hint):
+        """What the app answers when a window's text or background colour
+        is measured: its hint, or else the theme's colour."""
+        hinted = self.win_hints.get(peer, {}).get((style, hint))
+        if hinted is not None:
+            return hinted
+        wintype = self.win_types.get(peer)
+        if wintype not in (3, 4):
+            return None
+        return self.theme[(2 if wintype == 4 else 0) + (hint == 8)]
+
     def dispatch(self, cmd, a1, a2, a3, a4, a5, payload):
+        if self.theme:
+            if cmd == SETBGND:
+                self.win_bgnd[a1] = a2
+            elif cmd == SETZCOLOR:
+                self.win_zcolor[a1] = (a2, a3)
+            elif cmd == DELWIN:
+                for table in (self.win_bgnd, self.win_zcolor, self.win_hints,
+                              self.win_types):
+                    table.pop(a1, None)
+                self.win_empty.discard(a1)
+                self.win_clear.discard(a1)
+            elif cmd == MAKETRANSPARENT:
+                self.win_clear.add(a1)
+            elif cmd == SIZWIN and len(payload) >= 16:
+                x0, y0, x1, y1 = struct.unpack_from("<4i", payload)
+                if x1 > x0 and y1 > y0:
+                    self.win_empty.discard(a1)
+                else:
+                    self.win_empty.add(a1)
+            elif cmd == REFRESH and a1 in self.win_types:
+                # the window takes the hints in effect now
+                self.win_hints[a1] = {
+                    (st, h): v for (wt, st, h), v in self.hint_values.items()
+                    if wt == self.win_types[a1]}
+        if self.stale_colours:
+            self.check_stale(cmd, a1, a2, a3, a4, payload)
+            if cmd == PRINT:
+                self.check_print(a1, a2)
+            elif cmd == NEXTEVENT and self.settling:
+                self.settling = False
+                self.check_standing()
         if cmd == HELLO:
             self.reply(OKAY, 1, 1)      # graphics on, sound on
         elif cmd == NEXTEVENT:
@@ -252,14 +413,20 @@ class Driver:
             # a window takes the hints in effect when it opens
             self.win_hints[a2] = {(st, h): v for (wt, st, h), v
                                   in self.hint_values.items() if wt == a1}
+            self.win_types[a2] = a1
             self.reply(OKAY, a2)        # echo the expected peer
         elif cmd == DELWIN:
             self.log.append("DELWIN peer=%d" % a1)
         elif cmd == STYLEMEASURE:
-            # Justification (2) from the hints, as the app measures it;
-            # the rest are unknown
+            # Justification (2) from the hints, as the app measures it, and
+            # the colours (7, 8) when there is a theme; the rest are unknown
+            colour = None
+            if a3 in (7, 8) and self.theme:
+                colour = self.measure_colour(a1, a2, a3)
             if a3 == 2:
                 self.reply(OKAY, 1, self.win_hints.get(a1, {}).get((a2, 2), 0))
+            elif colour is not None:
+                self.reply(OKAY, 1, colour)
             else:
                 self.reply(OKAY, 0, 0)
         elif cmd == UNPRINT:
@@ -313,6 +480,14 @@ class Driver:
     def next_event(self, block):
         if self.arrange_pending:
             self.arrange_pending = False
+            self.reply(EVTARRANGE, payload=self.settings)
+        elif (self.script and self.script[0].startswith("dark:")
+              and self.waiting_for_input()):
+            dark = int(self.script.pop(0)[5:])
+            self.switch_theme(dark)
+            self.log.append("[theme goes %s]" % ("dark" if dark else "light"))
+            self.settings = make_settings(*self.setting_args,
+                                          theme=self.theme, force=1)
             self.reply(EVTARRANGE, payload=self.settings)
         elif (self.script and self.script[0].startswith("tick:")
               and self.waiting_for_input()):
@@ -436,6 +611,10 @@ def main():
             print(line)
         for peer, style, text in d.spans:
             print("SPAN %d %s %r" % (peer, name_of(STYLE_NAMES, style), text))
+    if d.theme:
+        print("=== STALE ===")
+        for line in d.stale:
+            print(line)
     if err.strip():
         print("=== STDERR ===")
         print(err[-2000:])

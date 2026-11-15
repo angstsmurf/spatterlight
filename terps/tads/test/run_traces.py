@@ -9,7 +9,8 @@ images, links, sounds -- to OUT/<game>.trace.  No goldens are stored: take a
 baseline from the unchanged build, then compare.
 
     run_traces.py --out DIR [--compare DIR] [--build DIR] [-j N]
-                  [--corpus NAME] [--script FILE] [--walk] [--args ARGS]
+                  [--corpus NAME] [--script FILE] [--walk] [--switch]
+                  [--args ARGS]
                   [substring ...]
 
   --out DIR      where the traces go (created; must not exist yet)
@@ -28,6 +29,10 @@ baseline from the unchanged build, then compare.
                  CORPUS/goldens/<stem>_walkthrough.txt (the census path
                  with "/" as "__" and without .gam/.t3), type that
                  instead; the other games get the default script
+  --switch       switch the theme between its light and dark side after
+                 every command (dark:1 / dark:0 entries, see v6trace.py),
+                 and list the games that then sent a colour of the side the
+                 theme had left: the "--- STALE" lines of their traces
   --args ARGS    options for tadsr, split at spaces (such as -nohtml)
   --timeout S    seconds before a game is killed (default 60), or more
                  for a long script: PER_COMMAND seconds a command
@@ -152,6 +157,14 @@ def script_for(path, walk, default):
     return default
 
 
+def with_switches(script):
+    """SCRIPT with a change of the theme's side after every command."""
+    out = []
+    for index, line in enumerate(script):
+        out += [line, "dark:%d" % (1 - index % 2)]
+    return out
+
+
 def run_one(terp, path, out, script, timeout, terp_args=()):
     story = os.path.join(CORPUS, "games", path)
     home = os.path.join(out, "home", trace_name(path)[:-len(".trace")])
@@ -169,7 +182,8 @@ def run_one(terp, path, out, script, timeout, terp_args=()):
               encoding="utf-8") as f:
         f.write(err)
     shutil.rmtree(home, ignore_errors=True)
-    return path, rc, time.time() - started
+    stale = sum(line.startswith("--- STALE") for line in lines)
+    return path, rc, time.time() - started, stale
 
 
 def read(path):
@@ -212,7 +226,7 @@ def main():
     argv = sys.argv[1:]
     out = baseline = None
     build = os.path.join(REPO, "build", "Debug")
-    jobs, timeout, script, walk = 8, 60.0, SCRIPT, False
+    jobs, timeout, script, walk, switch = 8, 60.0, SCRIPT, False, False
     filters = []
     terp_args = ()
     while argv:
@@ -237,6 +251,8 @@ def main():
                 script = v6trace.load_script(f.read())
         elif opt == "--walk":
             walk = True
+        elif opt == "--switch":
+            switch = True
         elif opt == "--args":
             terp_args = tuple(argv.pop(0).split())
         elif opt.startswith("-"):
@@ -254,20 +270,30 @@ def main():
     os.makedirs(out)
     terp = stage(out, build)
     started = time.time()
-    trouble = []
+    trouble, stale = [], []
+
+    def script_of(path):
+        lines = script_for(path, walk, script)
+        return with_switches(lines) if switch else lines
+
     with concurrent.futures.ThreadPoolExecutor(jobs) as pool:
-        futures = [pool.submit(run_one, terp, p, out,
-                               script_for(p, walk, script), timeout,
+        futures = [pool.submit(run_one, terp, p, out, script_of(p), timeout,
                                terp_args)
                    for p in paths]
         for fut in concurrent.futures.as_completed(futures):
-            path, rc, secs = fut.result()
+            path, rc, secs, count = fut.result()
             if rc != 0:
                 trouble.append((path, rc))
+            if count:
+                stale.append((path, count))
     shutil.rmtree(os.path.join(out, "home"), ignore_errors=True)
     print("%d games in %.0f s" % (len(paths), time.time() - started))
     for path, rc in sorted(trouble):
         print("EXIT %s: %s" % (rc, path))
+    if switch:
+        for path, count in sorted(stale):
+            print("STALE %d: %s" % (count, path))
+        print("%d of %d games sent a stale colour" % (len(stale), len(paths)))
     if baseline:
         sys.exit(1 if compare(out, baseline, paths) else 0)
 

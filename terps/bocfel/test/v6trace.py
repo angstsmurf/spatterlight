@@ -42,7 +42,10 @@ tick:N):
   fkey:N          end the pending line input with function key N
   dark:1 / dark:0 switch the theme to its dark / light side: the forced
                   arrange event that carries the new text and background
-                  colours
+                  colours.  A script with such an entry runs with glkdrive's
+                  theme, whose colours can be measured, and a colour of the
+                  side the theme has left is noted in the trace as it is
+                  sent ("--- STALE ...")
 
 An entry with a prefix is delivered at the next request for an event.  A plain
 line is typed the way the app types a command script: into a line request as
@@ -84,19 +87,14 @@ NAMES = ("NOREPLY OKAY ERROR HELLO PROMPTOPEN PROMPTSAVE NEWWIN DELWIN SIZWIN"
 SILENT = {glkdrive.NEXTEVENT, glkdrive.HELLO, glkdrive.AUTOSAVE}
 
 
-# Text and background colour of the theme's light side and of its dark side.
-LIGHT = (0x000000, 0xffffff)
-DARK = (0xdddddd, 0x222222)
-
-
 def make_settings(width, height, graphics, interp, voiceover, force=0,
-                  colours=LIGHT):
+                  colours=glkdrive.NO_THEME):
     return struct.pack(
         "<6i4f21i",
         width, height, 0, 0, 0, 0,      # screen w/h, buffer/grid margins
         8.0, 16.0, 8.0, 16.0,           # grid cell w/h, buffer cell w/h
         colours[0], colours[1],         # buffer fg/bg
-        colours[0], colours[1],         # grid fg/bg
+        colours[2], colours[3],         # grid fg/bg
         1, 0, 0,                        # do_styles, quote_boxes, sa_delays
         0, 0, 0, 0, 0,                  # sa_*, slowdraw, flicker
         interp, 0, voiceover,           # zmachine_terp, no_err_win, voiceover
@@ -160,7 +158,6 @@ class Tracer(glkdrive.Driver):
                  patient=True, affirm=None, pictures=None, savepath=None,
                  terp_args=(), dark=False):
         self.trace = []
-        self.colours = DARK if dark else LIGHT
         self.pictures = pictures
         self.affirm = affirm
         self.last_print = ""
@@ -185,13 +182,24 @@ class Tracer(glkdrive.Driver):
             os.environ["BOCFEL_INT_NUMBER"] = str(interp or 6)
             try:
                 super().__init__(terp, story, home, script,
-                                 savepath=savepath, terp_args=terp_args)
+                                 savepath=savepath, terp_args=terp_args,
+                                 theme="dark" if dark else None)
             finally:
                 os.environ.clear()
                 os.environ.update(saved)
         self.graphics_on = graphics_on
         self.settings = make_settings(width, height, *self.opts,
                                       colours=self.colours)
+
+    # The theme's colours: glkdrive's THEME_LIGHT or THEME_DARK in a run
+    # that starts dark or switches sides, black on white otherwise.
+    @property
+    def colours(self):
+        return self.theme or glkdrive.NO_THEME
+
+    def note_stale(self, text):
+        super().note_stale(text)
+        self.note("STALE " + text)
 
     # ---- what the interpreter sends -------------------------------------
 
@@ -395,7 +403,7 @@ class Tracer(glkdrive.Driver):
                                   % tuple(self.opts))
                 return True
             if kind == "dark":
-                self.colours = DARK if int(spec) else LIGHT
+                self.switch_theme(int(spec))
                 self.send_arrange("theme goes %s" % ("dark" if int(spec)
                                                      else "light"), force=1)
                 return True

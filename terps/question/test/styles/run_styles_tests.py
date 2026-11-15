@@ -16,6 +16,11 @@ Spatterlight build of the terp.
 
 Usage:
   python3 run_styles_tests.py [--terp PATH] [--build] [--bless] [substring]
+
+--switch runs the fixtures with the theme changing between light and dark
+before the first command and after each instead, and fails a fixture that
+then sends, or prints in, a colour of the side the theme left (see
+glkdrive.py); the reports are not compared.
 """
 
 import difflib
@@ -39,7 +44,16 @@ def zcolor_name(c):
     return names.get(c, "#%06x" % c)
 
 
-def report(terp, game, work):
+def with_switches(script):
+    """The script with the theme going dark and light again before the
+    first command and after each (glkdrive's dark: entries)."""
+    out = ["dark:1", "dark:0"]
+    for entry in script:
+        out += [entry, "dark:1", "dark:0"]
+    return out
+
+
+def report(terp, game, work, switch=False):
     """The style report of one session: hints in order, then spans."""
     sig = "question-styles-test-" + os.path.basename(game)
     os.environ["SPATTERLIGHT_AUTOSAVE_SIGNATURE"] = sig
@@ -50,6 +64,8 @@ def report(terp, game, work):
     if os.path.exists(side):
         with open(side) as f:
             script = [ln.rstrip("\n") for ln in f if ln.strip()]
+    if switch:
+        script = with_switches(script)
     d = glkdrive.Driver(terp, game, work, script)
     try:
         rc, err = d.run()
@@ -74,12 +90,13 @@ def report(terp, game, work):
         problems.append("script not consumed: %r" % d.script)
     if err.strip():
         problems.append("stderr: " + err.strip()[-400:])
+    problems += ["stale colour: " + text for text in d.stale]
     return "\n".join(lines) + "\n", problems
 
 
 def main():
     argv = sys.argv[1:]
-    terp, build, bless = None, False, False
+    terp, build, bless, switch = None, False, False, False
     while argv and argv[0].startswith("-"):
         opt = argv.pop(0)
         if opt == "--terp":
@@ -88,6 +105,8 @@ def main():
             build = True
         elif opt == "--bless":
             bless = True
+        elif opt == "--switch":
+            switch = True
         else:
             sys.exit(__doc__)
     pattern = argv[0] if argv else ""
@@ -105,7 +124,13 @@ def main():
             name = os.path.splitext(os.path.basename(game))[0]
             if pattern not in name:
                 continue
-            got, problems = report(terp, game, work)
+            got, problems = report(terp, game, work, switch)
+            if switch:
+                failed += bool(problems)
+                print("%-24s %s" % (name, "FAIL" if problems else "ok"))
+                for p in problems:
+                    print("    " + p)
+                continue
             expected = os.path.join(HERE, name + "_glk_expected.txt")
             if bless and not problems:
                 with open(expected, "w", encoding="utf-8") as f:

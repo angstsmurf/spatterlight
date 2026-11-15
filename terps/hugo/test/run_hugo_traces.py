@@ -225,6 +225,8 @@ def cases():
         add("walk", walk)
         add("resize", interleave(head, 5, SIZES))
         add("nographics", head, graphics_on=0)
+        # the theme changes sides after every command
+        add("dark", interleave(head, 1, ["dark:1", "dark:0"] * 20))
         for width, height in ((320, 200), (640, 480), (1440, 900),
                               (600, 1000)):
             add("size-%dx%d" % (width, height), head, width=width,
@@ -299,7 +301,7 @@ def main():
     work = tempfile.mkdtemp(prefix="hugotraces-")
     try:
         terp = stage(work, build)
-        changed, missing, unhealthy = [], [], []
+        changed, missing, unhealthy, stale = [], [], [], []
         with concurrent.futures.ThreadPoolExecutor(jobs) as pool:
             for name, trace, err in pool.map(
                     lambda c: run_case(terp, work, c), todo):
@@ -310,6 +312,9 @@ def main():
                 last = trace.rstrip("\n").split("\n")[-1]
                 if not last.startswith("=== exit 0,"):
                     unhealthy.append("%s: %s" % (name, last))
+                count = trace.count("\n--- STALE ")
+                if count:
+                    stale.append("%s: %d" % (name, count))
                 if not compare:
                     continue
                 for ext, new in ((".trace", trace), (".err", err)):
@@ -326,14 +331,16 @@ def main():
         print("%d cases" % len(todo))
         for line in unhealthy:
             print("ABNORMAL EXIT " + line)
+        for line in sorted(stale):
+            print("STALE COLOURS " + line)
         if compare:
             for name in missing:
                 print("NEW      " + name)
             for line in changed:
                 print("CHANGED  " + line)
             print("%d changed, %d new" % (len(changed), len(missing)))
-            return 1 if changed else 0
-        return 0
+            return 1 if changed or stale else 0
+        return 1 if stale else 0
     finally:
         shutil.rmtree(work, ignore_errors=True)
 
