@@ -226,6 +226,7 @@ extern bool pending_flowbreak;
 extern glui32 current_picture;
 extern glui32 user_selected_foreground;
 extern glui32 user_selected_background;
+extern bool user_colours_follow_theme;
 extern bool graphics_type_changed;
 extern bool graphics_setting_changed;
 

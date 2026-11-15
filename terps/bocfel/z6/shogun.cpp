@@ -452,6 +452,10 @@ static void update_menu(void) {
     glk_window_clear(SHOGUN_MENU_BG_WIN.id);
     char str[MENU_MESSAGE_MAX];
     print_long_zstr_to_cstr(current_menu_message, str, sizeof(str));
+    // get_from_menu() gave this stream the text colour of the moment, which
+    // is the theme's unless the player chose one, and the theme's changes on
+    // a switch between light and dark.
+    garglk_set_zcolors_stream(menubg, user_selected_foreground, zcolor_Current);
     glk_put_string_stream(menubg, str);
 
     if (SHOGUN_MENU_WINDOW.id == nullptr) {

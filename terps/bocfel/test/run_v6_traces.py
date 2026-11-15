@@ -432,6 +432,11 @@ def cases():
                                      dict(graphics=BLORB))])
             add(label + "-switch", [(interleave(script, 9, switches * 2),
                                      dict(graphics=BLORB))])
+            # The theme going from light to dark and back, on every screen
+            # in turn.
+            add(label + "-dark", [(interleave(script, 1, ["dark:1", "dark:0"]
+                                              * len(script)),
+                                   dict(graphics=BLORB))])
     # The other V6 games: a session, a session with an autorestore in it, a
     # session in a small window.
     for name, (filename, script) in OTHER_STORIES.items():

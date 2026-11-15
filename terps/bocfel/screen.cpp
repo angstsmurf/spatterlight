@@ -704,7 +704,7 @@ glui32 user_selected_foreground = 0, user_selected_background = 0xffffff;
 // gfgcol/gbgcol, which every arrange event updates, instead of being compared
 // against them: after a switch the stored values no longer match, and
 // init_screen() used to take that to mean the player had chosen them.
-static bool user_colours_follow_theme = true;
+bool user_colours_follow_theme = true;
 
 static bool colour_index_follows_theme(uint16_t idx) {
     return idx == DEFAULT_COLOUR || idx == SPATTERLIGHT_CURRENT_FOREGROUND || idx == SPATTERLIGHT_CURRENT_BACKGROUND;

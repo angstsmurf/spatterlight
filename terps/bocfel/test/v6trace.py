@@ -40,6 +40,9 @@ tick:N):
   gfx:0 / gfx:1   switch graphics off / on (the EVTPREFS message), followed by
                   the forced arrange event the app sends with it
   fkey:N          end the pending line input with function key N
+  dark:1 / dark:0 switch the theme to its dark / light side: the forced
+                  arrange event that carries the new text and background
+                  colours
 
 An entry with a prefix is delivered at the next request for an event.  A plain
 line is typed the way the app types a command script: into a line request as
@@ -81,13 +84,19 @@ NAMES = ("NOREPLY OKAY ERROR HELLO PROMPTOPEN PROMPTSAVE NEWWIN DELWIN SIZWIN"
 SILENT = {glkdrive.NEXTEVENT, glkdrive.HELLO, glkdrive.AUTOSAVE}
 
 
-def make_settings(width, height, graphics, interp, voiceover, force=0):
+# Text and background colour of the theme's light side and of its dark side.
+LIGHT = (0x000000, 0xffffff)
+DARK = (0xdddddd, 0x222222)
+
+
+def make_settings(width, height, graphics, interp, voiceover, force=0,
+                  colours=LIGHT):
     return struct.pack(
         "<6i4f21i",
         width, height, 0, 0, 0, 0,      # screen w/h, buffer/grid margins
         8.0, 16.0, 8.0, 16.0,           # grid cell w/h, buffer cell w/h
-        0x000000, 0xffffff,             # buffer fg/bg
-        0x000000, 0xffffff,             # grid fg/bg
+        colours[0], colours[1],         # buffer fg/bg
+        colours[0], colours[1],         # grid fg/bg
         1, 0, 0,                        # do_styles, quote_boxes, sa_delays
         0, 0, 0, 0, 0,                  # sa_*, slowdraw, flicker
         interp, 0, voiceover,           # zmachine_terp, no_err_win, voiceover
@@ -104,7 +113,8 @@ KEYCODES = {"\n": -6, "\r": -6, "\t": -9, "\x08": -7, "\x7f": -7,
             "\uf728": -7, "\uf700": -4, "\uf701": -5, "\uf702": -2,
             "\uf703": -3, "\uf72d": -11, "\uf72c": -10, "\uf729": -12,
             "\uf72b": -13}
-PREFIXES = ("key", "tick", "link", "click", "arrange", "prefs", "gfx", "mouse",
+PREFIXES = ("key", "tick", "link", "click", "arrange", "prefs", "gfx", "dark",
+            "mouse",
             "fkey")
 
 
@@ -148,8 +158,9 @@ class Tracer(glkdrive.Driver):
     def __init__(self, terp, story, home, script, width=800, height=600,
                  graphics=6, interp=0, voiceover=0, graphics_on=1, env=None,
                  patient=True, affirm=None, pictures=None, savepath=None,
-                 terp_args=()):
+                 terp_args=(), dark=False):
         self.trace = []
+        self.colours = DARK if dark else LIGHT
         self.pictures = pictures
         self.affirm = affirm
         self.last_print = ""
@@ -179,7 +190,8 @@ class Tracer(glkdrive.Driver):
                 os.environ.clear()
                 os.environ.update(saved)
         self.graphics_on = graphics_on
-        self.settings = make_settings(width, height, *self.opts)
+        self.settings = make_settings(width, height, *self.opts,
+                                      colours=self.colours)
 
     # ---- what the interpreter sends -------------------------------------
 
@@ -382,6 +394,11 @@ class Tracer(glkdrive.Driver):
                 self.send_arrange("prefs graphics=%d interp=%d voiceover=%d"
                                   % tuple(self.opts))
                 return True
+            if kind == "dark":
+                self.colours = DARK if int(spec) else LIGHT
+                self.send_arrange("theme goes %s" % ("dark" if int(spec)
+                                                     else "light"), force=1)
+                return True
             if kind == "gfx":
                 self.graphics_on = int(spec)
                 self.note("graphics %s" % ("on" if self.graphics_on
@@ -391,7 +408,8 @@ class Tracer(glkdrive.Driver):
                 self.reply(glkdrive.EVTPREFS, 0, self.graphics_on, 1, 1, 0)
                 self.note("forced arrange")
                 self.settings = make_settings(self.dims[0], self.dims[1],
-                                              *self.opts, force=1)
+                                              *self.opts, force=1,
+                                              colours=self.colours)
                 self.arrange_pending = True
                 return True
             if kind == "mouse":
@@ -435,7 +453,7 @@ class Tracer(glkdrive.Driver):
     def send_arrange(self, why, force=0):
         self.note(why)
         self.settings = make_settings(self.dims[0], self.dims[1], *self.opts,
-                                      force=force)
+                                      force=force, colours=self.colours)
         self.reply(glkdrive.EVTARRANGE, payload=self.settings)
 
 
@@ -494,6 +512,8 @@ def main():
             os.makedirs(kw["pictures"], exist_ok=True)
         elif opt == "--save":
             kw["savepath"] = argv.pop(0)
+        elif opt == "--dark":
+            kw["dark"] = True
         elif opt == "--nographics":
             kw["graphics_on"] = 0
         elif opt == "--script":

@@ -262,6 +262,15 @@ void adjust_definitions_window(void) {
     int top = (gscreenh - y_size) / 2;
 
 
+    // The screen around the menu is the background graphics window. Fill it
+    // again every time: its size follows the game window's, and its colour
+    // the theme's, which changes on a switch between light and dark.
+    if (graphics_bg_glk) {
+        win_sizewin(graphics_bg_glk->peer, 0, 0, gscreenw, gscreenh);
+        glk_window_set_background_color(graphics_bg_glk, user_selected_background);
+        glk_window_clear(graphics_bg_glk);
+    }
+
     v6_set_grid_colors(style_Normal);
 
     if (DEFINITIONS_WINDOW.id == nullptr) {
@@ -303,8 +312,6 @@ void V_DEFINE(void) {
     glk_cancel_line_event(V6_TEXT_BUFFER_WINDOW.id, nullptr);
 
     clear_image_buffer();
-    win_sizewin(graphics_bg_glk->peer, 0, 0, gscreenw, gscreenh);
-    glk_window_clear(graphics_bg_glk);
 
     v6_define_window(&V6_TEXT_BUFFER_WINDOW, 0, 0, 0, 0);
     v6_define_window(&V6_STATUS_WINDOW, 0, 0, 0, 0);

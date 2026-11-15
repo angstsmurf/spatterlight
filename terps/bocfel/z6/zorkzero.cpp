@@ -943,6 +943,26 @@ void z0_UPDATE_STATUS_LINE(void) {
 
 #pragma mark - Update Colors
 
+// Gives the text windows created from here on the colours the player has
+// now: the theme's, or the ones picked with COLOR.
+static void set_text_colour_hints(void) {
+    // Typed commands keep the theme's own input colour until the player
+    // picks colours with COLOR.
+    if (user_colours_follow_theme)
+        glk_stylehint_clear(wintype_TextBuffer, style_Input, stylehint_TextColor);
+    else
+        glk_stylehint_set(wintype_TextBuffer, style_Input, stylehint_TextColor, user_selected_foreground);
+    glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_TextColor, user_selected_foreground);
+    if (options.int_number == INTERP_MSDOS && gli_z6_graphics == kGraphicsTypeCGA)
+        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_background);
+    else
+        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
+    glk_stylehint_set(wintype_TextBuffer, style_Preformatted, stylehint_TextColor, user_selected_foreground);
+    glk_stylehint_set(wintype_TextBuffer, style_Subheader, stylehint_TextColor, user_selected_foreground);
+    glk_stylehint_set(wintype_TextBuffer, style_Emphasized, stylehint_TextColor, user_selected_foreground);
+    glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_BackColor, user_selected_background);
+}
+
 // Configures foreground and background colours based on the current interpreter
 // type and graphics mode. Each platform has different default colours (on a
 // real CGA monitor, "white" may be green or orange):
@@ -1049,17 +1069,7 @@ void z0_update_colors(void) {
 
     if (gli_enable_styles && !colorized_bw) {
         update_user_defined_colours();
-
-        glk_stylehint_set(wintype_TextBuffer, style_Input, stylehint_TextColor, user_selected_foreground);
-        glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_TextColor, user_selected_foreground);
-        if (options.int_number == INTERP_MSDOS && gli_z6_graphics == kGraphicsTypeCGA)
-            glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_background);
-        else
-            glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
-        glk_stylehint_set(wintype_TextBuffer, style_Preformatted, stylehint_TextColor, user_selected_foreground);
-        glk_stylehint_set(wintype_TextBuffer, style_Subheader, stylehint_TextColor, user_selected_foreground);
-        glk_stylehint_set(wintype_TextBuffer, style_Emphasized, stylehint_TextColor, user_selected_foreground);
-        glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_BackColor, user_selected_background);
+        set_text_colour_hints();
     } else {
         user_selected_foreground = gfgcol;
         user_selected_background = gbgcol;
@@ -1434,6 +1444,12 @@ void z0_update_on_resize(void) {
             return;
 
         case MODE_HINTS:
+            // The hint screens make text windows of their own as the player
+            // moves between them. After a switch between light and dark,
+            // these must come out in the new colours.
+            if (gli_enable_styles && !(gli_z6_colorize &&
+                (gli_z6_graphics == kGraphicsTypeCGA || gli_z6_graphics == kGraphicsTypeMacBW)))
+                set_text_colour_hints();
             redraw_hint_screen_on_resize();
             return;
 
@@ -1443,6 +1459,11 @@ void z0_update_on_resize(void) {
 
         case MODE_NORMAL:
         case MODE_Z0_GAME:
+        // With the border off (the MODE command) the status line is plain
+        // text, and that has to be laid out and printed again as well: for
+        // the new width, and in the new colours after a switch between light
+        // and dark.
+        case MODE_NO_GRAPHICS:
             if (redraw_minigame_on_resize(get_global(zg.CURRENT_SPLIT)))
                 return;
 

@@ -276,6 +276,12 @@ static void draw_hints_windows(void) {
         v6_sizewin(&V6_TEXT_BUFFER_WINDOW);
     }
 
+    // While the menus were up, the theme may have gone from light to dark or
+    // back. The arrange event gave the new background to the grid standing
+    // in for the text buffer, so the buffer itself still has the old one.
+    if (V6_TEXT_BUFFER_WINDOW.id->type == wintype_TextBuffer)
+        win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
+
     win_refresh(V6_TEXT_BUFFER_WINDOW.id->peer, 0, 0);
     glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
 
