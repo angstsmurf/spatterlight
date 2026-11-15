@@ -6,6 +6,7 @@
 //
 
 #import <XCTest/XCTest.h>
+#import <AppKit/AppKit.h>
 
 @interface UITests : XCTestCase {
     NSBundle *testBundle;
@@ -74,6 +75,19 @@
 + (XCUIElement *)textViewOfWindow:(XCUIElement *)window scrollViewIndex:(NSUInteger)index {
     XCUIElement *scrollView = [window.scrollViews elementBoundByIndex:index];
     return [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
+}
+
+/// Writes a small PNG into a new temporary folder for a test to open, as the
+/// test bundle has no image files of its own.
++ (NSURL *)writeTestImageNamed:(NSString *)name {
+    NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL pixelsWide:64 pixelsHigh:96 bitsPerSample:8 samplesPerPixel:4 hasAlpha:YES isPlanar:NO colorSpaceName:NSDeviceRGBColorSpace bytesPerRow:0 bitsPerPixel:0];
+    for (NSInteger y = 0; y < rep.pixelsHigh; y++)
+        for (NSInteger x = 0; x < rep.pixelsWide; x++)
+            [rep setColor:[NSColor colorWithDeviceRed:x / 64.0 green:y / 96.0 blue:0.5 alpha:1] atX:x y:y];
+    NSURL *url = [[UITests tempDir] URLByAppendingPathComponent:name isDirectory:NO];
+    NSData *data = [rep representationUsingType:NSBitmapImageFileTypePNG properties:@{}];
+    XCTAssert([data writeToURL:url atomically:YES]);
+    return url;
 }
 
 + (NSURL *)tempDir {
@@ -500,7 +514,7 @@
 
     [menuBarsQuery.menuBarItems[@"Window"] click];
 
-    [/*@START_MENU_TOKEN@*/[[app.menuBarItems matchingIdentifier:@"_NS:381"].menuItems matchingIdentifier:@"makeKeyAndOrderFront:"].firstMatch/*[["app","[[",".menuItems matchingIdentifier:@\"makeKeyAndOrderFront:\"] elementBoundByIndex:0]",".menus matchingIdentifier:@\"_NS:383\"].menuItems matchingIdentifier:@\"imagetest.gblorb\"].firstMatch",".menuBarItems matchingIdentifier:@\"_NS:381\"].menuItems matchingIdentifier:@\"makeKeyAndOrderFront:\"].firstMatch"],[[[-1,0,1]],[[1,4],[1,3],[1,2]]],[0,0]]@END_MENU_TOKEN@*/ click];
+    [menuBarsQuery.menuBarItems[@"Window"].menuItems[@"imagetest.gblorb"] click];
     
     XCUIElement *gameWindow = app.windows[@"imagetest.gblorb"];
     [XCUIElement performWithKeyModifiers:XCUIKeyModifierOption block:^{
@@ -1726,12 +1740,7 @@
     [self forceClickElement:image];
     [infoWin.menuItems[@"Select Image File…"] click];
 
-    url = [testBundle URLForResource:@"imagetest"
-                       withExtension:@"gblorb"
-                        subdirectory:nil];
-
-    NSURL *path = url.URLByDeletingLastPathComponent;
-    path = [path URLByAppendingPathComponent:@"curses.png" isDirectory:NO];
+    NSURL *path = [UITests writeTestImageNamed:@"curses.png"];
 
     XCUIElement *openDialog = app.sheets.firstMatch;
     XCTAssert([self waitForElement:openDialog toExistWithTimeout:5]);
@@ -1959,7 +1968,7 @@
     [textField3 typeText:@"0\r"];
     [textField3 typeText:@"1000\r"];
 
-    [[[preferences childrenMatchingType:XCUIElementTypePopUpButton] element] click];
+    [[app.popUpButtons elementMatchingType:XCUIElementTypePopUpButton identifier:@"coverImagePopup"] click];
     [app/*@START_MENU_TOKEN@*/.menuItems[@"Show and wait for key"]/*[[".dialogs[@\"Preferences\"]",".tabGroups",".popUpButtons",".menus.menuItems[@\"Show and wait for key\"]",".menuItems[@\"Show and wait for key\"]",".dialogs[@\"preferences\"]"],[[[-1,4],[-1,3],[-1,2,3],[-1,1,2],[-1,5,1],[-1,0,1]],[[-1,4],[-1,3],[-1,2,3],[-1,1,2]],[[-1,4],[-1,3],[-1,2,3]],[[-1,4],[-1,3]]],[0]]@END_MENU_TOKEN@*/ click];
     [app.checkBoxes[@"Animate scrolling"] click];
 

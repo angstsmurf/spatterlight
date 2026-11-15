@@ -969,6 +969,7 @@
                             </items>
                         </menu>
                     </popUpButtonCell>
+                    <accessibility identifier="coverImagePopup"/>
                 </popUpButton>
                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="70i-Hz-vdK">
                     <rect key="frame" x="89" y="170" width="105" height="16"/>
