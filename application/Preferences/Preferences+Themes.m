@@ -544,7 +544,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 #pragma mark Fabulich mode
 
-/// The "Light and dark mode" checkbox on the Themes panel.
+/// The "Light and dark mode" checkbox on the Global panel.
 - (IBAction)toggleFabulichMode:(id)sender {
     [self setFabulichModeEnabled:([sender state] == NSControlStateValueOn)];
 }

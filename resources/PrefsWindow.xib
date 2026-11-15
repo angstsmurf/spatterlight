@@ -34,7 +34,7 @@
                 <outlet property="btnEnableGraphics" destination="5B0-qp-U8g" id="5Qq-Pw-TMt"/>
                 <outlet property="btnEnableSound" destination="sG7-G8-opT" id="QDT-dX-Lhc"/>
                 <outlet property="btnEnableStyles" destination="UqG-mC-PqY" id="b9F-vd-n4F"/>
-                <outlet property="btnFabulichMode" destination="lwU-D1-hsS" id="Fab-ul-ich"/>
+                <outlet property="btnFabulichMode" destination="gdL-au-NnA" id="Fab-ul-ich"/>
                 <outlet property="btnGridFont" destination="qyg-oQ-DFE" id="wyh-La-9RQ"/>
                 <outlet property="btnNoHacks" destination="oSL-gf-gET" id="hjv-b4-Yvh"/>
                 <outlet property="btnOneThemeForAll" destination="UVa-PZ-kOL" id="Jtr-zE-1gO"/>
@@ -209,11 +209,11 @@
             <point key="canvasLocation" x="37" y="-409.5"/>
         </window>
         <customView id="Kqs-Yu-Lte" userLabel="Themes Settings">
-            <rect key="frame" x="0.0" y="0.0" width="560" height="375"/>
+            <rect key="frame" x="0.0" y="0.0" width="560" height="354"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1fc-DC-aRi">
-                    <rect key="frame" x="-2" y="350" width="564" height="17"/>
+                    <rect key="frame" x="-2" y="329" width="564" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" title="Theme setting for all games" usesSingleLineMode="YES" id="OX6-Me-WFt">
                         <font key="font" metaFont="smallSystem"/>
@@ -222,7 +222,7 @@
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V4c-7r-qmI" userLabel="Square Button add">
-                    <rect key="frame" x="18" y="65.5" width="37" height="14"/>
+                    <rect key="frame" x="18" y="44.5" width="37" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <string key="toolTip">Create a new theme based on the current theme and assign it to the current game, if there is one, or to all games, if "Changes apply to all…" is checked.</string>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="only" controlSize="small" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="MPB-Sw-JNe">
@@ -234,7 +234,7 @@
                     </connections>
                 </button>
                 <scrollView fixedFrame="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" hasHorizontalScroller="NO" hasVerticalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AJn-XP-T1R">
-                    <rect key="frame" x="20" y="92" width="520" height="247"/>
+                    <rect key="frame" x="20" y="71" width="520" height="247"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <clipView key="contentView" drawsBackground="NO" id="nuy-We-W0h">
                         <rect key="frame" x="0.0" y="0.0" width="520" height="247"/>
@@ -316,7 +316,7 @@
                     </scroller>
                 </scrollView>
                 <button toolTip="Delete the current theme. Any games using it will be assigned the theme it is based on." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NbE-Ta-Bvm" userLabel="Square Button remove">
-                    <rect key="frame" x="43" y="66" width="40.5" height="14"/>
+                    <rect key="frame" x="43" y="45" width="40.5" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRemoveTemplate" imagePosition="only" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="Mcu-sD-kAr">
                         <behavior key="behavior" lightByContents="YES"/>
@@ -327,7 +327,7 @@
                     </connections>
                 </button>
                 <popUpButton fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EZ5-UJ-wqB">
-                    <rect key="frame" x="81" y="63" width="35" height="18"/>
+                    <rect key="frame" x="81" y="42" width="35" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="left" lineBreakMode="truncatingTail" imageScaling="proportionallyUpOrDown" inset="2" pullsDown="YES" preferredEdge="maxY" id="KJY-1P-1Ze">
                         <behavior key="behavior" lightByContents="YES"/>
@@ -380,7 +380,7 @@
                     </popUpButtonCell>
                 </popUpButton>
                 <button tag="40" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UVa-PZ-kOL">
-                    <rect key="frame" x="145" y="63" width="249" height="16"/>
+                    <rect key="frame" x="145" y="42" width="249" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Changes apply to all games in library" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" tag="40" inset="2" id="nVw-f0-6lI">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -391,7 +391,7 @@
                     </connections>
                 </button>
                 <button toolTip="Adapt the window size when changing settings to keep the width in characters constant." tag="40" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hPD-zs-auO">
-                    <rect key="frame" x="145" y="41" width="279" height="16"/>
+                    <rect key="frame" x="145" y="20" width="279" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Adjust window size when changing theme" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" tag="40" inset="2" id="ba4-FL-aqa">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -401,19 +401,8 @@
                         <action selector="changeAdjustSize:" target="-2" id="EvK-rd-OO8"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lwU-D1-hsS">
-                    <rect key="frame" x="145" y="19" width="147" height="16"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Light and dark mode" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="I9l-Tc-CLG">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <action selector="toggleFabulichMode:" target="-2" id="Fab-ac-t01"/>
-                    </connections>
-                </button>
             </subviews>
-            <point key="canvasLocation" x="-1291" y="1013.5"/>
+            <point key="canvasLocation" x="-1291" y="1003"/>
         </customView>
         <customView id="sUR-oS-224" userLabel="Glk Style Settings">
             <rect key="frame" x="0.0" y="0.0" width="560" height="286"/>
@@ -1874,11 +1863,11 @@
             <point key="canvasLocation" x="-187" y="1531.5"/>
         </view>
         <view id="sGk-vs-Ced" userLabel="Global Settings">
-            <rect key="frame" x="0.0" y="0.0" width="560" height="329"/>
+            <rect key="frame" x="0.0" y="0.0" width="560" height="354"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FNI-Gx-fBJ">
-                    <rect key="frame" x="-2" y="304" width="564" height="17"/>
+                    <rect key="frame" x="-2" y="329" width="564" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="center" title="These settings apply to all themes" usesSingleLineMode="YES" id="pr1-vn-eiU">
                         <font key="font" metaFont="smallSystem"/>
@@ -1887,7 +1876,7 @@
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X1l-fq-rvt">
-                    <rect key="frame" x="198" y="273" width="167" height="18"/>
+                    <rect key="frame" x="198" y="274" width="167" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <string key="toolTip">Open save dialogs initially in the same location as the game file. When this is off, save dialogs default to the Documents folder.</string>
                     <buttonCell key="cell" type="check" title="Save to game directory" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Jha-mh-yUf">
@@ -1896,7 +1885,7 @@
                     </buttonCell>
                 </button>
                 <button toolTip="Whether to show fading alerts such as Game Over." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pEQ-Lz-dz3">
-                    <rect key="frame" x="198" y="249" width="174" height="18"/>
+                    <rect key="frame" x="198" y="250" width="174" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Show bezel notifications" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="2kX-tw-OLe">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1904,7 +1893,7 @@
                     </buttonCell>
                 </button>
                 <popUpButton toolTip="Whether to replace any existing cover images when downloading new metadata." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vrL-ME-hbi" userLabel="Image replacement popup">
-                    <rect key="frame" x="198" y="72" width="226" height="25"/>
+                    <rect key="frame" x="198" y="73" width="226" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="Don't replace images" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="1" imageScaling="proportionallyDown" inset="2" selectedItem="uLU-6T-Z1Y" id="i5C-G1-dec">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -1919,7 +1908,7 @@
                     </popUpButtonCell>
                 </popUpButton>
                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vkd-E3-2Pd">
-                    <rect key="frame" x="58" y="79" width="135" height="16"/>
+                    <rect key="frame" x="58" y="80" width="135" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="When importing data:" id="m3f-S1-epU">
                         <font key="font" metaFont="system"/>
@@ -1928,7 +1917,7 @@
                     </textFieldCell>
                 </textField>
                 <button toolTip="Whether to show the library window no other windows are open. If this is off, a file picker dialog is shown instead." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9wO-C1-Hqh">
-                    <rect key="frame" x="198" y="225" width="235" height="18"/>
+                    <rect key="frame" x="198" y="226" width="235" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Show library window automatically" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Wn0-9F-1j4">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -1936,7 +1925,7 @@
                     </buttonCell>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7v6-uP-5dQ">
-                    <rect key="frame" x="198" y="200" width="237" height="18"/>
+                    <rect key="frame" x="198" y="201" width="237" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <string key="toolTip">Whether games will be automatically added to the library when they are opened from the Open menu or by double clicking the game file.</string>
                     <buttonCell key="cell" type="check" title="Add games to library when opened" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ixm-pk-PTZ">
@@ -1945,7 +1934,7 @@
                     </buttonCell>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nbr-Od-Iwa">
-                    <rect key="frame" x="198" y="176" width="216" height="18"/>
+                    <rect key="frame" x="198" y="177" width="216" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <string key="toolTip">Check the library in the background to see if all game files are still there. May affect performance if the library is large and spread across external disks or network volumes.</string>
                     <buttonCell key="cell" type="check" title="Check for missing games every" bezelStyle="regularSquare" imagePosition="left" inset="2" id="uXF-Wm-yEH">
@@ -1957,7 +1946,7 @@
                     </connections>
                 </button>
                 <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EpP-jS-USn" userLabel="Minutes">
-                    <rect key="frame" x="414" y="173" width="31" height="21"/>
+                    <rect key="frame" x="414" y="174" width="31" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" placeholderString="30" drawsBackground="YES" id="WTM-jr-6NO">
                         <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" lenient="YES" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="yAQ-0y-17N">
@@ -1973,7 +1962,7 @@
                     </connections>
                 </textField>
                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Gj-rh-nVK">
-                    <rect key="frame" x="449" y="176" width="53" height="16"/>
+                    <rect key="frame" x="449" y="177" width="53" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" title="minutes" id="dfX-Cv-GKp">
                         <font key="font" usesAppearanceFont="YES"/>
@@ -1982,7 +1971,7 @@
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qnD-Dg-nVa">
-                    <rect key="frame" x="198" y="143" width="167" height="18"/>
+                    <rect key="frame" x="198" y="144" width="167" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <string key="toolTip">When on, newly imported games are copied into a central library folder, arranged by group and title. Turning this off leaves games where they are.</string>
                     <buttonCell key="cell" type="check" title="Keep games organised" bezelStyle="regularSquare" imagePosition="left" inset="2" id="RS0-mI-tLG">
@@ -1994,7 +1983,7 @@
                     </connections>
                 </button>
                 <button toolTip="Choose where the library folder should live. Leave as the default to keep it inside Spatterlight's own storage." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="QKR-gA-Brv">
-                    <rect key="frame" x="419" y="116" width="69" height="24"/>
+                    <rect key="frame" x="419" y="117" width="69" height="24"/>
                     <buttonCell key="cell" type="push" title="Choose…" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7vj-fD-nWF">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -2008,7 +1997,7 @@
                     </connections>
                 </button>
                 <textField focusRingType="none" horizontalHuggingPriority="750" verticalHuggingPriority="750" allowsExpansionToolTips="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G9f-IG-BcV" userLabel="Library location">
-                    <rect key="frame" x="192" y="122" width="222" height="11"/>
+                    <rect key="frame" x="192" y="123" width="222" height="11"/>
                     <constraints>
                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="250" id="Lib-mx-003"/>
                     </constraints>
@@ -2019,7 +2008,7 @@
                     </textFieldCell>
                 </textField>
                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c6D-nI-UOD">
-                    <rect key="frame" x="88" y="46" width="105" height="16"/>
+                    <rect key="frame" x="88" y="47" width="105" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Dialog warnings:" id="U8u-8w-Vs5">
                         <font key="font" usesAppearanceFont="YES"/>
@@ -2028,7 +2017,7 @@
                     </textFieldCell>
                 </textField>
                 <button toolTip="Clear all &quot;Remember this choice&quot; and &quot;Don't show again&quot; check boxes in alert dialogs." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J7f-RX-ZW4">
-                    <rect key="frame" x="198" y="38" width="226" height="32"/>
+                    <rect key="frame" x="198" y="39" width="226" height="32"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="push" title="Reset &quot;Don't ask again&quot; warnings" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DH4-ha-fed">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -2039,7 +2028,7 @@
                     </connections>
                 </button>
                 <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W7j-28-GPc">
-                    <rect key="frame" x="129" y="119" width="64" height="17"/>
+                    <rect key="frame" x="129" y="120" width="64" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="right" title="Location: " usesSingleLineMode="YES" id="Dud-1G-HPn">
                         <font key="font" metaFont="system"/>
@@ -2047,14 +2036,25 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <button toolTip="Give each theme separate light and dark settings, and show a symbol at the top of each settings tab that switches all of Spatterlight between Light Mode and Dark Mode." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gdL-au-NnA">
+                    <rect key="frame" x="198" y="298" width="147" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Light and dark mode" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="cSY-dh-snR">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="toggleFabulichMode:" target="-2" id="8e6-ea-ZYW"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="QKR-gA-Brv" firstAttribute="centerY" secondItem="G9f-IG-BcV" secondAttribute="centerY" id="Chs-cy-007"/>
                 <constraint firstItem="QKR-gA-Brv" firstAttribute="leading" secondItem="G9f-IG-BcV" secondAttribute="trailing" constant="7" id="Chs-ld-006"/>
                 <constraint firstItem="G9f-IG-BcV" firstAttribute="leading" secondItem="sGk-vs-Ced" secondAttribute="leading" constant="194" id="Lib-ld-004"/>
-                <constraint firstItem="G9f-IG-BcV" firstAttribute="top" secondItem="sGk-vs-Ced" secondAttribute="top" constant="196" id="Lib-tp-005"/>
+                <constraint firstItem="G9f-IG-BcV" firstAttribute="top" secondItem="sGk-vs-Ced" secondAttribute="top" constant="220" id="Lib-tp-005"/>
             </constraints>
-            <point key="canvasLocation" x="426" y="1547.5"/>
+            <point key="canvasLocation" x="426" y="1560"/>
         </view>
         <arrayController mode="entity" entityName="Theme" automaticallyPreparesContent="YES" avoidsEmptySelection="NO" id="784" userLabel="Themes" customClass="ThemeArrayController">
             <connections>
