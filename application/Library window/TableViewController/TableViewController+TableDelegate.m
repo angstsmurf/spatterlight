@@ -925,7 +925,7 @@ static NSString *forgivenessName(NSInteger value) {
                 game.theme = [Preferences currentTheme];
             } else {
                 Preferences *prefs = Preferences.instance;
-                if (prefs && prefs.currentGame == nil && !prefs.lightOverrideActive && !prefs.darkOverrideActive && self.view.window.keyWindow) {
+                if (prefs && prefs.currentGame == nil && self.view.window.keyWindow) {
                     [prefs restoreThemeSelection:game.theme];
                 }
             }

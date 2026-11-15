@@ -6,6 +6,7 @@
 #import "Preferences+Zoom.h"
 #import "Preferences+LibraryOrganiser.h"
 #import "Preferences+Settings.h"
+#import "Preferences+Appearance.h"
 
 @class PreviewController, GlkStyle, ThemeArrayController, ParagraphPopOver;
 
@@ -44,6 +45,8 @@
     // The theme restoreThemeSelection: selects once the themes array
     // controller has fetched its content
     __weak Theme *themeAwaitingTable;
+    // "Settings for theme ..." without the mode suffix of the Glk Styles tab
+    NSString *stylesHeaderBase;
     BOOL observingArrangedThemes;
     CGFloat defaultWindowHeight;
     CGFloat restoredPreviewHeight;
@@ -78,18 +81,10 @@
     __weak NSButton *_btnUnderlineLinksGrid;
     NSButton *_chooseLibraryButton;
     __weak Game *_currentGame;
-    NSMenuItem *_darkModeMenuItem;
-    BOOL _darkOverrideActive;
-    Theme *_darkTheme;
     __weak NSTextFieldCell *_detailsHeader;
-    __weak NSButton *_hardDarkCheckbox;
-    __weak NSButton *_hardLightCheckbox;
     __weak NSButton *_keepOrganisedCheckbox;
     __weak TableViewController *_libcontroller;
     NSTextField *_libraryLocationField;
-    NSMenuItem *_lightModeMenuItem;
-    BOOL _lightOverrideActive;
-    Theme *_lightTheme;
     NSManagedObjectContext *_managedObjectContext;
     __weak NSStepper *_marginHorizontalBufferStepper;
     __weak NSTextField *_marginHorizontalBufferTextField;
@@ -162,8 +157,6 @@
 @property (weak) IBOutlet NSButton *btnRemove;
 @property (weak) IBOutlet NSBox *divider;
 
-@property (strong) IBOutlet NSMenuItem *lightModeMenuItem;
-@property (strong) IBOutlet NSMenuItem *darkModeMenuItem;
 
 @property (weak) IBOutlet NSButton *btnOverwriteStyles;
 @property (weak) IBOutlet NSButton *swapGridColBtn;
@@ -222,6 +215,8 @@
 @property (weak) IBOutlet NSButton *btnUnderlineLinksGrid;
 @property (weak) IBOutlet NSButton *btnUnderlineLinksBuffer;
 
+@property (weak) IBOutlet NSButton *btnFabulichMode;
+
 @property (weak) IBOutlet NSButton *libraryAtStartCheckbox;
 @property (weak) IBOutlet NSButton *recheckMissingCheckbox;
 @property (weak) IBOutlet NSTextField *recheckFrequencyTextfield;
@@ -232,8 +227,6 @@
 @property (weak) IBOutlet NSPopUpButton *inventoryPopup;
 @property (weak) IBOutlet NSButton *delaysCheckbox;
 @property (weak) IBOutlet NSButton *slowDrawCheckbox;
-@property (weak) IBOutlet NSButton *hardDarkCheckbox;
-@property (weak) IBOutlet NSButton *hardLightCheckbox;
 @property (weak) IBOutlet NSButton *scottAdamsFlickerCheckbox;
 @property (weak) IBOutlet NSButton *zMachineNoErrWinCheckbox;
 

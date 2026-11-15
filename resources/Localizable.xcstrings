@@ -24,6 +24,9 @@
         }
       }
     },
+    " (dark mode)" : {
+      "comment" : " (dark mode)"
+    },
     " (default)" : {
       "comment" : " (default)",
       "localizations" : {
@@ -45,6 +48,9 @@
           }
         }
       }
+    },
+    " (light mode)" : {
+      "comment" : " (light mode)"
     },
     " A tide of perambulators surges north along the crowded Broad Walk. " : {
       "comment" : "Normal text example",
@@ -774,6 +780,7 @@
     },
     "Dark theme override active" : {
       "comment" : "Dark theme override active",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -1487,8 +1494,12 @@
         }
       }
     },
+    "Light or dark mode" : {
+
+    },
     "Light theme override active" : {
       "comment" : "Light theme override active",
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -2300,6 +2311,12 @@
           }
         }
       }
+    },
+    "Switch all of Spatterlight to Dark Mode" : {
+
+    },
+    "Switch all of Spatterlight to Light Mode" : {
+
     },
     "Text-to-speech settings" : {
       "comment" : "Text-to-speech settings",

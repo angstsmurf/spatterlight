@@ -121,13 +121,22 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 
     _ignoreResizes = YES;
 
+    // A restarted game measures its colors again.
+    _measuredColorAnswers = nil;
+
     skipNextScriptCommand = NO;
 
     _game = game_;
     Game *game = _game;
 
     [Preferences changeCurrentGlkController:self];
-    [self noteColorModeChanged:nil];
+    // Take the game's theme, as noteColorModeChanged: used to be called here
+    // to do, but without its preferences pass: that queued a forced arrange
+    // before the interpreter had started, and a restarted game rearranged its
+    // leftover windows. (_stashedTheme is cleared further down.)
+    if (_game)
+        _theme = _game.theme;
+    lastVOSpeakMenu = _theme.vOSpeakMenu;
 
     libcontroller = ((AppDelegate *)NSApp.delegate).tableViewController;
 
@@ -404,6 +413,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     _gameView.layer.masksToBounds = YES;
 
     _lastAutoBGColor = _theme.bufferBackground;
+    _lastAutoBGSource = kAutoBorderBufferDefault;
     if (_theme.borderBehavior == kUserOverride)
         [self setBorderColor:_theme.borderColor];
     else
@@ -1543,13 +1553,13 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     }
     Theme *theme = _theme;
 
-    // Determine the active theme, accounting for dark/light mode overrides.
-    // During autorestore, _stashedTheme holds the original theme while we
-    // temporarily use the autosaved theme.
+    // Keep the game's selected theme; light/dark colors resolve on the theme
+    // itself. During autorestore, _stashedTheme holds the original theme
+    // while we temporarily use the autosaved theme.
     if (!_game)
         return;
     if (!_stashedTheme) {
-        _theme = [self resolvedTheme];
+        _theme = _game.theme;
         theme = _theme;
     }
 
@@ -1621,8 +1631,12 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 
     if (theme.borderBehavior == kUserOverride && ![_bgcolor isEqualToColor:theme.borderColor]) {
         [self setBorderColor:theme.borderColor];
-    } else if (theme.borderBehavior == kAutomatic && ![_lastAutoBGColor isEqualToColor:_bgcolor]) {
-        [self setBorderColor:_lastAutoBGColor];
+    } else if (theme.borderBehavior == kAutomatic) {
+        // A default background has to be looked up again: after a light/dark
+        // switch the stored color is the old mode's.
+        NSColor *autoColor = [self resolvedLastAutoBGColor];
+        if (autoColor && ![autoColor isEqualToColor:_bgcolor])
+            [self setBorderColor:autoColor];
     }
 
     NSRect frame = _gameView.frame;
@@ -1658,33 +1672,12 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     _shouldStoreScrollOffset = YES;
 }
 
-// Handle system appearance changes (light/dark mode toggle). Switches the
-// active theme to the appropriate light or dark override theme if configured,
-// then triggers a full preferences update to propagate the change.
+// Handle system / override appearance changes. Theme object stays the same;
+// resolved light/dark colors update via PreferencesChanged.
 - (void)noteColorModeChanged:(NSNotification *)notification {
-    Theme *oldTheme = _theme;
-    _theme = [self resolvedTheme];
-
-    if (_theme != oldTheme) {
-        [self notePreferencesChanged:[NSNotification notificationWithName:kPreferencesChangedNotification object:_theme]];
-    }
-}
-
-// The theme this game should use: the light or dark override theme if one
-// is active, otherwise the game's own theme. Preferences briefly has both
-// overrides flagged while switching, so the light-first order matters.
-- (Theme *)resolvedTheme {
-    Preferences *prefs = [Preferences instance];
-    if (prefs.lightOverrideActive) {
-        if (prefs.lightTheme)
-            return prefs.lightTheme;
-        NSLog(@"ERROR: lightOverrideActive but no hard light theme exists, use normal selected theme");
-    } else if (prefs.darkOverrideActive) {
-        if (prefs.darkTheme)
-            return prefs.darkTheme;
-        NSLog(@"ERROR: darkOverrideActive but no hard dark theme exists, use normal selected theme");
-    }
-    return _game.theme;
+    if (_game && !_stashedTheme)
+        _theme = _game.theme;
+    [self notePreferencesChanged:[NSNotification notificationWithName:kPreferencesChangedNotification object:_theme]];
 }
 
 #pragma mark Zoom

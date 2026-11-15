@@ -6,10 +6,15 @@
 //
 
 #import "BuiltInThemes.h"
+#import "Constants.h"
 #import "Theme.h"
 #import "Fetches.h"
 #import "GlkStyle.h"
 #import "NSColor+integer.h"
+#import "Preferences.h"
+#import "Preferences+Appearance.h"
+
+#include "glk.h"
 
 // The layout values every built-in theme sets
 typedef struct {
@@ -259,6 +264,8 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
 
     if (exists && !force)
         return defaultTheme;
+    if (exists)
+        [BuiltInThemes resetSidesAndStylesOfTheme:defaultTheme];
 
     defaultTheme.bZAdjustment = -2;
     [BuiltInThemes applyLayout:(BuiltInLayout){
@@ -288,6 +295,16 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
 
     [BuiltInThemes refreshCellSizesOfTheme:defaultTheme];
 
+    [BuiltInThemes addDarkSideToTheme:defaultTheme changes:^(Theme *theme) {
+        theme.bufferBackground = [NSColor blackColor];
+        theme.gridBackground = [NSColor blackColor];
+        theme.borderColor = [NSColor blackColor];
+        theme.gridNormal.color = [NSColor colorWithDeviceRed:0.65 green:0.65 blue:0.65 alpha:1.0];
+        theme.bufferNormal.color = [NSColor colorWithDeviceRed:0.847 green:0.847 blue:0.847 alpha:1.0];
+        theme.bufInput.color = [NSColor colorWithDeviceRed:0.842 green:0.994 blue:0.820 alpha:1.0];
+        [theme populateStyles];
+    }];
+
     return defaultTheme;
 }
 
@@ -300,6 +317,8 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
 
     if (exists && !force)
         return classicTheme;
+    if (exists)
+        [BuiltInThemes resetSidesAndStylesOfTheme:classicTheme];
 
     classicTheme.bZAdjustment = 0;
 
@@ -332,6 +351,16 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
 
     [BuiltInThemes refreshCellSizesOfTheme:classicTheme];
 
+    [BuiltInThemes addDarkSideToTheme:classicTheme changes:^(Theme *theme) {
+        theme.bufferBackground = [NSColor blackColor];
+        theme.gridBackground = [NSColor blackColor];
+        theme.borderColor = [NSColor blackColor];
+        theme.gridNormal.color = [NSColor colorWithDeviceRed:0.65 green:0.65 blue:0.65 alpha:1.0];
+        theme.bufferNormal.color = [NSColor colorWithDeviceRed:0.847 green:0.847 blue:0.847 alpha:1.0];
+        theme.bufInput.color = [NSColor colorWithDeviceRed:0.842 green:0.994 blue:0.820 alpha:1.0];
+        [theme populateStyles];
+    }];
+
     return classicTheme;
 }
 
@@ -344,6 +373,8 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
 
     if (exists && !force)
         return gargoyleTheme;
+    if (exists)
+        [BuiltInThemes resetSidesAndStylesOfTheme:gargoyleTheme];
 
     gargoyleTheme.bZAdjustment = 0;
 
@@ -381,6 +412,18 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
 
     [BuiltInThemes refreshCellSizesOfTheme:gargoyleTheme];
 
+    [BuiltInThemes addDarkSideToTheme:gargoyleTheme changes:^(Theme *theme) {
+        theme.bufferBackground = [NSColor blackColor];
+        theme.gridBackground = [NSColor blackColor];
+        theme.borderColor = [NSColor blackColor];
+        theme.gridNormal.color = [NSColor colorWithDeviceRed:0.65 green:0.65 blue:0.65 alpha:1.0];
+        theme.bufferNormal.color = [NSColor colorWithDeviceRed:0.847 green:0.847 blue:0.847 alpha:1.0];
+        theme.bufInput.color = [NSColor colorWithDeviceRed:0.842 green:0.994 blue:0.820 alpha:1.0];
+        [theme populateStyles];
+        theme.bufHead.color = theme.bufferNormal.color;
+        theme.bufSubH.color = theme.bufferNormal.color;
+    }];
+
     return gargoyleTheme;
 }
 
@@ -392,6 +435,8 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
 
     if (exists && !force)
         return lectroteTheme;
+    if (exists)
+        [BuiltInThemes resetSidesAndStylesOfTheme:lectroteTheme];
 
     lectroteTheme.bZAdjustment = -4;
 
@@ -425,6 +470,16 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
 
     [lectroteTheme populateStyles];
 
+    [BuiltInThemes addDarkSideToTheme:lectroteTheme changes:^(Theme *theme) {
+        theme.gridBackground = [NSColor colorWithDeviceRed:0.991 green:0.957 blue:0.937 alpha:1];
+        theme.bufferBackground = [NSColor blackColor];
+        theme.borderColor = [NSColor blackColor];
+        theme.bufferNormal.color = [NSColor colorWithDeviceRed:0.991 green:0.957 blue:0.937 alpha:1];
+        theme.bufInput.color = [NSColor colorWithDeviceRed:0.842 green:0.994 blue:0.820 alpha:1];
+        theme.gridNormal.color = [NSColor colorWithDeviceRed:0.258 green:0.205 blue:0.145 alpha:1];
+        [theme populateStyles];
+    }];
+
     return lectroteTheme;
 }
 
@@ -436,6 +491,8 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
 
     if (exists && !force)
         return lectroteDarkTheme;
+    if (exists)
+        [BuiltInThemes resetSidesAndStylesOfTheme:lectroteDarkTheme];
 
     lectroteDarkTheme.bZAdjustment = -4;
 
@@ -480,6 +537,8 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
 
     if (exists && !force)
         return zoomTheme;
+    if (exists)
+        [BuiltInThemes resetSidesAndStylesOfTheme:zoomTheme];
 
     zoomTheme.bZAdjustment = 0;
 
@@ -530,6 +589,22 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
     }];
     zoomTheme.bufHead.autogenerated = NO;
 
+    // Zoom's cream paper turned into dark olive paper with cream text
+    [BuiltInThemes addDarkSideToTheme:zoomTheme changes:^(Theme *theme) {
+        NSColor *zoomCream = [NSColor colorWithDeviceRed:1 green:0.996 blue:0.820 alpha:1];
+        NSColor *zoomDarkPaper = [NSColor colorWithDeviceRed:0.12 green:0.12 blue:0.08 alpha:1];
+        theme.gridBackground = zoomDarkPaper;
+        theme.bufferBackground = zoomDarkPaper;
+        theme.borderColor = zoomDarkPaper;
+        theme.bufferNormal.color = zoomCream;
+        theme.gridNormal.color = zoomCream;
+        theme.bufInput.color = [NSColor colorWithDeviceRed:0.85 green:0.95 blue:0.70 alpha:1.0];
+        [theme populateStyles];
+        theme.bufBlock.color = zoomCream;
+        theme.bufSubH.color = zoomCream;
+        theme.bufHead.color = zoomCream;
+    }];
+
     return zoomTheme;
 }
 
@@ -551,6 +626,8 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
 
     if (exists && !force)
         return dosTheme;
+    if (exists)
+        [BuiltInThemes resetSidesAndStylesOfTheme:dosTheme];
 
     dosTheme.bZAdjustment = 0;
 
@@ -615,6 +692,8 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
 
     if (exists && !force)
         return dosBoxTheme;
+    if (exists)
+        [BuiltInThemes resetSidesAndStylesOfTheme:dosBoxTheme];
 
     dosBoxTheme.bZAdjustment = -2;
 
@@ -671,6 +750,8 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
 
     if (exists && !force)
         return montserratTheme;
+    if (exists)
+        [BuiltInThemes resetSidesAndStylesOfTheme:montserratTheme];
 
     [BuiltInThemes applyLayout:(BuiltInLayout){
         .rows = 50, .cols = 65,
@@ -733,6 +814,19 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
 
     [BuiltInThemes refreshCellSizesOfTheme:montserratTheme];
 
+    [BuiltInThemes addDarkSideToTheme:montserratTheme changes:^(Theme *theme) {
+        theme.gridBackground = [NSColor blackColor];
+        theme.bufferBackground = [NSColor blackColor];
+        theme.borderColor = [NSColor blackColor];
+        theme.gridNormal.color = [NSColor colorWithDeviceRed:0.847 green:0.847 blue:0.847 alpha:1.0];
+        theme.bufferNormal.color = [NSColor colorWithDeviceRed:0.847 green:0.847 blue:0.847 alpha:1.0];
+        theme.bufInput.color = [NSColor whiteColor];
+        [theme populateStyles];
+        theme.bufBlock.color = [NSColor colorWithDeviceRed:0.75 green:0.75 blue:0.75 alpha:1.0];
+        theme.bufHead.color = [NSColor whiteColor];
+        theme.bufSubH.color = [NSColor colorWithDeviceRed:0.9 green:0.9 blue:0.9 alpha:1.0];
+    }];
+
     return montserratTheme;
 }
 
@@ -744,6 +838,8 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
 
     if (exists && !force)
         return autoMapTheme;
+    if (exists)
+        [BuiltInThemes resetSidesAndStylesOfTheme:autoMapTheme];
 
     [BuiltInThemes applyLayout:(BuiltInLayout){
         .rows = 59, .cols = 80,
@@ -775,7 +871,50 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
 
     [BuiltInThemes refreshCellSizesOfTheme:autoMapTheme];
 
+    [BuiltInThemes addDarkSideToTheme:autoMapTheme changes:^(Theme *theme) {
+        theme.gridBackground = [NSColor blackColor];
+        theme.bufferBackground = [NSColor blackColor];
+        theme.borderColor = [NSColor blackColor];
+        theme.gridNormal.color = [NSColor colorWithDeviceRed:0.847 green:0.847 blue:0.847 alpha:1.0];
+        theme.bufferNormal.color = [NSColor colorWithDeviceRed:0.847 green:0.847 blue:0.847 alpha:1.0];
+        [theme populateStyles];
+    }];
+
     return autoMapTheme;
+}
+
+#pragma mark Light and dark sides
+
+// Before a rebuild. The theme may be showing its dark side, and the code
+// that builds a theme only sets what differs from a new one, so anything
+// left in place would end up on the rebuilt light side.
++ (void)resetSidesAndStylesOfTheme:(Theme *)theme {
+    theme.inactiveSideData = nil;
+    theme.sideIsDark = NO;
+    theme.borderColor = nil;
+    for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {
+        for (NSString *key in @[ gBufferStyleNames[i], gGridStyleNames[i] ]) {
+            GlkStyle *style = [theme valueForKey:key];
+            if (!style)
+                continue;
+            [theme setValue:nil forKey:key];
+            [theme.managedObjectContext deleteObject:style];
+        }
+    }
+    [theme populateStyles];
+    [theme resetCommonValues];
+}
+
+// The built-in themes are built as their light side. changes turn a copy of
+// it into the dark side.
++ (void)addDarkSideToTheme:(Theme *)theme changes:(void (^)(Theme *theme))changes {
+    theme.inactiveSideData = nil;
+    NSDictionary *lightSide = [theme sideSnapshot];
+    changes(theme);
+    NSDictionary *darkSide = [theme sideSnapshot];
+    [theme applySideSnapshot:lightSide];
+    [theme setInactiveSide:darkSide activeIsDark:NO];
+    [theme activateSideForDark:[Preferences themeSidesAreDark]];
 }
 
 + (Theme *)findOrCreateTheme:(NSString *)themeName inContext:(NSManagedObjectContext *)context alreadyExists:(BOOL *)existsFlagPointer {

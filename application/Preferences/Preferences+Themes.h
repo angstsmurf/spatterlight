@@ -2,15 +2,17 @@
 
 /*
  * The themes table: selection, renaming, adding, removing and deleting
- * themes, the one-theme-for-all scope, and the light/dark mode overrides.
+ * themes, the one-theme-for-all scope, the themes that Fabulich mode shows and hides, and switching that mode.
  */
 
 @interface Preferences (Themes)
 
-+ (kModeType)currentSystemMode;
 - (void)noteColorModeChanged:(NSNotification *)notification;
-- (void)lightOrDarkOverrideWasRemoved;
-- (void)findDarkAndLightThemes;
+- (void)startObservingEffectiveAppearance;
+- (void)updateStylesHeader;
+- (void)applyThemeFilter;
+- (BOOL)themeIsVisible:(Theme *)t;
+- (IBAction)toggleFabulichMode:(id)sender;
 - (void)noteManagedObjectContextDidChange:(NSNotification *)notify;
 - (void)restoreThemeSelection:(Theme *)sender;
 - (void)stopWaitingForThemesTable;

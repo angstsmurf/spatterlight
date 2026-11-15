@@ -47,9 +47,30 @@
     if (scalefactor < 0)
         scalefactor = fabs(scalefactor);
 
-    [Preferences.instance cloneThemeIfNotEditable];
+    // Zooming applies to both light and dark mode
+    [Preferences.instance cloneThemeIfNotEditableKeepingSides];
 
-    for (GlkStyle *style in self.theme.allStyles) {
+    Theme *theme = self.theme;
+    [Preferences scaleStylesOfTheme:theme by:scalefactor];
+
+    if (theme.hasSeparateSides) {
+        BOOL activeIsDark = theme.sideIsDark;
+        [theme activateSideForDark:!activeIsDark];
+        [Preferences scaleStylesOfTheme:theme by:scalefactor];
+        [Preferences rebuildTextAttributes];
+        [theme activateSideForDark:activeIsDark];
+    }
+
+    [Preferences rebuildTextAttributes];
+
+    /* send notification that default size has changed -- resize all windows */
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:kDefaultSizeChangedNotification
+     object:self.theme];
+}
+
++ (void)scaleStylesOfTheme:(Theme *)themeToScale by:(CGFloat)scalefactor {
+    for (GlkStyle *style in themeToScale.allStyles) {
         [style updateAttributes:^(NSMutableDictionary *dict) {
             NSFont *font = dict[NSFontAttributeName];
             CGFloat fontSize = font.pointSize * scalefactor;
@@ -82,13 +103,6 @@
             dict[NSParagraphStyleAttributeName] = para;
         }];
     }
-
-    [Preferences rebuildTextAttributes];
-
-    /* send notification that default size has changed -- resize all windows */
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:kDefaultSizeChangedNotification
-     object:self.theme];
 }
 
 - (void)updatePanelAfterZoom {

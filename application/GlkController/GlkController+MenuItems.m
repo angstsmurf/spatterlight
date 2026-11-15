@@ -121,9 +121,6 @@ static void setLikeMenuItem(NSMenuItem *menuItem, BOOL on, NSString *onTitle, NS
         setLikeMenuItem(menuItem, self.game.like == 2,
                         NSLocalizedString(@"Disliked", @"Disliked"), NSLocalizedString(@"Dislike", @"Dislike"));
     } else if (action == @selector(applyTheme:)) {
-        Preferences *prefs = [Preferences instance];
-        if (prefs.darkOverrideActive || prefs.lightOverrideActive)
-            return NO;
         for (NSMenuItem *item in libcontroller.mainThemesSubMenu.submenu.itemArray) {
             item.state = [item.title isEqual:self.game.theme.name] ? NSControlStateValueOn : NSControlStateValueOff;
         }

@@ -20,9 +20,9 @@ typedef NS_ENUM(int32_t, kImageReplacementPrefsType) {
     kAskIfReplace,
 };
 
-typedef NS_ENUM(NSUInteger, kModeType) {
-    kDarkMode,
-    kLightMode
+typedef NS_ENUM(NSUInteger, kAppearanceType) {
+    kDarkAppearance,
+    kLightAppearance
 };
 
 // Notifications posted when theme settings change. The object is the
@@ -39,6 +39,9 @@ extern NSNotificationName const kColorModeChangedNotification;
 + (void)rebuildTextAttributes;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) Theme *cloneThemeIfNotEditable;
+/// Like cloneThemeIfNotEditable, but does not give the theme a separate side
+/// for the current mode: for changes that apply to both sides.
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) Theme *cloneThemeIfNotEditableKeepingSides;
 
 #pragma mark Themes
 
@@ -56,6 +59,9 @@ extern NSNotificationName const kColorModeChangedNotification;
 
 // The theme the panel shows and edits; the default theme if there is none
 @property (class, readonly) Theme *currentTheme;
+/// NO for the built-in themes that the current mode hides: Lectrote Dark
+/// in Fabulich mode.
++ (BOOL)themeIsVisibleInCurrentMode:(Theme *)theme;
 
 // The preferences window controller, once its window has loaded
 @property (class, readonly) Preferences *instance;
@@ -63,13 +69,10 @@ extern NSNotificationName const kColorModeChangedNotification;
 + (void)changeCurrentGlkController:(GlkController *)ctrl;
 - (void)updatePrefsPanel;
 
-+ (kModeType)currentSystemMode;
+/// Override if set, else system. Used for theme light/dark color resolution.
++ (kAppearanceType)resolvedAppearance;
 
 @property (nonatomic) Theme *defaultTheme ;
-@property Theme *darkTheme;
-@property Theme *lightTheme;
-@property BOOL darkOverrideActive;
-@property BOOL lightOverrideActive;
 
 @property (readonly) CoreDataManager *coreDataManager;
 @property (readonly) NSArray *sortDescriptors;
@@ -84,6 +87,12 @@ extern NSNotificationName const kColorModeChangedNotification;
 // Outlets used outside the Preferences implementation
 @property (weak) IBOutlet NSColorWell *borderColorWell;
 @property (weak) IBOutlet NSButton *addToLibraryCheckbox;
+
+/// The light/dark mode symbols beside the header of each tab (Preferences+Appearance).
+@property (nonatomic, strong) NSArray<NSControl *> *appearanceToggleButtons;
+
+/// Enters or leaves Fabulich mode, as the button in the Global panel does.
+- (void)setFabulichModeEnabled:(BOOL)on;
 
 // The text view the font panel targets while the panel edits a theme style
 @property (nonatomic, readonly) DummyTextView *dummyTextView;

@@ -38,6 +38,9 @@
 // lockFocus (hence florpCoords).
 @interface GlkGraphicsWindow () {
     BOOL transparent;
+    // bgnd holds the theme's default background, resolved when it was set,
+    // and follows a light/dark switch (see prefsDidChange).
+    BOOL bgndIsDefault;
     NSMutableArray <NSValue *> *dirtyRects;
     NSMutableArray <SubImage *> *subImages;
     // Stands in for the window's contents when VoiceOver should speak all
@@ -132,6 +135,7 @@ static NSSize SPResolveImageSize(NSSize srcsize, NSInteger w, NSInteger h,
         }
         transparent = [decoder decodeBoolForKey:@"transparent"];
         _showingImage = [decoder decodeBoolForKey:@"showingImage"];
+        bgndIsDefault = [decoder decodeBoolForKey:@"bgndIsDefault"];
         subImages = [[decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSMutableArray class], [SubImage class], nil]
                                              forKey:@"subImages"] mutableCopy] ?: [NSMutableArray new];
         // Older versions stored the "Image" placeholder among the real images.
@@ -157,6 +161,7 @@ static NSSize SPResolveImageSize(NSSize srcsize, NSInteger w, NSInteger h,
     [encoder encodeObject:subImages forKey:@"subImages"];
     [encoder encodeBool:transparent forKey:@"transparent"];
     [encoder encodeBool:_showingImage forKey:@"showingImage"];
+    [encoder encodeBool:bgndIsDefault forKey:@"bgndIsDefault"];
 }
 
 - (void)dealloc {
@@ -318,7 +323,8 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
     if (SPIsZColor(bc, zcolor_Current))
         return;
     NSColor *color;
-    if (SPIsZColor(bc, zcolor_Default)) {
+    bgndIsDefault = SPIsZColor(bc, zcolor_Default);
+    if (bgndIsDefault) {
         color = self.glkctl.theme.bufferBackground;
         bgnd = color.integerColor;
     } else {
@@ -330,6 +336,24 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
         self.layer.backgroundColor = NSColor.clearColor.CGColor;
     else
         self.layer.backgroundColor = color.CGColor;
+}
+
+// A default background is looked up again after a light/dark switch. The
+// pixels already drawn are the game's to repaint, and the forced arrange that
+// follows the switch asks it to; only a window with nothing drawn in it yet
+// is refilled here, as clear would.
+- (void)prefsDidChange {
+    if (!bgndIsDefault)
+        return;
+    NSColor *color = self.glkctl.theme.bufferBackground;
+    if (!color || color.integerColor == bgnd)
+        return;
+    bgnd = color.integerColor;
+    if (!transparent)
+        self.layer.backgroundColor = color.CGColor;
+    if (!_showingImage && !NSEqualSizes(NSZeroSize, self.image.size))
+        [self clear];
+    [self recalcBackground];
 }
 
 - (void)recalcBackground {

@@ -57,14 +57,19 @@ NSNotificationName const kColorModeChangedNotification = @"ColorModeChanged";
 
 + (void)readDefaults {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *name = [defaults objectForKey:kThemeNameKey];
-
-    if (!name)
-        name = @"Old settings";
 
     CoreDataManager *coreDataManager = ((AppDelegate*)NSApp.delegate).coreDataManager;
 
     NSManagedObjectContext *managedObjectContext = coreDataManager.mainManagedObjectContext;
+
+    // Before reading the theme name: this may delete the saved theme and
+    // change the name.
+    BOOL migratedToThemeSides = [Preferences migrateToThemeSidesIfNeededInContext:managedObjectContext];
+
+    NSString *name = [defaults objectForKey:kThemeNameKey];
+
+    if (!name)
+        name = @"Old settings";
 
     Theme *savedTheme = [Fetches findTheme:name inContext:managedObjectContext];
     if (!savedTheme) {
@@ -79,7 +84,8 @@ NSNotificationName const kColorModeChangedNotification = @"ColorModeChanged";
 
     // Rebuild default themes the first time a new Spatterlight version is run (or the preferences are deleted.)
     // Rebuilding is so quick that this may be overkill. Perhaps we should just rebuild on every run?
-    BOOL forceRebuild = NO;
+    // Moving to theme sides rebuilds them too.
+    BOOL forceRebuild = migratedToThemeSides;
     NSString *appBuildString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
 
     NSString *lastThemesRebuild = [defaults objectForKey:kLastThemesRebuildKey];
@@ -92,6 +98,8 @@ NSNotificationName const kColorModeChangedNotification = @"ColorModeChanged";
     // We may or may not have created the Default and Old themes already above.
     // Then these won't be recreated below.
     [BuiltInThemes createBuiltInThemesInContext:managedObjectContext forceRebuild:forceRebuild];
+
+    [Preferences activateThemeSidesInContext:managedObjectContext];
 }
 
 + (void)changeCurrentGlkController:(GlkController *)ctrl {
@@ -221,11 +229,17 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
 
     [self setUpScrollView];
 
+    [self configureAppearanceToggleButtons];
+
     [self changeThemeName:self.theme.name];
 
     NSToolbar *toolbar = [self setUpToolbar];
 
     _previewShown = [[NSUserDefaults standardUserDefaults] boolForKey:kShowThemePreviewKey];
+
+    // Adding a theme must not bring back the themes hidden in this mode.
+    _arrayController.clearsFilterPredicateOnInsertion = NO;
+    [self applyThemeFilter];
 
     // The tool menu is also the contextual menu of the themes table, where
     // it applies to the clicked theme. Skip the hidden pull-down title item.
@@ -312,12 +326,10 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
     // can be measured when the window is fitted below.
     [_previewController updatePreviewText];
 
-    [self findDarkAndLightThemes];
-    if (_lightTheme && [Preferences currentSystemMode] == kLightMode) {
-        _lightOverrideActive = YES;
-    } else if (_darkTheme && [Preferences currentSystemMode] == kDarkMode) {
-        _darkOverrideActive = YES;
-    }
+    // The system may have switched to the overridden mode while Spatterlight
+    // was not running.
+    [Preferences dropOverrideMatchingSystem];
+    [Preferences applyAppearanceOverrideToApp];
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     _oneThemeForAll = [defaults boolForKey:kOneThemeForAllKey];
@@ -359,6 +371,7 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
     for (NSToolbarItemIdentifier identifier in itemIdentifierToViewDict)
         heights[identifier] = @(NSHeight(itemIdentifierToViewDict[identifier].frame));
     itemIdentifierToHeightDict = heights;
+    _btnFabulichMode.state = [Preferences fabulichMode] ? NSControlStateValueOn : NSControlStateValueOff;
 
     NSToolbar *toolbar = [[NSToolbar alloc] initWithIdentifier:@"prefsToolbar"];
     toolbar.delegate = self;
@@ -427,6 +440,7 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
                                                object:_managedObjectContext];
 
     [[NSDistributedNotificationCenter defaultCenter] addObserver:self selector:@selector(noteColorModeChanged:) name:@"AppleInterfaceThemeChangedNotification" object:nil];
+    [self startObservingEffectiveAppearance];
 }
 
 #pragma mark Update panels
@@ -484,10 +498,6 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
 - (void)updateThemesPane {
     _btnOneThemeForAll.state = _oneThemeForAll;
     _btnAdjustSize.state = _adjustSize;
-
-    _darkModeMenuItem.state = self.theme.hardDark;
-
-    _lightModeMenuItem.state = self.theme.hardLight;
 }
 
 - (void)updateStylesPane {
@@ -505,6 +515,8 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
     btnEnableStyles.state = self.theme.doStyles;
 
     _btnOverwriteStyles.enabled = self.theme.hasCustomStyles;
+
+    [self updateStylesHeader];
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [_windowTypePopup selectItemWithTag:
@@ -527,6 +539,7 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
 
     _btnAutoBorderColor.state = self.theme.borderBehavior == kAutomatic ? NSControlStateValueOn : NSControlStateValueOff;
     _borderColorWell.enabled = (self.theme.borderBehavior == kUserOverride);
+    _borderColorWell.color = self.theme.borderColor;
 
     _btnUnderlineLinksGrid.state = (self.theme.gridLinkStyle == NSUnderlineStyleNone) ? NSControlStateValueOff : NSControlStateValueOn;
     _btnUnderlineLinksBuffer.state = (self.theme.bufLinkStyle == NSUnderlineStyleNone) ? NSControlStateValueOff : NSControlStateValueOn;
@@ -535,10 +548,6 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
     _scrollbackLimitTextField.integerValue = scrollbackLimit;
     _scrollbackLimitStepper.integerValue = scrollbackLimit;
     _scrollbackUnitLabel.stringValue = (scrollbackLimit == 0) ? NSLocalizedString(@"= unlimited", @"= unlimited") : NSLocalizedString(@"characters", @"characters");
-
-    _hardDarkCheckbox.state = self.theme.hardDark;
-
-    _hardLightCheckbox.state = self.theme.hardLight;
 }
 
 - (void)updateFormatPane {
@@ -636,7 +645,7 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
 - (void)setCurrentGame:(Game *)currentGame {
     _currentGame = currentGame;
     _themesHeader.stringValue = [self themeScopeTitle];
-    if (currentGame && currentGame.theme != self.theme && !(_darkOverrideActive || _lightOverrideActive)) {
+    if (currentGame && currentGame.theme != self.theme) {
         [self restoreThemeSelection:currentGame.theme];
     }
 }
@@ -707,33 +716,32 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
             return NO;
         }
     } else if (action == @selector(selectUsingTheme:)) {
-        if ([self themeForMenuCommand:menuItem].games.count == 0 || _oneThemeForAll || _darkOverrideActive || _lightOverrideActive) {
+        if ([self themeForMenuCommand:menuItem].games.count == 0 || _oneThemeForAll) {
             return NO;
         }
     } else if (action == @selector(deleteUserThemes:)) {
         if ([Fetches fetchUserThemesInContext:self.managedObjectContext].count == 0)
             return NO;
-    } else if (action == @selector(editNewEntry:)) {
+    } else if (action == @selector(editNewEntry:) || action == @selector(deleteTheme:)) {
         return [self themeForMenuCommand:menuItem].editable;
-
-    } else if (action == @selector(useInLightMode:) || action == @selector(useInDarkMode:)) {
-        // These act on the selected theme, so in the contextual menu of
-        // another row they only show that theme's state.
-        Theme *target = [self themeForMenuCommand:menuItem];
-        menuItem.state = (action == @selector(useInLightMode:)) ? target.hardLight : target.hardDark;
-        return target == self.theme;
-
     } else if (action == @selector(togglePreview:)) {
         NSString* title = _previewShown ? NSLocalizedString(@"Hide Preview", @"Hide Preview") : NSLocalizedString(@"Show Preview", @"Show Preview");
         ((NSMenuItem*)menuItem).title = title;
-    } else if (action == @selector(clearLightDarkOverrides:)) {
-        return (_darkTheme || _lightTheme);
     }
 
     return YES;
 }
 
 - (Theme *)cloneThemeIfNotEditable {
+    Theme *result = [self cloneThemeIfNotEditableKeepingSides];
+    // In Fabulich mode, edits only apply to the side of the current mode.
+    // Otherwise only the light side is used, and edits go there.
+    if ([Preferences fabulichMode] && !result.hasSeparateSides)
+        [result separateSidesWithActiveDark:[Preferences themeSidesAreDark]];
+    return result;
+}
+
+- (Theme *)cloneThemeIfNotEditableKeepingSides {
     if (!self.theme.editable) {
         Theme *clonedTheme = self.theme.clone;
         clonedTheme.editable = YES;
