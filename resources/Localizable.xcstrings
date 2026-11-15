@@ -1949,6 +1949,9 @@
         }
       }
     },
+    "Remove" : {
+
+    },
     "repeat the text output of the last move" : {
       "comment" : "repeat the text output of the last move",
       "localizations" : {
