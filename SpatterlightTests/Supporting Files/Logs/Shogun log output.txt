@@ -209,6 +209,7 @@ Amiga Interpreter version 6.83
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=38
 [TEXT] You may choose to: 
 [MSG] cmd=NEWWIN a1=4 a2=4 a3=0 len=0
@@ -244,6 +245,7 @@ Amiga Interpreter version 6.83
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=38
 [TEXT] You may choose to: 
 [MSG] cmd=SIZWIN a1=4 a2=0 a3=0 len=24
@@ -3459,6 +3461,7 @@ The sea race quickens. The ship is in the neck and dead, but then the keel scrap
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=NEWWIN a1=4 a2=4 a3=0 len=0
@@ -3494,6 +3497,7 @@ The sea race quickens. The ship is in the neck and dead, but then the keel scrap
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=SIZWIN a1=4 a2=0 a3=0 len=24
@@ -5361,6 +5365,7 @@ As you climb down the gangway you can still feel the sweat trickling down your s
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=NEWWIN a1=4 a2=4 a3=0 len=0
@@ -5396,6 +5401,7 @@ As you climb down the gangway you can still feel the sweat trickling down your s
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=SIZWIN a1=4 a2=0 a3=0 len=24
@@ -5894,6 +5900,7 @@ Yabu smiles happily at you and your crewmen, then points to you and barks an add
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=NEWWIN a1=4 a2=4 a3=0 len=0
@@ -5929,6 +5936,7 @@ Yabu smiles happily at you and your crewmen, then points to you and barks an add
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=SIZWIN a1=4 a2=0 a3=0 len=24
@@ -7188,6 +7196,7 @@ Yabu and Omi are sitting sipping
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=NEWWIN a1=4 a2=4 a3=0 len=0
@@ -7223,6 +7232,7 @@ Yabu and Omi are sitting sipping
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=SIZWIN a1=4 a2=0 a3=0 len=24
@@ -8349,6 +8359,7 @@ Omi and the others waited on the jetty until the galley rounded the headland and
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=NEWWIN a1=4 a2=4 a3=0 len=0
@@ -8384,6 +8395,7 @@ Omi and the others waited on the jetty until the galley rounded the headland and
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=SIZWIN a1=4 a2=0 a3=0 len=24
@@ -10550,6 +10562,7 @@ Rodrigues is tended by a Japanese doctor with strange ideas, such as keeping the
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=NEWWIN a1=4 a2=4 a3=0 len=0
@@ -10585,6 +10598,7 @@ Rodrigues is tended by a Japanese doctor with strange ideas, such as keeping the
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=SIZWIN a1=4 a2=0 a3=0 len=24
@@ -11394,6 +11408,7 @@ Toranaga is livid. Why had Kiyama and Onoshi defected to Ishido? Four to one mea
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=NEWWIN a1=4 a2=4 a3=0 len=0
@@ -11429,6 +11444,7 @@ Toranaga is livid. Why had Kiyama and Onoshi defected to Ishido? Four to one mea
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=SIZWIN a1=4 a2=0 a3=0 len=24
@@ -13306,6 +13322,7 @@ You know, beyond all doubt, because of what Friar Domingo told you about the Por
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=NEWWIN a1=4 a2=4 a3=0 len=0
@@ -13341,6 +13358,7 @@ You know, beyond all doubt, because of what Friar Domingo told you about the Por
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=SIZWIN a1=4 a2=0 a3=0 len=24
@@ -13947,6 +13965,7 @@ Ferriera, the Spanish Captain of the Black Ship, says coldly, "The sooner the he
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=NEWWIN a1=4 a2=4 a3=0 len=0
@@ -13982,6 +14001,7 @@ Ferriera, the Spanish Captain of the Black Ship, says coldly, "The sooner the he
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=SIZWIN a1=4 a2=0 a3=0 len=24
@@ -20562,6 +20582,7 @@ But best of all, he says he will return the
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=NEWWIN a1=4 a2=4 a3=0 len=0
@@ -20597,6 +20618,7 @@ But best of all, he says he will return the
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=SIZWIN a1=4 a2=0 a3=0 len=24
@@ -21436,6 +21458,7 @@ Toranaga studies the scroll interminably.
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=NEWWIN a1=4 a2=4 a3=0 len=0
@@ -21471,6 +21494,7 @@ Toranaga studies the scroll interminably.
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=SIZWIN a1=4 a2=0 a3=0 len=24
@@ -23191,6 +23215,7 @@ Yabu quails as he sees the Imperial seal. No one, not even Toranaga, could refus
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=NEWWIN a1=4 a2=4 a3=0 len=0
@@ -23226,6 +23251,7 @@ Yabu quails as he sees the Imperial seal. No one, not even Toranaga, could refus
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=SIZWIN a1=4 a2=0 a3=0 len=24
@@ -24007,6 +24033,7 @@ Mariko makes a half-bow to the room and leaves. Yabu steps forward with you and 
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=NEWWIN a1=4 a2=4 a3=0 len=0
@@ -24042,6 +24069,7 @@ Mariko makes a half-bow to the room and leaves. Yabu steps forward with you and 
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=SIZWIN a1=4 a2=0 a3=0 len=24
@@ -24786,6 +24814,7 @@ He walks over to the window. "Suppose she's disarmed? Capture her! Confine her u
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=NEWWIN a1=4 a2=4 a3=0 len=0
@@ -24821,6 +24850,7 @@ He walks over to the window. "Suppose she's disarmed? Capture her! Confine her u
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=SIZWIN a1=4 a2=0 a3=0 len=24
@@ -25652,6 +25682,7 @@ Mariko tries to grope to her feet. She fails. She tries a second time. Again she
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=NEWWIN a1=4 a2=4 a3=0 len=0
@@ -25687,6 +25718,7 @@ Mariko tries to grope to her feet. She fails. She tries a second time. Again she
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=SIZWIN a1=4 a2=0 a3=0 len=24
@@ -28624,6 +28656,7 @@ She mounts painfully to the battlement. Everyone bows to her.
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=NEWWIN a1=4 a2=4 a3=0 len=0
@@ -28659,6 +28692,7 @@ She mounts painfully to the battlement. Everyone bows to her.
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=SIZWIN a1=4 a2=0 a3=0 len=24
@@ -29116,6 +29150,7 @@ The pistol is leveled at you, Vinck's eyes staring with demented antagonism, the
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=NEWWIN a1=4 a2=4 a3=0 len=0
@@ -29151,6 +29186,7 @@ The pistol is leveled at you, Vinck's eyes staring with demented antagonism, the
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=SIZWIN a1=4 a2=0 a3=0 len=24
@@ -29923,6 +29959,7 @@ Before long, you and a hundred samurai are working to raise the keel of the
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=NEWWIN a1=4 a2=4 a3=0 len=0
@@ -29958,6 +29995,7 @@ Before long, you and a hundred samurai are working to raise the keel of the
 [MSG] cmd=REFRESH a1=3 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=3 a2=16777215 a3=0 len=0
 [MSG] cmd=CLRWIN a1=3 a2=0 a3=0 len=0
+[MSG] cmd=SETZCOLOR a1=3 a2=0 a3=-2 len=0
 [MSG] cmd=PRINT a1=3 a2=0 a3=0 len=18
 [TEXT] What now?
 [MSG] cmd=SIZWIN a1=4 a2=0 a3=0 len=24
