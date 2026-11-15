@@ -260,7 +260,7 @@ static NSInteger SPAnnouncedSidesDark = -1;
 
     NSMutableArray<NSButton *> *toggles = [NSMutableArray new];
 
-    // One small mode symbol on every tab, to the right of the "Settings for
+    // One small mode symbol on every tab, to the left of the "Settings for
     // theme …" text.
     NSMutableArray<NSView *> *labels = [NSMutableArray new];
     for (NSTextFieldCell *header in @[ self.themesHeader, self.stylesHeader, self.detailsHeader,
@@ -294,7 +294,7 @@ static NSInteger SPAnnouncedSidesDark = -1;
 
         // The header is as wide as its panel in the xib, with centered text.
         // Here it shrinks to its text and stays centered, so that the symbol
-        // can follow the end of the text whatever the theme is called.
+        // can sit just before the text whatever the theme is called.
         CGFloat top = NSHeight(panel.bounds) - NSMaxY(label.frame);
         label.translatesAutoresizingMaskIntoConstraints = NO;
         [label setContentCompressionResistancePriority:NSLayoutPriorityDefaultLow forOrientation:NSLayoutConstraintOrientationHorizontal];
@@ -304,7 +304,7 @@ static NSInteger SPAnnouncedSidesDark = -1;
             [label.centerXAnchor constraintEqualToAnchor:panel.centerXAnchor],
             [label.topAnchor constraintEqualToAnchor:panel.topAnchor constant:top],
             [label.widthAnchor constraintLessThanOrEqualToAnchor:panel.widthAnchor constant:-60],
-            [toggle.leadingAnchor constraintEqualToAnchor:label.trailingAnchor constant:3],
+            [toggle.trailingAnchor constraintEqualToAnchor:label.leadingAnchor constant:-3],
             [toggle.centerYAnchor constraintEqualToAnchor:label.centerYAnchor],
             [toggle.widthAnchor constraintEqualToConstant:15],
             [toggle.heightAnchor constraintEqualToConstant:15],
