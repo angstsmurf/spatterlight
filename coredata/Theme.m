@@ -228,7 +228,7 @@
 
     // If this does not work, we hack it to use Source Code Pro
     if (([mgr traitsOfFont:bufFixed] & NSFixedPitchFontMask) != NSFixedPitchFontMask) {
-        bufFixed = [NSFont fontWithName:@"Source Code Pro" size:bufroman.pointSize];
+        bufFixed = [NSFont fontWithName:@"SourceCodePro-Regular" size:bufroman.pointSize];
         NSFontTraitMask mask = [mgr traitsOfFont:bufroman];
         if (mask & NSItalicFontMask)
             bufFixed = [mgr convertFont:bufFixed toHaveTrait:NSItalicFontMask];

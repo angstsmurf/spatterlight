@@ -97,7 +97,7 @@
     NSFont *font;
     
     if ([self testGridStyle]) {
-        font = [NSFont fontWithName:@"Source Code Pro" size:11];
+        font = [NSFont fontWithName:@"SourceCodePro-Regular" size:11];
 
     } else {
         font = [NSFont fontWithName:@"Helvetica" size:13];
