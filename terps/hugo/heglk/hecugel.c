@@ -660,6 +660,31 @@ int hugo_color(int c)
     return heglk_color_for(curwin, c);
 }
 
+/* RGB, as heglk_rgb_of() converted colour index C, by name where it is one
+ * of the theme's colours: a window painted or printed in the theme's
+ * colours explicitly (a help menu's grid in the main window's colours,
+ * say) then follows a switch between light and dark as it stands, where
+ * the RGB value would leave what is on screen in the old side's colours
+ * until the game drew it again. Only for zcolors and window backgrounds;
+ * the GUI knows no names in style hints or rectangle fills. */
+static int heglk_theme_name(int c, int rgb)
+{
+    switch (c)
+    {
+        case DEF_FCOLOR:    return rgb == gfgcol ? (int)zcolor_ThemeBufferText : rgb;
+        case DEF_BGCOLOR:   return rgb == gbgcol ? (int)zcolor_ThemeBufferBack : rgb;
+        case DEF_SLFCOLOR:  return rgb == gsfgcol ? (int)zcolor_ThemeGridText : rgb;
+        case DEF_SLBGCOLOR: return rgb == gsbgcol ? (int)zcolor_ThemeGridBack : rgb;
+        default:            return rgb;
+    }
+}
+
+/* The background colour index C of window context I, for win_setbgnd() */
+static int heglk_background_for(int i, int c)
+{
+    return heglk_theme_name(c, heglk_color_for(i, c));
+}
+
 struct heglk_zcolors { int fg, bg; };
 
 /* The zcolor pair for printing in the window CTX describes */
@@ -696,6 +721,9 @@ static struct heglk_zcolors heglk_zcolors_of(const struct heglk_colorctx *ctx)
     /* Black on black would vanish, so show it in white */
     if (shown_fg == 0 && (shown_bg == 0 || (z.bg < 0 && ctx->papercolor == 0)))
         z.fg = heglk_rgb_of(ctx, HUGO_WHITE);
+    else
+        z.fg = heglk_theme_name(ctx->fg, z.fg);
+    z.bg = heglk_theme_name(ctx->bg, z.bg);
 
     return z;
 }
@@ -1130,7 +1158,7 @@ static void heglk_set_window_bg(int i)
 {
     wins[i].papercolor = wins[i].bg;
     wins[i].colors_sent = false;
-    win_setbgnd(wins[i].win->peer, heglk_color_for(i, wins[i].bg));
+    win_setbgnd(wins[i].win->peer, heglk_background_for(i, wins[i].bg));
 }
 
 /* Drop any Glk window and heap data belonging to a window context,
@@ -1223,7 +1251,7 @@ void hugo_clearfullscreen(void)
                        SCREENWIDTH,
                        SCREENHEIGHT);
 
-    win_setbgnd(-1, hugo_color(bgcolor));
+    win_setbgnd(-1, heglk_background_for(curwin, bgcolor));
 
     currentpos = 0;
     currentline = 1;
@@ -1362,7 +1390,7 @@ void hugo_clearwindow(void)
 
     if (isfullscreen(&wins[curwin]))
     {
-        win_setbgnd(-1, hugo_color(wins[curwin].bg));
+        win_setbgnd(-1, heglk_background_for(curwin, wins[curwin].bg));
         screen_bg = wins[curwin].bg;
         LOG("Window %d filled the screen, so we set the entire window to its background color.\n", curwin);
     }
@@ -2500,7 +2528,7 @@ static void hugo_mapcurwin(void)
     wins[curwin].papercolor = wins[curwin].bg;
     wins[curwin].colors_sent = false;
     if (hugo_color(wins[curwin].bg) != -1) {
-        win_setbgnd(wins[curwin].win->peer, hugo_color(wins[curwin].bg));
+        win_setbgnd(wins[curwin].win->peer, heglk_background_for(curwin, wins[curwin].bg));
     }
 
     if (wins[curwin].win->type == wintype_TextGrid)
