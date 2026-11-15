@@ -233,9 +233,21 @@ static int os_get_sysinfo_text(int code, long *result)
  *   The colours of the main window and of a text grid, which the banners
  *   take.  They follow the theme, so we measure them again when it changes
  *   (an arrange event); without a status line, on a grid opened for it.
+ *
+ *   Spatterlight has names for them instead, which it resolves whenever it
+ *   draws: text already in a banner follows a change of theme, or of the
+ *   theme's light and dark sides, where a measured colour would stay as it
+ *   was read, and a status banner's colours can't be taken for the main
+ *   window's when the two themes' colours coincide.
  */
 static void measure_colors(void)
 {
+#ifdef SPATTERLIGHT
+    mainfg = zcolor_ThemeBufferText;
+    mainbg = zcolor_ThemeBufferBack;
+    statusfg = zcolor_ThemeGridText;
+    statusbg = zcolor_ThemeGridBack;
+#else
     winid_t grid = statuswin;
 
     /* not the body's, which the main window's style hints have */
@@ -259,6 +271,7 @@ static void measure_colors(void)
 
     if (grid != statuswin)
         glk_window_close(grid, 0);
+#endif /* SPATTERLIGHT */
 }
 
 int os_init(int *argc, char *argv[], const char *prompt,

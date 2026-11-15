@@ -29,6 +29,7 @@
 #import "GlkTextGridWindow.h"
 #import "Theme.h"
 #import "GlkStyle.h"
+#import "ZColor.h"
 #import "BuiltInThemes.h"
 #import "NSColor+integer.h"
 #import "Preferences+Appearance.h"
@@ -481,6 +482,159 @@
                    stylehint_just_LeftFlush);
     XCTAssertEqual([self measureWindow:grid controller:ctl style:style_User1 hint:stylehint_Justification],
                    stylehint_just_LeftFlush);
+}
+
+#pragma mark Measured colors across a light/dark switch
+
+// The Default theme, showing its light side whatever the machine is set to.
+- (Theme *)lightSideTheme {
+    XCTAssertTrue(self.theme.hasSeparateSides);
+    [self.theme activateSideForDark:NO];
+    return self.theme;
+}
+
+// The four colors TADS reads in measure_colors() (osglk.c), in its order:
+// main text, main background, status text, status background.
+- (NSArray<NSNumber *> *)measureTadsColorsOnBuffer:(GlkWindow *)buffer
+                                              grid:(GlkWindow *)grid
+                                        controller:(GlkController *)ctl {
+    return @[
+        @([self measureWindow:buffer controller:ctl style:style_Normal hint:stylehint_TextColor]),
+        @([self measureWindow:buffer controller:ctl style:style_Normal hint:stylehint_BackColor]),
+        @([self measureWindow:grid controller:ctl style:style_Normal hint:stylehint_TextColor]),
+        @([self measureWindow:grid controller:ctl style:style_Normal hint:stylehint_BackColor]),
+    ];
+}
+
+// A color read from the light side and still held by the game after the
+// switch follows its style to the dark side. (No other color of the Default
+// theme is white on the light side, so nothing can be confused here.)
+- (void)testStaleMeasuredBackgroundFollowsTheSwitch {
+    Theme *theme = [self lightSideTheme];
+    GlkController *ctl = [self makeBareControllerWithTheme:theme];
+    GlkTextBufferWindow *buffer = [[GlkTextBufferWindow alloc] initWithGlkController:ctl name:1];
+
+    NSInteger lightBackground = [self measureWindow:buffer controller:ctl
+                                              style:style_Normal hint:stylehint_BackColor];
+    [theme activateSideForDark:YES];
+    NSInteger darkBackground = theme.bufferBackground.integerColor;
+    XCTAssertNotEqual(lightBackground, darkBackground);
+
+    XCTAssertEqual([ctl currentValueForMeasuredColor:lightBackground], darkBackground);
+}
+
+// TADS measures its colors again on every arrange event (redraw_windows), so
+// after a switch it holds the dark side's values. Those are current and must
+// come back unchanged, even where the same value meant something else on the
+// light side: in the Default theme the light status text is the dark main
+// text, and black is the light main text and the dark main background.
+- (void)testColorsMeasuredAfterTheSwitchAreNotTranslated {
+    Theme *theme = [self lightSideTheme];
+    GlkController *ctl = [self makeBareControllerWithTheme:theme];
+    GlkTextBufferWindow *buffer = [[GlkTextBufferWindow alloc] initWithGlkController:ctl name:1];
+    GlkTextGridWindow *grid = [[GlkTextGridWindow alloc] initWithGlkController:ctl name:2];
+
+    NSArray<NSNumber *> *light = [self measureTadsColorsOnBuffer:buffer grid:grid controller:ctl];
+    [theme activateSideForDark:YES];
+    // A window caches its style attributes, and prefsDidChange, which
+    // refreshes them in the app, wants more of a window than a bare
+    // controller has. New windows read the theme as it is now.
+    buffer = [[GlkTextBufferWindow alloc] initWithGlkController:ctl name:1];
+    grid = [[GlkTextGridWindow alloc] initWithGlkController:ctl name:2];
+    NSArray<NSNumber *> *dark = [self measureTadsColorsOnBuffer:buffer grid:grid controller:ctl];
+    XCTAssertEqual(dark[0].integerValue, theme.bufferNormal.color.integerColor);
+
+    // The fixture has to hold the collisions for the test to prove anything.
+    XCTAssertEqualObjects(dark[0], light[2], @"dark main text should equal light status text");
+    XCTAssertEqualObjects(dark[1], light[0], @"dark main background should equal light main text");
+
+    NSArray<NSString *> *names = @[ @"main text", @"main background", @"status text", @"status background" ];
+    for (NSUInteger i = 0; i < dark.count; i++) {
+        NSInteger value = dark[i].integerValue;
+        XCTAssertEqual([ctl currentValueForMeasuredColor:value], value,
+                       @"dark %@ 0x%06lx, measured on the dark side, was translated",
+                       names[i], (long)value);
+    }
+}
+
+// Two styles of one side can share a color: black is both the main text and
+// the status background on the light side of the Default theme. A game that
+// read the status background and still holds it after the switch means the
+// status background.
+- (void)testStaleStatusBackgroundIsNotTakenForMainText {
+    Theme *theme = [self lightSideTheme];
+    GlkController *ctl = [self makeBareControllerWithTheme:theme];
+    GlkTextBufferWindow *buffer = [[GlkTextBufferWindow alloc] initWithGlkController:ctl name:1];
+    GlkTextGridWindow *grid = [[GlkTextGridWindow alloc] initWithGlkController:ctl name:2];
+
+    NSArray<NSNumber *> *light = [self measureTadsColorsOnBuffer:buffer grid:grid controller:ctl];
+    XCTAssertEqualObjects(light[3], light[0], @"light status background should equal light main text");
+
+    [theme activateSideForDark:YES];
+    ZColor *held = [[ZColor alloc] initWithText:zcolor_Default background:light[3].integerValue];
+    ZColor *shown = [grid translatedZColor:held];
+    XCTAssertEqual(shown.bg, theme.gridBackground.integerColor,
+                   @"a status background read on the light side became 0x%06lx", (long)shown.bg);
+}
+
+// A color the game chose itself is not a theme color, even when it has the
+// value of one the game has measured: white text on the game's own navy
+// stays white on the dark side, although white was the light background.
+- (void)testGameColorEqualToAMeasuredBackgroundIsLeftAlone {
+    Theme *theme = [self lightSideTheme];
+    GlkController *ctl = [self makeBareControllerWithTheme:theme];
+    GlkTextBufferWindow *buffer = [[GlkTextBufferWindow alloc] initWithGlkController:ctl name:1];
+
+    NSInteger lightBackground = [self measureWindow:buffer controller:ctl
+                                              style:style_Normal hint:stylehint_BackColor];
+    XCTAssertEqual(lightBackground, 0xffffff);
+
+    [theme activateSideForDark:YES];
+    ZColor *game = [[ZColor alloc] initWithText:0xffffff background:0x000080];
+    ZColor *shown = [buffer translatedZColor:game];
+    XCTAssertEqual(shown.fg, 0xffffff,
+                   @"the game's white text became 0x%06lx on the dark side", (long)shown.fg);
+    XCTAssertEqual(shown.bg, 0x000080);
+}
+
+// TADS shows a status line's colours in a text buffer, reversed. It gives
+// them by name, so they are the grid's on either side whatever the buffer's
+// own colours are.
+- (void)testThemeColorsByNameFollowTheSwitch {
+    Theme *theme = [self lightSideTheme];
+    GlkController *ctl = [self makeBareControllerWithTheme:theme];
+    GlkTextBufferWindow *buffer = [[GlkTextBufferWindow alloc] initWithGlkController:ctl name:1];
+    ZColor *status = [[ZColor alloc] initWithText:zcolor_ThemeGridBack background:zcolor_ThemeGridText];
+
+    for (NSNumber *dark in @[ @NO, @YES ]) {
+        [theme activateSideForDark:dark.boolValue];
+        ZColor *shown = [buffer translatedZColor:status];
+        NSColor *gridText = theme.gridNormal.attributeDict[NSForegroundColorAttributeName];
+        XCTAssertEqual(shown.fg, theme.gridBackground.integerColor, @"dark side: %@", dark);
+        XCTAssertEqual(shown.bg, gridText.integerColor, @"dark side: %@", dark);
+    }
+
+    // A window background arrives as a signed int
+    XCTAssertEqualObjects([ctl themeColorForReference:(int)zcolor_ThemeBufferBack], theme.bufferBackground);
+    XCTAssertEqualObjects([ctl themeColorForReference:zcolor_ThemeBufferBack], theme.bufferBackground);
+    XCTAssertNil([ctl themeColorForReference:(int)zcolor_Default]);
+    XCTAssertNil([ctl themeColorForReference:(int)zcolor_Transparent]);
+    XCTAssertNil([ctl themeColorForReference:0xffffff]);
+}
+
+// An autosave made before a colour could have several measurements holds one
+// for each colour.
+- (void)testMeasuredColorAnswersOfAnOlderArchiveAreConverted {
+    NSArray *record = @[ @NO, @NO, @(style_Normal), @(stylehint_BackColor), @"Default" ];
+    NSArray *other = @[ @YES, @YES, @(style_Normal), @(stylehint_TextColor), @"Default" ];
+    NSDictionary *answers = [GlkController normalizedMeasuredColorAnswers:@{ @0xffffff : record }];
+    XCTAssertEqualObjects(answers, @{ @0xffffff : @[ record ] });
+
+    answers = [GlkController normalizedMeasuredColorAnswers:@{ @0xffffff : @[ record, other, record ] }];
+    XCTAssertEqualObjects(answers, (@{ @0xffffff : @[ record, other ] }));
+
+    XCTAssertNil([GlkController normalizedMeasuredColorAnswers:@{ @0xffffff : @[ @"junk" ] }]);
+    XCTAssertNil([GlkController normalizedMeasuredColorAnswers:nil]);
 }
 
 @end

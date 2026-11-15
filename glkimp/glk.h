@@ -505,6 +505,16 @@ extern glui32 garglk_add_resource_from_file(glui32 usage, const char *filename,
 #define zcolor_Current       ((glui32)0xfffffffe)
 #define zcolor_Default       ((glui32)0xffffffff)
 
+/* Spatterlight only: the theme's own colours by name, wherever a zcolor or a
+ * window background is given. zcolor_Default is the colour of the window it
+ * is used in; these name one whatever the window, as an interpreter needs to
+ * show a status line's colours in a text buffer. Unlike a colour read with
+ * glk_style_measure they follow the theme when it changes. */
+#define zcolor_ThemeBufferText ((glui32)0xfffffff8)
+#define zcolor_ThemeBufferBack ((glui32)0xfffffff9)
+#define zcolor_ThemeGridText   ((glui32)0xfffffffa)
+#define zcolor_ThemeGridBack   ((glui32)0xfffffffb)
+
 extern void garglk_set_zcolors(glui32 fg, glui32 bg);
 extern void garglk_set_zcolors_stream(strid_t str, glui32 fg, glui32 bg);
 extern void garglk_set_reversevideo(glui32 reverse);

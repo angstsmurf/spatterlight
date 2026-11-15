@@ -341,23 +341,82 @@ static void playSoundNamed(NSString *name) {
     }
 }
 
-- (BOOL)isMeasuredDefaultBackground:(NSInteger)value grid:(BOOL)grid {
-    NSArray *record = self.measuredColorAnswers[@(value)];
-    return record.count >= 5 && [record[3] unsignedIntegerValue] == stylehint_BackColor &&
-    [record[1] boolValue] == grid;
++ (NSMutableDictionary<NSNumber *, NSArray<NSArray *> *> *)normalizedMeasuredColorAnswers:(NSDictionary *)answers {
+    if (![answers isKindOfClass:[NSDictionary class]] || !answers.count)
+        return nil;
+    NSMutableDictionary *result = [NSMutableDictionary new];
+    [answers enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
+        if (![key isKindOfClass:[NSNumber class]] || ![value isKindOfClass:[NSArray class]])
+            return;
+        NSArray *list = value;
+        // One measurement for each color, as first archived
+        if (list.count && ![list.firstObject isKindOfClass:[NSArray class]])
+            list = @[ list ];
+        NSMutableArray *records = [NSMutableArray new];
+        for (NSArray *record in list) {
+            if ([record isKindOfClass:[NSArray class]] && record.count >= 5 &&
+                [record[0] isKindOfClass:[NSNumber class]] &&
+                [record[1] isKindOfClass:[NSNumber class]] &&
+                [record[2] isKindOfClass:[NSNumber class]] &&
+                [record[3] isKindOfClass:[NSNumber class]] &&
+                [record[4] isKindOfClass:[NSString class]] &&
+                ![records containsObject:record])
+                [records addObject:record];
+        }
+        if (records.count)
+            result[key] = records.copy;
+    }];
+    return result.count ? result : nil;
 }
 
-- (NSInteger)currentValueForMeasuredColor:(NSInteger)value {
-    NSArray *record = self.measuredColorAnswers[@(value)];
-    if (record.count < 5)
-        return value;
+- (void)recordMeasuredColor:(NSInteger)value record:(NSArray *)record {
+    if (!self.measuredColorAnswers)
+        self.measuredColorAnswers = [NSMutableDictionary new];
+    NSNumber *key = @(value);
+    NSArray<NSArray *> *records = self.measuredColorAnswers[key];
+    if (!records)
+        self.measuredColorAnswers[key] = @[ record ];
+    else if (![records containsObject:record])
+        self.measuredColorAnswers[key] = [records arrayByAddingObject:record];
+}
+
+- (BOOL)isMeasuredDefaultBackground:(NSInteger)value grid:(BOOL)grid {
+    for (NSArray *record in self.measuredColorAnswers[@(value)]) {
+        if ([record[3] unsignedIntegerValue] == stylehint_BackColor &&
+            [record[1] boolValue] == grid)
+            return YES;
+    }
+    return NO;
+}
+
+- (NSColor *)themeColorForReference:(NSInteger)value {
+    Theme *theme = self.theme;
+    switch ((uint32_t)value) {
+        case zcolor_ThemeBufferText:
+            return ((GlkStyle *)[theme valueForKey:gBufferStyleNames[style_Normal]]).attributeDict[NSForegroundColorAttributeName];
+        case zcolor_ThemeBufferBack:
+            return theme.bufferBackground;
+        case zcolor_ThemeGridText:
+            return ((GlkStyle *)[theme valueForKey:gGridStyleNames[style_Normal]]).attributeDict[NSForegroundColorAttributeName];
+        case zcolor_ThemeGridBack:
+            return theme.gridBackground;
+        default:
+            return nil;
+    }
+}
+
+// Whether the current theme and side gave this answer
+- (BOOL)measuredRecordIsCurrent:(NSArray *)record {
+    Theme *theme = self.theme;
     // The theme matters too: an autorestored game may have read its colors
     // from a theme it no longer uses.
-    Theme *theme = self.theme;
-    if ([record[0] boolValue] == theme.sideIsDark &&
-        [record[4] isEqual:(theme.name ?: @"")])
-        return value;
+    return [record[0] boolValue] == theme.sideIsDark &&
+        [record[4] isEqual:(theme.name ?: @"")];
+}
 
+// What the style and hint of a measurement answer now
+- (NSInteger)currentAnswerForMeasuredRecord:(NSArray *)record fallback:(NSInteger)value {
+    Theme *theme = self.theme;
     BOOL isGrid = [record[1] boolValue];
     NSUInteger style = [record[2] unsignedIntegerValue];
     NSUInteger hint = [record[3] unsignedIntegerValue];
@@ -372,6 +431,53 @@ static void playSoundNamed(NSString *name) {
         color = isGrid ? theme.gridBackground : theme.bufferBackground;
     }
     return color ? color.integerColor : value;
+}
+
+- (NSInteger)currentValueForMeasuredColor:(NSInteger)value {
+    NSColor *named = [self themeColorForReference:value];
+    if (named)
+        return named.integerColor;
+    NSArray<NSArray *> *records = self.measuredColorAnswers[@(value)];
+    if (!records.count)
+        return value;
+    // With nothing to tell the meanings of the color apart, one that is
+    // right as it stands wins.
+    for (NSArray *record in records) {
+        if ([self measuredRecordIsCurrent:record])
+            return value;
+    }
+    return [self currentAnswerForMeasuredRecord:records.firstObject fallback:value];
+}
+
+- (NSInteger)currentValueForMeasuredColor:(NSInteger)value hint:(NSUInteger)hint grid:(BOOL)grid {
+    NSColor *named = [self themeColorForReference:value];
+    if (named)
+        return named.integerColor;
+    NSArray<NSArray *> *records = self.measuredColorAnswers[@(value)];
+    if (!records.count)
+        return value;
+
+    // The measurements of this hint, and of them those made in this kind of
+    // window if there are any: the game most likely uses a color where it
+    // read it.
+    NSMutableArray<NSArray *> *sameHint = [NSMutableArray new];
+    NSMutableArray<NSArray *> *sameWindow = [NSMutableArray new];
+    for (NSArray *record in records) {
+        if ([record[3] unsignedIntegerValue] != hint)
+            continue;
+        [sameHint addObject:record];
+        if ([record[1] boolValue] == grid)
+            [sameWindow addObject:record];
+    }
+    NSArray<NSArray *> *candidates = sameWindow.count ? sameWindow : sameHint;
+    if (!candidates.count)
+        return value;
+    for (NSArray *record in candidates) {
+        if ([self measuredRecordIsCurrent:record])
+            return value;
+    }
+    // The latest is the one the game most likely still holds
+    return [self currentAnswerForMeasuredRecord:candidates.lastObject fallback:value];
 }
 
 - (BOOL)handleStyleMeasureOnWin:(GlkWindow *)gwindow
@@ -403,14 +509,10 @@ static void playSoundNamed(NSString *name) {
             // theme's color after a switch. See currentValueForMeasuredColor:.
             NSInteger hinted;
             if (![gwindow getStyleVal:style hint:hint value:&hinted]) {
-                if (!self.measuredColorAnswers)
-                    self.measuredColorAnswers = [NSMutableDictionary new];
-                NSNumber *key = @(*result);
-                if (!self.measuredColorAnswers[key])
-                    self.measuredColorAnswers[key] =
-                    @[ @(self.theme.sideIsDark),
-                       @([gwindow isKindOfClass:[GlkTextGridWindow class]]),
-                       @(style), @(hint), self.theme.name ?: @"" ];
+                [self recordMeasuredColor:*result
+                                   record:@[ @(self.theme.sideIsDark),
+                                             @([gwindow isKindOfClass:[GlkTextGridWindow class]]),
+                                             @(style), @(hint), self.theme.name ?: @"" ]];
             }
             return YES;
         }
@@ -931,10 +1033,26 @@ static NSString *stringFromPayload(char *buf, size_t len) {
     // (Scott, Plus and TADS match their graphics and banner windows to the
     // main window that way) is the default background, and follows a
     // light/dark switch like one.
-    if (color >= 0 &&
-        [self isMeasuredDefaultBackground:color grid:[reqWin isKindOfClass:[GlkTextGridWindow class]]])
+    BOOL grid = [reqWin isKindOfClass:[GlkTextGridWindow class]];
+    if (color >= 0 && [self isMeasuredDefaultBackground:color grid:grid])
         color = -1;
-    NSColor *bg = (color < 0) ? self.theme.bufferBackground : [NSColor colorFromInteger:color];
+
+    // A theme color given by name (zcolor_ThemeGridText and the rest) is
+    // kept as the name, which the window resolves whenever it draws; the
+    // name of the window's own background is the default.
+    NSInteger background = color;
+    NSColor *named = [self themeColorForReference:color];
+    if (named) {
+        background = (uint32_t)color;
+        if (background == (grid ? zcolor_ThemeGridBack : zcolor_ThemeBufferBack)) {
+            background = -1;
+            named = nil;
+        }
+    }
+
+    NSColor *bg = named;
+    if (!bg)
+        bg = (background < 0) ? self.theme.bufferBackground : [NSColor colorFromInteger:background];
     if (win == -1) {
         self.lastAutoBGColor = bg;
         [self setBorderColor:bg];
@@ -942,7 +1060,7 @@ static NSString *stringFromPayload(char *buf, size_t len) {
     }
 
     if (reqWin) {
-        [reqWin setBgColor:color];
+        [reqWin setBgColor:background];
     }
 }
 

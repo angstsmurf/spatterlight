@@ -41,6 +41,9 @@
     // bgnd holds the theme's default background, resolved when it was set,
     // and follows a light/dark switch (see prefsDidChange).
     BOOL bgndIsDefault;
+    // Or another of the theme's colors, by name (zcolor_ThemeGridText and
+    // the rest), followed in the same way; 0 if it is not one.
+    NSInteger bgndThemeColor;
     NSMutableArray <NSValue *> *dirtyRects;
     NSMutableArray <SubImage *> *subImages;
     // Stands in for the window's contents when VoiceOver should speak all
@@ -136,6 +139,7 @@ static NSSize SPResolveImageSize(NSSize srcsize, NSInteger w, NSInteger h,
         transparent = [decoder decodeBoolForKey:@"transparent"];
         _showingImage = [decoder decodeBoolForKey:@"showingImage"];
         bgndIsDefault = [decoder decodeBoolForKey:@"bgndIsDefault"];
+        bgndThemeColor = [decoder decodeIntegerForKey:@"bgndThemeColor"];
         subImages = [[decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSMutableArray class], [SubImage class], nil]
                                              forKey:@"subImages"] mutableCopy] ?: [NSMutableArray new];
         // Older versions stored the "Image" placeholder among the real images.
@@ -162,6 +166,7 @@ static NSSize SPResolveImageSize(NSSize srcsize, NSInteger w, NSInteger h,
     [encoder encodeBool:transparent forKey:@"transparent"];
     [encoder encodeBool:_showingImage forKey:@"showingImage"];
     [encoder encodeBool:bgndIsDefault forKey:@"bgndIsDefault"];
+    [encoder encodeInteger:bgndThemeColor forKey:@"bgndThemeColor"];
 }
 
 - (void)dealloc {
@@ -324,8 +329,13 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
         return;
     NSColor *color;
     bgndIsDefault = SPIsZColor(bc, zcolor_Default);
+    NSColor *named = [self.glkctl themeColorForReference:bc];
+    bgndThemeColor = named ? (uint32_t)bc : 0;
     if (bgndIsDefault) {
         color = self.glkctl.theme.bufferBackground;
+        bgnd = color.integerColor;
+    } else if (named) {
+        color = named;
         bgnd = color.integerColor;
     } else {
         bgnd = bc;
@@ -343,9 +353,10 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
 // follows the switch asks it to; only a window with nothing drawn in it yet
 // is refilled here, as clear would.
 - (void)prefsDidChange {
-    if (!bgndIsDefault)
+    if (!bgndIsDefault && !bgndThemeColor)
         return;
-    NSColor *color = self.glkctl.theme.bufferBackground;
+    NSColor *color = bgndThemeColor ? [self.glkctl themeColorForReference:bgndThemeColor]
+                                    : self.glkctl.theme.bufferBackground;
     if (!color || color.integerColor == bgnd)
         return;
     bgnd = color.integerColor;

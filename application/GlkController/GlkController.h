@@ -63,13 +63,31 @@ typedef NS_ENUM(NSUInteger, kAutoBorderSource) {
 @property NSMutableArray *bufferStyleHints;
 
 /// Theme colors this game has read with glk_style_measure, keyed by the color
-/// answered: @[side was dark, isGrid, style, hint, theme name]. Autosaved,
-/// since the game keeps the values it read. See currentValueForMeasuredColor:.
-@property NSMutableDictionary<NSNumber *, NSArray *> *measuredColorAnswers;
+/// answered. Each value is the list of the measurements that gave that
+/// answer, oldest first, each @[side was dark, isGrid, style, hint, theme
+/// name]: the colors of a theme coincide (black is one side's text and the
+/// other side's background), so one answer may have several meanings.
+/// Autosaved, since the game keeps the values it read. See
+/// currentValueForMeasuredColor:hint:grid:.
+@property NSMutableDictionary<NSNumber *, NSArray<NSArray *> *> *measuredColorAnswers;
+/// measuredColorAnswers as archived by any version: one that kept a single
+/// measurement for each color is converted.
++ (NSMutableDictionary<NSNumber *, NSArray<NSArray *> *> *)normalizedMeasuredColorAnswers:(NSDictionary *)answers;
 /// A color the game passes back that it had read with glk_style_measure from
 /// another theme or the other light/dark side, translated to the value the
-/// same style and hint have now. Any other color is returned unchanged.
+/// same style and hint have now. Any other color is returned unchanged, and
+/// so is one that the current theme and side also gave as an answer.
 - (NSInteger)currentValueForMeasuredColor:(NSInteger)value;
+/// The same for a color in use as hint (stylehint_TextColor or
+/// stylehint_BackColor) in a text grid (grid) or another window. Only the
+/// measurements of that hint count, so that a color of the game's own which
+/// happens to equal a background it measured is not taken for one when it is
+/// used for text; and those made in that kind of window come first. A theme
+/// color given by name (zcolor_ThemeBufferText and the rest) is resolved too.
+- (NSInteger)currentValueForMeasuredColor:(NSInteger)value hint:(NSUInteger)hint grid:(BOOL)grid;
+/// The theme's color for zcolor_ThemeBufferText and the rest, as a signed or
+/// an unsigned 32-bit value, or nil for any other color.
+- (NSColor *)themeColorForReference:(NSInteger)value;
 /// Whether value is a default background this game read from the theme with
 /// glk_style_measure, for a text grid (grid) or a text buffer window.
 - (BOOL)isMeasuredDefaultBackground:(NSInteger)value grid:(BOOL)grid;

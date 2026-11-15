@@ -165,7 +165,7 @@
     }
 
     if (self.theme.doStyles && bgnd > -1 && bgnd != zcolor_Default) {
-        bgcolor = [NSColor colorFromInteger:[self.glkctl currentValueForMeasuredColor:bgnd]];
+        bgcolor = [NSColor colorFromInteger:[self.glkctl currentValueForMeasuredColor:bgnd hint:stylehint_BackColor grid:YES]];
     }
 
     if (!bgcolor)
@@ -255,7 +255,7 @@
             bgCol = self.theme.gridBackground;
         }
         else {
-            bgCol = [NSColor colorFromInteger:[self.glkctl currentValueForMeasuredColor:bgnd]];
+            bgCol = [NSColor colorFromInteger:[self.glkctl currentValueForMeasuredColor:bgnd hint:stylehint_BackColor grid:YES]];
         }
     }
     _pendingBackgroundCol = bgCol;

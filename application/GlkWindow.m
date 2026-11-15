@@ -151,8 +151,9 @@
 - (NSArray *)effectiveHintsForStyle:(NSUInteger)style {
     NSArray *hints = self.styleHints[style];
     GlkController *glkctl = self.glkctl;
-    if (!glkctl.measuredColorAnswers.count || hints.count <= stylehint_BackColor)
+    if (hints.count <= stylehint_BackColor)
         return hints;
+    BOOL grid = [self isKindOfClass:[GlkTextGridWindow class]];
 
     NSMutableArray *translated = nil;
     for (NSNumber *hint in @[ @(stylehint_TextColor), @(stylehint_BackColor) ]) {
@@ -160,7 +161,9 @@
         if ([value isEqual:[NSNull null]])
             continue;
         NSInteger old = ((NSNumber *)value).integerValue;
-        NSInteger now = [glkctl currentValueForMeasuredColor:old];
+        NSInteger now = [glkctl currentValueForMeasuredColor:old
+                                                        hint:hint.unsignedIntegerValue
+                                                        grid:grid];
         if (now != old) {
             if (!translated)
                 translated = [hints mutableCopy];
@@ -170,13 +173,15 @@
     return translated ?: hints;
 }
 
-// Likewise for Z-machine colors the game set from measured values.
+// Likewise for Z-machine colors the game set from measured values, or gave
+// as theme colors by name (zcolor_ThemeGridText and the rest).
 - (ZColor *)translatedZColor:(ZColor *)zcolor {
     GlkController *glkctl = self.glkctl;
-    if (!zcolor || !glkctl.measuredColorAnswers.count)
+    if (!zcolor || !glkctl)
         return zcolor;
-    NSInteger fg = [glkctl currentValueForMeasuredColor:zcolor.fg];
-    NSInteger bg = [glkctl currentValueForMeasuredColor:zcolor.bg];
+    BOOL grid = [self isKindOfClass:[GlkTextGridWindow class]];
+    NSInteger fg = [glkctl currentValueForMeasuredColor:zcolor.fg hint:stylehint_TextColor grid:grid];
+    NSInteger bg = [glkctl currentValueForMeasuredColor:zcolor.bg hint:stylehint_BackColor grid:grid];
     if (fg == zcolor.fg && bg == zcolor.bg)
         return zcolor;
     return [[ZColor alloc] initWithText:fg background:bg];

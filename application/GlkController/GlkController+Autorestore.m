@@ -440,12 +440,18 @@ NSString * const kAutosaveGUILateFile = @"autosave-GUI-late.plist";
         // The restored interpreter still holds the colors it read with
         // glk_style_measure before the autosave. Anything it has measured
         // since launch is kept where the archive has no answer for that color.
-        NSDictionary *restoredAnswers = restoredController.measuredColorAnswers;
+        // A color that both have an answer for keeps the measurements of
+        // both, the archive's first, as the older.
+        NSDictionary<NSNumber *, NSArray<NSArray *> *> *restoredAnswers = restoredController.measuredColorAnswers;
         if (restoredAnswers.count) {
-            NSMutableDictionary *answers = restoredAnswers.mutableCopy;
-            [self.measuredColorAnswers enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, NSArray *record, BOOL *stop) {
-                if (!answers[key])
-                    answers[key] = record;
+            NSMutableDictionary<NSNumber *, NSArray<NSArray *> *> *answers = restoredAnswers.mutableCopy;
+            [self.measuredColorAnswers enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, NSArray<NSArray *> *records, BOOL *stop) {
+                NSMutableArray<NSArray *> *merged = (answers[key] ?: @[]).mutableCopy;
+                for (NSArray *record in records) {
+                    if (![merged containsObject:record])
+                        [merged addObject:record];
+                }
+                answers[key] = merged.copy;
             }];
             self.measuredColorAnswers = answers;
         }
@@ -1113,8 +1119,9 @@ NSString * const kAutosaveGUILateFile = @"autosave-GUI-late.plist";
         self.oldThemeName = [decoder decodeObjectOfClass:[NSString class] forKey:@"oldThemeName"];
         self.lastAutoBGSource = (kAutoBorderSource)[decoder decodeIntegerForKey:@"lastAutoBGSource"];
         self.measuredColorAnswers =
-        [decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSMutableDictionary class], [NSDictionary class], [NSArray class], [NSNumber class], [NSString class], nil]
-                                forKey:@"measuredColorAnswers"];
+        [GlkController normalizedMeasuredColorAnswers:
+         [decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSMutableDictionary class], [NSDictionary class], [NSArray class], [NSNumber class], [NSString class], nil]
+                                 forKey:@"measuredColorAnswers"]];
 
         self.showingCoverImage = [decoder decodeBoolForKey:@"showingCoverImage"];
 
