@@ -17,7 +17,44 @@
 #import "DebugLog.h"
 #import "NSAlert+Spatterlight.h"
 
+// Rounds a rect to whole pixels of the context it is drawn into.
+static NSRect SPRectSnappedToPixels(NSRect rect) {
+    CGContextRef ctx = NSGraphicsContext.currentContext.CGContext;
+    CGRect device = CGContextConvertRectToDeviceSpace(ctx, NSRectToCGRect(rect));
+    device = CGRectMake(round(device.origin.x), round(device.origin.y),
+                        MAX(1, round(device.size.width)), MAX(1, round(device.size.height)));
+    return NSRectFromCGRect(CGContextConvertRectToUserSpace(ctx, device));
+}
+
+// The images of the add and remove buttons below the themes table. The
+// system's NSAddTemplate and NSRemoveTemplate differ in size, and their bars
+// land on different pixel rows with different thicknesses. These two share
+// one bar, snapped to whole pixels, so that in buttons of the same size the
+// bars line up and look the same.
+static NSImage *SPThemeButtonImage(BOOL plus) {
+    const CGFloat side = 13;
+    const CGFloat thickness = 1.5;
+    NSImage *image = [NSImage imageWithSize:NSMakeSize(side, side) flipped:NO drawingHandler:^BOOL(NSRect rect) {
+        [[NSColor blackColor] set];
+        NSRect bar = SPRectSnappedToPixels(NSMakeRect(0, (side - thickness) / 2, side, thickness));
+        [[NSBezierPath bezierPathWithRoundedRect:bar xRadius:NSHeight(bar) / 2 yRadius:NSHeight(bar) / 2] fill];
+        if (plus) {
+            NSRect stem = SPRectSnappedToPixels(NSMakeRect((side - thickness) / 2, 0, thickness, side));
+            [[NSBezierPath bezierPathWithRoundedRect:stem xRadius:NSWidth(stem) / 2 yRadius:NSWidth(stem) / 2] fill];
+        }
+        return YES;
+    }];
+    image.template = YES;
+    image.accessibilityDescription = plus ? NSLocalizedString(@"Add", nil) : NSLocalizedString(@"Remove", nil);
+    return image;
+}
+
 @implementation Preferences (Themes)
+
+- (void)setUpAddRemoveThemeButtons {
+    self.btnAdd.image = SPThemeButtonImage(YES);
+    self.btnRemove.image = SPThemeButtonImage(NO);
+}
 
 #pragma mark Color mode changes
 

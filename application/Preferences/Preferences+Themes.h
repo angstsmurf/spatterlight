@@ -7,6 +7,7 @@
 
 @interface Preferences (Themes)
 
+- (void)setUpAddRemoveThemeButtons;
 - (void)noteColorModeChanged:(NSNotification *)notification;
 - (void)startObservingEffectiveAppearance;
 - (void)updateStylesHeader;

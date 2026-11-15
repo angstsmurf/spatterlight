@@ -222,10 +222,10 @@
                     </textFieldCell>
                 </textField>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V4c-7r-qmI" userLabel="Square Button add">
-                    <rect key="frame" x="18" y="44.5" width="37" height="14"/>
+                    <rect key="frame" x="24" y="45.5" width="26" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <string key="toolTip">Create a new theme based on the current theme and assign it to the current game, if there is one, or to all games, if "Changes apply to all…" is checked.</string>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="only" controlSize="small" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="MPB-Sw-JNe">
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAddTemplate" imagePosition="only" controlSize="small" state="on" inset="2" id="MPB-Sw-JNe">
                         <behavior key="behavior" lightByContents="YES"/>
                         <font key="font" metaFont="smallSystem"/>
                     </buttonCell>
@@ -316,11 +316,11 @@
                     </scroller>
                 </scrollView>
                 <button toolTip="Delete the current theme. Any games using it will be assigned the theme it is based on." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NbE-Ta-Bvm" userLabel="Square Button remove">
-                    <rect key="frame" x="43" y="45" width="40.5" height="14"/>
+                    <rect key="frame" x="50" y="45.5" width="26" height="14"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRemoveTemplate" imagePosition="only" state="on" imageScaling="proportionallyUpOrDown" inset="2" id="Mcu-sD-kAr">
+                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSRemoveTemplate" imagePosition="only" controlSize="small" state="on" inset="2" id="Mcu-sD-kAr">
                         <behavior key="behavior" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
+                        <font key="font" metaFont="smallSystem"/>
                     </buttonCell>
                     <connections>
                         <action selector="removeTheme:" target="-2" id="vAs-UF-1N9"/>
@@ -2036,9 +2036,10 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <button toolTip="Give each theme separate light and dark settings, and show a symbol at the top of each settings tab that switches all of Spatterlight between Light Mode and Dark Mode." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gdL-au-NnA">
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gdL-au-NnA">
                     <rect key="frame" x="198" y="298" width="147" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <string key="toolTip">Give each theme separate light and dark settings, and show a symbol at the top of each settings tab that switches all of Spatterlight between Light Mode and Dark Mode.</string>
                     <buttonCell key="cell" type="check" title="Light and dark mode" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="cSY-dh-snR">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>

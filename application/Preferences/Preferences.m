@@ -223,6 +223,7 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
     [self setUpZArrowsMenuItems];
     [self setUpBeepMenus];
     [self setUpThemeState];
+    [self setUpAddRemoveThemeButtons];
     [self setUpSimpleSettings];
 
     Preferences.instance = self;
