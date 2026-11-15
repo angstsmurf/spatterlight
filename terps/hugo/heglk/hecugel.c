@@ -2445,7 +2445,9 @@ static void hugo_mapcurwin(void)
             glk_stylehint_clear(wintype_TextBuffer, style_Input, stylehint_TextColor);
 
         // Make input readable on the opening screen of Will The Real Marjorie Hopkirk Please Stand Up?
-        if (current_game == GAME_MARJORIE && wins[curwin].fg == DEF_FCOLOR && gfgcol == 0 && wins[curwin].bg == 0)
+        // The screen is black whatever the theme, and the theme can switch
+        // between light and dark later, so this does not look at its colours.
+        if (current_game == GAME_MARJORIE && wins[curwin].fg == DEF_FCOLOR && wins[curwin].bg == 0)
         {
             glk_stylehint_set(wintype_TextBuffer, style_Input, stylehint_TextColor, hugo_color(HUGO_WHITE));
         }
