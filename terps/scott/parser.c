@@ -49,8 +49,15 @@
 #define GERMAN_FALLEN_NOUN 123
 
 /* Tokenized player input: parallel arrays of Unicode and ASCII word strings */
+/* Sizes of the word lists below, the same in every language */
+#define NUM_DIRECTIONS 14
+#define NUM_SKIPPABLE_WORDS 18
+#define NUM_DELIMITERS 5
+#define NUM_EXTRA_COMMANDS 34
+#define NUM_EXTRA_NOUNS 16
+
 glui32 **UnicodeWords = NULL;
-char **CharWords = NULL;
+static char **CharWords = NULL;
 static int WordsInInput = 0;
 
 static int lastnoun = 0; /* Last noun used, for "IT" pronoun resolution */
@@ -58,25 +65,25 @@ static int lastnoun = 0; /* Last noun used, for "IT" pronoun resolution */
 static glui32 *FirstErrorMessage = NULL; /* Deferred error message (shown after command processing) */
 
 /* Direction words by language, in the layout described at DIR_ABBREV_OFFSET. */
-const char *EnglishDirections[NUM_DIRECTIONS] = {
+static const char *EnglishDirections[NUM_DIRECTIONS] = {
     NULL, "north", "south", "east", "west", "up", "down",
     "n", "s", "e", "w", "u", "d", " "
 };
-const char *SpanishDirections[NUM_DIRECTIONS] = {
+static const char *SpanishDirections[NUM_DIRECTIONS] = {
     NULL, "norte", "sur", "este", "oeste", "arriba", "abajo",
     "n", "s", "e", "o", "u", "d", "w"
 };
-const char *GermanDirections[NUM_DIRECTIONS] = {
+static const char *GermanDirections[NUM_DIRECTIONS] = {
     NULL, "norden", "sueden", "osten", "westen", "oben", "unten",
     "n", "s", "o", "w", "u", "d", " "
 };
 /* The tape has the letters NSEOSG: S is both sud and su there */
-const char *ItalianDirections[NUM_DIRECTIONS] = {
+static const char *ItalianDirections[NUM_DIRECTIONS] = {
     NULL, "nord", "sud", "est", "ovest", "su", "giu",
     "n", "s", "e", "o", "u", "g", "w"
 };
 
-const char *Directions[NUM_DIRECTIONS];
+static const char *Directions[NUM_DIRECTIONS];
 
 /* Meta-command words recognized by the parser but not in the game's
    dictionary. Includes save/restore, undo, transcript, RAM save/load,
@@ -112,7 +119,7 @@ const char *Directions[NUM_DIRECTIONS];
     "quicksave",              \
     "#qsave"
 
-const char *ExtraCommands[NUM_EXTRA_COMMANDS] = {
+static const char *ExtraCommands[NUM_EXTRA_COMMANDS] = {
     COMMON_EXTRA_COMMANDS,
     "except",
     "but",
@@ -120,7 +127,7 @@ const char *ExtraCommands[NUM_EXTRA_COMMANDS] = {
     "", "", "", "", ""
 };
 
-const char *GermanExtraCommands[NUM_EXTRA_COMMANDS] = {
+static const char *GermanExtraCommands[NUM_EXTRA_COMMANDS] = {
     COMMON_EXTRA_COMMANDS,
     "ausser",
     "bis",
@@ -132,7 +139,7 @@ const char *GermanExtraCommands[NUM_EXTRA_COMMANDS] = {
     "neustarten"
 };
 
-const char *SpanishExtraCommands[NUM_EXTRA_COMMANDS] = {
+static const char *SpanishExtraCommands[NUM_EXTRA_COMMANDS] = {
     COMMON_EXTRA_COMMANDS,
     "excepto",
     "menos",
@@ -144,7 +151,7 @@ const char *SpanishExtraCommands[NUM_EXTRA_COMMANDS] = {
     "reinicia"
 };
 
-const char *ItalianExtraCommands[NUM_EXTRA_COMMANDS] = {
+static const char *ItalianExtraCommands[NUM_EXTRA_COMMANDS] = {
     COMMON_EXTRA_COMMANDS,
     "eccetto",
     "tranne",
@@ -171,7 +178,7 @@ static const extra_command ExtraCommandsKey[NUM_EXTRA_COMMANDS] = {
 
 /* Extra noun words for meta-commands: "SAVE GAME", "TRANSCRIPT ON/OFF",
    "TAKE ALL", "DROP IT", etc. */
-const char *EnglishExtraNouns[NUM_EXTRA_NOUNS] = {
+static const char *EnglishExtraNouns[NUM_EXTRA_NOUNS] = {
     NULL,
     "game",
     "story",
@@ -190,27 +197,27 @@ const char *EnglishExtraNouns[NUM_EXTRA_NOUNS] = {
     " ",
 };
 
-const char *GermanExtraNouns[NUM_EXTRA_NOUNS] = {
+static const char *GermanExtraNouns[NUM_EXTRA_NOUNS] = {
     NULL, "spiel", "story", "on", "off", "wiederherstellen",
     "laden", "speichern", "move", "verschieben", "runde",
     "alle", "alles", "es", "einschalten", "ausschalten"
 };
 
-const char *SpanishExtraNouns[NUM_EXTRA_NOUNS] = {
+static const char *SpanishExtraNouns[NUM_EXTRA_NOUNS] = {
     NULL, "juego", "story", "on", "off", "cargar",
     "reanuda", "conserva", "move", "command", "jugada",
     "toda", "todo", "eso", "activar", "desactivar"
 };
 
-const char *ItalianExtraNouns[NUM_EXTRA_NOUNS] = {
+static const char *ItalianExtraNouns[NUM_EXTRA_NOUNS] = {
     NULL, "gioco", "storia", "on", "off", "carica",
     "ripristina", "salva", "mossa", "comando", "turno",
     "tutto", "tutti", "esso", "attiva", "disattiva"
 };
 
-const char *ExtraNouns[NUM_EXTRA_NOUNS];
+static const char *ExtraNouns[NUM_EXTRA_NOUNS];
 
-const extra_command ExtraNounsKey[NUM_EXTRA_NOUNS] = {
+static const extra_command ExtraNounsKey[NUM_EXTRA_NOUNS] = {
     NO_COMMAND, GAME, GAME, ON, OFF, RAMLOAD,
     RAMLOAD, RAMSAVE, COMMAND, COMMAND, COMMAND,
     ALL, ALL, IT, ON, OFF
@@ -228,37 +235,37 @@ static const char *const AbbreviationsKey[NUM_ABBREVIATIONS] = {
 
 /* Filler words silently ignored by the parser (articles, prepositions,
    adverbs) */
-const char *EnglishSkipList[NUM_SKIPPABLE_WORDS] = {
+static const char *EnglishSkipList[NUM_SKIPPABLE_WORDS] = {
     NULL, "at", "to", "in", "into", "the",
     "a", "an", "my", "quickly", "carefully", "quietly",
     "slowly", "violently", "fast", "hard", "now", "room"
 };
 
-const char *GermanSkipList[NUM_SKIPPABLE_WORDS] = {
+static const char *GermanSkipList[NUM_SKIPPABLE_WORDS] = {
     NULL, "nach", "die", "der", "das", "im", "mein", "meine", "an",
     "auf", "den", "lassen", "lass", "fallen", "in", "ins", "zur", "zum"
 };
 
 /* Not "i", which is the inventory */
-const char *ItalianSkipList[NUM_SKIPPABLE_WORDS] = {
+static const char *ItalianSkipList[NUM_SKIPPABLE_WORDS] = {
     NULL, "il", "lo", "la", "gli", "le", "un", "uno", "una", "a",
     "al", "alla", "in", "nel", "nella", "verso", "mio", "mia"
 };
 
-const char *SkipList[NUM_SKIPPABLE_WORDS];
+static const char *SkipList[NUM_SKIPPABLE_WORDS];
 
 /* Words that separate multiple commands in a single input line */
-const char *EnglishDelimiterList[NUM_DELIMITERS] = { NULL, ",", "and",
+static const char *EnglishDelimiterList[NUM_DELIMITERS] = { NULL, ",", "and",
     "then", " " };
 
-const char *GermanDelimiterList[NUM_DELIMITERS] = { NULL, ",", "und",
+static const char *GermanDelimiterList[NUM_DELIMITERS] = { NULL, ",", "und",
     "dann", "and" };
 
 /* Not "e", which is east */
-const char *ItalianDelimiterList[NUM_DELIMITERS] = { NULL, ",", "poi",
+static const char *ItalianDelimiterList[NUM_DELIMITERS] = { NULL, ",", "poi",
     "quindi", " " };
 
-const char *DelimiterList[NUM_DELIMITERS];
+static const char *DelimiterList[NUM_DELIMITERS];
 
 /* Free all tokenized input strings and the deferred error message */
 static void FreeStrings(void)
@@ -1374,14 +1381,28 @@ static void CopyWordList(const char **dest, const char **src, int count)
         dest[i] = src[i];
 }
 
-/* Switch the parser's word lists to those of another language.
-   Lists passed as NULL are left as they are. */
-void SetParserWordLists(const char **directions, const char **skip_list,
-    const char **delimiters, const char **extra_commands, const char **extra_nouns)
+/* Switch the parser's word lists to those of a language. A language that
+   has no list of its own keeps the one in use: there are no Spanish skip
+   words or delimiters, and ExtraCommands[] starts out as the English list. */
+void SetParserLanguage(ParserLanguage language)
 {
-    CopyWordList(Directions, directions, NUM_DIRECTIONS);
-    CopyWordList(SkipList, skip_list, NUM_SKIPPABLE_WORDS);
-    CopyWordList(DelimiterList, delimiters, NUM_DELIMITERS);
-    CopyWordList(ExtraCommands, extra_commands, NUM_EXTRA_COMMANDS);
-    CopyWordList(ExtraNouns, extra_nouns, NUM_EXTRA_NOUNS);
+    static const struct {
+        const char **directions, **skip_list, **delimiters,
+            **extra_commands, **extra_nouns;
+    } lists[] = {
+        [PARSER_ENGLISH] = { EnglishDirections, EnglishSkipList,
+            EnglishDelimiterList, NULL, EnglishExtraNouns },
+        [PARSER_GERMAN] = { GermanDirections, GermanSkipList,
+            GermanDelimiterList, GermanExtraCommands, GermanExtraNouns },
+        [PARSER_SPANISH] = { SpanishDirections, NULL, NULL,
+            SpanishExtraCommands, SpanishExtraNouns },
+        [PARSER_ITALIAN] = { ItalianDirections, ItalianSkipList,
+            ItalianDelimiterList, ItalianExtraCommands, ItalianExtraNouns },
+    };
+
+    CopyWordList(Directions, lists[language].directions, NUM_DIRECTIONS);
+    CopyWordList(SkipList, lists[language].skip_list, NUM_SKIPPABLE_WORDS);
+    CopyWordList(DelimiterList, lists[language].delimiters, NUM_DELIMITERS);
+    CopyWordList(ExtraCommands, lists[language].extra_commands, NUM_EXTRA_COMMANDS);
+    CopyWordList(ExtraNouns, lists[language].extra_nouns, NUM_EXTRA_NOUNS);
 }

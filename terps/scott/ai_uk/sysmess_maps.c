@@ -350,8 +350,7 @@ void PerseusItalianSysmess(void)
     sys[STATE_RESTORED] = "Stato ripristinato.\n";
     sys[NO_SAVED_STATE] = "Nessuno stato salvato.\n";
 
-    SetParserWordLists(ItalianDirections, ItalianSkipList, ItalianDelimiterList,
-        ItalianExtraCommands, ItalianExtraNouns);
+    SetParserLanguage(PARSER_ITALIAN);
 }
 
 void Supergran64Sysmess(void)

@@ -221,8 +221,7 @@ GameIDType DetectGame(const char *file_name)
         return UNKNOWN_GAME;
     }
 
-    SetParserWordLists(EnglishDirections, EnglishSkipList, EnglishDelimiterList,
-        NULL, EnglishExtraNouns);
+    SetParserLanguage(PARSER_ENGLISH);
 
     Game = MemCalloc(sizeof(GameInfo));
 

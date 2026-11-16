@@ -250,8 +250,7 @@ static void FillInGermanSystemMessages(void)
     Items[ITEM_EMPTY_POOL].Text = "Leeres Schwimmbad";
     sys[WHAT] = sys[HUH];
 
-    SetParserWordLists(GermanDirections, GermanSkipList, GermanDelimiterList,
-        GermanExtraCommands, GermanExtraNouns);
+    SetParserLanguage(PARSER_GERMAN);
 }
 
 void LoadExtraGermanGremlinsC64Data(void)
@@ -346,8 +345,7 @@ static void LoadCommonSpanishGremlinsData(void)
     sys[NO_SAVED_STATE] = "No existe ning\x85n estado guardado.\n";
     sys[STATE_RESTORED] = "Estado restaurado.\n";
 
-    SetParserWordLists(SpanishDirections, NULL, NULL,
-        SpanishExtraCommands, SpanishExtraNouns);
+    SetParserLanguage(PARSER_SPANISH);
 }
 
 /* The ZX Spectrum system message layout of Gremlins, also used by the

@@ -57,48 +57,15 @@ int WhichWord(const char *word, const char **list, int word_length,
     int list_length);
 
 extern glui32 **UnicodeWords;
-extern char **CharWords;
 
-#define NUM_DIRECTIONS 14
+typedef enum {
+    PARSER_ENGLISH,
+    PARSER_GERMAN,
+    PARSER_SPANISH,
+    PARSER_ITALIAN
+} ParserLanguage;
 
-extern const char *Directions[];
-extern const char *GermanDirections[];
-extern const char *SpanishDirections[];
-extern const char *ItalianDirections[];
-extern const char *EnglishDirections[];
-
-#define NUM_SKIPPABLE_WORDS 18
-
-extern const char *SkipList[];
-extern const char *EnglishSkipList[];
-extern const char *GermanSkipList[];
-extern const char *ItalianSkipList[];
-
-#define NUM_DELIMITERS 5
-
-extern const char *EnglishDelimiterList[];
-extern const char *GermanDelimiterList[];
-extern const char *ItalianDelimiterList[];
-extern const char *DelimiterList[];
-
-#define NUM_EXTRA_COMMANDS 34
-extern const char *GermanExtraCommands[];
-extern const char *SpanishExtraCommands[];
-extern const char *ItalianExtraCommands[];
-extern const char *ExtraCommands[];
-
-#define NUM_EXTRA_NOUNS 16
-
-extern const char *EnglishExtraNouns[];
-extern const char *GermanExtraNouns[];
-extern const char *SpanishExtraNouns[];
-extern const char *ItalianExtraNouns[];
-extern const char *ExtraNouns[];
-extern const extra_command ExtraNounsKey[];
-
-/* Switch the parser's word lists to those of another language.
-   Lists passed as NULL are left as they are. */
-void SetParserWordLists(const char **directions, const char **skip_list,
-    const char **delimiters, const char **extra_commands, const char **extra_nouns);
+/* Switch the parser's word lists to those of a language */
+void SetParserLanguage(ParserLanguage language);
 
 #endif /* parser_h */
