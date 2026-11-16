@@ -22,12 +22,9 @@
 #include "vector_common.h"
 #include "rtpi_graphics.h"
 
-#include "adventureland.h"
 #include "closeups.h"
-#include "secret_mission.h"
-#include "gremlins.h"
+#include "game_dispatch.h"
 #include "hulk.h"
-#include "robin_of_sherwood.h"
 #include "seas_of_blood.h"
 
 #include "parser.h"
@@ -39,6 +36,7 @@
 #include "scott.h"
 #include "scott_database.h"
 #include "scott_meta.h"
+#include "scott_opcodes.h"
 #include "scott_actions.h"
 #include "scott_display.h"
 
@@ -553,38 +551,7 @@ static void GameSpecificOpcode(LineState *line)
     } else {
         p = NextParam(line);
     }
-    switch (CurrentGame) {
-        case SPIDERMAN:
-        case SPIDERMAN_C64:
-        case SPIDERMAN_ATARI8:
-            DrawBlack();
-            break;
-        case SECRET_MISSION:
-        case SECRET_MISSION_C64:
-            SecretAction(p);
-            break;
-        case ADVENTURELAND:
-        case ADVENTURELAND_C64:
-            AdventurelandAction(p);
-            break;
-        case SEAS_OF_BLOOD:
-        case SEAS_OF_BLOOD_C64:
-            BloodAction(p);
-            break;
-        case ROBIN_OF_SHERWOOD:
-        case ROBIN_OF_SHERWOOD_C64:
-            SherwoodAction(p);
-            break;
-        case GREMLINS:
-        case GREMLINS_SPANISH:
-        case GREMLINS_SPANISH_C64:
-        case GREMLINS_GERMAN:
-        case GREMLINS_GERMAN_C64:
-            GremlinsAction();
-            break;
-        default:
-            break;
-    }
+    GameOpcode(p);
 }
 
 /* Run one opcode. Opcodes 1-51 and 102+ print messages; 52-90 are game

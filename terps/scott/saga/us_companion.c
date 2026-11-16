@@ -17,6 +17,7 @@
 #include <string.h>
 
 #include "scott.h"
+#include "detect_game.h"
 
 #include "us_companion.h"
 

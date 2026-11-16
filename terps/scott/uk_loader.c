@@ -19,6 +19,8 @@
 #include <string.h>
 
 #include "scott.h"
+#include "scott_display.h"
+#include "detect_game.h"
 #include "scott_database.h"
 
 #include "decompress_text.h"

@@ -19,6 +19,7 @@
 #include <stddef.h>
 
 #include "scott_defines.h"
+#include "scott_sysmess.h"
 
 void MapSysMessages(const SysMessageType *keys, size_t n, int src_offset);
 int MapSysRange(SysMessageType first, SysMessageType last, int src);

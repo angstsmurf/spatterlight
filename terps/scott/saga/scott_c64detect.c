@@ -19,6 +19,7 @@
 
 #include "us_loader.h"
 #include "scott.h"
+#include "detect_game.h"
 #include "scott_meta.h"
 #include "scott_game_info.h"
 

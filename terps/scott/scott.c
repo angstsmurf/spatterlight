@@ -51,10 +51,8 @@
 
 #include "parser.h"
 
-#include "secret_mission.h"
+#include "game_dispatch.h"
 #include "sysmess_maps.h"
-#include "gremlins.h"
-#include "robin_of_sherwood.h"
 
 #include "scott.h"
 #include "scott_meta.h"
@@ -72,11 +70,6 @@ int gli_slowdraw = 0;
 
 /* Defines only used in this file */
 
-/* Size of system_messages[], the raw message strings read from the game
-   file. Not to be confused with MAX_SYSMESS (scott_sysmess.h), the size
-   of sys[], which is indexed by SysMessageType. */
-#define NUM_SYSTEM_MESSAGES 60
-
 /* Status window size in characters */
 #define TRS80_STATUS_WIDTH 64
 #define TRS80_STATUS_HEIGHT 11
@@ -85,9 +78,6 @@ int gli_slowdraw = 0;
 
 #define LAMP_WARNING_THRESHOLD 25
 #define LAMP_WARNING_INTERVAL 5
-
-const char *game_file = NULL;
-char *DirPath = "."; /* Directory containing the game file */
 
 int LightRefill; /* Initial light duration, used when refilling the lamp */
 int Counters[NUM_COUNTERS] =
@@ -101,47 +91,21 @@ uint64_t BitFlags = 0; /* Might be >32 flags - I haven't seen >32 yet */
 
 int AutoInventory = 0; /* Auto-display inventory in room descriptions */
 int Options; /* Option flags set */
-glui32 TopWidth; /* Terminal width */
-glui32 TopHeight; /* Height of top window */
-int ImageWidth = 256; /* 32 character columns */
-int ImageHeight = 96;
-int file_baseline_offset = 0; /* Byte offset adjustment for files with extra data prepended */
-char *title_screen = NULL;
-uint8_t *ZXLoadingScreen = NULL; /* ZX Spectrum SCREEN$ shown as a title image, or NULL */
 
 Command *CurrentCommand = NULL; /* Current node in the parsed command chain */
 GameInfo *Game; /* Metadata for the detected game (from the game database) */
 MachineType CurrentSys = SYS_UNKNOWN; /* Detected platform (DOS, C64, Spectrum, etc.) */
 
 const char *sys[MAX_SYSMESS]; /* Active system messages (localized prompts, exits, etc.) */
-const char *system_messages[NUM_SYSTEM_MESSAGES];
-
-uint8_t *entire_file; /* Raw game file loaded into memory */
-size_t file_length;
 
 int AnimationFlag = 0;
-
-/* Display state flags — track what's currently shown to avoid redundant
-   redraws */
-int showing_inventory = 0;
-int showing_closeup = 0;
-int last_image_index = -1;
-int lastwasnewline = 0;
-/* Set from the start, so that the first room has its picture even when no
-   arrange event comes first to ask for one. */
-int should_draw_image = 1;
 
 /* JustStarted is only used for the error message "Can't undo on first move" */
 int JustStarted = 1;
 int should_restart = 0;
 int StopTime = 0; /* When > 0, suppresses automatic (implicit) actions and decrements each turn */
 
-int should_look_in_transcript = 0;
-
-int split_screen = 1;
 int forced_style = -1; /* Display style number of the -t option, or -1 */
-winid_t Bottom, Top;
-winid_t Graphics;
 
 strid_t Transcript = NULL;
 
@@ -292,21 +256,8 @@ void Updates(event_t ev)
             gli_slowdraw = saved_slowdraw;
         }
     } else if (ev.type == evtype_Timer) {
-        switch (Game->type) {
-        case SHERWOOD_VARIANT:
-            UpdateRobinOfSherwoodAnimations();
-            break;
-        case GREMLINS_VARIANT:
-            UpdateGremlinsAnimations();
-            break;
-        case SECRET_MISSION_VARIANT:
-            UpdateSecretAnimations();
-            break;
-        default:
-            if (DrawingVector())
-                DrawSomeVectorPixels((VectorState == NO_VECTOR_IMAGE));
-            break;
-        }
+        if (!GameTimer() && DrawingVector())
+            DrawSomeVectorPixels((VectorState == NO_VECTOR_IMAGE));
     }
 }
 

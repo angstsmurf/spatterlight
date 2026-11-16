@@ -1,7 +1,7 @@
 # ScottFree: structure TODO
 
 Recommendations from a read-only survey on 2026-11-16 (master at 4ac564bce).
-Line numbers are from that commit. A1 to A7, B and D2 are done; see Status.
+Line numbers are from that commit. A1 to A7, B, D1, D2, D4 and E option 1 are done; see Status.
 Everything else is still open.
 
 ## Status
@@ -18,7 +18,10 @@ Done, as pure moves, with every check of section 0 passing afterwards:
 | A5 | New `ai_uk/secret_mission.c/.h`, `adventureland.c/.h`, `sysmess_maps.c/.h`, `closeups.c/.h`. `SetParserWordLists` is in `parser.c`. `game_specific.c` holds the two colour functions. |
 | A6 | `ai_uk/c64decrunch.c/.h` renamed `saga/scott_c64detect.c/.h`. |
 | A7 | The `-z` option is gone, and with it `win_testresult()` in glkimp. The picture comparison helpers are in `saga/test/vector_selftest.c/.h`, taken out of `vector_common.c`, `apple2_vector_draw.c` and `atari_8bit_vector_draw.c`. `filltest.c` has `RunVectorFixtures()`, which also runs the tint overlay case that only `-z` had. The SpatterlightTests target compiles `filltest` and its sources, and `testScottDraw` calls `RunVectorFixtures()` in-process. `A8_IMAGE_SIZE` moved to `atari_8bit_vector_draw.h`. |
+| D1 | The fourteen display globals are defined in `scott_display.c` and declared in `scott_display.h`. The loader state (`game_file`, `DirPath`, `entire_file`, `file_length`, `file_baseline_offset`, `system_messages[]`, `title_screen`, `ZXLoadingScreen`) is defined in `detect_game.c` and declared in `detect_game.h`. `scott.h` keeps the database, `sys[]`, `CurrentSys`, `Options` and the turn state, with the saved game state grouped under one comment. |
 | D2 | `SetParserLanguage()` with a `ParserLanguage` enum replaces `SetParserWordLists()`. The word lists, their sizes, `ExtraNounsKey` and `CharWords` are static in `parser.c`. `UnicodeWords` and `WhichWord` stay exported: `scott_actions.c` and `test/all_audit.c` use them. |
+| D4 | `scott_defines.h` no longer includes `scott_opcodes.h` or `scott_sysmess.h`. The opcode names are included by `scott_actions.c`, `ti994a/ti99_4a_terp.c` and the two audit tools; the system messages by `scott.h`, `scott_game_info.h/.c` and `ai_uk/sysmess_maps.h`. |
+| E | Option 1: new `ai_uk/game_dispatch.c/.h` with `GameSetup()`, `GameOpcode()`, `GameRoomImage()` and `GameTimer()`, holding the four switches that were in `detect_game.c`, `scott_actions.c`, `scott_display.c` and `scott.c`. Control flow of the last three is unchanged. `GameSetup()` was then rewritten so that no case falls through to another game: every case is complete in itself, with `MapAdventurelandSysMessages()`, `MapStandardSysMessages()` and `PatchSecretMissionImages()` as static helpers and the second switch (German Gremlins, Italian Perseus) folded in. Every case is loaded by `formatcheck`, whose fingerprint covers `sys[]`, the room and item pictures and the start room. |
 
 Where the result differs from the text below:
 
@@ -33,6 +36,12 @@ Where the result differs from the text below:
   `SelectSystemMessages`, `SetUpGame`, `PlayTurn` (`scott.h`),
   `DetectZXSpectrum` (`zxdetect.h`), `rtpi_tile_font`, `SetupRTPIColors`
   (`rtpi_graphics.h`).
+- E: single calls that were not part of a switch stay where they were:
+  `AdventurelandDarkness`, `GremlinsLook` and `GremlinsKeepBlenderFrame` in
+  `scott_display.c`, `DrawHulkImage` and `AdventureSheet` in
+  `scott_actions.c`, `UpdateRTPISystemMessages` in `scott.c`.
+- D4: `ti994a/ti99_4a_terp.c` uses the condition names too, so four files
+  include `scott_opcodes.h`, not three.
 - A6: the disk menus are still in `scott_c64detect.c`. The
   `C64_DUMP_US_IMAGE` debug dump (the two `SCOTT_HEADLESS` blocks) is
   deleted; nothing used it.
@@ -282,9 +291,9 @@ Two ways to gather this, smaller first:
    flow.
 2. A `GameHooks` struct of four function pointers per game family, set once
    in `DetectGame()`. Tidier, but the Plus pass declined a similar function
-   pointer table, and the switches fall through between games in ways a
-   table hides (`SAVAGE_ISLAND` → `SAVAGE_ISLAND2` → `GREMLINS`). Only worth
-   it if option 1 still feels scattered.
+   pointer table. The fall-through between games that a table would have
+   hidden is gone, but setup is keyed by port and the other three hooks by
+   game family, so a table would need two levels. Not recommended.
 
 Related: `SetUpGameSpecifics` patches game data inline (`Items[3].Image = 23`,
 `Rooms[30].Image = 20`, `MyLoc = 30`). Those belong with the image patch
@@ -342,5 +351,5 @@ make the three states (detected, US with pictures, US fallback) visible.
 1. Done: A1, A2, A3 and B together: they untangle the loaders and give `main.c`.
 2. Done: A5 and D2: `game_specific.c` and the parser word lists.
 3. Done: A4, A6, A7.
-4. D1, D4, then E option 1.
+4. Done: D1, D4 and E option 1.
 5. D3 and C, if the folder moves are wanted at all.

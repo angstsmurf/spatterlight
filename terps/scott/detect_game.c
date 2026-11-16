@@ -15,17 +15,13 @@
 #include <stdlib.h>
 
 #include "scott.h"
+#include "scott_display.h"
 
 #include "common_file_utils.h"
 #include "detect_game.h"
-#include "sagadraw.h"
+#include "game_dispatch.h"
 #include "scott_game_info.h"
 #include "scottfree_loader.h"
-
-#include "sysmess_maps.h"
-#include "gremlins.h"
-#include "robin_of_sherwood.h"
-#include "seas_of_blood.h"
 
 #include "apple2detect.h"
 #include "atari8detect.h"
@@ -34,6 +30,23 @@
 #include "zxdetect.h"
 
 #include "parser.h"
+
+/* Size of system_messages[], the raw message strings read from the game
+   file. Not to be confused with MAX_SYSMESS (scott_sysmess.h), the size
+   of sys[], which is indexed by SysMessageType. */
+#define NUM_SYSTEM_MESSAGES 60
+
+const char *game_file = NULL;
+char *DirPath = "."; /* Directory containing the game file */
+
+uint8_t *entire_file; /* Raw game file loaded into memory */
+size_t file_length;
+int file_baseline_offset = 0; /* Byte offset adjustment for files with extra data prepended */
+
+const char *system_messages[NUM_SYSTEM_MESSAGES];
+
+char *title_screen = NULL;
+uint8_t *ZXLoadingScreen = NULL; /* ZX Spectrum SCREEN$ shown as a title image, or NULL */
 
 /* Check if the loaded game is a Mysterious Adventures title.
    Checks the current Game pointer first, then falls back to matching header
@@ -56,142 +69,6 @@ static int IsMysterious(void)
     }
 
     return 0;
-}
-
-/* Set up the system messages, extra data, image patches and graphics of a
-   detected Adventure International UK / Brian Howarth or C64 game. */
-static void SetUpGameSpecifics(GameIDType detectedGame)
-{
-    /* Copy ZX Spectrum style system messages as a base, then apply
-       game-specific overrides below. The direction words before
-       PLAY_AGAIN are copied for the Hulk only, below. */
-    for (int i = PLAY_AGAIN; i < MAX_SYSMESS && sysdict_zx[i] != NULL; i++) {
-        sys[i] = sysdict_zx[i];
-    }
-
-    /* Game-specific post-load setup: load extra data (Robin of Sherwood
-       forest images, Seas of Blood combat tables), fix image assignments, and
-       map system_messages[] indices to the sys[] slots the engine uses. */
-    switch (detectedGame) {
-    case ROBIN_OF_SHERWOOD:
-        LoadExtraSherwoodData(0);
-        break;
-    case ROBIN_OF_SHERWOOD_C64:
-        LoadExtraSherwoodData(1);
-        break;
-    case SEAS_OF_BLOOD:
-        LoadExtraSeasOfBloodData(0);
-        break;
-    case SEAS_OF_BLOOD_C64:
-        LoadExtraSeasOfBloodData(1);
-        break;
-    case CLAYMORGUE: {
-        int src = MapSysRange(PLAY_AGAIN, ON_A_SCALE_THAT_RATES, 2);
-        MapSysRange(OK, RESUME_A_SAVED_GAME, src);
-        break;
-    }
-    case SECRET_MISSION:
-    case SECRET_MISSION_C64:
-        Items[3].Image = 23;
-        Items[3].Flag = 128 | 2;
-        Rooms[2].Image = 0;
-        if (detectedGame == SECRET_MISSION_C64) {
-            SecretMission64Sysmess();
-            break;
-        }
-        /* fallthrough */
-    case ADVENTURELAND: {
-        int src = MapSysRange(PLAY_AGAIN, ON_A_SCALE_THAT_RATES, 2);
-        src = MapSysRange(OK, YOU_HAVENT_GOT_IT, src);
-        MapSysRange(YOU_DONT_SEE_IT, RESUME_A_SAVED_GAME, src);
-        break;
-    }
-    case ADVENTURELAND_C64:
-        Adventureland64Sysmess();
-        break;
-    case CLAYMORGUE_C64:
-        Claymorgue64Sysmess();
-        break;
-    case GREMLINS_GERMAN_C64:
-        LoadExtraGermanGremlinsC64Data();
-        break;
-    case SPIDERMAN_C64:
-        Spiderman64Sysmess();
-        break;
-    case SPIDERMAN_ATARI8:
-        SpidermanAtari8Sysmess();
-        break;
-    case SUPERGRAN_C64:
-        Supergran64Sysmess();
-        break;
-    case SAVAGE_ISLAND_C64:
-        Items[20].Image = 13;
-        /* fallthrough */
-    case SAVAGE_ISLAND2_C64:
-        Supergran64Sysmess();
-        sys[IM_DEAD] = "I'm DEAD!! ";
-        if (detectedGame == SAVAGE_ISLAND2_C64)
-            Rooms[30].Image = 20;
-        break;
-    case SAVAGE_ISLAND:
-        Items[20].Image = 13;
-        /* fallthrough */
-    case SAVAGE_ISLAND2:
-        MyLoc = 30; /* Both parts of Savage Island begin in room 30 */
-        /* fallthrough */
-    case GREMLINS_GERMAN:
-    case GREMLINS:
-    case SUPERGRAN:
-        MapGremlinsSysMessages(2);
-        break;
-    case GREMLINS_SPANISH:
-        LoadExtraSpanishGremlinsData();
-        break;
-    case GREMLINS_SPANISH_C64:
-        LoadExtraSpanishGremlinsC64Data();
-        break;
-    case HULK_C64:
-    case HULK:
-        for (int i = NORTH; i < PLAY_AGAIN; i++) {
-            sys[i] = sysdict_zx[i];
-        }
-        break;
-    default:
-        if (!(Game->subtype & C64)) {
-            if (Game->subtype & MYSTERIOUS) {
-                int src = MapSysRange(PLAY_AGAIN, YOU_HAVENT_GOT_IT, 2);
-                src = MapSysRange(YOU_DONT_SEE_IT, WHAT_NOW, src);
-                MapSysRange(LIGHT_HAS_RUN_OUT, RESUME_A_SAVED_GAME, src);
-                sys[ITEM_DELIMITER] = " - ";
-                sys[MESSAGE_DELIMITER] = "\n";
-                sys[YOU_SEE] = "\nThings I can see:\n";
-                break;
-            } else {
-                MapSysRange(PLAY_AGAIN, RESUME_A_SAVED_GAME, 2);
-            }
-        }
-        break;
-    }
-
-    switch (detectedGame) {
-    case GREMLINS_GERMAN:
-        LoadExtraGermanGremlinsData();
-        break;
-    case PERSEUS_ITALIAN:
-        PerseusItalianSysmess();
-        break;
-    default:
-        break;
-    }
-
-    if ((Game->subtype & (MYSTERIOUS | C64)) == (MYSTERIOUS | C64))
-        Mysterious64Sysmess();
-
-    /* If it is a C64 or a Mysterious Adventures game, we have set up the
-       graphics already */
-    if (!(Game->subtype & (C64 | MYSTERIOUS)) && Game->number_of_pictures > 0) {
-        SagaGraphicsSetup(0);
-    }
 }
 
 /* Top-level game detection: try each supported format in order.
@@ -283,7 +160,7 @@ GameIDType DetectGame(const char *file_name)
     if (detectedGame == SCOTTFREE || detectedGame == TI994A || Game->type == US_VARIANT)
         return detectedGame;
 
-    SetUpGameSpecifics(detectedGame);
+    GameSetup(detectedGame);
 
     return detectedGame;
 }

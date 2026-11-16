@@ -24,6 +24,7 @@
 #include "rtpi_graphics.h"
 #include "sagagraphics.h"
 #include "scott.h"
+#include "scott_display.h"
 #include "scott_meta.h"
 #include "scott_actions.h"
 

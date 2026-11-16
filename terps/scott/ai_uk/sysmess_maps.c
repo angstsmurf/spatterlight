@@ -18,6 +18,7 @@
 #include "apple2draw.h"
 #include "parser.h"
 #include "scott.h"
+#include "detect_game.h"
 #include "sysmess_maps.h"
 
 /* Map system_messages[src_offset + i] to sys[keys[i]] for each of the

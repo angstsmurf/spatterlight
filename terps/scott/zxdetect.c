@@ -17,6 +17,7 @@
 #include <string.h>
 
 #include "scott.h"
+#include "detect_game.h"
 #include "scott_meta.h"
 
 #include "decompressz80.h"

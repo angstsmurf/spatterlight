@@ -32,8 +32,10 @@
 
 #include "detect_game.h"
 #include "scott.h"
+#include "scott_display.h"
 #include "scott_actions.h"
 #include "scott_defines.h"
+#include "scott_opcodes.h"
 
 /* Opcodes that change an item's Location, and how many params each pops. */
 static int MovesItem(int op)

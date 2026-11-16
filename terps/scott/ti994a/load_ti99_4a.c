@@ -18,6 +18,7 @@
 #include "load_ti99_4a.h"
 #include "rtpi_loader.h"
 #include "scott.h"
+#include "detect_game.h"
 #include "scott_database.h"
 
 #include "uk_loader.h"

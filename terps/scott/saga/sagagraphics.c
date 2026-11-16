@@ -25,6 +25,7 @@
 #include "rtpi_graphics.h"
 #include "glk.h"
 #include "scott.h"
+#include "detect_game.h"
 
 #include "sagagraphics.h"
 

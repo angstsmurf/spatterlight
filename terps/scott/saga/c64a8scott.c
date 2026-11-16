@@ -18,6 +18,7 @@
  */
 
 #include "scott.h"
+#include "scott_display.h"
 #include "c64a8draw.h"
 #include "c64a8scott.h"
 

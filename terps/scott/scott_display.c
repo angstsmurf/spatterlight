@@ -28,10 +28,8 @@
 #include "rtpi_graphics.h"
 
 #include "adventureland.h"
+#include "game_dispatch.h"
 #include "gremlins.h"
-#include "hulk.h"
-#include "robin_of_sherwood.h"
-#include "seas_of_blood.h"
 
 #include "parser.h"
 #include "us_display.h"
@@ -55,6 +53,29 @@
 #define SAVAGE_BEAR_ITEM 20
 #define SAVAGE_BEACH_ROOM 8
 #define SAVAGE_BEAR_IMAGE 9
+
+/* The windows, and the size of the top one in characters */
+winid_t Bottom, Top;
+winid_t Graphics;
+glui32 TopWidth; /* Terminal width */
+glui32 TopHeight; /* Height of top window */
+int split_screen = 1;
+
+/* Size of the room pictures in pixels */
+int ImageWidth = 256; /* 32 character columns */
+int ImageHeight = 96;
+
+/* Display state flags — track what's currently shown to avoid redundant
+   redraws */
+int showing_inventory = 0;
+int showing_closeup = 0;
+int last_image_index = -1;
+int lastwasnewline = 0;
+/* Set from the start, so that the first room has its picture even when no
+   arrange event comes first to ask for one. */
+int should_draw_image = 1;
+
+int should_look_in_transcript = 0;
 
 static strid_t room_description_stream = NULL;
 int print_look_to_transcript = 0;
@@ -363,22 +384,8 @@ void DrawRoomImage(void)
         return;
     }
 
-    switch (CurrentGame) {
-    case SEAS_OF_BLOOD:
-    case SEAS_OF_BLOOD_C64:
-        SeasOfBloodRoomImage();
+    if (GameRoomImage())
         return;
-    case ROBIN_OF_SHERWOOD:
-    case ROBIN_OF_SHERWOOD_C64:
-        RobinOfSherwoodLook();
-        return;
-    case HULK:
-    case HULK_C64:
-        HulkLook();
-        return;
-    default:
-        break;
-    }
 
     if (Rooms[MyLoc].Image == NO_IMAGE) {
         CloseGraphicsWindow();

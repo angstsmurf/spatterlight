@@ -28,6 +28,7 @@
 
 #include <stdlib.h>
 #include "scott.h"
+#include "scott_display.h"
 #include "irmak.h"
 
 #include "rtpi_graphics.h"

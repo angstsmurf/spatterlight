@@ -20,6 +20,7 @@
 
 #include "decompress_text.h"
 #include "scott.h"
+#include "detect_game.h"
 
 #define DECOMPRESS_BUF_SIZE 256
 

@@ -26,6 +26,8 @@
 #include "us_companion.h"
 #include "sagagraphics.h"
 #include "scott.h"
+#include "scott_display.h"
+#include "detect_game.h"
 #include "woz2nib.h"
 #include "apple2_vector_draw.h"
 

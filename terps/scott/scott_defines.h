@@ -20,8 +20,6 @@
 #include "aiukpalette.h"
 #include "minmax.h"
 #include "common_defines.h"
-#include "scott_opcodes.h"
-#include "scott_sysmess.h"
 
 /* Sentinel used in the parsed-command stream to mean "the next action
    line continues this one" (i.e. multi-line action with a CONTINUE op). */

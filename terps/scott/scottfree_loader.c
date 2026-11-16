@@ -18,6 +18,7 @@
 
 #include "dos_images.h"
 #include "scott.h"
+#include "scott_display.h"
 #include "scott_database.h"
 #include "uk_loader.h"
 

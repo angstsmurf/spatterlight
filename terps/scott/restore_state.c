@@ -17,6 +17,7 @@
 #include "restore_state.h"
 
 #include "scott.h"
+#include "scott_display.h"
 
 #define MAX_UNDOS 100
 

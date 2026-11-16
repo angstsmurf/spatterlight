@@ -16,6 +16,7 @@
 #define scott_game_info_h
 
 #include "scott_defines.h"
+#include "scott_sysmess.h"
 
 extern const GameInfo games[];
 extern const char *sysdict[];

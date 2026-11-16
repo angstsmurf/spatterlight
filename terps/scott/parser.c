@@ -16,6 +16,7 @@
 
 #include "parser.h"
 #include "scott.h"
+#include "scott_display.h"
 #include "scott_meta.h"
 #include "scott_actions.h"
 

@@ -34,6 +34,7 @@
 #include "byteorder.h"
 #include "common_utils.h"
 #include "scott_defines.h"
+#include "scott_sysmess.h"
 
 /* clang-format off */
 
@@ -157,23 +158,28 @@ extern Room *Rooms;
 extern Item *Items;
 extern Action *Actions;
 extern const char **Verbs, **Nouns, **Messages;
-extern char *title_screen;
-extern uint8_t *ZXLoadingScreen;
-extern winid_t Bottom, Top, Graphics;
+/* The active system messages, indexed by SysMessageType */
 extern const char *sys[];
-extern const char *system_messages[];
-extern uint8_t *entire_file;
-extern size_t file_length;
-extern int file_baseline_offset;
-extern int split_screen;
+/* The platform the game was written for */
+extern MachineType CurrentSys;
+
+/* The game state that is saved and restored, together with GameHeader and
+   the item locations (SavedState in restore_state.h) */
 extern uint64_t BitFlags;
-extern int LightRefill;
 extern int Counters[];
-extern int AnimationFlag;
-extern int SavedRoom;
-extern int AutoInventory;
 extern int CurrentCounter;
 extern int RoomSaved[];
+extern int SavedRoom;
+extern int LightRefill;
+extern int AutoInventory;
+extern int StopTime;
+/* StopTime value that keeps the implicit actions from running on the next
+   turn (e.g. after SCORE or INVENTORY). */
+#define SKIP_IMPLICIT_TURNS 2
+
+extern int AnimationFlag;
+extern int gli_slowdraw;
+
 extern int Options;
 /* The load trace of the -d option (DEBUGGING): what the database loaders
    read, on stderr. */
@@ -182,26 +188,9 @@ extern int Options;
         if (Options & DEBUGGING)          \
             fprintf(stderr, __VA_ARGS__); \
     } while (0)
-extern int StopTime;
-/* StopTime value that keeps the implicit actions from running on the next
-   turn (e.g. after SCORE or INVENTORY). */
-#define SKIP_IMPLICIT_TURNS 2
-extern int should_look_in_transcript;
-extern int ImageWidth;
-extern int ImageHeight;
-extern const char *game_file;
-extern int showing_inventory;
-extern MachineType CurrentSys;
-extern int lastwasnewline;
-extern char *DirPath;
-extern int showing_closeup;
-extern int last_image_index;
-extern int gli_slowdraw;
-extern int should_draw_image;
 struct Command;
 extern struct Command *CurrentCommand;
 extern strid_t Transcript;
-extern glui32 TopWidth, TopHeight;
 extern int JustStarted;
 extern int should_restart;
 

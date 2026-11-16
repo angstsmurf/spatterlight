@@ -866,6 +866,7 @@
 		C37391BE27A128E4009147EF /* Transcript of adv01.txt in Resources */ = {isa = PBXBuildFile; fileRef = C37391BC27A128E4009147EF /* Transcript of adv01.txt */; };
 		C37391DB27A25D04009147EF /* game_specific.c in Sources */ = {isa = PBXBuildFile; fileRef = C37391DA27A25D04009147EF /* game_specific.c */; };
 		5C077A000000000000000025 /* closeups.c in Sources */ = {isa = PBXBuildFile; fileRef = 5C077A000000000000000024 /* closeups.c */; };
+		5C077A000000000000000028 /* game_dispatch.c in Sources */ = {isa = PBXBuildFile; fileRef = 5C077A000000000000000027 /* game_dispatch.c */; };
 		5C077A000000000000000022 /* sysmess_maps.c in Sources */ = {isa = PBXBuildFile; fileRef = 5C077A000000000000000021 /* sysmess_maps.c */; };
 		5C077A00000000000000001F /* adventureland.c in Sources */ = {isa = PBXBuildFile; fileRef = 5C077A00000000000000001E /* adventureland.c */; };
 		5C077A00000000000000001C /* secret_mission.c in Sources */ = {isa = PBXBuildFile; fileRef = 5C077A00000000000000001B /* secret_mission.c */; };
@@ -3396,11 +3397,13 @@
 		C37391BC27A128E4009147EF /* Transcript of adv01.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of adv01.txt"; sourceTree = "<group>"; };
 		C37391D927A25D03009147EF /* game_specific.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = game_specific.h; sourceTree = "<group>"; usesTabs = 0; };
 		5C077A000000000000000026 /* closeups.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = closeups.h; sourceTree = "<group>"; usesTabs = 0; };
+		5C077A000000000000000029 /* game_dispatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = game_dispatch.h; sourceTree = "<group>"; usesTabs = 0; };
 		5C077A000000000000000023 /* sysmess_maps.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sysmess_maps.h; sourceTree = "<group>"; usesTabs = 0; };
 		5C077A000000000000000020 /* adventureland.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = adventureland.h; sourceTree = "<group>"; usesTabs = 0; };
 		5C077A00000000000000001D /* secret_mission.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = secret_mission.h; sourceTree = "<group>"; usesTabs = 0; };
 		C37391DA27A25D04009147EF /* game_specific.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = game_specific.c; sourceTree = "<group>"; usesTabs = 0; };
 		5C077A000000000000000024 /* closeups.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = closeups.c; sourceTree = "<group>"; usesTabs = 0; };
+		5C077A000000000000000027 /* game_dispatch.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = game_dispatch.c; sourceTree = "<group>"; usesTabs = 0; };
 		5C077A000000000000000021 /* sysmess_maps.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = sysmess_maps.c; sourceTree = "<group>"; usesTabs = 0; };
 		5C077A00000000000000001E /* adventureland.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = adventureland.c; sourceTree = "<group>"; usesTabs = 0; };
 		5C077A00000000000000001B /* secret_mission.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = secret_mission.c; sourceTree = "<group>"; usesTabs = 0; };
@@ -6899,11 +6902,13 @@
 				C3100F5C27972E850027D6FF /* hulk.c */,
 				C37391D927A25D03009147EF /* game_specific.h */,
 				5C077A000000000000000026 /* closeups.h */,
+				5C077A000000000000000029 /* game_dispatch.h */,
 				5C077A000000000000000023 /* sysmess_maps.h */,
 				5C077A000000000000000020 /* adventureland.h */,
 				5C077A00000000000000001D /* secret_mission.h */,
 				C37391DA27A25D04009147EF /* game_specific.c */,
 				5C077A000000000000000024 /* closeups.c */,
+				5C077A000000000000000027 /* game_dispatch.c */,
 				5C077A000000000000000021 /* sysmess_maps.c */,
 				5C077A00000000000000001E /* adventureland.c */,
 				5C077A00000000000000001B /* secret_mission.c */,
@@ -9194,6 +9199,7 @@
 				C30C7ADA28CA2C0300D293BE /* apple2detect.c in Sources */,
 				C37391DB27A25D04009147EF /* game_specific.c in Sources */,
 				5C077A000000000000000025 /* closeups.c in Sources */,
+				5C077A000000000000000028 /* game_dispatch.c in Sources */,
 				5C077A000000000000000022 /* sysmess_maps.c in Sources */,
 				5C077A00000000000000001F /* adventureland.c in Sources */,
 				5C077A00000000000000001C /* secret_mission.c in Sources */,

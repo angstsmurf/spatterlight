@@ -26,6 +26,7 @@
 #include <stdlib.h>
 
 #include "scott.h"
+#include "detect_game.h"
 #include "scott_database.h"
 #include "uk_loader.h"
 #include "us_loader.h"

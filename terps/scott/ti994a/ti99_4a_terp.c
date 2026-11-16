@@ -26,6 +26,7 @@
 #include "glk.h"
 #include "scott.h"
 #include "scott_meta.h"
+#include "scott_opcodes.h"
 #include "scott_actions.h"
 #include "scott_display.h"
 

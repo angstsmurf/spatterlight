@@ -24,6 +24,7 @@
 #include "restore_state.h"
 
 #include "scott.h"
+#include "detect_game.h"
 #include "scott_display.h"
 
 #ifdef SPATTERLIGHT

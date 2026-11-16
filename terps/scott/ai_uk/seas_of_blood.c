@@ -33,6 +33,7 @@
 #include "sagadraw.h"
 #include "seas_of_blood.h"
 #include "scott.h"
+#include "detect_game.h"
 #include "uk_loader.h"
 #include "scott_meta.h"
 #include "scott_actions.h"

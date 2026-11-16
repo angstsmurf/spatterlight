@@ -18,6 +18,7 @@
 #include "parser.h"
 #include "sagadraw.h"
 #include "scott.h"
+#include "detect_game.h"
 #include "scott_meta.h"
 #include "scott_display.h"
 

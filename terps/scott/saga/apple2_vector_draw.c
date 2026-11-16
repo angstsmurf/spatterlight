@@ -33,6 +33,7 @@
 #include <stdbool.h>
 
 #include "scott.h"
+#include "scott_display.h"
 #include "apple2draw.h"
 #include "apple2_vector_draw.h"
 #include "vector_oplist.h"

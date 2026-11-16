@@ -22,6 +22,7 @@
 #include <string.h>
 
 #include "scott.h"
+#include "scott_display.h"
 #include "us_loader.h"
 #include "memory_allocation.h"
 #include "sagagraphics.h"

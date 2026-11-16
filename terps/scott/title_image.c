@@ -23,6 +23,7 @@
 #include "vector_common.h"
 #include "zx_title.h"
 #include "scott.h"
+#include "detect_game.h"
 #include "scott_meta.h"
 #include "scott_display.h"
 

@@ -15,6 +15,7 @@
 #include <stdio.h>
 
 #include "scott_defines.h"
+#include "scott_sysmess.h"
 
 /* clang-format off */
 

@@ -44,9 +44,11 @@
 #include "uk_loader.h"
 #include "load_ti99_4a.h"
 #include "scott.h"
+#include "scott_display.h"
 #include "scott_database.h"
 #include "scott_actions.h"
 #include "scott_defines.h"
+#include "scott_opcodes.h"
 
 typedef enum { ARG_NONE, ARG_ITEM, ARG_ROOM, ARG_FLAG, ARG_OTHER } ArgKind;
 

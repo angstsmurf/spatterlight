@@ -24,6 +24,8 @@
 #include "us_companion.h"
 #include "sagagraphics.h"
 #include "scott.h"
+#include "scott_display.h"
+#include "detect_game.h"
 #include "scott_game_info.h"
 
 

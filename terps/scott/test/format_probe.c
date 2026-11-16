@@ -40,6 +40,7 @@
 #include "detect_game.h"
 #include "closeups.h"
 #include "scott.h"
+#include "scott_display.h"
 #include "scott_defines.h"
 #include "scott_game_info.h"
 

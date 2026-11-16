@@ -31,6 +31,7 @@
 
 #include "apple2draw.h"
 #include "scott.h"
+#include "scott_display.h"
 #include "vector_common.h"
 #include "vector_oplist.h"
 

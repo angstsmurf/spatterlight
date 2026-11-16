@@ -37,6 +37,23 @@ void ListInventory(int upper);
 void LookWithPause(void);
 void RequestRedraw(void);
 
+/* The windows, and the size of the top one in characters */
+extern winid_t Bottom, Top, Graphics;
+extern glui32 TopWidth, TopHeight;
+extern int split_screen;
+
+/* Size of the room pictures in pixels */
+extern int ImageWidth;
+extern int ImageHeight;
+
+/* What is on screen now, to avoid redundant redraws */
+extern int showing_inventory;
+extern int showing_closeup;
+extern int last_image_index;
+extern int lastwasnewline;
+extern int should_draw_image;
+
+extern int should_look_in_transcript;
 extern int print_look_to_transcript;
 
 #endif /* scott_display_h */

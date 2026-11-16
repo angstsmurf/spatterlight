@@ -19,6 +19,7 @@
 #include "hulk.h"
 #include "sagagraphics.h"
 #include "scott.h"
+#include "detect_game.h"
 #include "scott_display.h"
 
 /* The UK releases have the table of close-ups of the US ones in a shorter

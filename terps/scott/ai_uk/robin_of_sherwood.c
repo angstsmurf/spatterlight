@@ -21,6 +21,7 @@
 #include "irmak.h"
 #include "robin_of_sherwood.h"
 #include "scott.h"
+#include "detect_game.h"
 #include "uk_loader.h"
 #include "scott_meta.h"
 #include "scott_display.h"
