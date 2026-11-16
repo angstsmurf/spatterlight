@@ -21,8 +21,7 @@
    so it is not reproducible from a blob alone. With the glasses on, the clean
    DrawRTPIImage output matches the hardware framebuffer pixel-for-pixel.
 
-   rtpi_graphics.c keeps vdp_pixels/vdp_colors and the 52-tile font (loaded
-   from the cartridge CPU ROM) file-static, so we #include the .c here as a
+   rtpi_graphics.c keeps vdp_pixels/vdp_colors file-static, so we #include the .c here as a
    unity build to reach them; the Makefile drops rtpi_graphics.c from the link
    list to avoid a duplicate definition. dump mode links the full loader (same
    object set as extract_images) to pull blobs + font from a real cartridge;
@@ -114,7 +113,7 @@ static void grid_from_vdp(uint8_t *out) {
 }
 
 /* Render a single RTPI image self-contained: install the 52-tile font (the
-   416 bytes rtpi_graphics.c loads from the cartridge CPU ROM) and decode the
+   416 bytes rtpi_loader.c loads from the cartridge CPU ROM) and decode the
    raw GROM blob via the real DrawRTPIImage. The draw/decode path touches no
    globals beyond rtpi_tile_font and the image, so no DetectGame / .rpk is
    needed. */

@@ -18,7 +18,7 @@
 #include "apple2draw.h"
 #include "decompressz80.h"
 #include "glk.h"
-#include "saga.h"
+#include "us_display.h"
 #include "sagagraphics.h"
 #include "vector_common.h"
 #include "zx_title.h"

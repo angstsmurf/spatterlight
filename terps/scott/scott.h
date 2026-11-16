@@ -147,13 +147,11 @@ void vDisplay(winid_t w, const char *fmt, va_list ap)
 #endif
     ;
 void PutUnicodeString(strid_t stream, const char *string);
-GameIDType LoadDatabase(FILE *f);
 void Updates(event_t ev);
-const char *MapSynonym(int noun);
 void UpdateSettings(void);
-void FreeDatabase(void);
 
 extern GameInfo *Game;
+/* The game database; scott_database.c */
 extern Header GameHeader;
 extern Room *Rooms;
 extern Item *Items;
@@ -208,8 +206,12 @@ extern int JustStarted;
 extern int should_restart;
 
 GLK_ATTRIBUTE_NORETURN void CleanupAndExit(void);
-int MatchUpItem(int noun, int loc);
-void ParseItemSlashAutoGet(int index);
+
+/* The pieces of the main program (scott_main.c) that live in scott.c */
+extern int forced_style; /* Display style number of the -t option, or -1 */
+void SelectSystemMessages(void);
+void SetUpGame(void);
+void PlayTurn(void);
 
 /* Is the item carried or in the current room? */
 static inline int IsPresent(int item)

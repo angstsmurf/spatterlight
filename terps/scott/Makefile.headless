@@ -90,14 +90,14 @@ $(OBJDIR)/randomness.o: $(COMMON_DIR)/randomness.c | $(OBJDIR)
 	    -Dset_erkyrath_random=xo_set_erkyrath_random -c $< -o $@
 
 # Focused reproducer for the death-room bug (compressed-room off-by-one): it
-# needs its own glk_main, so scott.c is compiled a second time with the real one
+# needs its own glk_main, so scott_main.c is compiled a second time with the real one
 # renamed out of the way. Takes a game file, jumps the player into the death
 # room and calls Look(); see test/death_test.c for the ASan invocation.
-$(OBJDIR)/scott_deathmain.o: scott.c | $(OBJDIR)
+$(OBJDIR)/scott_deathmain.o: scott_main.c | $(OBJDIR)
 	$(CC) $(CFLAGS) -Dglk_main=scott_real_glk_main -c $< -o $@
 
 # A tool with its own glk_main: $(call TOOL,binary,object with the main)
-TOOL_OBJS := $(filter-out $(OBJDIR)/scott.o,$(OBJS)) $(OBJDIR)/scott_deathmain.o
+TOOL_OBJS := $(filter-out $(OBJDIR)/scott_main.o,$(OBJS)) $(OBJDIR)/scott_deathmain.o
 define TOOL
 $(1): $$(TOOL_OBJS) $$(OBJDIR)/$(2).o $$(CXX_OBJS) $$(CHEAPGLK_LIB)
 	$$(CXX) $$(LDFLAGS) -o $$@ $$(TOOL_OBJS) $$(OBJDIR)/$(2).o $$(CXX_OBJS) $$(CHEAPGLK_LIB) -lz

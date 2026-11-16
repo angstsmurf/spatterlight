@@ -28,12 +28,12 @@
 #include <string.h>
 
 #include "decompress_text.h"
-#include "game_specific.h"
+#include "sysmess_maps.h"
 #include "irmak.h"
 #include "sagadraw.h"
 #include "seas_of_blood.h"
 #include "scott.h"
-#include "detect_game.h"
+#include "uk_loader.h"
 #include "scott_meta.h"
 #include "scott_actions.h"
 #include "scott_display.h"

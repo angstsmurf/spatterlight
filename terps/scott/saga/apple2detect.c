@@ -20,9 +20,10 @@
 #include "apple2draw.h"
 #include "common_file_utils.h"
 #include "companion_search.h"
-#include "game_specific.h"
+#include "closeups.h"
 #include "ciderpress.h"
-#include "saga.h"
+#include "us_loader.h"
+#include "us_companion.h"
 #include "sagagraphics.h"
 #include "scott.h"
 #include "woz2nib.h"
@@ -74,7 +75,7 @@ typedef enum {
 /* The disk index gives a picture the number of its room or object, but
    ScottFree numbers some of them otherwise, the same way on every platform:
    the close-ups from 90, and the pictures an object only has in one room
-   (DrawGameSpecificOverlays() in saga.c) from 80. */
+   (DrawGameSpecificOverlays() in us_display.c) from 80. */
 typedef struct {
     GameIDType game;
     USImageType usage;

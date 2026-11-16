@@ -21,7 +21,7 @@
      - TAKE/DROP (verb 10/18): fires for a node of the chain itself, and moves
        an item that is NOT the one it was invoked for.
 
-   Reuses every engine object except scott.o's glk_main (renamed via
+   Reuses every engine object except scott_main.c's glk_main (renamed via
    -Dglk_main=scott_real_glk_main), same trick as death_test.c. */
 
 #include <stdio.h>

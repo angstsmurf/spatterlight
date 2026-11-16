@@ -96,4 +96,9 @@ extern const char *ItalianExtraNouns[];
 extern const char *ExtraNouns[];
 extern const extra_command ExtraNounsKey[];
 
+/* Switch the parser's word lists to those of another language.
+   Lists passed as NULL are left as they are. */
+void SetParserWordLists(const char **directions, const char **skip_list,
+    const char **delimiters, const char **extra_commands, const char **extra_nouns);
+
 #endif /* parser_h */

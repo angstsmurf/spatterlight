@@ -24,7 +24,7 @@
    Disks that hold several games ask which one to load; the answer is read
    from stdin, as in the real interpreter.
 
-   Reuses every engine object except scott.o's glk_main (renamed via
+   Reuses every engine object except scott_main.c's glk_main (renamed via
    -Dglk_main=scott_real_glk_main), same trick as death_test.c.
 
      usage: [SCOTT_PROBE_VERBOSE=1] scott_format_probe <game-file> */
@@ -38,7 +38,7 @@
 #include "glkstart.h"
 
 #include "detect_game.h"
-#include "game_specific.h"
+#include "closeups.h"
 #include "scott.h"
 #include "scott_defines.h"
 #include "scott_game_info.h"

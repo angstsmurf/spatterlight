@@ -853,6 +853,10 @@
 		C37344632804673F00D8AE01 /* extracttape.c in Sources */ = {isa = PBXBuildFile; fileRef = C37344622804673F00D8AE01 /* extracttape.c */; };
 		C37391BE27A128E4009147EF /* Transcript of adv01.txt in Resources */ = {isa = PBXBuildFile; fileRef = C37391BC27A128E4009147EF /* Transcript of adv01.txt */; };
 		C37391DB27A25D04009147EF /* game_specific.c in Sources */ = {isa = PBXBuildFile; fileRef = C37391DA27A25D04009147EF /* game_specific.c */; };
+		5C077A000000000000000025 /* closeups.c in Sources */ = {isa = PBXBuildFile; fileRef = 5C077A000000000000000024 /* closeups.c */; };
+		5C077A000000000000000022 /* sysmess_maps.c in Sources */ = {isa = PBXBuildFile; fileRef = 5C077A000000000000000021 /* sysmess_maps.c */; };
+		5C077A00000000000000001F /* adventureland.c in Sources */ = {isa = PBXBuildFile; fileRef = 5C077A00000000000000001E /* adventureland.c */; };
+		5C077A00000000000000001C /* secret_mission.c in Sources */ = {isa = PBXBuildFile; fileRef = 5C077A00000000000000001B /* secret_mission.c */; };
 		C374D1C326EE4E75006F430E /* SoundHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C374D1C226EE4E75006F430E /* SoundHandler.m */; };
 		C377BE452997FFA800CEB123 /* libglkimp.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C377BE462997FFC500CEB123 /* libunp64.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C3F09D7F288892BD0035DAC2 /* libunp64.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -886,7 +890,11 @@
 		C38E7BAF171D86446D535171 /* GlkTextGridWindow+Styles.m in Sources */ = {isa = PBXBuildFile; fileRef = C30FF7157B3B7105366EB15E /* GlkTextGridWindow+Styles.m */; };
 		C39147442974C41D00692B9E /* SideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C39147432974C41D00692B9E /* SideViewController.m */; };
 		C391F77A2F3D795E00F3102B /* rtpi_graphics.c in Sources */ = {isa = PBXBuildFile; fileRef = C391F7792F3D795E00F3102B /* rtpi_graphics.c */; };
-		C39613FE28E5D0B300A13624 /* saga.c in Sources */ = {isa = PBXBuildFile; fileRef = C39613FD28E5D0B300A13624 /* saga.c */; };
+		5C077A000000000000000019 /* rtpi_loader.c in Sources */ = {isa = PBXBuildFile; fileRef = 5C077A000000000000000018 /* rtpi_loader.c */; };
+		C39613FE28E5D0B300A13624 /* us_loader.c in Sources */ = {isa = PBXBuildFile; fileRef = C39613FD28E5D0B300A13624 /* us_loader.c */; };
+		5C077A00000000000000000E /* us_companion.c in Sources */ = {isa = PBXBuildFile; fileRef = 5C077A00000000000000000D /* us_companion.c */; };
+		5C077A00000000000000000B /* dos_images.c in Sources */ = {isa = PBXBuildFile; fileRef = 5C077A00000000000000000A /* dos_images.c */; };
+		5C077A000000000000000008 /* us_display.c in Sources */ = {isa = PBXBuildFile; fileRef = 5C077A000000000000000007 /* us_display.c */; };
 		C396E2872F812E3500B6308A /* messagenames.c in Sources */ = {isa = PBXBuildFile; fileRef = C396E2862F812E3500B6308A /* messagenames.c */; };
 		C396E2882F812E3500B6308A /* messagenames.h in Headers */ = {isa = PBXBuildFile; fileRef = C396E2852F812E3500B6308A /* messagenames.h */; };
 		C396E28A2F814ED500B6308A /* messagenames.c in Sources */ = {isa = PBXBuildFile; fileRef = C396E2862F812E3500B6308A /* messagenames.c */; };
@@ -933,7 +941,7 @@
 		C3A51F0000000000000000E1 /* fileresource.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F0000000000000000E2 /* fileresource.c */; };
 		C3A51F0000000000000000F1 /* aslxglk-form.cc in Sources */ = {isa = PBXBuildFile; fileRef = C3A51F0000000000000000F2 /* aslxglk-form.cc */; };
 		C3A72FDA2E8281FA00A840EC /* IfidToHashMigrationPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = C3A72FD92E8281FA00A840EC /* IfidToHashMigrationPolicy.m */; };
-		C3A9FD3127A676630032C068 /* c64decrunch.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A9FD3027A676630032C068 /* c64decrunch.c */; };
+		C3A9FD3127A676630032C068 /* scott_c64detect.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A9FD3027A676630032C068 /* scott_c64detect.c */; };
 		C3A9FD3327A6E56C0032C068 /* scott_game_info.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A9FD3227A6E56C0032C068 /* scott_game_info.c */; };
 		C3ABB26CA13CAD1E38F0F413 /* GlkTextGridWindow+Input.m in Sources */ = {isa = PBXBuildFile; fileRef = C325E4E614F4DDC07EC5FF12 /* GlkTextGridWindow+Input.m */; };
 		C3AC26602F8A43B800DBBDBD /* zorkzero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C310487A2DB255570023B713 /* zorkzero.cpp */; };
@@ -1012,6 +1020,11 @@
 		C3C506E526590E4B00763D3E /* MissingFilesFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C506E426590E4B00763D3E /* MissingFilesFinder.m */; };
 		C3C684E226137DC6002F1436 /* ImageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C684E126137DC6002F1436 /* ImageHandler.m */; };
 		C3C72B6F278CB0F900E095A6 /* detect_game.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C72B6E278CB0F900E095A6 /* detect_game.c */; };
+		5C077A000000000000000015 /* scottfree_loader.c in Sources */ = {isa = PBXBuildFile; fileRef = 5C077A000000000000000014 /* scottfree_loader.c */; };
+		5C077A000000000000000013 /* scott_database.c in Sources */ = {isa = PBXBuildFile; fileRef = 5C077A000000000000000012 /* scott_database.c */; };
+		5C077A000000000000000011 /* scott_main.c in Sources */ = {isa = PBXBuildFile; fileRef = 5C077A000000000000000010 /* scott_main.c */; };
+		5C077A000000000000000005 /* zxdetect.c in Sources */ = {isa = PBXBuildFile; fileRef = 5C077A000000000000000004 /* zxdetect.c */; };
+		5C077A000000000000000002 /* uk_loader.c in Sources */ = {isa = PBXBuildFile; fileRef = 5C077A000000000000000001 /* uk_loader.c */; };
 		C3CA11ECC0DE000000000003 /* gm_vector.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CA11ECC0DE000000000001 /* gm_vector.c */; };
 		C3CA11ECC0DE000000000004 /* gm_vector.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CA11ECC0DE000000000001 /* gm_vector.c */; };
 		C3CA11ECC0DE000000000007 /* gm_artifact.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CA11ECC0DE000000000005 /* gm_artifact.c */; };
@@ -3370,7 +3383,15 @@
 		C37344622804673F00D8AE01 /* extracttape.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = extracttape.c; sourceTree = "<group>"; };
 		C37391BC27A128E4009147EF /* Transcript of adv01.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of adv01.txt"; sourceTree = "<group>"; };
 		C37391D927A25D03009147EF /* game_specific.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = game_specific.h; sourceTree = "<group>"; usesTabs = 0; };
+		5C077A000000000000000026 /* closeups.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = closeups.h; sourceTree = "<group>"; usesTabs = 0; };
+		5C077A000000000000000023 /* sysmess_maps.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sysmess_maps.h; sourceTree = "<group>"; usesTabs = 0; };
+		5C077A000000000000000020 /* adventureland.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = adventureland.h; sourceTree = "<group>"; usesTabs = 0; };
+		5C077A00000000000000001D /* secret_mission.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = secret_mission.h; sourceTree = "<group>"; usesTabs = 0; };
 		C37391DA27A25D04009147EF /* game_specific.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = game_specific.c; sourceTree = "<group>"; usesTabs = 0; };
+		5C077A000000000000000024 /* closeups.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = closeups.c; sourceTree = "<group>"; usesTabs = 0; };
+		5C077A000000000000000021 /* sysmess_maps.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = sysmess_maps.c; sourceTree = "<group>"; usesTabs = 0; };
+		5C077A00000000000000001E /* adventureland.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = adventureland.c; sourceTree = "<group>"; usesTabs = 0; };
+		5C077A00000000000000001B /* secret_mission.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = secret_mission.c; sourceTree = "<group>"; usesTabs = 0; };
 		C374D1C226EE4E75006F430E /* SoundHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundHandler.m; sourceTree = "<group>"; };
 		C376239726ADE2A6003FA055 /* Spatterlight 10.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 10.xcdatamodel"; sourceTree = "<group>"; };
 		C3780A012F9D0001008A6A0D /* tapetzx.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = tapetzx.c; sourceTree = "<group>"; };
@@ -3433,9 +3454,17 @@
 		C39147422974C41D00692B9E /* SideViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SideViewController.h; path = "application/Library window/SideViewController.h"; sourceTree = SOURCE_ROOT; };
 		C39147432974C41D00692B9E /* SideViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SideViewController.m; path = "application/Library window/SideViewController.m"; sourceTree = SOURCE_ROOT; };
 		C391F7782F3D795E00F3102B /* rtpi_graphics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rtpi_graphics.h; sourceTree = "<group>"; };
+		5C077A00000000000000001A /* rtpi_loader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rtpi_loader.h; sourceTree = "<group>"; };
 		C391F7792F3D795E00F3102B /* rtpi_graphics.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rtpi_graphics.c; sourceTree = "<group>"; };
-		C39613FC28E5D0B300A13624 /* saga.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = saga.h; sourceTree = "<group>"; };
-		C39613FD28E5D0B300A13624 /* saga.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = saga.c; sourceTree = "<group>"; };
+		5C077A000000000000000018 /* rtpi_loader.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rtpi_loader.c; sourceTree = "<group>"; };
+		C39613FC28E5D0B300A13624 /* us_loader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = us_loader.h; sourceTree = "<group>"; };
+		5C077A00000000000000000F /* us_companion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = us_companion.h; sourceTree = "<group>"; };
+		5C077A00000000000000000C /* dos_images.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dos_images.h; sourceTree = "<group>"; };
+		5C077A000000000000000009 /* us_display.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = us_display.h; sourceTree = "<group>"; };
+		C39613FD28E5D0B300A13624 /* us_loader.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = us_loader.c; sourceTree = "<group>"; };
+		5C077A00000000000000000D /* us_companion.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = us_companion.c; sourceTree = "<group>"; };
+		5C077A00000000000000000A /* dos_images.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = dos_images.c; sourceTree = "<group>"; };
+		5C077A000000000000000007 /* us_display.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = us_display.c; sourceTree = "<group>"; };
 		C396691B2E85EA50008A75A7 /* Spatterlight 13_5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 13_5.xcdatamodel"; sourceTree = "<group>"; };
 		C396E2852F812E3500B6308A /* messagenames.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = messagenames.h; sourceTree = "<group>"; };
 		C396E2862F812E3500B6308A /* messagenames.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = messagenames.c; sourceTree = "<group>"; };
@@ -3502,8 +3531,8 @@
 		C3A51F0000000000000000F3 /* aslxglk-form.hh */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.h; path = "aslxglk-form.hh"; sourceTree = "<group>"; };
 		C3A72FD82E8281FA00A840EC /* IfidToHashMigrationPolicy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IfidToHashMigrationPolicy.h; sourceTree = "<group>"; };
 		C3A72FD92E8281FA00A840EC /* IfidToHashMigrationPolicy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IfidToHashMigrationPolicy.m; sourceTree = "<group>"; };
-		C3A9FD2F27A676630032C068 /* c64decrunch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = c64decrunch.h; sourceTree = "<group>"; usesTabs = 0; };
-		C3A9FD3027A676630032C068 /* c64decrunch.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = c64decrunch.c; sourceTree = "<group>"; usesTabs = 0; };
+		C3A9FD2F27A676630032C068 /* scott_c64detect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scott_c64detect.h; sourceTree = "<group>"; usesTabs = 0; };
+		C3A9FD3027A676630032C068 /* scott_c64detect.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = scott_c64detect.c; sourceTree = "<group>"; usesTabs = 0; };
 		C3A9FD3227A6E56C0032C068 /* scott_game_info.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = scott_game_info.c; sourceTree = "<group>"; usesTabs = 0; };
 		C3ABCA512D553B8400BC4268 /* shogun.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = shogun.hpp; sourceTree = "<group>"; };
 		C3ABCA522D553B8400BC4268 /* shogun.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = shogun.cpp; sourceTree = "<group>"; };
@@ -3621,7 +3650,16 @@
 		C3C684E026137DC6002F1436 /* ImageHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageHandler.h; sourceTree = "<group>"; };
 		C3C684E126137DC6002F1436 /* ImageHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageHandler.m; sourceTree = "<group>"; };
 		C3C72B6D278CB0F900E095A6 /* detect_game.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = detect_game.h; sourceTree = "<group>"; usesTabs = 0; };
+		5C077A000000000000000017 /* scottfree_loader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scottfree_loader.h; sourceTree = "<group>"; usesTabs = 0; };
+		5C077A000000000000000016 /* scott_database.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scott_database.h; sourceTree = "<group>"; usesTabs = 0; };
+		5C077A000000000000000006 /* zxdetect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zxdetect.h; sourceTree = "<group>"; usesTabs = 0; };
+		5C077A000000000000000003 /* uk_loader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = uk_loader.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3C72B6E278CB0F900E095A6 /* detect_game.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = detect_game.c; sourceTree = "<group>"; usesTabs = 0; };
+		5C077A000000000000000014 /* scottfree_loader.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = scottfree_loader.c; sourceTree = "<group>"; usesTabs = 0; };
+		5C077A000000000000000012 /* scott_database.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = scott_database.c; sourceTree = "<group>"; usesTabs = 0; };
+		5C077A000000000000000010 /* scott_main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = scott_main.c; sourceTree = "<group>"; usesTabs = 0; };
+		5C077A000000000000000004 /* zxdetect.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zxdetect.c; sourceTree = "<group>"; usesTabs = 0; };
+		5C077A000000000000000001 /* uk_loader.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = uk_loader.c; sourceTree = "<group>"; usesTabs = 0; };
 		C3C72B71278CC21200E095A6 /* scott_defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scott_defines.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3C72B72278CC21200E095A6 /* scott_opcodes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scott_opcodes.h; sourceTree = "<group>"; };
 		C3C72B73278CC21200E095A6 /* scott_sysmess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scott_sysmess.h; sourceTree = "<group>"; };
@@ -6146,7 +6184,16 @@
 				C3C0EE5F278B96CF0044A615 /* scott_game_info.h */,
 				C3A9FD3227A6E56C0032C068 /* scott_game_info.c */,
 				C3C72B6D278CB0F900E095A6 /* detect_game.h */,
+				5C077A000000000000000017 /* scottfree_loader.h */,
+				5C077A000000000000000016 /* scott_database.h */,
+				5C077A000000000000000006 /* zxdetect.h */,
+				5C077A000000000000000003 /* uk_loader.h */,
 				C3C72B6E278CB0F900E095A6 /* detect_game.c */,
+				5C077A000000000000000014 /* scottfree_loader.c */,
+				5C077A000000000000000012 /* scott_database.c */,
+				5C077A000000000000000010 /* scott_main.c */,
+				5C077A000000000000000004 /* zxdetect.c */,
+				5C077A000000000000000001 /* uk_loader.c */,
 				C3C0EE69278BCA700044A615 /* restore_state.h */,
 				C3C0EE6A278BCA700044A615 /* restore_state.c */,
 				C318F76B2741AA5B006D626A /* bsd.h */,
@@ -6476,8 +6523,14 @@
 		C39613FF28E60D6600A13624 /* saga */ = {
 			isa = PBXGroup;
 			children = (
-				C39613FC28E5D0B300A13624 /* saga.h */,
-				C39613FD28E5D0B300A13624 /* saga.c */,
+				C39613FC28E5D0B300A13624 /* us_loader.h */,
+				5C077A00000000000000000F /* us_companion.h */,
+				5C077A00000000000000000C /* dos_images.h */,
+				5C077A000000000000000009 /* us_display.h */,
+				C39613FD28E5D0B300A13624 /* us_loader.c */,
+				5C077A00000000000000000D /* us_companion.c */,
+				5C077A00000000000000000A /* dos_images.c */,
+				5C077A000000000000000007 /* us_display.c */,
 				C30C7AE228CA2C4F00D293BE /* sagagraphics.h */,
 				C30C7AE128CA2C4F00D293BE /* sagagraphics.c */,
 				C36797E02EF0B43A008A6A0D /* c64a8scott.h */,
@@ -6489,6 +6542,8 @@
 				C3D83A9C2F2FA3CB00A5D6AE /* vector_common.c */,
 				C30C7AD528CA2C0300D293BE /* apple2detect.h */,
 				C30C7AD828CA2C0300D293BE /* apple2detect.c */,
+				C3A9FD2F27A676630032C068 /* scott_c64detect.h */,
+				C3A9FD3027A676630032C068 /* scott_c64detect.c */,
 				C30C7AD628CA2C0300D293BE /* atari8detect.h */,
 				C30C7AD728CA2C0300D293BE /* atari8detect.c */,
 				C3E144E52F0209670068F099 /* apple2_vector_draw.h */,
@@ -6825,15 +6880,21 @@
 				C3100F5B27972E850027D6FF /* hulk.h */,
 				C3100F5C27972E850027D6FF /* hulk.c */,
 				C37391D927A25D03009147EF /* game_specific.h */,
+				5C077A000000000000000026 /* closeups.h */,
+				5C077A000000000000000023 /* sysmess_maps.h */,
+				5C077A000000000000000020 /* adventureland.h */,
+				5C077A00000000000000001D /* secret_mission.h */,
 				C37391DA27A25D04009147EF /* game_specific.c */,
+				5C077A000000000000000024 /* closeups.c */,
+				5C077A000000000000000021 /* sysmess_maps.c */,
+				5C077A00000000000000001E /* adventureland.c */,
+				5C077A00000000000000001B /* secret_mission.c */,
 				C31DB980276E961F00547C9C /* sagadraw.h */,
 				C31DB982276E961F00547C9C /* sagadraw.c */,
 				C370B15227D0DD9400EB3F02 /* line_drawing.h */,
 				C38D6ECD27CFCC5400328B12 /* line_drawing.c */,
 				C38A881127D2092500AE917E /* ringbuffer.h */,
 				C38A881227D2092500AE917E /* ringbuffer.c */,
-				C3A9FD2F27A676630032C068 /* c64decrunch.h */,
-				C3A9FD3027A676630032C068 /* c64decrunch.c */,
 				C3C0EE66278BCA4D0044A615 /* decompress_text.h */,
 				C3C0EE67278BCA4D0044A615 /* decompress_text.c */,
 			);
@@ -6848,7 +6909,9 @@
 				C3DAC20D27C44BAD00368157 /* ti99_4a_terp.h */,
 				C3DAC20F27C44BAD00368157 /* ti99_4a_terp.c */,
 				C391F7782F3D795E00F3102B /* rtpi_graphics.h */,
+				5C077A00000000000000001A /* rtpi_loader.h */,
 				C391F7792F3D795E00F3102B /* rtpi_graphics.c */,
+				5C077A000000000000000018 /* rtpi_loader.c */,
 				C3A1D15C2F9D4A0100F3102B /* ti99_disk.h */,
 				C3A1D15D2F9D4A0100F3102B /* ti99_disk.c */,
 				C3ED35072F464BE200E3A33D /* unzip_in_mem.h */,
@@ -9095,6 +9158,7 @@
 				C38A881327D2092500AE917E /* ringbuffer.c in Sources */,
 				C318F7702741AA5B006D626A /* bsd.c in Sources */,
 				C391F77A2F3D795E00F3102B /* rtpi_graphics.c in Sources */,
+				5C077A000000000000000019 /* rtpi_loader.c in Sources */,
 				C3A1D15E2F9D4A0100F3102B /* ti99_disk.c in Sources */,
 				C30CAD052FAFD61200A90820 /* scott_display.c in Sources */,
 				C31F05282EED8793002A6EC0 /* aiukpalette.c in Sources */,
@@ -9102,21 +9166,33 @@
 				C318F76F2741AA5B006D626A /* scott.c in Sources */,
 				C30CAD072FAFD61400A90820 /* scott_meta.c in Sources */,
 				C3C72B6F278CB0F900E095A6 /* detect_game.c in Sources */,
+				5C077A000000000000000015 /* scottfree_loader.c in Sources */,
+				5C077A000000000000000013 /* scott_database.c in Sources */,
+				5C077A000000000000000011 /* scott_main.c in Sources */,
+				5C077A000000000000000005 /* zxdetect.c in Sources */,
+				5C077A000000000000000002 /* uk_loader.c in Sources */,
 				C3E144E72F0209670068F099 /* apple2_vector_draw.c in Sources */,
 				C3CA11ECC0DE000000000004 /* gm_vector.c in Sources */,
 				C30C7ADA28CA2C0300D293BE /* apple2detect.c in Sources */,
 				C37391DB27A25D04009147EF /* game_specific.c in Sources */,
+				5C077A000000000000000025 /* closeups.c in Sources */,
+				5C077A000000000000000022 /* sysmess_maps.c in Sources */,
+				5C077A00000000000000001F /* adventureland.c in Sources */,
+				5C077A00000000000000001C /* secret_mission.c in Sources */,
 				C32B472B2F1700CA002AD28F /* atari_8bit_vector_draw.c in Sources */,
 				C3ED35092F464BE200E3A33D /* unzip_in_mem.c in Sources */,
 				C31919AD2EF69EF30062991C /* common_utils.c in Sources */,
 				C31919A22EF69BF80062991C /* memory_allocation.c in Sources */,
 				C30CAD022FAFD58800A90820 /* scott_actions.c in Sources */,
 				C31919B42EF6B97E0062991C /* common_file_utils.c in Sources */,
-				C39613FE28E5D0B300A13624 /* saga.c in Sources */,
+				C39613FE28E5D0B300A13624 /* us_loader.c in Sources */,
+				5C077A00000000000000000E /* us_companion.c in Sources */,
+				5C077A00000000000000000B /* dos_images.c in Sources */,
+				5C077A000000000000000008 /* us_display.c in Sources */,
 				C3C0EE62278BB9CE0044A615 /* robin_of_sherwood.c in Sources */,
 				C3C0EE6B278BCA700044A615 /* restore_state.c in Sources */,
 				C3DAC21027C44BAD00368157 /* ti99_4a_terp.c in Sources */,
-				C3A9FD3127A676630032C068 /* c64decrunch.c in Sources */,
+				C3A9FD3127A676630032C068 /* scott_c64detect.c in Sources */,
 				C30FAD5E27B7D41000BD20B9 /* load_ti99_4a.c in Sources */,
 				C3100F5D27972E850027D6FF /* hulk.c in Sources */,
 				C3C0EE65278BBF750044A615 /* gremlins.c in Sources */,

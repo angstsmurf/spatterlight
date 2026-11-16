@@ -12,7 +12,7 @@ README with its capture recipe.
 - DOS CGA bitmap (`pcdraw.c`) — `make dostest`
 - TI-99/4A RTPI (`ti994a/rtpi_graphics.c`) — `make titest`
 - C64 "tiny" / mini-C64 (`saga/c64_small.c`) — `make c64test`
-      - keystone `build/extract_images_c64` (real unp64 + c64decrunch) unblocks
+      - keystone `build/extract_images_c64` (real unp64 + scott_c64detect) unblocks
         packed C64 games; composite room rendering via `.spec`; Pirate room 0 100%
       - every picture of both games as scene tests (`.vic` goldens), see
         `groundtruth_scene/README.md`
@@ -138,7 +138,7 @@ are directives:
                      original gets a `!hwpoke` of its picture table instead.
                      Also blanks the picture, as the original does before
                      it draws a room: some pictures are only overlays.
-                     A US game (saga.c) draws its pictures by number: there
+                     A US game (us_display.c) draws its pictures by number: there
                      the picture is shown at once, with no LOOK, as the
                      original shows it when the poked table entry is looked
                      at (`!hw look`)

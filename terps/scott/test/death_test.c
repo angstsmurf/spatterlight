@@ -6,7 +6,7 @@
  */
 
 /* Focused reproducer for the compressed-room-descriptions off-by-one
-   (the compressed room loop in detect_game.c).
+   (the compressed room loop in uk_loader.c).
 
    Seas of Blood is a FOUR_LETTER_COMPRESSED game with 83 rooms, so the Rooms
    array holds 84 entries (indices 0..83) but the compressed loader only fills
@@ -38,9 +38,9 @@
 #include "scott_actions.h"
 #include "scott_display.h"
 
-/* scott.o is linked too (it owns all the engine globals), but compiled with
+/* scott_main.c is linked too, but compiled with
    -Dglk_main=scott_real_glk_main so its game loop is renamed out of the way
-   and the glk_main below is the one CheapGlk's main() calls. scott.c's
+   and the glk_main below is the one CheapGlk's main() calls. scott_main.c's
    glkunix_startup_code / glkunix_arguments are reused as-is to stash
    game_file. */
 

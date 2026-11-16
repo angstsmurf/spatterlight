@@ -53,7 +53,7 @@ extern void glk_main(void);
 
 #include "aiukpalette.h"
 #include "scott.h"
-#include "saga.h"
+#include "us_display.h"
 #include "c64_small.h"
 #include "c64a8draw.h"
 #include "sagagraphics.h"

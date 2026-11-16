@@ -27,7 +27,7 @@
 #include "glk.h"
 #include "sagagraphics.h"
 #include "scott.h"
-#include "detect_game.h"
+#include "uk_loader.h"
 #include "seas_of_blood.h"
 #include "irmak.h"
 

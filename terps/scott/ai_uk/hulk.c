@@ -15,10 +15,8 @@
 #include <string.h>
 
 #include "apple2draw.h"
-#include "detect_game.h"
-#include "game_specific.h"
+#include "closeups.h"
 #include "hulk.h"
-#include "saga.h"
 #include "sagagraphics.h"
 #include "scott.h"
 #include "scott_display.h"

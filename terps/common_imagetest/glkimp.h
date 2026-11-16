@@ -34,6 +34,11 @@ extern int gli_screenheight;
 extern uint32_t gfgcol;
 extern uint32_t gbgcol;
 
+/* glkimp's glk.h has this; CheapGlk's does not. */
+#ifndef zcolor_Default
+#define zcolor_Default ((glui32)0xffffffff)
+#endif
+
 extern winid_t FindGlkWindowWithRock(glui32 rock);
 extern void win_testresult(int result);
 extern void win_beep_zx(int pitch, int cycles);

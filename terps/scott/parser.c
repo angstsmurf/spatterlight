@@ -1365,3 +1365,23 @@ int RecheckForExtraCommand(void)
 
     return PerformExtraCommand(1);
 }
+
+static void CopyWordList(const char **dest, const char **src, int count)
+{
+    if (src == NULL)
+        return;
+    for (int i = 0; i < count; i++)
+        dest[i] = src[i];
+}
+
+/* Switch the parser's word lists to those of another language.
+   Lists passed as NULL are left as they are. */
+void SetParserWordLists(const char **directions, const char **skip_list,
+    const char **delimiters, const char **extra_commands, const char **extra_nouns)
+{
+    CopyWordList(Directions, directions, NUM_DIRECTIONS);
+    CopyWordList(SkipList, skip_list, NUM_SKIPPABLE_WORDS);
+    CopyWordList(DelimiterList, delimiters, NUM_DELIMITERS);
+    CopyWordList(ExtraCommands, extra_commands, NUM_EXTRA_COMMANDS);
+    CopyWordList(ExtraNouns, extra_nouns, NUM_EXTRA_NOUNS);
+}

@@ -15,7 +15,7 @@
 #ifndef c64_small_h
 #define c64_small_h
 
-#include "c64decrunch.h"
+#include "scott_c64detect.h"
 #include "sagagraphics.h"
 
 GameIDType handle_all_in_one(uint8_t **database, size_t *datasize, c64rec c64_registry);

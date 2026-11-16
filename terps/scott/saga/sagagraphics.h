@@ -15,6 +15,7 @@
 #ifndef sagagraphics_h
 #define sagagraphics_h
 
+#include <stddef.h>
 #include "glk.h"
 #include "scott_defines.h"
 
@@ -34,6 +35,15 @@ struct USImage {
 typedef struct USImage USImage;
 
 extern USImage *USImages;
+
+/* The inventory picture is stored as room image 98. */
+#define INVENTORY_IMAGE 98
+
+/* Unlinks and frees the empty node that the image loaders leave at the end
+   of the USImages list. */
+void FreeTrailingEmptyImage(USImage *image);
+/* Frees USImages if it holds nothing but a single empty image */
+void FreeUSImagesIfEmpty(void);
 
 typedef struct {
     GameIDType game;

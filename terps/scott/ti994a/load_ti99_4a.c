@@ -16,10 +16,11 @@
 #include <string.h>
 
 #include "load_ti99_4a.h"
-#include "rtpi_graphics.h"
+#include "rtpi_loader.h"
 #include "scott.h"
+#include "scott_database.h"
 
-#include "detect_game.h"
+#include "uk_loader.h"
 #include "scott_game_info.h"
 
 #define PACKED __attribute__((__packed__))

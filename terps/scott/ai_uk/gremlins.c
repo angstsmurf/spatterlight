@@ -12,7 +12,7 @@
  *  Created by Petter Sjölund on 2022-01-10.
  */
 
-#include "game_specific.h"
+#include "sysmess_maps.h"
 #include "gremlins.h"
 
 #include "parser.h"

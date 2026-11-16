@@ -131,9 +131,9 @@ CGOBJ := $(CG)/cgblorb.o $(CG)/cgdate.o $(CG)/cgfref.o $(CG)/cggestal.o $(CG)/cg
          $(CG)/cgschan.o $(CG)/cgstream.o $(CG)/cgstyle.o $(CG)/cgunicod.o $(CG)/cgwindow.o \
          $(CG)/gi_blorb.o $(CG)/gi_debug.o $(CG)/gi_dispa.o
 # The interpreter sources are wildcards, as in Makefile.headless, less
-# c64decrunch.c, which needs unp64 and is added by the C64 dumpers below.
+# scott_c64detect.c, which needs unp64 and is added by the C64 dumpers below.
 EXTRACT_SRCS := extract_images.c extract_stubs.c \
-  $(filter-out $(SCOTT)/ai_uk/c64decrunch.c,$(wildcard $(SCOTT)/*.c \
+  $(filter-out $(SCOTT)/saga/scott_c64detect.c,$(wildcard $(SCOTT)/*.c \
     $(SCOTT)/ai_uk/*.c $(SCOTT)/saga/*.c $(SCOTT)/ti994a/*.c)) \
   $(TERPS)/common_sagadraw/apple2draw.c $(TERPS)/common_sagadraw/c64a8draw.c \
   $(TERPS)/common_sagadraw/pcdraw.c $(TERPS)/common_sagadraw/gm_artifact.c \
@@ -198,7 +198,7 @@ titest: build/titest
 #
 # These games pack their images, so the blobs come from extract_images_c64 — the
 # same loader as extract_images but with the real C64 decrunch pipeline
-# (ai_uk/c64decrunch.c + the C++ unp64 depacker) instead of the DetectC64 stub.
+# (saga/scott_c64detect.c + the C++ unp64 depacker) instead of the DetectC64 stub.
 UNP64 := $(TERPS)/unp64
 UNP64_SRCS := $(wildcard $(UNP64)/*.cpp) $(wildcard $(UNP64)/scanners/*.cpp)
 UNP64_OBJS := $(patsubst %.cpp,build/unp64/%.o,$(notdir $(UNP64_SRCS)))
@@ -210,8 +210,8 @@ build/unp64/%.o: $(UNP64)/scanners/%.cpp $(UNP64_HDRS)
 	$(UNP64_CXX)
 # extract_images_c64: swap the DetectC64 stub for the real decrunch pipeline.
 # extract_stubs.c is shared with the other dumpers; -DSAGA_REAL_C64_DECRUNCH
-# drops its DetectC64 stub so the real one (c64decrunch.c) links instead.
-C64X_CSRCS := $(SCOTT)/ai_uk/c64decrunch.c \
+# drops its DetectC64 stub so the real one (scott_c64detect.c) links instead.
+C64X_CSRCS := $(SCOTT)/saga/scott_c64detect.c \
   $(TERPS)/c64diskimage/c64diskimage.c \
   $(EXTRACT_SRCS)
 C64_GOLDENS := $(wildcard groundtruth_c64/*/*.c64)

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Writes the scene tests (see scenetest.c) that show every picture of the C64
-# US releases of The Hulk and The Sorcerer of Claymorgue Castle (saga/saga.c,
+# US releases of The Hulk and The Sorcerer of Claymorgue Castle (saga/us_display.c,
 # the SAGA bitmap games): groundtruth_scene/hulkus_pictures_c64/ and
 # claymorgueus_pictures_c64/, one scene per picture, with the US disk next to
 # them (the hulk_c64/ and claymorgue_c64/ scenes play the UK tile games,
@@ -163,7 +163,7 @@ HULK = {
 CLAYMORGUE = {
     "title": "The Sorcerer of Claymorgue Castle (US)",
     # QUESTPR1.D64 with the error bytes its copy protection looks for (see
-    # the registry row in ai_uk/c64decrunch.c).
+    # the registry row in saga/scott_c64detect.c).
     "game": "clay.d64",
     "folder": "claymorgueus_pictures_c64",
     "snapshot": "clayus.vsf",

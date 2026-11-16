@@ -6,7 +6,7 @@
  */
 
 /*
- *  c64decrunch.c
+ *  scott_c64detect.c
  *  Part of ScottFree, an interpreter for adventures in Scott Adams format
  *
  *  Created by Petter Sjölund on 2022-01-30.
@@ -17,16 +17,16 @@
 
 #include "common_file_utils.h"
 
-#include "saga.h"
+#include "us_loader.h"
 #include "scott.h"
 #include "scott_meta.h"
 #include "scott_game_info.h"
 
-#include "c64decrunch.h"
+#include "scott_c64detect.h"
 #include "c64diskimage.h"
 #include "c64unpack.h"
-#include "detect_game.h"
-#include "game_specific.h"
+#include "uk_loader.h"
+#include "closeups.h"
 #include "sagadraw.h"
 #include "sagagraphics.h"
 #include "c64a8scott.h"

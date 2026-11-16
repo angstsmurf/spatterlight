@@ -6,14 +6,14 @@
  */
 
 /*
- *  c64decrunch.h
+ *  scott_c64detect.h
  *  Part of ScottFree, an interpreter for adventures in Scott Adams format
  *
  *  Created by Petter Sjölund on 2022-01-30.
  */
 
-#ifndef c64decrunch_h
-#define c64decrunch_h
+#ifndef scott_c64detect_h
+#define scott_c64detect_h
 
 #include <stdio.h>
 
@@ -44,4 +44,4 @@ typedef struct {
 
 GameIDType DetectC64(uint8_t **sf, size_t *extent, const char *filename);
 
-#endif /* c64decrunch_h */
+#endif /* scott_c64detect_h */

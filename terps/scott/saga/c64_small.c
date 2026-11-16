@@ -22,7 +22,7 @@
 #include <string.h>
 
 #include "scott.h"
-#include "saga.h"
+#include "us_loader.h"
 #include "memory_allocation.h"
 #include "sagagraphics.h"
 #include "c64a8draw.h"

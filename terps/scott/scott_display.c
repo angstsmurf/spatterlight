@@ -27,14 +27,14 @@
 #include "vector_common.h"
 #include "rtpi_graphics.h"
 
-#include "game_specific.h"
+#include "adventureland.h"
 #include "gremlins.h"
 #include "hulk.h"
 #include "robin_of_sherwood.h"
 #include "seas_of_blood.h"
 
 #include "parser.h"
-#include "saga.h"
+#include "us_display.h"
 
 /* DrawBlack() blanks the top half of a ZX Spectrum screen (256x192). */
 #define ZX_PICTURE_WIDTH 256

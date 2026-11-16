@@ -19,7 +19,7 @@ How sure a pair is, best first:
   table     Plus: the game's own table says this object picture goes in this room
   start     Scott: the item starts in the room
   moved     Scott: an action can put the item in the room
-  special   Scott: an overlay from DrawGameSpecificOverlays() in saga.c
+  special   Scott: an overlay from DrawGameSpecificOverlays() in us_display.c
   portable  Scott: an item the player can carry, if it is dropped in the room
   inventory Scott: drawn on the inventory screen, room picture 98
 
@@ -45,14 +45,14 @@ EXTRACT = os.path.join(HERE, 'build', 'extract_images')
 RENDER = os.path.join(HERE, 'build', 'c64a8test')
 PROBE = os.path.join(TERPS, 'plus', 'plus_image_probe')
 
-# The rooms and items of DrawGameSpecificOverlays() in saga.c:
+# The rooms and items of DrawGameSpecificOverlays() in us_display.c:
 # (overlay, item, room or None for wherever the item can be, or 'initial')
 SPECIAL = {
     'hulk': [(70, 18, 'initial'), (72, 21, 'initial'), (13, 14, None), (13, 15, None)],
     'count': [(80, 17, 8), (81, 35, 18), (82, 5, 9)],
     'voodoo': [(80, 45, 14)],
 }
-# USRoomImage() in saga.c: room -> picture
+# USRoomImage() in us_display.c: room -> picture
 HULK_ALIASES = {5: 3, 6: 3, 7: 4, 8: 4, 10: 9, 11: 9, 13: 2, 14: 2, 17: 16, 18: 16}
 
 # Values for finding which slot each pixel uses

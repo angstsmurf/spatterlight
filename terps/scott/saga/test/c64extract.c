@@ -6,7 +6,7 @@
  */
 
 /* Extract the SAGA bitmap image blobs from a Scott Adams C64 .d64 disk image,
-   exactly as the interpreter's LoadC64USImages() does (ai_uk/c64decrunch.c):
+   exactly as the interpreter's LoadC64USImages() does (saga/scott_c64detect.c):
    every directory entry whose name is a SAGA image (R/B/S + three digits) is
    read straight off the disk and written out verbatim as <name>.dat. These are
    the byte-for-byte inputs the C renderer (DrawC64A8ImageFromData) consumes,

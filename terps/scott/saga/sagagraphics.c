@@ -244,3 +244,24 @@ uint8_t *FindImageFile(const char *shortname, size_t *datasize)
     free(filename);
     return data;
 }
+
+/* Unlink and free the empty node that the image loaders leave at the end
+   of the USImages list. */
+void FreeTrailingEmptyImage(USImage *image)
+{
+    if (image != USImages) {
+        image->previous->next = NULL;
+        free(image);
+    } else {
+        free(USImages);
+        USImages = NULL;
+    }
+}
+
+void FreeUSImagesIfEmpty(void)
+{
+    if (USImages != NULL && USImages->next == NULL && USImages->imagedata == NULL) {
+        free(USImages);
+        USImages = NULL;
+    }
+}

@@ -24,8 +24,11 @@
 int DrawRTPIImage(USImage *image);
 int DrawFuzzyRTPIImage(USImage *image);
 void DrawRTPIFromMem(void);
-void UpdateRTPISystemMessages(void);
 void ClearVDP(void);
-GameIDType DetectRTPI(uint8_t *data, size_t datalength);
+void SetupRTPIColors(void);
+
+/* The 52-entry tile font, which the loader reads from the CPU ROM (c.bin) */
+#define NUM_RTPI_TILES 52
+extern uint8_t rtpi_tile_font[NUM_RTPI_TILES][8];
 
 #endif /* rtpi_graphics_h */

@@ -22,7 +22,9 @@
 #include "vector_common.h"
 #include "rtpi_graphics.h"
 
-#include "game_specific.h"
+#include "adventureland.h"
+#include "closeups.h"
+#include "secret_mission.h"
 #include "gremlins.h"
 #include "hulk.h"
 #include "robin_of_sherwood.h"
@@ -30,11 +32,12 @@
 
 #include "parser.h"
 #include "ti99_4a_terp.h"
-#include "saga.h"
+#include "us_display.h"
 
 #include "randomness.h"
 
 #include "scott.h"
+#include "scott_database.h"
 #include "scott_meta.h"
 #include "scott_actions.h"
 #include "scott_display.h"
