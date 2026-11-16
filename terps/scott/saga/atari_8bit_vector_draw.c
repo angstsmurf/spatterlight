@@ -30,14 +30,12 @@
 #include <string.h>
 
 #include "apple2draw.h"
-#include "common_file_utils.h"
 #include "scott.h"
 #include "vector_common.h"
 #include "vector_oplist.h"
 
 #include "atari_8bit_vector_draw.h"
 
-#define A8_IMAGE_SIZE 0xf00 /* bytes per plane on the original: four pixels per byte */
 #define A8_SCREEN_COLUMNS 40
 #define A8_SCREEN_WIDTH 160
 /* Width in output pixels: every Atari pixel is drawn two wide. */
@@ -587,7 +585,6 @@ static uint16_t atari8_delay_ticks(uint8_t arg0, uint8_t arg_a, uint8_t arg_b) {
     return ticks > UINT16_MAX ? UINT16_MAX : (uint16_t)ticks;
 }
 
-
 static void handle_draw_line(a8_draw_ctx *ctx) {
     /* Draw the line in a solid color */
     uint8_t line_pixel = pixel_for_color_index(ctx->color_idx);
@@ -780,16 +777,6 @@ uint8_t *DrawAtari8BitVectorImage(USImage *img) {
     return ctx.imagedata + offset;
 }
 
-static int ReadAndDrawImageWithName(const char *name, const char *supportpath, USImageType usage) {
-    USImage *image = LoadTestImage("atari8", name, supportpath);
-    if (!image)
-        return 0;
-    image->usage = usage;
-    DrawAtari8BitVectorImage(image);
-    FreeTestImage(image);
-    return 1;
-}
-
 /* The screen as the two byte planes the golden files hold (named .90 and .a0
    after the games' addresses). For byte i, the pixel in slot s (0..3) has its
    SCREEN1 bits at 6 - 2s of screen1_plane[i] and its SCREEN2 bits at the same
@@ -811,36 +798,3 @@ static void pack_planes(void) {
 
 const uint8_t *GetAtari8Screen1Plane(void) { pack_planes(); return screen1_plane; }
 const uint8_t *GetAtari8Screen2Plane(void) { pack_planes(); return screen2_plane; }
-
-int TestAtari8ImageWithName(const char *name, const char *supportpath) {
-    if (!ReadAndDrawImageWithName(name, supportpath, IMG_ROOM))
-        return 0;
-    pack_planes();
-    if (!CompareWithTestFile("atari8", name, "90.result", supportpath, screen1_plane, A8_IMAGE_SIZE))
-        return 0;
-    return CompareWithTestFile("atari8", name, "A0.result", supportpath, screen2_plane, A8_IMAGE_SIZE);
-}
-
-int RunAtari8bitVectorTests(const char *supportpath) {
-
-    gli_slowdraw = 0;
-
-    if (!TestAtari8ImageWithName("mi_boom", supportpath))
-        return 0;
-    if (!TestAtari8ImageWithName("so_console", supportpath))
-        return 0;
-    if (!TestAtari8ImageWithName("so_painting", supportpath))
-        return 0;
-
-    if (!ReadAndDrawImageWithName("so_hexagonal", supportpath, IMG_ROOM))
-        return 0;
-    if (!ReadAndDrawImageWithName("so_rod", supportpath, IMG_INV_AND_ROOM_OBJ))
-        return 0;
-    if (!ReadAndDrawImageWithName("so_tint", supportpath, IMG_INV_AND_ROOM_OBJ))
-        return 0;
-
-    pack_planes();
-    if (!CompareWithTestFile("tint", "90", ".result", supportpath, screen1_plane, A8_IMAGE_SIZE))
-        return 0;
-    return CompareWithTestFile("tint", "a0", ".result", supportpath, screen2_plane, A8_IMAGE_SIZE);
-}

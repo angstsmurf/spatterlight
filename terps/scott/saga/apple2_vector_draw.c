@@ -35,10 +35,6 @@
 #include "scott.h"
 #include "apple2draw.h"
 #include "apple2_vector_draw.h"
-#include "apple2detect.h"
-#include "ciderpress.h"
-#include "common_file_utils.h"
-#include "vector_common.h"
 #include "vector_oplist.h"
 #include "gm_vector.h"
 
@@ -96,7 +92,6 @@ typedef struct {
     uint8_t bitmap_index;
     Brush brush_type;
 } a2_fill_ctx;
-
 
 /* Single-line color patterns.  There are 30 patterns, 4 bytes each.
  When written to the hi-res screen, the 4-byte alignment is maintained so that
@@ -158,7 +153,6 @@ static VectorOpList write_ops = VECTOR_OPLIST(byte_to_write);
 /* Bytes emitted per slow-draw tick. Pairs with the graphics timer interval —
  * change in step with it. */
 #define APPLE2_VECTOR_BYTES_PER_TICK 50
-
 
 /* gm_set_color / gm_set_draw_position live in common_sagadraw/gm_vector.c. */
 
@@ -622,41 +616,6 @@ int DrawApple2VectorImage(USImage *img) {
 
     while (done == 0 && vecdata < img->imagedata + img->datasize) {
         done = doImageOp(&vecdata, img->imagedata + img->datasize, &ctx);
-    }
-    return 1;
-}
-
-int TestApple2ImageWithName(const char *name, const char *supportpath) {
-    USImage *image = LoadTestImage("apple2", name, supportpath);
-    if (!image)
-        return 0;
-    image->usage = IMG_ROOM;
-    DrawApple2VectorImage(image);
-    FreeTestImage(image);
-    return CompareWithTestFile("apple2", name, ".result", supportpath, screenmem, A2_SCREEN_MEM_SIZE);
-}
-
-int RunApple2VectorTests(const char *supportpath) {
-
-    gli_slowdraw = 0;
-
-    size_t disksize;
-    uint8_t *diskdata = ReadTestDataFromFile("MI.dsk", supportpath, &disksize);
-    if (diskdata) {
-        InitDskImage(diskdata, disksize);
-        LoadDrawingDataFromDisk(diskdata, disksize);
-        FreeDiskImage();
-        free(diskdata);
-    }
-
-    if (!TestApple2ImageWithName("mi_boom", supportpath)) {
-        return 0;
-    }
-    if (!TestApple2ImageWithName("so_console", supportpath)) {
-        return 0;
-    }
-    if (!TestApple2ImageWithName("so_painting", supportpath)) {
-        return 0;
     }
     return 1;
 }

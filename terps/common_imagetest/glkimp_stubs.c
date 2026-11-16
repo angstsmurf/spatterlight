@@ -66,12 +66,6 @@ int gli_get_dataresource_info(int num, void **ptr, glui32 *len, int *isbinary)
 }
 #endif
 
-/* Only used by the -z self-test entry point, which no headless build takes. */
-void win_testresult(int result)
-{
-    (void)result;
-}
-
 /* The ZX Spectrum beeper (TaylorMade); silent here. */
 void win_beep_zx(int pitch, int cycles)
 {

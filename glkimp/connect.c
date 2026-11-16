@@ -956,19 +956,6 @@ void win_menuitem(int type, glui32 column, glui32 line, glui32 stopflag, char *s
     sendmsg(MENUITEM, type, column, line, stopflag, 0, len, str);
 }
 
-void win_testresult(int result)
-{
-    win_flush();
-
-    int cmd;
-    if (result == 1)
-        cmd = OKAY;
-    else
-        cmd = ERROR;
-    gli_debug_log("win_testresult: Sending result %d\n", cmd);
-    sendmsg_glk(cmd, 0, 0, 0, 0, 0, 0, NULL);
-}
-
 void win_select(event_t *event, int block)
 {
     int i;

@@ -22,7 +22,6 @@
 
 #include "randomness.h"
 #include "restore_state.h"
-#include "vector_common.h"
 
 #include "scott.h"
 #include "scott_display.h"
@@ -32,12 +31,6 @@
 #endif
 
 #define DETERMINISTIC_SEED 1234
-
-#ifdef SPATTERLIGHT
-static int RunTests(const char *supportpath) {
-    return RunVectorTests(supportpath);
-}
-#endif
 
 glkunix_argumentlist_t glkunix_arguments[] = {
     { "-y", glkunix_arg_NoValue,
@@ -68,8 +61,6 @@ glkunix_argumentlist_t glkunix_arguments[] = {
     { "-a", glkunix_arg_NoValue,
         "-a        Always list what you carry in the upper window" },
 #else
-    { "-z", glkunix_arg_ValueFollows,
-        "-z path   Run the vector image tests with this support path, then exit" },
 #endif
     { "", glkunix_arg_ValueFollows, "filename    file to load" },
 
@@ -133,17 +124,6 @@ static int ParseOptions(int argc, char **argv)
         case 'a':
             Options = (Options | FORCE_INVENTORY) & ~FORCE_INVENTORY_OFF;
             break;
-#else
-        case 'z':
-            /* Run the vector image tests with the support path that
-               follows, report the result and exit. */
-            if (i + 1 >= argc) {
-                fprintf(stderr, "Usage: -z path\n");
-                glk_exit();
-            }
-            fprintf(stderr, "Running tests\n");
-            win_testresult(RunTests(argv[++i]));
-            glk_exit();
 #endif
         }
     }

@@ -1,8 +1,8 @@
 # Fast byte-exact harness for the Saga/Scott Apple II + Atari 8-bit vector
-# renderers (apple2_flood_fill / flood_fill). Mirrors -[SpatterlightTests
-# testScottDraw]: loads the drawing tables from MI.dsk, renders mi_boom /
-# so_console / so_painting on each platform and byte-compares the full screen
-# buffer(s) against the saved .result fixtures.
+# renderers (apple2_flood_fill / flood_fill): loads the drawing tables from
+# MI.dsk, renders mi_boom / so_console / so_painting on each platform and
+# byte-compares the full screen buffer(s) against the saved .result fixtures.
+# -[Tests testScottDraw] in SpatterlightTests.m runs the same cases.
 #
 #   make test    build and run against the SpatterlightTests fixtures
 #   make clean
@@ -17,7 +17,7 @@ CFLAGS  := $(BASE_CFLAGS) -DSPATTERLIGHT \
            -I$(TERPS)/readwoz -I$(TERPS)/aiukgraphics -I$(TERPS)/c64diskimage \
            -I$(TERPS)/../glkimp
 
-SRCS := filltest.c headless_glk_stubs.c \
+SRCS := filltest.c vector_selftest.c headless_glk_stubs.c \
         $(SCOTT)/saga/apple2_vector_draw.c \
         $(TERPS)/common_sagadraw/gm_vector.c \
         $(SCOTT)/saga/atari_8bit_vector_draw.c \

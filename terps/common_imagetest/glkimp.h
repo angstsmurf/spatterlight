@@ -40,7 +40,6 @@ extern uint32_t gbgcol;
 #endif
 
 extern winid_t FindGlkWindowWithRock(glui32 rock);
-extern void win_testresult(int result);
 extern void win_beep_zx(int pitch, int cycles);
 extern int gli_get_dataresource_info(int resno, void **ptr, glui32 *size,
                                      int *isbinary);

@@ -544,24 +544,6 @@ static GameIDType LookForSoCCompanion(const char *filename, uint8_t **sf, size_t
     return UNKNOWN_GAME;
 }
 
-#ifdef SCOTT_HEADLESS
-/* Debug helper: write raw data to a file. */
-static size_t writeToFile(const char *name, uint8_t *data, size_t size)
-{
-    FILE *fptr = fopen(name, "wb");
-
-    if (fptr == NULL) {
-        Fatal("File open error!");
-        return 0;
-    }
-
-    size_t result = fwrite(data, 1, size, fptr);
-
-    fclose(fptr);
-    return result;
-}
-#endif
-
 /* D64 disk image: extract the largest file (the game program),
    optionally append a companion file (e.g. picture data).
    Returns 0 on failure. */
@@ -791,13 +773,6 @@ static GameIDType ProcessC64(uint8_t **sf, size_t *extent, c64rec record)
     if (record.id == CLAYMORGUE_C64
         && (record.chk == 0x5592 || record.chk == 0x10a5 || record.chk == 0xf8c2))
         RepairDanishCrackersClaymorgue(*sf, length);
-
-#ifdef SCOTT_HEADLESS
-    /* Debug: dump the decompressed image for offline analysis */
-    const char *dumppath = getenv("C64_DUMP_US_IMAGE");
-    if (dumppath != NULL)
-        writeToFile(dumppath, *sf, length);
-#endif
 
     *extent = length;
 

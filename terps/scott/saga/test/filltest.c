@@ -6,15 +6,18 @@
  */
 
 /* Standalone byte-exact harness for the Saga/Scott Apple II and Atari 8-bit
-   vector renderers (which include apple2_flood_fill / flood_fill). It mirrors
-   -[SpatterlightTests testScottDraw]: load the per-game drawing tables from
-   MI.dsk, then render each regression image straight from its pre-extracted
-   .dat opcode stream and compare the full screen buffer(s) against the saved
-   .result dumps. so_painting / so_console lean hard on the flood fills.
+   vector renderers (which include apple2_flood_fill / flood_fill): load the
+   per-game drawing tables from MI.dsk, then render each regression image
+   straight from its pre-extracted .dat opcode stream and compare the full
+   screen buffer(s) against the saved .result dumps. so_painting / so_console
+   lean hard on the flood fills.
 
-     usage: filltest <supportpath>   (renderer fixtures are read from
-                                      <supportpath>/Image data/, the game disk
-                                      from <supportpath>/Games/MI.dsk)
+     usage: filltest <supportpath> [groundtruth_root [atari_groundtruth_root]]
+            (renderer fixtures are read from <supportpath>/Image data/, the
+             game disk from <supportpath>/Games/MI.dsk)
+
+   -[Tests testScottDraw] in SpatterlightTests.m compiles this file and the
+   renderers into the test bundle and calls RunVectorFixtures().
 
    It links only the vector-draw + disk-decode modules; symbols belonging to
    the interpreter core / bitmap drawing are stubbed below and are never
@@ -34,7 +37,7 @@
 #include "apple2_vector_draw.h"
 #include "apple2detect.h"
 #include "atari_8bit_vector_draw.h"
-#include "vector_common.h"
+#include "vector_selftest.h"
 
 /* Defined in the linked modules. */
 void InitDskImage(uint8_t *data, size_t datasize);
@@ -302,36 +305,21 @@ static int run_atari_groundtruth_corpus(const char *root) {
 	return passed == total;
 }
 
-int main(int argc, char **argv) {
-	if (argc < 2) {
-		fprintf(stderr, "usage: %s <supportpath> [groundtruth_root]\n", argv[0]);
-		return 2;
-	}
-	const char *support = argv[1];
-
-	/* The image-data fixtures (apple2 and atari8 .dat picture streams and
-	   .result/.90/.A0 golden dumps) and the game disk are kept local-only in
-	   subfolders of the support root: "Games/" for the copyrighted MI.dsk and
-	   "Image data/" for the renderer fixtures (see "Supporting
-	   Files/.gitignore").
-	   In the Xcode test bundle the synchronized folder group flattens
-	   everything back to one directory, so the shared renderer reads plain
-	   filenames from supportpath there; here we point each reader at the right
-	   subfolder. */
-	char imgsupport[strlen(support) + sizeof("Image data/")];
-	snprintf(imgsupport, sizeof imgsupport, "%sImage data/", support);
-
+/* Render the regression pictures and compare each with its reference.
+   gamedir holds MI.dsk, imagedir the picture streams and the reference dumps;
+   both end with a slash. Returns 1 if every case passes. */
+int RunVectorFixtures(const char *gamedir, const char *imagedir) {
 	/* Apple II rendering needs the per-game pattern/brush tables, which the
 	   real pipeline extracts from the game disk before drawing any picture. */
 	size_t disksize;
-	uint8_t *disk = ReadTestDataFromFile("Games/MI.dsk", support, &disksize);
+	uint8_t *disk = ReadTestDataFromFile("MI.dsk", gamedir, &disksize);
 	if (disk) {
 		InitDskImage(disk, disksize);
 		LoadDrawingDataFromDisk(disk, disksize);
 		FreeDiskImage();
 		free(disk);
 	} else {
-		fprintf(stderr, "warning: Games/MI.dsk not found; Apple II cases will fail\n");
+		fprintf(stderr, "warning: MI.dsk not found; Apple II cases will fail\n");
 	}
 
 	struct { const char *label, *name; int (*fn)(const char *, const char *); } cases[] = {
@@ -346,12 +334,42 @@ int main(int argc, char **argv) {
 
 	int passed = 0;
 	for (int i = 0; i < n; i++) {
-		int ok = cases[i].fn(cases[i].name, imgsupport);
+		int ok = cases[i].fn(cases[i].name, imagedir);
 		printf("%-20s : %s\n", cases[i].label, ok ? "PASS" : "FAIL");
 		passed += ok;
 	}
+
+	/* A room picture with two object pictures drawn on top of it. */
+	int ok = TestAtari8TintOverlay(imagedir);
+	printf("%-20s : %s\n", "atari8 tint overlay", ok ? "PASS" : "FAIL");
+	passed += ok;
+	n++;
+
 	printf("\n%d/%d cases passed\n", passed, n);
-	int fixtures_ok = (passed == n);
+	return passed == n;
+}
+
+int main(int argc, char **argv) {
+	if (argc < 2) {
+		fprintf(stderr, "usage: %s <supportpath> [groundtruth_root [atari_groundtruth_root]]\n", argv[0]);
+		return 2;
+	}
+	const char *support = argv[1];
+
+	/* The image-data fixtures (apple2 and atari8 .dat picture streams and
+	   .result/.90/.A0 golden dumps) and the game disk are kept local-only in
+	   subfolders of the support root: "Games/" for the copyrighted MI.dsk and
+	   "Image data/" for the renderer fixtures (see "Supporting
+	   Files/.gitignore").
+	   In the Xcode test bundle the synchronized folder group flattens
+	   everything back to one directory, so -[Tests testScottDraw] passes that
+	   directory to RunVectorFixtures() twice. */
+	char imgsupport[strlen(support) + sizeof("Image data/")];
+	snprintf(imgsupport, sizeof imgsupport, "%sImage data/", support);
+	char gamesupport[strlen(support) + sizeof("Games/")];
+	snprintf(gamesupport, sizeof gamesupport, "%sGames/", support);
+
+	int fixtures_ok = RunVectorFixtures(gamesupport, imgsupport);
 
 	/* Optional second argument: run the full Apple II ground-truth corpus
 	   (groundtruth/<game>/<n>.dat vs <n>.page). The drawing tables loaded above

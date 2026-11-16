@@ -21,10 +21,8 @@
 int DrawingAtari8Vector(void);
 uint8_t *DrawAtari8BitVectorImage(USImage *img);
 void DrawSomeAtari8VectorBytes(int from_start);
-int RunAtari8bitVectorTests(const char *supportpath);
-/* Test hook: renders the test image <name> and compares it with the
-   reference in supportpath. Returns 1 on a match. */
-int TestAtari8ImageWithName(const char *name, const char *supportpath);
+
+#define A8_IMAGE_SIZE 0xf00 /* bytes per plane on the original: four pixels per byte */
 
 /* Accessors for the two rendered screen planes, SCREEN1 and SCREEN2 in the
    S.A.G.E. source ($9000 and $A000 in the games; the goldens are .90 and .a0),

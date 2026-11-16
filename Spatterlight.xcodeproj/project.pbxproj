@@ -849,6 +849,18 @@
 		C372B2462F7D56A400331461 /* The Wyldkynd Project command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3D7CB1526CA7056006DE4CC /* The Wyldkynd Project command script.txt */; };
 		C372B2472F7D56A400331461 /* To Hell in a Hamper command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3998E3426C9845A002C1E5D /* To Hell in a Hamper command script.txt */; };
 		C372B2482F7D56A400331461 /* Unholy Grail command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C354AA6C274D05D800C8D01D /* Unholy Grail command script.txt */; };
+		5C077A000000000000000040 /* filltest.c in Sources */ = {isa = PBXBuildFile; fileRef = 5C077A000000000000000030 /* filltest.c */; settings = {COMPILER_FLAGS = "-DSPATTERLIGHT -Dmain=filltest_main"; }; };
+		5C077A000000000000000041 /* vector_selftest.c in Sources */ = {isa = PBXBuildFile; fileRef = 5C077A000000000000000031 /* vector_selftest.c */; settings = {COMPILER_FLAGS = "-DSPATTERLIGHT"; }; };
+		5C077A000000000000000042 /* headless_glk_stubs.c in Sources */ = {isa = PBXBuildFile; fileRef = 5C077A000000000000000032 /* headless_glk_stubs.c */; settings = {COMPILER_FLAGS = "-DSPATTERLIGHT"; }; };
+		5C077A000000000000000043 /* apple2_vector_draw.c in Sources */ = {isa = PBXBuildFile; fileRef = C3E144E62F0209670068F099 /* apple2_vector_draw.c */; settings = {COMPILER_FLAGS = "-DSPATTERLIGHT"; }; };
+		5C077A000000000000000044 /* gm_vector.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CA11ECC0DE000000000001 /* gm_vector.c */; settings = {COMPILER_FLAGS = "-DSPATTERLIGHT"; }; };
+		5C077A000000000000000045 /* atari_8bit_vector_draw.c in Sources */ = {isa = PBXBuildFile; fileRef = C32B472A2F1700CA002AD28F /* atari_8bit_vector_draw.c */; settings = {COMPILER_FLAGS = "-DSPATTERLIGHT"; }; };
+		5C077A000000000000000046 /* vector_common.c in Sources */ = {isa = PBXBuildFile; fileRef = C3D83A9C2F2FA3CB00A5D6AE /* vector_common.c */; settings = {COMPILER_FLAGS = "-DSPATTERLIGHT"; }; };
+		5C077A000000000000000047 /* apple2detect.c in Sources */ = {isa = PBXBuildFile; fileRef = C30C7AD828CA2C0300D293BE /* apple2detect.c */; settings = {COMPILER_FLAGS = "-DSPATTERLIGHT"; }; };
+		5C077A000000000000000048 /* ciderpress.c in Sources */ = {isa = PBXBuildFile; fileRef = C3ED63182C6E0FCC000F90A8 /* ciderpress.c */; settings = {COMPILER_FLAGS = "-DSPATTERLIGHT"; }; };
+		5C077A000000000000000049 /* memory_allocation.c in Sources */ = {isa = PBXBuildFile; fileRef = C319199D2EF69BF70062991C /* memory_allocation.c */; settings = {COMPILER_FLAGS = "-DSPATTERLIGHT"; }; };
+		5C077A00000000000000004A /* common_file_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = C31919B22EF6B97E0062991C /* common_file_utils.c */; settings = {COMPILER_FLAGS = "-DSPATTERLIGHT"; }; };
+		5C077A00000000000000004B /* companion_search.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C0A5E100000000000000A1 /* companion_search.c */; settings = {COMPILER_FLAGS = "-DSPATTERLIGHT"; }; };
 		C372B2562F7D5CF900331461 /* FileSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF8A152DF8762600EF2297 /* FileSignature.m */; };
 		C37344632804673F00D8AE01 /* extracttape.c in Sources */ = {isa = PBXBuildFile; fileRef = C37344622804673F00D8AE01 /* extracttape.c */; };
 		C37391BE27A128E4009147EF /* Transcript of adv01.txt in Resources */ = {isa = PBXBuildFile; fileRef = C37391BC27A128E4009147EF /* Transcript of adv01.txt */; };
@@ -3729,6 +3741,9 @@
 		C3D81779256CBA20005DBC1F /* InputTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputTextField.m; sourceTree = "<group>"; };
 		C3D8177A256CBA20005DBC1F /* InputTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputTextField.h; sourceTree = "<group>"; };
 		C3D83A9B2F2FA3CB00A5D6AE /* vector_common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vector_common.h; sourceTree = "<group>"; };
+		5C077A000000000000000030 /* filltest.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = filltest.c; path = test/filltest.c; sourceTree = "<group>"; };
+		5C077A000000000000000031 /* vector_selftest.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = vector_selftest.c; path = test/vector_selftest.c; sourceTree = "<group>"; };
+		5C077A000000000000000032 /* headless_glk_stubs.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = headless_glk_stubs.c; path = test/headless_glk_stubs.c; sourceTree = "<group>"; };
 		C3D83A9C2F2FA3CB00A5D6AE /* vector_common.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = vector_common.c; sourceTree = "<group>"; };
 		C3D8817C29A1BAE50085C383 /* Transcript of Praxix old.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Transcript of Praxix old.rtf"; sourceTree = "<group>"; };
 		C3D8817E29A1BAE50085C383 /* Transcript of TerpEtude old.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Transcript of TerpEtude old.rtf"; sourceTree = "<group>"; };
@@ -6540,6 +6555,9 @@
 				C3D83A9B2F2FA3CB00A5D6AE /* vector_common.h */,
 				C3C0A5E100000000000000A5 /* vector_oplist.h */,
 				C3D83A9C2F2FA3CB00A5D6AE /* vector_common.c */,
+				5C077A000000000000000030 /* filltest.c */,
+				5C077A000000000000000031 /* vector_selftest.c */,
+				5C077A000000000000000032 /* headless_glk_stubs.c */,
 				C30C7AD528CA2C0300D293BE /* apple2detect.h */,
 				C30C7AD828CA2C0300D293BE /* apple2detect.c */,
 				C3A9FD2F27A676630032C068 /* scott_c64detect.h */,
@@ -9286,6 +9304,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				C372B2562F7D5CF900331461 /* FileSignature.m in Sources */,
+				5C077A000000000000000040 /* filltest.c in Sources */,
+				5C077A000000000000000041 /* vector_selftest.c in Sources */,
+				5C077A000000000000000042 /* headless_glk_stubs.c in Sources */,
+				5C077A000000000000000043 /* apple2_vector_draw.c in Sources */,
+				5C077A000000000000000044 /* gm_vector.c in Sources */,
+				5C077A000000000000000045 /* atari_8bit_vector_draw.c in Sources */,
+				5C077A000000000000000046 /* vector_common.c in Sources */,
+				5C077A000000000000000047 /* apple2detect.c in Sources */,
+				5C077A000000000000000048 /* ciderpress.c in Sources */,
+				5C077A000000000000000049 /* memory_allocation.c in Sources */,
+				5C077A00000000000000004A /* common_file_utils.c in Sources */,
+				5C077A00000000000000004B /* companion_search.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
