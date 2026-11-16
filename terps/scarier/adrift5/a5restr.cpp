@@ -567,33 +567,23 @@ pass_location (a5_state_t *st, a5_restr_t *r)
    restriction passes while the door is open, the BeforeActionsOnly override
    `s_GoToTheEas` then slams it shut, and the MoveCharacter action still moves
    the player on the cached pass.  Cleared once per processed command
-   (PrepareForNextTurn, vb:3792); transient, never saved. */
-struct a5_route_entry {
-  const char *dest;                /* scan result (model-owned key or NULL)  */
-  const a5_xml_node_t *blocked;    /* blocking exit-restriction's <Message>  */
-};
-typedef std::map<std::string, a5_route_entry> a5_route_cache_t;
+   (PrepareForNextTurn, vb:3792); transient, never saved.  The entry and
+   cache types are declared in a5state.h, so a5state_free can free the memo
+   with the rest of the state. */
 
 static a5_route_cache_t *
 route_cache (a5_state_t *st)
 {
   if (st->route_cache == nullptr)
     st->route_cache = new a5_route_cache_t;
-  return (a5_route_cache_t *) st->route_cache;
+  return st->route_cache;
 }
 
 void
 a5restr_route_cache_clear (a5_state_t *st)
 {
   if (st->route_cache != nullptr)
-    ((a5_route_cache_t *) st->route_cache)->clear ();
-}
-
-void
-a5restr_route_cache_free (a5_state_t *st)
-{
-  delete (a5_route_cache_t *) st->route_cache;
-  st->route_cache = nullptr;
+    st->route_cache->clear ();
 }
 
 /* The session ledger behind clsDirection.bEverBeenBlocked: every failed route
@@ -601,8 +591,8 @@ a5restr_route_cache_free (a5_state_t *st)
    movement attempt, a HaveRouteInDirection restriction, %Exits%, or the map
    painting itself, exactly the callers of the Runner's HasRouteInDirection.
    Unlike the route memo it is never cleared: the Runner's flag stays set for
-   the rest of the session (and, like it, is not saved). */
-typedef std::set<std::string> a5_blocked_ledger_t;
+   the rest of the session (and, like it, is not saved).  The ledger type is
+   declared in a5state.h, so a5state_free can free it with the state. */
 
 static std::string
 blocked_ledger_key (const char *lockey, const char *dir)
@@ -615,8 +605,7 @@ blocked_ledger_add (a5_state_t *st, const char *lockey, const char *dir)
 {
   if (st->ever_blocked == nullptr)
     st->ever_blocked = new a5_blocked_ledger_t;
-  ((a5_blocked_ledger_t *) st->ever_blocked)
-    ->insert (blocked_ledger_key (lockey, dir));
+  st->ever_blocked->insert (blocked_ledger_key (lockey, dir));
 }
 
 int
@@ -624,15 +613,7 @@ a5restr_ever_blocked (a5_state_t *st, const char *lockey, const char *dir)
 {
   if (st->ever_blocked == nullptr || lockey == nullptr || dir == nullptr)
     return 0;
-  return ((a5_blocked_ledger_t *) st->ever_blocked)
-    ->count (blocked_ledger_key (lockey, dir)) != 0;
-}
-
-void
-a5restr_ever_blocked_free (a5_state_t *st)
-{
-  delete (a5_blocked_ledger_t *) st->ever_blocked;
-  st->ever_blocked = nullptr;
+  return st->ever_blocked->count (blocked_ledger_key (lockey, dir)) != 0;
 }
 
 const char *

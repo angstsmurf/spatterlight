@@ -26,7 +26,7 @@
 #include <string.h>
 
 #include "a5sb.h"
-#include "a5text.h"   /* A5_CLS_MARK, A5_DEL_MARK */
+#include "a5text.h"   /* the A5_*_MARK presentation marks */
 
 void
 sb_init (sb_t *b) { b->p = nullptr; b->len = b->cap = 0; }
@@ -184,7 +184,7 @@ sb_resolve_del (sb_t *b)
 }
 
 void
-sb_resolve_cls (sb_t *b, size_t floor)
+sb_resolve_cls (sb_t *b, size_t floor, int interactive)
 {
   size_t last = (size_t) -1, i;
   if (b->p == nullptr || floor > b->len) return;
@@ -199,7 +199,7 @@ sb_resolve_cls (sb_t *b, size_t floor)
      span state at, placed before the commit's trailing whitespace so the
      buffer keeps the tail shape that sb_pspace and the finish_turn trim
      inspect. */
-  if (a5text_interactive ())
+  if (interactive)
     {
       int center = 0, bold = 0, italic = 0, underline = 0, right = 0, colour = 0;
 

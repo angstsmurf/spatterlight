@@ -50,8 +50,10 @@ char *sb_finish (sb_t *b);
    everything from `floor` up to and including the last <cls> marker in the
    range, leaving the surviving tail; interactive, instead leaves an
    A5_COMMIT_MARK at the boundary when the commit dangles a span, for the host
-   to reset span state at (see a5text.h). */
-void  sb_resolve_cls (sb_t *b, size_t floor);
+   to reset span state at (see a5text.h).  `interactive` is the host's
+   presentation mode, a5text_interactive (); the caller passes it so this
+   buffer code stays below the text layer. */
+void  sb_resolve_cls (sb_t *b, size_t floor, int interactive);
 
 /* <del>: delete the last output glyph before offset `from` (pass b->len for
    "the end of the buffer").  Walks back over presentation / ALR marks and

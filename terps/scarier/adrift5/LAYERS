@@ -1,0 +1,25 @@
+# The ADRIFT 5 engine's layers, checked by test/check_a5_layers.sh (stage
+# check-a5-layers in Makefile.headless) against the built objects.
+#
+# One layer per line, lowest first: a name, then its modules.  A module may
+# call any module on a lower line.  It may call modules on its own line only
+# when the layer's name ends in `*`; otherwise those are siblings that must
+# not call each other.  A module is one adrift5/*.cpp file, or a whole
+# directory for run/ and text/.  Calls out of adrift5/ (zlib, randomness.c,
+# the map drawer, sessrec) are not checked here.
+#
+# The eval layer is one knot on purpose: text holds %expressions%, an
+# expression asks text for names and descriptions, and a restriction
+# evaluates expressions, the same mutual recursion as in the Runner and
+# FrankenDrift.  Do not try to break it with hooks.
+#
+# A new file needs a line here before the check passes.  A call the check
+# rejects is a lower layer reaching up: pass the value in from above, or move
+# the code down to where its data lives (sb_resolve_cls takes `interactive`
+# as an argument; a5state_free frees the route ledgers itself).
+
+leaf   a5xml a5blorb a5deobf a5parse a5rand a5sexpr a5sb
+model  a5model
+state  a5state
+eval*  a5restr a5expr text
+top    run a5map

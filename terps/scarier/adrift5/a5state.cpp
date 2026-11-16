@@ -28,7 +28,6 @@
 
 #include <vector>
 
-#include "a5restr.h"
 #include "a5state.h"
 #include "a5util.h"
 
@@ -585,8 +584,8 @@ a5state_free (a5_state_t *st)
     { free (st->looks[i].loc_key); free (st->looks[i].text);
       free (st->looks[i].event_key); }
   free (st->looks);
-  a5restr_route_cache_free (st);
-  a5restr_ever_blocked_free (st);
+  delete st->route_cache;
+  delete st->ever_blocked;
   free (st);
 }
 

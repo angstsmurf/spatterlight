@@ -208,7 +208,7 @@ WHERE_PROBES := where_refusal where_refusal_1p where_refusal_3p
 # sound_400.taf in Spatterlight to hear them.
 SOUND_TAF  := test/adrift4/harness/sound_400.taf
 
-.PHONY: test quick suitebins check-layers unittest test-fd sanitize taf clean styles stylestest stylesbless capacitytest capacitybless wheretest wherebless soundtest soundbless scmap a5dump a5model a5text a5run a5map a5parsetest a5runtest a5walkthroughs a5walkthroughs-golden a5probetafs a5maptest a5distest a5walktest a5objtest a5savetest a5duptest a5sexprtest v4walkthroughs scprojregress gamescheck gamesfetch vendorcheck
+.PHONY: test quick suitebins check-layers check-a5-layers unittest test-fd sanitize taf clean styles stylestest stylesbless capacitytest capacitybless wheretest wherebless soundtest soundbless scmap a5dump a5model a5text a5run a5map a5parsetest a5runtest a5walkthroughs a5walkthroughs-golden a5probetafs a5maptest a5distest a5walktest a5objtest a5savetest a5duptest a5sexprtest v4walkthroughs scprojregress gamescheck gamesfetch vendorcheck
 # ADRIFT 5 game files live in an untracked (gitignored) folder under test/ so the
 # harnesses can find them by a stable in-repo path; the games themselves are
 # copyrighted and not committed.  Override A5_GAMES_DIR / A5_BULLETS to relocate.
@@ -234,7 +234,7 @@ V4_GAMES_DIR ?= test/adrift4/games
 # which share nothing but read-only inputs, run side by side
 # (test/run_stages.sh), each stage's output printed whole and in the order
 # below as it finishes.  The run fails if any stage does.
-SUITE_STAGES := check-layers unittest vendorcheck capacitytest wheretest soundtest stylestest gamescheck a5runtest \
+SUITE_STAGES := check-layers check-a5-layers unittest vendorcheck capacitytest wheretest soundtest stylestest gamescheck a5runtest \
                 v4walkthroughs a5maptest scprojregress a5walkthroughs-golden
 
 UNIT_BINS := $(BIN) $(PREC_BIN) $(BADP_BIN) $(CORRUPT_BIN) $(QUIT_BIN) $(EXPR_BIN) $(A5PARSE_BIN) \
@@ -261,6 +261,11 @@ suitebins: $(SUITE_BINS)
 # through the hooks core/schooks.h declares.  See test/check_layers.sh.
 check-layers: $(call objs,$(wildcard core/sc*.cpp))
 	@sh test/check_layers.sh $(OBJDIR)/plain/core core/schooks.h
+
+# The ADRIFT 5 layering check: each adrift5/ module calls only the layers
+# below it in adrift5/LAYERS.  See test/check_a5_layers.sh.
+check-a5-layers: $(call objs,$(A5_RUN_SRC) $(A5DIR)/a5map.cpp)
+	@sh test/check_a5_layers.sh $(A5DIR)/LAYERS $^
 
 # The self-contained unit harnesses (no game data).
 unittest: $(UNIT_BINS) $(TAF) $(PREC_TAF) $(BADP_TAF)

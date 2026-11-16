@@ -1237,7 +1237,7 @@ emit_endgame (a5_run_t *run, sb_t *out)
       char *wt = a5text_describe (st, run->adv->end_game_text);
       if (wt[0]) { sb_puts (out, wt); sb_puts (out, "\n"); }
       free (wt);
-      sb_resolve_cls (out, after_banner);
+      sb_resolve_cls (out, after_banner, a5text_interactive ());
     }
 
   /* The Runner reads Adventure.Score / MaxScore =
@@ -1329,7 +1329,7 @@ finish_turn (a5_run_t *run, sb_t *out)
      narrative, whose embedded <cls> drops the move message, room view and "The
      End" banner.  (The multi-commit intro resolves its own segments before
      calling finish_turn, so no markers reach here from a5run_intro.) */
-  sb_resolve_cls (out, 0);
+  sb_resolve_cls (out, 0, a5text_interactive ());
   /* Same for a <del> the plain renderer could not satisfy inside its own
      message (A5_DEL_MARK): the Runner's Display buffer spans the turn, so such
      a delete eats the pSpace join and then the previous message's tail.  After
@@ -1465,7 +1465,7 @@ a5run_intro (a5_run_t *run)
      clsUserSession init, vb:209-216); a title-music task's audio markup leaves
      a trailing space that joins onto the centred title. */
   /* commit: Adventure-Upgrade prompt */
-  sb_resolve_cls (&out, cf); cf = out.len;
+  sb_resolve_cls (&out, cf, a5text_interactive ()); cf = out.len;
   run_immediate_tasks (run, &out);
   /* Only NOW is the player's room marked seen (clsUserSession.vb:371, after
      the RunImmediately loop at vb:355).  The room the adventure names as the
@@ -1517,7 +1517,7 @@ a5run_intro (a5_run_t *run)
       sb_puts (&out, "\n\n");
     }
   /* commit: RunImmediately + title */
-  sb_resolve_cls (&out, cf); cf = out.len;
+  sb_resolve_cls (&out, cf, a5text_interactive ()); cf = out.len;
   intro = a5text_describe (run->st, run->adv->introduction);
   /* No paragraph break after an intro whose last visible act is a <cls> (DDF's
      multi-page intro ends "...<waitkey><cls>"): the break would land AFTER the
@@ -1531,7 +1531,7 @@ a5run_intro (a5_run_t *run)
     }
   free (intro);
   /* commit: Introduction (vb:227) */
-  sb_resolve_cls (&out, cf); cf = out.len;
+  sb_resolve_cls (&out, cf, a5text_interactive ()); cf = out.len;
   /* Show the start room only when <ShowFirstLocation> is set (the default);
      games like Six Silver Bullets clear it and reveal the room via a LOOK or
      the first move (clsUserSession game-start: gated on
@@ -1547,10 +1547,10 @@ a5run_intro (a5_run_t *run)
       sb_puts (&out, look);
       free (look);
     }
-  sb_resolve_cls (&out, cf); cf = out.len;   /* commit: room view (vb:229) */
+  sb_resolve_cls (&out, cf, a5text_interactive ()); cf = out.len;   /* commit: room view (vb:229) */
   /* Start the Immediately events (clsUserSession init loop, after intro). */
   ev_init (run, &out);
-  sb_resolve_cls (&out, cf);                 /* commit: start-of-game events */
+  sb_resolve_cls (&out, cf, a5text_interactive ());                 /* commit: start-of-game events */
   update_seen (run->st);
   a5state_stamp_prev (run->st);
   {

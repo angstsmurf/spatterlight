@@ -35,7 +35,24 @@
 #ifndef SCARIER_A5STATE_H
 #define SCARIER_A5STATE_H
 
+#include <map>
+#include <set>
+#include <string>
+
 #include "a5model.h"
+
+/* The two route ledgers a5restr.cpp keeps in the state (a5_state_t's
+   route_cache and ever_blocked, which say what each is for).  They are
+   declared here so the state that holds them can also free them; a5restr.cpp
+   is still the only code that fills or reads them. */
+struct a5_route_entry {
+  const char *dest;                /* scan result (model-owned key or NULL)  */
+  const a5_xml_node_t *blocked;    /* blocking exit-restriction's <Message>  */
+};
+/* Keyed by "charkey\001lockey\001dir". */
+typedef std::map<std::string, a5_route_entry> a5_route_cache_t;
+/* Keyed by "lockey\001dir". */
+typedef std::set<std::string> a5_blocked_ledger_t;
 
 /* Upper bound on the number of items a single %objects% reference can resolve
    to (e.g. "take all" in a room of dozens of objects). */
@@ -426,18 +443,20 @@ typedef struct a5_state_s {
   int turn_out_nonempty;
 
   /* Per-turn route-restriction memo (the Runner's per-character
-     dictHasRouteCache/dictRouteErrors) -- owned and typed by a5restr.cpp,
-     cleared once per processed command (PrepareForNextTurn, vb:3792) via
-     a5restr_route_cache_clear.  Transient: not saved, not copied. */
-  void *route_cache;
+     dictHasRouteCache/dictRouteErrors) -- filled by a5restr.cpp, allocated
+     on first use, cleared once per processed command (PrepareForNextTurn,
+     vb:3792) via a5restr_route_cache_clear, freed by a5state_free.
+     Transient: not saved, not copied. */
+  a5_route_cache_t *route_cache;
 
   /* Exits whose route restrictions have ever evaluated false, the Runner's
      clsDirection.bEverBeenBlocked (set by HasRouteInDirection on every failed
      evaluation, clsCharacter.vb:686).  The map keeps a restricted-but-passable
-     connector solid until its exit is on this ledger (Map.vb:1447).  Owned and
-     typed by a5restr.cpp.  Like the Runner's flag it lives for the whole
-     session: never cleared, not saved, not copied. */
-  void *ever_blocked;
+     connector solid until its exit is on this ledger (Map.vb:1447).  Filled by
+     a5restr.cpp, allocated on first use, freed by a5state_free.  Like the
+     Runner's flag it lives for the whole session: never cleared, not saved,
+     not copied. */
+  a5_blocked_ledger_t *ever_blocked;
 
   /* Set by a HaveRouteInDirection evaluation (a5restr pass_character) to the
      blocked exit's *own* restriction <Message> when the exit exists but is

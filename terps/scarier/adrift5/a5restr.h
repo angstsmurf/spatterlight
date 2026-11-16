@@ -98,23 +98,21 @@ extern const a5_xml_node_t *a5restr_fail_message (a5_state_t *st,
  * The evaluation is memoised per (charkey, lockey, dir) for the current turn,
  * mirroring clsCharacter.dictHasRouteCache: the first check in a turn decides,
  * even if a later action changes the gating state.  a5restr_route_cache_clear
- * is the PrepareForNextTurn clear (clsUserSession.vb:3792); _free releases the
- * storage with the state.
+ * is the PrepareForNextTurn clear (clsUserSession.vb:3792); a5state_free
+ * releases the storage with the state.
  */
 extern const char *a5restr_exit_in_direction (a5_state_t *st, const char *charkey,
                                               const char *lockey, const char *dir,
                                               const a5_xml_node_t **blocked_msg);
 extern void a5restr_route_cache_clear (a5_state_t *st);
-extern void a5restr_route_cache_free (a5_state_t *st);
 
 /* Has this exit's route restriction ever evaluated false?  The Runner's
    clsDirection.bEverBeenBlocked, which HasRouteInDirection sets on every
    failed evaluation and nothing ever resets.  The map draws a restricted
    connector solid until this says the player has actually been blocked there
-   (Map.vb:1447).  _free releases the ledger with the state. */
+   (Map.vb:1447).  a5state_free releases the ledger with the state. */
 extern int a5restr_ever_blocked (a5_state_t *st, const char *lockey,
                                  const char *dir);
-extern void a5restr_ever_blocked_free (a5_state_t *st);
 
 /* Trace restriction evaluation to stderr (driven by the harness/A5_TRACE). */
 extern int a5restr_trace;
