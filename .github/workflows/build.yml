@@ -29,6 +29,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
+      # Some runner images export an SDKROOT that points at a Command Line
+      # Tools SDK which is not installed. Point it at the selected Xcode's
+      # macOS SDK for the rest of the job.
+      - name: Use the selected Xcode's SDK
+        run: |
+          echo "xcode-select: $(xcode-select -p)"
+          echo "SDKROOT on entry: ${SDKROOT:-<unset>}"
+          echo "SDKROOT=$(env -u SDKROOT xcrun --sdk macosx --show-sdk-path)" >> "$GITHUB_ENV"
+
       - name: Show toolchain
         run: |
           xcodebuild -version
