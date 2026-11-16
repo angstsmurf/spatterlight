@@ -9,14 +9,14 @@
 //
 //  The ScottFree interpreter is built as a command-line tool, not a linkable
 //  library, so the test target compiles the filltest harness
-//  (terps/scott/saga/test/filltest.c) and the renderer sources it links; the
-//  list is SRCS in terps/scott/saga/test/Makefile. The harness stubs out Glk
+//  (terps/scott/test/pictures/filltest.c) and the renderer sources it links; the
+//  list is SRCS in terps/scott/test/pictures/Makefile. The harness stubs out Glk
 //  and the rest of the interpreter, so the test needs no external process.
 //
 
 #import <XCTest/XCTest.h>
 
-/* terps/scott/saga/test/filltest.c */
+/* terps/scott/test/pictures/filltest.c */
 int RunVectorFixtures(const char *gamedir, const char *imagedir);
 
 @interface Tests : XCTestCase

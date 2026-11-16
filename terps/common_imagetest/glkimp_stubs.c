@@ -4,7 +4,7 @@
    knobs below, by
      - common_imagetest/image_glk.c        (Plus / TaylorMade image probes)
      - scott/test/headless_stubs.c         (scott_hl and its test tools)
-     - scott/saga/test/extract_stubs.c     (the SAGA image dumpers, titest,
+     - scott/test/pictures/extract_stubs.c     (the SAGA image dumpers, titest,
                                             scenetest)
    so that each build keeps a single stub translation unit.
 

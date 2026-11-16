@@ -8,7 +8,7 @@
 The runner is common_imagetest/run_companion_tests.py, which says what
 companions.tsv holds. This script adds what is particular to this suite: the
 probe (as in run_format_tests.py), and the file name pairs that
-saga/atari8detect.c and saga/apple2detect.c know by heart, read from the
+containers/scott_atari8detect.c and containers/scott_apple2detect.c know by heart, read from the
 source, so that a pair added there is tested too.
 """
 
@@ -23,18 +23,18 @@ import run_image_tests as images  # noqa: E402
 import run_companion_tests as companions  # noqa: E402
 import run_format_tests as formats  # noqa: E402
 
-SAGA = os.path.join(HERE, "..", "..", "saga")
+CONTAINERS = os.path.join(HERE, "..", "..", "containers")
 # source file, name of the table, the extensions its pairs are tried on
 DATABASES = (
-    ("atari8detect.c", "a8companionlist", "atr"),
-    ("apple2detect.c", "a2companionlist", "dsk,do,woz"),
+    ("scott_atari8detect.c", "a8companionlist", "atr"),
+    ("scott_apple2detect.c", "a2companionlist", "dsk,do,woz"),
 )
 
 
 def known_pairs():
     pairs = []
     for source, table, exts in DATABASES:
-        with open(os.path.join(SAGA, source), encoding="utf-8") as f:
+        with open(os.path.join(CONTAINERS, source), encoding="utf-8") as f:
             text = f.read()
         body = re.search(table + r"\[\]\[2\] = \{(.*?)\n\};", text, re.S)
         if not body:

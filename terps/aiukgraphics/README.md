@@ -1,7 +1,7 @@
 # terps/aiukgraphics
 
-The ZX Spectrum / C64 picture library shared by `terps/scott` (including
-`ai_uk/` and `ti994a/`) and `terps/taylor`. Three parts, 1484 lines:
+The ZX Spectrum / C64 picture library shared by `terps/scott` (`graphics/`
+and `games/`) and `terps/taylor`. Three parts, 1484 lines:
 
 | File | What |
 |---|---|
@@ -11,7 +11,7 @@ The ZX Spectrum / C64 picture library shared by `terps/scott` (including
 
 It has no build file and no tests of its own: it is compiled into scott and
 taylor by the Xcode project and by `scott/Makefile.headless`,
-`taylor/Makefile.headless`, `scott/saga/test/Makefile` and the two terps' test
+`taylor/Makefile.headless`, `scott/test/pictures/Makefile` and the two terps' test
 probes.
 
 ## Licences
@@ -25,7 +25,7 @@ notice, because they descend from his Sagadraw.
 ```
 cd terps/taylor && make -f Makefile.headless imagecheck mamecheck scriptcheck
 cd terps/scott  && make -f Makefile.headless formatcheck check
-cd terps/scott/saga/test && make zxtest scenetest titest
+cd terps/scott/test/pictures && make zxtest scenetest titest
 xcodebuild -project ../../Spatterlight.xcodeproj -scheme Spatterlight build
 ```
 
@@ -35,7 +35,7 @@ captures from commit eb035c603). scott `formatcheck` and the saga `zxtest` /
 `scenetest` / `titest` targets draw the AI UK pictures (Spectrum, C64, TI-99/4A)
 and compare hashes. Run them all before and after anything that touches the
 opcode interpreter or the decoder; the pass of October 2026 changed no golden.
-See `taylor/test/README.md` and `scott/saga/test/`.
+See `taylor/test/README.md` and `scott/test/pictures/`.
 
 ## Not covered
 
@@ -80,8 +80,8 @@ See `taylor/test/README.md` and `scott/saga/test/`.
   with 1 / 6. ZXOPT's bright red is its own 0xff0014. C64C differs from C64B
   only in non-bright red (2 instead of 9).
 - **Game colours live with their games**: `dice_colour` in
-  `scott/ai_uk/seas_of_blood.c`, `WhiteColour()` / `BlueColour()` in
-  `scott/ai_uk/game_specific.c`, the Robin lightning palette swap in
+  `scott/games/seas_of_blood.c`, `WhiteColour()` / `BlueColour()` in
+  `scott/games/game_specific.c`, the Robin lightning palette swap in
   `robin_of_sherwood.c`. `aiukpalette.h` exports `Remap`, `DefinePalette`,
   `pal[]` and `palchosen` only.
 - **`last_image_index` is set by the hosts** (scott_display.c,

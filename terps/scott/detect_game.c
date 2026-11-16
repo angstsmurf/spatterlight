@@ -23,13 +23,13 @@
 #include "scott_game_info.h"
 #include "scottfree_loader.h"
 
-#include "apple2detect.h"
-#include "atari8detect.h"
+#include "scott_apple2detect.h"
+#include "scott_atari8detect.h"
 #include "scott_c64detect.h"
 #include "load_ti99_4a.h"
 #include "zxdetect.h"
 
-#include "parser.h"
+#include "scott_parser.h"
 
 /* Size of system_messages[], the raw message strings read from the game
    file. Not to be confused with MAX_SYSMESS (scott_sysmess.h), the size

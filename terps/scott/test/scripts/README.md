@@ -63,7 +63,7 @@ One command per line. Three things are not commands:
   a word it does not understand takes no turn there.
 
 Seas of Blood's dice are thrown by timer and key events, which CheapGlk does
-not have. `scott_hl` is built with `AUTOWIN` (`ai_uk/seas_of_blood.c`), as the
+not have. `scott_hl` is built with `AUTOWIN` (`games/seas_of_blood.c`), as the
 app was when the two scripts were written: a battle is won without a roll, and
 takes only the `<HIT ENTER>` before it. So the dice code itself is not run
 here.
@@ -86,7 +86,7 @@ own examples have the verb last, but the original takes it in either place
 (the ZX Spectrum release in MAME: `holen saebel`, `angreifen gremlin`,
 `gehen nach oben`, `lass saebel fallen` and `fallen lassen saebel` all do what
 the verb-last forms do), and so does the interpreter (`CommandFromStrings()`
-in `parser.c`). So besides its own hashes this script
+in `scott_parser.c`). So besides its own hashes this script
 has a second check (`SAME_AS` in `run_script_tests.py`): apart from the lines
 that echo the commands, its transcript has to be that of `gremlins-german` on
 every image. A command that is understood in one word order only fails the

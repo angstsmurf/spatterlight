@@ -243,12 +243,12 @@ static void ProbeGraphics(void)
         Line("tiles", 256, AddBytes(crc32(0, NULL, 0), tiles, 256 * 8));
     }
 
-    if (LineImages != NULL && Game->picture_format_version == 99) {
+    if (HowarthPictures != NULL && Game->picture_format_version == 99) {
         crc = crc32(0, NULL, 0);
         for (int i = 0; i <= GameHeader.NumRooms; i++) {
-            crc = AddInt(crc, LineImages[i].bgcolour);
-            crc = AddInt(crc, (long)LineImages[i].size);
-            crc = AddBytes(crc, LineImages[i].data, LineImages[i].size);
+            crc = AddInt(crc, HowarthPictures[i].bgcolour);
+            crc = AddInt(crc, (long)HowarthPictures[i].size);
+            crc = AddBytes(crc, HowarthPictures[i].data, HowarthPictures[i].size);
         }
         Line("lineimages", GameHeader.NumRooms + 1, crc);
     }

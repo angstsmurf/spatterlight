@@ -1,5 +1,5 @@
 /* c64unpack.h — helpers shared by the ScottFree and TaylorMade C64 loaders
-   (terps/scott/ai_uk/c64decrunch.c and terps/taylor/c64decrunch.c).
+   (terps/scott/containers/scott_c64detect.c and terps/taylor/c64decrunch.c).
 
    These are header-only because they allocate with MemAlloc, of
    common_utils, which unp64 itself does not depend on. */

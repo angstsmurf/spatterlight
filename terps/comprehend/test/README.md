@@ -194,7 +194,7 @@ Left alone on purpose:
 - Flood fills: the PCjr visited-mask fill is a different algorithm and stays
   apart from the shared span fill (see above and the comment at
   `gmpcjr_flood_fill`).
-- The Scott Adams copy in `terps/scott/saga/apple2_vector_draw.c` decodes a
+- The Scott Adams copy in `terps/scott/graphics/apple2_vector_draw.c` decodes a
   3-bit opcode (`& 0xe0`, real pictures carry `0x5x` meaning SET_SHAPE), uses
   a midpoint scanline fill and its own slow-draw op list, in C. It already
   shares the cursor, line and brush primitives through `common_sagadraw`;

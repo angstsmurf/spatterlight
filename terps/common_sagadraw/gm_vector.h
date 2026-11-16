@@ -9,7 +9,7 @@
 //  gm_vector.h
 //
 //  Shared Apple II "Graphics Magician" (Penguin Software) vector primitives,
-//  used by both the Scott Adams SAGA renderer (scott/saga/apple2_vector_draw.c)
+//  used by both the Scott Adams SAGA renderer (scott/graphics/apple2_vector_draw.c)
 //  and the Comprehend renderer (comprehend/graphics_magician.cpp).
 //
 //  These two engines were reverse-engineered from different 6502 interpreters

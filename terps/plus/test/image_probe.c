@@ -179,7 +179,7 @@ void ImageProbeDump(void)
         return;
     }
 
-    /* For scott/saga/test/atari8_overlay_check.py: the raw pictures, and which
+    /* For scott/test/pictures/atari8_overlay_check.py: the raw pictures, and which
        object picture the game can draw over which room. */
     const char *blobs = getenv("PLUS_PROBE_BLOBS");
     if (blobs) {

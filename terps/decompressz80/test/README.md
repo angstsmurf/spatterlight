@@ -17,7 +17,7 @@ of each (`nm -gU` on the library should show nothing else).
 Consumers: scott (`detect_game.c`, `title_image.c`), taylor (`extracttape.c`,
 `loading_screen.c`, `decrypttotloader.c`, `loadtotpicture.c`), level9, unquill
 (`unquill.c`, `illustrator.c`) and `common_zxscreen/zx_title.c`. Built by the
-Xcode project and by `scott/Makefile.headless`, `scott/saga/test/Makefile`,
+Xcode project and by `scott/Makefile.headless`, `scott/test/pictures/Makefile`,
 `taylor/Makefile.headless`.
 
 ## Licences
@@ -36,7 +36,7 @@ cd terps/decompressz80/test
 ./malformed.py
 
 cd ../../scott  && make -f Makefile.headless formatcheck companioncheck scriptcheck savecheck check
-cd saga/test    && make test scenetest
+cd test/pictures && make test scenetest
 cd ../../../taylor && make -f Makefile.headless imagecheck mamecheck scriptcheck
 cd ../level9    && make -f Makefile.headless check
 xcodebuild -project ../../Spatterlight.xcodeproj -scheme Spatterlight build

@@ -1,10 +1,10 @@
 // The fake Glk window layer shared by the picture harnesses that run a whole
 // interpreter against a framebuffer: the image probes of the Plus and
 // TaylorMade interpreters (image_glk.c) and the Scott scene tests
-// (scott/saga/test/scenetest.c).
+// (scott/test/pictures/scenetest.c).
 //
 // The interpreter sources are built with a force-included rename header
-// (image_glk.h, scott/saga/test/scene_glk.h) that maps the Glk window calls to
+// (image_glk.h, scott/test/pictures/scene_glk.h) that maps the Glk window calls to
 // the fakeglk_* functions below, and the event and exit calls to the
 // harness's own functions. Streams, files and styles still come from
 // cheapglk. Windows are bookkeeping only, except the graphics window, whose

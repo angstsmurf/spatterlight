@@ -14,7 +14,7 @@ probe="$here/c64diskimage_probe"
 cc -std=c11 -O1 -g -Wall -I"$here/.." \
     -o "$probe" "$here/c64diskimage_probe.c" "$here/../c64diskimage.c" || exit 1
 
-[ $# -eq 0 ] && set -- "$terps/scott/test" "$terps/scott/saga/test" "$terps/plus/test" "$terps/taylor/test"
+[ $# -eq 0 ] && set -- "$terps/scott/test" "$terps/scott/test/pictures" "$terps/plus/test" "$terps/taylor/test"
 
 find "$@" -type f \( -iname '*.d64' -o -iname '*.d71' -o -iname '*.d81' \) | LC_ALL=C sort -u |
 while IFS= read -r image; do

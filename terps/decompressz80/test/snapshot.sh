@@ -13,7 +13,7 @@ probe="$here/z80_probe"
 
 cc -std=c11 -O1 -g -Wall -I"$here/.." -o "$probe" "$here/z80_probe.c" "$here"/../*.c || exit 1
 
-[ $# -eq 0 ] && set -- "$terps/scott/test" "$terps/scott/saga/test" "$terps/taylor/test"
+[ $# -eq 0 ] && set -- "$terps/scott/test" "$terps/scott/test/pictures" "$terps/taylor/test"
 
 find "$@" -type f \( -iname '*.z80' -o -iname '*.slt' -o -iname '*.sna' -o -iname '*.tzx' -o -iname '*.tap' \) | LC_ALL=C sort |
 while IFS= read -r image; do

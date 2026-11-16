@@ -1,8 +1,9 @@
 # ScottFree: structure TODO
 
 Recommendations from a read-only survey on 2026-11-16 (master at 4ac564bce).
-Line numbers are from that commit. A1 to A7, B, D1, D2, D4 and E option 1 are done; see Status.
-Everything else is still open.
+Line numbers are from that commit. Sections A to E are done (E as option 1); see Status. The paths in the text
+below are the old ones: `saga/`, `ai_uk/` and most of `ti994a/` are now
+`loaders/`, `containers/`, `graphics/` and `games/`. Section F is still open.
 
 ## Status
 
@@ -18,8 +19,11 @@ Done, as pure moves, with every check of section 0 passing afterwards:
 | A5 | New `ai_uk/secret_mission.c/.h`, `adventureland.c/.h`, `sysmess_maps.c/.h`, `closeups.c/.h`. `SetParserWordLists` is in `parser.c`. `game_specific.c` holds the two colour functions. |
 | A6 | `ai_uk/c64decrunch.c/.h` renamed `saga/scott_c64detect.c/.h`. |
 | A7 | The `-z` option is gone, and with it `win_testresult()` in glkimp. The picture comparison helpers are in `saga/test/vector_selftest.c/.h`, taken out of `vector_common.c`, `apple2_vector_draw.c` and `atari_8bit_vector_draw.c`. `filltest.c` has `RunVectorFixtures()`, which also runs the tint overlay case that only `-z` had. The SpatterlightTests target compiles `filltest` and its sources, and `testScottDraw` calls `RunVectorFixtures()` in-process. `A8_IMAGE_SIZE` moved to `atari_8bit_vector_draw.h`. |
+| C | The folders are `loaders/`, `containers/`, `graphics/`, `games/` and `ti994a/` (only `ti99_4a_terp`), as in the layout of section C. `saga/` and `ai_uk/` are gone. The picture tests moved from `saga/test/` to `test/pictures/`. The Xcode groups, `Makefile.headless`, the picture test Makefile and the notes in the sibling folders follow. |
+| Picture structs (not in the plan) | `USImage` lost `filename` and `previous`. The loaders call `AddImage()` for each picture they have read instead of filling a node allocated in advance, so no empty node is left in the list; `FreeImages()` replaces `FreeTrailingEmptyImage()` and `FreeUSImagesIfEmpty()`. `imglist` and `CropList` are `A8PictureEntry` and `A8Crop`, private to `scott_atari8detect.c`. `line_image` and `LineImages` are `HowarthPicture` and `HowarthPictures`. |
 | D1 | The fourteen display globals are defined in `scott_display.c` and declared in `scott_display.h`. The loader state (`game_file`, `DirPath`, `entire_file`, `file_length`, `file_baseline_offset`, `system_messages[]`, `title_screen`, `ZXLoadingScreen`) is defined in `detect_game.c` and declared in `detect_game.h`. `scott.h` keeps the database, `sys[]`, `CurrentSys`, `Options` and the turn state, with the saved game state grouped under one comment. |
 | D2 | `SetParserLanguage()` with a `ParserLanguage` enum replaces `SetParserWordLists()`. The word lists, their sizes, `ExtraNounsKey` and `CharWords` are static in `parser.c`. `UnicodeWords` and `WhichWord` stay exported: `scott_actions.c` and `test/all_audit.c` use them. |
+| D3 | `parser.c/.h`, `apple2detect.c/.h` and `atari8detect.c/.h` are `scott_parser`, `scott_apple2detect` and `scott_atari8detect`. No header name of this folder exists elsewhere in the project now. |
 | D4 | `scott_defines.h` no longer includes `scott_opcodes.h` or `scott_sysmess.h`. The opcode names are included by `scott_actions.c`, `ti994a/ti99_4a_terp.c` and the two audit tools; the system messages by `scott.h`, `scott_game_info.h/.c` and `ai_uk/sysmess_maps.h`. |
 | E | Option 1: new `ai_uk/game_dispatch.c/.h` with `GameSetup()`, `GameOpcode()`, `GameRoomImage()` and `GameTimer()`, holding the four switches that were in `detect_game.c`, `scott_actions.c`, `scott_display.c` and `scott.c`. Control flow of the last three is unchanged. `GameSetup()` was then rewritten so that no case falls through to another game: every case is complete in itself, with `MapAdventurelandSysMessages()`, `MapStandardSysMessages()` and `PatchSecretMissionImages()` as static helpers and the second switch (German Gremlins, Italian Perseus) folded in. Every case is loaded by `formatcheck`, whose fingerprint covers `sys[]`, the room and item pictures and the start room. |
 
@@ -42,6 +46,11 @@ Where the result differs from the text below:
   `scott_actions.c`, `UpdateRTPISystemMessages` in `scott.c`.
 - D4: `ti994a/ti99_4a_terp.c` uses the condition names too, so four files
   include `scott_opcodes.h`, not three.
+- C: `decompress_text` is in `loaders/`, not `containers/`: it unpacks the
+  text of a database, and the UK loader and two games use it. The root keeps
+  `bsd.c`. `game_dispatch` and `game_specific` are in `games/`.
+- D3: `bsd.h`, `game_specific.h`, `title_image.h`, `restore_state.h` and
+  `ringbuffer.h` keep their names; nothing else in the project has them.
 - A6: the disk menus are still in `scott_c64detect.c`. The
   `C64_DUMP_US_IMAGE` debug dump (the two `SCOTT_HEADLESS` blocks) is
   deleted; nothing used it.
@@ -62,8 +71,8 @@ files; D onwards change declarations or control flow.
 Run before and after every item. All of these exist today.
 
 - `make -f Makefile.headless check formatcheck companioncheck scriptcheck savecheck`
-- `cd saga/test && make test c64a8test scenetest` (plus the other picture
-  targets listed in `saga/test/README.md`)
+- `cd test/pictures && make all-tests` (the targets are listed in
+  `test/pictures/README.md`)
 - `xcodebuild -scheme Spatterlight build`, because the app build is the only
   one that uses Xcode's header map and the `SPATTERLIGHT` branches.
 - For pure moves, an object-level check is cheap: the set of global symbols
@@ -71,8 +80,8 @@ Run before and after every item. All of these exist today.
   statics that had to become global.
 
 A moved or new file has to be registered in four places: the Xcode project
-(groups `scott`, `saga`, `ai_uk`, `ti994a`), `Makefile.headless` (`SRCS`
-wildcards, `VPATH`, `-I`), `saga/test/Makefile` (explicit source lists and
+(one group per folder), `Makefile.headless` (`SRCS`
+wildcards, `VPATH`, `-I`), `test/pictures/Makefile` (explicit source lists and
 `vpath`) and the Gargoyle fork's CMake list. This cost is why the file splits
 come before any folder moves.
 
@@ -352,4 +361,4 @@ make the three states (detected, US with pictures, US fallback) visible.
 2. Done: A5 and D2: `game_specific.c` and the parser word lists.
 3. Done: A4, A6, A7.
 4. Done: D1, D4 and E option 1.
-5. D3 and C, if the folder moves are wanted at all.
+5. Done: D3 and C.

@@ -49,7 +49,7 @@
 #include "vector_common.h"
 #include "rtpi_loader.h"
 
-#include "parser.h"
+#include "scott_parser.h"
 
 #include "game_dispatch.h"
 #include "sysmess_maps.h"

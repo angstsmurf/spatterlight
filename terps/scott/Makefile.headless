@@ -37,7 +37,7 @@ endif
 
 # -I$(CHEAPGLK_DIR) comes first so glk.h / glkstart.h resolve to CheapGlk's
 # headers rather than glkimp's.
-COMMON_INC := -I. -Itest -Iai_uk -Isaga -Iti994a -I$(CHEAPGLK_DIR) -I$(COMMON_DIR) \
+COMMON_INC := -I. -Itest -Iloaders -Icontainers -Igraphics -Igames -Iti994a -I$(CHEAPGLK_DIR) -I$(COMMON_DIR) \
               -I$(SAGADRAW_DIR) -I$(AIUKGFX_DIR) -I$(Z80_DIR) -I$(READWOZ_DIR) \
               -I$(C64DISK_DIR) -I$(UNP64_DIR) -I$(TAYLOR_DIR) -I$(ZXSCREEN_DIR)
 DEPFLAGS   := -MMD -MP
@@ -48,7 +48,8 @@ CFLAGS     := -O0 -g -Wall \
 # are thrown by timer and key events, which CheapGlk does not have, and the
 # command scripts for the game (test/scripts) were written with it.
 
-SRCS := $(wildcard *.c) $(wildcard ai_uk/*.c) $(wildcard saga/*.c) \
+SRCS := $(wildcard *.c) $(wildcard loaders/*.c) $(wildcard containers/*.c) \
+        $(wildcard graphics/*.c) $(wildcard games/*.c) \
         $(wildcard ti994a/*.c) \
         $(wildcard $(COMMON_DIR)/*.c) $(wildcard $(SAGADRAW_DIR)/*.c) \
         $(AIUKGFX_DIR)/irmak.c $(AIUKGFX_DIR)/aiukpalette.c \
@@ -58,7 +59,7 @@ SRCS := $(wildcard *.c) $(wildcard ai_uk/*.c) $(wildcard saga/*.c) \
         test/headless_stubs.c test/old_random.c
 
 OBJS := $(patsubst %.c,$(OBJDIR)/%.o,$(notdir $(SRCS)))
-VPATH := .:ai_uk:saga:ti994a:test:$(COMMON_DIR):$(SAGADRAW_DIR):$(AIUKGFX_DIR):$(Z80_DIR):$(READWOZ_DIR):$(C64DISK_DIR):$(ZXSCREEN_DIR)
+VPATH := .:loaders:containers:graphics:games:ti994a:test:$(COMMON_DIR):$(SAGADRAW_DIR):$(AIUKGFX_DIR):$(Z80_DIR):$(READWOZ_DIR):$(C64DISK_DIR):$(ZXSCREEN_DIR)
 
 CXX_SRCS := $(wildcard $(UNP64_DIR)/*.cpp) $(wildcard $(UNP64_DIR)/scanners/*.cpp)
 CXX_OBJS := $(patsubst %.cpp,$(OBJDIR)/%.o,$(notdir $(CXX_SRCS)))

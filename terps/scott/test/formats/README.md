@@ -84,8 +84,8 @@ The names are the patterns `../../../common_utils/companion_search.c`
 understands (`side A`/`side B`, `disk 1`/`disk 2`, `Disk One`/`Disk Two`, with
 a space, underscore or period), the extra guesses of each system (`[cr CSS]`
 on Atari, `(boot)` on Apple II, `s1`/`s2` for the C64 *Claymorgue*), some
-names that must not match, and every pair that `saga/atari8detect.c` and
-`saga/apple2detect.c` know by heart. Those are read from the source: a pair
+names that must not match, and every pair that `containers/scott_atari8detect.c` and
+`containers/scott_apple2detect.c` know by heart. Those are read from the source: a pair
 added there fails the run until it is a `names` row, which `--bless` makes it.
 
 - Intended change to the file name rules: `run_companion_tests.py --bless`, then review

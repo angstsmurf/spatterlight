@@ -31,7 +31,7 @@
 #include "game_dispatch.h"
 #include "gremlins.h"
 
-#include "parser.h"
+#include "scott_parser.h"
 #include "us_display.h"
 
 /* DrawBlack() blanks the top half of a ZX Spectrum screen (256x192). */

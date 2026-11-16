@@ -21,7 +21,7 @@
 
 #include "restore_state.h"
 
-#include "parser.h"
+#include "scott_parser.h"
 #include "scott.h"
 #include "scott_meta.h"
 #include "scott_actions.h"

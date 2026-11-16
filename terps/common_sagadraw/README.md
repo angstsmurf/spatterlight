@@ -1,6 +1,6 @@
 # terps/common_sagadraw
 
-The picture renderers shared by `terps/scott` (`saga/`, `ai_uk/`), `terps/plus`
+The picture renderers shared by `terps/scott` (`graphics/`, `containers/`), `terps/plus`
 and `terps/comprehend`. 1447 lines:
 
 | File | What | Used by |
@@ -12,7 +12,7 @@ and `terps/comprehend`. 1447 lines:
 | `gm_vector.c/.h` | Graphics Magician cursor, line and brush code, 6502 write for write | scott `apple2_vector_draw.c`, comprehend |
 | `gm_artifact.c/.h` | NTSC artifact colours for hi-res and double hi-res lines, `gm_apple2_palette` | apple2draw, comprehend |
 | `gm_hires.h` | page size, rows, columns, `gm_row_address`, `gm_row_from_offset` | all of the above, scott, comprehend |
-| `sagadraw_host.h` | the host globals and callbacks (`SetColor`, `PutPixelWithWidth`, `Graphics`, `pixel_size`, ...) | the three library files and the files that define them: `scott/saga/sagagraphics.c`, `scott/scott.c`, `plus/graphics.c`, `plus/plusmain.c` |
+| `sagadraw_host.h` | the host globals and callbacks (`SetColor`, `PutPixelWithWidth`, `Graphics`, `pixel_size`, ...) | the three library files and the files that define them: `scott/graphics/sagagraphics.c`, `scott/scott.c`, `plus/graphics.c`, `plus/plusmain.c` |
 
 No build file and no tests of its own. Xcode finds these headers through the
 `common_sagadraw` group in the project file, not through a search path, so a
@@ -31,14 +31,14 @@ later) and Comprehend. Two parts keep the notice of the code they came from:
   is GPL 2 or later like the rest.
 
 `gm_vector.c/.h` was split out of the GPL 3 or later
-`scott/saga/apple2_vector_draw.c`, but it comes from the 6502 routines rather than
+`scott/graphics/apple2_vector_draw.c`, but it comes from the 6502 routines rather than
 from ScummVM's Comprehend, whose `drawLine` and `drawShape` work differently. The
 part of that file that does derive from Comprehend, `doImageOp`, stayed behind.
 
 ## The suites
 
 ```
-cd terps/scott/saga/test && make groundtruth dostest apple2test c64test c64a8test titest zxtest scenetest
+cd terps/scott/test/pictures && make groundtruth dostest apple2test c64test c64a8test titest zxtest scenetest
 cd ../..               && make -f Makefile.headless check formatcheck
 cd ../comprehend       && make test
 cd ../plus             && make -f Makefile.headless imagecheck scriptcheck synthcheck
@@ -96,7 +96,7 @@ Every `.c` here should build with `-Wall -Wextra -Wshadow -Wpedantic`.
   stays separate: read-only, carries `top` not `left`, and only tells Plus
   the image size.
 - **`DrawPatternAndAdvancePos` is void**: four double-width pixels on one
-  row, `*y` moves down a row. `scott/saga/c64_small.c` calls it too.
+  row, `*y` moves down a row. `scott/containers/c64_small.c` calls it too.
 - **`DrawDOSImageFromData(ptr, datasize)`** takes the buffer length, returns 0
   for NULL or data shorter than the header, and clamps the declared size to
   the buffer. Only the empty B019.PAK changed among the 286 real PAKs. The

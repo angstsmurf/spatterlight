@@ -1,5 +1,5 @@
 // The fake Glk window layer shared by image_glk.c (Plus / TaylorMade image
-// probes) and scott/saga/test/scenetest.c. See fake_glk_window.h.
+// probes) and scott/test/pictures/scenetest.c. See fake_glk_window.h.
 //
 // Built without the rename headers: it calls the real (cheapglk) Glk.
 

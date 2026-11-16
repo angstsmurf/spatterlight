@@ -39,7 +39,7 @@ cd terps/readwoz/test && ./malformed.py            # damaged images under ASan/U
 cd terps/readwoz/test && ./unit.sh                 # woz2nib.c piece by piece
 cd terps/readwoz/test && ./v6check.py              # ReadInfocomV6File on the Infocom V6 disks
 cd terps/scott           && make -f Makefile.headless formatcheck companioncheck scriptcheck
-cd terps/scott/saga/test && make test
+cd terps/scott/test/pictures && make test
 cd terps/plus            && make -f Makefile.headless imagecheck companioncheck trunccheck scriptcheck
 cd terps/comprehend      && make check
 ```

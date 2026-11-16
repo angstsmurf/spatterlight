@@ -35,7 +35,7 @@
 // output is the game's text, so it is for comparing two builds, not for
 // committing.
 //
-// Same approach as scott/saga/test/scenetest.c, which compares single scenes
+// Same approach as scott/test/pictures/scenetest.c, which compares single scenes
 // with hardware screen dumps; this one has no script and no hardware goldens,
 // it pins down what every picture of a game looks like today.
 

@@ -9,14 +9,14 @@ is NULL.
 
 | Consumer | Uses it for |
 |---|---|
-| `scott/ai_uk/c64decrunch.c` | Scott Adams C64 disks (largest file, names, files by name) |
+| `scott/containers/scott_c64detect.c` | Scott Adams C64 disks (largest file, names, files by name) |
 | `taylor/c64decrunch.c` | Taylor C64 disks |
 | `plus/c64detect.c` | SAGA Plus C64 disks |
-| `scott/saga/test/c64extract.c` | the saga C64 test rig |
+| `scott/test/pictures/c64extract.c` | the saga C64 test rig |
 
 Built by the Xcode project (target `c64diskimage`, libc64diskimage.dylib) and
 by `scott/Makefile.headless`, `taylor/Makefile.headless`,
-`plus/Makefile.headless` and `scott/saga/test/Makefile`. `c64unpack.h` lives
+`plus/Makefile.headless` and `scott/test/pictures/Makefile`. `c64unpack.h` lives
 in `terps/unp64/`.
 
 ## The suites
@@ -30,7 +30,7 @@ python3 malformed.py
 cd ../../scott  && make -f Makefile.headless formatcheck companioncheck scriptcheck
 cd ../plus      && make -f Makefile.headless imagecheck companioncheck trunccheck scriptcheck
 cd ../taylor    && make -f Makefile.headless imagecheck mamecheck scriptcheck
-cd ../scott/saga/test && make test c64test c64a8test
+cd ../scott/test/pictures && make test c64test c64a8test
 xcodebuild -project ../../../../Spatterlight.xcodeproj -scheme Spatterlight build
 ```
 

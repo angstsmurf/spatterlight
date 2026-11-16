@@ -27,7 +27,7 @@
 #include "hulk.h"
 #include "seas_of_blood.h"
 
-#include "parser.h"
+#include "scott_parser.h"
 #include "ti99_4a_terp.h"
 #include "us_display.h"
 
