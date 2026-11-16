@@ -3,7 +3,7 @@
 `make -f Makefile.headless scriptcheck` (from `terps/scott`) plays each command
 script in this folder through `scott_hl` on every image of its game in
 `../formats/games/` and compares the transcript with a hash in `scripts.tsv`.
-243 replays, about ten seconds.
+251 replays, about ten seconds.
 
 Where `formatcheck` shows that the loaders still produce the same tables, this
 shows that the interpreter still does the same things with them: the parser,
@@ -92,6 +92,16 @@ that echo the commands, its transcript has to be that of `gremlins-german` on
 every image. A command that is understood in one word order only fails the
 test by name, and `--bless` does not get it past that.
 
+`gremlins-spanish-filler` is the Spanish walkthrough again, for the parser's
+Spanish word lists (`SpanishSkipList` and `SpanishDelimiterList` in
+`scott_parser.c`). Every noun has a filler word or two before it
+(`coger la espada`, `ir hacia la puerta`, `matar a los gremlins`,
+`soldar una de las chapas`), some commands begin with `ahora`, and two or
+three commands at a time share a line, joined by `y`, `luego`, a comma, a
+full stop or a semicolon in turn. It uses every word of both lists and has to
+win as `gremlins-spanish` does. `soltar tubo`, which the game refuses there,
+ends its line: a refused command drops the rest of the line.
+
 A replay that does not finish is still deterministic, and that is all a
 regression test needs, but it covers less of the game.
 
@@ -122,6 +132,7 @@ regression test needs, but it covers less of the game.
 | `gremlins-german` | won, all 4 | C64 and ZX. Changed from the wiki: `holen` for `nehmen`, which the game does not know; `anzeige` for `ladentisch`, which only the C64 knows; `taste druecken` once more at the pool; `laufen` for the waits |
 | `gremlins-german-verb-first` | won, all 4 | the same commands with the verb first; has to play out as `gremlins-german` does |
 | `gremlins-spanish` | won, all 4 | C64 and ZX. The English script put into Spanish word for word, but: the camera button is pressed as soon as the gang is at the pool, and `mirar` for the waits |
+| `gremlins-spanish-filler` | won, all 4 | the same commands with Spanish filler words before the nouns and several commands on a line |
 | `hulk` | won on 14 of 18 | old random numbers. The two C64 and two of the four ZX images end in limbo: Banner is gassed on another turn there |
 | `knight-ironheart` | won | TI-99/4A home-brew (M. Weiand, Tex-Comp 1984). The full ending: the princess and the bag of diamonds, then `say yes`. No random event fires on the way; the open trapdoor and the sandstorm could |
 | `perseus-and-andromeda` | won, all 7 | C64 and ZX. The solution of Jacob Gunness (solutionarchive.com) as written |

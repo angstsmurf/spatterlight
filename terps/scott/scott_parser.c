@@ -247,6 +247,13 @@ static const char *GermanSkipList[NUM_SKIPPABLE_WORDS] = {
     "auf", "den", "lassen", "lass", "fallen", "in", "ins", "zur", "zum"
 };
 
+/* "a" is skipped only where a noun is expected: as the first word it is
+   the game's own short form of ABANDONAR */
+static const char *SpanishSkipList[NUM_SKIPPABLE_WORDS] = {
+    NULL, "el", "la", "los", "las", "un", "una", "unos", "unas", "a",
+    "al", "de", "del", "en", "hacia", "mi", "mis", "ahora"
+};
+
 /* Not "i", which is the inventory */
 static const char *ItalianSkipList[NUM_SKIPPABLE_WORDS] = {
     NULL, "il", "lo", "la", "gli", "le", "un", "uno", "una", "a",
@@ -261,6 +268,10 @@ static const char *EnglishDelimiterList[NUM_DELIMITERS] = { NULL, ",", "and",
 
 static const char *GermanDelimiterList[NUM_DELIMITERS] = { NULL, ",", "und",
     "dann", "and" };
+
+/* Not "e", the form of "y" before an i, which is east */
+static const char *SpanishDelimiterList[NUM_DELIMITERS] = { NULL, ",", "y",
+    "luego", "and" };
 
 /* Not "e", which is east */
 static const char *ItalianDelimiterList[NUM_DELIMITERS] = { NULL, ",", "poi",
@@ -1383,8 +1394,8 @@ static void CopyWordList(const char **dest, const char **src, int count)
 }
 
 /* Switch the parser's word lists to those of a language. A language that
-   has no list of its own keeps the one in use: there are no Spanish skip
-   words or delimiters, and ExtraCommands[] starts out as the English list. */
+   has no list of its own keeps the one in use: ExtraCommands[] starts out
+   as the English list. */
 void SetParserLanguage(ParserLanguage language)
 {
     static const struct {
@@ -1395,8 +1406,8 @@ void SetParserLanguage(ParserLanguage language)
             EnglishDelimiterList, NULL, EnglishExtraNouns },
         [PARSER_GERMAN] = { GermanDirections, GermanSkipList,
             GermanDelimiterList, GermanExtraCommands, GermanExtraNouns },
-        [PARSER_SPANISH] = { SpanishDirections, NULL, NULL,
-            SpanishExtraCommands, SpanishExtraNouns },
+        [PARSER_SPANISH] = { SpanishDirections, SpanishSkipList,
+            SpanishDelimiterList, SpanishExtraCommands, SpanishExtraNouns },
         [PARSER_ITALIAN] = { ItalianDirections, ItalianSkipList,
             ItalianDelimiterList, ItalianExtraCommands, ItalianExtraNouns },
     };
