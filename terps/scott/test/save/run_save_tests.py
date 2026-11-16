@@ -263,7 +263,7 @@ def make_bad(lines):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    parser.add_argument("--hl", default=os.path.join(SCOTT, "scott_hl"))
+    parser.add_argument("--hl", default=os.path.join(SCOTT, "build", "scott_hl"))
     parser.add_argument("-v", "--verbose", action="store_true")
     parser.add_argument("names", nargs="*", metavar="NAME")
     args = parser.parse_args()

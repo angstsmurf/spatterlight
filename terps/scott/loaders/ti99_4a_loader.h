@@ -6,14 +6,14 @@
  */
 
 /*
- *  load_ti99_4a.h
+ *  ti99_4a_loader.h
  *  Part of ScottFree, an interpreter for adventures in Scott Adams format
  *
  *  Created by Petter Sjölund on 2022-02-12.
  */
 
-#ifndef load_ti99_4a_h
-#define load_ti99_4a_h
+#ifndef ti99_4a_loader_h
+#define ti99_4a_loader_h
 
 #include "scott_defines.h"
 #include <stdint.h>
@@ -27,4 +27,4 @@ extern size_t ti99_implicit_extent;
 extern size_t ti99_explicit_extent;
 extern uint8_t **VerbActionOffsets;
 
-#endif /* load_ti99_4a_h */
+#endif /* ti99_4a_loader_h */

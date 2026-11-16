@@ -21,7 +21,7 @@
    than a lucky NULL:
 
      ASAN_OPTIONS=malloc_fill_byte=0xaa:max_malloc_fill_size=1073741824 \
-       ./scott_death_test "/path/to/Seas of Blood.z80"
+       build/scott_death_test "/path/to/Seas of Blood.z80"
 
    Expected: clean "You are ..." with an empty/placeholder room 83, because the
    loader uses <= and allocates via MemCalloc. Without those, ASan/UBSan faults

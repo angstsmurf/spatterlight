@@ -6,7 +6,7 @@
  */
 
 /*
- *  load_ti99_4a.c
+ *  ti99_4a_loader.c
  *  Part of ScottFree, an interpreter for adventures in Scott Adams format
  *
  *  Created by Petter Sjölund on 2022-02-12.
@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "load_ti99_4a.h"
+#include "ti99_4a_loader.h"
 #include "rtpi_loader.h"
 #include "scott.h"
 #include "detect_game.h"

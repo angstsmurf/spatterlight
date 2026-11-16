@@ -1,9 +1,9 @@
 # ScottFree: structure TODO
 
 Recommendations from a read-only survey on 2026-11-16 (master at 4ac564bce).
-Line numbers are from that commit. Sections A to E are done (E as option 1); see Status. The paths in the text
+Line numbers are from that commit. Sections A to F are done (E as option 1); see Status. The paths in the text
 below are the old ones: `saga/`, `ai_uk/` and most of `ti994a/` are now
-`loaders/`, `containers/`, `graphics/` and `games/`. Section F is still open.
+`loaders/`, `containers/`, `graphics/` and `games/`; `README.md` has the map.
 
 ## Status
 
@@ -54,6 +54,24 @@ Where the result differs from the text below:
 - A6: the disk menus are still in `scott_c64detect.c`. The
   `C64_DUMP_US_IMAGE` debug dump (the two `SCOTT_HEADLESS` blocks) is
   deleted; nothing used it.
+- F, `bsd.c`: stays. It is the one file here under the BSD licence, which
+  keeps it out of `scott_parser.c`, and no other interpreter uses
+  `xstrncasecmp`, so `common_utils` would gain nothing.
+- F, tool binaries: `Makefile.headless` builds everything into `build/`
+  (objects in `build/obj`), which the root `.gitignore` already covers; the
+  seven lines for this folder are gone from it. `make -f Makefile.headless
+  scott_hl` and the other bare names still work. The Plus, TaylorMade and
+  Level 9 makefiles still build into their source folders.
+- F, Glk stubs: nothing to merge. `test/headless_stubs.c` and
+  `test/pictures/extract_stubs.c` both wrap
+  `common_imagetest/glkimp_stubs.c` and add only what differs;
+  `test/pictures/headless_glk_stubs.c` is for the tests that link no Glk
+  library at all, and `scene_glk.h` is a Glk implementation, not a stub.
+- F, naming: `load_ti99_4a.c/.h` is `ti99_4a_loader.c/.h`, like the other
+  loaders, and the snake_case functions of `rtpi_loader.c` and
+  `scott_c64detect.c` are CamelCase. `rtpi_graphics.c` and
+  `seas_of_blood.c` keep theirs until they are changed for another reason.
+- F, file map: `README.md`.
 
 Still to do outside this folder: the Gargoyle fork's `terps/CMakeLists.txt`
 lists the ScottFree sources by name and needs the new and renamed files at the
@@ -362,3 +380,4 @@ make the three states (detected, US with pictures, US fallback) visible.
 3. Done: A4, A6, A7.
 4. Done: D1, D4 and E option 1.
 5. Done: D3 and C.
+6. Done: F.

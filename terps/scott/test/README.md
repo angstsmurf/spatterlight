@@ -1,7 +1,8 @@
 # ScottFree headless test harness
 
 - `Makefile.headless` — builds `scott_hl`, a stdio (CheapGlk) build of the
-  interpreter. `printf 'look\nquit\n' | ./scott_hl "<game file>"`.
+  interpreter, and the test tools. They are built into `build/`, the objects
+  into `build/obj`. `printf 'look\nquit\n' | build/scott_hl "<game file>"`.
 - `make -f Makefile.headless check` — the regression suite. Replays scripted
   games and diffs the transcripts against golden files:
   - `test/regression.dat` — a hand-written plaintext Scott database that
@@ -28,7 +29,7 @@
       where the verb or the noun should be are still reported.
 
     After a deliberate change to the parser, look at the diff and regenerate:
-    `SCOTT_SCRIPT_KEYS=1 ./scott_hl test/parser/parser.dat < test/parser/all.txt
+    `SCOTT_SCRIPT_KEYS=1 build/scott_hl test/parser/parser.dat < test/parser/all.txt
     2>/dev/null | grep -v 'Glk library error' > test/parser/expected/all.txt`.
   - `test/resize_test.c` — the crash on resizing the window while a
     multi-game disk's selection menu is up (PR #212): the menu's key loop
@@ -36,13 +37,13 @@
     any database was loaded. The driver recreates that state, answers the
     graphics gestalt itself so the redraw path is taken under CheapGlk, and
     sends an `evtype_Arrange` and an `evtype_Timer` into `Updates()`. Needs
-    no game file: `./scott_resize_test`.
+    no game file: `build/scott_resize_test`.
 - `make -f Makefile.headless scott_death_test` — loads a real game, jumps the
   player into `MyLoc = GameHeader.NumRooms` (the death/limbo room) and calls
   `Look()`. Run under ASan with a non-zero malloc fill so an uninitialised room
   pointer is a wild pointer rather than a lucky NULL:
   `ASAN_OPTIONS=malloc_fill_byte=170:max_malloc_fill_size=1073741824 \
-   ./scott_death_test "<Seas of Blood.z80>"`.
+   build/scott_death_test "<Seas of Blood.z80>"`.
 - `make -f Makefile.headless scott_all_audit` — `test/all_audit.c`, which
   reports whether a database contains implicit actions that relocate
   ALL-eligible items.

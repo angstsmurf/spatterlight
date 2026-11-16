@@ -21,7 +21,7 @@
    are available, as in the app. Without the guard the process dies on a NULL
    dereference; with it the run prints "survived" and exits 0.
 
-     ./scott_resize_test
+     build/scott_resize_test
 
    Its own glk_main links against every engine object except scott.o's game
    loop, which the headless Makefile renames out of the way (see TOOL). */

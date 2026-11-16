@@ -6,6 +6,10 @@
 # Andrew Plotkin's CheapGlk -- a stdio Glk library. The result, `scott_hl`,
 # reads commands from stdin and writes the transcript to stdout.
 #
+# Everything that is built goes into build/: the objects into build/obj and
+# the binaries beside them. Each binary can be asked for by its bare name
+# (`make -f Makefile.headless scott_format_probe`).
+#
 # Graphics degrade gracefully: CheapGlk refuses the wintype_Graphics window, so
 # Graphics stays NULL and the drawing code becomes a no-op. Text, parser and
 # action-table behaviour are unaffected, which is what the regression tests
@@ -13,7 +17,7 @@
 #
 # Usage:
 #   make -f Makefile.headless
-#   printf 'north\nquit\n' | ./scott_hl "/path/to/Seas of Blood.z80"
+#   printf 'north\nquit\n' | build/scott_hl "/path/to/Seas of Blood.z80"
 
 CHEAPGLK_DIR := ../cheapglk
 COMMON_DIR   := ../common_utils
@@ -25,7 +29,8 @@ C64DISK_DIR  := ../c64diskimage
 UNP64_DIR    := ../unp64
 TAYLOR_DIR   := ../taylor
 ZXSCREEN_DIR := ../common_zxscreen
-OBJDIR       := headless_obj
+BIN          := build
+OBJDIR       := $(BIN)/obj
 
 # make predefines CC and CXX, so "?=" would never take effect.
 ifeq ($(origin CC),default)
@@ -67,7 +72,8 @@ CXXFLAGS := -O0 -g -w $(COMMON_INC) $(DEPFLAGS)
 
 CHEAPGLK_LIB := $(CHEAPGLK_DIR)/libcheapglk.a
 
-scott_hl: $(OBJS) $(CXX_OBJS) $(CHEAPGLK_LIB)
+scott_hl: $(BIN)/scott_hl
+$(BIN)/scott_hl: $(OBJS) $(CXX_OBJS) $(CHEAPGLK_LIB)
 	$(CXX) $(LDFLAGS) -o $@ $(OBJS) $(CXX_OBJS) $(CHEAPGLK_LIB) -lz
 
 $(OBJDIR)/%.o: $(UNP64_DIR)/%.cpp | $(OBJDIR)
@@ -79,7 +85,7 @@ $(CHEAPGLK_LIB):
 	$(MAKE) -C $(CHEAPGLK_DIR)
 
 $(OBJDIR):
-	mkdir -p $(OBJDIR)
+	mkdir -p $(OBJDIR) $(BIN)
 
 $(OBJDIR)/%.o: %.c | $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -100,7 +106,9 @@ $(OBJDIR)/scott_deathmain.o: scott_main.c | $(OBJDIR)
 # A tool with its own glk_main: $(call TOOL,binary,object with the main)
 TOOL_OBJS := $(filter-out $(OBJDIR)/scott_main.o,$(OBJS)) $(OBJDIR)/scott_deathmain.o
 define TOOL
-$(1): $$(TOOL_OBJS) $$(OBJDIR)/$(2).o $$(CXX_OBJS) $$(CHEAPGLK_LIB)
+.PHONY: $(1)
+$(1): $$(BIN)/$(1)
+$$(BIN)/$(1): $$(TOOL_OBJS) $$(OBJDIR)/$(2).o $$(CXX_OBJS) $$(CHEAPGLK_LIB)
 	$$(CXX) $$(LDFLAGS) -o $$@ $$(TOOL_OBJS) $$(OBJDIR)/$(2).o $$(CXX_OBJS) $$(CHEAPGLK_LIB) -lz
 endef
 
@@ -122,28 +130,27 @@ NOISE   := grep -v 'Glk library error'
 
 check: scott_hl scott_resize_test
 	@echo "--- test/resize_test.c: resize event during the game menu, before a game is loaded"
-	@./scott_resize_test 2>&1 | grep -q 'resize_test: survived' && echo "    ok"
+	@$(BIN)/scott_resize_test 2>&1 | grep -q 'resize_test: survived' && echo "    ok"
 	@echo "--- test/regression.dat: TAKE ALL chain, last-dictionary-word noun, Mr./Dr. tokenizer"
-	@printf 'take all\ninv\ncall dr.\ndr. medal\n' | ./scott_hl test/regression.dat 2>/dev/null \
+	@printf 'take all\ninv\ncall dr.\ndr. medal\n' | $(BIN)/scott_hl test/regression.dat 2>/dev/null \
 	    | $(NOISE) > $(OBJDIR)/regression.out
 	@diff -u test/regression_expected.txt $(OBJDIR)/regression.out && echo "    ok"
 	@for s in all chain it words; do \
 	    echo "--- test/parser/$$s.txt: see test/README.md"; \
-	    SCOTT_SCRIPT_KEYS=1 ./scott_hl test/parser/parser.dat < test/parser/$$s.txt 2>/dev/null \
+	    SCOTT_SCRIPT_KEYS=1 $(BIN)/scott_hl test/parser/parser.dat < test/parser/$$s.txt 2>/dev/null \
 	        | $(NOISE) > $(OBJDIR)/parser-$$s.out; \
 	    diff -u test/parser/expected/$$s.txt $(OBJDIR)/parser-$$s.out && echo "    ok" || exit 1; \
 	done
 	@echo "--- adv01.dat: full Adventureland walkthrough (157 commands, wins 13/13)"
-	@./scott_hl "$(UITESTS)/Games/adv01.dat" < "$(UITESTS)/Command scripts/ScottFree command script.txt" \
+	@$(BIN)/scott_hl "$(UITESTS)/Games/adv01.dat" < "$(UITESTS)/Command scripts/ScottFree command script.txt" \
 	    2>/dev/null | $(NOISE) > $(OBJDIR)/adv01.out
 	@diff -u test/adv01_expected.txt $(OBJDIR)/adv01.out && echo "    ok"
 	@echo "PASS"
 
 clean:
-	rm -rf $(OBJDIR) scott_hl scott_death_test scott_resize_test scott_all_audit \
-	    scott_format_probe scott_cond_audit
+	rm -rf $(OBJDIR) $(BIN)
 
-.PHONY: clean check
+.PHONY: clean check scott_hl
 
 -include $(OBJS:.o=.d) $(CXX_OBJS:.o=.d) $(wildcard $(OBJDIR)/*.d)
 

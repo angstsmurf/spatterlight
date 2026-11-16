@@ -217,7 +217,7 @@ size_t save_island_appendix_2_length = 0;
 /* Prompt the user to choose between Savage Island part 1 and part 2,
    which share a single D64 disk image. Extracts the selected game file
    and its associated picture files, then decompresses. */
-static GameIDType savage_island_menu(uint8_t **sf, size_t *extent, int recindex)
+static GameIDType SavageIslandMenu(uint8_t **sf, size_t *extent, int recindex)
 {
     static const char *titles[] = { "Savage Island part I", "Savage Island part II" };
     int result = SelectGameFromMenu(
@@ -305,7 +305,7 @@ static GameIDType RunDiskMenu(uint8_t **sf, size_t *extent, const char *intro,
 
 /* Prompt the user to choose from the six Mysterious Adventures games on
    C64 compilation disk 1. Their records are the first six of c64_registry. */
-static GameIDType mysterious_menu(uint8_t **sf, size_t *extent)
+static GameIDType MysteriousMenu(uint8_t **sf, size_t *extent)
 {
     static const char *titles[] = { "The Golden Baton", "The Time Machine",
         "Arrow of Death part 1", "Arrow of Death part 2",
@@ -320,7 +320,7 @@ static GameIDType mysterious_menu(uint8_t **sf, size_t *extent)
 
 /* Prompt the user to choose from the five Mysterious Adventures games on
    C64 compilation disk 2. Their records follow those of disk 1. */
-static GameIDType mysterious_menu2(uint8_t **sf, size_t *extent)
+static GameIDType MysteriousMenu2(uint8_t **sf, size_t *extent)
 {
     static const char *titles[] = { "Feasibility Experiment", "The Wizard of Akyrz",
         "Perseus and Andromeda", "Ten Little Indians", "Waxworks" };
@@ -335,7 +335,7 @@ static GameIDType mysterious_menu2(uint8_t **sf, size_t *extent)
 /* Prompt the user to choose from the 12 Scott Adams games on the
    "Adventure Pack" D64 compilation disk. Each game is stored as a
    separate ADVn.OBJ file on the disk image. */
-static GameIDType adventure_pack_menu(uint8_t **sf, size_t *extent)
+static GameIDType AdventurePackMenu(uint8_t **sf, size_t *extent)
 {
     static const char *titles[] = { "Adventureland", "Pirate Adventure",
         "Mission Impossible", "Voodoo Castle", "The Count", "Strange Odyssey",
@@ -643,13 +643,13 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent, const char *filename)
         if (*extent == c64_registry[i].length && chksum == c64_registry[i].chk) {
             /* Multi-game disks need user selection before extraction */
             if (c64_registry[i].id == SAVAGE_ISLAND_C64) {
-                return savage_island_menu(sf, extent, i);
+                return SavageIslandMenu(sf, extent, i);
             } else if (c64_registry[i].id == BATON_C64 && (chksum == 0xc3fc || chksum == 0xbfbf)) {
-                return mysterious_menu(sf, extent);
+                return MysteriousMenu(sf, extent);
             } else if (c64_registry[i].id == FEASIBILITY_C64 && (chksum == 0x9eaa || chksum == 0x9c18)) {
-                return mysterious_menu2(sf, extent);
+                return MysteriousMenu2(sf, extent);
             } else if (c64_registry[i].id == ADVENTURELAND_US && chksum == 0x78fa) {
-                return adventure_pack_menu(sf, extent);
+                return AdventurePackMenu(sf, extent);
             } else if (c64_registry[i].id == CLAYMORGUE_US && chksum == 0xa957) {
                 return LookForSoCCompanion(filename, sf, extent);
             }

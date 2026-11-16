@@ -42,7 +42,7 @@
 
 #include "detect_game.h"
 #include "uk_loader.h"
-#include "load_ti99_4a.h"
+#include "ti99_4a_loader.h"
 #include "scott.h"
 #include "scott_display.h"
 #include "scott_database.h"

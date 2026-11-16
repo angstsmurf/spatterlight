@@ -64,7 +64,7 @@
    the GROM bank header discontinuity. Each 0x2000-byte GROM bank has
    an 0x802-byte header that must be skipped when an image spans a bank
    boundary. */
-static void add_grom_image(USImageType usage, int index, uint16_t offset, uint16_t size, uint8_t *grom) {
+static void AddGromImage(USImageType usage, int index, uint16_t offset, uint16_t size, uint8_t *grom) {
 
     if (offset >= GROM_SIZE)
         Fatal("Bad image data\n");
@@ -145,7 +145,7 @@ static void LoadRTPIGraphics(uint16_t *room_image_offsets, uint16_t item_image_o
             size = next - offset;
         }
 
-        add_grom_image(usage, index, offset, size, grom);
+        AddGromImage(usage, index, offset, size, grom);
     }
 
     /* Item overlay images. Each entry in item_image_offsets[][] is a pair:
@@ -163,7 +163,7 @@ static void LoadRTPIGraphics(uint16_t *room_image_offsets, uint16_t item_image_o
             size = LAST_IMAGE_SIZE;
         }
 
-        add_grom_image(IMG_ROOM_OBJ, item_image_offsets[i][0], offset, size, grom);
+        AddGromImage(IMG_ROOM_OBJ, item_image_offsets[i][0], offset, size, grom);
     }
 }
 
@@ -520,7 +520,7 @@ static const GameInfo rtpi_info = {
 
 /* Replace embedded NULs with newlines so a multi-line blob can be
    displayed as a single string, then NUL-terminate at the end. */
-static void replace_nuls_with_newlines(char *str, size_t length) {
+static void ReplaceNulsWithNewlines(char *str, size_t length) {
     for (size_t i = 0; i < length; i++) {
         if (str[i] == 0)
             str[i] = '\n';
@@ -565,7 +565,7 @@ static uint8_t *load_rtpi_zip_payload(uint8_t *data, size_t datalength) {
     /* Extract the title screen text. */
     title_screen = MemAlloc(RTPI_TITLE_TEXT_LENGTH);
     memcpy((char *)title_screen, cpu_rom + CPU_ROM_TITLE_TEXT_OFFSET, RTPI_TITLE_TEXT_LENGTH);
-    replace_nuls_with_newlines((char *)title_screen, RTPI_TITLE_TEXT_LENGTH);
+    ReplaceNulsWithNewlines((char *)title_screen, RTPI_TITLE_TEXT_LENGTH);
 
     /* Extract the 52-tile font (8 bytes per tile). */
     memcpy(rtpi_tile_font, cpu_rom + CPU_ROM_TILE_FONT_OFFSET, NUM_RTPI_TILES * 8);
@@ -624,7 +624,7 @@ static uint8_t *load_rtpi_disk_payload(uint8_t *data, size_t datalength) {
         title_screen = (char *)TI99CopyObjectBytes(&obj, DSK_TITLE_TEXT_ADDRESS, RTPI_TITLE_TEXT_LENGTH);
         TI99FreeObject(&obj);
         if (title_screen != NULL)
-            replace_nuls_with_newlines(title_screen, RTPI_TITLE_TEXT_LENGTH);
+            ReplaceNulsWithNewlines(title_screen, RTPI_TITLE_TEXT_LENGTH);
     }
 
     if (TI99LoadObject(data, datalength, files, DSK_TILE_FONT_FILE, &obj)) {

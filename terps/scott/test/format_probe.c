@@ -47,7 +47,7 @@
 #include "decompressz80.h"
 #include "irmak.h"
 #include "line_drawing.h"
-#include "load_ti99_4a.h"
+#include "ti99_4a_loader.h"
 #include "sagagraphics.h"
 
 extern uint8_t *descrambletable;

@@ -28,7 +28,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(HERE, "..", "..", "..", "common_imagetest"))
 import run_image_tests as runner  # noqa: E402
 
-PROBE = os.path.join(HERE, "..", "..", "scott_format_probe")
+PROBE = os.path.join(HERE, "..", "..", "build", "scott_format_probe")
 MARKER = "\n== fingerprint\n"
 TIMEOUT = 60
 

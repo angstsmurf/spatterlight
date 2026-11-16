@@ -15,10 +15,11 @@ BUILD="$HERE/build"
 SAMPLES="$HERE/samples"
 mkdir -p "$SAMPLES"
 
-# $1 = interpreter directory, $2 = probe, $3... = the command that runs the suite
+# $1 = interpreter directory, $2 = probe, as its path in that directory,
+# $3... = the command that runs the suite
 capture() {
     dir="$TERPS/$1"; probe="$2"; shift 2
-    obj="$BUILD/capture_$probe"
+    obj="$BUILD/capture_$(basename "$probe")"
     mkdir -p "$obj"
     # An unp64.o newer than unp64.cpp, so that make leaves it alone.
     make -s -C "$dir" -f Makefile.headless OBJDIR="$obj" "$obj/6502_emu.o"
@@ -30,7 +31,7 @@ capture() {
     make -s -C "$dir" -f Makefile.headless "$probe"
 }
 
-capture scott scott_format_probe python3 test/formats/run_format_tests.py
+capture scott build/scott_format_probe python3 test/formats/run_format_tests.py
 capture taylor taylor_image_probe python3 ../common_imagetest/run_image_tests.py test/images ./taylor_image_probe
 
 # One line per sample: the images it was seen in.

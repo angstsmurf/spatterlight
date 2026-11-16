@@ -30,7 +30,7 @@
 #include "scott_actions.h"
 #include "scott_display.h"
 
-#include "load_ti99_4a.h"
+#include "ti99_4a_loader.h"
 #include "ti99_4a_terp.h"
 
 /* Maps the TI-99/4A condition opcodes (TI99CND_CARRIED to

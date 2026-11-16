@@ -128,8 +128,8 @@ def main():
     ap.add_argument("--bless", action="store_true")
     ap.add_argument("--list", action="store_true")
     ap.add_argument("--save", metavar="DIR")
-    ap.add_argument("--hl", default=os.path.join(HERE, "..", "..", "scott_hl"),
-        help="the interpreter to run (default: ../../scott_hl)")
+    ap.add_argument("--hl", default=os.path.join(HERE, "..", "..", "build", "scott_hl"),
+        help="the interpreter to run (default: ../../build/scott_hl)")
     ap.add_argument("--games", default=os.path.join(HERE, "..", "formats", "games"),
         help="where the images are (default: ../formats/games)")
     ap.add_argument("args", nargs="*")

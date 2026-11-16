@@ -26,7 +26,7 @@
 #include "scott_apple2detect.h"
 #include "scott_atari8detect.h"
 #include "scott_c64detect.h"
-#include "load_ti99_4a.h"
+#include "ti99_4a_loader.h"
 #include "zxdetect.h"
 
 #include "scott_parser.h"

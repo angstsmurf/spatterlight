@@ -614,7 +614,7 @@
 		C30DAE6427EB06E6006C90FB /* gameinfo.c in Sources */ = {isa = PBXBuildFile; fileRef = C30DAE6327EB06E6006C90FB /* gameinfo.c */; };
 		C30E9626289929AC00590271 /* stdetect.c in Sources */ = {isa = PBXBuildFile; fileRef = C30E9625289929AC00590271 /* stdetect.c */; };
 		C30E9BB0289B264600B42825 /* apple2detect.c in Sources */ = {isa = PBXBuildFile; fileRef = C30E9BAF289B264600B42825 /* apple2detect.c */; };
-		C30FAD5E27B7D41000BD20B9 /* load_ti99_4a.c in Sources */ = {isa = PBXBuildFile; fileRef = C30FAD5D27B7D41000BD20B9 /* load_ti99_4a.c */; };
+		C30FAD5E27B7D41000BD20B9 /* ti99_4a_loader.c in Sources */ = {isa = PBXBuildFile; fileRef = C30FAD5D27B7D41000BD20B9 /* ti99_4a_loader.c */; };
 		C3100F5D27972E850027D6FF /* hulk.c in Sources */ = {isa = PBXBuildFile; fileRef = C3100F5C27972E850027D6FF /* hulk.c */; };
 		C3109FCD2798B19F00854ED0 /* scott_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = C3109FCC2798B19F00854ED0 /* scott_parser.c */; };
 		C311866825BD3B1800739D7B /* sound.c in Sources */ = {isa = PBXBuildFile; fileRef = C311866725BD3B1800739D7B /* sound.c */; };
@@ -3128,8 +3128,8 @@
 		C30E9625289929AC00590271 /* stdetect.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = stdetect.c; sourceTree = "<group>"; };
 		C30E9BAE289B264600B42825 /* apple2detect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = apple2detect.h; sourceTree = "<group>"; };
 		C30E9BAF289B264600B42825 /* apple2detect.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = apple2detect.c; sourceTree = "<group>"; };
-		C30FAD5C27B7D41000BD20B9 /* load_ti99_4a.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = load_ti99_4a.h; sourceTree = "<group>"; usesTabs = 0; };
-		C30FAD5D27B7D41000BD20B9 /* load_ti99_4a.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = load_ti99_4a.c; sourceTree = "<group>"; usesTabs = 0; };
+		C30FAD5C27B7D41000BD20B9 /* ti99_4a_loader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ti99_4a_loader.h; sourceTree = "<group>"; usesTabs = 0; };
+		C30FAD5D27B7D41000BD20B9 /* ti99_4a_loader.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ti99_4a_loader.c; sourceTree = "<group>"; usesTabs = 0; };
 		C30FF7157B3B7105366EB15E /* GlkTextGridWindow+Styles.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "GlkTextGridWindow+Styles.m"; sourceTree = "<group>"; };
 		C3100F5B27972E850027D6FF /* hulk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hulk.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3100F5C27972E850027D6FF /* hulk.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hulk.c; sourceTree = "<group>"; usesTabs = 0; };
@@ -6235,8 +6235,8 @@
 				C3C0EE67278BCA4D0044A615 /* decompress_text.c */,
 				C39613FC28E5D0B300A13624 /* us_loader.h */,
 				C39613FD28E5D0B300A13624 /* us_loader.c */,
-				C30FAD5C27B7D41000BD20B9 /* load_ti99_4a.h */,
-				C30FAD5D27B7D41000BD20B9 /* load_ti99_4a.c */,
+				C30FAD5C27B7D41000BD20B9 /* ti99_4a_loader.h */,
+				C30FAD5D27B7D41000BD20B9 /* ti99_4a_loader.c */,
 				5C077A00000000000000001A /* rtpi_loader.h */,
 				5C077A000000000000000018 /* rtpi_loader.c */,
 			);
@@ -9233,7 +9233,7 @@
 				C3C0EE6B278BCA700044A615 /* restore_state.c in Sources */,
 				C3DAC21027C44BAD00368157 /* ti99_4a_terp.c in Sources */,
 				C3A9FD3127A676630032C068 /* scott_c64detect.c in Sources */,
-				C30FAD5E27B7D41000BD20B9 /* load_ti99_4a.c in Sources */,
+				C30FAD5E27B7D41000BD20B9 /* ti99_4a_loader.c in Sources */,
 				C3100F5D27972E850027D6FF /* hulk.c in Sources */,
 				C3C0EE65278BBF750044A615 /* gremlins.c in Sources */,
 				C3836ED82789B569004B5061 /* seas_of_blood.c in Sources */,
