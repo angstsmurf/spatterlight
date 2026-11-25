@@ -137,6 +137,12 @@ extern void                    a5run_media_note_shown (a5_run_t *run, int i);
    -- callers should treat a 0 return as fatal for the session).  The buffer is
    the v5 save body; the Glk/Spatterlight layer may compress/wrap it. */
 extern char *a5run_save    (a5_run_t *run, size_t *out_len);
+/* The lean form the undo stack keeps: the same save without the per-entity
+   body a foreign Runner reads.  a5run_restore takes it just the same (all
+   state comes back from <ScarierExt>), and it is a fraction of the size and
+   the time, so it suits a save that never leaves Scarier, like the per-turn
+   autosave. */
+extern char *a5run_save_lean (a5_run_t *run, size_t *out_len);
 extern int   a5run_restore (a5_run_t *run, const char *data, size_t len);
 
 /* Multi-level undo (a snapshot stack built on save/restore; the depth matches

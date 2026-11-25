@@ -976,9 +976,10 @@ save_fd_game (sb_t *b, a5_run_t *run, int lean)
 
 /* Serialise the runtime to a <Game> blob.  `lean` drops the
    FrankenDrift-interop per-entity body (save_fd_game keeps only the <Group>
-   order list restore needs) -- used by the per-turn undo snapshot, which never
-   leaves the process.  A full (lean=0) blob is what a5run_save hands the
-   frontend for on-disk file saves. */
+   order list restore needs) -- used by the per-turn undo snapshot and, through
+   a5run_save_lean, the frontend's autosave, neither of which a foreign Runner
+   ever reads.  A full (lean=0) blob is what a5run_save hands the frontend for
+   on-disk file saves. */
 static char *
 a5run_save_blob (a5_run_t *run, size_t *out_len, int lean)
 {
@@ -1017,6 +1018,12 @@ char *
 a5run_save (a5_run_t *run, size_t *out_len)
 {
   return a5run_save_blob (run, out_len, 0);
+}
+
+char *
+a5run_save_lean (a5_run_t *run, size_t *out_len)
+{
+  return a5run_save_blob (run, out_len, 1);
 }
 
 /* strtol on a child's text (0 when absent). */

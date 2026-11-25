@@ -261,7 +261,7 @@ gsc_sc_apply_all (const std::string &data)
  * gsc_a5_serialize_all()
  * gsc_a5_apply_all()
  *
- * The ADRIFT 5 container: the engine's save XML (a5run_save, RNG state
+ * The ADRIFT 5 container: the engine's save XML (a5run_save_lean, RNG state
  * included), the last turn's composed output, the undo snapshot stack
  * (oldest first) with its parallel turn texts, and last the parser's
  * cross-turn continuation (a5run_pending_save: an open "Which X?" question
@@ -323,7 +323,10 @@ static std::string
 gsc_a5_serialize_all (void)
 {
   size_t length = 0;
-  char *blob = a5run_save (gsc_a5_run, &length);
+  /* Lean: only Scarier reads an autosave, and the Runner-interop body is
+     most of a full save's size and time (Lost Coastlines: 2.2 MB and 11 ms
+     a turn, against 0.6 MB and 0.6 ms). */
+  char *blob = a5run_save_lean (gsc_a5_run, &length);
   const char *text;
   size_t text_length;
   int depth, i;
