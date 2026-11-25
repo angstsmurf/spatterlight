@@ -35,7 +35,13 @@
  * A5_SAVE_AT=N     after the Nth command, a5run_save the state, free the run,
  *                  build a fresh run, a5run_restore it, and continue from there
  *                  -- a save/restore self-check: the transcript must be identical
- *                  to a plain run (Phase 5).
+ *                  to a plain run (Phase 5).  The restored run is also saved
+ *                  again at once: that second save must be byte-identical to
+ *                  the first, or the restore changed state the transcript may
+ *                  never show (a dropped dangling key, say).  A mismatch is
+ *                  reported on stderr and the exit status is 3; the transcript
+ *                  is unaffected.  A5_RESAVE_DUMP=P then also writes the two
+ *                  saves to P.1 and P.2 for diffing.
  * A5_UNDO_AT=N     at the Nth command, a5run_snapshot, run it (captured), then
  *                  a5run_undo and re-run the SAME command -- an undo self-check:
  *                  the two runs must be byte-identical (undo fully reverts state
@@ -69,6 +75,24 @@
    literal yes/no answer.  Every script reader (the main loop, %PopUpInput%,
    the upgrade question) goes through script_gets so they never fight over a
    line. */
+/* Set when the A5_SAVE_AT re-save self-check found a difference; main then
+   exits 3. */
+static int resave_differs = 0;
+
+/* Write a save blob to "<prefix><suffix>" (A5_RESAVE_DUMP). */
+static void
+write_blob (const char *prefix, const char *suffix, const char *blob, size_t len)
+{
+  char path[1024];
+  FILE *f;
+  snprintf (path, sizeof path, "%s%s", prefix, suffix);
+  f = fopen (path, "wb");
+  if (f == nullptr || fwrite (blob, 1, len, f) != len)
+    fprintf (stderr, "a5run_dump: cannot write %s\n", path);
+  if (f != nullptr)
+    fclose (f);
+}
+
 static char script_pushback[1024];
 static int have_pushback = 0;
 
@@ -446,6 +470,26 @@ main (int argc, char **argv)
             run = a5run_new (a);
             if (blob == nullptr || !a5run_restore (run, blob, len))
               { fprintf (stderr, "a5run_dump: save/restore failed\n"); free (blob); break; }
+            /* Re-save self-check: the state a restore gives back must
+               serialise to the very bytes it was restored from. */
+            {
+              size_t len2 = 0;
+              char *blob2 = a5run_save (run, &len2);
+              if (blob2 == nullptr || len2 != len || memcmp (blob, blob2, len) != 0)
+                {
+                  const char *dump = getenv ("A5_RESAVE_DUMP");
+                  fprintf (stderr, "a5run_dump: re-save after restore differs "
+                           "(%zu bytes saved, %zu re-saved)\n", len, len2);
+                  resave_differs = 1;
+                  if (dump != nullptr)
+                    {
+                      write_blob (dump, ".1", blob, len);
+                      if (blob2 != nullptr)
+                        write_blob (dump, ".2", blob2, len2);
+                    }
+                }
+              free (blob2);
+            }
             free (blob);
             fprintf (stderr, "[restored after command %ld]\n", cmd_no);
           }
@@ -489,5 +533,5 @@ main (int argc, char **argv)
     fclose (script);
   a5run_free (run);
   a5model_free (a);
-  return 0;
+  return resave_differs ? 3 : 0;
 }

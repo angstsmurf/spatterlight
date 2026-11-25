@@ -1912,7 +1912,10 @@ RUN_XOSHIRO="${XOSHIRO:-1}"
 # which makes a5run_dump serialize the full state, free the run, rebuild it from
 # the blob, and continue -- the transcript must stay byte-identical.  A mismatch
 # is a FAIL: it means the save format dropped some state (how the task_scored
-# score-inflation bug in TheFortressOfFear was caught).
+# score-inflation bug in TheFortressOfFear was caught).  a5run_dump also saves
+# the restored run again and compares that with the save it restored from; a
+# difference (cell RESAVE) is a FAIL too, and catches lost state the rest of
+# the script never shows (Lost Coastlines' dangling location keys).
 RUN_SAVERESTORE="${SAVERESTORE:-1}"
 
 # Hunk count for one (game, script) under a given RNG mode.  $3="" = vanilla,
@@ -1949,7 +1952,7 @@ trap 'rm -rf "$WORKDIR"' EXIT
 run_one() {  # $1=idx $2=name $3=game $4=vbudget $5=xbudget
     local idx name game vbudget xbudget script gf golden stxt row
     local got want vout xout hv hx vv xv vtag xtag vcell xcell status
-    local srfail srcell ncmd mid srtxt vgtfail xgtfail mgolden mtxt mfail
+    local srfail srcell srrc ncmd mid srtxt vgtfail xgtfail mgolden mtxt mfail
     idx=$1 name=$2 game=$3 vbudget=$4 xbudget=$5
     row="$WORKDIR/$idx.row"
     script="$HERE/test/adrift5/goldens/${name}_walkthrough.txt"
@@ -2017,15 +2020,23 @@ run_one() {  # $1=idx $2=name $3=game $4=vbudget $5=xbudget
 
     # --- save/restore self-check (a5run_dump only; SAVERESTORE=0 skips) -------
     # Save+restore the full state at the script midpoint; the transcript must
-    # stay byte-identical to the plain replay ($stxt), or the save format lost
-    # state.  A mismatch is folded into STATUS=FAIL below.
+    # stay byte-identical to the plain replay ($stxt), and the restored state
+    # must save back to the same bytes, or the save format lost state.  Either
+    # mismatch is folded into STATUS=FAIL below.
     srfail=0; srcell="(skipped)"; vgtfail=0; xgtfail=0
     if [ "$RUN_SAVERESTORE" = 1 ]; then
         ncmd=$(grep -c . "$script")
         mid=$(( ncmd / 2 )); [ "$mid" -lt 1 ] && mid=1
         srtxt="$WORKDIR/$idx.sr"
-        A5_SAVE_AT="$mid" "$A5RUN" "$gf" "$script" 2>/dev/null > "$srtxt" || true
+        srrc=0
+        A5_SAVE_AT="$mid" "$A5RUN" "$gf" "$script" 2>/dev/null > "$srtxt" || srrc=$?
         if diff -q "$stxt" "$srtxt" >/dev/null 2>&1; then srcell="OK"; else srcell="DIFF"; srfail=1; fi
+        # Exit status 3: the restored state did not save back to the same
+        # bytes (a5run_dump's re-save self-check), whatever the transcript says.
+        if [ "$srrc" = 3 ]; then
+            srfail=1
+            if [ "$srcell" = OK ]; then srcell="RESAVE"; else srcell="$srcell RESAVE"; fi
+        fi
         rm -f "$srtxt"
     fi
 
@@ -2182,7 +2193,8 @@ echo "#          SKIP      game file absent, or (--golden-only) no expected.txt"
 echo "# COLUMNS  vanilla     FD stock System.Random (or golden strict-diff)"
 echo "#          xoshiro     FD_RNG=xoshiro aligned stream (XOSHIRO=0 / -g skips)"
 echo "#          saverestore mid-script A5_SAVE_AT round-trip must be"
-echo "#                      byte-identical (SAVERESTORE=0 skips)"
+echo "#                      byte-identical (SAVERESTORE=0 skips); RESAVE ="
+echo "#                      the restored state saved back differently"
 
 # Non-zero exit if any game regressed in either mode (the documented contract).
 if ls "$WORKDIR"/*.reg >/dev/null 2>&1; then
