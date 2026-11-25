@@ -221,7 +221,15 @@ intern_key (const a5_adventure_t *adv, const char *key)
   for (i = 0; i < adv->n_groups; i++)
     if (streq (adv->groups[i].key, key))
       return adv->groups[i].key;
-  return nullptr;
+  /* A key the model doesn't have: an author's dangling reference (Lost
+     Coastlines puts statics "AtLocation" Scant, a location it never defines).
+     Play keeps the raw string, so dropping it here changed the state a restore
+     gave back.  Keep it, in storage that outlives the run (keys are compared
+     by content, not by pointer). */
+  {
+    static std::unordered_set<std::string> strays;
+    return strays.insert (key).first->c_str ();
+  }
 }
 
 /* ---------------------------------------------------------- Scarier body ----
