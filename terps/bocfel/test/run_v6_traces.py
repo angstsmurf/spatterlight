@@ -32,6 +32,10 @@ the .zblorb files of SpatterlightTests.
     --out DIR       where the traces go (required)
     --compare DIR   an earlier --out directory to compare with
     --jobs N        cases run at once (default 8)
+    --cell W[xH]    grid and buffer cell size in pixels (default 8x16); a
+                    fractional size, as most fonts have, checks that the
+                    grids the games size hold their text (the cases with a
+                    GRID OVERFLOW note are listed at the end)
     --list          print the case names and stop
     PATTERN ...     run only the cases whose name contains one of these
 """
@@ -466,7 +470,7 @@ def cases():
     return out
 
 
-def run_case(terp, work, pictures, case):
+def run_case(terp, work, pictures, case, cell=(8.0, 16.0)):
     name, game, story, sessions = case
     signature = "v6trace-" + name
     saves = os.path.join(AUTOSAVES, signature)
@@ -483,7 +487,9 @@ def run_case(terp, work, pictures, case):
             errors.append("====== session %d\n" % (index + 1))
         lines, rc, err, left = v6trace.run(terp, story, home, script,
                                            env=env, patient=game != "journey",
-                                           pictures=pictures, **options)
+                                           pictures=pictures, cellw=cell[0],
+                                           cellh=cell[1],
+                                           **options)
         trace += lines
         trace.append("=== exit %s, %d script entries left" % (rc, len(left)))
         # Window tags depend on how many windows the earlier, autosaved
@@ -507,7 +513,7 @@ def main():
     argv = sys.argv[1:]
     build = os.path.join(REPO, "build", "Debug")
     out = compare = None
-    jobs, listing, patterns = 8, False, []
+    jobs, listing, patterns, cell = 8, False, [], (8.0, 16.0)
     while argv:
         arg = argv.pop(0)
         if arg == "--build":
@@ -518,6 +524,9 @@ def main():
             compare = argv.pop(0)
         elif arg == "--jobs":
             jobs = int(argv.pop(0))
+        elif arg == "--cell":
+            size = [float(n) for n in argv.pop(0).split("x")]
+            cell = (size[0], size[1] if len(size) > 1 else 16.0)
         elif arg == "--list":
             listing = True
         elif arg.startswith("--"):
@@ -536,14 +545,18 @@ def main():
             return 0
         pictures = os.path.join(out, "pictures")
         os.makedirs(pictures, exist_ok=True)
-        changed, missing, unhealthy = [], [], []
+        changed, missing, unhealthy, overflows = [], [], [], []
         with concurrent.futures.ThreadPoolExecutor(jobs) as pool:
             for name, trace, err in pool.map(
-                    lambda c: run_case(terp, work, pictures, c), todo):
+                    lambda c: run_case(terp, work, pictures, c, cell),
+                    todo):
                 with open(os.path.join(out, name + ".trace"), "w") as f:
                     f.write(trace)
                 with open(os.path.join(out, name + ".err"), "w") as f:
                     f.write(err)
+                count = trace.count("--- GRID OVERFLOW")
+                if count:
+                    overflows.append("%s: %d" % (name, count))
                 for line in trace.split("\n"):
                     if line.startswith("=== exit") \
                             and not line.startswith("=== exit 0,"):
@@ -564,6 +577,8 @@ def main():
         print("%d cases" % len(todo))
         for line in unhealthy:
             print("ABNORMAL EXIT " + line)
+        for line in overflows:
+            print("GRID OVERFLOW " + line)
         if compare:
             for name in missing:
                 print("NEW      " + name)

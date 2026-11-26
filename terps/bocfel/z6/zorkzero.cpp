@@ -394,7 +394,7 @@ static void SPLIT_BY_PICTURE(uint16_t id, bool clear_screen) {
         x_size = gscreenw;
         // The picture's height is that of the top border; without it
         // the text starts right below the two status lines.
-        y = 2 * (gcellh + ggridmarginy) + 1;
+        y = v6_grid_height(2) + 1;
     } else {
         x = width * imagescalex;
         x_size = gscreenw - x * 2;
@@ -751,7 +751,7 @@ static void z0_resize_status_windows(void) {
     int hereoffx, hereoffy;
     get_image_size(HERE_LOC, &hereoffx, &hereoffy);
 
-    height = 2 * (gcellh + ggridmarginy);
+    height = v6_grid_height(2);
 
     int text_area_height = 9;
 
@@ -771,14 +771,14 @@ static void z0_resize_status_windows(void) {
 
         v6_define_window(&V6_STATUS_WINDOW, 1, 1, gscreenw, height);
         glk_window_clear(z0_left_status_window);
-        z0_right_status_width = (gscreenw - 2 * ggridmarginx) / gcellw;
+        z0_right_status_width = v6_grid_columns(gscreenw);
         return;
     }
 
     uint16_t HERE = get_global(zg.HERE);
     int stringlength = count_characters_in_object(HERE);
     int width_in_chars = std::max(stringlength, 13); // 13 characters to make room for "MOVES:" plus 2 spaces and 10000 moves
-    width = width_in_chars * gcellw + 2 * ggridmarginx;
+    width = v6_grid_width(width_in_chars);
 
     z0_left_status_window->bbox.x0 = x;
     win_sizewin(z0_left_status_window->peer, x, y, x + width, y + height);
@@ -788,7 +788,7 @@ static void z0_resize_status_windows(void) {
 
     z0_right_status_width = std::max(count_characters_in_zstring(REGION), 10); // 10 characters to make room for "SCORE:" plus 1000 points
 
-    width = z0_right_status_width * gcellw + 2 * ggridmarginx;
+    width = v6_grid_width(z0_right_status_width);
 
     x = gscreenw - x - width;
     win_sizewin(z0_right_status_window->peer, x, y, x + width, y + height);

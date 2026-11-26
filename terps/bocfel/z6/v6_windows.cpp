@@ -13,6 +13,9 @@
 #include "v6_specific.h"
 #include "v6_windows.hpp"
 
+// After the headers above, which bring in glk.h for its types
+#include "protocol.h"
+
 void v6_sizewin(Window *win) {
     if (win->id == nullptr)
         return;
@@ -39,6 +42,18 @@ void v6_sizewin(Window *win) {
         set_cursor(win->y + 1, win->x + 1);
         curwin = stashedwin;
     }
+}
+
+int v6_grid_width(int cells) {
+    return gli_cells_span(cells, gcellw) + 2 * ggridmarginx;
+}
+
+int v6_grid_height(int cells) {
+    return gli_cells_span(cells, gcellh) + 2 * ggridmarginy;
+}
+
+int v6_grid_columns(int pixels) {
+    return gli_cells_in(pixels - 2 * ggridmarginx, gcellw);
 }
 
 void v6_define_window(Window *win, uint16_t x, uint16_t y, uint16_t width, uint16_t height) {

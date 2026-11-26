@@ -370,10 +370,10 @@ static void arthur_layout_text_windows(int screenheight) {
     mainwin->x_size = V6_STATUS_WINDOW.x_size;
 
     if (screenmode == MODE_HINTS) {
-        V6_STATUS_WINDOW.y_size = 3 * gcellh + 2 * ggridmarginy;
+        V6_STATUS_WINDOW.y_size = v6_grid_height(3);
         mainwin->y_origin = V6_STATUS_WINDOW.y_origin + V6_STATUS_WINDOW.y_size + gcellh;
     } else {
-        V6_STATUS_WINDOW.y_size = gcellh + 2 * ggridmarginy;
+        V6_STATUS_WINDOW.y_size = v6_grid_height(1);
         mainwin->y_origin = V6_STATUS_WINDOW.y_origin + V6_STATUS_WINDOW.y_size;
     }
 
@@ -481,7 +481,7 @@ void arthur_update_on_resize(void) {
         int error_window_height = get_global(ag.GL_AUTHOR_SIZE);
         if (error_window_height == 0)
             error_window_height = 1;
-        screenheight -= (gcellh * error_window_height + 2 * ggridmarginy);
+        screenheight -= v6_grid_height(error_window_height);
     }
 
     if (screenmode == MODE_INITIAL_QUESTION)
@@ -498,7 +498,7 @@ void arthur_update_on_resize(void) {
     }
 
     if (screenmode == MODE_NO_GRAPHICS) {
-        v6_define_window(&V6_STATUS_WINDOW, 1, 1, gscreenw, gcellh + 2 * ggridmarginy);
+        v6_define_window(&V6_STATUS_WINDOW, 1, 1, gscreenw, v6_grid_height(1));
         v6_define_window(mainwin, 1, V6_STATUS_WINDOW.y_origin + V6_STATUS_WINDOW.y_size, gscreenw, screenheight - mainwin->y_origin - 1);
         v6_delete_win(&ARTHUR_ROOM_GRAPHIC_WIN);
     } else {
@@ -690,7 +690,7 @@ void RT_AUTHOR_OFF(void) {
     if (!gli_zmachine_no_err_win) {
         set_global(ag.GL_AUTHOR_SIZE, lines);
 
-        int height = gcellh * lines + 2 * ggridmarginy;
+        int height = v6_grid_height(lines);
 
         v6_define_window(&ARTHUR_ERROR_WINDOW, V6_TEXT_BUFFER_WINDOW.x_origin, gscreenh - height + 1, V6_TEXT_BUFFER_WINDOW.x_size, height);
 

@@ -212,7 +212,7 @@ static void measure_hint_windows(bool is_macintosh, int &width, int &height, int
     V6_STATUS_WINDOW.x = 0;
     V6_STATUS_WINDOW.y = 0;
 
-    height = gcellh * 4 + ggridmarginy * 2;
+    height = v6_grid_height(4);
 
     if (is_spatterlight_zork0) {
         // Global BORDER-ON, false if in text-only mode
@@ -290,7 +290,7 @@ static void draw_hints_windows(void) {
     int width = 1, height, status_x = 0;
     measure_hint_windows(is_macintosh, width, height, status_x);
 
-    v6_define_window(&V6_STATUS_WINDOW, status_x, 1, gscreenw - 2 * status_x, gcellh * 3 + 2 * ggridmarginy);
+    v6_define_window(&V6_STATUS_WINDOW, status_x, 1, gscreenw - 2 * status_x, v6_grid_height(3));
 
     if (height < V6_STATUS_WINDOW.y_size + 1) {
         height = V6_STATUS_WINDOW.y_size + 1;

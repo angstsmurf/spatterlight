@@ -90,7 +90,7 @@ constexpr int MENU_MESSAGE_MAX = 100;
 
 // Height in pixels of the status bar.
 static int shogun_status_height(void) {
-    return STATUS_LINES * (gcellh + ggridmarginy);
+    return v6_grid_height(STATUS_LINES);
 }
 
 // The same, but nothing at the start menu (scene 0), which has no status bar.
@@ -140,7 +140,7 @@ static void setup_text_and_status(int P) {
         shogun_banner_width_left = 0;
         if (P == P_HINT_LOC) {
             get_image_size(P_HINT_BORDER, &X, &border_height);
-            SHIGH = border_height * imagescaley + 3 * gcellh + 2 * ggridmarginy;
+            SHIGH = border_height * imagescaley + v6_grid_height(3);
             v6_define_window(&V6_STATUS_WINDOW, SLEFT * imagescalex, 1, WIDE * imagescalex,  SHIGH);
         } else {
             get_image_size(P_BORDER, &X, &border_height);
@@ -429,8 +429,8 @@ static int quicksearch(uint16_t chr_to_find, char *typed_letters, int type_pos) 
 // to its left.
 static void update_menu(void) {
     uint16_t cnt = user_word(current_menu);
-    uint16_t width = menu_width(current_menu) * gcellw + 2 * ggridmarginx;
-    uint16_t height = cnt * gcellh + 2 * ggridmarginy;
+    uint16_t width = v6_grid_width(menu_width(current_menu));
+    uint16_t height = v6_grid_height(cnt);
     if (screenmode == MODE_SHOGUN_MENU && current_menu == sm.PART_MENU) {
         V6_TEXT_BUFFER_WINDOW.y_origin = a2_graphical_banner_height;
     }

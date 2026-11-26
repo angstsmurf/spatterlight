@@ -28,6 +28,17 @@ pixel anywhere in a composited border shows up as a changed line.
                       v6screens.py to draw
       --save FILE     the file to name when the game asks for one, so that
                       "restore" in the script loads FILE and "save" writes it
+      --cell W[xH]    grid and buffer cell size in pixels (default 8x16).  The
+                      app's cells are seldom whole pixels; with a fractional
+                      size, a grid window the interpreter sized for n cells
+                      must still hold n (see GRID OVERFLOW)
+
+A print that runs past the right edge of a text grid is noted in the trace as
+"--- GRID OVERFLOW peer: 'text' at column x of n": the app's grid would wrap
+it (blanks that run off the last row don't count: nothing is lost).  One
+below the last row is "--- GRID OVERFLOW peer: 'text' on row y of
+n".  The cells are counted as the app counts them (gli_cells_in in
+glkimp/protocol.h), from the window's SIZWIN rectangle.
 
 Script entries, besides the ones glkdrive.py knows (a typed line, key:X,
 tick:N):
@@ -60,6 +71,7 @@ answer when a game offers to solve or simplify a visual puzzle.
 """
 
 import hashlib
+import math
 import os
 import struct
 import sys
@@ -88,11 +100,11 @@ SILENT = {glkdrive.NEXTEVENT, glkdrive.HELLO, glkdrive.AUTOSAVE}
 
 
 def make_settings(width, height, graphics, interp, voiceover, force=0,
-                  colours=glkdrive.NO_THEME):
+                  colours=glkdrive.NO_THEME, cellw=8.0, cellh=16.0):
     return struct.pack(
         "<6i4f21i",
         width, height, 0, 0, 0, 0,      # screen w/h, buffer/grid margins
-        8.0, 16.0, 8.0, 16.0,           # grid cell w/h, buffer cell w/h
+        cellw, cellh, cellw, cellh,     # grid cell w/h, buffer cell w/h
         colours[0], colours[1],         # buffer fg/bg
         colours[2], colours[3],         # grid fg/bg
         1, 0, 0,                        # do_styles, quote_boxes, sa_delays
@@ -156,8 +168,12 @@ class Tracer(glkdrive.Driver):
     def __init__(self, terp, story, home, script, width=800, height=600,
                  graphics=6, interp=0, voiceover=0, graphics_on=1, env=None,
                  patient=True, affirm=None, pictures=None, savepath=None,
-                 terp_args=(), dark=False):
+                 terp_args=(), dark=False, cellw=8.0, cellh=16.0):
         self.trace = []
+        self.cellw = cellw
+        self.cellh = cellh
+        # grid peer -> [columns, cursor x, rows, cursor y]
+        self.grids = {}
         self.pictures = pictures
         self.affirm = affirm
         self.last_print = ""
@@ -189,7 +205,8 @@ class Tracer(glkdrive.Driver):
                 os.environ.update(saved)
         self.graphics_on = graphics_on
         self.settings = make_settings(width, height, *self.opts,
-                                      colours=self.colours)
+                                      colours=self.colours, cellw=cellw,
+                                      cellh=cellh)
 
     # The theme's colours: glkdrive's THEME_LIGHT or THEME_DARK in a run
     # that starts dark or switches sides, black on white otherwise.
@@ -208,6 +225,7 @@ class Tracer(glkdrive.Driver):
             self.trace.append(self.describe(cmd, a1, a2, a3, a4, a5, payload))
         if cmd == glkdrive.PRINT:
             self.last_print = payload.decode("utf-16-le", "replace")
+        self.check_grid(cmd, a1, a2, a3, payload)
         if cmd == glkdrive.INITMOUSE:
             self.mouse_peer = a1
             self.mouse_peers.add(a1)
@@ -229,6 +247,54 @@ class Tracer(glkdrive.Driver):
             self.reply(glkdrive.OKAY, int(a1 in self.held_images))
             return
         super().dispatch(cmd, a1, a2, a3, a4, a5, payload)
+
+    # A grid's cells as the app counts them: the ones that fit whole between
+    # its margins (gli_cells_in in glkimp/protocol.h).  The grid margins are
+    # 0 here; across there are also the text view's 5 pixels of line
+    # fragment padding on each side.
+    @staticmethod
+    def cells_in(pixels, cell):
+        if pixels <= 0:
+            return 0
+        return math.floor(pixels / cell + 0.001)
+
+    def check_grid(self, cmd, a1, a2, a3, payload):
+        if cmd == glkdrive.NEWWIN and a1 == 4:
+            self.grids[a2] = [0, 0, 0, 0]
+        elif cmd == glkdrive.DELWIN:
+            self.grids.pop(a1, None)
+        elif a1 not in self.grids:
+            return
+        elif cmd == glkdrive.SIZWIN and len(payload) >= 16:
+            x0, y0, x1, y1 = struct.unpack_from("<4i", payload)
+            self.grids[a1][0] = self.cells_in(x1 - x0 - 2 * 5, self.cellw)
+            self.grids[a1][2] = self.cells_in(y1 - y0, self.cellh)
+        elif cmd == glkdrive.CLRWIN:
+            self.grids[a1][1] = self.grids[a1][3] = 0
+        elif cmd == glkdrive.MOVETO:
+            self.grids[a1][1] = a2
+            self.grids[a1][3] = a3
+        elif cmd == glkdrive.PRINT:
+            grid = self.grids[a1]
+            text = payload.decode("utf-16-le", "replace")
+            lines = text.split("\n")
+            for i, line in enumerate(lines):
+                if i:
+                    grid[1] = 0
+                    grid[3] += 1
+                # Blanks run off the last row (a game erasing to the end of
+                # its status line with a fixed run of spaces) lose nothing
+                past = line[max(grid[0] - grid[1], 0):]
+                blank_tail = (not past.strip() and grid[2]
+                              and grid[3] == grid[2] - 1)
+                if (line and grid[0] and grid[1] + len(line) > grid[0]
+                        and not blank_tail):
+                    self.note("GRID OVERFLOW %d: %r at column %d of %d"
+                              % (a1, line, grid[1], grid[0]))
+                elif line and grid[2] and grid[3] >= grid[2]:
+                    self.note("GRID OVERFLOW %d: %r on row %d of %d"
+                              % (a1, line, grid[3], grid[2]))
+                grid[1] += len(line)
 
     def describe(self, cmd, a1, a2, a3, a4, a5, payload):
         args = "%d %d %d %d %d" % (a1, a2, a3, a4, a5)
@@ -417,7 +483,9 @@ class Tracer(glkdrive.Driver):
                 self.note("forced arrange")
                 self.settings = make_settings(self.dims[0], self.dims[1],
                                               *self.opts, force=1,
-                                              colours=self.colours)
+                                              colours=self.colours,
+                                              cellw=self.cellw,
+                                              cellh=self.cellh)
                 self.arrange_pending = True
                 return True
             if kind == "mouse":
@@ -461,7 +529,8 @@ class Tracer(glkdrive.Driver):
     def send_arrange(self, why, force=0):
         self.note(why)
         self.settings = make_settings(self.dims[0], self.dims[1], *self.opts,
-                                      force=force, colours=self.colours)
+                                      force=force, colours=self.colours,
+                                      cellw=self.cellw, cellh=self.cellh)
         self.reply(glkdrive.EVTARRANGE, payload=self.settings)
 
 
@@ -520,6 +589,11 @@ def main():
             os.makedirs(kw["pictures"], exist_ok=True)
         elif opt == "--save":
             kw["savepath"] = argv.pop(0)
+        elif opt == "--cell":
+            size = argv.pop(0).split("x")
+            kw["cellw"] = float(size[0])
+            if len(size) > 1:
+                kw["cellh"] = float(size[1])
         elif opt == "--dark":
             kw["dark"] = True
         elif opt == "--nographics":

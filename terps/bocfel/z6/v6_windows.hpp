@@ -15,6 +15,16 @@
 void v6_sizewin(Window *win);
 void v6_define_window(Window *win, uint16_t x, uint16_t y, uint16_t width, uint16_t height);
 
+// The pixels a text grid needs to hold this many cells across or down,
+// margins included. The app's cells are seldom whole pixels, and its grid
+// holds only the cells that fit whole, so a size worked out as cells * cell
+// width and then truncated to an int comes up a cell short.
+int v6_grid_width(int cells);
+int v6_grid_height(int cells);
+
+// The cells across that fit whole in a grid this many pixels wide.
+int v6_grid_columns(int pixels);
+
 void v6_delete_win(Window *win);
 void v6_delete_glk_win(winid_t win);
 

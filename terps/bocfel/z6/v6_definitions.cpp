@@ -252,13 +252,13 @@ void adjust_definitions_window(void) {
 
     uint16_t fkey = fkey_entry(global_define_line);
 
-    int x_size = (DEFINITIONS_WIDTH + 5) * gcellw + 1 + 2 * ggridmarginx;
+    int x_size = v6_grid_width(DEFINITIONS_WIDTH + 5) + 1;
     if (x_size > gscreenw)
         x_size = gscreenw;
 
     int left = (gscreenw - x_size) / 2;
     int16_t linmax = user_word(fkeys_table_addr) / 2;
-    int y_size = (linmax + 1) * gcellh + 2 * ggridmarginy;
+    int y_size = v6_grid_height(linmax + 1);
     if (y_size > gscreenh)
         y_size = gscreenh;
     int top = (gscreenh - y_size) / 2;

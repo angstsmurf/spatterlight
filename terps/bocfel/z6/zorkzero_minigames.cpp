@@ -126,8 +126,8 @@ static void fanucci_window(int index, int x, int y, int num_chars) {
     Window *win = &windows[index];
     win->x_origin = x - ggridmarginx;
     win->y_origin = y - ggridmarginy;
-    win->x_size = num_chars * gcellw + 2 * ggridmarginx;
-    win->y_size = gcellh + 2 * ggridmarginy;
+    win->x_size = v6_grid_width(num_chars);
+    win->y_size = v6_grid_height(1);
     win->x = 1;
     win->y = 1;
     if (win->id != nullptr && win->id->type != wintype_TextGrid) {
@@ -572,13 +572,17 @@ static void redraw_fanucci(void) {
     win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
     glk_put_string(const_cast<char*>("Jester's Score:  000"));
 
-    // Same vertical position as the Jester's score window
+    // Same vertical position as the Jester's score window, and wide enough
+    // for its text, ending where the Jester's starts from the other side
     const grect_t &jester = V6_STATUS_WINDOW.id->bbox;
-    win_sizewin(z0_right_status_window->peer, std::max(gscreenw - 21 * gcellw - 2 * ggridmarginx, 0.0f), jester.y0, gscreenw - x, jester.y1);
+    static char your_score[] = "Your Score:  000";
+    int your_score_right = gscreenw - x;
+    int your_score_left = std::max(your_score_right - v6_grid_width(sizeof your_score - 1), 0);
+    win_sizewin(z0_right_status_window->peer, your_score_left, jester.y0, your_score_right, jester.y1);
     win_refresh(z0_right_status_window->peer, 0, 0);
     glk_set_window(z0_right_status_window);
     glk_window_clear(z0_right_status_window);
-    glk_put_string(const_cast<char*>("Your Score:  000"));
+    glk_put_string(your_score);
 
     int card_num_y, discard_x, card_num_1_x, card_space, discard_width;
 
@@ -634,7 +638,7 @@ static void redraw_fanucci(void) {
 
     win_maketransparent(fanucci_command_grid->peer);
 
-    int fanucci_command_window_width = 64 * gcellw + 2 * ggridmarginx;
+    int fanucci_command_window_width = v6_grid_width(64);
     int xpos = (gscreenw - fanucci_command_window_width) / 2;
 
     // Use abbreviated Apple II commands and
@@ -643,7 +647,7 @@ static void redraw_fanucci(void) {
     int min_left = x - ggridmarginx - 2 * gcellw;
     if (xpos < min_left) {
         fanucci_window_is_narrow = true;
-        fanucci_command_window_width = 40 * gcellw + 2 * ggridmarginx;
+        fanucci_command_window_width = v6_grid_width(40);
         xpos = (gscreenw - fanucci_command_window_width) / 2 - gcellw;
     } else {
         fanucci_window_is_narrow = false;
@@ -655,7 +659,7 @@ static void redraw_fanucci(void) {
     if (xpos < min_left)
         xpos = min_left;
 
-    win_sizewin(fanucci_command_grid->peer, xpos, y, xpos + fanucci_command_window_width, y + 4 * gcellh + 2 * ggridmarginy);
+    win_sizewin(fanucci_command_grid->peer, xpos, y, xpos + fanucci_command_window_width, y + v6_grid_height(4));
 
     glk_window_clear(fanucci_command_grid);
     glk_set_window(fanucci_command_grid);
@@ -669,7 +673,7 @@ static void redraw_fanucci(void) {
         bold_move(stored_last_bold_move);
 
     V6_TEXT_BUFFER_WINDOW.x_origin = x;
-    V6_TEXT_BUFFER_WINDOW.y_origin = y + 4 * gcellh + 2 * ggridmarginy;
+    V6_TEXT_BUFFER_WINDOW.y_origin = y + v6_grid_height(4);
     V6_TEXT_BUFFER_WINDOW.x_size = gscreenw - 2 * x;
     ADJUST_TEXT_WINDOW(F_BOTTOM);
     flush_image_buffer();
