@@ -14,6 +14,7 @@
 #import "InputTextField.h"
 #import "InputHistory.h"
 #import "GridTextView.h"
+#import "Font3LayoutManager.h"
 
 #import "NSString+Categories.h"
 #import "Theme.h"
@@ -86,7 +87,10 @@ static const CGFloat kUnlimitedTextSize = 10000000;
         _bufferTextStorage = [[NSMutableAttributedString alloc] init];
         dirty = YES;
 
-        layoutmanager = [[NSLayoutManager alloc] init];
+        Font3LayoutManager *font3LayoutManager = [[Font3LayoutManager alloc] init];
+        font3LayoutManager.fillsLineFragments = YES;
+        layoutmanager = font3LayoutManager;
+        layoutmanager.delegate = self;
         layoutmanager.backgroundLayoutEnabled = YES;
 
         [textstorage addLayoutManager:layoutmanager];
@@ -140,7 +144,13 @@ static const CGFloat kUnlimitedTextSize = 10000000;
     if (self) {
         _textview = [decoder decodeObjectOfClass:[GridTextView class] forKey:@"_textview"];
 
+        container = _textview.textContainer;
+        // Windows archived before font 3 was painted have a plain layout manager.
+        if (![_textview.layoutManager isKindOfClass:[Font3LayoutManager class]])
+            [container replaceLayoutManager:[[Font3LayoutManager alloc] init]];
         layoutmanager = _textview.layoutManager;
+        ((Font3LayoutManager *)layoutmanager).fillsLineFragments = YES;
+        layoutmanager.delegate = self;
         textstorage = _textview.textStorage;
         if (!textstorage)
             NSLog(@"Error! textstorage is nil!");
@@ -151,7 +161,6 @@ static const CGFloat kUnlimitedTextSize = 10000000;
         scrollview = _textview.enclosingScrollView;
         scrollview.documentView = _textview;
         scrollview.accessibilityElement = NO;
-        container = _textview.textContainer;
 
         rows = (NSUInteger)[decoder decodeIntegerForKey:@"rows"];
         cols = (NSUInteger)[decoder decodeIntegerForKey:@"cols"];
@@ -763,11 +772,11 @@ static const CGFloat kUnlimitedTextSize = 10000000;
             }
         }
 
-        // "Draw" the characters
-        NSAttributedString *partString = [[NSAttributedString alloc]
-                                          initWithString:[string substringWithRange:
-                                                          NSMakeRange(pos, amountToDraw)]
-                                          attributes:attrDict];
+        // "Draw" the characters. Font 3 codes become their Unicode stand-ins.
+        NSString *part = [string substringWithRange:NSMakeRange(pos, amountToDraw)];
+        NSAttributedString *partString = attrDict[Font3BaseFontAttributeName] ?
+        [Font3LayoutManager attributedStringWithCodes:part attributes:attrDict] :
+        [[NSAttributedString alloc] initWithString:part attributes:attrDict];
         [_bufferTextStorage
          replaceCharactersInRange:replaceRange withAttributedString:partString];
 
@@ -808,6 +817,26 @@ static const CGFloat kUnlimitedTextSize = 10000000;
     return buf.length;
 }
 
+#pragma mark Font 3
+
+// Font 3 characters are laid out as empty cells that Font3LayoutManager paints.
+
+- (void)textStorage:(NSTextStorage *)textStorage didProcessEditing:(NSTextStorageEditActions)editedMask range:(NSRange)editedRange changeInLength:(NSInteger)delta {
+    [Font3LayoutManager restoreBaseFontsInTextStorage:textStorage range:editedRange];
+}
+
+- (NSUInteger)layoutManager:(NSLayoutManager *)layoutManager shouldGenerateGlyphs:(const CGGlyph *)glyphs properties:(const NSGlyphProperty *)props characterIndexes:(const NSUInteger *)charIndexes font:(NSFont *)aFont forGlyphRange:(NSRange)glyphRange {
+    return [Font3LayoutManager layoutManager:layoutManager shouldGenerateGlyphs:glyphs properties:props characterIndexes:charIndexes font:aFont forGlyphRange:glyphRange];
+}
+
+- (NSControlCharacterAction)layoutManager:(NSLayoutManager *)layoutManager shouldUseAction:(NSControlCharacterAction)action forControlCharacterAtIndex:(NSUInteger)charIndex {
+    return [Font3LayoutManager layoutManager:layoutManager shouldUseAction:action forControlCharacterAtIndex:charIndex];
+}
+
+- (NSRect)layoutManager:(NSLayoutManager *)layoutManager boundingBoxForControlGlyphAtIndex:(NSUInteger)glyphIndex forTextContainer:(NSTextContainer *)textContainer proposedLineFragment:(NSRect)proposedRect glyphPosition:(NSPoint)glyphPosition characterIndex:(NSUInteger)charIndex {
+    return [Font3LayoutManager layoutManager:layoutManager boundingBoxForControlGlyphAtIndex:glyphIndex forTextContainer:textContainer proposedLineFragment:proposedRect glyphPosition:glyphPosition characterIndex:charIndex];
+}
+
 #pragma mark Cells
 
 // Each row of the buffer is cols cells and, on every row but the last, a
@@ -844,14 +873,16 @@ static const CGFloat kUnlimitedTextSize = 10000000;
 }
 
 // The character shown in the cell at point.x, point.y (a column and row, not
-// view coordinates), or 0 outside the grid.
+// view coordinates), or 0 outside the grid. A font 3 character gives its code,
+// not its Unicode stand-in.
 - (unichar)characterAtPoint:(NSPoint)point {
     if (point.x < 0 || point.y < 0 || point.x >= cols || point.y >= rows)
         return 0;
     NSUInteger index = [self indexOfColumn:(NSUInteger)point.x row:(NSUInteger)point.y];
     if (textstorage.length <= index)
         return 0;
-    return [textstorage.string characterAtIndex:index];
+    unichar code = [Font3LayoutManager codeAtIndex:index inText:textstorage];
+    return code ? code : [textstorage.string characterAtIndex:index];
 }
 
 @end

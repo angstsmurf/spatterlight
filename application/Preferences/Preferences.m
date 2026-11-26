@@ -569,8 +569,6 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
 
     _zVersionTextField.stringValue = self.theme.zMachineLetter;
 
-    _bZVerticalTextField.integerValue = self.theme.bZAdjustment;
-    _bZVerticalStepper.integerValue = self.theme.bZAdjustment;
 }
 
 - (void)updateVoiceOverPane {

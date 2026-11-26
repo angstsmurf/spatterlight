@@ -826,6 +826,8 @@
 		C354C6DF275791ED00EBB449 /* t2indlg.c in Sources */ = {isa = PBXBuildFile; fileRef = C354C6DE275791ED00EBB449 /* t2indlg.c */; };
 		C359499E2D2C39EB008F6551 /* InfocomV6MenuHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C359499D2D2C39EB008F6551 /* InfocomV6MenuHandler.m */; };
 		C35C54042676613800294FE7 /* NSFont+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C35C54032676613800294FE7 /* NSFont+Categories.m */; };
+		A5B00000000000000000012E /* Font3LayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B00000000000000000012D /* Font3LayoutManager.m */; };
+		A5B00000000000000000012F /* Font3LayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B00000000000000000012D /* Font3LayoutManager.m */; };
 		C35CB31E285DD7BF00601E97 /* animations.c in Sources */ = {isa = PBXBuildFile; fileRef = C35CB31D285DD7BF00601E97 /* animations.c */; };
 		C35D520826F24142002E2F59 /* FolderAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = C35D520726F24142002E2F59 /* FolderAccess.m */; };
 		C35ED515256DD37A00C14847 /* InputHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = C35ED514256DD37A00C14847 /* InputHistory.m */; };
@@ -3387,6 +3389,8 @@
 		C359A2D42EE5AF670079F9EA /* irmak.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = irmak.c; sourceTree = "<group>"; };
 		C35C54022676613800294FE7 /* NSFont+Categories.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSFont+Categories.h"; sourceTree = "<group>"; };
 		C35C54032676613800294FE7 /* NSFont+Categories.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = "NSFont+Categories.m"; sourceTree = "<group>"; };
+		A5B00000000000000000012C /* Font3LayoutManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Font3LayoutManager.h; sourceTree = "<group>"; };
+		A5B00000000000000000012D /* Font3LayoutManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Font3LayoutManager.m; sourceTree = "<group>"; };
 		C35CB31B285DD7BF00601E97 /* animations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = animations.h; sourceTree = "<group>"; };
 		C35CB31D285DD7BF00601E97 /* animations.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = animations.c; sourceTree = "<group>"; };
 		C35D520626F24142002E2F59 /* FolderAccess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FolderAccess.h; sourceTree = "<group>"; };
@@ -4474,6 +4478,8 @@
 				C3191AA3266D3A1F00528F6E /* NSBitmapImageRep+retro.m */,
 				C35C54022676613800294FE7 /* NSFont+Categories.h */,
 				C35C54032676613800294FE7 /* NSFont+Categories.m */,
+				A5B00000000000000000012C /* Font3LayoutManager.h */,
+				A5B00000000000000000012D /* Font3LayoutManager.m */,
 				7E91B054998441D190A9189D /* NSView+Categories.h */,
 				E978B32B3EA14090B6B0D397 /* NSAlert+Spatterlight.h */,
 				2D0828655AE94F68BE83A03E /* NSView+Categories.m */,
@@ -8610,6 +8616,7 @@
 				C37E676026E988000005873E /* MIDIPlayer.m in Sources */,
 				C3D1A00926EE4E75006F430E /* MIDISequenceUtils.m in Sources */,
 				C35C54042676613800294FE7 /* NSFont+Categories.m in Sources */,
+				A5B00000000000000000012E /* Font3LayoutManager.m in Sources */,
 				F472E875DFFA44EEBDBC9CB5 /* NSView+Categories.m in Sources */,
 				4F7696813E6D67E87447EF24 /* FindableTextView.m in Sources */,
 				C3B9EB6825FA3AEF002A406E /* ColorTransformer.m in Sources */,
@@ -9068,6 +9075,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5B00000000000000000012F /* Font3LayoutManager.m in Sources */,
 				2BD1253406F840AF9A5607A6 /* ReadOnlyStore.m in Sources */,
 				C309884825CB1AD300750F72 /* Game.m in Sources */,
 				C309886225CB1ADF00750F72 /* Image.m in Sources */,

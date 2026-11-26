@@ -10,6 +10,7 @@
 #import "InputHistory.h"
 #import "MarginContainer.h"
 #import "BufferTextView.h"
+#import "Font3LayoutManager.h"
 #include "glkimp.h"
 
 #import "DebugLog.h"
@@ -77,7 +78,7 @@
         textstorage = [[NSTextStorage alloc] init];
         bufferTextstorage = [textstorage mutableCopy];
 
-        layoutmanager = [[NSLayoutManager alloc] init];
+        layoutmanager = [[Font3LayoutManager alloc] init];
         layoutmanager.delegate = self;
         layoutmanager.backgroundLayoutEnabled = YES;
         layoutmanager.allowsNonContiguousLayout = NO;
@@ -585,6 +586,26 @@
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
     return [_textview validateMenuItem:menuItem];
+}
+
+#pragma mark Font 3
+
+// Font 3 characters are laid out as empty cells that Font3LayoutManager paints.
+
+- (void)textStorage:(NSTextStorage *)textStorage didProcessEditing:(NSTextStorageEditActions)editedMask range:(NSRange)editedRange changeInLength:(NSInteger)delta {
+    [Font3LayoutManager restoreBaseFontsInTextStorage:textStorage range:editedRange];
+}
+
+- (NSUInteger)layoutManager:(NSLayoutManager *)layoutManager shouldGenerateGlyphs:(const CGGlyph *)glyphs properties:(const NSGlyphProperty *)props characterIndexes:(const NSUInteger *)charIndexes font:(NSFont *)aFont forGlyphRange:(NSRange)glyphRange {
+    return [Font3LayoutManager layoutManager:layoutManager shouldGenerateGlyphs:glyphs properties:props characterIndexes:charIndexes font:aFont forGlyphRange:glyphRange];
+}
+
+- (NSControlCharacterAction)layoutManager:(NSLayoutManager *)layoutManager shouldUseAction:(NSControlCharacterAction)action forControlCharacterAtIndex:(NSUInteger)charIndex {
+    return [Font3LayoutManager layoutManager:layoutManager shouldUseAction:action forControlCharacterAtIndex:charIndex];
+}
+
+- (NSRect)layoutManager:(NSLayoutManager *)layoutManager boundingBoxForControlGlyphAtIndex:(NSUInteger)glyphIndex forTextContainer:(NSTextContainer *)textContainer proposedLineFragment:(NSRect)proposedRect glyphPosition:(NSPoint)glyphPosition characterIndex:(NSUInteger)charIndex {
+    return [Font3LayoutManager layoutManager:layoutManager boundingBoxForControlGlyphAtIndex:glyphIndex forTextContainer:textContainer proposedLineFragment:proposedRect glyphPosition:glyphPosition characterIndex:charIndex];
 }
 
 @end

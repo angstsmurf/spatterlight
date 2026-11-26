@@ -12,6 +12,7 @@
 //  BuiltInThemes.m.
 //
 
+#import "Font3LayoutManager.h"
 #import <XCTest/XCTest.h>
 #import <CoreData/CoreData.h>
 
@@ -19,6 +20,7 @@
 #import "GlkStyle.h"
 #import "BuiltInThemes.h"
 #import "CoreDataManager.h"
+#import "NSFont+Categories.h"
 
 #include "glk.h"
 
@@ -54,7 +56,7 @@
     // Preferences readDefaults, not by createBuiltInThemesInContext:
     return @[ @"Default", @"Spatterlight Classic", @"Gargoyle",
               @"Lectrote", @"Lectrote Dark", @"Zoom", @"MS-DOS", @"DOSBox",
-              @"Montserrat", @"Automap" ];
+              @"Atari ST", @"Montserrat", @"Automap" ];
 }
 
 - (NSArray<Theme *> *)allThemes {
@@ -192,29 +194,97 @@ static NSString *describeObject(NSManagedObject *object) {
     }
 }
 
-// The PC screen themes get scanlines, glow and a block cursor, also
-// when they already exist, and the other themes none of them.
-- (void)testDOSThemesHaveTheCRTLook {
+// MS-DOS gets scanlines, glow and a block cursor, DOSBox and Atari ST only
+// the block cursor, and the other themes none of them. A forced rebuild
+// restores them (DOSBox used to have scanlines and glow); an ordinary
+// launch leaves them alone.
+- (void)testRetroThemesHaveTheirLook {
     [BuiltInThemes createBuiltInThemesInContext:self.context forceRebuild:NO];
     for (Theme *theme in [self allThemes]) {
-        if ([theme.name isEqualToString:@"MS-DOS"] || [theme.name isEqualToString:@"DOSBox"]) {
+        if ([theme.name isEqualToString:@"MS-DOS"]) {
             theme.crtScanlines = NO;
             theme.crtGlow = NO;
+            theme.caretShape = kCaretLine;
+        } else if ([theme.name isEqualToString:@"DOSBox"] || [theme.name isEqualToString:@"Atari ST"]) {
+            theme.crtScanlines = YES;
+            theme.crtGlow = YES;
             theme.caretShape = kCaretLine;
         }
     }
     [BuiltInThemes createBuiltInThemesInContext:self.context forceRebuild:NO];
+    for (Theme *theme in [self allThemes])
+        if ([theme.name isEqualToString:@"DOSBox"])
+            XCTAssertTrue(theme.crtScanlines);
+    [BuiltInThemes createBuiltInThemesInContext:self.context forceRebuild:YES];
 
     NSUInteger found = 0;
     for (Theme *theme in [self allThemes]) {
-        BOOL dos = [theme.name isEqualToString:@"MS-DOS"] || [theme.name isEqualToString:@"DOSBox"];
-        if (dos)
+        BOOL crt = [theme.name isEqualToString:@"MS-DOS"];
+        BOOL block = crt || [theme.name isEqualToString:@"DOSBox"] ||
+            [theme.name isEqualToString:@"Atari ST"];
+        if (block)
             found++;
-        XCTAssertEqual(theme.crtScanlines, dos, @"%@", theme.name);
-        XCTAssertEqual(theme.crtGlow, dos, @"%@", theme.name);
-        XCTAssertEqual(theme.caretShape, dos ? kCaretBlock : kCaretLine, @"%@", theme.name);
+        XCTAssertEqual(theme.crtScanlines, crt, @"%@", theme.name);
+        XCTAssertEqual(theme.crtGlow, crt, @"%@", theme.name);
+        XCTAssertEqual(theme.caretShape, block ? kCaretBlock : kCaretLine, @"%@", theme.name);
     }
-    XCTAssertEqual(found, 2u);
+    XCTAssertEqual(found, 3u);
+}
+
+// Font 3 is stored as Unicode stand-ins for VoiceOver, each marked with its
+// code, and laid out as empty cells of the text font's width without the
+// fallback fonts of the stand-ins changing the line height.
+- (void)testFont3CellsKeepTheTextFontsMetrics {
+    NSFont *font = [NSFont fontWithName:@"Menlo" size:13];
+    XCTAssertEqual([Font3LayoutManager unicodeForCode:'O'], 0x2550);
+    XCTAssertEqual([Font3LayoutManager unicodeForCode:'a'], 0x16AA);
+    XCTAssertEqual([Font3LayoutManager unicodeForCode:200], 0);
+
+    NSAttributedString *codes = [Font3LayoutManager
+                                 attributedStringWithCodes:@"OOa"
+                                 attributes:@{NSFontAttributeName: font}];
+    XCTAssertEqualObjects(codes.string, @"\u2550\u2550\u16AA");
+    XCTAssertEqual([Font3LayoutManager codeAtIndex:2 inText:codes], 'a');
+
+    NSTextStorage *storage = [[NSTextStorage alloc] initWithString:@"x\n"
+                                                        attributes:@{NSFontAttributeName: font}];
+    [storage appendAttributedString:codes];
+    Font3LayoutManager *layout = [[Font3LayoutManager alloc] init];
+    NSTextContainer *container = [[NSTextContainer alloc] initWithSize:NSMakeSize(1000, 1000)];
+    [layout addTextContainer:container];
+    [storage addLayoutManager:layout];
+    id<NSLayoutManagerDelegate> delegate = (id)self;
+    layout.delegate = delegate;
+    storage.delegate = (id)self;
+    [storage edited:NSTextStorageEditedAttributes range:NSMakeRange(0, storage.length) changeInLength:0];
+    [layout ensureLayoutForTextContainer:container];
+
+    NSRect plain = [layout lineFragmentRectForGlyphAtIndex:0 effectiveRange:NULL];
+    NSRect font3 = [layout lineFragmentRectForGlyphAtIndex:3 effectiveRange:NULL];
+    XCTAssertEqual(font3.size.height, plain.size.height);
+    CGFloat x1 = [layout locationForGlyphAtIndex:3].x;
+    CGFloat x2 = [layout locationForGlyphAtIndex:4].x;
+    XCTAssertEqualWithAccuracy(x2 - x1, [Font3LayoutManager cellWidthForFont:font], 0.001);
+
+    // A character typed over a font 3 one inherits its attributes, but is not font 3.
+    [storage replaceCharactersInRange:NSMakeRange(2, 1) withString:@"O"];
+    XCTAssertEqual([Font3LayoutManager codeAtIndex:2 inText:storage], 0);
+}
+
+- (void)textStorage:(NSTextStorage *)textStorage didProcessEditing:(NSTextStorageEditActions)editedMask range:(NSRange)editedRange changeInLength:(NSInteger)delta {
+    [Font3LayoutManager restoreBaseFontsInTextStorage:textStorage range:editedRange];
+}
+
+- (NSUInteger)layoutManager:(NSLayoutManager *)layoutManager shouldGenerateGlyphs:(const CGGlyph *)glyphs properties:(const NSGlyphProperty *)props characterIndexes:(const NSUInteger *)charIndexes font:(NSFont *)aFont forGlyphRange:(NSRange)glyphRange {
+    return [Font3LayoutManager layoutManager:layoutManager shouldGenerateGlyphs:glyphs properties:props characterIndexes:charIndexes font:aFont forGlyphRange:glyphRange];
+}
+
+- (NSControlCharacterAction)layoutManager:(NSLayoutManager *)layoutManager shouldUseAction:(NSControlCharacterAction)action forControlCharacterAtIndex:(NSUInteger)charIndex {
+    return [Font3LayoutManager layoutManager:layoutManager shouldUseAction:action forControlCharacterAtIndex:charIndex];
+}
+
+- (NSRect)layoutManager:(NSLayoutManager *)layoutManager boundingBoxForControlGlyphAtIndex:(NSUInteger)glyphIndex forTextContainer:(NSTextContainer *)textContainer proposedLineFragment:(NSRect)proposedRect glyphPosition:(NSPoint)glyphPosition characterIndex:(NSUInteger)charIndex {
+    return [Font3LayoutManager layoutManager:layoutManager boundingBoxForControlGlyphAtIndex:glyphIndex forTextContainer:textContainer proposedLineFragment:proposedRect glyphPosition:glyphPosition characterIndex:charIndex];
 }
 
 // Old settings belongs to the user: a forced rebuild (every new app build,

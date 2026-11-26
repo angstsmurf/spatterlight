@@ -9,6 +9,7 @@
 #import "NSColor+integer.h"
 #import "MarginContainer.h"
 #import "MyAttachmentCell.h"
+#import "Font3LayoutManager.h"
 #import "BufferTextView.h"
 #include "glkimp.h"
 
@@ -189,7 +190,7 @@
             }
 
             // Then, we re-add all the "non-Glk" style values we want to keep
-            // (inline images, hyperlinks, Z-colors and reverse video)
+            // (inline images, hyperlinks, Z-colors, reverse video and font 3 codes)
             id image = attrs[NSAttachmentAttributeName];
             if (image) {
                 [backingStorage addAttribute: NSAttachmentAttributeName
@@ -216,6 +217,13 @@
             if (reverse) {
                 [backingStorage addAttribute:@"ReverseVideo"
                                        value:reverse
+                                       range:range];
+            }
+
+            id font3Code = attrs[Font3CodeAttributeName];
+            if (font3Code) {
+                [backingStorage addAttribute:Font3CodeAttributeName
+                                       value:font3Code
                                        range:range];
             }
         }];
@@ -271,94 +279,14 @@
 
 #pragma mark Beyond Zork font
 
-// Create a scaled version of the "FreeFont3" bitmap font used by Beyond Zork
-// for pseudo-graphical characters (map symbols, compass rose, runes, etc.).
-// The font is scaled to match the normal text's character cell dimensions and
-// assigned to style_BlockQuote, which Beyond Zork uses for Font3 output.
+// Beyond Zork's font 3 (style_BlockQuote, see Bocfel's screen.cpp) is the
+// normal style marked for Font3LayoutManager, which paints its characters
+// (runes, arrows, box drawing) into cells of the normal font.
 - (void)createBeyondZorkStyle {
-    CGFloat pointSize = ((NSFont *)(styles[style_Normal][NSFontAttributeName])).pointSize;
-    NSFont *zorkFont = [NSFont fontWithName:@"FreeFont3" size:pointSize];
-    if (!zorkFont) {
-        NSLog(@"Error! No Zork Font Found!");
-        return;
-    }
-
-    NSMutableDictionary *beyondZorkStyle = [styles[style_BlockQuote] mutableCopy];
-
-    beyondZorkStyle[NSBaselineOffsetAttributeName] = @(0);
-
-    beyondZorkStyle[NSFontAttributeName] = zorkFont;
-
-    NSSize size = [@"6" sizeWithAttributes:beyondZorkStyle];
-    NSSize wSize = [@"W" sizeWithAttributes:styles[style_Normal]];
-
-    NSAffineTransform *transform = [[NSAffineTransform alloc] init];
-    [transform scaleBy:pointSize];
-
-    CGFloat xscale = wSize.width / size.width;
-    if (xscale < 1) xscale = 1;
-    CGFloat yscale = wSize.height / size.height;
-    if (yscale < 1) yscale = 1;
-
-    [transform scaleXBy:xscale yBy:yscale];
-    NSFontDescriptor *descriptor = [NSFontDescriptor fontDescriptorWithName:@"FreeFont3" size:pointSize];
-    zorkFont = [NSFont fontWithDescriptor:descriptor textTransform:transform];
-    if (!zorkFont)
-        NSLog(@"Failed to create Zork Font!");
-    beyondZorkStyle[NSFontAttributeName] = zorkFont;
-    NSMutableParagraphStyle *para = [beyondZorkStyle[NSParagraphStyleAttributeName] mutableCopy];
-    para.lineSpacing = 0;
-    para.paragraphSpacing = 0;
-    para.paragraphSpacingBefore = 0;
-    para.maximumLineHeight = [layoutmanager defaultLineHeightForFont:self.theme.bufferNormal.font];
-    beyondZorkStyle[NSParagraphStyleAttributeName] = para;
-    beyondZorkStyle[NSKernAttributeName] = @(-2);
-
+    NSMutableDictionary *beyondZorkStyle = [styles[style_Normal] mutableCopy];
+    beyondZorkStyle[@"GlkStyle"] = @(style_BlockQuote);
+    beyondZorkStyle[Font3BaseFontAttributeName] = beyondZorkStyle[NSFontAttributeName];
     styles[style_BlockQuote] = beyondZorkStyle;
-}
-
-// Mapping from Beyond Zork's Font3 ASCII characters to their Unicode
-// equivalents (arrows and Anglo-Saxon runes used for the in-game alphabet).
-- (NSDictionary *)font3ToUnicode {
-    // Built once and cached: this is consulted per character during Beyond Zork
-    // Font3 output, so rebuilding the dictionary on every call is wasteful.
-    static NSDictionary *font3 = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        font3 = @{
-        @"!" : @"←",
-        @"\"" : @"→",
-        @"\\" : @"↑",
-        @"]" : @"↓",
-        @"a" : @"ᚪ",
-        @"b" : @"ᛒ",
-        @"c" : @"ᛇ",
-        @"d" : @"ᛞ",
-        @"e" : @"ᛖ",
-        @"f" : @"ᚠ",
-        @"g" : @"ᚷ",
-        @"h" : @"ᚻ",
-        @"i" : @"ᛁ",
-        @"j" : @"ᛄ",
-        @"k" : @"ᛦ",
-        @"l" : @"ᛚ",
-        @"m" : @"ᛗ",
-        @"n" : @"ᚾ",
-        @"o" : @"ᚩ",
-        @"p" : @"ᖾ",
-        @"q" : @"ᚳ",
-        @"r" : @"ᚱ",
-        @"s" : @"ᛋ",
-        @"t" : @"ᛏ",
-        @"u" : @"ᚢ",
-        @"v" : @"ᛠ",
-        @"w" : @"ᚹ",
-        @"x" : @"ᛉ",
-        @"y" : @"ᚥ",
-        @"z" : @"ᛟ"
-        };
-    });
-    return font3;
 }
 
 @end

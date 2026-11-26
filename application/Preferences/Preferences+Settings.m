@@ -377,14 +377,6 @@ static const NSUInteger simpleSettingsCount = sizeof(simpleSettings) / sizeof(si
     [self changeThemeValue:[sender stringValue] forKey:@"zMachineLetter"];
 }
 
-- (IBAction)changeBZVerticalAdjustment:(id)sender {
-    Theme *themeToChange = [self changeThemeValue:@([sender intValue]) forKey:@"bZAdjustment"];
-    if (!themeToChange)
-        return;
-    _bZVerticalStepper.integerValue = themeToChange.bZAdjustment;
-    _bZVerticalTextField.integerValue = themeToChange.bZAdjustment;
-}
-
 #pragma mark Misc menu
 
 - (IBAction)resetDialogs:(NSButton *)sender {

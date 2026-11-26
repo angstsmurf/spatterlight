@@ -16,6 +16,7 @@
 #import "Game.h"
 #import "ZColor.h"
 #import "NSColor+integer.h"
+#import "Font3LayoutManager.h"
 #import "NSFont+Categories.h"
 
 @implementation GlkTextGridWindow (Styles)
@@ -94,8 +95,8 @@
                 [weakSelf.bufferTextStorage setAttributes:blockattributes range:range];
             }
             // Then, we re-add all the "non-Glk" style values we want to keep
-            // (hyperlinks, Z-colors and reverse video)
-            for (NSString *key in @[NSLinkAttributeName, @"ZColor", @"ReverseVideo"]) {
+            // (hyperlinks, Z-colors, reverse video and font 3 codes)
+            for (NSString *key in @[NSLinkAttributeName, @"ZColor", @"ReverseVideo", Font3CodeAttributeName]) {
                 id value = attrs[key];
                 if (value)
                     [weakSelf.bufferTextStorage addAttribute:key value:value range:range];
@@ -280,9 +281,9 @@
 // reverse-video row is not painted at all. Replacing the row's first space with a
 // non-breaking one is enough to stop that. (Idea originally from David
 // Schweinsberg and Yazmin.) Still reproducible today -- of the fixed-pitch
-// families installed here it hits Source Code Pro, PT Mono, Noto Sans Mono and
-// our own bundled FreeFont3, while Courier, Monaco, Menlo, Courier New, Andale
-// Mono and SF Mono are unaffected.
+// families installed here it hits Source Code Pro, PT Mono and Noto Sans Mono,
+// while Courier, Monaco, Menlo, Courier New, Andale Mono and SF Mono are
+// unaffected.
 //
 // Only rows that are *entirely* whitespace collapse: one ordinary glyph anywhere
 // in the row and the text system paints the background across the full width
@@ -369,62 +370,14 @@
 
 #pragma mark Beyond Zork graphical font
 
+// Beyond Zork's font 3 (style_BlockQuote, see Bocfel's screen.cpp) is the
+// normal style marked for Font3LayoutManager, which paints its characters
+// into the normal font's cells.
 - (void)createBeyondZorkStyle {
-    CGFloat pointSize = self.theme.gridNormal.font.pointSize;
-    NSFont *zorkFont = [NSFont fontWithName:@"FreeFont3" size:pointSize];
-
-    if (!zorkFont) {
-        NSLog(@"Error! No Zork Font Found!");
-        return;
-    }
-
-    // First we find a point size that matches the width of the Normal style font
-    NSString *normalTextSample = [self sampleStringWithString:@"The horizon is lost in the glare of morning upon the Great Sea. "];
-    NSString *zorkTextSample = [self sampleStringWithString:@"/''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''0 "];
-
-    CGFloat desiredWidth = [self.theme.gridNormal.font widthForPointSize:pointSize sampleText:normalTextSample];
-    zorkFont = [zorkFont fontToFitWidth:desiredWidth sampleText:zorkTextSample];
-    // Then we switch off anything that may cause gaps in the default BlockQuote style font
     NSMutableDictionary *beyondZorkStyle = [styles[style_Normal] mutableCopy];
-    NSString *normalFontName = self.theme.gridNormal.font.fontName;
-    BOOL isMonaco = ([normalFontName isEqualToString:@"Monaco"]);
-
     beyondZorkStyle[@"GlkStyle"] = @(style_BlockQuote);
-
-    NSMutableParagraphStyle *para = [beyondZorkStyle[NSParagraphStyleAttributeName] mutableCopy];
-    beyondZorkStyle[NSFontAttributeName] = zorkFont;
-
-    // Create an NSAffineTransform that stretches the font to our cellHeight
-    // This is where things usually go wrong, i.e. the result is too short or too tall
-    NSAffineTransform *transform = [[NSAffineTransform alloc] init];
-    [transform scaleBy:zorkFont.pointSize];
-    CGFloat yscale = (self.theme.cellHeight + 0.5 + 0.1 * self.theme.bZAdjustment) / zorkFont.boundingRectForFont.size.height;
-    if (isMonaco && self.glkctl.gameID == kGameIsJourney)
-        yscale *= 1.2;
-    [transform scaleXBy:1 yBy:yscale];
-
-    zorkFont = [NSFont fontWithDescriptor:zorkFont.fontDescriptor textTransform:transform];
-
-    if (!zorkFont)
-        NSLog(@"Failed to create Zork Font!");
-
-    beyondZorkStyle[NSFontAttributeName] = zorkFont;
-    beyondZorkStyle[NSParagraphStyleAttributeName] = para;
-
+    beyondZorkStyle[Font3BaseFontAttributeName] = beyondZorkStyle[NSFontAttributeName];
     styles[style_BlockQuote] = beyondZorkStyle;
-}
-
-// Convenience method to create an exactly 100 characters wide string
-// by repeating the input string.
-- (NSString *)sampleStringWithString:(NSString *)str {
-    if (!str.length)
-        return nil;
-
-    while (str.length < 100) {
-        str = [str stringByAppendingString:str];
-    }
-    str = [str substringToIndex:99];
-    return str;
 }
 
 @end

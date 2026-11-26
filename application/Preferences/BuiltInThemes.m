@@ -49,15 +49,13 @@ typedef struct {
     theme.gridLinkStyle = (int32_t)layout.gridLinkStyle;
 }
 
-// Zero baseline offset and the given maximum line height (0 = none) on the
-// grid normal style. Call before populateStyles, which derives the other
-// grid styles from it.
-+ (void)setGridNormalOfTheme:(Theme *)theme maximumLineHeight:(CGFloat)height {
+// Zero baseline offset on the grid normal style. Call before populateStyles,
+// which derives the other grid styles from it. (The grid line-height caps
+// that used to go with this kept rows with font 3 in them from growing taller
+// than the others; Font3LayoutManager makes them unnecessary.)
++ (void)zeroGridBaselineOfTheme:(Theme *)theme {
     [theme.gridNormal updateAttributes:^(NSMutableDictionary *attributes) {
         attributes[NSBaselineOffsetAttributeName] = @(0);
-    }];
-    [theme.gridNormal updateParagraphStyle:^(NSMutableParagraphStyle *para) {
-        para.maximumLineHeight = height;
     }];
 }
 
@@ -84,6 +82,7 @@ typedef struct {
     [BuiltInThemes createClassicSpatterlightThemeInContext:context forceRebuild:force];
     [BuiltInThemes createDOSThemeInContext:context forceRebuild:force];
     [BuiltInThemes createDOSBoxThemeInContext:context forceRebuild:force];
+    [BuiltInThemes createAtariSTThemeInContext:context forceRebuild:force];
     [BuiltInThemes createLectroteThemeInContext:context forceRebuild:force];
     [BuiltInThemes createLectroteDarkThemeInContext:context forceRebuild:force];
     [BuiltInThemes createGargoyleThemeInContext:context forceRebuild:force];
@@ -267,7 +266,6 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
     if (exists)
         [BuiltInThemes resetSidesAndStylesOfTheme:defaultTheme];
 
-    defaultTheme.bZAdjustment = -2;
     [BuiltInThemes applyLayout:(BuiltInLayout){
         .rows = 50, .cols = 80,
         .dashes = YES, .doStyles = YES, .smartQuotes = YES,
@@ -289,7 +287,7 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
 
     defaultTheme.bufferNormal.lineSpacing = 1;
 
-    [BuiltInThemes setGridNormalOfTheme:defaultTheme maximumLineHeight:0];
+    [BuiltInThemes zeroGridBaselineOfTheme:defaultTheme];
 
     [defaultTheme populateStyles];
 
@@ -320,7 +318,6 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
     if (exists)
         [BuiltInThemes resetSidesAndStylesOfTheme:classicTheme];
 
-    classicTheme.bZAdjustment = 0;
 
     [BuiltInThemes applyLayout:(BuiltInLayout){
         .rows = 50, .cols = 80,
@@ -337,7 +334,7 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
     classicTheme.gridBackground = [NSColor blackColor];
     classicTheme.gridNormal.color = [NSColor colorWithDeviceRed:0.847 green:0.847 blue:0.847 alpha:1.0];
 
-    [BuiltInThemes setGridNormalOfTheme:classicTheme maximumLineHeight:12];
+    [BuiltInThemes zeroGridBaselineOfTheme:classicTheme];
 
     classicTheme.bufferNormal.font = [NSFont fontWithName:@"Helvetica" size:13];
 
@@ -376,7 +373,6 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
     if (exists)
         [BuiltInThemes resetSidesAndStylesOfTheme:gargoyleTheme];
 
-    gargoyleTheme.bZAdjustment = 0;
 
     [BuiltInThemes applyLayout:(BuiltInLayout){
         .rows = 30, .cols = 62,
@@ -401,7 +397,7 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
     gargoyleTheme.gridNormal.font = [NSFont fontWithName:@"LiberationMono" size:12.5];
     gargoyleTheme.gridNormal.color = [NSColor colorWithDeviceRed:0.376 green:0.376 blue:0.376 alpha:1.0];
 
-    [BuiltInThemes setGridNormalOfTheme:gargoyleTheme maximumLineHeight:14];
+    [BuiltInThemes zeroGridBaselineOfTheme:gargoyleTheme];
 
     [gargoyleTheme populateStyles];
 
@@ -438,7 +434,6 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
     if (exists)
         [BuiltInThemes resetSidesAndStylesOfTheme:lectroteTheme];
 
-    lectroteTheme.bZAdjustment = -4;
 
     [BuiltInThemes applyLayout:(BuiltInLayout){
         .rows = 40, .cols = 100,
@@ -464,7 +459,7 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
     lectroteTheme.gridNormal.font = [NSFont fontWithName:@"SourceCodePro-Regular" size:14];
     lectroteTheme.gridNormal.color = [NSColor colorWithDeviceRed:0.916565 green:0.902161 blue:0.839754 alpha:1];
 
-    [BuiltInThemes setGridNormalOfTheme:lectroteTheme maximumLineHeight:0];
+    [BuiltInThemes zeroGridBaselineOfTheme:lectroteTheme];
 
     [BuiltInThemes refreshCellSizesOfTheme:lectroteTheme];
 
@@ -494,7 +489,6 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
     if (exists)
         [BuiltInThemes resetSidesAndStylesOfTheme:lectroteDarkTheme];
 
-    lectroteDarkTheme.bZAdjustment = -4;
 
     [BuiltInThemes applyLayout:(BuiltInLayout){
         .rows = 40, .cols = 100,
@@ -520,7 +514,7 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
     lectroteDarkTheme.bufInput.color = [NSColor colorWithDeviceRed:0.842 green:0.994 blue:0.820 alpha:1];
     lectroteDarkTheme.bufInput.autogenerated = NO;
 
-    [BuiltInThemes setGridNormalOfTheme:lectroteDarkTheme maximumLineHeight:0];
+    [BuiltInThemes zeroGridBaselineOfTheme:lectroteDarkTheme];
 
     [BuiltInThemes refreshCellSizesOfTheme:lectroteDarkTheme];
 
@@ -540,7 +534,6 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
     if (exists)
         [BuiltInThemes resetSidesAndStylesOfTheme:zoomTheme];
 
-    zoomTheme.bZAdjustment = 0;
 
     [BuiltInThemes applyLayout:(BuiltInLayout){
         .rows = 50, .cols = 92,
@@ -565,7 +558,7 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
     zoomTheme.gridNormal.font = [NSFont fontWithName:@"Courier" size:12];
     zoomTheme.gridNormal.color = [NSColor blackColor];
 
-    [BuiltInThemes setGridNormalOfTheme:zoomTheme maximumLineHeight:12];
+    [BuiltInThemes zeroGridBaselineOfTheme:zoomTheme];
 
     [BuiltInThemes refreshCellSizesOfTheme:zoomTheme];
 
@@ -608,12 +601,12 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
     return zoomTheme;
 }
 
-// Scanlines, glow and a block cursor, as in Infocom's DOS interpreters, for
-// the themes that imitate a PC screen. Set before the early return, like
-// resetCommonValues, so that existing built-in themes get them too.
-+ (void)applyCRTLookToTheme:(Theme *)theme {
-    theme.crtScanlines = YES;
-    theme.crtGlow = YES;
+// A block cursor, as in Infocom's DOS and Atari ST interpreters, for the
+// themes that imitate an old screen, and scanlines and glow (crt) or none.
+// Set both ways, since a forced rebuild does not reset them.
++ (void)applyRetroLookToTheme:(Theme *)theme crt:(BOOL)crt {
+    theme.crtScanlines = crt;
+    theme.crtGlow = crt;
     theme.caretShape = kCaretBlock;
 }
 
@@ -622,14 +615,14 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
     Theme *dosTheme = [BuiltInThemes findOrCreateTheme:@"MS-DOS" inContext:context alreadyExists:&exists];
 
     [dosTheme resetCommonValues];
-    [BuiltInThemes applyCRTLookToTheme:dosTheme];
 
     if (exists && !force)
         return dosTheme;
     if (exists)
         [BuiltInThemes resetSidesAndStylesOfTheme:dosTheme];
 
-    dosTheme.bZAdjustment = 0;
+    [BuiltInThemes applyRetroLookToTheme:dosTheme crt:YES];
+
 
     [BuiltInThemes applyLayout:(BuiltInLayout){
         .rows = 24, .cols = 80,
@@ -688,14 +681,14 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
     Theme *dosBoxTheme = [BuiltInThemes findOrCreateTheme:@"DOSBox" inContext:context alreadyExists:&exists];
 
     [dosBoxTheme resetCommonValues];
-    [BuiltInThemes applyCRTLookToTheme:dosBoxTheme];
 
     if (exists && !force)
         return dosBoxTheme;
     if (exists)
         [BuiltInThemes resetSidesAndStylesOfTheme:dosBoxTheme];
 
-    dosBoxTheme.bZAdjustment = -2;
+    [BuiltInThemes applyRetroLookToTheme:dosBoxTheme crt:NO];
+
 
     [BuiltInThemes applyLayout:(BuiltInLayout){
         .rows = 24, .cols = 80,
@@ -720,7 +713,7 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
     dosBoxTheme.bufInput.color = [NSColor colorWithDeviceRed:0.602654 green:0.602749  blue:0.602620 alpha:1];
     dosBoxTheme.bufInput.autogenerated = NO;
 
-    [BuiltInThemes setGridNormalOfTheme:dosBoxTheme maximumLineHeight:0];
+    [BuiltInThemes zeroGridBaselineOfTheme:dosBoxTheme];
 
     [dosBoxTheme populateStyles];
 
@@ -740,6 +733,70 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
     [BuiltInThemes refreshCellSizesOfTheme:dosBoxTheme];
 
     return dosBoxTheme;
+}
+
+// Infocom's Atari ST interpreters, in medium resolution: the 8x8 system font
+// with pixels twice as tall as they are wide, 80 columns by 25 lines. At 16
+// points a character cell is 8x16 screen pixels. The light side is black on
+// white, the dark side white on black.
++ (Theme *)createAtariSTThemeInContext:(NSManagedObjectContext *)context forceRebuild:(BOOL)force {
+    BOOL exists = NO;
+    Theme *stTheme = [BuiltInThemes findOrCreateTheme:@"Atari ST" inContext:context alreadyExists:&exists];
+
+    [stTheme resetCommonValues];
+
+    if (exists && !force)
+        return stTheme;
+    if (exists)
+        [BuiltInThemes resetSidesAndStylesOfTheme:stTheme];
+
+    [BuiltInThemes applyRetroLookToTheme:stTheme crt:NO];
+
+
+    [BuiltInThemes applyLayout:(BuiltInLayout){
+        .rows = 25, .cols = 80,
+        .dashes = NO, .doStyles = YES, .smartQuotes = NO,
+        .spaceFormat = TAG_SPACES_GAME, .border = 20,
+        .bufferMarginX = 0, .bufferMarginY = 0,
+        .gridMarginX = 0, .gridMarginY = 0,
+        .winSpacingX = 0, .winSpacingY = 0,
+        .gridLinkStyle = NSUnderlineStyleSingle
+    } toTheme:stTheme];
+
+    // Bold, Italic and Bold Italic are faces of their own in the same
+    // family, drawn like GEM's thickened and skewed text, so populateStyles
+    // picks them up through NSFontManager.
+    stTheme.gridBackground = [NSColor whiteColor];
+    stTheme.bufferBackground = [NSColor whiteColor];
+    stTheme.borderColor = [NSColor whiteColor];
+
+    stTheme.gridNormal.font = [NSFont fontWithName:@"AtariST8x8-2y-Regular" size:16];
+    stTheme.gridNormal.color = [NSColor blackColor];
+
+    stTheme.bufferNormal.font = [NSFont fontWithName:@"AtariST8x8-2y-Regular" size:16];
+    stTheme.bufferNormal.color = [NSColor blackColor];
+
+    stTheme.bufInput.font = [NSFont fontWithName:@"AtariST8x8-2y-Regular" size:16];
+    stTheme.bufInput.color = [NSColor blackColor];
+    stTheme.bufInput.autogenerated = NO;
+
+    [BuiltInThemes zeroGridBaselineOfTheme:stTheme];
+
+    [stTheme populateStyles];
+
+    [BuiltInThemes refreshCellSizesOfTheme:stTheme];
+
+    [BuiltInThemes addDarkSideToTheme:stTheme changes:^(Theme *theme) {
+        theme.gridBackground = [NSColor blackColor];
+        theme.bufferBackground = [NSColor blackColor];
+        theme.borderColor = [NSColor blackColor];
+        theme.gridNormal.color = [NSColor whiteColor];
+        theme.bufferNormal.color = [NSColor whiteColor];
+        theme.bufInput.color = [NSColor whiteColor];
+        [theme populateStyles];
+    }];
+
+    return stTheme;
 }
 
 + (Theme *)createMontserratThemeInContext:(NSManagedObjectContext *)context forceRebuild:(BOOL)force {

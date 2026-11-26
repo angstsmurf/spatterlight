@@ -27,6 +27,4 @@ CiderPress by Andy McFadden.
 Glk 0.7.5 by Andrew Plotkin.
 Babel 0.5 by L. Ross Raszewski.
 
-Free Z-Machine Graphics Font (FreeFont3) by @borg323
-
 http://ccxvii.net/spatterlight

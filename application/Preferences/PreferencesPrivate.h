@@ -70,8 +70,6 @@
     // synthesized ivars are only visible in Preferences.m.
     BOOL _adjustSize;
     __weak ThemeArrayController *_arrayController;
-    __weak NSStepper *_bZVerticalStepper;
-    __weak NSTextField *_bZVerticalTextField;
     NSLayoutConstraint *_belowHeightConstraint;
     NSView *_belowView;
     __weak NSColorWell *_borderColorWell;
@@ -174,8 +172,6 @@
 @property (weak) IBOutlet NSPopUpButton *zterpMenu;
 @property (weak) IBOutlet NSPopUpButton *bZArrowsMenu;
 @property (weak) IBOutlet NSTextField *zVersionTextField;
-@property (weak) IBOutlet NSTextField *bZVerticalTextField;
-@property (weak) IBOutlet NSStepper *bZVerticalStepper;
 
 @property (weak) IBOutlet NSButton *btnAutosave;
 @property (weak) IBOutlet NSButton *btnSmoothScroll;

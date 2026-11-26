@@ -30,12 +30,14 @@ static NSRegularExpression *SelectionMarkerRegex(void) {
     return regex;
 }
 
-// The graphic selection indicator in Beyond Zork menus.
+// The graphic selection indicator in Beyond Zork menus: font 3 X, thirteen of
+// O–W and Y, which reach the text as their Unicode stand-ins (see
+// Font3LayoutManager).
 static NSRegularExpression *BeyondZorkIndicatorRegex(void) {
     static NSRegularExpression *regex;
     static dispatch_once_t once;
     dispatch_once(&once, ^{
-        regex = [NSRegularExpression regularExpressionWithPattern:@"X[O-W]{13}Y" options:0 error:nil];
+        regex = [NSRegularExpression regularExpressionWithPattern:@"\u2595[\u2550\u258F\u258E\u258D\u258C\u258B\u258A\u2589\u2588]{13}\u258F" options:0 error:nil];
     });
     return regex;
 }

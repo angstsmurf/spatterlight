@@ -5,6 +5,7 @@
 #import "MarginContainer.h"
 #import "MarginImage.h"
 #import "BufferTextView.h"
+#import "Font3LayoutManager.h"
 #include "glkimp.h"
 
 #import "DebugLog.h"
@@ -169,21 +170,10 @@ static const NSUInteger kOutputBufferHardCapTrim = 25000;
 
 // Internal method that applies styling and appends text to bufferTextstorage.
 // Handles several special cases:
-// - Beyond Zork Font3 symbol translation (runic characters)
+// - Beyond Zork font 3 (runes, arrows, box drawing), see Font3LayoutManager
 // - Preformatted style space-collapse prevention (using non-breaking space)
 // - Trailing newline deferral (storedNewline) to avoid blank lines at bottom
 - (void)printToWindow:(NSString *)str style:(NSUInteger)stylevalue {
-
-    // Beyond Zork uses Font3 (style_BlockQuote) for graphical symbols like
-    // arrows and runic letters. Translate them to Unicode equivalents.
-    if (self.glkctl.usesFont3 && str.length == 1 && stylevalue == style_BlockQuote) {
-        NSDictionary *font3 = [self font3ToUnicode];
-        NSString *newString = font3[str];
-        if (newString) {
-            str = newString;
-            stylevalue = style_Normal;
-        }
-    }
 
     // With certain fonts and sizes, strings containing only spaces will "collapse."
     // So if the first character is a space, we replace it with a &nbsp;
@@ -214,9 +204,10 @@ static const NSUInteger kOutputBufferHardCapTrim = 25000;
     }
     _lastchar = [str characterAtIndex:str.length - 1];
 
-    NSAttributedString *attstr = [[NSAttributedString alloc]
-                                  initWithString:str
-                                  attributes:attributes];
+    // Font 3 codes become their Unicode stand-ins.
+    NSAttributedString *attstr = attributes[Font3BaseFontAttributeName] ?
+    [Font3LayoutManager attributedStringWithCodes:str attributes:attributes] :
+    [[NSAttributedString alloc] initWithString:str attributes:attributes];
 
     [bufferTextstorage appendAttributedString:attstr];
     if (!_pendingClear && textstorage.length && bufferTextstorage.length) {

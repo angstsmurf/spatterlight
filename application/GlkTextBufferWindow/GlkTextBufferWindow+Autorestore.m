@@ -7,6 +7,7 @@
 #import "MarginImage.h"
 #import "MyAttachmentCell.h"
 #import "BufferTextView.h"
+#import "Font3LayoutManager.h"
 #import "NSView+Categories.h"
 #include "glkimp.h"
 
@@ -23,9 +24,12 @@
     if (self) {
         rewrapLastseenChar = NSNotFound;
         _textview = [decoder decodeObjectOfClass:[BufferTextView class] forKey:@"textview"];
+        container = (MarginContainer *)_textview.textContainer;
+        // Windows archived before font 3 was painted have a plain layout manager.
+        if (container && ![_textview.layoutManager isKindOfClass:[Font3LayoutManager class]])
+            [container replaceLayoutManager:[[Font3LayoutManager alloc] init]];
         layoutmanager = _textview.layoutManager;
         textstorage = _textview.textStorage;
-        container = (MarginContainer *)_textview.textContainer;
         scrollview = _textview.enclosingScrollView;
         // A damaged archive is logged but not rejected: the controller
         // expects a window for every name it archived.

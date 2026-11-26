@@ -13,8 +13,6 @@
                 <outlet property="addToLibraryCheckbox" destination="7v6-uP-5dQ" id="RnQ-kA-DUh"/>
                 <outlet property="arrayController" destination="784" id="821"/>
                 <outlet property="bZArrowsMenu" destination="fOb-mm-Uja" id="0JJ-3g-PtT"/>
-                <outlet property="bZVerticalStepper" destination="JdQ-li-puR" id="jdi-QV-1t3"/>
-                <outlet property="bZVerticalTextField" destination="gPR-Kk-wPd" id="pdX-dK-6si"/>
                 <outlet property="beepHighMenu" destination="ZgZ-KI-sE8" id="IlL-jy-IKA"/>
                 <outlet property="beepLowMenu" destination="q2A-r7-Oue" id="ZGg-Xk-Tnu"/>
                 <outlet property="belowHeightConstraint" destination="Ld5-bC-cw3" id="N3g-xB-d6T"/>
@@ -1375,44 +1373,6 @@
                     </popUpButtonCell>
                     <accessibility identifier="graphicsPopup"/>
                 </popUpButton>
-                <textField toolTip="Adjust the graphic font height to avoid gaps and make diagonal lines smoother. Useful in Beyond Zork." focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9mZ-cN-L2R">
-                    <rect key="frame" x="196" y="220" width="178" height="16"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" lineBreakMode="truncatingMiddle" truncatesLastVisibleLine="YES" sendsActionOnEndEditing="YES" alignment="right" title="Graphic font vertical stretch:" usesSingleLineMode="YES" id="VrB-gs-vFa">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
-                <textField toolTip="Adjust the graphic font height to avoid gaps and make diagonal lines smoother. Useful in Beyond Zork." focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="13" translatesAutoresizingMaskIntoConstraints="NO" id="gPR-Kk-wPd">
-                    <rect key="frame" x="377" y="219" width="27" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="right" tag="13" title="15" drawsBackground="YES" id="pGd-xy-4dU">
-                        <numberFormatter key="formatter" formatterBehavior="10_0" positiveFormat="#,##0" negativeFormat="-#,##0" thousandSeparator=" " id="XIB-uC-kZd">
-                            <textAttributesForNegativeValues/>
-                            <attributedString key="attributedStringForZero">
-                                <fragment content="0"/>
-                            </attributedString>
-                            <real key="minimum" value="0.0"/>
-                            <real key="maximum" value="500"/>
-                        </numberFormatter>
-                        <font key="font" metaFont="smallSystem"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                    <connections>
-                        <action selector="changeBZVerticalAdjustment:" target="-2" id="Htd-8A-NI3"/>
-                        <outlet property="formatter" destination="gz3-Xe-cqx" id="P05-xz-UPh"/>
-                    </connections>
-                </textField>
-                <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JdQ-li-puR">
-                    <rect key="frame" x="408" y="215" width="19" height="26"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <stepperCell key="cell" continuous="YES" alignment="left" minValue="-100" maxValue="100" id="RA1-Ez-l5G"/>
-                    <connections>
-                        <action selector="changeBZVerticalAdjustment:" target="-2" id="adk-zn-g9M"/>
-                    </connections>
-                </stepper>
                 <button toolTip="Make monochrome graphics  match the text colors (and possibly the original hardware.)" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8fs-jm-Zp7">
                     <rect key="frame" x="198" y="501" width="163" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -1422,7 +1382,7 @@
                     </buttonCell>
                 </button>
                 <button toolTip="When this is off, some error messages will be printed to a separate error window." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r1L-CL-umy">
-                    <rect key="frame" x="198" y="195" width="202" height="18"/>
+                    <rect key="frame" x="198" y="221" width="202" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Redirect text to main window" bezelStyle="regularSquare" imagePosition="left" inset="2" id="N52-GG-l7u">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -2066,10 +2026,6 @@
             </connections>
         </arrayController>
         <customFormatter id="B2Q-lK-znP" userLabel="VersionFormatter" customClass="VersionFormatter"/>
-        <numberFormatter formatterBehavior="default10_4" usesGroupingSeparator="NO" lenient="YES" formatWidth="-1" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="42" id="gz3-Xe-cqx" userLabel="Vertical adjustment formatter">
-            <real key="minimum" value="-20"/>
-            <real key="maximum" value="20"/>
-        </numberFormatter>
         <numberFormatter formatterBehavior="default10_4" usesGroupingSeparator="NO" lenient="YES" formatWidth="-1" groupingSize="0" minimumIntegerDigits="1" maximumIntegerDigits="42" id="kCS-IG-LvB" userLabel="Timer formatter">
             <real key="minimum" value="5"/>
             <real key="maximum" value="1000"/>

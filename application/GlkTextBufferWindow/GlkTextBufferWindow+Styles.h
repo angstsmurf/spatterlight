@@ -4,7 +4,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*
  * Colors and Glk styles: background recalculation, theme/preference changes,
- * and the Beyond Zork Font3 pseudo-graphics style.
+ * and the Beyond Zork font 3 style.
  */
 
 @interface GlkTextBufferWindow (Styles)
@@ -14,7 +14,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Also declared in GlkTextBufferWindow.h; implemented in this category.
 - (void)restoreScrollBarStyle;
-- (NSDictionary *)font3ToUnicode;
 
 @end
 

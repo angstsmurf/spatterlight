@@ -7,7 +7,7 @@
 @class InputTextField, InputHistory;
 
 @interface GlkTextGridWindow
-    : GlkWindow <NSSecureCoding, NSTextViewDelegate, NSTextStorageDelegate, NSTextFieldDelegate>
+    : GlkWindow <NSSecureCoding, NSTextViewDelegate, NSTextStorageDelegate, NSLayoutManagerDelegate, NSTextFieldDelegate>
 
 @property GridTextView *textview;
 
