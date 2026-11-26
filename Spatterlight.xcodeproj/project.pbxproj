@@ -590,6 +590,8 @@
 		A5B000000000000000000124 /* scrun_input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B000000000000000000123 /* scrun_input.cpp */; };
 		A5B000000000000000000128 /* sctafpar_fixups.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B000000000000000000127 /* sctafpar_fixups.cpp */; };
 		A5B00000000000000000012A /* sctafpar_patches.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5B000000000000000000129 /* sctafpar_patches.cpp */; };
+		A5B00000000000000000012E /* Font3LayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B00000000000000000012D /* Font3LayoutManager.m */; };
+		A5B00000000000000000012F /* Font3LayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B00000000000000000012D /* Font3LayoutManager.m */; };
 		A5FE00267FB6FD6F6A3C2AD7 /* scparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 066545D7B54AED7A90A3003E /* scparser.cpp */; };
 		A5MAP0000000000000000001 /* a5map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5MAP0000000000000000002 /* a5map.cpp */; };
 		A779492B7BDFEE8953B25EED /* CoverImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E770FC98130124C99BD8C /* CoverImageStore.m */; };
@@ -826,8 +828,6 @@
 		C354C6DF275791ED00EBB449 /* t2indlg.c in Sources */ = {isa = PBXBuildFile; fileRef = C354C6DE275791ED00EBB449 /* t2indlg.c */; };
 		C359499E2D2C39EB008F6551 /* InfocomV6MenuHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C359499D2D2C39EB008F6551 /* InfocomV6MenuHandler.m */; };
 		C35C54042676613800294FE7 /* NSFont+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C35C54032676613800294FE7 /* NSFont+Categories.m */; };
-		A5B00000000000000000012E /* Font3LayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B00000000000000000012D /* Font3LayoutManager.m */; };
-		A5B00000000000000000012F /* Font3LayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A5B00000000000000000012D /* Font3LayoutManager.m */; };
 		C35CB31E285DD7BF00601E97 /* animations.c in Sources */ = {isa = PBXBuildFile; fileRef = C35CB31D285DD7BF00601E97 /* animations.c */; };
 		C35D520826F24142002E2F59 /* FolderAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = C35D520726F24142002E2F59 /* FolderAccess.m */; };
 		C35ED515256DD37A00C14847 /* InputHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = C35ED514256DD37A00C14847 /* InputHistory.m */; };
@@ -3084,6 +3084,8 @@
 		A5B000000000000000000127 /* sctafpar_fixups.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sctafpar_fixups.cpp; sourceTree = "<group>"; };
 		A5B000000000000000000129 /* sctafpar_patches.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sctafpar_patches.cpp; sourceTree = "<group>"; };
 		A5B00000000000000000012B /* sctafpar_internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = sctafpar_internal.h; sourceTree = "<group>"; };
+		A5B00000000000000000012C /* Font3LayoutManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Font3LayoutManager.h; sourceTree = "<group>"; };
+		A5B00000000000000000012D /* Font3LayoutManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Font3LayoutManager.m; sourceTree = "<group>"; };
 		A5HDR000000000000000001 /* a5blorb.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5blorb.h; sourceTree = "<group>"; };
 		A5HDR000000000000000002 /* a5deobf.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5deobf.h; sourceTree = "<group>"; };
 		A5HDR000000000000000003 /* a5xml.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5xml.h; sourceTree = "<group>"; };
@@ -3389,8 +3391,6 @@
 		C359A2D42EE5AF670079F9EA /* irmak.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = irmak.c; sourceTree = "<group>"; };
 		C35C54022676613800294FE7 /* NSFont+Categories.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSFont+Categories.h"; sourceTree = "<group>"; };
 		C35C54032676613800294FE7 /* NSFont+Categories.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = "NSFont+Categories.m"; sourceTree = "<group>"; };
-		A5B00000000000000000012C /* Font3LayoutManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Font3LayoutManager.h; sourceTree = "<group>"; };
-		A5B00000000000000000012D /* Font3LayoutManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Font3LayoutManager.m; sourceTree = "<group>"; };
 		C35CB31B285DD7BF00601E97 /* animations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = animations.h; sourceTree = "<group>"; };
 		C35CB31D285DD7BF00601E97 /* animations.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = animations.c; sourceTree = "<group>"; };
 		C35D520626F24142002E2F59 /* FolderAccess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FolderAccess.h; sourceTree = "<group>"; };
@@ -10058,8 +10058,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APP_BUILD = 30;
-				APP_VERSION = 1.5.6;
+				APP_BUILD = 31;
+				APP_VERSION = 1.5.7;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_GCD_PERFORMANCE = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
@@ -10126,8 +10126,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APP_BUILD = 30;
-				APP_VERSION = 1.5.6;
+				APP_BUILD = 31;
+				APP_VERSION = 1.5.7;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_GCD_PERFORMANCE = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
