@@ -181,6 +181,19 @@ static NSFont *baseFontAtIndex(NSAttributedString *text, NSUInteger index) {
     return result;
 }
 
++ (void)upgradeArchivedCodesIn:(NSMutableAttributedString *)string
+                         range:(NSRange)range
+            previousAttributes:(NSDictionary<NSAttributedStringKey, id> *)previousAttributes {
+    if (!range.length || NSMaxRange(range) > string.length || previousAttributes[Font3CodeAttributeName])
+        return;
+    NSDictionary *attributes = [string attributesAtIndex:range.location effectiveRange:NULL];
+    if (!attributes[Font3BaseFontAttributeName])
+        return;
+    NSString *codes = [string.string substringWithRange:range];
+    [string replaceCharactersInRange:range
+                withAttributedString:[self attributedStringWithCodes:codes attributes:attributes]];
+}
+
 + (void)restoreBaseFontsInTextStorage:(NSTextStorage *)textStorage range:(NSRange)range {
     if (!textStorage.length)
         return;

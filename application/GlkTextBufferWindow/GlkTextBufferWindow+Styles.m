@@ -185,8 +185,10 @@
             id styleobject = attrs[@"GlkStyle"];
             if (styleobject) {
                 NSDictionary *stylesAtt = blockStyles[(NSUInteger)[styleobject intValue]];
-                if ([stylesAtt isKindOfClass:[NSDictionary class]])
+                if ([stylesAtt isKindOfClass:[NSDictionary class]]) {
                     [backingStorage setAttributes:stylesAtt range:range];
+                    [Font3LayoutManager upgradeArchivedCodesIn:backingStorage range:range previousAttributes:attrs];
+                }
             }
 
             // Then, we re-add all the "non-Glk" style values we want to keep

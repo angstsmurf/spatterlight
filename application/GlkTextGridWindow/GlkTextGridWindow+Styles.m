@@ -93,6 +93,7 @@
             if (styleobject) {
                 NSDictionary *blockattributes = blockStyles[(NSUInteger)[styleobject intValue]];
                 [weakSelf.bufferTextStorage setAttributes:blockattributes range:range];
+                [Font3LayoutManager upgradeArchivedCodesIn:weakSelf.bufferTextStorage range:range previousAttributes:attrs];
             }
             // Then, we re-add all the "non-Glk" style values we want to keep
             // (hyperlinks, Z-colors, reverse video and font 3 codes)

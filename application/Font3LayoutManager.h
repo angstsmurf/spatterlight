@@ -44,6 +44,15 @@ extern NSAttributedStringKey const Font3BaseFontAttributeName;
 + (NSAttributedString *)attributedStringWithCodes:(NSString *)string
                                        attributes:(NSDictionary<NSAttributedStringKey, id> *)attributes;
 
+/// Text archived before font 3 was painted holds the raw codes, set in the
+/// old FreeFont3. When a restyle has just given such a run (range in string)
+/// the font 3 style, this swaps its codes for stand-ins. previousAttributes
+/// are the run's attributes before the restyle; a run that already had codes
+/// marked is left alone. The length of string does not change.
++ (void)upgradeArchivedCodesIn:(NSMutableAttributedString *)string
+                         range:(NSRange)range
+            previousAttributes:(NSDictionary<NSAttributedStringKey, id> *)previousAttributes;
+
 /// Call from -textStorage:didProcessEditing:range:changeInLength:.
 + (void)restoreBaseFontsInTextStorage:(NSTextStorage *)textStorage range:(NSRange)range;
 
