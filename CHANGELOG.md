@@ -1,5 +1,33 @@
 # Change log
 
+## Unreleased
+
+### Bocfel (Z-code)
+- The text grid windows of the Infocom V6 games are made big enough for their text. The app's character cells are seldom a whole number of pixels, and the windows came out a cell short, so the *Zork Zero* status line wrapped its last column and a three-row window held two rows. The Fanucci "Your Score" window in *Zork Zero* was too narrow at any size.
+- *Zork Zero*: The region and score window no longer stays on top of the DEFINE screen. Typed commands keep the theme's input colour unless you have picked colours with COLOR.
+- *Arthur*: The compass rose of the first map is drawn inside the scroll, not over its right pole.
+
+### Scarier (Adrift)
+- Adrift 5 autosaves leave out the part only the original Adrift Runner reads, which makes them a fifth of the size on average. In *Lost Coastlines* an autosave went from 2.2 MB to 0.6 MB, and from 11 ms to under 1 ms a turn. Saved games you make yourself are unchanged and still load in the Runner.
+- Restoring an Adrift 5 save keeps references to things the game never defines, such as a location named in *Lost Coastlines* that doesn't exist, where they used to be dropped.
+
+### ScottFree
+- Spanish *Gremlins* understands Spanish filler words and command separators: the articles, "a", "al", "de", "del", "en", "hacia", "mi", "mis" and "ahora" are skipped, and "y" and "luego" separate commands. It used to use the English lists.
+- *Seas of Blood*: Clearing the result of a battle round in a narrow window no longer wraps onto the next row and erases the start of it.
+
+### Hugo
+- The theme's text and background colours follow a switch between the light and dark side of the theme, so the help menus of several games no longer keep the old side's colours. The typed text on the black opening screen of *Will the Real Marjorie Hopkirk Please Stand Up?* is readable whatever the theme.
+
+### Comprehend
+- The room description window no longer grows so tall that the command line disappears in a small window. As in the Scott Adams, Plus and TaylorMade games, it keeps three rows for the command line, and the description loses its last lines instead.
+
+### General
+- Themes can have a light side and a dark side. With the new Light and dark mode check box on the Global tab of Preferences, Spatterlight follows the side for the system's appearance, and the small symbol before each tab title switches all of Spatterlight between light and dark mode. The colours a game takes from the theme, and the Infocom V6 screens, follow a switch while the game is running. The MS-DOS and DOSBox themes look the same in both modes, so their separate automatic versions are gone.
+- New Atari ST theme: the look of Infocom's Atari ST interpreters in medium resolution, with the system font of the EmuTOS operating system and a block cursor.
+- The DOSBox theme no longer has the CRT glow and scanlines. The MS-DOS theme keeps them.
+- The character graphics of *Beyond Zork* and *Journey* (font 3) are drawn from the 8×8 bitmaps of the Atari ST interpreter in every theme, instead of a stretched font, so the boxes join without gaps. VoiceOver, speech and copying get real characters, such as box drawing, blocks and arrows. The Graphic font vertical stretch setting is gone.
+- New themes keep unlimited scrollback, where the default limit used to be 30,000 characters.
+
 ## Release 1.5.6
 
 ### Serious bugs fixed
