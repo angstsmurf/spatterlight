@@ -406,6 +406,72 @@ static BOOL pretendInLiveResize(NSView *self, SEL _cmd) {
     }
 }
 
+#pragma mark - Grids an interpreter sizes
+
+// The settings an interpreter is sent for this theme: the arrange event's
+// settings_struct, written to a pipe and read back as glkimp reads it.
+- (struct settings_struct)settingsSentForTheme:(Theme *)theme {
+    struct settings_struct settings = {0};
+    int fds[2];
+    XCTAssertEqual(pipe(fds), 0);
+    GlkEvent *event = [[GlkEvent alloc] initArrangeWidth:800 height:600 theme:theme force:NO];
+    [event writeEvent:fds[1]];
+    close(fds[1]);
+    struct message message;
+    XCTAssertEqual(read(fds[0], &message, sizeof message), (ssize_t)sizeof message);
+    XCTAssertEqual(message.cmd, EVTARRANGE);
+    XCTAssertEqual(message.len, sizeof settings);
+    XCTAssertEqual(read(fds[0], &settings, sizeof settings), (ssize_t)sizeof settings);
+    close(fds[0]);
+    return settings;
+}
+
+// V6 interpreters lay out their windows themselves. Bocfel sizes a grid for
+// n cells with v6_grid_width and v6_grid_height (terps/bocfel/z6/
+// v6_windows.cpp), from the settings above as glkimp keeps them (connect.c):
+// the cell size a float, the margin an int with the 5 pixels of line fragment
+// padding added across. A grid of those whole pixels must hold n cells in
+// every built-in theme, and v6_grid_columns must give n back from its width.
+// Bocfel used to work the size out as n * cell + margins truncated to an int,
+// which comes up a cell short when the cell is fractional: the Zork Zero
+// status line wrapped its last column.
+- (void)testGridsAnInterpreterSizesForNCellsHoldN {
+    BOOL truncatingLosesACell = NO;
+    for (Theme *theme in [self builtInThemes]) {
+        struct settings_struct settings = [self settingsSentForTheme:theme];
+        float cellw = settings.cell_width;
+        float cellh = settings.cell_height;
+        int marginx = settings.grid_margin_x + 5;
+        int marginy = settings.grid_margin_y;
+        XCTAssertGreaterThan(cellw, 0, @"%@", theme.name);
+        XCTAssertGreaterThan(cellh, 0, @"%@", theme.name);
+
+        GlkTextGridWindow *grid = [self gridInTheme:theme];
+        for (unsigned n = 1; n <= 132; n++) {
+            unsigned rows = n % 25 + 1;
+            int width = gli_cells_span(n, cellw) + 2 * marginx;     // v6_grid_width
+            int height = gli_cells_span(rows, cellh) + 2 * marginy; // v6_grid_height
+            grid.frame = NSMakeRect(0, 0, width, height);
+            [grid flushDisplay];
+            XCTAssertEqual(grid.currentSizeInChars.width, (CGFloat)n,
+                           @"%@ (cell %f) at %u columns, %d pixels", theme.name, cellw, n, width);
+            XCTAssertEqual(grid.currentSizeInChars.height, (CGFloat)rows,
+                           @"%@ (cell height %f) at %u rows, %d pixels", theme.name, cellh, rows, height);
+            XCTAssertEqual(gli_cells_in(width - 2 * marginx, cellw), n, // v6_grid_columns
+                           @"%@ at %u columns", theme.name, n);
+            if (grid.currentSizeInChars.width != (CGFloat)n ||
+                grid.currentSizeInChars.height != (CGFloat)rows)
+                break;
+
+            int truncated = (int)(n * cellw + 2 * marginx);
+            if (gli_cells_in(truncated - 2 * marginx, theme.cellWidth) < n)
+                truncatingLosesACell = YES;
+        }
+    }
+    // Otherwise this checks nothing that whole-pixel cells would get wrong
+    XCTAssertTrue(truncatingLosesACell, @"No built-in theme has a cell width that truncating loses a cell to");
+}
+
 #pragma mark - Monaco
 
 // Monaco's metrics have tripped up the grid before (GlkStyle cellSize once
