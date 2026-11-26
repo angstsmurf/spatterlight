@@ -68,6 +68,21 @@ file says so.
 The only `make warnings` output is `-Wsign-conversion` in `rgbsurface.h` (which is
 left alone, see below) and two lines of the test itself.
 
+    cd test && make roomcheck  # the room description windows in the app builds
+
+`test/run_room_windows.py` plays the script tests of scott, plus and taylor and
+the Comprehend walkthroughs through the Xcode builds of the interpreters, under
+the fake app of `bocfel/test/v6trace.py`, at several window and cell sizes (the
+app's cells are seldom whole pixels) and with the window resized as it goes. Every
+print into a text grid must fit the grid as the app counts it: the room
+description from `ShowTextInTopWindow`, the delimiter line under it, the status
+lines and the Seas of Blood battle panels. About three and a half minutes; it
+needs the games of the script tests fetched and
+`xcodebuild -target scott -target plus -target taylor -target comprehend
+ARCHS=arm64 CODE_SIGNING_ALLOWED=NO` first. A window too short for the
+description is not checked: `ShowTextInTopWindow` (and Comprehend likewise) keeps
+the bottom window at three rows, so there the description loses its last lines.
+
 ## Decided against
 
 - **`exo_util.h` using `byteorder.h`:** unp64 is C++, where its plain `inline` is

@@ -155,8 +155,10 @@ void Comprehend::printRoomDesc(const Common::String &desc) {
 	// Remember it so onArrange() can re-wrap it after a resize.
 	_lastRoomDesc = desc;
 
-	glui32 width = 0;
-	glk_window_get_size(_statusWindow, &width, nullptr);
+	glui32 width = 0, height = 0, bottomHeight = 0;
+	glk_window_get_size(_statusWindow, &width, &height);
+	if (_bottomWindow)
+		glk_window_get_size(_bottomWindow, nullptr, &bottomHeight);
 	Common::String str = desc;
 	if (width > 2)
 		str.wordWrap(width - 2);
@@ -167,10 +169,15 @@ void Comprehend::printRoomDesc(const Common::String &desc) {
 	int lines = 0;
 	for (uint i = 0; i < str.size(); ++i)
 		if (str[i] == '\n') ++lines;
+	// As ShowTextInTopWindow() in common_utils/layouttext.c: a bottom window
+	// shorter than three rows is not made any shorter, or a small window
+	// would lose the prompt to the description
+	glui32 wanted = (glui32)(lines + 1);
 	winid_t parent = glk_window_get_parent(_statusWindow);
-	if (parent)
+	if (parent && (bottomHeight >= 3 || height >= wanted))
 		glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
-								   (glui32)(lines + 1), _statusWindow);
+								   wanted, _statusWindow);
+	glk_window_get_size(_statusWindow, nullptr, &height);
 
 	glk_window_clear(_statusWindow);
 
@@ -184,7 +191,10 @@ void Comprehend::printRoomDesc(const Common::String &desc) {
 		str = Common::String(str.c_str() + idx + 1);
 	}
 
-	// Fill the bottom row with underscores as a delimiter.
+	// Fill the bottom row with underscores as a delimiter, if the window
+	// has one below the text
+	if ((glui32)lines >= height)
+		return;
 	glk_window_move_cursor(_statusWindow, 0, (glui32)lines);
 	strid_t stream = glk_window_get_stream(_statusWindow);
 	for (glui32 col = 0; col < width; ++col)

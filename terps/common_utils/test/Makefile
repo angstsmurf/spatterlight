@@ -2,6 +2,9 @@
 # undefined behaviour sanitizers. They need no game files.
 #
 # `make warnings` compiles the directory with a stricter set of warnings.
+#
+# `make roomcheck` checks the room description windows of the Xcode builds of
+# scott, plus, taylor and comprehend (run_room_windows.py; see ../README.md).
 
 TERPS   := ../..
 COMMON  := ..
@@ -15,7 +18,7 @@ SRCS    := unit.c $(COMMON)/layouttext.c $(COMMON)/companion_search.c \
            $(COMMON)/randomness.c
 HDRS    := $(wildcard $(COMMON)/*.h)
 
-.PHONY: check warnings clean
+.PHONY: check warnings roomcheck clean
 
 check: $(BUILD)/unit
 	@./$(BUILD)/unit
@@ -23,6 +26,9 @@ check: $(BUILD)/unit
 $(BUILD)/unit: $(SRCS) $(HDRS)
 	@mkdir -p $(BUILD)
 	$(CC) $(CFLAGS) -o $@ $(SRCS)
+
+roomcheck:
+	@./run_room_windows.py
 
 warnings:
 	@mkdir -p $(BUILD)

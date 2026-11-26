@@ -563,7 +563,9 @@ static void clear_result(void)
         glk_stream_set_current(glk_window_get_stream(win));
 
         glk_window_move_cursor(win, 11, 1);
-        for (int i = 0; i < 10; i++)
+        /* Up to the right border (column width - 2), as clear_stamina()
+           does: in a narrow panel, ten blanks would wrap onto the next row */
+        for (int i = 0; i < 10 && 11 + i < (int)width - 2; i++)
             glk_put_string(" ");
         draw_border(win);
         win = BattleRight;
